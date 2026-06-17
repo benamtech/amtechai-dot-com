@@ -1,4 +1,5 @@
 export type ArticleContentBlock =
+  | { type: 'prompt'; id: string; title: string; body: string; helper?: string }
   | { type: 'answer'; body: string }
   | { type: 'section'; id: string; eyebrow?: string; title: string; body: string[] }
   | { type: 'table'; id: string; title: string; columns: string[]; rows: string[][] }
