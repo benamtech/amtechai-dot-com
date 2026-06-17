@@ -12,6 +12,11 @@ Core facts:
 - Icons: lucide-react
 - Linting: eslint
 
+Operational memory:
+- Always start with `docs/codegraph.md`, `wiki/db-forms-endpoints.md`, and `codegraph.json` before broad repo searches.
+- When routes, forms, Supabase resources, Edge Functions, deployment behavior, or durable research change, update the matching codegraph/wiki/memory references in the same change.
+- Detailed rule: `docs/memory/fast-navigation-and-doc-sync.md`.
+
 Product context:
 - Public marketing site for https://amtechai.com
 - Pages include home, about, pricing, how-it-works, onboarding, contact

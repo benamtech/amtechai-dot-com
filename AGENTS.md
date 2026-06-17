@@ -64,6 +64,15 @@ Guiding docs:
 ## Why We Care (Read Before Large Refactors)
 Read `VISUAL_ANALYSIS.md` and `ONBOARDING_IMPLEMENTATION.md` before refactoring to preserve design rationale and conversion intent.
 
+
+## Agent Fast Map
+- Start with `docs/codegraph.md` for route, data-flow, and ownership navigation before broad searches.
+- Read `docs/memory/fast-navigation-and-doc-sync.md` for the durable fast-navigation/update rule.
+- Use `wiki/db-forms-endpoints.md` for Supabase tables, form handlers, storage, and Edge Function references.
+- Use `wiki/deployment/netlify-vite-supabase.md` for Netlify deployment and Supabase Edge Function deployment notes.
+- Store durable design/product/internal research in `wiki/`; put dated source notes in `wiki/research/`.
+- Keep `codegraph.json`, `docs/codegraph.md`, `wiki/db-forms-endpoints.md`, and `docs/memory/fast-navigation-and-doc-sync.md` in sync when routes, forms, tables, storage buckets, Edge Functions, deployment behavior, or durable research change.
+
 ## Bundled References
 - `codegraph.json` — module graph and starting points.
 - `docs/memory/` — durable repo/project facts for agents.
