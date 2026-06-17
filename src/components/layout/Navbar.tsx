@@ -4,11 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
+  { label: 'Learn AI', to: '/articles/amtech-vs-chatgpt-claude' },
   { label: 'Our Work', to: '/our-work' },
-  { label: 'Operator Program', to: '/wholesale-2' },
+  { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
 ];
 
-const darkPages = ['/', '/wholesale', '/wholesale-2', '/our-work'];
+const glassTextPill = 'rounded-full bg-white/82 px-3 py-1.5 text-black shadow-[0_1px_12px_rgba(255,255,255,0.34)] backdrop-blur-md';
+
+const darkPages = ['/wholesale', '/wholesale-2', '/our-work'];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -30,19 +33,19 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`mx-auto max-w-7xl rounded-2xl transition-all duration-700 ${
-          isScrolled
-            ? isDarkPage
-              ? 'bg-black/80 backdrop-blur-2xl border border-white/[0.06] shadow-nav'
-              : 'bg-white/80 backdrop-blur-2xl border border-black/[0.06] shadow-nav'
-            : isDarkPage
-              ? 'bg-black/50 backdrop-blur-xl border border-white/[0.04]'
-              : 'bg-white/50 backdrop-blur-xl border border-black/[0.04]'
+        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.28),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.18),rgba(225,29,42,0.08),rgba(255,255,255,0.04))] before:opacity-80 ${
+          isDarkPage
+            ? isScrolled
+              ? 'bg-black/72 border-white/[0.12]'
+              : 'bg-black/42 border-white/[0.16]'
+            : isScrolled
+              ? 'bg-white/72 border-white/70'
+              : 'bg-white/48 border-white/60'
         }`}
       >
-        <div className="flex h-14 lg:h-16 items-center justify-between px-6 lg:px-8">
-          <Link to="/" className="inline-flex items-baseline">
-            <span className={`font-display text-base lg:text-lg font-black tracking-[0.06em] ${isDarkPage ? 'text-white' : 'text-black'}`}>
+        <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
+          <Link to="/" className={`inline-flex items-baseline ${glassTextPill}`}>
+            <span className="font-display text-base font-black tracking-[0.06em] text-black lg:text-lg">
               AMTECH
             </span>
             <span className="text-base lg:text-lg font-black text-red">.</span>
@@ -53,10 +56,10 @@ export default function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`relative font-body text-[13px] font-medium transition-colors duration-300 ${
+                className={`relative font-body text-[13px] font-semibold transition-colors duration-300 ${glassTextPill} ${
                   location.pathname === link.to
-                    ? isDarkPage ? 'text-white' : 'text-black'
-                    : isDarkPage ? 'text-white/40 hover:text-white/70' : 'text-black/40 hover:text-black/70'
+                    ? 'text-black'
+                    : 'text-black/62 hover:text-black'
                 }`}
               >
                 {link.label}
@@ -80,9 +83,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex h-10 w-10 items-center justify-center transition-colors md:hidden ${
-              isDarkPage ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'
-            }`}
+            className={`flex h-10 w-10 items-center justify-center transition-colors md:hidden ${glassTextPill} hover:text-black`}
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -97,7 +98,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`mx-auto mt-2 max-w-7xl overflow-hidden rounded-2xl backdrop-blur-2xl border shadow-nav md:hidden ${
+            className={`mx-auto mt-2 max-w-7xl overflow-hidden rounded-[1.35rem] backdrop-blur-2xl border shadow-nav md:hidden ${
               isDarkPage
                 ? 'bg-black/90 border-white/[0.06]'
                 : 'bg-white/90 border-black/[0.06]'
@@ -110,8 +111,8 @@ export default function Navbar() {
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
                     location.pathname === link.to
-                      ? isDarkPage ? 'text-white' : 'text-black'
-                      : isDarkPage ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'
+                      ? `${glassTextPill} font-semibold`
+                      : `${glassTextPill} text-black/70 hover:text-black`
                   }`}
                 >
                   {link.label}
