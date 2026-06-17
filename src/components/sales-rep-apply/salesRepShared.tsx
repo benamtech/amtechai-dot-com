@@ -1,5 +1,4 @@
 import React from 'react';
-import { Check } from 'lucide-react';
 
 export function StepHeader({ headline, sub }: { headline: string; sub: string }) {
   return (

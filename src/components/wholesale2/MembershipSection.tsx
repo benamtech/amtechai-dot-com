@@ -94,7 +94,7 @@ export default function MembershipSection() {
                 <div
                   ref={(el) => { borderRefs.current[i] = el; }}
                   className="absolute inset-0 bg-[#E11D2A]"
-                  style={{ scaleY: 0, transformOrigin: 'top center' }}
+                  style={{ transform: 'scaleY(0)', transformOrigin: 'top center' }}
                 />
               </div>
 

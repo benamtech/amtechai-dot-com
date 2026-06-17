@@ -18,7 +18,7 @@ export default function Contact() {
             See the estimator live on your trade.
           </h1>
           <p className="mt-6 max-w-2xl font-body text-body-lg leading-relaxed text-black/50">
-            Skip the forms and the back-and-forth. Talk to our AI advisor and see exactly how the
+            Skip the forms and the back-and-forth. Schedule a demo and see exactly how the
             estimator would work for your specific business &mdash; under five minutes. No obligation.
           </p>
         </div>
@@ -44,7 +44,7 @@ export default function Contact() {
                   </div>
 
                   <h2 className="font-display text-2xl font-bold text-black md:text-3xl">
-                    Talk to our AI advisor
+                    Schedule a demo
                   </h2>
                   <p className="mt-4 max-w-md text-left font-body text-body-md leading-relaxed text-black/40">
                     Tell us your trade, your pricing, and what&rsquo;s not working. Get a
@@ -52,10 +52,10 @@ export default function Contact() {
                   </p>
 
                   <Link
-                    to="/onboarding"
+                    to="/shedule-demo"
                     className="btn-primary mt-8 px-8 py-3 text-sm md:!px-10 md:!py-4 md:!text-base"
                   >
-                    Start a Demo
+                    Schedule Demo
                     <ArrowRight size={18} />
                   </Link>
                 </div>

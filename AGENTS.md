@@ -62,7 +62,7 @@ Guiding docs:
 - Preserve router/page contract unless explicitly instructed.
 
 ## Why We Care (Read Before Large Refactors)
-Read `VISUAL_ANALYSIS.md` and `ONBOARDING_IMPLEMENTATION.md` before refactoring to preserve design rationale and conversion intent.
+Read `VISUAL_ANALYSIS.md` before refactoring to preserve design rationale and conversion intent.
 
 
 ## Agent Fast Map

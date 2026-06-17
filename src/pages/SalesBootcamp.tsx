@@ -265,7 +265,7 @@ function SalesBootcamp() {
 
             {/* Headline */}
             <h1
-              ref={heroRef as React.RefObject<HTMLElement>}
+              ref={heroRef as React.RefObject<HTMLHeadingElement>}
               className="font-display text-[clamp(2.5rem,6vw,4rem)] font-extrabold leading-[1.05] tracking-[-0.05em] text-[#0a0a0a] mb-6"
             >
               {heroWords1.map((word, i) => (

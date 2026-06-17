@@ -8,7 +8,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 - **Runtime:** Static SPA served from `dist/`; Supabase provides database, storage, and Edge Functions.
 - **Routing:** `src/App.tsx` owns all public routes. Most brand pages use `src/components/layout/Layout.tsx`; conversion flows (`/apply`, `/schedule-call`, `/website-onboarding`, `/pay`, etc.) render standalone.
 - **Supabase client:** `src/lib/supabase.ts` reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` and exports one browser client.
-- **Database migrations:** `supabase/migrations/*.sql` define public form tables, intake storage references, booking availability, conversations/messages, and applications.
+- **Database migrations:** `supabase/migrations/*.sql` define public form tables, intake storage references, booking availability and applications.
 - **Edge Functions:** `supabase/functions/*/index.ts` handle Stripe PaymentIntent creation and Resend transactional emails.
 
 ## Route graph
@@ -22,12 +22,12 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | `/contact` | `src/pages/Contact.tsx` | page-local form | Contact capture into `contact_submissions`. |
 | `/our-work` | `src/pages/OurWork.tsx` | `src/components/our-work/*`, layout | Portfolio/capability narrative. |
 | `/cost-calculator` | `src/pages/CostCalculator.tsx` | `src/components/cost-calculator/*`, layout | Interactive outbound cost calculator. |
-| `/schedule-demo` | `src/pages/ScheduleDemo.tsx` | `src/components/schedule/*` | Demo booking flow into `demo_bookings`; invokes booking email function. |
+| `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Knowledge graph articles for AI-assisted contractor estimating prompts, AI tool comparison, and workflows. |
+| `/schedule-demo`, `/shedule-demo` | `src/pages/ScheduleDemo.tsx` | `src/components/schedule/*` | Demo booking flow into `demo_bookings`; invokes booking email function. |
 | `/schedule-call` | `src/pages/ScheduleCall.tsx` | page-local | Sales/operator call CTA flow. |
 | `/apply` | `src/pages/Apply.tsx` | `src/components/apply/*` | Operator application into `operator_applications`; invokes application email function. |
 | `/apply/info-sales-rep` | `src/pages/SalesRepApply.tsx` | `src/components/sales-rep-apply/*` | Sales rep pre-call application into `sales_rep_applications`. |
 | `/website-onboarding` | `src/pages/WebsiteOnboarding.tsx` | `src/components/website-onboarding/*` | Client website intake with session persistence and file upload. |
-| `/onboarding` | `src/pages/Onboarding.tsx` | `src/components/onboarding/*` | Voice/text onboarding conversation UI. |
 | `/admin` | `src/pages/Admin.tsx` | `src/components/admin/*` | Intake admin dashboard for sessions/files. |
 | `/pay` | `src/pages/Payment.tsx` | `src/components/payment/*` | Stripe payment form; calls `create-payment-intent`. |
 | `/payment-success` | `src/pages/PaymentSuccess.tsx` | page-local | Post-payment confirmation. |
@@ -44,7 +44,6 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | Website intake session | `src/components/website-onboarding/intakeService.ts` | `intake_sessions`, `intake_files`, storage bucket `intake-files` | None currently. |
 | Intake admin review | `src/components/admin/adminService.ts` | `intake_sessions`, `intake_files`, storage bucket `intake-files` | None currently. |
 | Payment | `src/pages/Payment.tsx`, `src/components/payment/*` | Stripe only from current code | `create-payment-intent` -> Stripe. |
-| Onboarding conversation | `src/components/onboarding/*` | Tables exist: `conversations`, `messages` | ElevenLabs client dependency is present; inspect component before changing. |
 
 ## File ownership map
 
