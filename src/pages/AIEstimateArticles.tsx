@@ -25,17 +25,22 @@ Include: scope of work, assumptions, exclusions, line items, total price, option
 function promptSection(industry: string, pricingNote: string): ArticleDefinition['blocks'] {
   return [
     {
+      type: 'prompt',
+      id: 'copy-paste-prompt',
+      title: 'Copy this prompt',
+      body: estimatePrompt,
+      helper: 'Paste this into ChatGPT, Claude, or your AI workspace. Replace every bracketed note with your real job details before you generate the estimate.',
+    },
+    {
       type: 'answer',
       body: `You can draft a professional, branded ${industry} estimate in minutes with ChatGPT, AMTECH, Claude, or another modern AI tool. The key is not magic wording. The key is giving the model your business identity, the client details, the job description, the pricing logic, and the exact document you want returned.`,
     },
     {
       type: 'section',
-      id: 'copy-paste-prompt',
-      eyebrow: 'Copy this first',
-      title: 'The two-minute prompt',
+      id: 'how-to-use-the-prompt',
+      title: 'Use voice dictation for the job description',
       body: [
-        estimatePrompt,
-        'Use voice dictation for the job description if you are in the truck or walking the property. Talk the same way you would talk to your estimator, office manager, or best employee: what you saw, what could go wrong, what materials matter, what the customer cares about, and where you want the price to land.',
+        'If you are in the truck or walking the property, talk the same way you would talk to your estimator, office manager, or best employee: what you saw, what could go wrong, what materials matter, what the customer cares about, and where you want the price to land.',
       ],
     },
     {
