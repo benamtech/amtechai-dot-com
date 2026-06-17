@@ -4,11 +4,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
+  { label: 'Learn AI', to: '/articles/amtech-vs-chatgpt-claude' },
   { label: 'Our Work', to: '/our-work' },
-  { label: 'Operator Program', to: '/wholesale-2' },
+  { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
 ];
 
-const darkPages = ['/', '/wholesale', '/wholesale-2', '/our-work'];
+const glassTextPill = 'rounded-full bg-white/82 px-3 py-1.5 text-black shadow-[0_1px_12px_rgba(255,255,255,0.34)] backdrop-blur-md';
+
+const darkPages = ['/wholesale', '/wholesale-2', '/our-work'];
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -41,8 +44,8 @@ export default function Navbar() {
         }`}
       >
         <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
-          <Link to="/" className="inline-flex items-baseline">
-            <span className={`font-display text-base lg:text-lg font-black tracking-[0.06em] ${isDarkPage ? 'text-white' : 'text-black'}`}>
+          <Link to="/" className={`inline-flex items-baseline ${glassTextPill}`}>
+            <span className="font-display text-base font-black tracking-[0.06em] text-black lg:text-lg">
               AMTECH
             </span>
             <span className="text-base lg:text-lg font-black text-red">.</span>
@@ -53,10 +56,10 @@ export default function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`relative font-body text-[13px] font-medium transition-colors duration-300 ${
+                className={`relative font-body text-[13px] font-semibold transition-colors duration-300 ${glassTextPill} ${
                   location.pathname === link.to
-                    ? isDarkPage ? 'text-white' : 'text-black'
-                    : isDarkPage ? 'text-white/40 hover:text-white/70' : 'text-black/40 hover:text-black/70'
+                    ? 'text-black'
+                    : 'text-black/62 hover:text-black'
                 }`}
               >
                 {link.label}
@@ -80,9 +83,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex h-10 w-10 items-center justify-center transition-colors md:hidden ${
-              isDarkPage ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'
-            }`}
+            className={`flex h-10 w-10 items-center justify-center transition-colors md:hidden ${glassTextPill} hover:text-black`}
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -110,8 +111,8 @@ export default function Navbar() {
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
                     location.pathname === link.to
-                      ? isDarkPage ? 'text-white' : 'text-black'
-                      : isDarkPage ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'
+                      ? `${glassTextPill} font-semibold`
+                      : `${glassTextPill} text-black/70 hover:text-black`
                   }`}
                 >
                   {link.label}
