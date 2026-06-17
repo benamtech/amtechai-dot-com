@@ -8,14 +8,10 @@ const navLinks = [
   { label: 'Operator Program', to: '/wholesale-2' },
 ];
 
-const darkPages = ['/', '/wholesale', '/wholesale-2', '/our-work'];
-
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const location = useLocation();
-
-  const isDarkPage = darkPages.includes(location.pathname);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -30,19 +26,15 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`mx-auto max-w-7xl rounded-full transition-all duration-700 ${
+        className={`mx-auto max-w-7xl rounded-full border border-white/60 backdrop-blur-2xl ring-1 ring-black/[0.04] transition-all duration-700 ${
           isScrolled
-            ? isDarkPage
-              ? 'bg-white/72 backdrop-blur-2xl border border-white/50 shadow-[0_18px_70px_rgba(0,0,0,0.18)] ring-1 ring-black/[0.03]'
-              : 'bg-white/72 backdrop-blur-2xl border border-white/60 shadow-[0_18px_70px_rgba(0,0,0,0.14)] ring-1 ring-black/[0.04]'
-            : isDarkPage
-              ? 'bg-white/58 backdrop-blur-2xl border border-white/50 shadow-[0_12px_50px_rgba(0,0,0,0.10)] ring-1 ring-black/[0.03]'
-              : 'bg-white/58 backdrop-blur-2xl border border-white/50 shadow-[0_12px_50px_rgba(0,0,0,0.10)] ring-1 ring-black/[0.03]'
+            ? 'bg-white/72 shadow-[0_18px_70px_rgba(0,0,0,0.14)]'
+            : 'bg-white/58 shadow-[0_12px_50px_rgba(0,0,0,0.10)]'
         }`}
       >
         <div className="flex h-14 lg:h-16 items-center justify-between px-6 lg:px-8">
           <Link to="/" className="inline-flex items-baseline">
-            <span className={`font-display text-base lg:text-lg font-black tracking-[0.06em] text-black`}>
+            <span className="font-display text-base font-black tracking-[0.06em] text-black lg:text-lg">
               AMTECH
             </span>
             <span className="text-base lg:text-lg font-black text-red">.</span>
