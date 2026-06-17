@@ -30,19 +30,19 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`mx-auto max-w-7xl rounded-2xl transition-all duration-700 ${
+        className={`mx-auto max-w-7xl rounded-full transition-all duration-700 ${
           isScrolled
             ? isDarkPage
-              ? 'bg-black/80 backdrop-blur-2xl border border-white/[0.06] shadow-nav'
-              : 'bg-white/80 backdrop-blur-2xl border border-black/[0.06] shadow-nav'
+              ? 'bg-white/72 backdrop-blur-2xl border border-white/50 shadow-[0_18px_70px_rgba(0,0,0,0.18)] ring-1 ring-black/[0.03]'
+              : 'bg-white/72 backdrop-blur-2xl border border-white/60 shadow-[0_18px_70px_rgba(0,0,0,0.14)] ring-1 ring-black/[0.04]'
             : isDarkPage
-              ? 'bg-black/50 backdrop-blur-xl border border-white/[0.04]'
-              : 'bg-white/50 backdrop-blur-xl border border-black/[0.04]'
+              ? 'bg-white/58 backdrop-blur-2xl border border-white/50 shadow-[0_12px_50px_rgba(0,0,0,0.10)] ring-1 ring-black/[0.03]'
+              : 'bg-white/58 backdrop-blur-2xl border border-white/50 shadow-[0_12px_50px_rgba(0,0,0,0.10)] ring-1 ring-black/[0.03]'
         }`}
       >
         <div className="flex h-14 lg:h-16 items-center justify-between px-6 lg:px-8">
           <Link to="/" className="inline-flex items-baseline">
-            <span className={`font-display text-base lg:text-lg font-black tracking-[0.06em] ${isDarkPage ? 'text-white' : 'text-black'}`}>
+            <span className={`font-display text-base lg:text-lg font-black tracking-[0.06em] text-black`}>
               AMTECH
             </span>
             <span className="text-base lg:text-lg font-black text-red">.</span>
@@ -55,8 +55,8 @@ export default function Navbar() {
                 to={link.to}
                 className={`relative font-body text-[13px] font-medium transition-colors duration-300 ${
                   location.pathname === link.to
-                    ? isDarkPage ? 'text-white' : 'text-black'
-                    : isDarkPage ? 'text-white/40 hover:text-white/70' : 'text-black/40 hover:text-black/70'
+                    ? 'text-black'
+                    : 'text-black/45 hover:text-black/75'
                 }`}
               >
                 {link.label}
@@ -67,11 +67,7 @@ export default function Navbar() {
           <div className="hidden items-center md:flex">
             <Link
               to="/schedule-demo"
-              className={`inline-flex items-center gap-2 px-5 py-2 text-[13px] font-semibold rounded-none transition-all duration-300 active:scale-[0.98] ${
-                isDarkPage
-                  ? 'bg-white text-black hover:bg-white/90'
-                  : 'bg-black text-white hover:bg-black/80'
-              }`}
+              className="inline-flex items-center gap-2 rounded-full bg-red px-5 py-2 text-[13px] font-semibold text-white shadow-red-glow-btn transition-all duration-300 hover:bg-red-bright active:scale-[0.98]"
             >
               Book a Call
               <ArrowRight size={14} />
@@ -80,9 +76,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex h-10 w-10 items-center justify-center transition-colors md:hidden ${
-              isDarkPage ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'
-            }`}
+            className="flex h-10 w-10 items-center justify-center text-black/55 transition-colors hover:text-black md:hidden"
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -97,11 +91,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`mx-auto mt-2 max-w-7xl overflow-hidden rounded-2xl backdrop-blur-2xl border shadow-nav md:hidden ${
-              isDarkPage
-                ? 'bg-black/90 border-white/[0.06]'
-                : 'bg-white/90 border-black/[0.06]'
-            }`}
+            className="mx-auto mt-2 max-w-7xl overflow-hidden rounded-3xl border border-white/60 bg-white/92 shadow-nav backdrop-blur-2xl md:hidden"
           >
             <div className="flex flex-col gap-1 px-6 py-6">
               {navLinks.map((link) => (
@@ -110,14 +100,14 @@ export default function Navbar() {
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
                     location.pathname === link.to
-                      ? isDarkPage ? 'text-white' : 'text-black'
-                      : isDarkPage ? 'text-white/50 hover:text-white' : 'text-black/50 hover:text-black'
+                      ? 'text-black'
+                      : 'text-black/55 hover:text-black'
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className={`mt-4 border-t pt-4 ${isDarkPage ? 'border-white/[0.06]' : 'border-black/[0.06]'}`}>
+              <div className="mt-4 border-t border-black/[0.06] pt-4">
                 <Link
                   to="/schedule-demo"
                   className="btn-primary w-full"
