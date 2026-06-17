@@ -1,0 +1,201 @@
+{
+  "project": "amtechai-dot-com",
+  "updated": "2026-06-17",
+  "stack": [
+    "Vite",
+    "React",
+    "TypeScript",
+    "Tailwind CSS",
+    "Supabase",
+    "Supabase Edge Functions",
+    "Stripe",
+    "Resend"
+  ],
+  "entrypoints": {
+    "app": "src/App.tsx",
+    "main": "src/main.tsx",
+    "supabaseClient": "src/lib/supabase.ts"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "page": "src/pages/Home.tsx",
+      "components": [
+        "src/components/home"
+      ],
+      "purpose": "Main marketing homepage"
+    },
+    {
+      "path": "/how-it-works",
+      "page": "src/pages/HowItWorks.tsx",
+      "components": [
+        "src/components/how-it-works"
+      ],
+      "purpose": "Process explainer"
+    },
+    {
+      "path": "/about",
+      "page": "src/pages/About.tsx",
+      "components": [
+        "src/components/about"
+      ],
+      "purpose": "Company story"
+    },
+    {
+      "path": "/pricing",
+      "page": "src/pages/Pricing.tsx",
+      "components": [
+        "src/components/pricing"
+      ],
+      "purpose": "Pricing positioning"
+    },
+    {
+      "path": "/contact",
+      "page": "src/pages/Contact.tsx",
+      "components": [],
+      "purpose": "Contact form"
+    },
+    {
+      "path": "/our-work",
+      "page": "src/pages/OurWork.tsx",
+      "components": [
+        "src/components/our-work"
+      ],
+      "purpose": "Capabilities and work examples"
+    },
+    {
+      "path": "/cost-calculator",
+      "page": "src/pages/CostCalculator.tsx",
+      "components": [
+        "src/components/cost-calculator"
+      ],
+      "purpose": "Outbound cost calculator"
+    },
+    {
+      "path": "/schedule-demo",
+      "page": "src/pages/ScheduleDemo.tsx",
+      "components": [
+        "src/components/schedule"
+      ],
+      "purpose": "Demo booking"
+    },
+    {
+      "path": "/apply",
+      "page": "src/pages/Apply.tsx",
+      "components": [
+        "src/components/apply"
+      ],
+      "purpose": "Operator application"
+    },
+    {
+      "path": "/apply/info-sales-rep",
+      "page": "src/pages/SalesRepApply.tsx",
+      "components": [
+        "src/components/sales-rep-apply"
+      ],
+      "purpose": "Sales rep application"
+    },
+    {
+      "path": "/website-onboarding",
+      "page": "src/pages/WebsiteOnboarding.tsx",
+      "components": [
+        "src/components/website-onboarding"
+      ],
+      "purpose": "Website intake"
+    },
+    {
+      "path": "/admin",
+      "page": "src/pages/Admin.tsx",
+      "components": [
+        "src/components/admin"
+      ],
+      "purpose": "Intake admin"
+    },
+    {
+      "path": "/pay",
+      "page": "src/pages/Payment.tsx",
+      "components": [
+        "src/components/payment"
+      ],
+      "purpose": "Stripe payment"
+    }
+  ],
+  "dataFlows": [
+    {
+      "name": "contact",
+      "frontend": [
+        "src/pages/Contact.tsx"
+      ],
+      "tables": [
+        "contact_submissions"
+      ],
+      "functions": []
+    },
+    {
+      "name": "demo booking",
+      "frontend": [
+        "src/components/schedule/bookingService.ts"
+      ],
+      "tables": [
+        "demo_bookings"
+      ],
+      "functions": [
+        "send-booking-email"
+      ]
+    },
+    {
+      "name": "operator application",
+      "frontend": [
+        "src/pages/Apply.tsx"
+      ],
+      "tables": [
+        "operator_applications"
+      ],
+      "functions": [
+        "send-application-email"
+      ]
+    },
+    {
+      "name": "sales rep application",
+      "frontend": [
+        "src/pages/SalesRepApply.tsx"
+      ],
+      "tables": [
+        "sales_rep_applications"
+      ],
+      "functions": []
+    },
+    {
+      "name": "website intake",
+      "frontend": [
+        "src/components/website-onboarding/intakeService.ts",
+        "src/components/admin/adminService.ts"
+      ],
+      "tables": [
+        "intake_sessions",
+        "intake_files"
+      ],
+      "storage": [
+        "intake-files"
+      ],
+      "functions": []
+    },
+    {
+      "name": "payment",
+      "frontend": [
+        "src/pages/Payment.tsx",
+        "src/components/payment"
+      ],
+      "tables": [],
+      "functions": [
+        "create-payment-intent"
+      ]
+    }
+  ],
+  "docs": [
+    "docs/codegraph.md",
+    "wiki/db-forms-endpoints.md",
+    "wiki/deployment/netlify-vite-supabase.md",
+    "wiki/research/2026-06-17-codegraph-docs-and-token-efficiency.md"
+  ]
+}
