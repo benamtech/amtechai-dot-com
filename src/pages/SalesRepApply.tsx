@@ -83,7 +83,9 @@ export default function SalesRepApply() {
         const parsed = JSON.parse(saved);
         const hasData = Object.values(parsed).some((v) => v !== '' && v !== null && !(Array.isArray(v) && v.length === 0));
         if (hasData) setShowResume(true);
-      } catch {}
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
+      }
     }
     return () => { document.title = 'AMTECH. — Your Next Employee Is a Computer'; };
   }, []);
@@ -98,7 +100,11 @@ export default function SalesRepApply() {
   const resume = () => {
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved) {
-      try { setData(JSON.parse(saved)); } catch {}
+      try {
+        setData(JSON.parse(saved));
+      } catch {
+        localStorage.removeItem(STORAGE_KEY);
+      }
     }
     setShowResume(false);
   };

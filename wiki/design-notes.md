@@ -13,7 +13,6 @@ AMTECH should feel ambitious, confident, glossy, modern, and enterprise-premium.
 - `AMTECH_STYLE_GUIDE.md`
 - `COST_CALCULATOR_STYLE.md`
 - `VISUAL_ANALYSIS.md`
-- `ONBOARDING_IMPLEMENTATION.md`
 
 ## Component reuse preference
 

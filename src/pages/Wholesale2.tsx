@@ -4,7 +4,6 @@ import { motion } from 'framer-motion';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ArrowRight, Check, X } from 'lucide-react';
-import ActivityFeedPanel from '../components/wholesale2/ActivityFeedPanel';
 import InterruptionSection from '../components/wholesale2/InterruptionSection';
 import DashboardPanel from '../components/wholesale2/DashboardPanel';
 import MembershipSection from '../components/wholesale2/MembershipSection';
@@ -57,7 +56,7 @@ function useCountup(
 // ─── Column entrance hook ─────────────────────────────────────────────────────
 function useColumnEntrance(refs: React.RefObject<(HTMLDivElement | null)[]>) {
   useEffect(() => {
-    const els = refs.current.filter(Boolean) as HTMLDivElement[];
+    const els = (refs.current ?? []).filter(Boolean) as HTMLDivElement[];
     if (!els.length) return;
     gsap.set(els, { y: 40, opacity: 0 });
     const trigger = ScrollTrigger.create({

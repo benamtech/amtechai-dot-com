@@ -44,7 +44,7 @@ export default function OurWorkIntro() {
             AMTECH turns that chaos into structure
           </p>
           <div className="grid sm:grid-cols-2 md:grid-cols-4 gap-3">
-            {layers.map((layer, i) => (
+            {layers.map((layer) => (
               <div
                 key={layer}
                 className="border border-white/[0.06] bg-white/[0.02] px-4 py-3 flex items-center gap-2"
