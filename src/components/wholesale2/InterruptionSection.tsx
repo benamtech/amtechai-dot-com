@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -50,6 +49,7 @@ export default function InterruptionSection() {
     function animateWave(onDone: () => void) {
       const wave = waveRef.current;
       if (!wave) { onDone(); return; }
+      const waveEl = wave;
 
       let t = 0;
       let intensity = 0;
@@ -68,25 +68,25 @@ export default function InterruptionSection() {
 
         if (phase === 'ramp') {
           intensity = Math.min(12, (elapsed / RAMP_DURATION) * 12);
-          wave.setAttribute('points', ringPoints(WAVE_W, WAVE_CY, t, intensity));
+          waveEl.setAttribute('points', ringPoints(WAVE_W, WAVE_CY, t, intensity));
           if (elapsed >= RAMP_DURATION) { phase = 'ring'; elapsed = 0; }
           requestAnimationFrame(tick);
         } else if (phase === 'ring') {
-          wave.setAttribute('points', ringPoints(WAVE_W, WAVE_CY, t, 12));
+          waveEl.setAttribute('points', ringPoints(WAVE_W, WAVE_CY, t, 12));
           if (elapsed >= RING_DURATION) { phase = 'collapse'; elapsed = 0; }
           requestAnimationFrame(tick);
         } else if (phase === 'collapse') {
           intensity = Math.max(0, 12 - (elapsed / COLLAPSE_DURATION) * 12);
-          wave.setAttribute('points', ringPoints(WAVE_W, WAVE_CY, t, intensity));
+          waveEl.setAttribute('points', ringPoints(WAVE_W, WAVE_CY, t, intensity));
           if (elapsed >= COLLAPSE_DURATION) {
-            wave.setAttribute('points', flatPoints(WAVE_W, WAVE_CY));
+            waveEl.setAttribute('points', flatPoints(WAVE_W, WAVE_CY));
             onDone();
             return;
           }
           requestAnimationFrame(tick);
         }
       }
-      wave.setAttribute('points', flatPoints(WAVE_W, WAVE_CY));
+      waveEl.setAttribute('points', flatPoints(WAVE_W, WAVE_CY));
       requestAnimationFrame(tick);
     }
 

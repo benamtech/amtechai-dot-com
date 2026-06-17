@@ -72,12 +72,47 @@
       "purpose": "Outbound cost calculator"
     },
     {
+      "path": "/articles/write-pressure-washing-estimate-with-ai",
+      "page": "src/pages/AIEstimateArticles.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Knowledge graph article for drafting pressure washing estimates with AI"
+    },
+    {
+      "path": "/articles/estimate-painting-cost-ai",
+      "page": "src/pages/AIEstimateArticles.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Knowledge graph article for estimating painting cost with AI"
+    },
+    {
+      "path": "/articles/create-estimate-with-chatgpt",
+      "page": "src/pages/AIEstimateArticles.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Knowledge graph article for creating contractor estimates with ChatGPT"
+    },
+    {
       "path": "/schedule-demo",
       "page": "src/pages/ScheduleDemo.tsx",
       "components": [
         "src/components/schedule"
       ],
       "purpose": "Demo booking"
+    },
+    {
+      "path": "/shedule-demo",
+      "page": "src/pages/ScheduleDemo.tsx",
+      "components": [
+        "src/components/schedule"
+      ],
+      "purpose": "Misspelled demo booking alias used by contact CTAs"
     },
     {
       "path": "/apply",

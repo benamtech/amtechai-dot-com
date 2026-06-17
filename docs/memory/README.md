@@ -19,6 +19,5 @@ Operational memory:
 
 Product context:
 - Public marketing site for https://amtechai.com
-- Pages include home, about, pricing, how-it-works, onboarding, contact
+- Pages include home, about, pricing, how-it-works, contact
 - Revenue flows: demo scheduling, apply intake, sales rep application, payment, wholesale
-- Conversation/onboarding flow documented in `AI_AGENT_INTERFACE.md`

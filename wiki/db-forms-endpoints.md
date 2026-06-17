@@ -25,8 +25,6 @@ Vite only exposes variables prefixed with `VITE_` to browser code.
 | Resource | Migration | Frontend writers/readers | Purpose |
 | --- | --- | --- | --- |
 | `contact_submissions` | `20260213203810_create_contact_submissions.sql` | `src/pages/Contact.tsx` | Public contact inquiries. |
-| `conversations` | `20260214002657_create_conversations_and_messages.sql` | Conversation UI should be checked before modifying | Stores onboarding/demo conversation sessions. |
-| `messages` | `20260214002657_create_conversations_and_messages.sql` | Conversation UI should be checked before modifying | Stores conversation transcript messages. |
 | `intake_sessions` | `20260316174722_create_intake_sessions_and_files.sql` | `intakeService.ts`, `adminService.ts` | Website onboarding progress and answers JSON. |
 | `intake_files` | `20260316174722_create_intake_sessions_and_files.sql` | `intakeService.ts`, `adminService.ts` | Metadata for uploaded onboarding files. |
 | Storage bucket `intake-files` | Expected by app; bucket creation is not represented in current migrations | `intakeService.ts`, `adminService.ts` | Stores onboarding uploads by session/field path. |
