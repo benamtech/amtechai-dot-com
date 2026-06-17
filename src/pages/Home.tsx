@@ -44,6 +44,15 @@ const systemCategories = [
 const industries = ['Painting', 'Cleaning', 'HVAC', 'Roofing', 'Landscaping', 'Plumbing', 'Real estate', 'Medical practices', 'Professional services', 'Local service businesses'];
 const skills = ['Estimate generator', 'Payroll prep assistant', 'Missed-call recovery agent', 'Review-request agent', 'Invoice follow-up agent', 'Hiring intake agent', 'Customer reactivation agent', 'Dispatch assistant', 'Lead qualification agent', 'CRM update agent'];
 
+function SectionLabel({ children, dark = false }: { children: string; dark?: boolean }) {
+  return (
+    <div className={`mb-7 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] ${dark ? 'text-white/55' : 'text-black/55'}`}>
+      <span className="h-2 w-2 bg-red" />
+      <span>{children}</span>
+    </div>
+  );
+}
+
 function ProcedureList({ items, dark = false }: { items: string[]; dark?: boolean }) {
   return (
     <ul className="space-y-3">
@@ -60,39 +69,38 @@ function ProcedureList({ items, dark = false }: { items: string[]; dark?: boolea
 export default function Home() {
   return (
     <main className="bg-[#f4f4f4] text-black">
-      <section className="relative overflow-hidden border-b border-black/10 bg-white pt-36 pb-16 md:pt-44 md:pb-24">
-        <div className="absolute inset-x-0 top-0 h-56 bg-[radial-gradient(circle_at_20%_0%,rgba(225,29,42,0.18),transparent_34%),radial-gradient(circle_at_82%_12%,rgba(0,0,0,0.08),transparent_30%)]" />
-        <div className="container-wide relative">
+      <section className="relative border-b-4 border-black bg-white pt-36 pb-16 md:pt-44 md:pb-24">
+        <div className="container-wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_360px] lg:items-end">
             <div>
-              <h1 className="max-w-5xl text-[clamp(3rem,8.5vw,8rem)] font-black leading-[0.9] tracking-[-0.075em]">
+              <div className="mb-8 grid max-w-3xl grid-cols-2 border border-black text-[0.68rem] font-semibold uppercase tracking-[0.12em] text-black/60 md:grid-cols-4">
+                {['AI operating procedures', 'SMB owners', 'Time back', 'Operator approval'].map((item) => (
+                  <div key={item} className="border-r border-black/20 px-3 py-3 last:border-r-0 md:px-4">{item}</div>
+                ))}
+              </div>
+              <h1 className="max-w-5xl text-[clamp(3.2rem,9vw,8.6rem)] font-black leading-[0.88] tracking-[-0.08em]">
                 Install AI into the work your business actually does<span className="text-red">.</span>
               </h1>
-              <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
-                AMTECH builds practical AI systems for small and medium businesses: missed-call recovery, estimate drafting, payroll prep, lead follow-up, invoice chasing, booking, dispatch, reviews, and the admin work that slows operators down.
+              <p className="mt-9 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
+                AMTECH builds and teaches AI operating systems for small and medium businesses: missed-call recovery, estimate drafting, payroll prep, lead follow-up, invoice chasing, booking, dispatch, reviews, and the practical admin work that slows operators down.
+              </p>
+              <p className="mt-5 max-w-2xl text-base leading-7 text-black/58">
+                This is not AI hype. This is procedure, infrastructure, and training for serious business owners entering the next operating era.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link to="/schedule-demo" className="inline-flex items-center justify-center gap-3 rounded-full bg-red px-7 py-4 text-sm font-bold text-white shadow-red-glow-btn transition hover:bg-red-bright">
+                <Link to="/schedule-demo" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-bold text-white transition hover:bg-red-bright">
                   Book an operator briefing <ArrowRight size={16} />
                 </Link>
-                <Link to="/our-work" className="inline-flex items-center justify-center gap-3 rounded-full border border-black/15 bg-black/[0.03] px-7 py-4 text-sm font-bold text-black transition hover:border-black/25 hover:bg-black/[0.07]">
-                  See the work <ArrowRight size={16} />
+                <Link to="/our-work" className="inline-flex items-center justify-center gap-3 border border-black px-7 py-4 text-sm font-bold text-black transition hover:bg-black hover:text-white">
+                  Open the field guide index <ArrowRight size={16} />
                 </Link>
               </div>
             </div>
-            <div className="glass-card p-5">
-              <div className="grid grid-cols-2 gap-px overflow-hidden rounded-2xl bg-black/10 text-sm">
-                {[
-                  ['Built for', 'SMB owners'],
-                  ['First wins', 'Faster response'],
-                  ['Control', 'Human approval'],
-                  ['Output', 'Cleaner admin'],
-                ].map(([label, value]) => (
-                  <div key={label} className="bg-white p-4">
-                    <p className="text-xs font-semibold uppercase tracking-[0.12em] text-black/40">{label}</p>
-                    <p className="mt-2 font-bold text-black">{value}</p>
-                  </div>
-                ))}
+            <div className="border-2 border-black bg-[#f4f4f4] p-5">
+              <div className="border-b border-black pb-4 text-sm font-bold uppercase tracking-[0.12em]">Public field manual</div>
+              <div className="space-y-5 pt-5 text-sm leading-6 text-black/68">
+                <p><strong className="text-black">Built for:</strong> ambitious operators who know AI matters but do not know where it fits into daily work.</p>
+                <p><strong className="text-black">Output:</strong> clearer procedures, faster response, cleaner admin, and approval points the owner can trust.</p>
               </div>
             </div>
           </div>
