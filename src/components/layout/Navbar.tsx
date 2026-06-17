@@ -30,17 +30,17 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`mx-auto max-w-7xl rounded-2xl transition-all duration-700 ${
-          isScrolled
-            ? isDarkPage
-              ? 'bg-black/80 backdrop-blur-2xl border border-white/[0.06] shadow-nav'
-              : 'bg-white/80 backdrop-blur-2xl border border-black/[0.06] shadow-nav'
-            : isDarkPage
-              ? 'bg-black/50 backdrop-blur-xl border border-white/[0.04]'
-              : 'bg-white/50 backdrop-blur-xl border border-black/[0.04]'
+        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.28),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.18),rgba(225,29,42,0.08),rgba(255,255,255,0.04))] before:opacity-80 ${
+          isDarkPage
+            ? isScrolled
+              ? 'bg-black/72 border-white/[0.12]'
+              : 'bg-black/42 border-white/[0.16]'
+            : isScrolled
+              ? 'bg-white/72 border-white/70'
+              : 'bg-white/48 border-white/60'
         }`}
       >
-        <div className="flex h-14 lg:h-16 items-center justify-between px-6 lg:px-8">
+        <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
           <Link to="/" className="inline-flex items-baseline">
             <span className={`font-display text-base lg:text-lg font-black tracking-[0.06em] ${isDarkPage ? 'text-white' : 'text-black'}`}>
               AMTECH
@@ -97,7 +97,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`mx-auto mt-2 max-w-7xl overflow-hidden rounded-2xl backdrop-blur-2xl border shadow-nav md:hidden ${
+            className={`mx-auto mt-2 max-w-7xl overflow-hidden rounded-[1.35rem] backdrop-blur-2xl border shadow-nav md:hidden ${
               isDarkPage
                 ? 'bg-black/90 border-white/[0.06]'
                 : 'bg-white/90 border-black/[0.06]'
