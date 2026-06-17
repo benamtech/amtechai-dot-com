@@ -1,15 +1,16 @@
 # Netlify Deployment: Vite + React + Supabase
 
-This is the simplest Netlify path for AMTECH's static Vite site.
+This is the simplest Netlify path for AMTECH's static Vite site. The repository includes `netlify.toml` so Netlify builds the Vite app and only scans `netlify/functions` for Netlify Functions.
 
 ## One-time setup
 
 1. Push the repo to GitHub/GitLab/Bitbucket.
 2. In Netlify, choose **Add new site -> Import an existing project**.
 3. Select the AMTECH repo and branch.
-4. Use these build settings:
+4. The checked-in `netlify.toml` sets these build settings:
    - **Build command:** `npm run build`
    - **Publish directory:** `dist`
+   - **Functions directory:** `netlify/functions`
 5. Add environment variables under Netlify site settings:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
@@ -29,7 +30,7 @@ Recommended location: `public/_redirects`, because Vite copies `public` into `di
 
 ## Supabase Edge Functions are separate from Netlify
 
-This project's serverless functions live in `supabase/functions`, not Netlify Functions. Deploy and configure them in Supabase:
+This project's serverless functions live in `supabase/functions`, not Netlify Functions. Netlify is configured to look for Netlify Functions only in `netlify/functions`, which prevents Netlify from trying to bundle Supabase Deno imports such as `jsr:` and `npm:` specifiers during the static site deploy. Deploy and configure the Supabase functions in Supabase:
 
 ```bash
 supabase functions deploy create-payment-intent
