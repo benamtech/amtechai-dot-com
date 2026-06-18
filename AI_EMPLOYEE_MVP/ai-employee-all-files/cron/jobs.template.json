@@ -1,0 +1,17 @@
+{
+  "notes": "provision_client.py loops these and runs `hermes -p <profile> cron create <schedule> <prompt> --skill <skill> --name <name>` for each. Schedules fire in the client's TZ because TZ is set on the gateway service. Prompts are self-contained because cron runs in a fresh session.",
+  "jobs": [
+    {
+      "name": "morning-checkin",
+      "schedule": "0 7 * * *",
+      "skill": "daily-checkin",
+      "prompt": "This is the MORNING check-in for {{BUSINESS_NAME}}. Follow the daily-checkin skill's morning procedure. Look at recent context, anything time-sensitive in ./brain, and open items in ./output. Surface what matters most to {{SUPERVISOR_NAME}} today and offer the highest-value help tied to their main workloads ({{WORKLOADS}}). Two or three lines, one question. If nothing is worth a text, reply with exactly [SILENT]."
+    },
+    {
+      "name": "midday-checkin",
+      "schedule": "0 13 * * *",
+      "skill": "daily-checkin",
+      "prompt": "This is the MIDDAY check-in for {{BUSINESS_NAME}}. Follow the daily-checkin skill's midday procedure. Light touch only. If something concrete has come up that you can now help with, offer it in a line or two. If there is genuinely nothing worth a text, reply with exactly [SILENT]."
+    }
+  ]
+}

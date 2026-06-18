@@ -1,0 +1,52 @@
+# Hermes profile config for {{CLIENT_ID}} ({{BUSINESS_NAME}})
+# Written by provision_client.py. Tokens are substituted at provisioning time.
+
+model:
+  provider: anthropic
+  default: claude-opus-4-8
+
+# Cheaper model for background work (session naming, summaries, the
+# self-improvement review pass). Keeps cost down without touching the
+# model that talks to the supervisor.
+auxiliary:
+  vision:
+    provider: main
+compression:
+  provider: anthropic
+  model: claude-haiku-4-5-20251001
+
+terminal:
+  # local = runs shell/file tools directly on the host as your OS user.
+  # Recommended for production: docker, so each client agent's tool
+  # execution is contained. Switch to 'docker' once you are past first
+  # pilots; the agent reaches the inbound SMS channel, so its shell
+  # should not run unconstrained as you.
+  backend: local
+  cwd: "{{WORKSPACE_DIR}}"     # this client's isolated working directory
+  home_mode: profile           # keep CLI creds separate per client
+  timeout: 180
+
+memory:
+  memory_enabled: true
+  user_profile_enabled: true
+  memory_char_limit: 2200
+  user_char_limit: 1375
+  write_approval: false
+
+cron:
+  wrap_response: false         # clean output for SMS delivery
+
+display:
+  tool_progress: off           # do not narrate tool steps over SMS
+
+# SMS gateway. The account-level Twilio creds and the per-client values
+# (number, webhook URL, allowed sender, home channel, port) live in .env.
+# Port is set there too; if your Hermes build ignores SMS_WEBHOOK_PORT,
+# the nested form below is the reliable override.
+gateway:
+  platforms:
+    sms:
+      enabled: true
+      gateway_restart_notification: false
+      extra:
+        port: {{WEBHOOK_PORT}}
