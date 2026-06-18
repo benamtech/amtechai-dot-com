@@ -17,8 +17,9 @@ export default function Navbar() {
   const location = useLocation();
 
   const isDarkPage = darkPages.includes(location.pathname);
-  const navTextClass = isDarkPage ? 'text-white hover:text-white/75' : 'text-black hover:text-black/65';
-  const mutedNavTextClass = isDarkPage ? 'text-white/62 hover:text-white' : 'text-black/62 hover:text-black';
+  const adaptiveNavTextClass = 'text-white mix-blend-difference drop-shadow-[0_1px_10px_rgba(255,255,255,0.22)]';
+  const activeNavTextClass = `${adaptiveNavTextClass} opacity-100`;
+  const mutedNavTextClass = `${adaptiveNavTextClass} opacity-75 hover:opacity-100`;
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -44,7 +45,7 @@ export default function Navbar() {
         }`}
       >
         <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
-          <Link to="/" className={`inline-flex items-baseline transition-colors ${navTextClass}`}>
+          <Link to="/" className={`inline-flex items-baseline transition-opacity hover:opacity-80 ${adaptiveNavTextClass}`}>
             <span className="font-display text-base font-black tracking-[0.06em] lg:text-lg">
               AMTECH
             </span>
@@ -57,7 +58,7 @@ export default function Navbar() {
                 key={link.to}
                 to={link.to}
                 className={`relative font-body text-[13px] font-semibold transition-colors duration-300 ${
-                  location.pathname === link.to ? navTextClass : mutedNavTextClass
+                  location.pathname === link.to ? activeNavTextClass : mutedNavTextClass
                 }`}
               >
                 {link.label}
@@ -81,7 +82,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex h-10 w-10 items-center justify-center transition-colors md:hidden ${navTextClass}`}
+            className={`flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-80 md:hidden ${adaptiveNavTextClass}`}
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -108,7 +109,7 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
-                    location.pathname === link.to ? 'text-black hover:text-black/70' : 'text-black/70 hover:text-black'
+                    location.pathname === link.to ? activeNavTextClass : mutedNavTextClass
                   }`}
                 >
                   {link.label}

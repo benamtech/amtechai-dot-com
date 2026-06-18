@@ -258,11 +258,6 @@ function SalesBootcamp() {
       <section className="relative min-h-[calc(100vh-48px)] bg-white flex items-center">
         <div className="mx-auto max-w-4xl w-full px-6 py-20">
           <div className="relative z-10">
-            {/* Kicker */}
-            <p className="font-mono text-[0.6rem] uppercase tracking-[0.22em] text-[#E11D2A] mb-6">
-              10-Day Async Bootcamp + Custom AI Agent
-            </p>
-
             {/* Headline */}
             <h1
               ref={heroRef as React.RefObject<HTMLHeadingElement>}
