@@ -1,6 +1,6 @@
 {
   "project": "amtechai-dot-com",
-  "updated": "2026-06-17",
+  "updated": "2026-06-18",
   "stack": [
     "Vite",
     "React",
@@ -117,6 +117,15 @@
       "purpose": "Educational comparison article for AMTECH versus ChatGPT and Claude"
     },
     {
+      "path": "/articles/build-claude-skill-job-pricing",
+      "page": "src/pages/articles/ClaudeSkillJobPricing.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Educational article for building a Claude Skill that checks job profitability and pricing decisions"
+    },
+    {
       "path": "/schedule-demo",
       "page": "src/pages/ScheduleDemo.tsx",
       "components": [
@@ -171,6 +180,44 @@
         "src/components/payment"
       ],
       "purpose": "Stripe payment"
+    },
+    {
+      "path": "/schedule-call",
+      "page": "src/pages/ScheduleCall.tsx",
+      "components": [],
+      "purpose": "Standalone sales/operator call CTA flow"
+    },
+    {
+      "path": "/payment-success",
+      "page": "src/pages/PaymentSuccess.tsx",
+      "components": [],
+      "purpose": "Post-payment confirmation page"
+    },
+    {
+      "path": "/wholesale",
+      "page": "src/pages/Wholesale.tsx",
+      "components": [],
+      "purpose": "Campaign-specific wholesale landing page"
+    },
+    {
+      "path": "/wholesale-2",
+      "page": "src/pages/Wholesale2.tsx",
+      "components": [
+        "src/components/wholesale2"
+      ],
+      "purpose": "Campaign-specific wholesale landing page variant"
+    },
+    {
+      "path": "/sell-ai-employees",
+      "page": "src/pages/SellAIEmployees.tsx",
+      "components": [],
+      "purpose": "Campaign-specific sales recruiting/offer landing page"
+    },
+    {
+      "path": "/sales-bootcamp",
+      "page": "src/pages/SalesBootcamp.tsx",
+      "components": [],
+      "purpose": "Campaign-specific sales bootcamp landing page"
     }
   ],
   "dataFlows": [
@@ -249,6 +296,9 @@
     "docs/codegraph.md",
     "wiki/db-forms-endpoints.md",
     "wiki/deployment/netlify-vite-supabase.md",
-    "wiki/research/2026-06-17-codegraph-docs-and-token-efficiency.md"
+    "wiki/research/2026-06-17-codegraph-docs-and-token-efficiency.md",
+    "docs/seo/AMTECH_MASTER_KNOWLEDGE_GRAPH.md",
+    "docs/seo/KNOWLEDGE_GRAPH_SEO_RESEARCH.md",
+    "docs/ARTICLE_SYSTEM.md"
   ]
 }

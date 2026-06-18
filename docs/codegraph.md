@@ -6,7 +6,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 
 - **App type:** Vite + React 18 + TypeScript marketing/conversion website.
 - **Runtime:** Static SPA served from `dist/`; Supabase provides database, storage, and Edge Functions.
-- **Routing:** `src/App.tsx` owns all public routes. Most brand pages use `src/components/layout/Layout.tsx`; conversion flows (`/apply`, `/schedule-call`, `/website-onboarding`, `/pay`, etc.) render standalone.
+- **Routing:** `src/App.tsx` owns all public routes. Most brand pages use `src/components/layout/Layout.tsx`; conversion flows (`/apply`, `/schedule-call`, `/website-onboarding`, `/pay`, etc.) render standalone. Current in-app site copy is the authoritative source after the June 2026 homepage and article-library revisions.
 - **Supabase client:** `src/lib/supabase.ts` reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` and exports one browser client.
 - **Database migrations:** `supabase/migrations/*.sql` define public form tables, intake storage references, booking availability and applications.
 - **Edge Functions:** `supabase/functions/*/index.ts` handle Stripe PaymentIntent creation and Resend transactional emails.
@@ -23,7 +23,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | `/our-work` | `src/pages/OurWork.tsx` | `src/components/our-work/*`, layout | Portfolio/capability narrative. |
 | `/cost-calculator` | `src/pages/CostCalculator.tsx` | `src/components/cost-calculator/*`, layout | Interactive outbound cost calculator. |
 | `/articles` | `src/pages/Articles.tsx` | `src/components/articles/*`, layout | Central AI learning library with articles, glossary concepts, ICP paths, category shelves, and sitemap links. |
-| `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Educational articles for AI-assisted contractor estimating prompts, AI tool comparison, and workflows. |
+| `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude`, `/articles/build-claude-skill-job-pricing` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx`, `src/pages/articles/ClaudeSkillJobPricing.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Educational articles for AI-assisted contractor estimating prompts, Claude Skills, AI tool comparison, and workflows. |
 | `/schedule-demo`, `/shedule-demo` | `src/pages/ScheduleDemo.tsx` | `src/components/schedule/*` | Demo booking flow into `demo_bookings`; invokes booking email function. |
 | `/schedule-call` | `src/pages/ScheduleCall.tsx` | page-local | Sales/operator call CTA flow. |
 | `/apply` | `src/pages/Apply.tsx` | `src/components/apply/*` | Operator application into `operator_applications`; invokes application email function. |
@@ -56,6 +56,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 - `supabase/migrations`: database schema and RLS policies.
 - `supabase/functions`: Deno Edge Functions deployed to Supabase.
 - `wiki`: long-form design/product/research/deployment notes.
+- `docs/seo`: AMTECH article-system research, master knowledge graph, and article opportunity sequencing.
 - `docs/memory`: durable short facts for future agents.
 
 ## Agent usage notes
@@ -64,4 +65,4 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 2. For route changes, inspect `src/App.tsx`, the page file, then only the referenced component folder.
 3. For data changes, inspect the relevant migration, frontend service/page submit handler, and Edge Function if present.
 4. For design changes, read `AMTECH_STYLE_GUIDE.md`, `COST_CALCULATOR_STYLE.md`, and relevant notes in `wiki/design-notes.md`.
-5. Keep this codegraph updated whenever a route, table, endpoint, or feature folder changes.
+5. Keep this codegraph updated whenever a route, table, endpoint, feature folder, article-system surface, or durable knowledge-graph/research source changes.

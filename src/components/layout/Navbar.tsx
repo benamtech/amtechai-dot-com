@@ -108,7 +108,7 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
-                    location.pathname === link.to ? navTextClass : mutedNavTextClass
+                    location.pathname === link.to ? 'text-black hover:text-black/70' : 'text-black/70 hover:text-black'
                   }`}
                 >
                   {link.label}
