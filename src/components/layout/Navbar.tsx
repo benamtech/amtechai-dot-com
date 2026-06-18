@@ -17,9 +17,10 @@ export default function Navbar() {
   const location = useLocation();
 
   const isDarkPage = darkPages.includes(location.pathname);
-  const adaptiveNavTextClass = 'text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9),0_0_14px_rgba(0,0,0,0.62)] drop-shadow-[0_1px_10px_rgba(255,255,255,0.18)]';
-  const activeNavTextClass = `${adaptiveNavTextClass} opacity-100`;
-  const mutedNavTextClass = `${adaptiveNavTextClass} opacity-75 hover:opacity-100`;
+  const mobileNavTextClass = 'text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9),0_0_14px_rgba(0,0,0,0.62)] drop-shadow-[0_1px_10px_rgba(255,255,255,0.18)]';
+  const desktopNavTextClass = 'md:text-black md:[text-shadow:none] md:drop-shadow-none';
+  const activeNavTextClass = `${desktopNavTextClass} opacity-100`;
+  const mutedNavTextClass = `${desktopNavTextClass} opacity-75 hover:opacity-100`;
   const mobileActiveNavTextClass = 'text-black opacity-100';
   const mobileMutedNavTextClass = 'text-black/70 hover:text-black';
 
@@ -39,19 +40,19 @@ export default function Navbar() {
         className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(225,29,42,0.1),rgba(255,255,255,0.06))] before:opacity-80 ${
           isDarkPage
             ? isScrolled
-              ? 'bg-black/72 border-white/[0.12]'
-              : 'bg-black/42 border-white/[0.16]'
+              ? 'bg-black/72 border-white/[0.12] md:bg-white md:border-white/70'
+              : 'bg-black/42 border-white/[0.16] md:bg-white/[0.84] md:border-white/60'
             : isScrolled
-              ? 'bg-white/70 border-white/70'
-              : 'bg-white/58 border-white/60'
+              ? 'bg-white md:bg-white border-white/70'
+              : 'bg-white/[0.84] border-white/60'
         }`}
       >
         <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
-          <Link to="/" className={`inline-flex items-baseline transition-opacity hover:opacity-80 ${adaptiveNavTextClass}`}>
+          <Link to="/" className={`inline-flex items-baseline transition-opacity hover:opacity-80 ${mobileNavTextClass} ${desktopNavTextClass}`}>
             <span className="font-display text-base font-black tracking-[0.06em] lg:text-lg">
               AMTECH
             </span>
-            <span className="text-base lg:text-lg font-black text-red">.</span>
+            <span className="text-base lg:text-lg font-black text-red md:[text-shadow:none] md:drop-shadow-none">.</span>
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
@@ -73,7 +74,7 @@ export default function Navbar() {
               to="/schedule-demo"
               className={`inline-flex items-center gap-2 px-5 py-2 text-[13px] font-semibold rounded-none transition-all duration-300 active:scale-[0.98] ${
                 isDarkPage
-                  ? 'bg-white text-black hover:bg-white/90'
+                  ? 'bg-white text-black hover:bg-white/90 md:bg-black md:text-white md:hover:bg-black/80'
                   : 'bg-black text-white hover:bg-black/80'
               }`}
             >
@@ -84,7 +85,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-80 md:hidden ${adaptiveNavTextClass}`}
+            className={`flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-80 md:hidden ${mobileNavTextClass}`}
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
