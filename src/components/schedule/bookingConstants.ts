@@ -25,7 +25,7 @@ function formatSlot(hour: number, minute: number): string {
 
 function shiftSlots(baselines: [number, number][], offsetMinutes: number): string[] {
   return baselines.map(([h, m]) => {
-    let totalMinutes = h * 60 + m + offsetMinutes;
+    const totalMinutes = h * 60 + m + offsetMinutes;
     const hour = Math.floor(totalMinutes / 60);
     const minute = totalMinutes % 60;
     return formatSlot(hour, minute);
