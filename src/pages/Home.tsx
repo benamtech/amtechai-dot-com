@@ -46,9 +46,9 @@ const homepageNarrativeSections = [
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'The business already has skill, customers, reputation, and demand. The pressure comes from all the small loops that still depend on the owner noticing, remembering, typing, checking, and following up.',
-      'A hardware store has vendor quotes, contractor accounts, inventory questions, and seasonal buying decisions. A restaurant has bookings, reviews, events, staff notes, ordering, and customer messages. A painting company has photos, colors, scopes, crew notes, change orders, invoices, and callbacks.',
-      'None of that work is glamorous. But when it has no system, it quietly decides how much freedom the business owner gets to keep.',
+      'Most AI adoption is still exploratory. Serious business owners are not behind; they are at the decision point where the next advantage gets built.',
+      'The businesses pulling ahead are not chasing every app. They are choosing the repeatable work that matters and shaping systems around how the operation already runs.',
+      'The move is from “AI sounds interesting” to “this is how it works inside the business.”',
     ],
     related: { label: 'Compare DIY tools with governed systems', to: '/articles/amtech-vs-chatgpt-claude' },
   },
@@ -108,7 +108,12 @@ const homepageNarrativeSections = [
   },
 ];
 
-const journeySections = homepageNarrativeSections;
+
+const businessExamples: Array<{
+  business: string;
+  before: string;
+  after: string;
+}> = [];
 
 const repeatWorkOutcomes = [
   'More time for high-value jobs and customer relationships',
@@ -135,7 +140,7 @@ const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
 
 export default function Home() {
   return (
-    <main className="bg-[#f4f4f4] text-black">
+    <main className="bg-[#f4f4f4] text-black" data-business-examples-count={businessExamples.length}>
       <section className="relative overflow-hidden border-b-4 border-black bg-white pt-36 pb-16 md:pt-44 md:pb-24">
         <div className="container-wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-end">
@@ -156,13 +161,19 @@ export default function Home() {
                 </Link>
               </div>
             </div>
-            <div className="border-2 border-black bg-[#f4f4f4] p-6">
-              <Briefcase className="mb-8 h-7 w-7 text-red" />
-              <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">The old self-image:</h2>
-              <p className="mt-4 text-sm leading-6 text-black/64">“I am the person who has to remember everything, approve everything, and clean it up later.”</p>
-              <div className="my-6 h-px bg-black/20" />
-              <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">The new one:</h2>
-              <p className="mt-4 text-sm leading-6 text-black/64">“I am the operator who builds systems, sees the numbers, and has space to lead.”</p>
+            <div className="grid gap-3">
+              <Link to="/articles" className="group border-2 border-black bg-[#f4f4f4] p-5 transition hover:bg-white">
+                <Briefcase className="mb-8 h-6 w-6 text-red" />
+                <h2 className="text-2xl font-black tracking-[-0.04em]">I'm the owner.</h2>
+                <p className="mt-3 text-sm leading-6 text-black/62">Learn what AI can do, then work with AMTECH to map and build the right system.</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-black">Go to business path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
+              </Link>
+              <Link to="/sales-bootcamp" className="group border-2 border-black bg-black p-5 text-white transition hover:bg-[#151515]">
+                <GraduationCap className="mb-8 h-6 w-6 text-red" />
+                <h2 className="text-2xl font-black tracking-[-0.04em]">I work in sales.</h2>
+                <p className="mt-3 text-sm leading-6 text-white/62">Learn the basics, understand what businesses buy, and train toward selling AI services.</p>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-white">Go to bootcamp path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
+              </Link>
             </div>
           </div>
         </div>
