@@ -3,6 +3,16 @@ import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Search
 
 const articles = [
   {
+    title: 'How to Build a Business Brain for Free Before You Hire an AI Consultant',
+    href: '/articles/business-brain-free',
+    category: 'AI fundamentals',
+    date: 'June 18, 2026',
+    icp: 'Business owners',
+    entity: 'Business brain',
+    description: 'Organize services, examples, records, rules, and approval boundaries before paying for AI automation.',
+    featured: true,
+  },
+  {
     title: 'Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors',
     href: '/articles/build-local-seo-plan-with-chatgpt',
     category: 'Local authority',
@@ -77,6 +87,7 @@ const rolePaths = [
     icon: Briefcase,
     summary: 'Learn what to automate, where AI belongs, and when to work with a consultant.',
     links: [
+      ['Build a business brain for free', '/articles/business-brain-free'],
       ['Build a local SEO knowledge graph', '/articles/build-local-seo-plan-with-chatgpt'],
       ['Build a Claude pricing skill', '/articles/build-claude-skill-job-pricing'],
       ['AMTECH vs. ChatGPT or Claude', '/articles/amtech-vs-chatgpt-claude'],
@@ -117,6 +128,7 @@ const sitemapGroups = [
   {
     title: 'Read',
     links: [
+      ['Build a business brain', '/articles/business-brain-free'],
       ['Build a local SEO plan', '/articles/build-local-seo-plan-with-chatgpt'],
       ['All articles', '/articles'],
       ['AI fundamentals', '/articles?category=ai-fundamentals'],

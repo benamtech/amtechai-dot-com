@@ -243,6 +243,9 @@ H. Field-note style industry scenarios
 7. **How AI Employees Turn Business Knowledge Into Repeatable Work**  
    Positions agents as a way to capture the owner’s operating judgment and turn it into reusable systems. Connects directly to custom skills and SOP execution.
 
+7A. **How to Build a Business Brain for Free Before You Hire an AI Consultant**
+   Published at `/articles/business-brain-free`. This strategy article connects `business brain`, `owner bottleneck`, `approval boundaries`, `business records`, `SOPs`, `custom AI agents`, and `AI employees` so owners can organize usable operating context before paying for automation.
+
 8. **Where Human-in-the-Loop Belongs in a Small-Business AI System**  
    Explains when an agent should act, draft, ask, escalate, or stop. Connects governance concepts to practical local-business workflows.
 
@@ -477,7 +480,7 @@ H. Field-note style industry scenarios
 
 ```text
 Cluster: AI employee fundamentals
-Primary nodes: 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 70A
+Primary nodes: 1, 2, 3, 4, 5, 6, 7, 7A, 8, 9, 10, 70A
 Must link to: 57, 58, 65, 66, 69
 
 Cluster: Custom AI skills
