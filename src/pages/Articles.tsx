@@ -4,6 +4,16 @@ import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Search
 
 const articles = [
   {
+    title: 'How Independent Stores Use AI to Turn Three Seasons of Sales Data Into Better Owner Decisions',
+    href: '/articles/garden-center-spring-buy-plan-ai',
+    category: 'Industry guides',
+    date: 'June 18, 2026',
+    icp: 'Independent retailers',
+    entity: 'Seasonal sales intelligence',
+    description: 'A Salisbury garden-center walkthrough that shows retailers, supply stores, salons, and contractors how AI turns sales history into owner decisions.',
+    featured: true,
+  },
+  {
     title: 'How to Build a Business Brain for Free Before You Hire an AI Consultant',
     href: '/articles/business-brain-free',
     category: 'AI fundamentals',

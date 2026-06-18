@@ -1,6 +1,6 @@
 # AMTECH Article Knowledge Graph — Operational Edition
 
-This replaces the prior article node set. It keeps AMTECH's article system focused on one thesis: **automate the operations brain, not the front desk.** The system now contains the seven existing published articles plus 40 planned operational nodes.
+This replaces the prior article node set. It keeps AMTECH's article system focused on one thesis: **automate the operations brain, not the front desk.** The system now contains eight published articles plus 39 planned operational nodes.
 
 ## Targeting principle
 
@@ -35,8 +35,9 @@ This replaces the prior article node set. It keeps AMTECH's article system focus
 | E5 | Create an Estimate With ChatGPT | Published entry-level estimating prompt | N21, N38 |
 | E6 | Write a Pressure Washing Estimate With AI | Published vertical estimating prompt | E5, N38, N40 |
 | E7 | Estimate Painting Cost With AI | Published vertical estimating prompt | E5, N22, N38 |
+| E8 | How Independent Stores Use AI to Turn Three Seasons of Sales Data Into Better Owner Decisions | Published Salisbury seasonal operations guide | E1, E4, N2, N30, N37 |
 
-## The 40 operational nodes
+## The remaining planned operational nodes
 
 ### T1 — General topic
 
@@ -79,7 +80,6 @@ This replaces the prior article node set. It keeps AMTECH's article system focus
 | N15 | How a Phoenix bike shop turns POS sales and repair tickets into next week's parts order with AI | Phoenix | bike shop | UC2 | Sales plus open repairs become a consolidated supplier order. |
 | N16 | Quoting solar from the design, not the guess: how a Phoenix installer builds proposals with AI | Phoenix | solar | UC6 | Roof/design plus panel pricing create accurate proposals. |
 | N17 | Every pool on the route, every chemical it needs: AI inventory and run-planning for a Phoenix pool-service company | Phoenix | pool service | UC2/UC5 | Route plus readings become chemical and part loadouts. |
-| N18 | Spring ordering for a Salisbury garden center: forecasting what to buy from three seasons of sales data | Salisbury | garden center | UC3 | Seasonal sales history creates a perishable buy plan. |
 | N19 | Next week's repairs, every part pre-ordered: AI work-planning for a Chesapeake marine service shop | Salisbury | marine service | UC5/UC2 | Service calendar produces parts-needed and pre-order lists. |
 | N20 | How a Salisbury independent pharmacy reconciles inventory against refills and flags what to reorder | Salisbury | pharmacy | UC2/UC9 | Dispense and refill data reconcile against on-hand inventory. |
 | N21 | Contractor accounts and material takeoffs: how a Sherman building-supply yard quotes and reorders with AI | Sherman | building supply | UC6/UC2 | Plans/takeoffs become quotes and restock triggers. |

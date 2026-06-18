@@ -27,6 +27,7 @@ import AmtechVsChatgptClaude from './pages/articles/AmtechVsChatgptClaude';
 import ClaudeSkillJobPricing from './pages/articles/ClaudeSkillJobPricing';
 import LocalSeoKnowledgeGraphPlan from './pages/articles/LocalSeoKnowledgeGraphPlan';
 import BusinessBrainFree from './pages/articles/BusinessBrainFree';
+import SalisburyRetailSalesDataAI from './pages/articles/SalisburyRetailSalesDataAI';
 
 export default function App() {
   return (
@@ -63,6 +64,7 @@ export default function App() {
           <Route path="/articles/build-claude-skill-job-pricing" element={<ClaudeSkillJobPricing />} />
           <Route path="/articles/build-local-seo-plan-with-chatgpt" element={<LocalSeoKnowledgeGraphPlan />} />
           <Route path="/articles/business-brain-free" element={<BusinessBrainFree />} />
+          <Route path="/articles/garden-center-spring-buy-plan-ai" element={<SalisburyRetailSalesDataAI />} />
         </Route>
       </Routes>
     </BrowserRouter>
