@@ -6,9 +6,7 @@ import HowItWorks from './pages/HowItWorks';
 import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Contact from './pages/Contact';
-import WebsiteOnboarding from './pages/WebsiteOnboarding';
 import OurWork from './pages/OurWork';
-import Admin from './pages/Admin';
 import ScheduleDemo from './pages/ScheduleDemo';
 import CostCalculator from './pages/CostCalculator';
 import Payment from './pages/Payment';
@@ -18,6 +16,7 @@ import Wholesale2 from './pages/Wholesale2';
 import SellAIEmployees from './pages/SellAIEmployees';
 import SalesBootcamp from './pages/SalesBootcamp';
 import ScheduleCall from './pages/ScheduleCall';
+import AIEmployeeClaim from './pages/AIEmployeeClaim';
 import Apply from './pages/Apply';
 import SalesRepApply from './pages/SalesRepApply';
 import Articles from './pages/Articles';
@@ -38,11 +37,10 @@ export default function App() {
         <Route path="/wholesale-2" element={<Wholesale2 />} />
         <Route path="/sell-ai-employees" element={<SellAIEmployees />} />
         <Route path="/sales-bootcamp" element={<SalesBootcamp />} />
+        <Route path="/claim" element={<AIEmployeeClaim />} />
         <Route path="/schedule-call" element={<ScheduleCall />} />
         <Route path="/apply" element={<Apply />} />
         <Route path="/apply/info-sales-rep" element={<SalesRepApply />} />
-        <Route path="/website-onboarding" element={<WebsiteOnboarding />} />
-        <Route path="/admin" element={<Admin />} />
         <Route path="/schedule-demo" element={<ScheduleDemo />} />
         <Route path="/shedule-demo" element={<ScheduleDemo />} />
         <Route path="/pay" element={<Payment />} />

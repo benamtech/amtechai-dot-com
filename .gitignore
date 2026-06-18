@@ -21,3 +21,11 @@ dist-ssr
 *.sln
 *.sw?
 .env
+AI_EMPLOYEE_MVP/ai-employee-all-files/.env.provision-hook
+AI_EMPLOYEE_MVP/ai-employee-all-files/.venv/
+AI_EMPLOYEE_MVP/ai-employee-all-files/state/
+__pycache__/
+*.pyc
+
+# Local Netlify folder
+.netlify

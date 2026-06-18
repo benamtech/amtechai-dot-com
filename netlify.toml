@@ -2,3 +2,23 @@
   command = "npm run build"
   publish = "dist"
   functions = "netlify/functions"
+
+[[redirects]]
+  from = "/claim/start-from-sms"
+  to = "/.netlify/functions/claim/start-from-sms"
+  status = 200
+
+[[redirects]]
+  from = "/claim/send-code"
+  to = "/.netlify/functions/claim/send-code"
+  status = 200
+
+[[redirects]]
+  from = "/claim/verify-and-claim"
+  to = "/.netlify/functions/claim/verify-and-claim"
+  status = 200
+
+[[redirects]]
+  from = "/sms-entry"
+  to = "/.netlify/functions/sms-entry"
+  status = 200
