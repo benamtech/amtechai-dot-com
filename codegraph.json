@@ -72,13 +72,22 @@
       "purpose": "Outbound cost calculator"
     },
     {
+      "path": "/articles",
+      "page": "src/pages/Articles.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Central AI learning library with articles, glossary concepts, ICP paths, category shelves, and sitemap links"
+    },
+    {
       "path": "/articles/write-pressure-washing-estimate-with-ai",
       "page": "src/pages/AIEstimateArticles.tsx",
       "components": [
         "src/components/articles",
         "src/lib/articles.ts"
       ],
-      "purpose": "Knowledge graph article for drafting pressure washing estimates with AI"
+      "purpose": "Educational article for drafting pressure washing estimates with AI"
     },
     {
       "path": "/articles/estimate-painting-cost-ai",
@@ -87,7 +96,7 @@
         "src/components/articles",
         "src/lib/articles.ts"
       ],
-      "purpose": "Knowledge graph article for estimating painting cost with AI"
+      "purpose": "Educational article for estimating painting cost with AI"
     },
     {
       "path": "/articles/create-estimate-with-chatgpt",
@@ -96,7 +105,7 @@
         "src/components/articles",
         "src/lib/articles.ts"
       ],
-      "purpose": "Knowledge graph article for creating contractor estimates with ChatGPT"
+      "purpose": "Educational article for creating contractor estimates with ChatGPT"
     },
     {
       "path": "/articles/amtech-vs-chatgpt-claude",
@@ -105,7 +114,7 @@
         "src/components/articles",
         "src/lib/articles.ts"
       ],
-      "purpose": "Knowledge graph comparison article for AMTECH versus ChatGPT and Claude"
+      "purpose": "Educational comparison article for AMTECH versus ChatGPT and Claude"
     },
     {
       "path": "/schedule-demo",
