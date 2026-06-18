@@ -25,6 +25,7 @@ import { ChatGPTEstimateArticle, PaintingCostAIArticle, PressureWashingEstimateA
 import AmtechVsChatgptClaude from './pages/articles/AmtechVsChatgptClaude';
 import ClaudeSkillJobPricing from './pages/articles/ClaudeSkillJobPricing';
 import LocalSeoKnowledgeGraphPlan from './pages/articles/LocalSeoKnowledgeGraphPlan';
+import BusinessBrainFree from './pages/articles/BusinessBrainFree';
 
 export default function App() {
   return (
@@ -59,6 +60,7 @@ export default function App() {
           <Route path="/articles/amtech-vs-chatgpt-claude" element={<AmtechVsChatgptClaude />} />
           <Route path="/articles/build-claude-skill-job-pricing" element={<ClaudeSkillJobPricing />} />
           <Route path="/articles/build-local-seo-plan-with-chatgpt" element={<LocalSeoKnowledgeGraphPlan />} />
+          <Route path="/articles/business-brain-free" element={<BusinessBrainFree />} />
         </Route>
       </Routes>
     </BrowserRouter>

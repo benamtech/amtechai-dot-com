@@ -227,6 +227,15 @@
         "src/lib/articles.ts"
       ],
       "purpose": "Knowledge-graph local SEO strategy article with AI prompts, page template, citations, and publishing workflow"
+    },
+    {
+      "path": "/articles/business-brain-free",
+      "page": "src/pages/articles/BusinessBrainFree.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Strategy article for building a free business brain from services, examples, records, rules, and approval boundaries before AI automation"
     }
   ],
   "dataFlows": [
