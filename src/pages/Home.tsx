@@ -40,7 +40,7 @@ const agentCapabilities = [
   'Operate around approvals so the human stays in control where judgment matters',
 ];
 
-const businessExamples = [
+const homepageNarrativeSections = [
   {
     title: 'Most contractors are not behind. They are buried in repeat work.',
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
@@ -108,12 +108,23 @@ const businessExamples = [
   },
 ];
 
-const outcomes = [
-  'Cleaner mornings and fewer late-night admin sessions',
-  'Faster movement from lead to quote to scheduled work to invoice',
-  'Better crew direction without the owner repeating the same explanation',
-  'More accurate numbers for pricing, staffing, purchasing, and growth',
-  'More freedom to think, sell, lead, and choose the jobs worth taking',
+const journeySections = homepageNarrativeSections;
+
+const repeatWorkOutcomes = [
+  'More time for high-value jobs and customer relationships',
+  'Faster turnaround from job completion to invoicing',
+  'Fewer quote, material, and coordination errors',
+  'Clearer visibility into what is actually happening',
+  'More capacity without proportionally more admin hours',
+];
+
+const proofPoints = [
+  'Turn job notes into invoices',
+  'Sort vendor quotes',
+  'Build daily crew briefs',
+  'Reconcile materials lists',
+  'Draft permit packets',
+  'Organize warranty claims',
 ];
 
 const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
