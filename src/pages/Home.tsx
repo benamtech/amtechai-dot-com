@@ -20,15 +20,6 @@ const learningLinks = [
   },
 ];
 
-const repeatDrag = [
-  'Job notes, photos, texts, and voice memos wait for the owner to turn them into action.',
-  'Quotes, invoices, and follow-up get delayed because the day is already full.',
-  'Crews ask the same questions because direction is scattered across calls and messages.',
-  'Customers want fast answers while the office work lives in too many places.',
-  'The business is growing, but too much growth still means more owner hours.',
-  'AI sounds useful, but the owner does not have time to become the software department.',
-];
-
 const agentCapabilities = [
   'Turn job notes into estimates, work orders, invoices, and follow-up drafts',
   'Read intake forms, emails, photos, PDFs, spreadsheets, and customer history',
@@ -136,9 +127,8 @@ export default function Home() {
         <div className="container-wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-end">
             <div>
-              <p className="mb-6 font-mono text-xs font-black uppercase tracking-[0.28em] text-red">For contractors and local operators</p>
               <h1 className="max-w-6xl text-[clamp(3.2rem,8.5vw,8.8rem)] font-black leading-[0.86] tracking-[-0.085em]">
-                Build the business that gives you room<span className="text-red">.</span>
+                Your next employee is an AI agent<span className="text-red">.</span>
               </h1>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
                 AMTECH builds practical AI systems for serious local businesses: contractors, hardware stores, restaurants, shops, service companies, and any operation where repeat computer work is stealing owner time.
@@ -166,22 +156,6 @@ export default function Home() {
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-white">Go to bootcamp path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
               </Link>
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b-4 border-black bg-[#f4f4f4] py-20 md:py-28">
-        <div className="container-wide grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
-          <div>
-            <p className="font-mono text-xs font-black uppercase tracking-[0.24em] text-red">What it feels like now</p>
-            <h2 className="mt-5 text-[clamp(2.35rem,5.6vw,5.4rem)] font-black leading-[0.9] tracking-[-0.07em]">Buried in work that should not need your highest skill.</h2>
-          </div>
-          <div className="grid gap-3 md:grid-cols-2">
-            {repeatDrag.map((item) => (
-              <div key={item} className="border-2 border-black bg-white p-5 text-sm font-black leading-6 tracking-[-0.02em]">
-                {item}
-              </div>
-            ))}
           </div>
         </div>
       </section>
