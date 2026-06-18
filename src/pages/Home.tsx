@@ -27,71 +27,71 @@ const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
   to: node.href,
 }));
 
-const funnelSections = [
+const homepageNarrativeSections = [
   {
-    title: 'Most contractors are still figuring this out — and that is normal.',
+    title: 'Most contractors are not behind. They are buried in repeat work.',
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'Most AI adoption is still exploratory. Serious operators are not behind; they are at the decision point where the next advantage gets built.',
-      'The businesses pulling ahead are not chasing every app. They are choosing the repeatable work that matters and shaping systems around how the operation already runs.',
-      'The move is from “AI sounds interesting” to “this is how it works inside the business.”',
+      'The business already has skill, customers, reputation, and demand. The pressure comes from all the small loops that still depend on the owner noticing, remembering, typing, checking, and following up.',
+      'A hardware store has vendor quotes, contractor accounts, inventory questions, and seasonal buying decisions. A restaurant has bookings, reviews, events, staff notes, ordering, and customer messages. A painting company has photos, colors, scopes, crew notes, change orders, invoices, and callbacks.',
+      'None of that work is glamorous. But when it has no system, it quietly decides how much freedom the business owner gets to keep.',
     ],
     related: { label: 'Compare DIY tools with governed systems', to: '/articles/amtech-vs-chatgpt-claude' },
   },
   {
-    title: 'The real shift is not more tools. It is removing the friction already felt every week.',
+    title: 'The win is a business that feels lighter while doing more.',
     image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80',
     alt: 'Organized tools and work documentation on a bench.',
     body: [
-      'Job notes become invoices. Vendor quotes get sorted. Daily crew briefs get written. Materials, permits, and warranty claims stop living in scattered folders and owner memory.',
-      'This work does not need your highest skill. It needs consistency, context, and attention — exactly where a designed workflow can carry the load.',
-      'When repeat work is handled reliably, crews get clearer direction, customers get faster answers, and the owner gets time back for growth.',
+      'Job notes become invoices. Vendor quotes get sorted. Daily crew briefs get written. Customer questions get drafted with the right context. Reviews, referrals, reminders, and follow-up stop waiting for a spare minute.',
+      'The owner still makes the important calls. The difference is that the routine computer work has a place to go, a standard to follow, and a clear point where human approval steps in.',
+      'That is how a normal local business starts to feel more organized, more responsive, and less dependent on late nights.',
     ],
     related: { label: 'Build a business brain first', to: '/articles/business-brain-free' },
   },
   {
-    title: 'What becomes possible when repeat work stops eating the day.',
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Professional job site with organized construction activity.',
-    body: [
-      'High-value jobs and customer relationships get more attention. Invoicing moves faster. Quote, material, and coordination errors are easier to catch before they cost money.',
-      'The business sees what is happening and can take on more work without adding the same proportion of admin hours.',
-      'Those are not abstract AI promises. They are what happens when weekly friction gets removed.',
-    ],
-    related: { label: 'Create an estimate with ChatGPT', to: '/articles/create-estimate-with-chatgpt' },
-  },
-  {
-    title: 'The data favors teams that move from experiments to workflow redesign.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
-    alt: 'Clean dashboard and operating data on a monitor.',
-    stats: ['95% use AI tools', '75% report productivity gains', 'Several hours freed weekly'],
-    body: [
-      'Most organizations experimenting with AI see productivity gains. The larger lift comes when repeatable workflows are redesigned around real data, approval points, and customer promises.',
-      'For contractors and local service businesses, the highest-leverage opportunities are documentation, quoting, coordination, and back-office cleanup.',
-      'The gap is no longer access to AI. The gap is who builds something that fits how the business runs.',
-    ],
-    related: { label: 'Turn sales data into owner decisions', to: '/articles/garden-center-spring-buy-plan-ai' },
-  },
-  {
-    title: 'Your business two years from now, if the systems start getting built today.',
+    title: 'Picture Monday morning in a business with real memory.',
     image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
     alt: 'Modern team workspace with planning materials and laptops.',
     body: [
-      'Picture the operation in 2028. Field notes become accurate invoices. Vendor quotes are compared. Crews start with crisp briefs. Materials, permits, and warranties stay tracked.',
-      'The owner is not buried in details that used to eat nights and weekends. The owner is reviewing real numbers, talking with customers, winning better jobs, and planning growth.',
-      'Competitors doing everything the old way work longer hours for similar results. The advantage belongs to businesses that treat AI as a practical system, not another app.',
+      'The day starts with the numbers already assembled: booked work, open estimates, aging invoices, margin warnings, materials that need attention, customers waiting on replies, and the next best follow-up.',
+      'Crews leave with clear direction. The office sees what changed. The owner can review the exceptions instead of hunting through texts, inboxes, photos, and spreadsheets to reconstruct the truth.',
+      'The business has not become less human. It has become easier to steer.',
     ],
     related: { label: 'Plan from real business memory', to: '/articles/business-brain-free' },
   },
   {
-    title: 'The practical difference between exploring AI and actually using it.',
+    title: 'The data favors businesses that turn experiments into workflow.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Clean dashboard and operating data on a monitor.',
+    stats: ['95% use AI tools', '75% report productivity gains', 'Several hours freed weekly'],
+    body: [
+      'Most organizations experimenting with AI see productivity gains. The larger lift comes when the repeatable work is redesigned around real data, approval points, and customer promises.',
+      'For contractors and local service businesses, the highest-leverage opportunities are usually documentation, quoting, coordination, follow-up, reporting, and back-office cleanup.',
+      'The gap is no longer access to AI. The gap is having a system that fits how the business actually runs.',
+    ],
+    related: { label: 'Turn sales data into owner decisions', to: '/articles/garden-center-spring-buy-plan-ai' },
+  },
+  {
+    title: 'By 2028, the advantage belongs to the business owner with room to think.',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Professional job site with organized construction activity.',
+    body: [
+      'The owner is looking at real numbers instead of guessing. Better jobs get attention sooner. Follow-up is faster. Crew direction is cleaner. Admin does not swallow every quiet hour.',
+      'That extra room changes what the business can choose: better customers, better pricing, better hiring, better planning, and more of the work worth being known for.',
+      'Competitors doing everything the old way may still work hard. The difference is that hard work without a system keeps charging interest.',
+    ],
+    related: { label: 'Create an estimate with ChatGPT', to: '/articles/create-estimate-with-chatgpt' },
+  },
+  {
+    title: 'AMTECH turns useful AI into working business infrastructure.',
     image: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=80',
     alt: 'Hands working with paperwork and professional tools.',
     body: [
-      'Generic chat tools can help with estimates and notes. But when work is repeatable, tied to money, and visible to customers, one-off prompts can create as much cleanup as they save.',
-      'Reliable results come from systems designed around workflow steps, source data, approval points, exceptions, and the human judgment that still matters.',
-      'That is the difference between trying AI and having something that works inside the operation.',
+      'Generic chat tools can help with estimates and notes. But when work touches money, customers, crews, inventory, schedules, or reputation, one-off prompts are not enough.',
+      'Reliable results come from source data, workflow steps, approval points, exception handling, and dashboards built around the way the business already works.',
+      'AMTECH builds that layer so AI becomes part of the workday instead of another tab the owner has to remember to use.',
     ],
     related: { label: 'See where custom systems beat chat tools', to: '/articles/amtech-vs-chatgpt-claude' },
   },
@@ -197,7 +197,7 @@ export default function Home() {
       </section>
 
       <section className="bg-[#f4f4f4]">
-        {funnelSections.map((section, index) => (
+        {homepageNarrativeSections.map((section, index) => (
           <article key={section.title} className={`border-b-4 border-black ${index % 2 === 1 ? 'bg-black text-white' : 'bg-[#f4f4f4] text-black'}`}>
             <div className={`container-wide grid gap-0 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
               <div className="relative aspect-[4/5] min-h-[520px] overflow-hidden border-x-4 border-black lg:aspect-auto lg:min-h-[620px]">
