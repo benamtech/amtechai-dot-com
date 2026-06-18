@@ -37,11 +37,10 @@ function BlockRenderer({ block }: { block: ArticleContentBlock }) {
     };
 
     return (
-      <section id={block.id} className="overflow-hidden rounded-[1.5rem] border border-black bg-[#101010] text-white shadow-2xl shadow-black/15 sm:rounded-[2rem]">
-        <div className="flex flex-col gap-4 border-b border-white/10 bg-white/[0.04] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
+      <section id={block.id} className="overflow-hidden rounded-[1.5rem] border border-red-700 bg-red text-white shadow-2xl shadow-red-glow-strong sm:rounded-[2rem]">
+        <div className="flex flex-col gap-4 border-b border-white/20 bg-white/[0.08] p-4 sm:flex-row sm:items-center sm:justify-between sm:p-5">
           <div>
-            <p className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-red">Ready-to-use prompt</p>
-            <h2 className="mt-2 font-display text-2xl font-black tracking-tight text-white sm:text-3xl">{block.title}</h2>
+            <h2 className="font-display text-2xl font-black tracking-tight text-white sm:text-3xl">{block.title}</h2>
           </div>
           <button
             type="button"
@@ -53,7 +52,7 @@ function BlockRenderer({ block }: { block: ArticleContentBlock }) {
         </div>
         <div className="p-4 sm:p-5">
           {block.helper && <p className="mb-4 max-w-2xl text-sm leading-6 text-white/58">{block.helper}</p>}
-          <pre className="max-h-[520px] overflow-auto whitespace-pre-wrap break-words rounded-2xl border border-white/10 bg-black p-4 font-mono text-[0.82rem] leading-6 text-white/82 sm:p-5 sm:text-sm">
+          <pre className="max-h-[520px] overflow-auto whitespace-pre-wrap break-words rounded-2xl border border-white/30 bg-white p-4 font-mono text-[0.82rem] leading-6 text-black sm:p-5 sm:text-sm">
             <code>{block.body}</code>
           </pre>
         </div>
