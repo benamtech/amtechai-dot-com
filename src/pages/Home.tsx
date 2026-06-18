@@ -64,7 +64,7 @@ export default function Home() {
                 Learn AI. Use it to win<span className="text-red">.</span>
               </h1>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
-                AMTECH helps business owners understand practical AI, then build the systems that save time, capture leads, and tighten operations.
+                AMTECH helps business owners understand AI and customize it to work within their business.
               </p>
               <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                 <Link to="/articles/amtech-vs-chatgpt-claude" className="inline-flex items-center justify-center gap-3 bg-black px-7 py-4 text-sm font-bold text-white transition hover:bg-black/85">
@@ -84,7 +84,7 @@ export default function Home() {
               </Link>
               <Link to="/sales-bootcamp" className="group border-2 border-black bg-black p-5 text-white transition hover:bg-[#151515]">
                 <GraduationCap className="mb-8 h-6 w-6 text-red" />
-                <h2 className="text-2xl font-black tracking-[-0.04em]">I want to enter AI.</h2>
+                <h2 className="text-2xl font-black tracking-[-0.04em]">I work in sales.</h2>
                 <p className="mt-3 text-sm leading-6 text-white/62">Learn the basics, understand what businesses buy, and train toward selling AI services.</p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-white">Go to bootcamp path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
               </Link>
@@ -117,7 +117,6 @@ export default function Home() {
         <div className="container-wide">
           <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
             <h2 className="max-w-3xl text-[clamp(2.3rem,5.4vw,5rem)] font-black leading-[0.92] tracking-[-0.065em]">Start with the basics. Follow the problem.</h2>
-            <p className="max-w-2xl text-lg leading-8 text-black/62">The articles are the front door. Owners learn what is possible. Future AI sellers learn what real buyers actually need.</p>
           </div>
           <div className="mt-12 grid gap-4 lg:grid-cols-3">
             {articleLinks.map((article) => (
@@ -138,7 +137,7 @@ export default function Home() {
         <div className="container-wide grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
             <h2 className="text-[clamp(2.2rem,5vw,4.8rem)] font-black leading-[0.94] tracking-[-0.06em]">When the work repeats, AI can help.</h2>
-            <p className="mt-7 max-w-xl text-lg leading-8 text-black/62">AMTECH focuses on everyday operational pressure: calls, estimates, follow-up, admin, payments, and the handoffs where revenue leaks.</p>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-black/62">AMTECH focuses on everyday operational pressure: calls, estimates, follow-up, admin, and even payments.</p>
           </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {proofPoints.map((point) => (
