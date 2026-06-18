@@ -4,7 +4,7 @@ import { ArticleDefinition } from '../../lib/articles';
 
 const article: ArticleDefinition = {
   slug: 'amtech-vs-chatgpt-claude',
-  title: "What's the Difference Between Using AMTECH. and Using Something Like ChatGPT or Claude?",
+  title: "AMTECH vs. ChatGPT or Claude: What’s the Difference?",
   description: 'A practical comparison for small-business owners deciding whether they need a general AI chat tool or a custom AI employee built around their business.',
   dek: 'ChatGPT and Claude are powerful general tools. AMTECH. builds a private AI employee that knows your business, works across your tools, produces business artifacts, and pauses for approval when judgment matters.',
   datePublished: '2026-06-17',
@@ -12,7 +12,7 @@ const article: ArticleDefinition = {
   authorName: 'AMTECH AI',
   readingTime: '10 min read',
   category: 'comparison',
-  audience: '$500K-$25M business owners comparing DIY AI tools with a custom AI employee',
+  audience: 'Business owners comparing DIY AI tools with a custom AI employee',
   primaryEntity: { name: 'AI employee', type: 'service' },
   entities: [
     { name: 'custom AI agents', type: 'service' },
@@ -26,9 +26,9 @@ const article: ArticleDefinition = {
   ],
   internalLinks: [
     {
-      label: 'Build an AI agent for your contracting business — for free',
-      href: '/articles/build-ai-agent-for-your-contracting-business-for-free',
-      reason: 'A future practical guide for owners who want to understand the DIY path before buying a custom system.',
+      label: 'Create an estimate with ChatGPT',
+      href: '/articles/create-estimate-with-chatgpt',
+      reason: 'A practical guide for owners who want to understand the DIY path before buying a custom system.',
     },
     {
       label: 'Schedule a call',

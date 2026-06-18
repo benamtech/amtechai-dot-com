@@ -72,6 +72,15 @@
       "purpose": "Outbound cost calculator"
     },
     {
+      "path": "/articles",
+      "page": "src/pages/Articles.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Central article, glossary, knowledge-graph, ICP, and sitemap hub for the AMTECH SEO megafunnel"
+    },
+    {
       "path": "/articles/write-pressure-washing-estimate-with-ai",
       "page": "src/pages/AIEstimateArticles.tsx",
       "components": [
