@@ -76,9 +76,18 @@
       "page": "src/pages/Articles.tsx",
       "components": [
         "src/components/articles",
-        "src/lib/articles.ts"
+        "src/lib/articles.ts",
+        "src/lib/articleKnowledgeGraph.ts"
       ],
-      "purpose": "Central AI learning library with articles, glossary concepts, ICP paths, category shelves, and sitemap links"
+      "purpose": "Central AI learning library with featured articles, condensed knowledge-graph topic shelves, glossary concepts, ICP paths, category shelves, and sitemap links"
+    },
+    {
+      "path": "/articles/all",
+      "page": "src/pages/AllArticles.tsx",
+      "components": [
+        "src/lib/articleKnowledgeGraph.ts"
+      ],
+      "purpose": "Mobile-first index of all published articles and planned operational knowledge-graph nodes grouped by topic and node type"
     },
     {
       "path": "/articles/write-pressure-washing-estimate-with-ai",
