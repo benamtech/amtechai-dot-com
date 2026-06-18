@@ -61,7 +61,7 @@ export default function Home() {
           <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-end">
             <div>
               <h1 className="max-w-5xl text-[clamp(3.35rem,9vw,8.4rem)] font-black leading-[0.88] tracking-[-0.08em]">
-                Learn AI. Use it to win<span className="text-red">.</span>
+                Learn AI. <br/> Use it to win<span className="text-red">.</span>
               </h1>
               <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
                 AMTECH helps business owners understand AI and customize it to work within their business.
