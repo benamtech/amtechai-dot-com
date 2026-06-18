@@ -12,6 +12,10 @@ const toneClasses = {
   success: 'border-emerald-300/60 bg-emerald-50 text-emerald-950',
 };
 
+function formatArticleDate(date: string) {
+  return new Intl.DateTimeFormat('en', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' }).format(new Date(date));
+}
+
 function ArticleJsonLd({ article }: ArticlePageProps) {
   return (
     <script
@@ -141,14 +145,13 @@ export default function ArticlePage({ article }: ArticlePageProps) {
       <ArticleJsonLd article={article} />
       <header className="border-b border-black/10 px-4 py-16 sm:px-6 md:px-10 md:py-28">
         <div className="mx-auto max-w-5xl">
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-[0.68rem] font-bold uppercase tracking-[0.16em] text-black/45 sm:gap-3 sm:text-xs sm:tracking-[0.2em]">
-            <span>{article.category.replace('-', ' ')}</span>
-            <span>•</span>
-            <span>{article.readingTime}</span>
-            <span>•</span>
-            <time dateTime={article.dateModified}>Updated {article.dateModified}</time>
-          </div>
-          <h1 className="mt-6 max-w-4xl break-words font-display text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-7xl">{article.title}</h1>
+          <h1 className="max-w-4xl break-words font-display text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-7xl">{article.title}</h1>
+          <p className="mt-6 max-w-3xl text-lg leading-relaxed text-black/55 sm:text-xl md:text-2xl">
+            Published <time dateTime={article.datePublished}>{formatArticleDate(article.datePublished)}</time> by{' '}
+            <Link to="/articles" className="underline decoration-black/20 underline-offset-4 transition hover:decoration-black">
+              AMTECH staff
+            </Link>
+          </p>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-black/65 sm:text-xl md:text-2xl">{article.dek}</p>
           <p className="mt-8 break-words text-xs font-bold uppercase leading-relaxed tracking-[0.16em] text-black/35 sm:text-sm sm:tracking-[0.18em]">For {article.audience}</p>
         </div>
