@@ -33,7 +33,7 @@ const funnelSections = [
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'Most AI adoption is still exploratory. Serious operators are not behind; they are at the decision point where the next advantage gets built.',
+      'Most AI adoption is still exploratory. Serious business owners are not behind; they are at the decision point where the next advantage gets built.',
       'The businesses pulling ahead are not chasing every app. They are choosing the repeatable work that matters and shaping systems around how the operation already runs.',
       'The move is from “AI sounds interesting” to “this is how it works inside the business.”',
     ],
@@ -97,6 +97,13 @@ const funnelSections = [
   },
 ];
 
+
+const businessExamples: Array<{
+  business: string;
+  before: string;
+  after: string;
+}> = [];
+
 const repeatWorkOutcomes = [
   'More time for high-value jobs and customer relationships',
   'Faster turnaround from job completion to invoicing',
@@ -117,7 +124,7 @@ const proofPoints = [
 
 export default function Home() {
   return (
-    <main className="bg-[#f4f4f4] text-black">
+    <main className="bg-[#f4f4f4] text-black" data-business-examples-count={businessExamples.length}>
       <section className="relative overflow-hidden border-b-4 border-black bg-white pt-36 pb-16 md:pt-44 md:pb-24">
         <div className="container-wide">
           <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-end">
@@ -132,7 +139,7 @@ export default function Home() {
             <div className="grid gap-3">
               <Link to="/articles" className="group border-2 border-black bg-[#f4f4f4] p-5 transition hover:bg-white">
                 <Briefcase className="mb-8 h-6 w-6 text-red" />
-                <h2 className="text-2xl font-black tracking-[-0.04em]">I run a business.</h2>
+                <h2 className="text-2xl font-black tracking-[-0.04em]">I'm the owner.</h2>
                 <p className="mt-3 text-sm leading-6 text-black/62">Learn what AI can do, then work with AMTECH to map and build the right system.</p>
                 <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-black">Go to business path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
               </Link>
