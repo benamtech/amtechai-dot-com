@@ -28,10 +28,10 @@ export default function Navbar() {
   }, [location.pathname]);
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50">
+    <nav className="fixed top-0 left-0 z-50 w-full overflow-x-clip">
       <div
-        className={`relative mx-auto w-[75vw] overflow-hidden border-2 border-t-0 border-black bg-[#f4f4f4] shadow-[8px_8px_0_#000] transition-all duration-300 ${
-          isScrolled ? 'bg-white' : 'bg-[#f4f4f4]'
+        className={`relative left-1/2 w-[75dvw] max-w-[calc(100vw-16px)] -translate-x-1/2 overflow-hidden border-x-2 border-b-2 border-black backdrop-blur-2xl transition-all duration-300 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.82),transparent_30%),radial-gradient(circle_at_82%_100%,rgba(225,29,42,0.1),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.9),rgba(255,255,255,0.66),rgba(255,255,255,0.84))] before:opacity-95 ${
+          isScrolled ? 'bg-white/86' : 'bg-white/72'
         }`}
       >
         <div className="relative z-10 flex h-14 items-center justify-between px-4 sm:px-6 lg:h-16 lg:px-8">
@@ -83,7 +83,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className="relative mx-auto w-[75vw] overflow-hidden border-2 border-t-0 border-black bg-white shadow-[8px_8px_0_#000] md:hidden"
+            className="relative left-1/2 w-[75dvw] max-w-[calc(100vw-16px)] -translate-x-1/2 overflow-hidden border-x-2 border-b-2 border-black bg-white/86 backdrop-blur-2xl md:hidden"
           >
             <div className="relative z-10 flex flex-col gap-1 px-6 py-6">
               {navLinks.map((link) => (
