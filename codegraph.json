@@ -238,6 +238,15 @@
       "purpose": "Knowledge-graph local SEO strategy article with AI prompts, page template, citations, and publishing workflow"
     },
     {
+      "path": "/articles/garden-center-spring-buy-plan-ai",
+      "page": "src/pages/articles/SalisburyRetailSalesDataAI.tsx",
+      "dependsOn": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Local operations article showing independent retailers and service businesses how to use three seasons of sales data for seasonal buy, staffing, promotion, and reorder decisions"
+    },
+    {
       "path": "/articles/business-brain-free",
       "page": "src/pages/articles/BusinessBrainFree.tsx",
       "components": [
