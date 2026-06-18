@@ -42,65 +42,68 @@ const agentCapabilities = [
 
 const businessExamples = [
   {
-    business: 'Painting contractor',
-    before: 'The owner carries estimate details, change orders, color notes, and follow-up in memory.',
-    after: 'AMTECH turns photos and notes into scopes, crew briefs, material checks, customer updates, and review requests.',
-  },
-  {
-    business: 'Hardware store',
-    before: 'Inventory questions, seasonal demand, contractor accounts, and vendor information live in disconnected systems.',
-    after: 'A practical agent helps surface buying decisions, quote requests, product answers, reorders, and local customer follow-up.',
-  },
-  {
-    business: 'Busy restaurant',
-    before: 'Reservations, events, reviews, staff notes, ordering, and customer messages compete for attention every day.',
-    after: 'The system organizes demand, drafts responses, tracks recurring issues, supports staff handoff, and protects the owner’s time.',
-  },
-];
-
-const journeySections = [
-  {
-    eyebrow: 'Pace the current reality',
-    title: 'You are not behind. You are carrying too many repeat loops by hand.',
-    image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Contractor reviewing plans and job paperwork.',
+    title: 'Most contractors are not behind. They are buried in repeat work.',
+    image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'Most serious local businesses already have the skill, reputation, crews, customers, and demand. The problem is that too many ordinary processes still depend on the owner noticing, remembering, deciding, typing, chasing, and checking.',
-      'That is not a character flaw. It is an operating-system problem. When repeat work has no system, it keeps pulling your attention away from the decisions only you can make.',
-      'AMTECH starts there: with the work that repeats every week and the friction you already feel.',
+      'The business already has skill, customers, reputation, and demand. The pressure comes from all the small loops that still depend on the owner noticing, remembering, typing, checking, and following up.',
+      'A hardware store has vendor quotes, contractor accounts, inventory questions, and seasonal buying decisions. A restaurant has bookings, reviews, events, staff notes, ordering, and customer messages. A painting company has photos, colors, scopes, crew notes, change orders, invoices, and callbacks.',
+      'None of that work is glamorous. But when it has no system, it quietly decides how much freedom the business owner gets to keep.',
+    ],
+    related: { label: 'Compare DIY tools with governed systems', to: '/articles/amtech-vs-chatgpt-claude' },
+  },
+  {
+    title: 'The win is a business that feels lighter while doing more.',
+    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Organized tools and work documentation on a bench.',
+    body: [
+      'Job notes become invoices. Vendor quotes get sorted. Daily crew briefs get written. Customer questions get drafted with the right context. Reviews, referrals, reminders, and follow-up stop waiting for a spare minute.',
+      'The owner still makes the important calls. The difference is that the routine computer work has a place to go, a standard to follow, and a clear point where human approval steps in.',
+      'That is how a normal local business starts to feel more organized, more responsive, and less dependent on late nights.',
+    ],
+    related: { label: 'Build a business brain first', to: '/articles/business-brain-free' },
+  },
+  {
+    title: 'Picture Monday morning in a business with real memory.',
+    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Modern team workspace with planning materials and laptops.',
+    body: [
+      'The day starts with the numbers already assembled: booked work, open estimates, aging invoices, margin warnings, materials that need attention, customers waiting on replies, and the next best follow-up.',
+      'Crews leave with clear direction. The office sees what changed. The owner can review the exceptions instead of hunting through texts, inboxes, photos, and spreadsheets to reconstruct the truth.',
+      'The business has not become less human. It has become easier to steer.',
+    ],
+    related: { label: 'Plan from real business memory', to: '/articles/business-brain-free' },
+  },
+  {
+    title: 'The data favors businesses that turn experiments into workflow.',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Clean dashboard and operating data on a monitor.',
+    stats: ['95% use AI tools', '75% report productivity gains', 'Several hours freed weekly'],
+    body: [
+      'Most organizations experimenting with AI see productivity gains. The larger lift comes when the repeatable work is redesigned around real data, approval points, and customer promises.',
+      'For contractors and local service businesses, the highest-leverage opportunities are usually documentation, quoting, coordination, follow-up, reporting, and back-office cleanup.',
+      'The gap is no longer access to AI. The gap is having a system that fits how the business actually runs.',
     ],
   },
   {
-    eyebrow: 'Future pace the owner',
-    title: 'Picture your 2028 operating day.',
-    image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Business owner reviewing numbers in a modern planning workspace.',
+    title: 'By 2028, the advantage belongs to the business owner with room to think.',
+    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Professional job site with organized construction activity.',
     body: [
-      'It is Monday morning in 2028. You are not digging through texts before the crews leave. The briefs are ready. Open items are surfaced. The jobs that need your judgment are clearly marked.',
-      'You review real numbers: booked work, outstanding estimates, margin warnings, repeat customers, crew capacity, aging invoices, and the next best opportunities. You can feel the difference because the business is quieter even while it is doing more.',
-      'You are winning better jobs, protecting your evenings, and operating from visibility instead of pressure.',
+      'The owner is looking at real numbers instead of guessing. Better jobs get attention sooner. Follow-up is faster. Crew direction is cleaner. Admin does not swallow every quiet hour.',
+      'That extra room changes what the business can choose: better customers, better pricing, better hiring, better planning, and more of the work worth being known for.',
+      'Competitors doing everything the old way may still work hard. The difference is that hard work without a system keeps charging interest.',
     ],
+    related: { label: 'Create an estimate with ChatGPT', to: '/articles/create-estimate-with-chatgpt' },
   },
   {
-    eyebrow: 'Activate the success mechanism',
-    title: 'Remove the automatic drag so your best judgment can aim at growth.',
-    image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Organized workbench with tools and project documentation.',
+    title: 'AMTECH turns useful AI into working business infrastructure.',
+    image: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=80',
+    alt: 'Hands working with paperwork and professional tools.',
     body: [
-      'A business owner’s success mechanism works best when the target is clear and the clutter is reduced. If the goal is better jobs, stronger margins, faster follow-up, and calmer execution, the repeat loops need to stop consuming the owner’s attention.',
-      'Hermes agents and custom AMTECH agents are built for that layer. They handle the practical, repeatable, computer-based work around your real operation so your energy can go back to sales, leadership, hiring, customer relationships, and high-value decisions.',
-      'The point is not to become an AI expert. The point is to become the operator whose business has practical systems.',
-    ],
-  },
-  {
-    eyebrow: 'Reinforce the new identity',
-    title: 'The serious operator does not wait to “figure AI out.” They build the next system.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1400&q=80',
-    alt: 'Clean operating dashboard with business data.',
-    body: [
-      'There is a version of your business where the website explains clearly, the intake is organized, the follow-up happens, the office has memory, and the owner sees the truth quickly enough to act.',
-      'That version is not magic. It is built from ordinary steps: source data, workflow rules, approval points, dashboards, automations, and agents that fit how your company already works.',
-      'AMTECH helps you step into that identity now: practical, serious, calm, and ahead of the next operating standard.',
+      'Generic chat tools can help with estimates and notes. But when work touches money, customers, crews, inventory, schedules, or reputation, one-off prompts are not enough.',
+      'Reliable results come from source data, workflow steps, approval points, exception handling, and dashboards built around the way the business already works.',
+      'AMTECH builds that layer so AI becomes part of the workday instead of another tab the owner has to remember to use.',
     ],
   },
 ];
