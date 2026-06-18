@@ -9,20 +9,13 @@ const navLinks = [
   { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
 ];
 
-const darkPages = ['/wholesale', '/wholesale-2', '/our-work'];
-
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const location = useLocation();
 
-  const isDarkPage = darkPages.includes(location.pathname);
-  const mobileNavTextClass = 'text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9),0_0_14px_rgba(0,0,0,0.62)] drop-shadow-[0_1px_10px_rgba(255,255,255,0.18)]';
-  const desktopNavTextClass = 'md:text-black md:[text-shadow:none] md:drop-shadow-none';
-  const activeNavTextClass = `${desktopNavTextClass} opacity-100`;
-  const mutedNavTextClass = `${desktopNavTextClass} opacity-75 hover:opacity-100`;
-  const mobileActiveNavTextClass = 'text-black opacity-100';
-  const mobileMutedNavTextClass = 'text-black/70 hover:text-black';
+  const activeNavTextClass = 'text-black opacity-100';
+  const mutedNavTextClass = 'text-black/70 hover:text-black';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -37,22 +30,16 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(225,29,42,0.1),rgba(255,255,255,0.06))] before:opacity-80 ${
-          isDarkPage
-            ? isScrolled
-              ? 'bg-black/72 border-white/[0.12] md:bg-white md:border-white/70'
-              : 'bg-black/42 border-white/[0.16] md:bg-white/[0.84] md:border-white/60'
-            : isScrolled
-              ? 'bg-white md:bg-white border-white/70'
-              : 'bg-white/[0.84] border-white/60'
+        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border border-white/70 shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.72),transparent_30%),radial-gradient(circle_at_82%_100%,rgba(225,29,42,0.1),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.92),rgba(255,255,255,0.72),rgba(255,255,255,0.86))] before:opacity-95 ${
+          isScrolled ? 'bg-white/92' : 'bg-white/84'
         }`}
       >
         <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
-          <Link to="/" className={`inline-flex items-baseline transition-opacity hover:opacity-80 ${mobileNavTextClass} ${desktopNavTextClass}`}>
+          <Link to="/" className="inline-flex items-baseline text-black transition-opacity hover:opacity-80">
             <span className="font-display text-base font-black tracking-[0.06em] lg:text-lg">
               AMTECH
             </span>
-            <span className="text-base lg:text-lg font-black text-red md:[text-shadow:none] md:drop-shadow-none">.</span>
+            <span className="text-base font-black text-red lg:text-lg">.</span>
           </Link>
 
           <div className="hidden items-center gap-8 md:flex">
@@ -72,11 +59,7 @@ export default function Navbar() {
           <div className="hidden items-center md:flex">
             <Link
               to="/schedule-demo"
-              className={`inline-flex items-center gap-2 px-5 py-2 text-[13px] font-semibold rounded-none transition-all duration-300 active:scale-[0.98] ${
-                isDarkPage
-                  ? 'bg-white text-black hover:bg-white/90 md:bg-black md:text-white md:hover:bg-black/80'
-                  : 'bg-black text-white hover:bg-black/80'
-              }`}
+              className="inline-flex items-center gap-2 rounded-none bg-black px-5 py-2 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-black/80 active:scale-[0.98]"
             >
               Book a Call
               <ArrowRight size={14} />
@@ -85,7 +68,7 @@ export default function Navbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className={`flex h-10 w-10 items-center justify-center transition-opacity hover:opacity-80 md:hidden ${mobileNavTextClass}`}
+            className="flex h-10 w-10 items-center justify-center text-black transition-opacity hover:opacity-80 md:hidden"
             aria-label="Toggle menu"
           >
             {isMobileOpen ? <X size={22} /> : <Menu size={22} />}
@@ -108,7 +91,7 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
-                    location.pathname === link.to ? mobileActiveNavTextClass : mobileMutedNavTextClass
+                    location.pathname === link.to ? activeNavTextClass : mutedNavTextClass
                   }`}
                 >
                   {link.label}

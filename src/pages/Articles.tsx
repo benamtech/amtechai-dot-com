@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import { articleTopicGroups, getNodesByIds } from '../lib/articleKnowledgeGraph';
-import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Search, Sparkles, Tags, Users } from 'lucide-react';
+import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Sparkles, Tags, Users } from 'lucide-react';
 
 const articles = [
   {
@@ -181,27 +181,20 @@ export default function Articles() {
       <section className="relative overflow-hidden border-b-4 border-black bg-white pt-36 pb-16 md:pt-44 md:pb-24">
         <div className="pointer-events-none absolute inset-0 opacity-70 [background:radial-gradient(circle_at_70%_20%,rgba(225,29,42,0.16),transparent_28%),linear-gradient(90deg,rgba(0,0,0,0.035)_1px,transparent_1px),linear-gradient(rgba(0,0,0,0.035)_1px,transparent_1px)] [background-size:auto,44px_44px,44px_44px]" />
         <div className="container-wide relative">
-          <div className="grid gap-12 lg:grid-cols-[1fr_410px] lg:items-end">
-            <div>
-              <h1 className="max-w-5xl text-[clamp(3.25rem,9vw,8.4rem)] font-black leading-[0.88] tracking-[-0.08em]">
-                AI learning library<span className="text-red">.</span>
-              </h1>
-              <p className="mt-8 max-w-3xl text-lg leading-8 text-black/68 md:text-xl">
-                Practical articles, prompts, definitions, and implementation paths for business owners learning where AI actually fits.
-              </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link to="/articles/amtech-vs-chatgpt-claude" className="inline-flex items-center justify-center gap-3 bg-black px-7 py-4 text-sm font-bold text-white transition hover:bg-black/85">
-                  Start with AI basics <ArrowRight size={16} />
-                </Link>
-                <Link to="/articles/all" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-bold text-white transition hover:bg-red-bright">
-                  Browse all articles <ArrowRight size={16} />
-                </Link>
-              </div>
-            </div>
-            <div className="border-2 border-black bg-black p-5 text-white shadow-2xl shadow-red/10">
-              <Search className="mb-10 h-7 w-7 text-red" />
-              <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Find the useful next thing.</h2>
-              <p className="mt-5 text-sm leading-6 text-white/62">Browse by topic, role, entity, or recency. The goal is simple: learn enough to make a better operating decision.</p>
+          <div className="max-w-5xl">
+            <h1 className="text-[clamp(3.25rem,9vw,8.4rem)] font-black leading-[0.88] tracking-[-0.08em]">
+              AI learning library<span className="text-red">.</span>
+            </h1>
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-black/68 md:text-xl">
+              Practical articles, prompts, definitions, and implementation paths for business owners learning where AI actually fits.
+            </p>
+            <div className="mt-10 flex flex-col gap-4 sm:flex-row">
+              <Link to="/articles/amtech-vs-chatgpt-claude" className="inline-flex items-center justify-center gap-3 bg-black px-7 py-4 text-sm font-bold text-white transition hover:bg-black/85">
+                Start with AI basics <ArrowRight size={16} />
+              </Link>
+              <Link to="/articles/all" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-bold text-white transition hover:bg-red-bright">
+                Browse all articles <ArrowRight size={16} />
+              </Link>
             </div>
           </div>
         </div>
