@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Briefcase, CheckCircle2, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, Briefcase, CheckCircle2, GraduationCap, Sparkles } from 'lucide-react';
 import { getNodesByIds } from '../lib/articleKnowledgeGraph';
 
 const learningLinks = [
@@ -123,15 +123,6 @@ const repeatWorkOutcomes = [
   'More capacity without proportionally more admin hours',
 ];
 
-const proofPoints = [
-  'Turn job notes into invoices',
-  'Sort vendor quotes',
-  'Build daily crew briefs',
-  'Reconcile materials lists',
-  'Draft permit packets',
-  'Organize warranty claims',
-];
-
 const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
   title: node.title,
   description: node.description,
@@ -196,7 +187,7 @@ export default function Home() {
       </section>
 
       <section className="bg-[#f4f4f4]">
-        {journeySections.map((section, index) => (
+        {homepageNarrativeSections.map((section, index) => (
           <article key={section.title} className={`border-b-4 border-black ${index % 2 === 1 ? 'bg-black text-white' : 'bg-[#f4f4f4] text-black'}`}>
             <div className={`container-wide grid lg:grid-cols-2 ${index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
               <div className="relative aspect-[4/5] min-h-[500px] overflow-hidden border-x-4 border-black lg:aspect-auto lg:min-h-[650px]">
@@ -205,8 +196,16 @@ export default function Home() {
               </div>
               <div className="flex min-h-[560px] flex-col justify-center py-14 lg:px-14 lg:py-20">
                 <div className="border-2 border-current bg-white/5 p-7 md:p-10">
-                  <p className="mb-5 font-mono text-xs font-black uppercase tracking-[0.24em] text-red">{section.eyebrow}</p>
                   <h3 className="text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{section.title}</h3>
+                  {'stats' in section && section.stats ? (
+                    <div className="mt-8 grid gap-3 sm:grid-cols-3">
+                      {section.stats.map((stat) => (
+                        <div key={stat} className="border border-current px-4 py-3 font-mono text-xs font-black uppercase tracking-[0.14em] text-red">
+                          {stat}
+                        </div>
+                      ))}
+                    </div>
+                  ) : null}
                   <div className="mt-8 space-y-5">
                     {section.body.map((paragraph) => (
                       <p key={paragraph} className={`text-base leading-8 md:text-lg ${index % 2 === 1 ? 'text-white/72' : 'text-black/66'}`}>{paragraph}</p>
@@ -265,7 +264,7 @@ export default function Home() {
             <p className="mt-6 text-lg leading-8 text-black/64">Not hype. More room. Better attention. Cleaner decisions. A business that can absorb opportunity without automatically turning it into chaos.</p>
           </div>
           <div className="grid gap-4">
-            {outcomes.map((outcome) => (
+            {repeatWorkOutcomes.map((outcome) => (
               <div key={outcome} className="border-2 border-black bg-white p-6 text-xl font-black leading-tight tracking-[-0.04em]">
                 {outcome}
               </div>
