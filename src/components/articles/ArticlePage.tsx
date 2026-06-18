@@ -143,7 +143,7 @@ export default function ArticlePage({ article }: ArticlePageProps) {
   return (
     <article className="bg-[#f6f3ee] text-black">
       <ArticleJsonLd article={article} />
-      <header className="border-b border-black/10 px-4 py-16 sm:px-6 md:px-10 md:py-28">
+      <header className="border-b border-black/10 px-4 pb-16 pt-32 sm:px-6 md:px-10 md:pb-28 md:pt-56">
         <div className="mx-auto max-w-5xl">
           <h1 className="max-w-4xl break-words font-display text-4xl font-black leading-[0.95] tracking-tight sm:text-5xl md:text-7xl">{article.title}</h1>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-black/55 sm:text-xl md:text-2xl">

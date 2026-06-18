@@ -9,7 +9,6 @@ const navLinks = [
   { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
 ];
 
-
 const darkPages = ['/wholesale', '/wholesale-2', '/our-work'];
 
 export default function Navbar() {

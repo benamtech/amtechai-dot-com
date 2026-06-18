@@ -22,8 +22,8 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | `/contact` | `src/pages/Contact.tsx` | page-local form | Contact capture into `contact_submissions`. |
 | `/our-work` | `src/pages/OurWork.tsx` | `src/components/our-work/*`, layout | Portfolio/capability narrative. |
 | `/cost-calculator` | `src/pages/CostCalculator.tsx` | `src/components/cost-calculator/*`, layout | Interactive outbound cost calculator. |
-| `/articles` | `src/pages/Articles.tsx` | `src/components/articles/*`, layout | Central article, glossary, knowledge-graph, ICP, and sitemap hub for the AMTECH SEO megafunnel. |
-| `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Knowledge graph articles for AI-assisted contractor estimating prompts, AI tool comparison, and workflows. |
+| `/articles` | `src/pages/Articles.tsx` | `src/components/articles/*`, layout | Central AI learning library with articles, glossary concepts, ICP paths, category shelves, and sitemap links. |
+| `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Educational articles for AI-assisted contractor estimating prompts, AI tool comparison, and workflows. |
 | `/schedule-demo`, `/shedule-demo` | `src/pages/ScheduleDemo.tsx` | `src/components/schedule/*` | Demo booking flow into `demo_bookings`; invokes booking email function. |
 | `/schedule-call` | `src/pages/ScheduleCall.tsx` | page-local | Sales/operator call CTA flow. |
 | `/apply` | `src/pages/Apply.tsx` | `src/components/apply/*` | Operator application into `operator_applications`; invokes application email function. |
