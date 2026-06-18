@@ -218,6 +218,15 @@
       "page": "src/pages/SalesBootcamp.tsx",
       "components": [],
       "purpose": "Campaign-specific sales bootcamp landing page"
+    },
+    {
+      "path": "/articles/build-local-seo-plan-with-chatgpt",
+      "page": "src/pages/articles/LocalSeoKnowledgeGraphPlan.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts"
+      ],
+      "purpose": "Knowledge-graph local SEO strategy article with AI prompts, page template, citations, and publishing workflow"
     }
   ],
   "dataFlows": [
