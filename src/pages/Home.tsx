@@ -33,7 +33,7 @@ const funnelSections = [
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'Most AI adoption is still exploratory. Serious operators are not behind; they are at the decision point where the next advantage gets built.',
+      'Most AI adoption is still exploratory. Serious business owners are not behind; they are at the decision point where the next advantage gets built.',
       'The businesses pulling ahead are not chasing every app. They are choosing the repeatable work that matters and shaping systems around how the operation already runs.',
       'The move is from “AI sounds interesting” to “this is how it works inside the business.”',
     ],
