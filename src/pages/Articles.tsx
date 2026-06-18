@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { articleTopicGroups, getNodesByIds } from '../lib/articleKnowledgeGraph';
 import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Search, Sparkles, Tags, Users } from 'lucide-react';
 
 const articles = [
@@ -130,7 +131,7 @@ const sitemapGroups = [
     links: [
       ['Build a business brain', '/articles/business-brain-free'],
       ['Build a local SEO plan', '/articles/build-local-seo-plan-with-chatgpt'],
-      ['All articles', '/articles'],
+      ['All articles', '/articles/all'],
       ['AI fundamentals', '/articles?category=ai-fundamentals'],
       ['Prompt guides', '/articles?category=prompt-guides'],
       ['Build a Claude pricing skill', '/articles/build-claude-skill-job-pricing'],
@@ -182,8 +183,8 @@ export default function Articles() {
                 <Link to="/articles/amtech-vs-chatgpt-claude" className="inline-flex items-center justify-center gap-3 bg-black px-7 py-4 text-sm font-bold text-white transition hover:bg-black/85">
                   Start with AI basics <ArrowRight size={16} />
                 </Link>
-                <Link to="/articles/create-estimate-with-chatgpt" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-bold text-white transition hover:bg-red-bright">
-                  Use a prompt now <ArrowRight size={16} />
+                <Link to="/articles/all" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-bold text-white transition hover:bg-red-bright">
+                  Browse all articles <ArrowRight size={16} />
                 </Link>
               </div>
             </div>
@@ -212,6 +213,35 @@ export default function Articles() {
                 <h3 className="text-3xl font-black leading-none tracking-[-0.05em] md:text-4xl">{article.title}</h3>
                 <p className="mt-5 max-w-xl text-sm leading-6 text-white/62">{article.description}</p>
                 <span className="mt-8 inline-flex items-center gap-2 text-sm font-black text-white">Read featured article <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+
+      <section className="border-b-4 border-black bg-[#f4f4f4] py-16 md:py-20">
+        <div className="container-wide">
+          <div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+            <div>
+              <h2 className="text-[clamp(2.1rem,4.8vw,4.8rem)] font-black leading-[0.94] tracking-[-0.06em]">Browse by topic.</h2>
+              <p className="mt-5 max-w-2xl text-sm leading-6 text-black/62 md:text-base">A condensed view of the operational knowledge graph: published articles plus planned nodes for inventory, forecasting, quoting, margin control, and city-specific operating systems.</p>
+            </div>
+            <Link to="/articles/all" className="inline-flex items-center justify-center gap-3 border-2 border-black bg-white px-5 py-4 text-sm font-black transition hover:bg-black hover:text-white">
+              Open full graph <ArrowRight size={16} />
+            </Link>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {articleTopicGroups.slice(0, 6).map((group) => (
+              <Link key={group.title} to="/articles/all" className="group border-2 border-black bg-white p-5 transition hover:-translate-y-1 hover:shadow-[7px_7px_0_#000]">
+                <h3 className="text-2xl font-black tracking-[-0.04em]">{group.title}</h3>
+                <p className="mt-3 text-sm leading-6 text-black/62">{group.description}</p>
+                <div className="mt-6 space-y-2">
+                  {getNodesByIds(group.nodeIds).slice(0, 3).map((node) => (
+                    <div key={node.id} className="border-t border-black/10 pt-2 text-sm font-bold leading-5 text-black/72">{node.title}</div>
+                  ))}
+                </div>
+                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black">Browse shelf <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
               </Link>
             ))}
           </div>

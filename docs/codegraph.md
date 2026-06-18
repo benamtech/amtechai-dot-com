@@ -22,7 +22,8 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | `/contact` | `src/pages/Contact.tsx` | page-local form | Contact capture into `contact_submissions`. |
 | `/our-work` | `src/pages/OurWork.tsx` | `src/components/our-work/*`, layout | Portfolio/capability narrative. |
 | `/cost-calculator` | `src/pages/CostCalculator.tsx` | `src/components/cost-calculator/*`, layout | Interactive outbound cost calculator. |
-| `/articles` | `src/pages/Articles.tsx` | `src/components/articles/*`, layout | Central AI learning library with articles, glossary concepts, ICP paths, category shelves, and sitemap links. |
+| `/articles` | `src/pages/Articles.tsx` | `src/components/articles/*`, `src/lib/articleKnowledgeGraph.ts`, layout | Central AI learning library with featured articles, condensed Browse by topic knowledge-graph shelves, glossary concepts, ICP paths, category shelves, and sitemap links. |
+| `/articles/all` | `src/pages/AllArticles.tsx` | `src/lib/articleKnowledgeGraph.ts`, layout | Mobile-first index of all published articles and planned operational knowledge-graph nodes, grouped by topic and node type. |
 | `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude`, `/articles/build-claude-skill-job-pricing`, `/articles/build-local-seo-plan-with-chatgpt`, `/articles/business-brain-free` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx`, `src/pages/articles/ClaudeSkillJobPricing.tsx`, `src/pages/articles/LocalSeoKnowledgeGraphPlan.tsx`, `src/pages/articles/BusinessBrainFree.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Educational articles for AI-assisted contractor estimating prompts, Claude Skills, AI tool comparison, local knowledge-graph SEO planning, free business-brain setup, and workflows. |
 | `/schedule-demo`, `/shedule-demo` | `src/pages/ScheduleDemo.tsx` | `src/components/schedule/*` | Demo booking flow into `demo_bookings`; invokes booking email function. |
 | `/schedule-call` | `src/pages/ScheduleCall.tsx` | page-local | Sales/operator call CTA flow. |
@@ -56,7 +57,8 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 - `supabase/migrations`: database schema and RLS policies.
 - `supabase/functions`: Deno Edge Functions deployed to Supabase.
 - `wiki`: long-form design/product/research/deployment notes.
-- `docs/seo`: AMTECH article-system research, master knowledge graph, and article opportunity sequencing.
+- `docs/seo`: AMTECH article-system research, master operational knowledge graph, and article opportunity sequencing.
+- `src/lib/articleKnowledgeGraph.ts`: live article graph data used by `/articles` and `/articles/all`, including published articles and planned nodes.
 - `docs/memory`: durable short facts for future agents.
 
 ## Agent usage notes
