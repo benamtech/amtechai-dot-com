@@ -1,0 +1,40 @@
+{
+  "client_id": "scoopdogg",
+  "supervisor_name": "Marcus",
+  "supervisor_phone": "+18055550142",
+  "agent_name": "Rex",
+  "timezone": "America/Los_Angeles",
+  "area_code_preference": "805",
+  "owns_business": true,
+  "preferred_gateway": "sms",
+
+  "_comment": "Two ways to feed the provisioner. (A) Flat fields, fully resolved, as below: used as-is. (B) Raw `answers` keyed by question id (see the example block): the host maps them to these flat fields, deterministically by default or with --enrich. You can also include both; flat fields win where present.",
+
+  "business_name": "Scoop Dogg",
+  "business_type": "dog waste removal service",
+  "team_size": "3",
+  "team_structure": "owner plus two part-time field techs, no office staff",
+  "top_office_work": "scheduling routes, writing up quotes for new yards, chasing late payments",
+  "workloads": "route quoting, recurring invoicing, follow-up on overdue accounts",
+  "tools": "Gmail, a Google Sheet for the customer list, no real invoicing tool yet",
+  "revenue_band": "around $120k/yr",
+  "avg_customer": "single-yard residential, weekly pickup, ~$25/visit",
+  "ideal_customer": "multi-dog homes and small HOAs on recurring weekly plans",
+  "friction_customer": "one-time deep-clean tire-kickers who price-shop and never rebook",
+
+  "answers": {
+    "q1_business": "Scoop Dogg, dog waste pickup for yards, been at it about 3 years",
+    "q2_team": "it's me plus two part-time guys who do the routes, no office help",
+    "q3_office_work": "scheduling routes, quoting new yards, and chasing people who pay late",
+    "q4_tools": "just Gmail and a Google Sheet for customers, no invoicing software",
+    "q5_money": "roughly 120k a year, average is a single yard weekly at about 25 bucks",
+    "q6_ideal_customer": "multi-dog houses and small HOAs that want weekly recurring service",
+    "q7_friction_customer": "one-time deep cleans who shop around on price and never come back"
+  },
+
+  "consent": {
+    "consent_text_version": "1.0.0",
+    "timestamp_iso": "2026-06-18T15:04:22Z",
+    "channel": "web"
+  }
+}

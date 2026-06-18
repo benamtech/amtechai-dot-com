@@ -1,0 +1,74 @@
+{
+  "version": "1.0.0",
+  "title": "Claim your AI Employee",
+  "notes": "Seven questions, each written to capture more than one fact. The web form (netlify/functions/claim.js) collects these plus the supervisor's name, agent name, and timezone, verifies the phone inline with Twilio Verify (single one-time code), then hands a manifest to the host provisioner. There is no SMS conversation and no second code.",
+  "consent": {
+    "required": true,
+    "capture": "checkbox on the form, over the text below; phone ownership is proven by the Twilio Verify code",
+    "text": "By claiming an AI Employee you consent to ongoing texts from AMTECH for the purpose of operating an AI agent on your behalf, which may connect to accounts or systems you explicitly authorize. You agree to use it lawfully and to take responsibility for what you ask it to do. Msg & data rates may apply. Reply STOP to cancel, HELP for help.",
+    "record_fields": ["phone", "consent_text_version", "timestamp_iso", "channel"]
+  },
+  "verification": {
+    "method": "twilio_verify_v2",
+    "channel": "sms",
+    "flow": "form posts /send-code (Verify sends OTP), user enters code, form posts /verify-and-claim (Verify checks OTP). One verification, inline.",
+    "note": "No dedicated onboarding number needed for this; Verify uses managed telephony. A number is only needed for the optional sms-entry signpost."
+  },
+  "branch": {
+    "field": "owns_business",
+    "question": "Do you own a business? If yes, what kind?",
+    "maps_to": ["owns_business", "business_type"],
+    "if_no": "Personal-use path (out of scope for the business MVP; collect phone + intended use only).",
+    "if_yes": "Show the seven questions below."
+  },
+  "questions": [
+    {
+      "id": "q1_business",
+      "prompt": "What's the business and what does it do? Name, what you sell or build, and how long you've been at it.",
+      "maps_to": ["business_name", "business_type"],
+      "type": "text"
+    },
+    {
+      "id": "q2_team",
+      "prompt": "Who's on the team and how is it set up? Headcount, and who does what (just you, you plus crew, office staff, etc.).",
+      "maps_to": ["team_size", "team_structure"],
+      "type": "text"
+    },
+    {
+      "id": "q3_office_work",
+      "prompt": "What office or computer work eats the most of your time? The repetitive, tedious, or math-heavy stuff you'd hand off first.",
+      "maps_to": ["top_office_work", "workloads"],
+      "type": "text"
+    },
+    {
+      "id": "q4_tools",
+      "prompt": "What do you use for email, spreadsheets, estimates, and invoices? Name the tools, or say if you mostly don't use any.",
+      "maps_to": ["tools"],
+      "type": "text"
+    },
+    {
+      "id": "q5_money",
+      "prompt": "Roughly what does the business bring in, and what does a typical customer and job look like for you?",
+      "maps_to": ["revenue_band", "avg_customer"],
+      "type": "text"
+    },
+    {
+      "id": "q6_ideal_customer",
+      "prompt": "Describe your ideal customer. The kind of work and client you want more of.",
+      "maps_to": ["ideal_customer"],
+      "type": "text"
+    },
+    {
+      "id": "q7_friction_customer",
+      "prompt": "What kind of customer or request do you deal with too often and wish you had less friction with?",
+      "maps_to": ["friction_customer"],
+      "type": "text"
+    }
+  ],
+  "extra_fields": [
+    { "id": "supervisor_name", "prompt": "What's your name?" },
+    { "id": "agent_name", "prompt": "What do you want to call your AI employee?", "default": "your AI employee" },
+    { "id": "timezone", "prompt": "Your timezone (for the daily check-ins).", "default": "America/Los_Angeles" }
+  ],
+  "field_mapping_note": "The host maps the seven answer ids to flat manifest fields. By default this is a deterministic map (raw answer into the primary field, agent learns the rest from its brain). With provision_client.py --enrich, an LLM structures the answers into clean fields first. Either way the raw answers are stored verbatim in the brain."
+}
