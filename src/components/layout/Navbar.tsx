@@ -17,7 +17,7 @@ export default function Navbar() {
   const location = useLocation();
 
   const isDarkPage = darkPages.includes(location.pathname);
-  const adaptiveNavTextClass = 'text-white mix-blend-difference drop-shadow-[0_1px_10px_rgba(255,255,255,0.22)]';
+  const adaptiveNavTextClass = 'text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9),0_0_14px_rgba(0,0,0,0.62)] drop-shadow-[0_1px_10px_rgba(255,255,255,0.18)]';
   const activeNavTextClass = `${adaptiveNavTextClass} opacity-100`;
   const mutedNavTextClass = `${adaptiveNavTextClass} opacity-75 hover:opacity-100`;
 
@@ -34,14 +34,14 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.28),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.18),rgba(225,29,42,0.08),rgba(255,255,255,0.04))] before:opacity-80 ${
+        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(225,29,42,0.1),rgba(255,255,255,0.06))] before:opacity-80 after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-[linear-gradient(135deg,rgba(0,0,0,0.42),rgba(0,0,0,0.2)_42%,rgba(0,0,0,0.34))] after:opacity-100 ${
           isDarkPage
             ? isScrolled
               ? 'bg-black/72 border-white/[0.12]'
               : 'bg-black/42 border-white/[0.16]'
             : isScrolled
-              ? 'bg-white/72 border-white/70'
-              : 'bg-white/48 border-white/60'
+              ? 'bg-white/70 border-white/70'
+              : 'bg-white/58 border-white/60'
         }`}
       >
         <div className="relative z-10 flex h-14 items-center justify-between px-6 lg:h-16 lg:px-8">
@@ -97,13 +97,13 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`mx-auto mt-2 max-w-7xl overflow-hidden rounded-[1.35rem] backdrop-blur-2xl border shadow-nav md:hidden ${
+            className={`relative mx-auto mt-2 max-w-7xl overflow-hidden rounded-[1.35rem] backdrop-blur-2xl border shadow-nav before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(0,0,0,0.38),rgba(0,0,0,0.18)_42%,rgba(0,0,0,0.32))] md:hidden ${
               isDarkPage
                 ? 'bg-black/90 border-white/[0.06]'
                 : 'bg-white/90 border-black/[0.06]'
             }`}
           >
-            <div className="flex flex-col gap-1 px-6 py-6">
+            <div className="relative z-10 flex flex-col gap-1 px-6 py-6">
               {navLinks.map((link) => (
                 <Link
                   key={link.to}
