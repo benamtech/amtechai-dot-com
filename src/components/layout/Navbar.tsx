@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
-  { label: 'Learn AI', to: '/articles/amtech-vs-chatgpt-claude' },
+  { label: 'Learn AI', to: '/articles' },
   { label: 'Our Work', to: '/our-work' },
   { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
 ];
