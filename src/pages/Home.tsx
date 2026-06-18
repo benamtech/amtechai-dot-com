@@ -32,12 +32,12 @@ const builderSteps = [
 ];
 
 const proofPoints = [
-  'Missed-call recovery',
-  'Estimate drafting',
-  'Lead follow-up',
-  'Invoice reminders',
-  'Payroll prep',
-  'Review requests',
+  'Turn job notes into invoices',
+  'Sort vendor quotes',
+  'Build daily crew briefs',
+  'Reconcile materials lists',
+  'Draft permit packets',
+  'Organize warranty claims',
 ];
 
 function CheckList({ items, dark = false }: { items: string[]; dark?: boolean }) {
@@ -66,17 +66,9 @@ export default function Home() {
               <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
                 AMTECH helps business owners understand AI and customize it to work within their business.
               </p>
-              <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                <Link to="/articles/amtech-vs-chatgpt-claude" className="inline-flex items-center justify-center gap-3 bg-black px-7 py-4 text-sm font-bold text-white transition hover:bg-black/85">
-                  Start reading <ArrowRight size={16} />
-                </Link>
-                <Link to="/schedule-demo" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-bold text-white transition hover:bg-red-bright">
-                  Book a business call <ArrowRight size={16} />
-                </Link>
-              </div>
             </div>
             <div className="grid gap-3">
-              <Link to="/schedule-demo" className="group border-2 border-black bg-[#f4f4f4] p-5 transition hover:bg-white">
+              <Link to="/articles" className="group border-2 border-black bg-[#f4f4f4] p-5 transition hover:bg-white">
                 <Briefcase className="mb-8 h-6 w-6 text-red" />
                 <h2 className="text-2xl font-black tracking-[-0.04em]">I run a business.</h2>
                 <p className="mt-3 text-sm leading-6 text-black/62">Learn what AI can do, then work with AMTECH to map and build the right system.</p>
@@ -137,7 +129,7 @@ export default function Home() {
         <div className="container-wide grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-center">
           <div>
             <h2 className="text-[clamp(2.2rem,5vw,4.8rem)] font-black leading-[0.94] tracking-[-0.06em]">When the work repeats, AI can help.</h2>
-            <p className="mt-7 max-w-xl text-lg leading-8 text-black/62">AMTECH focuses on everyday operational pressure: calls, estimates, follow-up, admin, and even payments.</p>
+            <p className="mt-7 max-w-xl text-lg leading-8 text-black/62">AMTECH focuses on the repeat work most contractors, local service companies, and traditional small businesses still handle by hand: paperwork, job details, vendor coordination, and back-office cleanup.</p>
           </div>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {proofPoints.map((point) => (
