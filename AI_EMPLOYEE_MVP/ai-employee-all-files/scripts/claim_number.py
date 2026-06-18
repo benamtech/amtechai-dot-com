@@ -42,8 +42,11 @@ def log(msg):
 
 def load_registry():
     if REGISTRY.exists():
-        return json.loads(REGISTRY.read_text())
-    return {"assigned": {}}  # e164 -> {client_id, webhook_url, claimed_iso}
+        reg = json.loads(REGISTRY.read_text())
+        reg.setdefault("assigned", {})  # e164 -> {client_id, webhook_url, claimed_iso}
+        reg.setdefault("reserved", [])  # e164 numbers the pool must never claim
+        return reg
+    return {"assigned": {}, "reserved": []}
 
 
 def save_registry(reg):
@@ -51,19 +54,32 @@ def save_registry(reg):
     REGISTRY.write_text(json.dumps(reg, indent=2))
 
 
-def is_free(num, reg):
-    """Free = SMS-capable and not pointed at a client webhook and not in our registry."""
+def reserved_numbers(reg):
+    """Numbers the pool must never claim or re-point. The SMS onboarding
+    front-door number lives here: its SmsUrl points at /sms-entry, not a client
+    webhook, so it would otherwise look 'free' and get recycled. Sourced from the
+    registry's `reserved` list and the RESERVED_NUMBERS env (comma-separated)."""
+    env = os.environ.get("RESERVED_NUMBERS", "")
+    nums = {n.strip() for n in env.split(",") if n.strip()}
+    nums |= {str(n).strip() for n in reg.get("reserved", []) if str(n).strip()}
+    return nums
+
+
+def is_free(num, reg, reserved):
+    """Free = SMS-capable, not reserved, not pointed at a client webhook, not in our registry."""
     if not getattr(num.capabilities, "get", None):
         sms_ok = True
     else:
         sms_ok = num.capabilities.get("sms", True)
     assigned_locally = num.phone_number in reg["assigned"]
+    is_reserved = num.phone_number in reserved
     has_webhook = bool(num.sms_url) and "/webhooks/twilio" in (num.sms_url or "")
-    return sms_ok and not assigned_locally and not has_webhook
+    return sms_ok and not assigned_locally and not is_reserved and not has_webhook
 
 
 def free_numbers(client, reg):
-    return [n for n in client.incoming_phone_numbers.list(limit=1000) if is_free(n, reg)]
+    reserved = reserved_numbers(reg)
+    return [n for n in client.incoming_phone_numbers.list(limit=1000) if is_free(n, reg, reserved)]
 
 
 def buy_numbers(client, count, area_code, dry_run):

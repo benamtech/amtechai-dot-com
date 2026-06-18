@@ -14,6 +14,13 @@ This is the simplest Netlify path for AMTECH's static Vite site. The repository 
 5. Add environment variables under Netlify site settings:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
+   - `SUPABASE_URL`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `TWILIO_ACCOUNT_SID`
+   - `TWILIO_AUTH_TOKEN`
+   - `TWILIO_VERIFY_SERVICE_SID`
+   - `PROVISION_HOOK_URL`
+   - `PROVISION_HOOK_TOKEN`
 6. Deploy.
 
 ## SPA routing requirement
@@ -49,22 +56,78 @@ Netlify only needs the public `VITE_` variables for the browser bundle. Do not p
 
 ## AI Employee MVP deployment note
 
-`AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions/` contains planned Netlify functions for the upcoming AI Employee claim flow:
+The live website claim route is `/claim`. It renders `src/pages/AIEmployeeClaim.tsx`, which posts to root Netlify Functions deployed from `netlify/functions/`:
 
-- `claim.js`: `/claim/send-code` and `/claim/verify-and-claim`, using Twilio Verify and an authenticated provision hook.
-- `sms-entry.js`: optional inbound SMS signpost that replies with the claim form link.
+- `claim.mjs`: `/claim/send-code` and `/claim/verify-and-claim`, using Twilio Verify, Supabase consent persistence, and an authenticated provision hook.
+- `sms-entry.mjs`: optional inbound SMS signpost at `/sms-entry` that replies with the claim form link.
 
-Those files are inside the product bundle and are not automatically deployed by the current root Netlify config. When the claim flow is ready for production, either move/copy the intended functions into the root `netlify/functions` deployment surface or intentionally adjust Netlify configuration. Required server-side variables:
+Required Netlify server-side variables:
 
 ```bash
 TWILIO_ACCOUNT_SID=...
 TWILIO_AUTH_TOKEN=...
 TWILIO_VERIFY_SERVICE_SID=...
+SUPABASE_URL=...
+SUPABASE_SERVICE_ROLE_KEY=...
 PROVISION_HOOK_URL=...
 PROVISION_HOOK_TOKEN=...
+WEB_FORM_URL=https://amtechai.com/claim
+TWILIO_SMS_WEBHOOK_URL=https://amtechai.com/sms-entry
 ```
 
-The Hermes provision host is separate from Netlify. It must expose a small authenticated endpoint that accepts the manifest from `claim.js` and runs `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py`. That host also needs Twilio number-pool credentials, Caddy or equivalent wildcard routing for `*.agents.amtechai.com`, cron/check-in setup, and the Hermes runtime. Keep `SMS_INSECURE_NO_SIGNATURE` off outside local debugging.
+The same checklist lives in `AI_EMPLOYEE_MVP/ai-employee-all-files/.env.netlify.example`.
+
+Deploy/check the AI Employee Supabase table:
+
+```bash
+npm run ai:supabase:push
+SUPABASE_URL=... SUPABASE_SERVICE_ROLE_KEY=... npm run ai:supabase:verify
+```
+
+The push helper requires Supabase CLI to be installed and the project to be linked/authenticated.
+
+The Hermes provision host is separate from Netlify. On that PC:
+
+```bash
+cd AI_EMPLOYEE_MVP/ai-employee-all-files
+scripts/setup_local_pc.sh
+```
+
+Then fill `.env.provision-hook` and run:
+
+```bash
+scripts/run_provision_hook.sh
+```
+
+The hook accepts the manifest from `claim.mjs` and runs `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py`. Set `PROVISION_HOOK_DRY_RUN=1` during first-time smoke tests to exercise the hook without claiming a Twilio number or writing Hermes files. With local `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`, it updates `ai_employee_claims` from `running` to `provisioned` or `failed`.
+
+Host routing/service helpers:
+
+```bash
+scripts/install_caddy_config.sh
+scripts/install_provision_hook_service.sh
+```
+
+From the repo root, `npm run ai:caddy:render` renders the Caddy config and prints install commands.
+
+Claim-to-hook smoke test:
+
+```bash
+PROVISION_HOOK_TOKEN=test-token PROVISION_HOOK_DRY_RUN=1 scripts/run_provision_hook.sh
+node scripts/smoke_claim_function.mjs
+```
+
+From the repo root, run `npm run ai:claim:smoke` while the dry-run hook is running.
+
+SMS signpost smoke test:
+
+```bash
+npm run ai:sms:smoke
+```
+
+Production `/sms-entry` validates `X-Twilio-Signature` using `TWILIO_AUTH_TOKEN`. Set `TWILIO_SMS_WEBHOOK_URL` to the exact public URL entered in Twilio, usually `https://amtechai.com/sms-entry`; the smoke test covers both bypass mode and a signed request.
+
+That host also needs Twilio number-pool credentials, Caddy or equivalent wildcard routing for `*.agents.amtechai.com`, cron/check-in setup, and the Hermes runtime. Keep `SMS_INSECURE_NO_SIGNATURE` off outside local debugging.
 
 ## Local verification before deploy
 
@@ -84,7 +147,7 @@ Then test:
 - `/schedule-demo`
 - `/website-onboarding`
 - `/pay`
-- Future AI Employee claim route once added.
+- `/claim`
 
 ## Sources
 

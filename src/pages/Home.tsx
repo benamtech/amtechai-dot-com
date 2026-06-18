@@ -31,7 +31,16 @@ const agentCapabilities = [
   'Operate around approvals so the human stays in control where judgment matters',
 ];
 
-const homepageNarrativeSections = [
+type HomepageNarrativeSection = {
+  title: string;
+  image: string;
+  alt: string;
+  body: string[];
+  related?: { label: string; to: string };
+  stats?: string[];
+};
+
+const homepageNarrativeSections: HomepageNarrativeSection[] = [
   {
     title: 'Most contractors are not behind. They are buried in repeat work.',
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',

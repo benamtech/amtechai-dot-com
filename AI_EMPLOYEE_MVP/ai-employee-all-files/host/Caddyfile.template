@@ -1,0 +1,9 @@
+{
+    email {{ADMIN_EMAIL}}
+}
+
+{{PROVISION_HOOK_HOST}} {
+    reverse_proxy 127.0.0.1:{{PROVISION_HOOK_PORT}}
+}
+
+import {{CADDY_SNIPPET_DIR}}/*.caddy

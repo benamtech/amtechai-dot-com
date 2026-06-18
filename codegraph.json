@@ -25,7 +25,7 @@
     {
       "name": "AI Employee MVP",
       "root": "AI_EMPLOYEE_MVP",
-      "status": "Added as product bundle; website claim route not wired yet",
+      "status": "Website claim route and Netlify function wiring added; real provisioning still depends on Twilio/Hermes host secrets and setup",
       "sourceOfTruth": [
         "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
         "AI_EMPLOYEE_MVP/SUB_AGENTS.md",
@@ -38,9 +38,21 @@
         "schema": "AI_EMPLOYEE_MVP/ai-employee-all-files/schema",
         "scripts": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts",
         "cron": "AI_EMPLOYEE_MVP/ai-employee-all-files/cron",
-        "netlifyFunctions": "AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions"
+        "netlifyFunctions": "netlify/functions",
+        "provisionHook": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_hook_server.py",
+        "localSetup": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/setup_local_pc.sh",
+        "localCheck": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/check_local_setup.py",
+        "localRequirements": "AI_EMPLOYEE_MVP/ai-employee-all-files/requirements-local.txt",
+        "hostConfig": "AI_EMPLOYEE_MVP/ai-employee-all-files/host/Caddyfile.template",
+        "caddyInstaller": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_caddy_config.sh",
+        "systemdInstaller": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_provision_hook_service.sh",
+        "claimSmokeTest": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_claim_function.mjs",
+        "smsSmokeTest": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_sms_entry.mjs",
+        "supabasePush": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh",
+        "supabaseVerify": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/verify_supabase_claim_table.mjs",
+        "netlifyEnvExample": "AI_EMPLOYEE_MVP/ai-employee-all-files/.env.netlify.example"
       },
-      "plannedWebsiteRole": "One claim form verifies phone ownership with Twilio Verify, captures consent, builds a manifest, and calls an authenticated Hermes provision hook."
+      "websiteRole": "One claim form verifies phone ownership with Twilio Verify, captures consent in Supabase, builds a manifest, and calls an authenticated Hermes provision hook."
     }
   ],
   "routes": [
@@ -194,22 +206,6 @@
       "purpose": "Sales rep application"
     },
     {
-      "path": "/website-onboarding",
-      "page": "src/pages/WebsiteOnboarding.tsx",
-      "components": [
-        "src/components/website-onboarding"
-      ],
-      "purpose": "Website intake"
-    },
-    {
-      "path": "/admin",
-      "page": "src/pages/Admin.tsx",
-      "components": [
-        "src/components/admin"
-      ],
-      "purpose": "Intake admin"
-    },
-    {
       "path": "/pay",
       "page": "src/pages/Payment.tsx",
       "components": [
@@ -283,13 +279,10 @@
       "purpose": "Strategy article for building a free business brain from services, examples, records, rules, and approval boundaries before AI automation"
     },
     {
-      "path": "planned:/ai-employee-claim",
-      "page": "planned",
-      "components": [
-        "planned:src/pages/AIEmployeeClaim.tsx",
-        "planned:src/components/ai-employee-claim"
-      ],
-      "purpose": "Future AI Employee claim form using the onboarding contract in AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json; no route exists yet"
+      "path": "/claim",
+      "page": "src/pages/AIEmployeeClaim.tsx",
+      "components": [],
+      "purpose": "AI Employee claim form using the onboarding contract in AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json; verifies phone and triggers provisioning"
     }
   ],
   "dataFlows": [
@@ -338,21 +331,6 @@
       "functions": []
     },
     {
-      "name": "website intake",
-      "frontend": [
-        "src/components/website-onboarding/intakeService.ts",
-        "src/components/admin/adminService.ts"
-      ],
-      "tables": [
-        "intake_sessions",
-        "intake_files"
-      ],
-      "storage": [
-        "intake-files"
-      ],
-      "functions": []
-    },
-    {
       "name": "payment",
       "frontend": [
         "src/pages/Payment.tsx",
@@ -365,22 +343,33 @@
     },
     {
       "name": "ai employee claim and provisioning",
-      "status": "planned; source bundle exists but root website route/deployment wiring is not implemented",
+      "status": "Two onboarding doors implemented (web Twilio Verify + pre-verified text-in). Supabase tables applied to project vgedowiwvwfpjymouito. Real provisioning requires configured Twilio, Supabase service role, CLAIM_LINK_SECRET, and Hermes provision hook secrets",
+      "doors": [
+        "web: /claim -> /claim/send-code + /claim/verify-and-claim (Twilio Verify)",
+        "sms: text keyword to onboarding number -> sms-entry mints signed link -> /claim?t= -> /claim/start-from-sms + /claim/verify-and-claim (claim_token); inbound Twilio signature is the proof, no second code"
+      ],
       "frontend": [
-        "planned:src/pages/AIEmployeeClaim.tsx",
+        "src/pages/AIEmployeeClaim.tsx",
         "AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json"
       ],
       "tables": [
-        "planned:consent record storage"
+        "ai_employee_claims",
+        "ai_employee_inbound_tokens"
       ],
       "functions": [
-        "AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions/claim.js",
-        "AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions/sms-entry.js"
+        "netlify/functions/claim.mjs",
+        "netlify/functions/sms-entry.mjs"
       ],
       "external": [
         "Twilio Verify",
         "Twilio Messaging",
         "Hermes provision hook",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_hook_server.py",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/setup_local_pc.sh",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/check_local_setup.py",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_caddy_config.sh",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_provision_hook_service.sh",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_claim_function.mjs",
         "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py",
         "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/claim_number.py"
       ]

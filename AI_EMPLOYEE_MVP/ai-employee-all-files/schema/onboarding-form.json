@@ -14,6 +14,17 @@
     "flow": "form posts /send-code (Verify sends OTP), user enters code, form posts /verify-and-claim (Verify checks OTP). One verification, inline.",
     "note": "No dedicated onboarding number needed for this; Verify uses managed telephony. A number is only needed for the optional sms-entry signpost."
   },
+  "entry_doors": {
+    "web": {
+      "method": "twilio_verify",
+      "flow": "User opens /claim, fills the form, verifies the phone inline with a Twilio Verify code."
+    },
+    "sms_inbound": {
+      "method": "sms_inbound",
+      "flow": "User texts a keyword (e.g. 'AI EMPLOYEE') to the AMTECH onboarding number. sms-entry validates the Twilio signature, mints a short-lived single-use HMAC-signed link, and replies with https://amtechai.com/claim?t=<token>. The /claim page validates the token via /claim/start-from-sms, locks the phone, and hides the code step. The inbound signature is the proof of ownership, so no second code is needed.",
+      "note": "Both doors converge on the same buildManifest -> persistClaim -> triggerProvision tail. The manifest records verification.method ('twilio_verify' or 'sms_inbound') and consent.channel ('web' or 'sms'). The onboarding number is reserved out of the per-client pool (claim_number.py reserved list / RESERVED_NUMBERS)."
+    }
+  },
   "branch": {
     "field": "owns_business",
     "question": "Do you own a business? If yes, what kind?",

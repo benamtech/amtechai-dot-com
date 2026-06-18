@@ -8,7 +8,15 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "typecheck": "tsc --noEmit -p tsconfig.app.json"
+    "typecheck": "tsc --noEmit -p tsconfig.app.json",
+    "ai:local:setup": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && scripts/setup_local_pc.sh",
+    "ai:local:check": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && scripts/check_local_setup.py",
+    "ai:caddy:render": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && scripts/install_caddy_config.sh",
+    "ai:claim:smoke": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/smoke_claim_function.mjs",
+    "ai:sms:smoke": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/smoke_sms_entry.mjs",
+    "ai:supabase:push": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh",
+    "ai:supabase:verify": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/verify_supabase_claim_table.mjs",
+    "ai:provision:dry-run": "python3 AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py --manifest AI_EMPLOYEE_MVP/ai-employee-all-files/schema/client-manifest.example.json --dry-run"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.1.0",
