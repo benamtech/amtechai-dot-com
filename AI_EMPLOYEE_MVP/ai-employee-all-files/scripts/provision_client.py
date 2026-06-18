@@ -27,7 +27,7 @@ import argparse
 import json
 import os
 import re
-import shutil
+import shlex
 import subprocess
 import sys
 from pathlib import Path
@@ -54,6 +54,18 @@ def run(cmd, dry_run):
         log(f"  ! exited {out.returncode}: {out.stderr.strip()}")
         raise SystemExit(out.returncode)
     return out.stdout.strip()
+
+
+def run_optional(command, dry_run):
+    if not command:
+        return
+    cmd = shlex.split(command)
+    log("run: " + " ".join(str(c) for c in cmd))
+    if dry_run:
+        return
+    out = subprocess.run(cmd, capture_output=True, text=True)
+    if out.returncode != 0:
+        log(f"  ! optional command exited {out.returncode}: {out.stderr.strip()}")
 
 
 def render(text, ctx):
@@ -234,7 +246,7 @@ def main():
     if not dry:
         snippet_path.parent.mkdir(parents=True, exist_ok=True)
         snippet_path.write_text(caddy_snippet)
-        # Append to a master Caddyfile import dir, then reload Caddy out of band.
+    run_optional(os.environ.get("CADDY_RELOAD_COMMAND", ""), dry)
 
     # 8. Install + start the per-client gateway as a service (TZ for local-time crons)
     #    `hermes gateway install --profile` registers a service; TZ is set on it.
