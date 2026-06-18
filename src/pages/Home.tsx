@@ -69,7 +69,6 @@ const homepageNarrativeSections = [
     title: 'The data favors businesses that turn experiments into workflow.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
     alt: 'Clean dashboard and operating data on a monitor.',
-    stats: ['95% use AI tools', '75% report productivity gains', 'Several hours freed weekly'],
     body: [
       'Most organizations experimenting with AI see productivity gains. The larger lift comes when the repeatable work is redesigned around real data, approval points, and customer promises.',
       'For contractors and local service businesses, the highest-leverage opportunities are usually documentation, quoting, coordination, follow-up, reporting, and back-office cleanup.',
@@ -133,14 +132,6 @@ export default function Home() {
               <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
                 AMTECH builds practical AI systems for serious local businesses: contractors, hardware stores, restaurants, shops, service companies, and any operation where repeat computer work is stealing owner time.
               </p>
-              <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-                <Link to="/schedule-demo" className="inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright">
-                  Map your first system <ArrowRight size={16} />
-                </Link>
-                <Link to="/articles" className="inline-flex items-center justify-center gap-3 border-2 border-black px-7 py-4 text-sm font-black transition hover:bg-black hover:text-white">
-                  Learn what AI can do <ArrowRight size={16} />
-                </Link>
-              </div>
             </div>
             <div className="grid gap-3">
               <Link to="/articles" className="group border-2 border-black bg-[#f4f4f4] p-5 transition hover:bg-white">
@@ -195,8 +186,7 @@ export default function Home() {
       <section className="border-b-4 border-black bg-white py-20 md:py-28">
         <div className="container-wide">
           <div className="max-w-5xl">
-            <p className="font-mono text-xs font-black uppercase tracking-[0.24em] text-red">Capability breadth</p>
-            <h2 className="mt-5 text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">If the business uses a computer, an agent can probably remove drag.</h2>
+            <h2 className="text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">If the business uses a computer, an agent can probably remove drag.</h2>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-black/64">A basic Hermes agent or custom AMTECH agent is not limited to one trade. It can support normal business work across documents, emails, calendars, forms, CRMs, spreadsheets, phones, reviews, inventory, estimates, bookings, and reports.</p>
           </div>
           <div className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
@@ -220,9 +210,9 @@ export default function Home() {
             {businessExamples.map((example) => (
               <div key={example.business} className="border border-white/18 bg-white/[0.03] p-7">
                 <h3 className="text-2xl font-black tracking-[-0.04em] text-white">{example.business}</h3>
-                <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-red">Before</p>
+                <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-white/40">Before</p>
                 <p className="mt-2 leading-7 text-white/58">{example.before}</p>
-                <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-red">After</p>
+                <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-white/40">After</p>
                 <p className="mt-2 leading-7 text-white/72">{example.after}</p>
               </div>
             ))}
@@ -280,8 +270,7 @@ export default function Home() {
       <section className="bg-black py-20 text-white md:py-28">
         <div className="container-wide grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
           <div>
-            <p className="font-mono text-xs font-black uppercase tracking-[0.24em] text-red">Next step</p>
-            <h2 className="mt-5 text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">Bring the repeat work. We will map the system.</h2>
+            <h2 className="text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">Bring the repeat work. We will map the system.</h2>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-white/66">If you are a serious operator, you do not need more random AI noise. You need the first practical system that gives the business memory, direction, and room to grow.</p>
           </div>
           <div className="border border-red bg-red/10 p-7 md:p-9">
