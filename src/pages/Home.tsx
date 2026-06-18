@@ -29,7 +29,6 @@ const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
 
 const funnelSections = [
   {
-    eyebrow: '01 / Market reality',
     title: 'Most contractors are still figuring this out — and that is normal.',
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
@@ -40,7 +39,6 @@ const funnelSections = [
     ],
   },
   {
-    eyebrow: '02 / Operational friction',
     title: 'The real shift is not more tools. It is removing the friction already felt every week.',
     image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80',
     alt: 'Organized tools and work documentation on a bench.',
@@ -51,7 +49,6 @@ const funnelSections = [
     ],
   },
   {
-    eyebrow: '03 / Visible outcomes',
     title: 'What becomes possible when repeat work stops eating the day.',
     image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
     alt: 'Professional job site with organized construction activity.',
@@ -62,7 +59,6 @@ const funnelSections = [
     ],
   },
   {
-    eyebrow: '04 / Proof of motion',
     title: 'The data favors teams that move from experiments to workflow redesign.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
     alt: 'Clean dashboard and operating data on a monitor.',
@@ -74,7 +70,6 @@ const funnelSections = [
     ],
   },
   {
-    eyebrow: '05 / Future memory',
     title: 'Your business two years from now, if the systems start getting built today.',
     image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
     alt: 'Modern team workspace with planning materials and laptops.',
@@ -85,7 +80,6 @@ const funnelSections = [
     ],
   },
   {
-    eyebrow: '06 / Implementation line',
     title: 'The practical difference between exploring AI and actually using it.',
     image: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=80',
     alt: 'Hands working with paperwork and professional tools.',
@@ -186,8 +180,7 @@ export default function Home() {
       <section className="border-y-4 border-black bg-white py-20 md:py-28">
         <div className="container-wide">
           <div className="max-w-5xl">
-            <p className="text-xs font-black uppercase tracking-[0.34em] text-red">Revised funnel</p>
-            <h2 className="mt-5 text-[clamp(2.5rem,6.5vw,6.7rem)] font-black leading-[0.88] tracking-[-0.075em]">
+            <h2 className="text-[clamp(2.5rem,6.5vw,6.7rem)] font-black leading-[0.88] tracking-[-0.075em]">
               From curiosity to operating advantage.
             </h2>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-black/64">
@@ -201,17 +194,13 @@ export default function Home() {
         {funnelSections.map((section, index) => (
           <article key={section.title} className={`border-b-4 border-black ${index % 2 === 1 ? 'bg-black text-white' : 'bg-[#f4f4f4] text-black'}`}>
             <div className={`container-wide grid gap-0 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-              <div className="relative min-h-[360px] overflow-hidden border-x-4 border-black lg:min-h-[620px]">
+              <div className="relative aspect-[4/5] min-h-[520px] overflow-hidden border-x-4 border-black lg:aspect-auto lg:min-h-[620px]">
                 <img src={section.image} alt={section.alt} className="h-full w-full object-cover grayscale" loading="lazy" />
                 <div className={`absolute inset-0 ${index % 2 === 1 ? 'bg-black/25' : 'bg-red/10 mix-blend-multiply'}`} />
-                <div className="absolute bottom-0 left-0 right-0 border-t-4 border-black bg-red p-5 text-xs font-black uppercase tracking-[0.28em] text-white">
-                  Contractor workflow / field reality
-                </div>
               </div>
               <div className="flex min-h-[560px] flex-col justify-center px-0 py-14 lg:px-14 lg:py-20">
                 <div className="border-2 border-current bg-white/5 p-7 md:p-10">
-                  <p className="text-xs font-black uppercase tracking-[0.32em] text-red">{section.eyebrow}</p>
-                  <h3 className="mt-5 text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{section.title}</h3>
+                  <h3 className="text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{section.title}</h3>
                   <div className="mt-8 space-y-5">
                     {section.body.map((paragraph) => (
                       <p key={paragraph} className={`text-base leading-8 md:text-lg ${index % 2 === 1 ? 'text-white/70' : 'text-black/66'}`}>{paragraph}</p>
@@ -260,7 +249,7 @@ export default function Home() {
           <div>
             <Sparkles className="mb-8 h-7 w-7 text-red" />
             <h2 className="text-[clamp(2.1rem,5vw,4.8rem)] font-black leading-[0.92] tracking-[-0.065em]">Keep learning from the operations graph.</h2>
-            <p className="mt-6 text-lg leading-8 text-black/64">These field guides extend the funnel: start with a business brain, compare DIY tools with governed systems, then study estimating and pricing workflows that connect directly to contractor revenue.</p>
+            <p className="mt-6 text-lg leading-8 text-black/64">These field guides continue the path: start with a business brain, compare DIY tools with governed systems, then study estimating and pricing workflows that connect directly to contractor revenue.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {funnelArticles.map((article) => (
