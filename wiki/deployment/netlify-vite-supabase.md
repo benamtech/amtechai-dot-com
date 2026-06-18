@@ -1,6 +1,6 @@
 # Netlify Deployment: Vite + React + Supabase
 
-This is the simplest Netlify path for AMTECH's static Vite site. The repository includes `netlify.toml` so Netlify builds the Vite app and only scans `netlify/functions` for Netlify Functions.
+This is the simplest Netlify path for AMTECH's static Vite site. The repository includes `netlify.toml` so Netlify builds the Vite app and only scans the root `netlify/functions` directory for Netlify Functions.
 
 ## One-time setup
 
@@ -47,6 +47,25 @@ supabase secrets set RESEND_API_KEY=...
 
 Netlify only needs the public `VITE_` variables for the browser bundle. Do not put Stripe secret keys or Resend API keys in Vite variables.
 
+## AI Employee MVP deployment note
+
+`AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions/` contains planned Netlify functions for the upcoming AI Employee claim flow:
+
+- `claim.js`: `/claim/send-code` and `/claim/verify-and-claim`, using Twilio Verify and an authenticated provision hook.
+- `sms-entry.js`: optional inbound SMS signpost that replies with the claim form link.
+
+Those files are inside the product bundle and are not automatically deployed by the current root Netlify config. When the claim flow is ready for production, either move/copy the intended functions into the root `netlify/functions` deployment surface or intentionally adjust Netlify configuration. Required server-side variables:
+
+```bash
+TWILIO_ACCOUNT_SID=...
+TWILIO_AUTH_TOKEN=...
+TWILIO_VERIFY_SERVICE_SID=...
+PROVISION_HOOK_URL=...
+PROVISION_HOOK_TOKEN=...
+```
+
+The Hermes provision host is separate from Netlify. It must expose a small authenticated endpoint that accepts the manifest from `claim.js` and runs `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py`. That host also needs Twilio number-pool credentials, Caddy or equivalent wildcard routing for `*.agents.amtechai.com`, cron/check-in setup, and the Hermes runtime. Keep `SMS_INSECURE_NO_SIGNATURE` off outside local debugging.
+
 ## Local verification before deploy
 
 ```bash
@@ -65,6 +84,7 @@ Then test:
 - `/schedule-demo`
 - `/website-onboarding`
 - `/pay`
+- Future AI Employee claim route once added.
 
 ## Sources
 

@@ -5,11 +5,12 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 ## Architecture at a glance
 
 - **App type:** Vite + React 18 + TypeScript marketing/conversion website.
-- **Runtime:** Static SPA served from `dist/`; Supabase provides database, storage, and Edge Functions.
+- **Runtime:** Static SPA served from `dist/`; Supabase provides database, storage, and Edge Functions. The repo now also contains an `AI_EMPLOYEE_MVP/` product bundle for the upcoming Hermes/Twilio AI employee provisioning flow; it is not yet wired into the React route graph.
 - **Routing:** `src/App.tsx` owns all public routes. Most brand pages use `src/components/layout/Layout.tsx`; conversion flows (`/apply`, `/schedule-call`, `/website-onboarding`, `/pay`, etc.) render standalone. Current in-app site copy is the authoritative source after the June 2026 homepage and article-library revisions.
 - **Supabase client:** `src/lib/supabase.ts` reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` and exports one browser client.
 - **Database migrations:** `supabase/migrations/*.sql` define public form tables, intake storage references, booking availability and applications.
 - **Edge Functions:** `supabase/functions/*/index.ts` handle Stripe PaymentIntent creation and Resend transactional emails.
+- **AI employee bundle:** `AI_EMPLOYEE_MVP/` contains the Phase 2/3 build plan, Hermes profile template, onboarding schema, Twilio number/provisioning scripts, and planned Netlify claim functions for the new AI Employee product.
 
 ## Route graph
 
@@ -35,6 +36,12 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | `/payment-success` | `src/pages/PaymentSuccess.tsx` | page-local | Post-payment confirmation. |
 | `/wholesale`, `/wholesale-2`, `/sell-ai-employees`, `/sales-bootcamp` | `src/pages/*` | `src/components/wholesale2/*` where applicable | Campaign-specific landing pages. |
 
+## Upcoming product surface
+
+| Surface | Current files | Planned website role |
+| --- | --- | --- |
+| AI Employee claim/provisioning | `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, `AI_EMPLOYEE_MVP/ai-employee-all-files/*` | New website product flow where a user fills one AI Employee claim form, verifies phone ownership with Twilio Verify, consents to ongoing texts, and triggers a Hermes provisioning hook. No React route exists yet. |
+
 ## Data and integration graph
 
 | User action | Frontend entry | Supabase table/storage | Edge function / external service |
@@ -46,6 +53,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | Website intake session | `src/components/website-onboarding/intakeService.ts` | `intake_sessions`, `intake_files`, storage bucket `intake-files` | None currently. |
 | Intake admin review | `src/components/admin/adminService.ts` | `intake_sessions`, `intake_files`, storage bucket `intake-files` | None currently. |
 | Payment | `src/pages/Payment.tsx`, `src/components/payment/*` | Stripe only from current code | `create-payment-intent` -> Stripe. |
+| AI Employee claim (planned) | Future route/component; contract currently in `AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json` | Consent record storage still to be implemented | Netlify `claim.js` -> Twilio Verify -> authenticated provision hook -> `provision_client.py`; optional `sms-entry.js` signpost. |
 
 ## File ownership map
 
@@ -60,6 +68,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 - `docs/seo`: AMTECH article-system research, master operational knowledge graph, and article opportunity sequencing.
 - `src/lib/articleKnowledgeGraph.ts`: live article graph data used by `/articles` and `/articles/all`, including published articles and planned nodes.
 - `docs/memory`: durable short facts for future agents.
+- `AI_EMPLOYEE_MVP`: AI Employee product bundle. Read `BUILD-PLAN.md` first, then `SUB_AGENTS.md` and `ai-employee-all-files/README.md`; `template/` is the Hermes profile, `schema/` is the form/manifest contract, `scripts/` is the provisioning factory, `cron/` is check-in scheduling, and `netlify/functions/` is the planned website claim/SMS front door.
 
 ## Agent usage notes
 
@@ -68,3 +77,4 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 3. For data changes, inspect the relevant migration, frontend service/page submit handler, and Edge Function if present.
 4. For design changes, read `AMTECH_STYLE_GUIDE.md`, `COST_CALCULATOR_STYLE.md`, and relevant notes in `wiki/design-notes.md`.
 5. Keep this codegraph updated whenever a route, table, endpoint, feature folder, article-system surface, or durable knowledge-graph/research source changes.
+6. For AI Employee MVP work, start with `docs/AI_EMPLOYEE_MVP.md` and `AI_EMPLOYEE_MVP/BUILD-PLAN.md`; dry-run provisioning before any real Hermes/Twilio side effects.

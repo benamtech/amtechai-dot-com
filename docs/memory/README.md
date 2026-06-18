@@ -8,6 +8,7 @@ Core facts:
 - Routing: React Router DOM
 - Backend/data: Supabase JS + Supabase Edge Functions
 - Payments: Stripe JS (`@stripe/react-stripe-js`, `@stripe/stripe-js`)
+- New product bundle: `AI_EMPLOYEE_MVP/` contains the upcoming Hermes/Twilio AI Employee provisioning flow.
 - Media/animation: three.js, framer-motion, GSAP
 - Icons: lucide-react
 - Linting: eslint
@@ -16,8 +17,10 @@ Operational memory:
 - Always start with `docs/codegraph.md`, `wiki/db-forms-endpoints.md`, and `codegraph.json` before broad repo searches.
 - When routes, forms, Supabase resources, Edge Functions, deployment behavior, or durable research change, update the matching codegraph/wiki/memory references in the same change.
 - Detailed rule: `docs/memory/fast-navigation-and-doc-sync.md`.
+- For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` first.
 
 Product context:
 - Public marketing site for https://amtechai.com
 - Pages include home, about, pricing, how-it-works, contact
 - Revenue flows: demo scheduling, apply intake, sales rep application, payment, wholesale
+- Upcoming product flow: AI Employee claim form with Twilio Verify, consent capture, Hermes provisioning, and one Twilio number per provisioned client.

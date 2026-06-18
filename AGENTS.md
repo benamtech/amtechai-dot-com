@@ -6,6 +6,7 @@ This file is the canonical onboarding doc for humans and agents working in this 
 - Public-facing Vite + React + TypeScript marketing and conversion website for AMTECH.
 - The site presents AMTECH’s offerings to external audiences and drives revenue actions
   (sales calls, bookings, onboarding, payments, applications).
+- The repo also contains `AI_EMPLOYEE_MVP/`, the upcoming Hermes/Twilio AI Employee provisioning product bundle that will be built through the website.
 - Production URL: https://amtechai.com
 - Backed by Supabase for bookings, payments, intake, conversations, and applications.
 
@@ -71,8 +72,10 @@ Read `VISUAL_ANALYSIS.md` before refactoring to preserve design rationale and co
 - Use `wiki/db-forms-endpoints.md` for Supabase tables, form handlers, storage, and Edge Function references.
 - Use `wiki/deployment/netlify-vite-supabase.md` for Netlify deployment and Supabase Edge Function deployment notes.
 - Store durable design/product/internal research in `wiki/`; put dated source notes in `wiki/research/`.
+- For AI Employee MVP work, start with `docs/AI_EMPLOYEE_MVP.md`, then `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md`.
 - Keep `codegraph.json`, `docs/codegraph.md`, `wiki/db-forms-endpoints.md`, and `docs/memory/fast-navigation-and-doc-sync.md` in sync when routes, forms, tables, storage buckets, Edge Functions, deployment behavior, or durable research change.
 
 ## Bundled References
 - `codegraph.json` — module graph and starting points.
 - `docs/memory/` — durable repo/project facts for agents.
+- `docs/AI_EMPLOYEE_MVP.md` — compressed map for the AI Employee provisioning product.

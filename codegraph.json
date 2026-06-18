@@ -8,14 +8,41 @@
     "Tailwind CSS",
     "Supabase",
     "Supabase Edge Functions",
+    "Netlify Functions",
     "Stripe",
-    "Resend"
+    "Resend",
+    "Hermes",
+    "Twilio"
   ],
   "entrypoints": {
     "app": "src/App.tsx",
     "main": "src/main.tsx",
-    "supabaseClient": "src/lib/supabase.ts"
+    "supabaseClient": "src/lib/supabase.ts",
+    "aiEmployeePlan": "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
+    "aiEmployeeReference": "docs/AI_EMPLOYEE_MVP.md"
   },
+  "productBundles": [
+    {
+      "name": "AI Employee MVP",
+      "root": "AI_EMPLOYEE_MVP",
+      "status": "Added as product bundle; website claim route not wired yet",
+      "sourceOfTruth": [
+        "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
+        "AI_EMPLOYEE_MVP/SUB_AGENTS.md",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/README.md",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json",
+        "docs/AI_EMPLOYEE_MVP.md"
+      ],
+      "parts": {
+        "template": "AI_EMPLOYEE_MVP/ai-employee-all-files/template",
+        "schema": "AI_EMPLOYEE_MVP/ai-employee-all-files/schema",
+        "scripts": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts",
+        "cron": "AI_EMPLOYEE_MVP/ai-employee-all-files/cron",
+        "netlifyFunctions": "AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions"
+      },
+      "plannedWebsiteRole": "One claim form verifies phone ownership with Twilio Verify, captures consent, builds a manifest, and calls an authenticated Hermes provision hook."
+    }
+  ],
   "routes": [
     {
       "path": "/",
@@ -254,6 +281,15 @@
         "src/lib/articles.ts"
       ],
       "purpose": "Strategy article for building a free business brain from services, examples, records, rules, and approval boundaries before AI automation"
+    },
+    {
+      "path": "planned:/ai-employee-claim",
+      "page": "planned",
+      "components": [
+        "planned:src/pages/AIEmployeeClaim.tsx",
+        "planned:src/components/ai-employee-claim"
+      ],
+      "purpose": "Future AI Employee claim form using the onboarding contract in AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json; no route exists yet"
     }
   ],
   "dataFlows": [
@@ -326,10 +362,33 @@
       "functions": [
         "create-payment-intent"
       ]
+    },
+    {
+      "name": "ai employee claim and provisioning",
+      "status": "planned; source bundle exists but root website route/deployment wiring is not implemented",
+      "frontend": [
+        "planned:src/pages/AIEmployeeClaim.tsx",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json"
+      ],
+      "tables": [
+        "planned:consent record storage"
+      ],
+      "functions": [
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions/claim.js",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/netlify/functions/sms-entry.js"
+      ],
+      "external": [
+        "Twilio Verify",
+        "Twilio Messaging",
+        "Hermes provision hook",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py",
+        "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/claim_number.py"
+      ]
     }
   ],
   "docs": [
     "docs/codegraph.md",
+    "docs/AI_EMPLOYEE_MVP.md",
     "wiki/db-forms-endpoints.md",
     "wiki/deployment/netlify-vite-supabase.md",
     "wiki/research/2026-06-17-codegraph-docs-and-token-efficiency.md",
