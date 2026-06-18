@@ -23,6 +23,7 @@ import SalesRepApply from './pages/SalesRepApply';
 import Articles from './pages/Articles';
 import { ChatGPTEstimateArticle, PaintingCostAIArticle, PressureWashingEstimateArticle } from './pages/AIEstimateArticles';
 import AmtechVsChatgptClaude from './pages/articles/AmtechVsChatgptClaude';
+import ClaudeSkillJobPricing from './pages/articles/ClaudeSkillJobPricing';
 
 export default function App() {
   return (
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="/articles/estimate-painting-cost-ai" element={<PaintingCostAIArticle />} />
           <Route path="/articles/create-estimate-with-chatgpt" element={<ChatGPTEstimateArticle />} />
           <Route path="/articles/amtech-vs-chatgpt-claude" element={<AmtechVsChatgptClaude />} />
+          <Route path="/articles/build-claude-skill-job-pricing" element={<ClaudeSkillJobPricing />} />
         </Route>
       </Routes>
     </BrowserRouter>

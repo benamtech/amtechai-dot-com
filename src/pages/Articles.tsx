@@ -3,6 +3,16 @@ import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Search
 
 const articles = [
   {
+    title: 'Build a Claude Skill That Helps You Price Jobs Like an Operator',
+    href: '/articles/build-claude-skill-job-pricing',
+    category: 'AI employees',
+    date: 'June 18, 2026',
+    icp: 'Claude users',
+    entity: 'Claude Skills',
+    description: 'A practical guide to building a reusable job profitability skill for local service pricing decisions.',
+    featured: true,
+  },
+  {
     title: 'AMTECH vs. ChatGPT or Claude: What’s the Difference?',
     href: '/articles/amtech-vs-chatgpt-claude',
     category: 'AI fundamentals',
@@ -57,6 +67,7 @@ const rolePaths = [
     icon: Briefcase,
     summary: 'Learn what to automate, where AI belongs, and when to work with a consultant.',
     links: [
+      ['Build a Claude pricing skill', '/articles/build-claude-skill-job-pricing'],
       ['AMTECH vs. ChatGPT or Claude', '/articles/amtech-vs-chatgpt-claude'],
       ['Create an estimate with ChatGPT', '/articles/create-estimate-with-chatgpt'],
     ],
@@ -68,6 +79,7 @@ const rolePaths = [
     links: [
       ['Pressure washing estimate guide', '/articles/write-pressure-washing-estimate-with-ai'],
       ['Painting cost with AI', '/articles/estimate-painting-cost-ai'],
+      ['Build a Claude pricing skill', '/articles/build-claude-skill-job-pricing'],
     ],
   },
   {
@@ -97,6 +109,7 @@ const sitemapGroups = [
       ['All articles', '/articles'],
       ['AI fundamentals', '/articles?category=ai-fundamentals'],
       ['Prompt guides', '/articles?category=prompt-guides'],
+      ['Build a Claude pricing skill', '/articles/build-claude-skill-job-pricing'],
     ],
   },
   {
@@ -163,7 +176,7 @@ export default function Articles() {
         <div className="container-wide">
           <div className="mb-12 grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:items-end">
             <h2 className="text-[clamp(2.2rem,5vw,5rem)] font-black leading-[0.92] tracking-[-0.065em]">Featured articles.</h2>
-            <p className="max-w-2xl text-lg leading-8 text-white/62">A traditional starting shelf: one strategic comparison, one practical prompt workflow, both written for owner-led companies.</p>
+            <p className="max-w-2xl text-lg leading-8 text-white/62">A practical starting shelf for owners learning AI basics, reusable skills, and prompt workflows that turn into operating leverage.</p>
           </div>
           <div className="grid gap-4 lg:grid-cols-2">
             {featured.map((article) => (
