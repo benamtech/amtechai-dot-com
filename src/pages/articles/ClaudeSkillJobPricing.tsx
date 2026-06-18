@@ -188,7 +188,7 @@ List what the owner must verify before sending.
 
 const article: ArticleDefinition = {
   slug: 'build-claude-skill-job-pricing',
-  title: 'Build a Claude Skill That Helps You Price Jobs Like an Operator',
+  title: 'Build a Claude Skill That Helps You Price Jobs Like a Pro',
   description: 'A plain-English guide for Claude users who want to create a reusable job profitability skill for pricing local service work.',
   dek: 'Use Claude to turn messy job details into a repeatable pricing review: missing facts, cost buckets, margin math, risk flags, and an owner decision memo.',
   datePublished: '2026-06-18',
@@ -196,7 +196,7 @@ const article: ArticleDefinition = {
   authorName: 'AMTECH AI',
   readingTime: '12 min read',
   category: 'strategy',
-  audience: 'Claude users, local service business owners, contractors, and operators learning how to turn AI prompts into repeatable workflows',
+  audience: 'Claude users, local service business owners and contractors learning how to turn AI prompts into repeatable workflows',
   primaryEntity: { name: 'Claude Skills', type: 'tool', sameAs: ['https://claude.ai'] },
   entities: [
     { name: 'job profitability check', type: 'method' },
@@ -355,7 +355,7 @@ const article: ArticleDefinition = {
         ['1. Capture facts', 'Ask what is missing before calculating.', 'Prevents rushed quotes from weak job information.'],
         ['2. Break into cost buckets', 'Separate labor, materials, equipment, travel, overhead, risk, and profit.', 'Shows where the money actually goes.'],
         ['3. Calculate three prices', 'Produce walk-away, standard target, and premium/risk-adjusted prices.', 'Gives the owner a decision range instead of one fragile guess.'],
-        ['4. Make the decision', 'Recommend quote, revise scope, ask more questions, or pass.', 'Turns math into an operator-level business decision.'],
+        ['4. Make the decision', 'Recommend quote, revise scope, ask more questions, or pass.', 'Turns math into a pro-level business decision.'],
       ],
     },
     {

@@ -3,7 +3,7 @@ import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Search
 
 const articles = [
   {
-    title: 'Build a Claude Skill That Helps You Price Jobs Like an Operator',
+    title: 'Build a Claude Skill That Helps You Price Jobs Like a Pro',
     href: '/articles/build-claude-skill-job-pricing',
     category: 'AI employees',
     date: 'June 18, 2026',

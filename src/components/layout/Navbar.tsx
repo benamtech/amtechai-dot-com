@@ -20,6 +20,8 @@ export default function Navbar() {
   const adaptiveNavTextClass = 'text-white [text-shadow:0_1px_2px_rgba(0,0,0,0.9),0_0_14px_rgba(0,0,0,0.62)] drop-shadow-[0_1px_10px_rgba(255,255,255,0.18)]';
   const activeNavTextClass = `${adaptiveNavTextClass} opacity-100`;
   const mutedNavTextClass = `${adaptiveNavTextClass} opacity-75 hover:opacity-100`;
+  const mobileActiveNavTextClass = 'text-black opacity-100';
+  const mobileMutedNavTextClass = 'text-black/70 hover:text-black';
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -34,7 +36,7 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 px-4 pt-4 md:px-6 md:pt-5">
       <div
-        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(225,29,42,0.1),rgba(255,255,255,0.06))] before:opacity-80 after:pointer-events-none after:absolute after:inset-0 after:rounded-[inherit] after:bg-[linear-gradient(135deg,rgba(0,0,0,0.42),rgba(0,0,0,0.2)_42%,rgba(0,0,0,0.34))] after:opacity-100 ${
+        className={`relative mx-auto max-w-7xl overflow-hidden rounded-[1.35rem] border shadow-nav backdrop-blur-2xl transition-all duration-700 before:pointer-events-none before:absolute before:inset-0 before:rounded-[inherit] before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.34),transparent_28%),linear-gradient(135deg,rgba(255,255,255,0.22),rgba(225,29,42,0.1),rgba(255,255,255,0.06))] before:opacity-80 ${
           isDarkPage
             ? isScrolled
               ? 'bg-black/72 border-white/[0.12]'
@@ -97,11 +99,7 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-            className={`relative mx-auto mt-2 max-w-7xl overflow-hidden rounded-[1.35rem] backdrop-blur-2xl border shadow-nav before:pointer-events-none before:absolute before:inset-0 before:bg-[linear-gradient(135deg,rgba(0,0,0,0.38),rgba(0,0,0,0.18)_42%,rgba(0,0,0,0.32))] md:hidden ${
-              isDarkPage
-                ? 'bg-black/90 border-white/[0.06]'
-                : 'bg-white/90 border-black/[0.06]'
-            }`}
+            className="relative mx-auto mt-2 max-w-7xl overflow-hidden rounded-[1.35rem] border border-black/[0.06] bg-white/90 shadow-nav backdrop-blur-2xl md:hidden"
           >
             <div className="relative z-10 flex flex-col gap-1 px-6 py-6">
               {navLinks.map((link) => (
@@ -109,13 +107,13 @@ export default function Navbar() {
                   key={link.to}
                   to={link.to}
                   className={`px-4 py-3 font-body text-base font-medium transition-colors ${
-                    location.pathname === link.to ? activeNavTextClass : mutedNavTextClass
+                    location.pathname === link.to ? mobileActiveNavTextClass : mobileMutedNavTextClass
                   }`}
                 >
                   {link.label}
                 </Link>
               ))}
-              <div className={`mt-4 border-t pt-4 ${isDarkPage ? 'border-white/[0.06]' : 'border-black/[0.06]'}`}>
+              <div className="mt-4 border-t border-black/[0.06] pt-4">
                 <Link
                   to="/schedule-demo"
                   className="btn-primary w-full"
