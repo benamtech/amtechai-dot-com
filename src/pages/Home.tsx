@@ -29,71 +29,71 @@ const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
 
 const funnelSections = [
   {
-    eyebrow: '01 / Market reality',
     title: 'Most contractors are still figuring this out — and that is normal.',
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'The vast majority of AI adoption is still exploratory or developing. Serious operators are not behind; they are standing at the exact decision point where the next advantage gets built.',
-      'The businesses pulling ahead are not chasing every new app. They are getting clear on which repeatable work matters, then shaping systems around the way their operation already runs.',
-      'The goal is to move from “AI sounds interesting” to “this is how it could work inside the business.”',
+      'Most AI adoption is still exploratory. Serious operators are not behind; they are at the decision point where the next advantage gets built.',
+      'The businesses pulling ahead are not chasing every app. They are choosing the repeatable work that matters and shaping systems around how the operation already runs.',
+      'The move is from “AI sounds interesting” to “this is how it works inside the business.”',
     ],
+    related: { label: 'Compare DIY tools with governed systems', to: '/articles/amtech-vs-chatgpt-claude' },
   },
   {
-    eyebrow: '02 / Operational friction',
     title: 'The real shift is not more tools. It is removing the friction already felt every week.',
     image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80',
     alt: 'Organized tools and work documentation on a bench.',
     body: [
       'Job notes become invoices. Vendor quotes get sorted. Daily crew briefs get written. Materials, permits, and warranty claims stop living in scattered folders and owner memory.',
-      'These tasks do not require your highest skill. They require consistency, context, and attention — exactly where a properly designed workflow can carry the load.',
-      'When the repeatable work is handled reliably, crews get clearer direction, customers get faster answers, and the owner gets time back for growth.',
+      'This work does not need your highest skill. It needs consistency, context, and attention — exactly where a designed workflow can carry the load.',
+      'When repeat work is handled reliably, crews get clearer direction, customers get faster answers, and the owner gets time back for growth.',
     ],
+    related: { label: 'Build a business brain first', to: '/articles/business-brain-free' },
   },
   {
-    eyebrow: '03 / Visible outcomes',
     title: 'What becomes possible when repeat work stops eating the day.',
     image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
     alt: 'Professional job site with organized construction activity.',
     body: [
-      'High-value jobs and customer relationships get more attention. Invoicing moves faster after completion. Quote, material, and coordination errors become easier to catch before they cost money.',
-      'The business gains clearer visibility into what is actually happening and can take on more work without adding the same proportion of admin hours.',
-      'Those are not abstract AI promises. They are the direct result of removing the friction contractors and local service businesses deal with every week.',
+      'High-value jobs and customer relationships get more attention. Invoicing moves faster. Quote, material, and coordination errors are easier to catch before they cost money.',
+      'The business sees what is happening and can take on more work without adding the same proportion of admin hours.',
+      'Those are not abstract AI promises. They are what happens when weekly friction gets removed.',
     ],
+    related: { label: 'Create an estimate with ChatGPT', to: '/articles/create-estimate-with-chatgpt' },
   },
   {
-    eyebrow: '04 / Proof of motion',
     title: 'The data favors teams that move from experiments to workflow redesign.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
     alt: 'Clean dashboard and operating data on a monitor.',
     stats: ['95% use AI tools', '75% report productivity gains', 'Several hours freed weekly'],
     body: [
-      'Most organizations experimenting with AI see productivity gains. The bigger lifts appear when the business redesigns repeatable workflows around its own data, approval points, and customer commitments.',
-      'For contractors and local service businesses, the highest-leverage opportunities are usually documentation, quoting, coordination, and back-office cleanup.',
-      'The gap is no longer access to AI. The gap is who builds something that fits the way the business actually runs.',
+      'Most organizations experimenting with AI see productivity gains. The larger lift comes when repeatable workflows are redesigned around real data, approval points, and customer promises.',
+      'For contractors and local service businesses, the highest-leverage opportunities are documentation, quoting, coordination, and back-office cleanup.',
+      'The gap is no longer access to AI. The gap is who builds something that fits how the business runs.',
     ],
+    related: { label: 'Turn sales data into owner decisions', to: '/articles/garden-center-spring-buy-plan-ai' },
   },
   {
-    eyebrow: '05 / Future memory',
     title: 'Your business two years from now, if the systems start getting built today.',
     image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
     alt: 'Modern team workspace with planning materials and laptops.',
     body: [
-      'Picture the operation in 2028. Field notes turn into accurate invoices without a chase. Vendor quotes are organized and compared. The crew starts each day with a crisp brief. Materials, permits, and warranties are tracked without constant manual cleanup.',
-      'The owner is not buried in details that used to consume evenings and weekends. The owner is reviewing real numbers, talking with customers, winning better jobs, and planning growth.',
-      'Competitors still doing everything the old way are working longer hours for similar or worse results. The advantage belongs to businesses that treat AI as a practical system, not another app to play with.',
+      'Picture the operation in 2028. Field notes become accurate invoices. Vendor quotes are compared. Crews start with crisp briefs. Materials, permits, and warranties stay tracked.',
+      'The owner is not buried in details that used to eat nights and weekends. The owner is reviewing real numbers, talking with customers, winning better jobs, and planning growth.',
+      'Competitors doing everything the old way work longer hours for similar results. The advantage belongs to businesses that treat AI as a practical system, not another app.',
     ],
+    related: { label: 'Plan from real business memory', to: '/articles/business-brain-free' },
   },
   {
-    eyebrow: '06 / Implementation line',
     title: 'The practical difference between exploring AI and actually using it.',
     image: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=80',
     alt: 'Hands working with paperwork and professional tools.',
     body: [
-      'Generic chat tools can help with estimates and notes. But when work is repeatable, tied to money, and visible to customers, one-off prompts often create as much cleanup as they save.',
-      'Reliable results come from systems designed around the business: workflow steps, source data, approval points, exceptions, and the human judgment that still matters.',
-      'That is the difference between trying AI and having something that works consistently inside the operation.',
+      'Generic chat tools can help with estimates and notes. But when work is repeatable, tied to money, and visible to customers, one-off prompts can create as much cleanup as they save.',
+      'Reliable results come from systems designed around workflow steps, source data, approval points, exceptions, and the human judgment that still matters.',
+      'That is the difference between trying AI and having something that works inside the operation.',
     ],
+    related: { label: 'See where custom systems beat chat tools', to: '/articles/amtech-vs-chatgpt-claude' },
   },
 ];
 
@@ -186,8 +186,7 @@ export default function Home() {
       <section className="border-y-4 border-black bg-white py-20 md:py-28">
         <div className="container-wide">
           <div className="max-w-5xl">
-            <p className="text-xs font-black uppercase tracking-[0.34em] text-red">Revised funnel</p>
-            <h2 className="mt-5 text-[clamp(2.5rem,6.5vw,6.7rem)] font-black leading-[0.88] tracking-[-0.075em]">
+            <h2 className="text-[clamp(2.5rem,6.5vw,6.7rem)] font-black leading-[0.88] tracking-[-0.075em]">
               From curiosity to operating advantage.
             </h2>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-black/64">
@@ -201,22 +200,25 @@ export default function Home() {
         {funnelSections.map((section, index) => (
           <article key={section.title} className={`border-b-4 border-black ${index % 2 === 1 ? 'bg-black text-white' : 'bg-[#f4f4f4] text-black'}`}>
             <div className={`container-wide grid gap-0 lg:grid-cols-2 ${index % 2 === 1 ? 'lg:[&>*:first-child]:order-2' : ''}`}>
-              <div className="relative min-h-[360px] overflow-hidden border-x-4 border-black lg:min-h-[620px]">
+              <div className="relative aspect-[4/5] min-h-[520px] overflow-hidden border-x-4 border-black lg:aspect-auto lg:min-h-[620px]">
                 <img src={section.image} alt={section.alt} className="h-full w-full object-cover grayscale" loading="lazy" />
                 <div className={`absolute inset-0 ${index % 2 === 1 ? 'bg-black/25' : 'bg-red/10 mix-blend-multiply'}`} />
-                <div className="absolute bottom-0 left-0 right-0 border-t-4 border-black bg-red p-5 text-xs font-black uppercase tracking-[0.28em] text-white">
-                  Contractor workflow / field reality
-                </div>
               </div>
               <div className="flex min-h-[560px] flex-col justify-center px-0 py-14 lg:px-14 lg:py-20">
                 <div className="border-2 border-current bg-white/5 p-7 md:p-10">
-                  <p className="text-xs font-black uppercase tracking-[0.32em] text-red">{section.eyebrow}</p>
-                  <h3 className="mt-5 text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{section.title}</h3>
+                  <h3 className="text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{section.title}</h3>
                   <div className="mt-8 space-y-5">
                     {section.body.map((paragraph) => (
                       <p key={paragraph} className={`text-base leading-8 md:text-lg ${index % 2 === 1 ? 'text-white/70' : 'text-black/66'}`}>{paragraph}</p>
                     ))}
                   </div>
+                  <Link
+                    to={section.related.to}
+                    className={`mt-8 inline-flex items-center gap-2 border-b-2 pb-1 text-sm font-black transition ${index % 2 === 1 ? 'border-white/30 text-white hover:border-white' : 'border-black/25 text-black hover:border-black'}`}
+                  >
+                    {section.related.label}
+                    <ArrowRight size={15} />
+                  </Link>
                   {'stats' in section && section.stats ? (
                     <div className="mt-8 grid gap-3 md:grid-cols-3">
                       {section.stats.map((stat) => (
@@ -231,36 +233,12 @@ export default function Home() {
         ))}
       </section>
 
-      <section className="border-b-4 border-black bg-white py-20 md:py-28">
-        <div className="container-wide grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-          <div>
-            <p className="text-xs font-black uppercase tracking-[0.34em] text-red">Decision bridge</p>
-            <h2 className="mt-5 text-[clamp(2.3rem,5.8vw,5.6rem)] font-black leading-[0.9] tracking-[-0.07em]">Two clear ways to move forward from here.</h2>
-            <p className="mt-7 max-w-xl text-lg leading-8 text-black/64">
-              The picture is clear: repeatable work can become a trusted system. The next move depends on whether the goal is to install that system inside your business or learn how to help other businesses make the same leap.
-            </p>
-          </div>
-          <div className="grid gap-4">
-            <div className="border-2 border-black bg-[#f4f4f4] p-7">
-              <Briefcase className="mb-7 h-6 w-6 text-red" />
-              <h3 className="text-3xl font-black tracking-[-0.05em]">If you run the business</h3>
-              <p className="mt-4 leading-7 text-black/64">Bring the real, messy processes from the week. Map the workflow, define approval points, and build the first system worth trusting with repeat work.</p>
-            </div>
-            <div className="border-2 border-black bg-black p-7 text-white">
-              <GraduationCap className="mb-7 h-6 w-6 text-red" />
-              <h3 className="text-3xl font-black tracking-[-0.05em]">If you want to help businesses do this</h3>
-              <p className="mt-4 leading-7 text-white/64">Learn how real buyers think, what actually works in the field, and how conversations turn AI interest into signed work.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="bg-[#f4f4f4] py-20 md:py-28">
         <div className="container-wide grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <div>
             <Sparkles className="mb-8 h-7 w-7 text-red" />
-            <h2 className="text-[clamp(2.1rem,5vw,4.8rem)] font-black leading-[0.92] tracking-[-0.065em]">Keep learning from the operations graph.</h2>
-            <p className="mt-6 text-lg leading-8 text-black/64">These field guides extend the funnel: start with a business brain, compare DIY tools with governed systems, then study estimating and pricing workflows that connect directly to contractor revenue.</p>
+            <h2 className="text-[clamp(2.1rem,5vw,4.8rem)] font-black leading-[0.92] tracking-[-0.065em]">Articles that make AI practical.</h2>
+            <p className="mt-6 text-lg leading-8 text-black/64">We write plain-English articles for owners who want to understand AI before they buy it, build it, or trust it with real work.</p>
           </div>
           <div className="grid gap-4 md:grid-cols-2">
             {funnelArticles.map((article) => (
@@ -270,20 +248,40 @@ export default function Home() {
                   <h3 className="text-2xl font-black leading-tight tracking-[-0.04em]">{article.title}</h3>
                   <p className="mt-4 text-sm leading-6 text-black/62">{article.description}</p>
                 </div>
-                <span className="inline-flex items-center gap-2 text-sm font-black text-black">Read the field guide <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
+                <span className="inline-flex items-center gap-2 text-sm font-black text-black">Read article <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
               </Link>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="border-y-4 border-black bg-white py-16">
-        <div className="container-wide grid gap-4 md:grid-cols-5">
-          {repeatWorkOutcomes.map((outcome) => (
-            <div key={outcome} className="border-2 border-black bg-[#f4f4f4] p-5 text-sm font-black leading-tight tracking-[-0.02em]">
-              {outcome}
+      <section className="border-y-4 border-black bg-black py-20 text-white md:py-28">
+        <div className="container-wide grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div>
+            <h2 className="text-[clamp(2.15rem,5vw,4.9rem)] font-black leading-[0.92] tracking-[-0.065em]">What this is really about.</h2>
+            <p className="mt-6 max-w-2xl text-lg leading-8 text-white/68">
+              AI is useful when it gives the business more time, fewer errors, and clearer decisions. The win is not novelty. The win is a calmer operation that can handle more work without adding more chaos.
+            </p>
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            <div className="border-2 border-white bg-white p-7 text-black">
+              <h3 className="text-2xl font-black tracking-[-0.04em]">Less drag.</h3>
+              <p className="mt-4 leading-7 text-black/64">Notes, quotes, invoices, and follow-up move faster because the repeat work has a place to go.</p>
             </div>
-          ))}
+            <div className="border-2 border-white bg-white p-7 text-black">
+              <h3 className="text-2xl font-black tracking-[-0.04em]">More room.</h3>
+              <p className="mt-4 leading-7 text-black/64">Owners get time back for customers, hiring, sales, and the decisions that actually move the business.</p>
+            </div>
+            <div className="border border-white/18 p-7 md:col-span-2">
+              <div className="grid gap-3 md:grid-cols-3">
+                {repeatWorkOutcomes.slice(1, 4).map((outcome) => (
+                  <p key={outcome} className="text-sm font-black leading-6 tracking-[-0.02em] text-white/72">
+                    {outcome}
+                  </p>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
