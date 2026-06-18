@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, GitBranch, MapPin, RadioTower, Sparkles } from 'lucide-react';
+import { ArrowRight, BookOpen, MapPin, RadioTower, Sparkles } from 'lucide-react';
 import { articleKnowledgeGraphNodes, articleTopicGroups, getNodesByIds } from '../lib/articleKnowledgeGraph';
 
 const nodeTypeOrder = ['EXISTING', 'T1', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8'];
@@ -38,7 +38,6 @@ export default function AllArticles() {
         <div className="pointer-events-none absolute inset-0 opacity-70 [background:radial-gradient(circle_at_78%_18%,rgba(225,29,42,0.18),transparent_30%),linear-gradient(90deg,rgba(0,0,0,0.035)_1px,transparent_1px),linear-gradient(rgba(0,0,0,0.035)_1px,transparent_1px)] [background-size:auto,44px_44px,44px_44px]" />
         <div className="container-wide relative">
           <div className="max-w-5xl">
-            <div className="mb-7 inline-flex items-center gap-2 border-2 border-black bg-[#f4f4f4] px-4 py-2 text-xs font-black uppercase tracking-[0.18em]"><GitBranch size={15} className="text-red" /> Operational article graph</div>
             <h1 className="text-[clamp(3.1rem,8.5vw,8rem)] font-black leading-[0.88] tracking-[-0.08em]">All articles and planned nodes<span className="text-red">.</span></h1>
             <p className="mt-7 max-w-3xl text-lg leading-8 text-black/68 md:text-xl">A mobile-first human index for AMTECH's operational AI article system: existing published guides, the new 40-node SEO knowledge graph, and the topic shelves that connect them.</p>
           </div>
