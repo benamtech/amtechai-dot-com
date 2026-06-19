@@ -23,3 +23,4 @@ _No outbound links recorded yet._
 - [How to Build a Business Brain for Free Before You Hire an AI Consultant](/articles/business-brain-free.md) — Published business-brain anchor.
 - [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](/articles/build-local-seo-plan-with-chatgpt.md) — Published SEO systems anchor.
 - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) — Published buying-decision anchor.
+- [What Is OKF? Google's New Format For AI-Readable Knowledge](/articles/what-is-okf-ai-readable-knowledge.md) — Published OKF and agentic-search explainer.

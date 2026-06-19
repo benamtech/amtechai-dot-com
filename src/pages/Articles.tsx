@@ -4,6 +4,16 @@ import { ArrowRight, BookOpen, Briefcase, CalendarDays, Compass, Layers3, Sparkl
 
 const articles = [
   {
+    title: "What Is OKF? Google's New Format For AI-Readable Knowledge",
+    href: '/articles/what-is-okf-ai-readable-knowledge',
+    category: 'Local authority',
+    date: 'June 19, 2026',
+    icp: 'AI builders',
+    entity: 'Open Knowledge Format',
+    description: 'A plain-English explainer for OKF, markdown concept graphs, and why AMTECH treats OKF as one output of a larger publishing system.',
+    featured: true,
+  },
+  {
     title: 'How Independent Stores Use AI to Turn Three Seasons of Sales Data Into Better Owner Decisions',
     href: '/articles/garden-center-spring-buy-plan-ai',
     category: 'Industry guides',
@@ -99,6 +109,7 @@ const rolePaths = [
     summary: 'Learn what to automate, where AI belongs, and when to work with a consultant.',
     links: [
       ['Build a business brain for free', '/articles/business-brain-free'],
+      ['What OKF means for AI-readable knowledge', '/articles/what-is-okf-ai-readable-knowledge'],
       ['Build a local SEO knowledge graph', '/articles/build-local-seo-plan-with-chatgpt'],
       ['Build a Claude pricing skill', '/articles/build-claude-skill-job-pricing'],
       ['AMTECH vs. ChatGPT or Claude', '/articles/amtech-vs-chatgpt-claude'],
@@ -140,6 +151,7 @@ const sitemapGroups = [
     title: 'Read',
     links: [
       ['Build a business brain', '/articles/business-brain-free'],
+      ['What OKF means for AI-readable knowledge', '/articles/what-is-okf-ai-readable-knowledge'],
       ['Build a local SEO plan', '/articles/build-local-seo-plan-with-chatgpt'],
       ['All articles', '/articles/all'],
       ['AI fundamentals', '/articles?category=ai-fundamentals'],

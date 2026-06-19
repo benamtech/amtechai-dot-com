@@ -33,17 +33,17 @@ OKF is not a competitor to our knowledge-graph SEO doctrine — it is the **same
 **Phases 1, 2, and 3 are built and green** (Phase 3 at the projection stage). Zero new dependencies beyond what shipped; nothing destructive; Node 24 runs the `.ts` build scripts directly.
 
 Source & tooling:
-- `src/lib/knowledge/` — the single authored source: `concepts.ts` (façade + block→markdown), `entities.ts` (registry), `articles/` (React-free `ArticleDefinition` data for all 8 published articles).
+- `src/lib/knowledge/` — the single authored source: `concepts.ts` (façade + block→markdown), `entities.ts` (registry), `articles/` (React-free `ArticleDefinition` data for all 9 published articles).
 - `src/components/articles/useArticleHead.ts` — per-page title/description hook; article pages are now thin wrappers over imported data.
 - `scripts/okf/` — `emit`, `build-okf`, `validate-okf`, `prerender`, `db-seed-sql`, `db-verify`.
 - Commands: `okf:build` / `okf:validate` / `okf:validate:phase3` / `okf:check` / `okf:prerender` / `okf:db:seed-sql` / `okf:db:verify`.
 
 Outputs:
-- `public/okf/**` (**73 concepts** + 5 `index.md`) and `public/{sitemap.xml,robots.txt,llms.txt}`, copied to `dist/`.
-- Prerendered static HTML for 8 article routes + `/articles` + `/articles/all` (postbuild), with per-page `<head>` + JSON-LD.
-- Live Supabase tables `concepts` / `concept_edges` / `concept_citations` (73 / 166 / 19), published-only RLS, seeded from the façade.
+- `public/okf/**` (**74 concepts** + 5 `index.md`) and `public/{sitemap.xml,robots.txt,llms.txt}`, copied to `dist/`.
+- Prerendered static HTML for 9 article routes + `/articles` + `/articles/all` (postbuild), with per-page `<head>` + JSON-LD.
+- Live Supabase tables `concepts` / `concept_edges` / `concept_citations` (73 / 166 / 19 before the OKF article projection refresh), published-only RLS, seeded from the façade.
 
-Checks: `okf:check` → **0/0** at hard stage 2; `okf:validate:phase3` → G8/G9 pass; `okf:db:verify` → DB matches source, RLS exposes only the 8 published.
+Checks: `okf:check` → **0/0** at hard stage 2 for the 74-concept source bundle; `okf:validate:phase3` → G8/G9 pass; `okf:db:verify` last confirmed the earlier 73-concept projection and should be rerun after applying the next seed SQL if the live DB projection must include the OKF article.
 
 Arc of the work:
 - **Phase 1** — conformance + agent-readable surface; the validator surfaced 22 orphan playbook nodes (linking rule written in prose, never in data).
@@ -53,4 +53,4 @@ Arc of the work:
 
 ## Publishing-agent workflow
 
-Agents that receive article copy and need to publish it into the AMTECH article/knowledge graph system should use [`../ARTICLE_PUBLISHING_AGENT.md`](../ARTICLE_PUBLISHING_AGENT.md). It covers input normalization from markdown/HTML/XML/JSON/plain text, article shaping, entity extraction, graph-node updates, OKF generation, prerender/build validation, and the optional Supabase projection refresh.
+Agents that receive article copy and need to publish it into the AMTECH article/knowledge graph system should use [`../skills/amtech-article-publisher/SKILL.md`](../skills/amtech-article-publisher/SKILL.md). It covers input normalization from markdown/HTML/XML/JSON/plain text, article shaping, entity extraction, graph-node updates, OKF generation, prerender/build validation, and the optional Supabase projection refresh.

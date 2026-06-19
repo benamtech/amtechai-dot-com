@@ -1,6 +1,6 @@
 {
   "project": "amtechai-dot-com",
-  "updated": "2026-06-18",
+  "updated": "2026-06-19",
   "stack": [
     "Vite",
     "React",
@@ -19,7 +19,8 @@
     "main": "src/main.tsx",
     "supabaseClient": "src/lib/supabase.ts",
     "aiEmployeePlan": "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
-    "aiEmployeeReference": "docs/AI_EMPLOYEE_MVP.md"
+    "aiEmployeeReference": "docs/AI_EMPLOYEE_MVP.md",
+    "latestHandoff": "docs/memory/status-2026-06-18--2324.md"
   },
   "npmScripts": {
     "dev": "Start the Vite dev server.",
@@ -188,6 +189,46 @@
         "src/lib/articles.ts"
       ],
       "purpose": "Educational article for building a Claude Skill that checks job profitability and pricing decisions"
+    },
+    {
+      "path": "/articles/build-local-seo-plan-with-chatgpt",
+      "page": "src/pages/articles/LocalSeoKnowledgeGraphPlan.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts",
+        "src/lib/knowledge/articles/build-local-seo-plan-with-chatgpt.ts"
+      ],
+      "purpose": "Educational article for building a local SEO and entity knowledge graph with ChatGPT or Claude"
+    },
+    {
+      "path": "/articles/business-brain-free",
+      "page": "src/pages/articles/BusinessBrainFree.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts",
+        "src/lib/knowledge/articles/business-brain-free.ts"
+      ],
+      "purpose": "Educational article for building a free Business Brain before custom AI automation"
+    },
+    {
+      "path": "/articles/garden-center-spring-buy-plan-ai",
+      "page": "src/pages/articles/SalisburyRetailSalesDataAI.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts",
+        "src/lib/knowledge/articles/garden-center-spring-buy-plan-ai.ts"
+      ],
+      "purpose": "Educational article for turning seasonal sales data into owner decisions and a supplier buy plan"
+    },
+    {
+      "path": "/articles/what-is-okf-ai-readable-knowledge",
+      "page": "src/pages/articles/OkfAiReadableKnowledge.tsx",
+      "components": [
+        "src/components/articles",
+        "src/lib/articles.ts",
+        "src/lib/knowledge/articles/what-is-okf-ai-readable-knowledge.ts"
+      ],
+      "purpose": "Educational article explaining OKF, agent-readable knowledge, and AMTECH's generated knowledge surfaces"
     },
     {
       "path": "/schedule-demo",
@@ -397,6 +438,13 @@
     "wiki/db-forms-endpoints.md",
     "wiki/deployment/netlify-vite-supabase.md",
     "wiki/research/2026-06-17-codegraph-docs-and-token-efficiency.md",
+    "docs/article-drafts/okf-ai-readable-knowledge.md",
+    "docs/memory/status-2026-06-18--2324.md",
+    "docs/skills/amtech-article-research-writer/SKILL.md",
+    "docs/skills/amtech-article-research-writer/references/research-workflow.md",
+    "docs/skills/amtech-article-research-writer/references/draft-template.md",
+    "docs/skills/amtech-article-publisher/SKILL.md",
+    "docs/skills/amtech-article-publisher/agents/openai.yaml",
     "docs/seo/AMTECH_MASTER_KNOWLEDGE_GRAPH.md",
     "docs/seo/KNOWLEDGE_GRAPH_SEO_RESEARCH.md",
     "docs/ARTICLE_SYSTEM.md",

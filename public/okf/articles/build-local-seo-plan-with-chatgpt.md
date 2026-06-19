@@ -206,6 +206,10 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [Phoenix runs on pools and panels: the operational AI a Valley service business actually needs](/playbooks/phoenix-runs-on-pools-and-panels-the-operational-ai-a-valley-service-business-actually-needs.md) — General topic by market.
 - [Building Sherman: the back-office AI a supply yard needs as the subdivisions land](/playbooks/building-sherman-the-back-office-ai-a-supply-yard-needs-as-the-subdivisions-land.md) — General topic by market.
 
+# Referenced by
+
+- [What Is OKF? Google's New Format For AI-Readable Knowledge](/articles/what-is-okf-ai-readable-knowledge.md) — Published OKF and agentic-search explainer.
+
 # Citations
 
 [1] [AI features and query fan-out in Search](https://developers.google.com/search/docs/appearance/ai-features) — Google Search Central

@@ -170,6 +170,7 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 # Referenced by
 
 - [How Independent Stores Use AI to Turn Three Seasons of Sales Data Into Better Owner Decisions](/articles/garden-center-spring-buy-plan-ai.md) — Published local operations guide.
+- [What Is OKF? Google's New Format For AI-Readable Knowledge](/articles/what-is-okf-ai-readable-knowledge.md) — Published OKF and agentic-search explainer.
 
 # Citations
 

@@ -4,6 +4,7 @@ import { article as localSeoPlan } from './build-local-seo-plan-with-chatgpt.ts'
 import { article as gardenCenterBuyPlan } from './garden-center-spring-buy-plan-ai.ts';
 import { article as amtechVsChatgpt } from './amtech-vs-chatgpt-claude.ts';
 import { article as claudeSkillPricing } from './build-claude-skill-job-pricing.ts';
+import { article as okfAiReadableKnowledge } from './what-is-okf-ai-readable-knowledge.ts';
 import { articles as estimatePrompts } from './estimate-prompts.ts';
 
 /**
@@ -17,6 +18,7 @@ export const articleDefinitions: Record<string, ArticleDefinition> = {
   [gardenCenterBuyPlan.slug]: gardenCenterBuyPlan,
   [amtechVsChatgpt.slug]: amtechVsChatgpt,
   [claudeSkillPricing.slug]: claudeSkillPricing,
+  [okfAiReadableKnowledge.slug]: okfAiReadableKnowledge,
   ...estimatePrompts,
 };
 
