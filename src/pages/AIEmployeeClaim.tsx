@@ -42,25 +42,25 @@ const CLAIM_STEPS = [
   {
     icon: Phone,
     title: 'Verify your number.',
-    body: 'Use a code on the web form, or open the private link we texted you.',
+    body: 'This is how the AI Employee knows who it reports to.',
   },
   {
     icon: ClipboardList,
-    title: 'Answer seven questions.',
-    body: 'Plain answers are enough. Give AMTECH the facts needed to set up the first version.',
+    title: 'Tell us about the business.',
+    body: 'Pricing, services, customers, tools, bottlenecks, and the way work actually gets done.',
   },
   {
     icon: MessageSquare,
-    title: 'Get the number.',
-    body: 'AMTECH builds it, gives it a phone number, and points it at the work you described.',
+    title: 'Text it work.',
+    body: 'You, a manager, or the person at the desk can send work to the same number.',
   },
 ];
 
 const BUILD_ITEMS = [
-  'A dedicated AI Employee',
-  'A separate SMS number',
-  'A setup based on your answers',
-  'Daily check-ins',
+  'Understands your business',
+  'Works through text',
+  'Helps with admin and growth work',
+  'Useful for owners or office staff',
 ];
 
 const TIMEZONES = [
@@ -218,7 +218,7 @@ export default function AIEmployeeClaim() {
                   Text your AI Employee. The work gets done<span className="text-red">.</span>
                 </h1>
                 <p className="mt-7 max-w-3xl text-lg leading-8 text-black/68 md:text-xl">
-                  Answer a few direct questions. Verify your phone. AMTECH sets it up so you can send a text and get useful work back.
+                  It is set up to understand your business, pricing, brand, documents, and the way you work. You text it what you need, and it helps turn hours of office and growth work into minutes without making you learn AI tools.
                 </p>
               </div>
 
@@ -261,10 +261,10 @@ export default function AIEmployeeClaim() {
           <div className="container-wide grid gap-8 lg:grid-cols-[360px_1fr] lg:items-start">
             <aside className="border-2 border-black bg-black p-6 text-white lg:sticky lg:top-24">
               <h2 className="text-4xl font-black leading-none tracking-[-0.05em]">
-                Keep it simple. Give us enough to start.
+                Built for the owner and the office.
               </h2>
               <p className="mt-5 text-sm leading-6 text-white/62">
-                Short, honest answers are better than polished ones. This is the first setup, not a final manual.
+                Use it yourself, or let the person who runs the desk use it. The point is simple: more business work gets done without adding more back-office weight.
               </p>
               <div className="mt-8 grid gap-3 border-t border-white/12 pt-6">
                 <StatusRow label="Questions" value="7" dark />
@@ -283,9 +283,9 @@ export default function AIEmployeeClaim() {
                 <div className="mb-6 flex items-start gap-3">
                   <ShieldCheck className="mt-1 h-6 w-6 text-red" aria-hidden="true" />
                   <div>
-                    <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Who should it report to?</h2>
+                    <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Who should it work with?</h2>
                     <p className="mt-3 text-sm leading-6 text-black/62">
-                      This phone is the person the AI Employee reports to.
+                      This is the main person who can text the AI Employee and get work back.
                     </p>
                   </div>
                 </div>
@@ -345,9 +345,9 @@ export default function AIEmployeeClaim() {
               </section>
 
               <section className="border-2 border-black bg-white p-5 md:p-7">
-                <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Tell it how the business works.</h2>
+                <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Tell us about your business.</h2>
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-black/62">
-                  Write like you are texting a sharp new hire. Facts, rough numbers, and messy reality are all useful.
+                  Give us the basics: what you sell, how you price, who you serve, what slows you down, and what kind of work you want handled faster.
                 </p>
                 <div className="mt-7 grid gap-4">
                   {QUESTIONS.map((question, index) => (
@@ -368,6 +368,9 @@ export default function AIEmployeeClaim() {
 
               <section className="border-2 border-black bg-[#f4f4f4] p-5 md:p-7">
                 <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Claim it.</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-black/62">
+                  Once claimed, AMTECH sets up the first version so it can help with work like estimates, invoices, email drafts, follow-up, material checks, and customer details.
+                </p>
                 <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
                   {smsVerified ? (
                     <div className="flex min-h-12 items-center gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-3 text-sm font-black text-[#126b2f]">

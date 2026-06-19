@@ -28,3 +28,4 @@ Product context:
 Copy and design memory:
 - Do not use eyebrow text on marketing or conversion pages. Structure pages with clear headings, direct body copy, icons, borders, spacing, and visual hierarchy instead.
 - Customer-facing copy should avoid self-referential/internal language such as "business brain seed," "form contract," "provisioning," "Hermes," "profile," and "workspace." Use plain labels like "Business info," "Tell us about your business," "Setup," and "Claim it."
+- When orienting the website around the free AI Employee offer and educational pivot, use simple results-first language that works for both high-agency tech adopters and normal service-business owners. Explain the offer as a textable employee that understands the business, pricing, branding, documents, customers, and work style, then helps owners or office staff get admin and growth work done without learning AI tools.
