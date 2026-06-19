@@ -24,3 +24,7 @@ Product context:
 - Pages include home, about, pricing, how-it-works, contact
 - Revenue flows: demo scheduling, apply intake, sales rep application, payment, wholesale
 - Upcoming product flow: AI Employee claim form with Twilio Verify, consent capture, Hermes provisioning, and one Twilio number per provisioned client.
+
+Copy and design memory:
+- Do not use eyebrow text on marketing or conversion pages. Structure pages with clear headings, direct body copy, icons, borders, spacing, and visual hierarchy instead.
+- Customer-facing copy should avoid self-referential/internal language such as "business brain seed," "form contract," "provisioning," "Hermes," "profile," and "workspace." Use plain labels like "Business info," "Tell us about your business," "Setup," and "Claim it."

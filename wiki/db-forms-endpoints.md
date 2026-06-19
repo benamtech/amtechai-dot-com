@@ -62,7 +62,7 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | Field | Source | Notes |
 | --- | --- | --- |
 | `phone` | Verified form phone | Phone ownership is proven by Twilio Verify. |
-| `consent_text_version` | Form payload/schema version | Current schema version is `1.0.0`. |
+| `consent_text_version` | Form payload/schema version | Current schema version is `1.1.0`. |
 | `timestamp_iso` | `claim.js` at verification time | Stored when `/verify-and-claim` succeeds. |
 | `channel` | Claim function | Expected value is `web` for the primary flow. |
 

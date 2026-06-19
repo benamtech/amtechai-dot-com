@@ -15,7 +15,7 @@ const payload = {
   agent_name: 'Rex',
   timezone: 'America/Los_Angeles',
   consent_accepted: true,
-  consent_text_version: '1.0.0',
+  consent_text_version: '1.1.0',
   answers: {
     q1_business: 'Scoop Dogg, dog waste pickup for yards, been at it about 3 years',
     q2_team: 'me plus two part-time route techs',

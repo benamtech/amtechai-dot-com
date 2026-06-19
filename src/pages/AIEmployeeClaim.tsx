@@ -1,41 +1,67 @@
 import { FormEvent, useEffect, useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight, Check, Loader2, ShieldCheck } from 'lucide-react';
+import { ArrowRight, Check, ClipboardList, Loader2, MessageSquare, Phone, ShieldCheck } from 'lucide-react';
+import Navbar from '../components/layout/Navbar';
+import Footer from '../components/layout/Footer';
 
-const CONSENT_VERSION = '1.0.0';
+const CONSENT_VERSION = '1.1.0';
 const CONSENT_TEXT =
-  'By claiming an AI Employee you consent to ongoing texts from AMTECH for the purpose of operating an AI agent on your behalf, which may connect to accounts or systems you explicitly authorize. You agree to use it lawfully and to take responsibility for what you ask it to do. Msg & data rates may apply. Reply STOP to cancel, HELP for help.';
+  'I agree to receive ongoing texts from AMTECH so my AI Employee can work with me. I understand it may connect to tools or accounts I approve, that I am responsible for how I use it, and that message and data rates may apply. Reply STOP to cancel or HELP for help.';
 
 const QUESTIONS = [
   {
     id: 'q1_business',
-    prompt: "What's the business and what does it do? Name, what you sell or build, and how long you've been at it.",
+    prompt: 'What is the business? Name it, say what you sell or build, and say how long it has been running.',
   },
   {
     id: 'q2_team',
-    prompt: "Who's on the team and how is it set up? Headcount, and who does what.",
+    prompt: 'Who is on the team? Give the headcount and the jobs people handle.',
   },
   {
     id: 'q3_office_work',
-    prompt: "What office or computer work eats the most of your time?",
+    prompt: 'What repeat computer work wastes the most time right now?',
   },
   {
     id: 'q4_tools',
-    prompt: 'What do you use for email, spreadsheets, estimates, and invoices?',
+    prompt: 'What tools do you use for email, spreadsheets, estimates, invoices, scheduling, or customer notes?',
   },
   {
     id: 'q5_money',
-    prompt: 'Roughly what does the business bring in, and what does a typical customer and job look like?',
+    prompt: 'What does the business roughly bring in, and what does a normal customer or job look like?',
   },
   {
     id: 'q6_ideal_customer',
-    prompt: 'Describe your ideal customer. The kind of work and client you want more of.',
+    prompt: 'What customer or job do you want more of?',
   },
   {
     id: 'q7_friction_customer',
-    prompt: 'What kind of customer or request do you deal with too often and wish you had less friction with?',
+    prompt: 'What customer, job, or request creates too much friction?',
   },
 ] as const;
+
+const CLAIM_STEPS = [
+  {
+    icon: Phone,
+    title: 'Verify your number.',
+    body: 'Use a code on the web form, or open the private link we texted you.',
+  },
+  {
+    icon: ClipboardList,
+    title: 'Answer seven questions.',
+    body: 'Plain answers are enough. Give AMTECH the facts needed to set up the first version.',
+  },
+  {
+    icon: MessageSquare,
+    title: 'Get the number.',
+    body: 'AMTECH builds it, gives it a phone number, and points it at the work you described.',
+  },
+];
+
+const BUILD_ITEMS = [
+  'A dedicated AI Employee',
+  'A separate SMS number',
+  'A setup based on your answers',
+  'Daily check-ins',
+];
 
 const TIMEZONES = [
   'America/Los_Angeles',
@@ -96,12 +122,12 @@ export default function AIEmployeeClaim() {
           setPhone(res.phone);
           setClaimToken(token);
           setSmsVerified(true);
-          setSuccess('Phone verified by text. No code needed — just finish the form.');
+          setSuccess('Your phone is already verified. Finish the form to claim it.');
         } else {
-          setError(res.error || 'That text link is no longer valid. Enter your phone to verify by code.');
+          setError(res.error || 'That text link expired. Enter your phone and use a code instead.');
         }
       } catch {
-        if (active) setError('That text link is no longer valid. Enter your phone to verify by code.');
+        if (active) setError('That text link expired. Enter your phone and use a code instead.');
       }
     })();
     return () => {
@@ -120,11 +146,11 @@ export default function AIEmployeeClaim() {
     setBusy('send');
     try {
       const res = await postJson('/claim/send-code', { phone });
-      if (!res.ok) throw new Error(res.error || 'Could not send verification code.');
+      if (!res.ok) throw new Error(res.error || 'Could not send the code.');
       setCodeSent(true);
-      setSuccess('Verification code sent.');
+      setSuccess('Code sent. Enter it below when it arrives.');
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Could not send verification code.');
+      setError(err instanceof Error ? err.message : 'Could not send the code.');
     } finally {
       setBusy(null);
     }
@@ -157,7 +183,7 @@ export default function AIEmployeeClaim() {
         smsVerified ? { claim_token: claimToken, ...shared } : { phone, code, ...shared }
       );
       if (!res.ok) throw new Error(res.error || 'Could not verify and claim.');
-      setSuccess(res.message || "Verified. Your AI employee is being built now.");
+      setSuccess(res.message || 'Claim received. AMTECH is building your AI Employee now.');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not verify and claim.');
     } finally {
@@ -166,192 +192,233 @@ export default function AIEmployeeClaim() {
   }
 
   function validate() {
-    if (!ownsBusiness) return 'This MVP is currently for business owners. AMTECH can still talk through a custom path on a sales call.';
+    if (!ownsBusiness) return 'This version is for business owners and operators. Book a call if you need a custom path.';
     if (!supervisorName.trim()) return 'Enter your name.';
     if (!agentName.trim()) return 'Name your AI employee.';
     if (!smsVerified) {
       if (!phone.trim()) return 'Enter a phone number.';
-      if (!codeSent) return 'Send a verification code first.';
-      if (!code.trim()) return 'Enter the verification code.';
+      if (!codeSent) return 'Send the code first.';
+      if (!code.trim()) return 'Enter the code.';
     }
     const missing = QUESTIONS.find((question) => !answers[question.id].trim());
-    if (missing) return 'Answer every business question before claiming.';
-    if (!consentAccepted) return 'Consent is required before AMTECH can text you from the AI employee.';
+    if (missing) return 'Answer all seven business questions.';
+    if (!consentAccepted) return 'Check the text consent box before claiming.';
     return '';
   }
 
   return (
-    <main className="min-h-screen bg-[#f7f7f4] text-black-rich">
-      <header className="border-b border-black/10 bg-white/90 px-5 py-4 backdrop-blur md:px-8">
-        <div className="mx-auto flex max-w-7xl items-center justify-between">
-          <Link to="/" className="font-display text-sm font-extrabold tracking-[0.06em]">
-            AMTECH<span className="text-red">.</span>
-          </Link>
-          <Link to="/schedule-call" className="text-xs font-semibold text-black/60 transition hover:text-red">
-            Talk to AMTECH
-          </Link>
-        </div>
-      </header>
-
-      <section className="mx-auto grid max-w-7xl gap-8 px-5 py-8 md:grid-cols-[0.8fr_1.2fr] md:px-8 md:py-12">
-        <aside className="md:sticky md:top-8 md:self-start">
-          <div className="mb-8">
-            <p className="mono-label mb-4 text-red">AI Employee Claim</p>
-            <h1 className="font-display text-[clamp(2.4rem,6vw,5rem)] font-black leading-none">
-              Your next employee gets a number.
-            </h1>
-            <p className="mt-5 max-w-xl text-base leading-7 text-black/65">
-              AMTECH verifies your phone, records consent, and builds one isolated Hermes AI employee
-              with its own Twilio SMS number and client workspace.
-            </p>
-          </div>
-
-          <div className="grid gap-3 border-y border-black/10 py-5">
-            <StatusRow label="Form contract" value="7 answers" />
-            <StatusRow
-              label="Phone verification"
-              value={smsVerified ? 'Verified by text' : codeSent ? 'Code sent' : 'Required'}
-            />
-            <StatusRow label="Business detail" value={`${completion}%`} />
-            <StatusRow label="Provisioning" value="Hermes hook" />
-          </div>
-        </aside>
-
-        <form onSubmit={submitClaim} className="space-y-5">
-          <section className="border border-black/10 bg-white p-5 shadow-card md:p-7">
-            <div className="mb-5 flex items-start gap-3">
-              <ShieldCheck className="mt-1 h-5 w-5 text-red" aria-hidden="true" />
+    <div className="min-h-screen bg-[#f4f4f4] text-black">
+      <Navbar />
+      <main>
+        <section className="border-b-4 border-black bg-white pt-32 pb-12 md:pt-40 md:pb-16">
+          <div className="container-wide">
+            <div className="grid gap-10 lg:grid-cols-[1fr_420px] lg:items-end">
               <div>
-                <h2 className="text-xl font-extrabold">Owner and employee</h2>
-                <p className="mt-1 text-sm leading-6 text-black/55">
-                  This phone becomes the verified supervisor for the provisioned AI employee.
+                <h1 className="max-w-6xl text-[clamp(3rem,8vw,8rem)] font-black leading-[0.86] tracking-[-0.08em]">
+                  Text your AI Employee. The work gets done<span className="text-red">.</span>
+                </h1>
+                <p className="mt-7 max-w-3xl text-lg leading-8 text-black/68 md:text-xl">
+                  Answer a few direct questions. Verify your phone. AMTECH sets it up so you can send a text and get useful work back.
                 </p>
               </div>
-            </div>
 
-            <div className="grid gap-4 md:grid-cols-2">
-              <TextField label="Your name" value={supervisorName} onChange={setSupervisorName} autoComplete="name" />
-              <TextField label="AI employee name" value={agentName} onChange={setAgentName} />
-              <TextField
-                label={smsVerified ? 'Mobile phone (verified by text)' : 'Mobile phone'}
-                value={phone}
-                onChange={setPhone}
-                autoComplete="tel"
-                placeholder="+18055550142"
-                readOnly={smsVerified}
-              />
-              <label className="block">
-                <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-black/55">Timezone</span>
-                <select
-                  value={timezone}
-                  onChange={(event) => setTimezone(event.target.value)}
-                  className="h-12 w-full border border-black/15 bg-white px-3 text-sm outline-none transition focus:border-red"
-                >
-                  {TIMEZONES.map((zone) => (
-                    <option key={zone} value={zone}>{zone}</option>
+              <div className="border-2 border-black bg-[#f4f4f4] p-6">
+                <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">What you get.</h2>
+                <div className="mt-7 grid gap-3">
+                  {BUILD_ITEMS.map((item) => (
+                    <div key={item} className="flex items-center gap-3 border border-black/15 bg-white px-4 py-3">
+                      <Check className="h-4 w-4 shrink-0 text-red" aria-hidden="true" />
+                      <span className="text-sm font-black leading-5">{item}</span>
+                    </div>
                   ))}
-                </select>
-              </label>
-            </div>
-
-            <div className="mt-5 flex flex-wrap items-center gap-3">
-              <label className="inline-flex items-center gap-2 border border-black/15 px-3 py-2 text-sm font-semibold">
-                <input
-                  type="checkbox"
-                  checked={ownsBusiness}
-                  onChange={(event) => setOwnsBusiness(event.target.checked)}
-                  className="h-4 w-4 accent-red"
-                />
-                I own or operate this business
-              </label>
-              {smsVerified ? (
-                <span className="inline-flex min-h-11 items-center gap-2 border border-[#126b2f]/30 bg-[#f2fbf3] px-4 py-2 text-sm font-bold text-[#126b2f]">
-                  <Check className="h-4 w-4" aria-hidden="true" />
-                  Phone verified by text
-                </span>
-              ) : (
-                <button
-                  type="button"
-                  onClick={sendCode}
-                  disabled={busy !== null || !phone.trim()}
-                  className="inline-flex min-h-11 items-center gap-2 bg-black-rich px-4 py-2 text-sm font-bold text-white transition hover:bg-red disabled:cursor-not-allowed disabled:opacity-50"
-                >
-                  {busy === 'send' ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
-                  Send verification code
-                </button>
-              )}
-            </div>
-          </section>
-
-          <section className="border border-black/10 bg-white p-5 shadow-card md:p-7">
-            <h2 className="text-xl font-extrabold">Business brain seed</h2>
-            <div className="mt-5 grid gap-4">
-              {QUESTIONS.map((question, index) => (
-                <label key={question.id} className="block">
-                  <span className="mb-2 block text-sm font-bold">
-                    <span className="mr-2 font-mono text-red">{String(index + 1).padStart(2, '0')}</span>
-                    {question.prompt}
-                  </span>
-                  <textarea
-                    value={answers[question.id]}
-                    onChange={(event) => setAnswers((current) => ({ ...current, [question.id]: event.target.value }))}
-                    className="min-h-24 w-full resize-y border border-black/15 bg-[#fbfbf8] px-3 py-3 text-sm leading-6 outline-none transition focus:border-red"
-                  />
-                </label>
-              ))}
-            </div>
-          </section>
-
-          <section className="border border-black/10 bg-white p-5 shadow-card md:p-7">
-            <h2 className="text-xl font-extrabold">Verify and claim</h2>
-            <div className="mt-5 grid gap-4 md:grid-cols-[220px_1fr]">
-              {smsVerified ? (
-                <div className="flex items-center gap-2 border border-[#126b2f]/30 bg-[#f2fbf3] px-3 text-sm font-semibold text-[#126b2f]">
-                  <Check className="h-4 w-4" aria-hidden="true" />
-                  Verified by text
                 </div>
-              ) : (
-                <TextField label="Verification code" value={code} onChange={setCode} inputMode="numeric" />
-              )}
-              <label className="flex items-start gap-3 border border-black/15 bg-[#fbfbf8] p-4 text-sm leading-6 text-black/70">
-                <input
-                  type="checkbox"
-                  checked={consentAccepted}
-                  onChange={(event) => setConsentAccepted(event.target.checked)}
-                  className="mt-1 h-4 w-4 shrink-0 accent-red"
-                />
-                <span>{CONSENT_TEXT}</span>
-              </label>
+              </div>
             </div>
+          </div>
+        </section>
 
-            {error && <p className="mt-4 border border-red/30 bg-red/5 px-4 py-3 text-sm font-semibold text-red">{error}</p>}
-            {success && (
-              <p className="mt-4 flex items-start gap-2 border border-black/10 bg-[#f2fbf3] px-4 py-3 text-sm font-semibold text-[#126b2f]">
-                <Check className="mt-0.5 h-4 w-4" aria-hidden="true" />
-                {success}
+        <section className="border-b-4 border-black bg-[#f4f4f4] py-10 md:py-14">
+          <div className="container-wide grid gap-4 md:grid-cols-3">
+            {CLAIM_STEPS.map((step, index) => {
+              const Icon = step.icon;
+              return (
+                <div key={step.title} className="border-2 border-black bg-white p-6">
+                  <div className="mb-8 flex items-center justify-between">
+                    <Icon className="h-6 w-6 text-red" aria-hidden="true" />
+                    <span className="font-mono text-sm font-black text-black/35">
+                      {index + 1}
+                    </span>
+                  </div>
+                  <h2 className="text-2xl font-black leading-none tracking-[-0.04em]">{step.title}</h2>
+                  <p className="mt-4 text-sm leading-6 text-black/62">{step.body}</p>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+
+        <section className="bg-white py-12 md:py-16">
+          <div className="container-wide grid gap-8 lg:grid-cols-[360px_1fr] lg:items-start">
+            <aside className="border-2 border-black bg-black p-6 text-white lg:sticky lg:top-24">
+              <h2 className="text-4xl font-black leading-none tracking-[-0.05em]">
+                Keep it simple. Give us enough to start.
+              </h2>
+              <p className="mt-5 text-sm leading-6 text-white/62">
+                Short, honest answers are better than polished ones. This is the first setup, not a final manual.
               </p>
-            )}
+              <div className="mt-8 grid gap-3 border-t border-white/12 pt-6">
+                <StatusRow label="Questions" value="7" dark />
+                <StatusRow
+                  label="Phone"
+                  value={smsVerified ? 'Verified' : codeSent ? 'Code sent' : 'Needed'}
+                  dark
+                />
+                <StatusRow label="Answers done" value={`${completion}%`} dark />
+                <StatusRow label="Setup" value="Ready after claim" dark />
+              </div>
+            </aside>
 
-            <button
-              type="submit"
-              disabled={busy !== null}
-              className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-red px-6 py-3 text-sm font-extrabold text-white transition hover:bg-red-bright disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
-            >
-              {busy === 'claim' ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
-              Verify phone and claim AI Employee
-            </button>
-          </section>
-        </form>
-      </section>
-    </main>
+            <form onSubmit={submitClaim} className="space-y-6">
+              <section className="border-2 border-black bg-[#f4f4f4] p-5 md:p-7">
+                <div className="mb-6 flex items-start gap-3">
+                  <ShieldCheck className="mt-1 h-6 w-6 text-red" aria-hidden="true" />
+                  <div>
+                    <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Who should it report to?</h2>
+                    <p className="mt-3 text-sm leading-6 text-black/62">
+                      This phone is the person the AI Employee reports to.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2">
+                  <TextField label="Your name" value={supervisorName} onChange={setSupervisorName} autoComplete="name" />
+                  <TextField label="What should we call it?" value={agentName} onChange={setAgentName} />
+                  <TextField
+                    label={smsVerified ? 'Phone verified by text' : 'Mobile phone'}
+                    value={phone}
+                    onChange={setPhone}
+                    autoComplete="tel"
+                    placeholder="+18055550142"
+                    readOnly={smsVerified}
+                  />
+                  <label className="block">
+                    <span className="mb-2 block text-sm font-black text-black/65">Timezone</span>
+                    <select
+                      value={timezone}
+                      onChange={(event) => setTimezone(event.target.value)}
+                      className="h-12 w-full border-2 border-black bg-white px-3 text-sm font-semibold outline-none transition focus:border-red"
+                    >
+                      {TIMEZONES.map((zone) => (
+                        <option key={zone} value={zone}>{zone}</option>
+                      ))}
+                    </select>
+                  </label>
+                </div>
+
+                <div className="mt-5 flex flex-wrap items-center gap-3">
+                  <label className="inline-flex min-h-11 items-center gap-2 border-2 border-black bg-white px-4 py-2 text-sm font-black">
+                    <input
+                      type="checkbox"
+                      checked={ownsBusiness}
+                      onChange={(event) => setOwnsBusiness(event.target.checked)}
+                      className="h-4 w-4 accent-red"
+                    />
+                    I own or operate this business
+                  </label>
+                  {smsVerified ? (
+                    <span className="inline-flex min-h-11 items-center gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-4 py-2 text-sm font-black text-[#126b2f]">
+                      <Check className="h-4 w-4" aria-hidden="true" />
+                      Phone verified
+                    </span>
+                  ) : (
+                    <button
+                      type="button"
+                      onClick={sendCode}
+                      disabled={busy !== null || !phone.trim()}
+                      className="inline-flex min-h-11 items-center gap-2 bg-black px-4 py-2 text-sm font-black text-white transition hover:bg-red disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {busy === 'send' ? <Loader2 className="h-4 w-4 animate-spin" /> : <ArrowRight className="h-4 w-4" />}
+                      Send code
+                    </button>
+                  )}
+                </div>
+              </section>
+
+              <section className="border-2 border-black bg-white p-5 md:p-7">
+                <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Tell it how the business works.</h2>
+                <p className="mt-3 max-w-2xl text-sm leading-6 text-black/62">
+                  Write like you are texting a sharp new hire. Facts, rough numbers, and messy reality are all useful.
+                </p>
+                <div className="mt-7 grid gap-4">
+                  {QUESTIONS.map((question, index) => (
+                    <label key={question.id} className="block border-2 border-black bg-[#f4f4f4] p-4">
+                      <span className="mb-3 flex items-start gap-3 text-sm font-black leading-6">
+                        <span className="font-mono text-red">{String(index + 1).padStart(2, '0')}</span>
+                        <span>{question.prompt}</span>
+                      </span>
+                      <textarea
+                        value={answers[question.id]}
+                        onChange={(event) => setAnswers((current) => ({ ...current, [question.id]: event.target.value }))}
+                        className="min-h-28 w-full resize-y border-2 border-black bg-white px-3 py-3 text-sm font-medium leading-6 outline-none transition focus:border-red"
+                      />
+                    </label>
+                  ))}
+                </div>
+              </section>
+
+              <section className="border-2 border-black bg-[#f4f4f4] p-5 md:p-7">
+                <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Claim it.</h2>
+                <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
+                  {smsVerified ? (
+                    <div className="flex min-h-12 items-center gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-3 text-sm font-black text-[#126b2f]">
+                      <Check className="h-4 w-4" aria-hidden="true" />
+                      Verified
+                    </div>
+                  ) : (
+                    <TextField label="Code" value={code} onChange={setCode} inputMode="numeric" />
+                  )}
+                  <label className="flex items-start gap-3 border-2 border-black bg-white p-4 text-sm font-semibold leading-6 text-black/70">
+                    <input
+                      type="checkbox"
+                      checked={consentAccepted}
+                      onChange={(event) => setConsentAccepted(event.target.checked)}
+                      className="mt-1 h-4 w-4 shrink-0 accent-red"
+                    />
+                    <span>{CONSENT_TEXT}</span>
+                  </label>
+                </div>
+
+                {error && <p className="mt-4 border-2 border-red bg-red/5 px-4 py-3 text-sm font-black text-red">{error}</p>}
+                {success && (
+                  <p className="mt-4 flex items-start gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-4 py-3 text-sm font-black text-[#126b2f]">
+                    <Check className="mt-0.5 h-4 w-4" aria-hidden="true" />
+                    {success}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  disabled={busy !== null}
+                  className="mt-6 inline-flex min-h-12 w-full items-center justify-center gap-2 bg-red px-6 py-3 text-sm font-black text-white transition hover:bg-red-bright disabled:cursor-not-allowed disabled:opacity-60 md:w-auto"
+                >
+                  {busy === 'claim' ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
+                  Claim my AI Employee
+                </button>
+              </section>
+            </form>
+          </div>
+        </section>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
-function StatusRow({ label, value }: { label: string; value: string }) {
+function StatusRow({ label, value, dark = false }: { label: string; value: string; dark?: boolean }) {
   return (
     <div className="flex items-center justify-between gap-4 text-sm">
-      <span className="text-black/55">{label}</span>
-      <span className="font-mono font-bold text-black-rich">{value}</span>
+      <span className={dark ? 'text-white/45' : 'text-black/55'}>{label}</span>
+      <span className={`font-mono font-black ${dark ? 'text-white' : 'text-black'}`}>{value}</span>
     </div>
   );
 }
@@ -375,7 +442,7 @@ function TextField({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-xs font-bold uppercase tracking-[0.16em] text-black/55">{label}</span>
+      <span className="mb-2 block text-sm font-black text-black/65">{label}</span>
       <input
         value={value}
         onChange={(event) => onChange(event.target.value)}
@@ -383,7 +450,7 @@ function TextField({
         placeholder={placeholder}
         inputMode={inputMode}
         readOnly={readOnly}
-        className={`h-12 w-full border border-black/15 px-3 text-sm outline-none transition focus:border-red ${
+        className={`h-12 w-full border-2 border-black px-3 text-sm font-semibold outline-none transition focus:border-red ${
           readOnly ? 'cursor-not-allowed bg-[#f2fbf3] text-black/70' : 'bg-white'
         }`}
       />

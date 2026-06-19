@@ -1,7 +1,7 @@
 import { createHmac, randomUUID, timingSafeEqual } from 'node:crypto';
 
 const VERIFY_BASE = 'https://verify.twilio.com/v2';
-const CONSENT_VERSION = '1.0.0';
+const CONSENT_VERSION = '1.1.0';
 const PHONE_PATTERN = /^\+[1-9]\d{9,14}$/;
 const CLAIM_TOKEN_TTL_MS = 15 * 60 * 1000;
 const QUESTION_IDS = [
