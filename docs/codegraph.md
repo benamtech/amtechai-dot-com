@@ -66,6 +66,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 - `supabase/functions`: Deno Edge Functions deployed to Supabase.
 - `wiki`: long-form design/product/research/deployment notes.
 - `docs/seo`: AMTECH article-system research, master operational knowledge graph, and article opportunity sequencing.
+- `docs/ARTICLE_PUBLISHING_AGENT.md`: reusable workflow for agents that receive article copy in markdown, HTML, XML, JSON, or pasted text and need to publish it into the AMTECH article system, article knowledge graph, OKF bundle, prerendered route, and optional Supabase projection.
 - `src/lib/articleKnowledgeGraph.ts`: live article graph data used by `/articles` and `/articles/all`, including published articles and planned nodes.
 - `src/lib/knowledge/` — **the single authored source of truth for knowledge** (the "one model, many projections" hub):
   - `concepts.ts`: typed façade that normalizes the article graph + entity registry + full article content into `OkfConcept[]` (`getConcepts()`, `ALLOWED_CONCEPT_TYPES`, block→markdown renderer). Read path for the OKF emitter, prerenderer, and DB seed.
@@ -76,7 +77,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
   - `emit.ts` (pure projection → file map), `build-okf.ts` (writes `public/okf/**` + discovery files), `validate-okf.ts` (conformance C1–C5 / freshness / quality Q1–Q6 / discovery D1–D3; default hard stage 2; `--phase=3` adds DB gates G8/G9).
   - `prerender.ts` (postbuild → per-route static HTML in `dist/`).
   - `db-seed-sql.ts` (emits idempotent seed SQL for the concept tables from the façade; `--no-body` for a compact seed), `db-verify.ts` (anon-key parity + RLS check vs the in-code source).
-  - Commands: `npm run okf:build|okf:validate|okf:validate:phase3|okf:check|okf:prerender|okf:db:seed-sql|okf:db:verify`. Output committed under `public/okf/**` (73 concepts) + `public/{sitemap.xml,robots.txt,llms.txt}`. Standards, phase gates, and the Supabase schema: `docs/okf/`.
+  - Commands: `npm run okf:build|okf:validate|okf:validate:phase3|okf:check|okf:prerender|okf:db:seed-sql|okf:db:verify`. Output committed under `public/okf/**` (73 concepts) + `public/{sitemap.xml,robots.txt,llms.txt}`. Standards, phase gates, Supabase schema, and future OKF/article positioning: `docs/okf/`.
 - `docs/memory`: durable short facts for future agents.
 - `netlify/functions`: Netlify Functions deployed with the Vite site; `claim.mjs` handles AI Employee Twilio Verify/provisioning and `sms-entry.mjs` is the optional onboarding SMS signpost.
 - `AI_EMPLOYEE_MVP`: AI Employee product bundle. Read `BUILD-PLAN.md` first, then `SUB_AGENTS.md` and `ai-employee-all-files/README.md`; `template/` is the Hermes profile, `schema/` is the form/manifest contract, `scripts/` is the provisioning factory, first-run setup, local checks, Caddy/systemd helpers, smoke tests, and authenticated hook, `.env.netlify.example` is the Netlify env checklist, `host/` contains local reverse-proxy templates, `cron/` is check-in scheduling, and `netlify/functions/` is the source-bundle copy/reference for claim/SMS functions.
@@ -87,8 +88,9 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 2. For route changes, inspect `src/App.tsx`, the page file, then only the referenced component folder.
 3. For data changes, inspect the relevant migration, frontend service/page submit handler, and Edge Function if present.
 4. For design changes, read `AMTECH_STYLE_GUIDE.md`, `COST_CALCULATOR_STYLE.md`, and relevant notes in `wiki/design-notes.md`.
-5. Keep this codegraph updated whenever a route, table, endpoint, feature folder, article-system surface, or durable knowledge-graph/research source changes.
-6. For AI Employee MVP work, start with `docs/AI_EMPLOYEE_MVP.md` and `AI_EMPLOYEE_MVP/BUILD-PLAN.md`; dry-run provisioning before any real Hermes/Twilio side effects.
+5. For article publishing from supplied copy, read `docs/ARTICLE_PUBLISHING_AGENT.md` before editing article data, graph nodes, or OKF outputs.
+6. Keep this codegraph updated whenever a route, table, endpoint, feature folder, article-system surface, or durable knowledge-graph/research source changes.
+7. For AI Employee MVP work, start with `docs/AI_EMPLOYEE_MVP.md` and `AI_EMPLOYEE_MVP/BUILD-PLAN.md`; dry-run provisioning before any real Hermes/Twilio side effects.
 
 ## NPM command map
 

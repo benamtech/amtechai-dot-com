@@ -7,7 +7,7 @@ Always use the fastest, lowest-token navigation path before broad repo explorati
 1. Read `docs/codegraph.md` for the route graph, data/integration graph, and file ownership map.
 2. Read `wiki/db-forms-endpoints.md` for Supabase tables, storage buckets, form handlers, Edge Functions, and environment variables.
 3. Read `codegraph.json` when a machine-readable route/data-flow map is useful.
-4. For article/SEO work, check `docs/ARTICLE_SYSTEM.md`, `docs/seo/AMTECH_MASTER_KNOWLEDGE_GRAPH.md`, and `docs/seo/KNOWLEDGE_GRAPH_SEO_RESEARCH.md`; for live copy decisions, treat current site copy in `src/pages` and `src/components` as authoritative. For Open Knowledge Format (OKF) conformance and the article-system adaptation plan, read `docs/okf/` (start at `docs/okf/README.md`).
+4. For article/SEO work, check `docs/ARTICLE_SYSTEM.md`, `docs/ARTICLE_PUBLISHING_AGENT.md`, `docs/seo/AMTECH_MASTER_KNOWLEDGE_GRAPH.md`, and `docs/seo/KNOWLEDGE_GRAPH_SEO_RESEARCH.md`; for live copy decisions, treat current site copy in `src/pages` and `src/components` as authoritative. For Open Knowledge Format (OKF) conformance and the article-system adaptation plan, read `docs/okf/` (start at `docs/okf/README.md`).
 5. For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` before touching code.
 6. Inspect only the route page, feature folder, migration, service file, Edge Function, article-system file, or AI Employee bundle file identified by those references.
 7. Use targeted `rg` searches only after the codegraph/reference docs do not answer the question.

@@ -15,6 +15,7 @@ It exists for two reasons:
 4. [`04-validation-and-phase-gates.md`](./04-validation-and-phase-gates.md) — the validation standards (conformance C1–C5, quality Q1–Q6, discovery D1–D3) and the **gates** that must be green before Phase 2 or 3 may start.
 5. [`05-phase-1-build-notes.md`](./05-phase-1-build-notes.md) — editorial build log (Phase 1 + Phase 2): what shipped, decisions made at the keyboard, the 22-orphan finding, and how Phase 2 fixed it by abstraction.
 6. [`06-phase-3-foundation.md`](./06-phase-3-foundation.md) — the Supabase build-time-source-of-truth plan, the lossless `OkfConcept ↔ rows` mapping, and the Phase-3 validation gates. Schema: [`phase-3-schema.sql`](./phase-3-schema.sql).
+7. [`07-future-article-notes.md`](./07-future-article-notes.md) — future article ladder and positioning for OKF, AMTECH's knowledge publishing standard, materialized knowledge surfaces, and the orphan-node validator story.
 
 ## The one-paragraph thesis
 
@@ -49,3 +50,7 @@ Arc of the work:
 - **Phase 2** — fixed that *by abstraction*: 26 entity concepts with edges derived from each node's `uc`/`city`/`subtype`. Zero orphans, bidirectional graph.
 - **Phase 3** — consolidated article content into React-free data (the real keystone), prerendered routes, and projected the graph into Supabase as a queryable published surface. Architecture: **façade-as-source, DB-as-projection** (`06-phase-3-foundation.md`).
 - **Remaining (optional):** the authoring cutover (build reads the DB) — gated on CI service-role creds and a reason to author outside code (the Phase-4 agent loop).
+
+## Publishing-agent workflow
+
+Agents that receive article copy and need to publish it into the AMTECH article/knowledge graph system should use [`../ARTICLE_PUBLISHING_AGENT.md`](../ARTICLE_PUBLISHING_AGENT.md). It covers input normalization from markdown/HTML/XML/JSON/plain text, article shaping, entity extraction, graph-node updates, OKF generation, prerender/build validation, and the optional Supabase projection refresh.

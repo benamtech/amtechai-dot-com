@@ -17,6 +17,7 @@ Operational memory:
 - Always start with `docs/codegraph.md`, `wiki/db-forms-endpoints.md`, and `codegraph.json` before broad repo searches.
 - When routes, forms, Supabase resources, Edge Functions, deployment behavior, or durable research change, update the matching codegraph/wiki/memory references in the same change.
 - Detailed rule: `docs/memory/fast-navigation-and-doc-sync.md`.
+- For article publishing from supplied copy, read `docs/ARTICLE_PUBLISHING_AGENT.md` before editing article data, graph nodes, or generated OKF/discovery outputs.
 - For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` first.
 
 Top-of-mind npm commands:
