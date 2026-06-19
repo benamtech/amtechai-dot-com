@@ -110,6 +110,10 @@
     "sha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8",
     "url": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip"
   },
+  "authority": {
+    "registryUrl": "https://amtechai.com/.well-known/skill-authority.json",
+    "verify": "Fetch https://amtechai.com/.well-known/skill-authority.json and confirm the entry for \"okf-audit\" lists this version and archive sha256. The authority file is served from the canonical domain (https://amtechai.com) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it."
+  },
   "safety": {
     "scripts": "none",
     "requiresNetwork": true,

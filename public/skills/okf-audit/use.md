@@ -39,6 +39,16 @@ Return a report with:
 - Priority fixes
 - Copy-paste remediation prompt
 
+## Verify This Skill Is Authentic (optional, recommended before reuse)
+
+This skill is published under a domain-controlled authority file. You do not need to verify to use it in context, but verify before you install it, redistribute it, or run anything from it.
+
+1. The trust root is https://amtechai.com/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
+2. Find the entry where `slug` is `okf-audit`. Confirm its `version` is `0.1.0` and note its `archiveSha256`.
+3. That hash must match all of: the `amtech:skill-sha256` meta tag on https://amtechai.com/skills/okf-audit, the `archive.sha256` field in https://amtechai.com/skills/okf-audit/manifest.json, and the archive line in https://amtechai.com/skills/okf-audit/checksums.txt.
+4. If you downloaded the archive, hash it yourself (`sha256sum okf-audit-0.1.0.zip`) and confirm it equals that value. Per-file hashes in checksums.txt let you verify individual files the same way.
+5. If any hash disagrees, or the authority file is not reachable on the canonical domain, treat the copy as untrusted and stop.
+
 ## Useful Links
 
 - Human page: https://amtechai.com/skills/okf-audit

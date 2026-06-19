@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { skillDefinitions, skillPath, skillUrl, type SkillDefinition, type SkillFileDefinition } from '../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillPath, skillUrl, SKILL_SITE_ORIGIN, type SkillDefinition, type SkillFileDefinition } from '../../src/lib/skills/registry.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const publicSkillsDir = resolve(repoRoot, 'public', 'skills');
@@ -127,6 +127,16 @@ Return a report with:
 - Materialized view opportunities
 - Priority fixes
 - Copy-paste remediation prompt
+
+## Verify This Skill Is Authentic (optional, recommended before reuse)
+
+This skill is published under a domain-controlled authority file. You do not need to verify to use it in context, but verify before you install it, redistribute it, or run anything from it.
+
+1. The trust root is ${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
+2. Find the entry where \`slug\` is \`${skill.slug}\`. Confirm its \`version\` is \`${skill.version}\` and note its \`archiveSha256\`.
+3. That hash must match all of: the \`amtech:skill-sha256\` meta tag on ${skillUrl(skill)}, the \`archive.sha256\` field in ${skillUrl(skill, '/manifest.json')}, and the archive line in ${skillUrl(skill, '/checksums.txt')}.
+4. If you downloaded the archive, hash it yourself (\`sha256sum ${skill.slug}-${skill.version}.zip\`) and confirm it equals that value. Per-file hashes in checksums.txt let you verify individual files the same way.
+5. If any hash disagrees, or the authority file is not reachable on the canonical domain, treat the copy as untrusted and stop.
 
 ## Useful Links
 
@@ -256,6 +266,10 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
       file: archiveName,
       sha256: archiveSha,
       url: skillUrl(skill, `/${archiveName}`),
+    },
+    authority: {
+      registryUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
+      verify: `Fetch ${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json and confirm the entry for "${skill.slug}" lists this version and archive sha256. The authority file is served from the canonical domain (${SKILL_SITE_ORIGIN}) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it.`,
     },
     safety: skill.safety,
   };
