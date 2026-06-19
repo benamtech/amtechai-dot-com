@@ -11,13 +11,13 @@
   "verification": {
     "method": "twilio_verify_v2",
     "channel": "sms",
-    "flow": "form posts /send-code (Verify sends OTP), user enters code, form posts /verify-and-claim (Verify checks OTP). One verification, inline.",
+    "flow": "form posts /send-code (Verify sends OTP), user enters code in the verification block, form posts /verify-code (Verify checks OTP and returns a signed claim_token), then final claim posts /verify-and-claim with claim_token, consent, and answers. One verification, inline, before the business questions.",
     "note": "No dedicated onboarding number needed for this; Verify uses managed telephony. A number is only needed for the optional sms-entry signpost."
   },
   "entry_doors": {
     "web": {
       "method": "twilio_verify",
-      "flow": "User opens /claim, fills the form, verifies the phone inline with a Twilio Verify code."
+      "flow": "User opens /claim, enters owner details, verifies the phone inline with a Twilio Verify code, then finishes the business questions and final consent/claim step."
     },
     "sms_inbound": {
       "method": "sms_inbound",

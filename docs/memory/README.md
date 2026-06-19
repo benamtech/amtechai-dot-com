@@ -19,6 +19,22 @@ Operational memory:
 - Detailed rule: `docs/memory/fast-navigation-and-doc-sync.md`.
 - For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` first.
 
+Top-of-mind npm commands:
+- `npm run dev` - start the Vite dev server.
+- `npm run build` - production build.
+- `npm run preview` - preview the production build.
+- `npm run typecheck` - TypeScript app check.
+- `npm run lint` - eslint check.
+- `npm run ai:local:setup` - first-run Hermes PC setup for the AI Employee bundle.
+- `npm run ai:local:check` - local Hermes/env/Caddy/Supabase prerequisite check plus dry-run provision check.
+- `npm run ai:caddy:render` - render/print Caddy host config install commands.
+- `npm run ai:claim:secret` - generate a strong `CLAIM_LINK_SECRET` for Netlify.
+- `npm run ai:claim:smoke` - smoke-test the Netlify claim function against the local dry-run provision hook.
+- `npm run ai:sms:smoke` - smoke-test the SMS entry function.
+- `npm run ai:supabase:push` - push AI Employee Supabase migrations through the Supabase CLI.
+- `npm run ai:supabase:verify` - verify `ai_employee_claims` through Supabase REST.
+- `npm run ai:provision:dry-run` - render/provision the example manifest with no side effects.
+
 Product context:
 - Public marketing site for https://amtechai.com
 - Pages include home, about, pricing, how-it-works, contact
@@ -29,3 +45,4 @@ Copy and design memory:
 - Do not use eyebrow text on marketing or conversion pages. Structure pages with clear headings, direct body copy, icons, borders, spacing, and visual hierarchy instead.
 - Customer-facing copy should avoid self-referential/internal language such as "business brain seed," "form contract," "provisioning," "Hermes," "profile," and "workspace." Use plain labels like "Business info," "Tell us about your business," "Setup," and "Claim it."
 - When orienting the website around the free AI Employee offer and educational pivot, use simple results-first language that works for both high-agency tech adopters and normal service-business owners. Explain the offer as a textable employee that understands the business, pricing, branding, documents, customers, and work style, then helps owners or office staff get admin and growth work done without learning AI tools.
+- Before marking a requested UI or flow change complete, write the acceptance criteria in plain language and verify the implementation against each one. For form-flow requests, confirm every requested block exists in the right order and that removed fields are actually gone from the old location.

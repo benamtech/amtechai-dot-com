@@ -21,6 +21,22 @@
     "aiEmployeePlan": "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
     "aiEmployeeReference": "docs/AI_EMPLOYEE_MVP.md"
   },
+  "npmScripts": {
+    "dev": "Start the Vite dev server.",
+    "build": "Build the production Vite bundle.",
+    "preview": "Preview the production build locally.",
+    "typecheck": "Run TypeScript app checks.",
+    "lint": "Run eslint.",
+    "ai:local:setup": "First-run setup for the local Hermes PC bundle.",
+    "ai:local:check": "Check local Hermes/env/Caddy/Supabase prerequisites and dry-run provisioning.",
+    "ai:caddy:render": "Render Caddy host config and print install/reload commands.",
+    "ai:claim:secret": "Generate a strong CLAIM_LINK_SECRET for Netlify.",
+    "ai:claim:smoke": "Smoke-test the Netlify claim function against the dry-run provision hook.",
+    "ai:sms:smoke": "Smoke-test the SMS entry function.",
+    "ai:supabase:push": "Push AI Employee Supabase migrations through the Supabase CLI.",
+    "ai:supabase:verify": "Verify ai_employee_claims through Supabase REST.",
+    "ai:provision:dry-run": "Run the provisioning factory against the example manifest with no side effects."
+  },
   "productBundles": [
     {
       "name": "AI Employee MVP",
@@ -345,7 +361,7 @@
       "name": "ai employee claim and provisioning",
       "status": "Two onboarding doors implemented (web Twilio Verify + pre-verified text-in). Supabase tables applied to project vgedowiwvwfpjymouito. Real provisioning requires configured Twilio, Supabase service role, CLAIM_LINK_SECRET, and Hermes provision hook secrets",
       "doors": [
-        "web: /claim -> /claim/send-code + /claim/verify-and-claim (Twilio Verify)",
+        "web: /claim -> /claim/send-code -> /claim/verify-code (Twilio Verify returns claim_token) -> /claim/verify-and-claim (claim_token)",
         "sms: text keyword to onboarding number -> sms-entry mints signed link -> /claim?t= -> /claim/start-from-sms + /claim/verify-and-claim (claim_token); inbound Twilio signature is the proof, no second code"
       ],
       "frontend": [

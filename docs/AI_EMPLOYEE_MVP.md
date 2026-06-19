@@ -38,6 +38,7 @@ The website claim surface now lives at `/claim`: a user fills one form, verifies
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/check_local_setup.py` | Verifies local modules/env/Hermes visibility and dry-runs the provisioning factory. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_caddy_config.sh` | Renders host Caddy config for `hook.agents.amtechai.com` and per-client snippet imports. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_provision_hook_service.sh` | Writes a user systemd service for the local provision hook. |
+| `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/generate_claim_link_secret.mjs` | Prints a strong `CLAIM_LINK_SECRET` for Netlify without storing it. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_claim_function.mjs` | Local test-mode claim function smoke test that posts to the dry-run provision hook. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_sms_entry.mjs` | Local test-mode SMS signpost smoke test. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh` | Supabase CLI helper for pushing migrations once the CLI/project are configured. |
@@ -62,7 +63,7 @@ The website claim surface now lives at `/claim`: a user fills one form, verifies
 
 - Route: `/claim`, owned by `src/pages/AIEmployeeClaim.tsx`.
 - Form contract: seven answer IDs and consent text match `AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json`.
-- Function endpoints: `/claim/send-code` and `/claim/verify-and-claim`, redirected by `netlify.toml` to `netlify/functions/claim.mjs`.
+- Function endpoints: `/claim/send-code`, `/claim/verify-code`, and `/claim/verify-and-claim`, redirected by `netlify.toml` to `netlify/functions/claim.mjs`.
 - Consent persistence: `ai_employee_claims`, created by `supabase/migrations/20260618193000_create_ai_employee_claims.sql`.
 - Local provision hook: `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_hook_server.py`, started through `run_provision_hook.sh`.
 - Local first-run setup: `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/setup_local_pc.sh`.
@@ -71,7 +72,7 @@ The website claim surface now lives at `/claim`: a user fills one form, verifies
 - Claim smoke testing: start the dry-run hook and run `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_claim_function.mjs`; it uses `CLAIM_TEST_MODE=1` to bypass external Twilio/Supabase calls.
 - SMS signpost smoke testing: `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_sms_entry.mjs` covers local bypass mode and a signed request; production `/sms-entry` validates `X-Twilio-Signature` with `TWILIO_AUTH_TOKEN` and should set `TWILIO_SMS_WEBHOOK_URL` to the exact public Twilio webhook URL.
 - Host routing: `install_caddy_config.sh` renders a Caddyfile for `PROVISION_HOOK_PUBLIC_HOST` and imports per-client snippets from `state/caddy/*.caddy`.
-- Repo-level convenience scripts: `npm run ai:local:setup`, `npm run ai:local:check`, `npm run ai:caddy:render`, `npm run ai:claim:smoke`, `npm run ai:sms:smoke`, `npm run ai:supabase:push`, `npm run ai:supabase:verify`, and `npm run ai:provision:dry-run`.
+- Repo-level convenience scripts: `npm run ai:local:setup`, `npm run ai:local:check`, `npm run ai:caddy:render`, `npm run ai:claim:secret`, `npm run ai:claim:smoke`, `npm run ai:sms:smoke`, `npm run ai:supabase:push`, `npm run ai:supabase:verify`, and `npm run ai:provision:dry-run`.
 
 ## Security And Deployment Notes
 

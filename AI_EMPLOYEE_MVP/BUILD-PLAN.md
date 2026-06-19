@@ -75,7 +75,7 @@ A page collecting the seven answers (branching on the business question), the su
 
 ### 3.3 Two posts, one verification
 
-`netlify/functions/claim.mjs` exposes two routes. The form posts `/claim/send-code` with the phone (Verify sends the OTP), the user enters the code, and the form posts `/claim/verify-and-claim` with the code, the consent flag, and all the answers. On an approved check, the function writes the consent/claim record, builds the manifest, and calls `triggerProvision`. That is the only verification in the system; phone ownership is proven, consent is recorded, provisioning starts, and the new agent texts the owner when it is ready.
+`netlify/functions/claim.mjs` exposes the web verification and final claim routes. The form posts `/claim/send-code` with the phone (Verify sends the OTP), the user enters the code in the verification block before the business questions, and the form posts `/claim/verify-code`. On an approved check, the function returns a short-lived signed `claim_token`. The final button posts `/claim/verify-and-claim` with that `claim_token`, the consent flag, and all the answers. That final route writes the consent/claim record, builds the manifest, and calls `triggerProvision`. Phone ownership is proven before the business section; the bottom claim button only starts the claim/provisioning path.
 
 ### 3.4 The provision hook
 

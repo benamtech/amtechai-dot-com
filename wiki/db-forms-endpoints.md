@@ -28,7 +28,7 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | --- | --- | --- |
 | `TWILIO_ACCOUNT_SID` | `netlify/functions/claim.mjs`, `scripts/claim_number.py` | Twilio REST credentials for Verify and number pool operations. |
 | `TWILIO_AUTH_TOKEN` | `claim.mjs`, `scripts/claim_number.py` | Server-side secret only. |
-| `TWILIO_VERIFY_SERVICE_SID` | `claim.mjs` | Twilio Verify service (`VA...`) used for one inline SMS OTP before provisioning. |
+| `TWILIO_VERIFY_SERVICE_SID` | `claim.mjs` | Twilio Verify service (`VA...`) used for one inline SMS OTP before final claim/provisioning. |
 | `SUPABASE_URL` | `claim.mjs` | Server-side Supabase project URL for consent/claim inserts; may fall back to `VITE_SUPABASE_URL`. |
 | `SUPABASE_SERVICE_ROLE_KEY` | `claim.mjs` | Server-side only. Inserts and updates `ai_employee_claims` after phone verification. |
 | `PROVISION_HOOK_URL` | `claim.mjs` | Authenticated endpoint on the Hermes host that runs `provision_client.py` with the manifest. |
@@ -63,7 +63,7 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | --- | --- | --- |
 | `phone` | Verified form phone | Phone ownership is proven by Twilio Verify. |
 | `consent_text_version` | Form payload/schema version | Current schema version is `1.1.0`. |
-| `timestamp_iso` | `claim.js` at verification time | Stored when `/verify-and-claim` succeeds. |
+| `timestamp_iso` | `claim.js` at claim time | Stored when `/verify-and-claim` succeeds. |
 | `channel` | Claim function | Expected value is `web` for the primary flow. |
 
 Consent lives in `ai_employee_claims`. The browser does not write the table directly; `netlify/functions/claim.mjs` inserts only after Twilio Verify approves the phone number, using `SUPABASE_SERVICE_ROLE_KEY`. RLS is enabled. Authenticated users may read/update claim status; anonymous users have no direct table access. Status values are `queued`, `accepted`, `running`, `provisioned`, and `failed`; Netlify writes `queued/accepted/failed`, and the local provision hook writes `running/provisioned/failed` when local Supabase service-role env is present.
@@ -83,7 +83,8 @@ These files live under root `netlify/functions/` and are deployed by `netlify.to
 | Function | Planned path | Caller | Request shape | Response | External dependency |
 | --- | --- | --- | --- | --- | --- |
 | `claim.mjs` send code | `/claim/send-code` | `src/pages/AIEmployeeClaim.tsx` | `{ phone }` | `{ ok, status }` | Twilio Verify. |
-| `claim.mjs` verify and claim | `/claim/verify-and-claim` | `src/pages/AIEmployeeClaim.tsx` | `{ phone, code, owns_business, supervisor_name, agent_name, timezone, answers, consent_accepted, consent_text_version? }` | `{ ok: true, provisioning: true, message }` or error | Twilio Verify, Supabase REST, authenticated Hermes provision hook. |
+| `claim.mjs` verify code | `/claim/verify-code` | `src/pages/AIEmployeeClaim.tsx` | `{ phone, code }` | `{ ok, phone, claim_token, status }` | Twilio Verify, HMAC claim token. |
+| `claim.mjs` verify and claim | `/claim/verify-and-claim` | `src/pages/AIEmployeeClaim.tsx` | `{ claim_token, owns_business, supervisor_name, agent_name, timezone, answers, consent_accepted, consent_text_version? }` | `{ ok: true, provisioning: true, message }` or error | Supabase REST, authenticated Hermes provision hook. |
 | `sms-entry.mjs` | `/sms-entry` | Optional onboarding SMS number webhook | Twilio inbound SMS form payload with valid `X-Twilio-Signature` | TwiML reply with the form link | Twilio Messaging. |
 
 ## Local Hermes PC scripts
@@ -95,12 +96,13 @@ These files live under root `netlify/functions/` and are deployed by `netlify.to
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/run_provision_hook.sh` | Loads `.env.provision-hook`, activates `.venv` if present, and starts the authenticated local provision hook. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_caddy_config.sh` | Renders `state/caddy/Caddyfile` and prints install/validate/reload commands for Caddy. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_provision_hook_service.sh` | Creates `~/.config/systemd/user/amtech-provision-hook.service`. |
+| `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/generate_claim_link_secret.mjs` | Prints a strong `CLAIM_LINK_SECRET` for Netlify without storing it. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_claim_function.mjs` | Runs the Netlify claim handler in `CLAIM_TEST_MODE=1` and posts to a local dry-run provision hook. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_sms_entry.mjs` | Runs the SMS signpost handler in `SMS_ENTRY_TEST_MODE=1`. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh` | Runs `supabase db push` when Supabase CLI is installed and linked. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/verify_supabase_claim_table.mjs` | Verifies `ai_employee_claims` is reachable through Supabase REST with service role credentials. |
 
-Repo-level aliases in `package.json`: `ai:local:setup`, `ai:local:check`, `ai:caddy:render`, `ai:claim:smoke`, `ai:sms:smoke`, `ai:supabase:push`, `ai:supabase:verify`, and `ai:provision:dry-run`.
+Repo-level aliases in `package.json`: `dev`, `build`, `preview`, `typecheck`, `lint`, `ai:local:setup`, `ai:local:check`, `ai:caddy:render`, `ai:claim:secret`, `ai:claim:smoke`, `ai:sms:smoke`, `ai:supabase:push`, `ai:supabase:verify`, and `ai:provision:dry-run`.
 
 ## Form flow checklist
 

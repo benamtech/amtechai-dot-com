@@ -48,6 +48,10 @@ export async function handler(event) {
       return response({ ok: verification.status === 'pending', status: verification.status });
     }
 
+    if (path.endsWith('/verify-code')) {
+      return await verifyCode(payload);
+    }
+
     if (path.endsWith('/verify-and-claim')) {
       return await verifyAndClaim(payload);
     }
@@ -72,6 +76,36 @@ async function startFromSms(payload) {
   return response({ ok: true, phone: token.phone, prefilled: true });
 }
 
+async function verifyCode(payload) {
+  const secret = process.env.CLAIM_LINK_SECRET;
+  if (!secret) return response({ error: 'phone verification is not enabled' }, 400);
+
+  const phone = normalizePhone(payload.phone);
+  if (!PHONE_PATTERN.test(phone)) {
+    return response({ error: 'Use a valid E.164 phone number, for example +18055550142.' }, 400);
+  }
+  if (!String(payload.code || '').trim()) return response({ error: 'code required' }, 400);
+  if (!isTestMode()) assertTwilioEnv();
+
+  const check = await verifyCheck(phone, payload.code);
+  if (check.status !== 'approved') {
+    return response({ error: 'code not verified', status: check.status }, 400);
+  }
+
+  const { token, nonce, exp } = signClaimToken(phone, secret, {
+    method: 'twilio_verify',
+    verification_sid: check.sid || null,
+  });
+  await recordClaimToken(nonce, phone, exp);
+
+  return response({
+    ok: true,
+    phone,
+    claim_token: token,
+    status: check.status,
+  });
+}
+
 async function verifyAndClaim(payload) {
   const tokenMode = Boolean(payload.claim_token);
 
@@ -94,9 +128,9 @@ async function verifyAndClaim(payload) {
     // Phone comes only from the signed token; the browser can't substitute another.
     phone = token.phone;
     nonce = token.nonce;
-    twilioCheck = { sid: null, status: 'sms_inbound' };
-    verificationMethod = 'sms_inbound';
-    consentChannel = 'sms';
+    verificationMethod = token.method === 'twilio_verify' ? 'twilio_verify' : 'sms_inbound';
+    consentChannel = verificationMethod === 'twilio_verify' ? 'web' : 'sms';
+    twilioCheck = { sid: token.verification_sid || null, status: verificationMethod };
   } else {
     phone = normalizePhone(payload.phone);
     if (!PHONE_PATTERN.test(phone)) {
@@ -123,7 +157,7 @@ async function verifyAndClaim(payload) {
   try {
     await triggerProvision(manifest);
     await updateClaimStatus(manifest.client_id, 'accepted');
-    if (nonce) await markTokenUsed(nonce, manifest.client_id);
+    if (nonce) await markTokenUsed(nonce, manifest.client_id, manifest.supervisor_phone);
   } catch (provisionError) {
     await updateClaimStatus(manifest.client_id, 'failed', safeError(provisionError));
     throw provisionError;
@@ -365,7 +399,47 @@ function verifyClaimToken(token, secret) {
   }
   if (!payload.exp || Date.now() > Number(payload.exp)) return { ok: false, error: 'this link has expired' };
   if (!PHONE_PATTERN.test(String(payload.phone || ''))) return { ok: false, error: 'invalid phone in link' };
-  return { ok: true, phone: payload.phone, nonce: payload.nonce || null, exp: payload.exp };
+  return {
+    ok: true,
+    phone: payload.phone,
+    nonce: payload.nonce || null,
+    exp: payload.exp,
+    method: payload.method || 'sms_inbound',
+    verification_sid: payload.verification_sid || null,
+  };
+}
+
+function signClaimToken(phone, secret, extra = {}) {
+  const now = Date.now();
+  const payload = { phone, iat: now, exp: now + CLAIM_TOKEN_TTL_MS, nonce: randomUUID(), ...extra };
+  const bodyPart = base64url(Buffer.from(JSON.stringify(payload), 'utf8'));
+  const sig = base64url(createHmac('sha256', secret).update(bodyPart).digest());
+  return { token: `${bodyPart}.${sig}`, nonce: payload.nonce, exp: payload.exp };
+}
+
+async function recordClaimToken(nonce, phone, exp) {
+  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return;
+
+  try {
+    await fetch(`${url.replace(/\/$/, '')}/rest/v1/ai_employee_inbound_tokens?on_conflict=nonce`, {
+      method: 'POST',
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        'Content-Type': 'application/json',
+        Prefer: 'resolution=merge-duplicates,return=minimal',
+      },
+      body: JSON.stringify({
+        nonce,
+        phone,
+        expires_at: new Date(exp).toISOString(),
+      }),
+    });
+  } catch (error) {
+    console.error('[claim] recordClaimToken failed', safeError(error));
+  }
 }
 
 async function tokenAlreadyUsed(nonce) {
@@ -383,7 +457,7 @@ async function tokenAlreadyUsed(nonce) {
   return Array.isArray(rows) && rows.length > 0 && Boolean(rows[0].used_at);
 }
 
-async function markTokenUsed(nonce, clientId) {
+async function markTokenUsed(nonce, clientId, phone) {
   if (!nonce) return;
   const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -399,6 +473,7 @@ async function markTokenUsed(nonce, clientId) {
     },
     body: JSON.stringify({
       nonce,
+      phone,
       claimed_client_id: clientId,
       used_at: new Date().toISOString(),
     }),

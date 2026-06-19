@@ -14,6 +14,11 @@
   status = 200
 
 [[redirects]]
+  from = "/claim/verify-code"
+  to = "/.netlify/functions/claim/verify-code"
+  status = 200
+
+[[redirects]]
   from = "/claim/verify-and-claim"
   to = "/.netlify/functions/claim/verify-and-claim"
   status = 200

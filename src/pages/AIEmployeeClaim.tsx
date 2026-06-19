@@ -91,10 +91,9 @@ export default function AIEmployeeClaim() {
   const [answers, setAnswers] = useState<Answers>(blankAnswers);
   const [consentAccepted, setConsentAccepted] = useState(false);
   const [codeSent, setCodeSent] = useState(false);
-  const [busy, setBusy] = useState<'send' | 'claim' | null>(null);
+  const [busy, setBusy] = useState<'send' | 'verify' | 'claim' | null>(null);
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
-  const [smsVerified, setSmsVerified] = useState(false);
   const [claimToken, setClaimToken] = useState<string | null>(null);
 
   useEffect(() => {
@@ -121,7 +120,6 @@ export default function AIEmployeeClaim() {
         if (res.ok && res.phone) {
           setPhone(res.phone);
           setClaimToken(token);
-          setSmsVerified(true);
           setSuccess('Your phone is already verified. Finish the form to claim it.');
         } else {
           setError(res.error || 'That text link expired. Enter your phone and use a code instead.');
@@ -139,6 +137,7 @@ export default function AIEmployeeClaim() {
     const filled = QUESTIONS.filter((question) => answers[question.id].trim().length > 0).length;
     return Math.round((filled / QUESTIONS.length) * 100);
   }, [answers]);
+  const phoneVerified = Boolean(claimToken);
 
   async function sendCode() {
     setError('');
@@ -151,6 +150,36 @@ export default function AIEmployeeClaim() {
       setSuccess('Code sent. Enter it below when it arrives.');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Could not send the code.');
+    } finally {
+      setBusy(null);
+    }
+  }
+
+  async function verifyCode() {
+    setError('');
+    setSuccess('');
+    if (!phone.trim()) {
+      setError('Enter a phone number.');
+      return;
+    }
+    if (!codeSent) {
+      setError('Send the code first.');
+      return;
+    }
+    if (!code.trim()) {
+      setError('Enter the code.');
+      return;
+    }
+
+    setBusy('verify');
+    try {
+      const res = await postJson('/claim/verify-code', { phone, code });
+      if (!res.ok || !res.claim_token) throw new Error(res.error || 'Could not verify the code.');
+      setPhone(res.phone || phone);
+      setClaimToken(res.claim_token);
+      setSuccess('Phone verified. Finish the form to claim it.');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Could not verify the code.');
     } finally {
       setBusy(null);
     }
@@ -180,7 +209,7 @@ export default function AIEmployeeClaim() {
       };
       const res = await postJson(
         '/claim/verify-and-claim',
-        smsVerified ? { claim_token: claimToken, ...shared } : { phone, code, ...shared }
+        { claim_token: claimToken, ...shared }
       );
       if (!res.ok) throw new Error(res.error || 'Could not verify and claim.');
       setSuccess(res.message || 'Claim received. AMTECH is building your AI Employee now.');
@@ -195,10 +224,10 @@ export default function AIEmployeeClaim() {
     if (!ownsBusiness) return 'This version is for business owners and operators. Book a call if you need a custom path.';
     if (!supervisorName.trim()) return 'Enter your name.';
     if (!agentName.trim()) return 'Name your AI employee.';
-    if (!smsVerified) {
+    if (!phoneVerified) {
       if (!phone.trim()) return 'Enter a phone number.';
       if (!codeSent) return 'Send the code first.';
-      if (!code.trim()) return 'Enter the code.';
+      return 'Verify your phone before telling us about the business.';
     }
     const missing = QUESTIONS.find((question) => !answers[question.id].trim());
     if (missing) return 'Answer all seven business questions.';
@@ -270,7 +299,7 @@ export default function AIEmployeeClaim() {
                 <StatusRow label="Questions" value="7" dark />
                 <StatusRow
                   label="Phone"
-                  value={smsVerified ? 'Verified' : codeSent ? 'Code sent' : 'Needed'}
+                  value={phoneVerified ? 'Verified' : codeSent ? 'Code sent' : 'Needed'}
                   dark
                 />
                 <StatusRow label="Answers done" value={`${completion}%`} dark />
@@ -294,12 +323,12 @@ export default function AIEmployeeClaim() {
                   <TextField label="Your name" value={supervisorName} onChange={setSupervisorName} autoComplete="name" />
                   <TextField label="What should we call it?" value={agentName} onChange={setAgentName} />
                   <TextField
-                    label={smsVerified ? 'Phone verified by text' : 'Mobile phone'}
+                    label={phoneVerified ? 'Phone verified' : 'Mobile phone'}
                     value={phone}
                     onChange={setPhone}
                     autoComplete="tel"
                     placeholder="+18055550142"
-                    readOnly={smsVerified}
+                    readOnly={phoneVerified}
                   />
                   <label className="block">
                     <span className="mb-2 block text-sm font-black text-black/65">Timezone</span>
@@ -325,7 +354,7 @@ export default function AIEmployeeClaim() {
                     />
                     I own or operate this business
                   </label>
-                  {smsVerified ? (
+                  {phoneVerified ? (
                     <span className="inline-flex min-h-11 items-center gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-4 py-2 text-sm font-black text-[#126b2f]">
                       <Check className="h-4 w-4" aria-hidden="true" />
                       Phone verified
@@ -342,6 +371,38 @@ export default function AIEmployeeClaim() {
                     </button>
                   )}
                 </div>
+              </section>
+
+              <section className="border-2 border-black bg-white p-5 md:p-7">
+                <div className="mb-6 flex items-start gap-3">
+                  <Phone className="mt-1 h-6 w-6 text-red" aria-hidden="true" />
+                  <div>
+                    <h2 className="text-3xl font-black leading-none tracking-[-0.05em]">Verify your phone.</h2>
+                    <p className="mt-3 text-sm leading-6 text-black/62">
+                      Enter the code here. After this, the last step is just consent and claim.
+                    </p>
+                  </div>
+                </div>
+
+                {phoneVerified ? (
+                  <div className="flex min-h-12 items-center gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-4 py-3 text-sm font-black text-[#126b2f]">
+                    <Check className="h-4 w-4" aria-hidden="true" />
+                    Phone verified
+                  </div>
+                ) : (
+                  <div className="grid gap-4 md:grid-cols-[220px_auto] md:items-end">
+                    <TextField label="Code" value={code} onChange={setCode} inputMode="numeric" />
+                    <button
+                      type="button"
+                      onClick={verifyCode}
+                      disabled={busy !== null || !codeSent || !code.trim()}
+                      className="inline-flex min-h-12 items-center justify-center gap-2 bg-black px-5 py-3 text-sm font-black text-white transition hover:bg-red disabled:cursor-not-allowed disabled:opacity-50"
+                    >
+                      {busy === 'verify' ? <Loader2 className="h-4 w-4 animate-spin" /> : <ShieldCheck className="h-4 w-4" />}
+                      Verify phone
+                    </button>
+                  </div>
+                )}
               </section>
 
               <section className="border-2 border-black bg-white p-5 md:p-7">
@@ -371,15 +432,7 @@ export default function AIEmployeeClaim() {
                 <p className="mt-3 max-w-2xl text-sm leading-6 text-black/62">
                   Once claimed, AMTECH sets up the first version so it can help with work like estimates, invoices, email drafts, follow-up, material checks, and customer details.
                 </p>
-                <div className="mt-6 grid gap-4 md:grid-cols-[220px_1fr]">
-                  {smsVerified ? (
-                    <div className="flex min-h-12 items-center gap-2 border-2 border-[#126b2f] bg-[#f2fbf3] px-3 text-sm font-black text-[#126b2f]">
-                      <Check className="h-4 w-4" aria-hidden="true" />
-                      Verified
-                    </div>
-                  ) : (
-                    <TextField label="Code" value={code} onChange={setCode} inputMode="numeric" />
-                  )}
+                <div className="mt-6 grid gap-4">
                   <label className="flex items-start gap-3 border-2 border-black bg-white p-4 text-sm font-semibold leading-6 text-black/70">
                     <input
                       type="checkbox"

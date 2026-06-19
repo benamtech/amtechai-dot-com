@@ -38,6 +38,7 @@ scripts/
   check_local_setup.py    Local prerequisite and dry-run verifier.
   install_caddy_config.sh Render host Caddy config and print install/reload commands.
   install_provision_hook_service.sh Create a user systemd service for the hook.
+  generate_claim_link_secret.mjs Print a strong CLAIM_LINK_SECRET for Netlify.
   smoke_claim_function.mjs Local Netlify-claim-to-hook smoke test.
   smoke_sms_entry.mjs Local SMS signpost smoke test.
   verify_supabase_claim_table.mjs Verify ai_employee_claims is reachable through Supabase REST.
@@ -93,6 +94,8 @@ npm run ai:local:setup
 npm run ai:local:check
 npm run ai:caddy:render
 npm run ai:provision:dry-run
+npm run ai:claim:secret
+npm run ai:claim:smoke
 npm run ai:sms:smoke
 npm run ai:supabase:push
 npm run ai:supabase:verify
