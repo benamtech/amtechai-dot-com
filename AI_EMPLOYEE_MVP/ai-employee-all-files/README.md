@@ -51,7 +51,7 @@ host/
   Caddyfile.template      Reverse-proxy template for hook + per-client snippets.
 
 netlify/functions/
-  claim.js                The onboarding form handler: inline Twilio Verify -> provision.
+  claim.js                Reference wrapper for the deployed root netlify/functions/claim.mjs handler.
   sms-entry.js            OPTIONAL: "text AGENT" signpost that replies with the form link.
 
 state/                    Local runtime state (number pool registry, caddy snippets).
@@ -60,7 +60,7 @@ BUILD-PLAN.md             Step-by-step for phases 2, 3, 4.
 
 ## How a client comes to life
 
-1. A lead fills the form on amtechai.com: the seven answers, their name, what to call the agent, timezone, and a consent checkbox. They verify their phone once, inline, with a Twilio Verify code (`claim.js`).
+1. A lead fills the form on amtechai.com: the seven answers, their name, what to call the agent, timezone, and a consent checkbox. They verify their phone once, inline, with a Twilio Verify code handled by root `netlify/functions/claim.mjs`.
 2. On an approved code, the form produces a manifest (see `schema/client-manifest.example.json`), writes a consent/claim record in Supabase, and posts the manifest to the authenticated local provision hook. There is no second code and no SMS conversation.
 3. `provision_hook_server.py` accepts the manifest, writes it to `state/provision-requests/`, marks the claim `running` when Supabase service-role env is present locally, and runs `provision_client.py` in the background.
 4. `provision_client.py` claims a Twilio number, creates the Hermes profile, renders the template with the business's details, registers the two daily check-ins, maps a subdomain to the gateway, and starts it. The hook marks the claim `provisioned` or `failed` when the process exits.

@@ -26,7 +26,7 @@ For application work, follow the root `BUILD-PLAN.md` first and place new projec
 ## Implementation Notes
 
 - Keep the provisioning path deterministic by default. The optional `--enrich` path must continue to fail open to the deterministic mapping.
-- `claim.js` and `provision_client.py` both encode the raw onboarding answer contract. Keep their mappings in sync.
+- `netlify/functions/claim.mjs` and `provision_client.py` both encode the raw onboarding answer contract. Keep their mappings in sync.
 - Template rendering intentionally leaves unknown `{{TOKEN}}` placeholders visible. Do not silently remove that behavior.
 - The Twilio webhook signature check described in `BUILD-PLAN.md` is security critical because provisioned agents have shell access.
 - Runtime state belongs in `ai-employee-all-files/state/`; avoid committing secrets, `.env` files, or generated client output.

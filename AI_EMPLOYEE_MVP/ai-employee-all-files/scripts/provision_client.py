@@ -92,8 +92,8 @@ def next_port():
 
 
 # Maps onboarding question ids to manifest fields. The first field is the
-# primary one (gets the raw answer in the no-AI path). Mirrors claim.js so the
-# web form and the host agree on the contract.
+# primary one (gets the raw answer in the no-AI path). Mirrors the deployed
+# Netlify claim handler so the web form and the host agree on the contract.
 ANSWER_FIELD_MAP = {
     "q1_business": ["business_name", "business_type"],
     "q2_team": ["team_size", "team_structure"],
