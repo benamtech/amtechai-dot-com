@@ -28,7 +28,7 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | --- | --- | --- |
 | `TWILIO_ACCOUNT_SID` | `netlify/functions/claim.mjs`, `scripts/claim_number.py` | Twilio REST credentials for Verify and number pool operations. |
 | `TWILIO_AUTH_TOKEN` | `claim.mjs`, `scripts/claim_number.py` | Server-side secret only. |
-| `TWILIO_VERIFY_SERVICE_SID` | `claim.mjs` | Twilio Verify service (`VA...`) used for one inline SMS OTP before provisioning. |
+| `TWILIO_VERIFY_SERVICE_SID` | `claim.mjs` | Twilio Verify service (`VA...`) used for one inline SMS OTP before final claim/provisioning. |
 | `SUPABASE_URL` | `claim.mjs` | Server-side Supabase project URL for consent/claim inserts; may fall back to `VITE_SUPABASE_URL`. |
 | `SUPABASE_SERVICE_ROLE_KEY` | `claim.mjs` | Server-side only. Inserts and updates `ai_employee_claims` after phone verification. |
 | `PROVISION_HOOK_URL` | `claim.mjs` | Authenticated endpoint on the Hermes host that runs `provision_client.py` with the manifest. |
@@ -47,9 +47,6 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | Resource | Migration | Frontend writers/readers | Purpose |
 | --- | --- | --- | --- |
 | `contact_submissions` | `20260213203810_create_contact_submissions.sql` | `src/pages/Contact.tsx` | Public contact inquiries. |
-| `intake_sessions` | `20260316174722_create_intake_sessions_and_files.sql` | `intakeService.ts`, `adminService.ts` | Website onboarding progress and answers JSON. |
-| `intake_files` | `20260316174722_create_intake_sessions_and_files.sql` | `intakeService.ts`, `adminService.ts` | Metadata for uploaded onboarding files. |
-| Storage bucket `intake-files` | Expected by app; bucket creation is not represented in current migrations | `intakeService.ts`, `adminService.ts` | Stores onboarding uploads by session/field path. |
 | `demo_bookings` | `20260317003525_create_demo_bookings.sql` | `bookingService.ts` | Demo scheduling and availability reads. |
 | `operator_applications` | `20260518063404_create_operator_applications.sql` | `src/pages/Apply.tsx` | Operator program applications. |
 | `sales_rep_applications` | `20260611161544_create_sales_rep_applications.sql` | `src/pages/SalesRepApply.tsx` | Sales rep pre-call applications. |
@@ -62,8 +59,8 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | Field | Source | Notes |
 | --- | --- | --- |
 | `phone` | Verified form phone | Phone ownership is proven by Twilio Verify. |
-| `consent_text_version` | Form payload/schema version | Current schema version is `1.0.0`. |
-| `timestamp_iso` | `claim.js` at verification time | Stored when `/verify-and-claim` succeeds. |
+| `consent_text_version` | Form payload/schema version | Current schema version is `1.1.0`. |
+| `timestamp_iso` | `claim.mjs` at claim time | Stored when `/verify-and-claim` succeeds. |
 | `channel` | Claim function | Expected value is `web` for the primary flow. |
 
 Consent lives in `ai_employee_claims`. The browser does not write the table directly; `netlify/functions/claim.mjs` inserts only after Twilio Verify approves the phone number, using `SUPABASE_SERVICE_ROLE_KEY`. RLS is enabled. Authenticated users may read/update claim status; anonymous users have no direct table access. Status values are `queued`, `accepted`, `running`, `provisioned`, and `failed`; Netlify writes `queued/accepted/failed`, and the local provision hook writes `running/provisioned/failed` when local Supabase service-role env is present.
@@ -80,10 +77,13 @@ Consent lives in `ai_employee_claims`. The browser does not write the table dire
 
 These files live under root `netlify/functions/` and are deployed by `netlify.toml`. Redirects expose the clean routes used by the React form.
 
+The homepage final CTA may route to `/claim?phone=<encoded phone>` to prefill the browser form. This does not verify the phone or change any Netlify request shape; the user still sends and verifies the Twilio code in the normal web flow.
+
 | Function | Planned path | Caller | Request shape | Response | External dependency |
 | --- | --- | --- | --- | --- | --- |
 | `claim.mjs` send code | `/claim/send-code` | `src/pages/AIEmployeeClaim.tsx` | `{ phone }` | `{ ok, status }` | Twilio Verify. |
-| `claim.mjs` verify and claim | `/claim/verify-and-claim` | `src/pages/AIEmployeeClaim.tsx` | `{ phone, code, owns_business, supervisor_name, agent_name, timezone, answers, consent_accepted, consent_text_version? }` | `{ ok: true, provisioning: true, message }` or error | Twilio Verify, Supabase REST, authenticated Hermes provision hook. |
+| `claim.mjs` verify code | `/claim/verify-code` | `src/pages/AIEmployeeClaim.tsx` | `{ phone, code }` | `{ ok, phone, claim_token, status }` | Twilio Verify, HMAC claim token. |
+| `claim.mjs` verify and claim | `/claim/verify-and-claim` | `src/pages/AIEmployeeClaim.tsx` | `{ claim_token, owns_business, supervisor_name, agent_name, timezone, answers, consent_accepted, consent_text_version? }` | `{ ok: true, provisioning: true, message }` or error | Supabase REST, authenticated Hermes provision hook. |
 | `sms-entry.mjs` | `/sms-entry` | Optional onboarding SMS number webhook | Twilio inbound SMS form payload with valid `X-Twilio-Signature` | TwiML reply with the form link | Twilio Messaging. |
 
 ## Local Hermes PC scripts
@@ -95,12 +95,13 @@ These files live under root `netlify/functions/` and are deployed by `netlify.to
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/run_provision_hook.sh` | Loads `.env.provision-hook`, activates `.venv` if present, and starts the authenticated local provision hook. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_caddy_config.sh` | Renders `state/caddy/Caddyfile` and prints install/validate/reload commands for Caddy. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/install_provision_hook_service.sh` | Creates `~/.config/systemd/user/amtech-provision-hook.service`. |
+| `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/generate_claim_link_secret.mjs` | Prints a strong `CLAIM_LINK_SECRET` for Netlify without storing it. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_claim_function.mjs` | Runs the Netlify claim handler in `CLAIM_TEST_MODE=1` and posts to a local dry-run provision hook. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/smoke_sms_entry.mjs` | Runs the SMS signpost handler in `SMS_ENTRY_TEST_MODE=1`. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh` | Runs `supabase db push` when Supabase CLI is installed and linked. |
 | `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/verify_supabase_claim_table.mjs` | Verifies `ai_employee_claims` is reachable through Supabase REST with service role credentials. |
 
-Repo-level aliases in `package.json`: `ai:local:setup`, `ai:local:check`, `ai:caddy:render`, `ai:claim:smoke`, `ai:sms:smoke`, `ai:supabase:push`, `ai:supabase:verify`, and `ai:provision:dry-run`.
+Repo-level aliases in `package.json`: `dev`, `build`, `preview`, `typecheck`, `lint`, `ai:local:setup`, `ai:local:check`, `ai:caddy:render`, `ai:claim:secret`, `ai:claim:smoke`, `ai:sms:smoke`, `ai:supabase:push`, `ai:supabase:verify`, and `ai:provision:dry-run`.
 
 ## Form flow checklist
 
@@ -113,12 +114,11 @@ When adding or changing a form:
 5. Update this document and `docs/codegraph.md`.
 6. Run `npm run typecheck`, `npm run lint`, and `npm run build`.
 
-When adding the AI Employee claim form, also keep the form fields aligned with `AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json` and the manifest contract generated by `claim.js`.
+When adding the AI Employee claim form, also keep the form fields aligned with `AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json` and the manifest contract generated by `netlify/functions/claim.mjs`.
 
 ## Current operational notes
 
 - `contact_submissions`, applications, and bookings are public conversion forms; avoid exposing SELECT policies to anonymous users unless needed for availability checks.
 - `demo_bookings` intentionally allows anonymous SELECT for future confirmed bookings so the calendar can check availability.
-- Intake sessions are currently readable/updatable by anon when a session exists; if sessions become sensitive, add stronger session-scoped access controls.
-- The app expects the `intake-files` storage bucket to exist. If deploys are recreated from scratch, document/create the bucket and storage policies in Supabase.
+- Website onboarding/admin intake routes and services are not present in the current frontend. The repo only retains `20260618201000_create_intake_files_storage_bucket.sql` as a storage-bucket helper from prior work; do not assume active intake UI exists without checking `src/App.tsx`.
 - The AI Employee MVP is a separate Hermes/Twilio provisioning path. Real provisioning should not run from anonymous browser code; the website should only call a server-side claim endpoint, which then calls the authenticated provision hook.

@@ -21,6 +21,7 @@ This is the simplest Netlify path for AMTECH's static Vite site. The repository 
    - `TWILIO_VERIFY_SERVICE_SID`
    - `PROVISION_HOOK_URL`
    - `PROVISION_HOOK_TOKEN`
+   - `CLAIM_LINK_SECRET`
 6. Deploy.
 
 ## SPA routing requirement
@@ -58,7 +59,7 @@ Netlify only needs the public `VITE_` variables for the browser bundle. Do not p
 
 The live website claim route is `/claim`. It renders `src/pages/AIEmployeeClaim.tsx`, which posts to root Netlify Functions deployed from `netlify/functions/`:
 
-- `claim.mjs`: `/claim/send-code` and `/claim/verify-and-claim`, using Twilio Verify, Supabase consent persistence, and an authenticated provision hook.
+- `claim.mjs`: `/claim/send-code`, `/claim/verify-code`, and `/claim/verify-and-claim`, using Twilio Verify, signed claim tokens, Supabase consent persistence, and an authenticated provision hook.
 - `sms-entry.mjs`: optional inbound SMS signpost at `/sms-entry` that replies with the claim form link.
 
 Required Netlify server-side variables:
@@ -71,8 +72,15 @@ SUPABASE_URL=...
 SUPABASE_SERVICE_ROLE_KEY=...
 PROVISION_HOOK_URL=...
 PROVISION_HOOK_TOKEN=...
+CLAIM_LINK_SECRET=...
 WEB_FORM_URL=https://amtechai.com/claim
 TWILIO_SMS_WEBHOOK_URL=https://amtechai.com/sms-entry
+```
+
+Generate `CLAIM_LINK_SECRET` locally with:
+
+```bash
+npm run ai:claim:secret
 ```
 
 The same checklist lives in `AI_EMPLOYEE_MVP/ai-employee-all-files/.env.netlify.example`.
@@ -145,7 +153,6 @@ Then test:
 - `/pricing`
 - `/apply`
 - `/schedule-demo`
-- `/website-onboarding`
 - `/pay`
 - `/claim`
 

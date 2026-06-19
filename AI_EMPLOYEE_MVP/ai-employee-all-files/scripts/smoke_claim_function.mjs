@@ -4,18 +4,18 @@ import { handler } from '../../../netlify/functions/claim.mjs';
 process.env.CLAIM_TEST_MODE = process.env.CLAIM_TEST_MODE || '1';
 process.env.CLAIM_TEST_CODE = process.env.CLAIM_TEST_CODE || '000000';
 process.env.CLAIM_TEST_SKIP_SUPABASE = process.env.CLAIM_TEST_SKIP_SUPABASE || '1';
+process.env.CLAIM_LINK_SECRET = process.env.CLAIM_LINK_SECRET || 'test-claim-link-secret';
 process.env.PROVISION_HOOK_URL = process.env.PROVISION_HOOK_URL || 'http://127.0.0.1:18787/provision';
 process.env.PROVISION_HOOK_TOKEN = process.env.PROVISION_HOOK_TOKEN || 'test-token';
 
 const payload = {
   phone: '+18055550142',
-  code: process.env.CLAIM_TEST_CODE,
   owns_business: true,
   supervisor_name: 'Marcus',
   agent_name: 'Rex',
   timezone: 'America/Los_Angeles',
   consent_accepted: true,
-  consent_text_version: '1.0.0',
+  consent_text_version: '1.1.0',
   answers: {
     q1_business: 'Scoop Dogg, dog waste pickup for yards, been at it about 3 years',
     q2_team: 'me plus two part-time route techs',
@@ -40,4 +40,5 @@ async function invoke(path, body) {
 }
 
 await invoke('/claim/send-code', { phone: payload.phone });
-await invoke('/claim/verify-and-claim', payload);
+const verified = await invoke('/claim/verify-code', { phone: payload.phone, code: process.env.CLAIM_TEST_CODE });
+await invoke('/claim/verify-and-claim', { ...payload, claim_token: verified.claim_token });

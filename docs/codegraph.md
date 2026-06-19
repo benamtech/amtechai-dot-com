@@ -6,7 +6,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 
 - **App type:** Vite + React 18 + TypeScript marketing/conversion website.
 - **Runtime:** Static SPA served from `dist/`; Supabase provides database, storage, and Edge Functions. Netlify Functions provide the AI Employee claim front door. The repo also contains an `AI_EMPLOYEE_MVP/` product bundle for the Hermes/Twilio AI employee provisioning flow.
-- **Routing:** `src/App.tsx` owns all public routes. Most brand pages use `src/components/layout/Layout.tsx`; conversion flows (`/apply`, `/schedule-call`, `/website-onboarding`, `/pay`, etc.) render standalone. Current in-app site copy is the authoritative source after the June 2026 homepage and article-library revisions.
+- **Routing:** `src/App.tsx` owns all public routes. Most brand pages use `src/components/layout/Layout.tsx`; conversion flows (`/claim`, `/apply`, `/schedule-call`, `/pay`, etc.) render standalone. Current in-app site copy is the authoritative source after the June 2026 homepage, article-library, and AI Employee claim revisions.
 - **Supabase client:** `src/lib/supabase.ts` reads `VITE_SUPABASE_URL` and `VITE_SUPABASE_ANON_KEY` and exports one browser client.
 - **Database migrations:** `supabase/migrations/*.sql` define public form tables, intake storage references, booking availability and applications.
 - **Edge Functions:** `supabase/functions/*/index.ts` handle Stripe PaymentIntent creation and Resend transactional emails.
@@ -27,12 +27,10 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | `/articles/all` | `src/pages/AllArticles.tsx` | `src/lib/articleKnowledgeGraph.ts`, layout | Mobile-first index of all published articles and planned operational knowledge-graph nodes, grouped by topic and node type. |
 | `/articles/write-pressure-washing-estimate-with-ai`, `/articles/estimate-painting-cost-ai`, `/articles/create-estimate-with-chatgpt`, `/articles/amtech-vs-chatgpt-claude`, `/articles/build-claude-skill-job-pricing`, `/articles/build-local-seo-plan-with-chatgpt`, `/articles/business-brain-free`, `/articles/garden-center-spring-buy-plan-ai` | `src/pages/AIEstimateArticles.tsx`, `src/pages/articles/AmtechVsChatgptClaude.tsx`, `src/pages/articles/ClaudeSkillJobPricing.tsx`, `src/pages/articles/LocalSeoKnowledgeGraphPlan.tsx`, `src/pages/articles/BusinessBrainFree.tsx`, `src/pages/articles/SalisburyRetailSalesDataAI.tsx` | `src/components/articles/*`, `src/lib/articles.ts`, layout | Educational articles for AI-assisted contractor estimating prompts, Claude Skills, AI tool comparison, local knowledge-graph SEO planning, free business-brain setup, and Salisbury seasonal sales-data planning workflows. |
 | `/schedule-demo`, `/shedule-demo` | `src/pages/ScheduleDemo.tsx` | `src/components/schedule/*` | Demo booking flow into `demo_bookings`; invokes booking email function. |
-| `/claim` | `src/pages/AIEmployeeClaim.tsx` | page-local form | AI Employee claim form; posts to Netlify `/claim/send-code` and `/claim/verify-and-claim`, records consent in `ai_employee_claims`, then triggers Hermes provisioning. |
+| `/claim` | `src/pages/AIEmployeeClaim.tsx` | page-local form | AI Employee claim form; optional `?phone=` browser prefill from homepage CTAs, posts to Netlify `/claim/send-code`, verifies the code through `/claim/verify-code`, then posts a signed `claim_token` to `/claim/verify-and-claim` to record consent in `ai_employee_claims` and trigger Hermes provisioning. |
 | `/schedule-call` | `src/pages/ScheduleCall.tsx` | page-local | Sales/operator call CTA flow. |
 | `/apply` | `src/pages/Apply.tsx` | `src/components/apply/*` | Operator application into `operator_applications`; invokes application email function. |
 | `/apply/info-sales-rep` | `src/pages/SalesRepApply.tsx` | `src/components/sales-rep-apply/*` | Sales rep pre-call application into `sales_rep_applications`. |
-| `/website-onboarding` | `src/pages/WebsiteOnboarding.tsx` | `src/components/website-onboarding/*` | Client website intake with session persistence and file upload. |
-| `/admin` | `src/pages/Admin.tsx` | `src/components/admin/*` | Intake admin dashboard for sessions/files. |
 | `/pay` | `src/pages/Payment.tsx` | `src/components/payment/*` | Stripe payment form; calls `create-payment-intent`. |
 | `/payment-success` | `src/pages/PaymentSuccess.tsx` | page-local | Post-payment confirmation. |
 | `/wholesale`, `/wholesale-2`, `/sell-ai-employees`, `/sales-bootcamp` | `src/pages/*` | `src/components/wholesale2/*` where applicable | Campaign-specific landing pages. |
@@ -41,7 +39,7 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 
 | Surface | Current files | Planned website role |
 | --- | --- | --- |
-| AI Employee claim/provisioning | `src/pages/AIEmployeeClaim.tsx`, `netlify/functions/claim.mjs`, `netlify/functions/sms-entry.mjs`, `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_hook_server.py`, `AI_EMPLOYEE_MVP/ai-employee-all-files/*` | Website product flow where a user fills one AI Employee claim form, verifies phone ownership with Twilio Verify, consents to ongoing texts, and triggers the authenticated Hermes provisioning hook. |
+| AI Employee claim/provisioning | `src/pages/AIEmployeeClaim.tsx`, `netlify/functions/claim.mjs`, `netlify/functions/sms-entry.mjs`, `AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_hook_server.py`, `AI_EMPLOYEE_MVP/ai-employee-all-files/*` | Website product flow where a user fills one AI Employee claim form, optionally arrives with the phone field prefilled, verifies phone ownership with Twilio Verify, consents to ongoing texts, and triggers the authenticated Hermes provisioning hook. |
 
 ## Data and integration graph
 
@@ -51,10 +49,8 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 | Book demo | `src/components/schedule/bookingService.ts` | `demo_bookings` | `send-booking-email` -> Resend. |
 | Operator application | `src/pages/Apply.tsx` | `operator_applications` | `send-application-email` -> Resend. |
 | Sales rep application | `src/pages/SalesRepApply.tsx` | `sales_rep_applications` | None currently. |
-| Website intake session | `src/components/website-onboarding/intakeService.ts` | `intake_sessions`, `intake_files`, storage bucket `intake-files` | None currently. |
-| Intake admin review | `src/components/admin/adminService.ts` | `intake_sessions`, `intake_files`, storage bucket `intake-files` | None currently. |
 | Payment | `src/pages/Payment.tsx`, `src/components/payment/*` | Stripe only from current code | `create-payment-intent` -> Stripe. |
-| AI Employee claim | `src/pages/AIEmployeeClaim.tsx`; contract in `AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json` | `ai_employee_claims` | Netlify `claim.mjs` -> Twilio Verify -> Supabase consent insert/status update -> authenticated provision hook -> `provision_hook_server.py` -> `provision_client.py`; optional Twilio-signed `sms-entry.mjs` signpost. |
+| AI Employee claim | `src/pages/AIEmployeeClaim.tsx`; contract in `AI_EMPLOYEE_MVP/ai-employee-all-files/schema/onboarding-form.json` | `ai_employee_claims`, `ai_employee_inbound_tokens` | Netlify `claim.mjs` -> Twilio Verify -> signed claim token -> Supabase consent insert/status update -> authenticated provision hook -> `provision_hook_server.py` -> `provision_client.py`; optional Twilio-signed `sms-entry.mjs` pre-verified link. |
 
 ## File ownership map
 
@@ -80,3 +76,22 @@ Purpose: give agents and humans a compressed map of the site so they can answer 
 4. For design changes, read `AMTECH_STYLE_GUIDE.md`, `COST_CALCULATOR_STYLE.md`, and relevant notes in `wiki/design-notes.md`.
 5. Keep this codegraph updated whenever a route, table, endpoint, feature folder, article-system surface, or durable knowledge-graph/research source changes.
 6. For AI Employee MVP work, start with `docs/AI_EMPLOYEE_MVP.md` and `AI_EMPLOYEE_MVP/BUILD-PLAN.md`; dry-run provisioning before any real Hermes/Twilio side effects.
+
+## NPM command map
+
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the Vite dev server. |
+| `npm run build` | Build the production Vite bundle. |
+| `npm run preview` | Preview the production build locally. |
+| `npm run typecheck` | Run TypeScript app checks. |
+| `npm run lint` | Run eslint. |
+| `npm run ai:local:setup` | First-run setup for the local Hermes PC bundle. |
+| `npm run ai:local:check` | Check local Hermes/env/Caddy/Supabase prerequisites and dry-run provisioning. |
+| `npm run ai:caddy:render` | Render Caddy host config and print install/reload commands. |
+| `npm run ai:claim:secret` | Generate a strong `CLAIM_LINK_SECRET` for Netlify. |
+| `npm run ai:claim:smoke` | Smoke-test the Netlify claim function against the dry-run provision hook. |
+| `npm run ai:sms:smoke` | Smoke-test the SMS entry function. |
+| `npm run ai:supabase:push` | Push AI Employee Supabase migrations through the Supabase CLI. |
+| `npm run ai:supabase:verify` | Verify `ai_employee_claims` through Supabase REST. |
+| `npm run ai:provision:dry-run` | Run the provisioning factory against the example manifest with no side effects. |

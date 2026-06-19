@@ -1,23 +1,23 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "title": "Claim your AI Employee",
-  "notes": "Seven questions, each written to capture more than one fact. The web form (netlify/functions/claim.js) collects these plus the supervisor's name, agent name, and timezone, verifies the phone inline with Twilio Verify (single one-time code), then hands a manifest to the host provisioner. There is no SMS conversation and no second code.",
+  "notes": "Seven plain-language questions, each written to capture more than one fact. The web form collects these plus the supervisor's name, agent name, and timezone, verifies the phone inline with Twilio Verify or a signed text-in link, then hands a manifest to the host provisioner.",
   "consent": {
     "required": true,
-    "capture": "checkbox on the form, over the text below; phone ownership is proven by the Twilio Verify code",
-    "text": "By claiming an AI Employee you consent to ongoing texts from AMTECH for the purpose of operating an AI agent on your behalf, which may connect to accounts or systems you explicitly authorize. You agree to use it lawfully and to take responsibility for what you ask it to do. Msg & data rates may apply. Reply STOP to cancel, HELP for help.",
+    "capture": "checkbox on the form, over the text below; phone ownership is proven by Twilio Verify or a signed inbound-SMS claim link",
+    "text": "I agree to receive ongoing texts from AMTECH so my AI Employee can work with me. I understand it may connect to tools or accounts I approve, that I am responsible for how I use it, and that message and data rates may apply. Reply STOP to cancel or HELP for help.",
     "record_fields": ["phone", "consent_text_version", "timestamp_iso", "channel"]
   },
   "verification": {
     "method": "twilio_verify_v2",
     "channel": "sms",
-    "flow": "form posts /send-code (Verify sends OTP), user enters code, form posts /verify-and-claim (Verify checks OTP). One verification, inline.",
+    "flow": "form posts /send-code (Verify sends OTP), user enters code in the verification block, form posts /verify-code (Verify checks OTP and returns a signed claim_token), then final claim posts /verify-and-claim with claim_token, consent, and answers. One verification, inline, before the business questions.",
     "note": "No dedicated onboarding number needed for this; Verify uses managed telephony. A number is only needed for the optional sms-entry signpost."
   },
   "entry_doors": {
     "web": {
       "method": "twilio_verify",
-      "flow": "User opens /claim, fills the form, verifies the phone inline with a Twilio Verify code."
+      "flow": "User opens /claim, enters owner details, verifies the phone inline with a Twilio Verify code, then finishes the business questions and final consent/claim step."
     },
     "sms_inbound": {
       "method": "sms_inbound",
@@ -35,43 +35,43 @@
   "questions": [
     {
       "id": "q1_business",
-      "prompt": "What's the business and what does it do? Name, what you sell or build, and how long you've been at it.",
+      "prompt": "What is the business? Name it, say what you sell or build, and say how long it has been running.",
       "maps_to": ["business_name", "business_type"],
       "type": "text"
     },
     {
       "id": "q2_team",
-      "prompt": "Who's on the team and how is it set up? Headcount, and who does what (just you, you plus crew, office staff, etc.).",
+      "prompt": "Who is on the team? Give the headcount and the jobs people handle.",
       "maps_to": ["team_size", "team_structure"],
       "type": "text"
     },
     {
       "id": "q3_office_work",
-      "prompt": "What office or computer work eats the most of your time? The repetitive, tedious, or math-heavy stuff you'd hand off first.",
+      "prompt": "What repeat computer work wastes the most time right now?",
       "maps_to": ["top_office_work", "workloads"],
       "type": "text"
     },
     {
       "id": "q4_tools",
-      "prompt": "What do you use for email, spreadsheets, estimates, and invoices? Name the tools, or say if you mostly don't use any.",
+      "prompt": "What tools do you use for email, spreadsheets, estimates, invoices, scheduling, or customer notes?",
       "maps_to": ["tools"],
       "type": "text"
     },
     {
       "id": "q5_money",
-      "prompt": "Roughly what does the business bring in, and what does a typical customer and job look like for you?",
+      "prompt": "What does the business roughly bring in, and what does a normal customer or job look like?",
       "maps_to": ["revenue_band", "avg_customer"],
       "type": "text"
     },
     {
       "id": "q6_ideal_customer",
-      "prompt": "Describe your ideal customer. The kind of work and client you want more of.",
+      "prompt": "What customer or job do you want more of?",
       "maps_to": ["ideal_customer"],
       "type": "text"
     },
     {
       "id": "q7_friction_customer",
-      "prompt": "What kind of customer or request do you deal with too often and wish you had less friction with?",
+      "prompt": "What customer, job, or request creates too much friction?",
       "maps_to": ["friction_customer"],
       "type": "text"
     }

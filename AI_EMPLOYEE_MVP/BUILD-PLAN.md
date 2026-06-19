@@ -75,7 +75,7 @@ A page collecting the seven answers (branching on the business question), the su
 
 ### 3.3 Two posts, one verification
 
-`netlify/functions/claim.mjs` exposes two routes. The form posts `/claim/send-code` with the phone (Verify sends the OTP), the user enters the code, and the form posts `/claim/verify-and-claim` with the code, the consent flag, and all the answers. On an approved check, the function writes the consent/claim record, builds the manifest, and calls `triggerProvision`. That is the only verification in the system; phone ownership is proven, consent is recorded, provisioning starts, and the new agent texts the owner when it is ready.
+`netlify/functions/claim.mjs` exposes the web verification and final claim routes. The form posts `/claim/send-code` with the phone (Verify sends the OTP), the user enters the code in the verification block before the business questions, and the form posts `/claim/verify-code`. On an approved check, the function returns a short-lived signed `claim_token`. The final button posts `/claim/verify-and-claim` with that `claim_token`, the consent flag, and all the answers. That final route writes the consent/claim record, builds the manifest, and calls `triggerProvision`. Phone ownership is proven before the business section; the bottom claim button only starts the claim/provisioning path.
 
 ### 3.4 The provision hook
 
@@ -92,7 +92,7 @@ The flow, end to end:
 1. A person texts `AI EMPLOYEE` (also accept `ai employee`, `ai agent`, `ai worker`, case-insensitive, leading/trailing space tolerant) to the onboarding number. `STOP` and `HELP` keep their current carrier-required behavior.
 2. `sms-entry.mjs` validates the signature, matches the keyword, and mints a short-lived, single-use, HMAC-signed claim token over `{phone, iat, exp (~15 min), nonce}` using a new `CLAIM_LINK_SECRET`. It records the inbound attempt (phone, nonce, Twilio `MessageSid`) and replies with one personalized link: `https://amtechai.com/claim?t=<token>`.
 3. The `/claim` page reads `?t=`, posts the token to a new `claim.mjs` route `/claim/start-from-sms`, which re-validates the HMAC and expiry server-side and returns `{ phone, prefilled: true }`. The page locks the phone field read-only and hides the entire "send code / verification code" section. The seven questions, supervisor name, agent name, timezone, and the consent checkbox stay exactly as they are.
-4. On submit, the form posts the answers plus the `claim_token` (instead of a `code`) to `verify-and-claim`. The function branches: a `code` re-checks Twilio Verify as today; a `claim_token` re-validates the HMAC and burns the nonce. Either branch then runs the same `buildManifest` -> `persistClaim` -> `triggerProvision` tail. The manifest records `verification.method` (`twilio_verify` or `sms_inbound`) and `consent.channel` (`web` or `sms`).
+4. On submit, the form posts the answers plus the `claim_token` to `verify-and-claim`. The function re-validates the HMAC and burns the nonce, then runs the same `buildManifest` -> `persistClaim` -> `triggerProvision` tail. The manifest records `verification.method` (`twilio_verify` or `sms_inbound`) and `consent.channel` (`web` or `sms`).
 
 Why each guard matters, because this path skips Verify:
 

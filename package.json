@@ -10,10 +10,11 @@
     "preview": "vite preview",
     "typecheck": "tsc --noEmit -p tsconfig.app.json",
     "ai:local:setup": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && scripts/setup_local_pc.sh",
-    "ai:local:check": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && scripts/check_local_setup.py",
+    "ai:local:check": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && if [ -d .venv ]; then . .venv/bin/activate; fi && if [ -f .env.provision-hook ]; then set -a; . ./.env.provision-hook; set +a; fi && scripts/check_local_setup.py",
     "ai:caddy:render": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && scripts/install_caddy_config.sh",
     "ai:claim:smoke": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/smoke_claim_function.mjs",
     "ai:sms:smoke": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/smoke_sms_entry.mjs",
+    "ai:claim:secret": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/generate_claim_link_secret.mjs",
     "ai:supabase:push": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh",
     "ai:supabase:verify": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/verify_supabase_claim_table.mjs",
     "ai:provision:dry-run": "python3 AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py --manifest AI_EMPLOYEE_MVP/ai-employee-all-files/schema/client-manifest.example.json --dry-run"

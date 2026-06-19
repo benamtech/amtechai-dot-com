@@ -29,6 +29,15 @@ Product constraints to preserve:
 - Consent text/version/timestamp/channel must be captured for every claim.
 - The AI employee is positioned as an employee reporting to a supervisor, not a generic chatbot.
 
+## Free AI Employee offer positioning
+
+As the site reorients around the free AI Employee offer and the educational content pivot, the language should stay simple, direct, and results-first. The offer should be clear to two groups at once:
+
+- High-agency operators who immediately understand the leverage of a strong AI worker.
+- Normal service-business owners, retail operators, barbershops, contractors, and office staff who mainly want more work done without learning new software.
+
+Do not lead with the mechanics of AI tooling. Explain the AI Employee as a textable worker that is set up to understand the business: pricing, services, brand, documents, customers, tools, and how work actually gets done. The practical promise is that an owner, manager, or secretary can offload office and growth work such as estimates, invoices, email drafts, follow-up, customer details, and material checks without expanding the back office.
+
 ## Internal research backlog
 
 Capture future findings here as short dated entries:
