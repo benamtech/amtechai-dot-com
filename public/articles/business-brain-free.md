@@ -14,6 +14,9 @@
   - [A Business Brain for a Salisbury business worth scaling: capture the operations before a second location](https://amtechai.com/okf/playbooks/a-business-brain-for-a-salisbury-business-worth-scaling-capture-the-operations-before-a-second-location.md) — AMTECH use case by market
   - [Business Brain](https://amtechai.com/okf/use-cases/uc1-business-brain.md) — Use Case
   - [Financial ops and owner briefing](https://amtechai.com/okf/use-cases/uc8-owner-briefing.md) — Use Case
+  - [AI Employee](https://amtechai.com/okf/entities/service-ai-employee.md) — Service
+  - [Business Brain](https://amtechai.com/okf/entities/service-business-brain.md) — Service
+  - [Owner bottleneck](https://amtechai.com/okf/entities/problem-owner-bottleneck.md) — Problem
 
 ## Article
 

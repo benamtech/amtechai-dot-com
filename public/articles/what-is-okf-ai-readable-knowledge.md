@@ -14,6 +14,17 @@
   - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](https://amtechai.com/articles/amtech-vs-chatgpt-claude) — Published buying-decision anchor
   - [What AI Agents See When They Read Your Website](https://amtechai.com/articles/what-ai-agents-see-when-they-read-your-website) — Published OKF audit walkthrough and content infrastructure explainer
   - [AI learned to trade stocks before it could flip a burger: automate the operations brain, not the front desk](https://amtechai.com/okf/playbooks/ai-learned-to-trade-stocks-before-it-could-flip-a-burger-automate-the-operations-brain-not-the-front-desk.md) — General operational authority
+  - [Open Knowledge Format](https://amtechai.com/okf/entities/concept-open-knowledge-format.md) — Method
+  - [Knowledge graph](https://amtechai.com/okf/entities/concept-knowledge-graph.md) — Method
+  - [OKF content audit](https://amtechai.com/okf/entities/concept-okf-content-audit.md) — Method
+  - [AMTECH Knowledge Publishing Standard](https://amtechai.com/okf/entities/concept-amtech-knowledge-publishing-standard.md) — Method
+  - [Structured data](https://amtechai.com/okf/entities/concept-structured-data.md) — Method
+  - [JSON-LD](https://amtechai.com/okf/entities/concept-json-ld.md) — Tool
+  - [llms.txt](https://amtechai.com/okf/entities/concept-llms-txt.md) — Tool
+  - [AI Overviews](https://amtechai.com/okf/entities/concept-ai-overviews.md) — Tool
+  - [OKF Audit Skill](https://amtechai.com/okf/entities/tool-okf-audit-skill.md) — Tool
+  - [Agent-readable knowledge](https://amtechai.com/okf/entities/concept-agent-readable-knowledge.md) — Outcome
+  - [Business Brain](https://amtechai.com/okf/entities/service-business-brain.md) — Service
 
 ## Article
 

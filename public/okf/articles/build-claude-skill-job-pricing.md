@@ -400,6 +400,8 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [Margin analysis for any inventory-and-service business: what every transaction is telling you](/playbooks/margin-analysis-for-any-inventory-and-service-business-what-every-transaction-is-telling-you.md) — Reusable subtype playbook.
 - [Transaction and margin analysis](/use-cases/uc4-margin-analysis.md) — Use Case.
 - [Quoting and takeoff](/use-cases/uc6-quoting-and-takeoff.md) — Use Case.
+- [AI Employee](/entities/service-ai-employee.md) — Service.
+- [Owner bottleneck](/entities/problem-owner-bottleneck.md) — Problem.
 
 # Citations
 

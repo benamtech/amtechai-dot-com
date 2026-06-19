@@ -205,6 +205,7 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [The $2M bike shop hiding in a town like Salisbury: what AI takes off the owner's plate first](/playbooks/the-2m-bike-shop-hiding-in-a-town-like-salisbury-what-ai-takes-off-the-owner-s-plate-first.md) — General topic by market.
 - [Phoenix runs on pools and panels: the operational AI a Valley service business actually needs](/playbooks/phoenix-runs-on-pools-and-panels-the-operational-ai-a-valley-service-business-actually-needs.md) — General topic by market.
 - [Building Sherman: the back-office AI a supply yard needs as the subdivisions land](/playbooks/building-sherman-the-back-office-ai-a-supply-yard-needs-as-the-subdivisions-land.md) — General topic by market.
+- [AI Overviews](/entities/concept-ai-overviews.md) — Tool.
 
 # Referenced by
 

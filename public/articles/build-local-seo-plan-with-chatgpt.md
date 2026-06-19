@@ -13,6 +13,7 @@
   - [The $2M bike shop hiding in a town like Salisbury: what AI takes off the owner's plate first](https://amtechai.com/okf/playbooks/the-2m-bike-shop-hiding-in-a-town-like-salisbury-what-ai-takes-off-the-owner-s-plate-first.md) — General topic by market
   - [Phoenix runs on pools and panels: the operational AI a Valley service business actually needs](https://amtechai.com/okf/playbooks/phoenix-runs-on-pools-and-panels-the-operational-ai-a-valley-service-business-actually-needs.md) — General topic by market
   - [Building Sherman: the back-office AI a supply yard needs as the subdivisions land](https://amtechai.com/okf/playbooks/building-sherman-the-back-office-ai-a-supply-yard-needs-as-the-subdivisions-land.md) — General topic by market
+  - [AI Overviews](https://amtechai.com/okf/entities/concept-ai-overviews.md) — Tool
 
 ## Article
 

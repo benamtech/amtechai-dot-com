@@ -4,7 +4,7 @@ import {
   type KnowledgeGraphNode,
 } from '../articleKnowledgeGraph.ts';
 import type { ArticleContentBlock, ArticleDefinition } from '../articles.ts';
-import { deriveEntityEdgeIds, entityDefs, type EntityDef } from './entities.ts';
+import { deriveEntityEdgeIds, deriveNamedEntityEdgeIds, entityDefs, type EntityDef } from './entities.ts';
 import { getArticleDefinition } from './articles/index.ts';
 
 // Canonical site origin. OKF `resource` URIs and discovery URLs are built from this.
@@ -21,7 +21,7 @@ export const BUNDLE_META = {
 };
 
 // Controlled OKF `type` vocabulary actually emitted (validator enforces this exact set — Q5).
-export const ALLOWED_CONCEPT_TYPES = ['Article', 'Playbook', 'Use Case', 'Place', 'Industry'] as const;
+export const ALLOWED_CONCEPT_TYPES = ['Article', 'Playbook', 'Use Case', 'Place', 'Industry', 'Service', 'Method', 'Outcome', 'Tool', 'Problem'] as const;
 export type ConceptType = (typeof ALLOWED_CONCEPT_TYPES)[number];
 
 /**
@@ -133,12 +133,21 @@ function nodeToConcept(node: KnowledgeGraphNode): OkfConcept {
   const summary = [`**Use case:** ${node.uc}`, `**Audience:** ${node.audience}`, `**Status:** ${node.status}`];
   if (resource) summary.push(`**Live page:** ${resource}`);
 
-  // Edges: existing graph links first, then derived entity membership (the orphan fix).
-  const edgeTargetIds = [...new Set([...node.connectsTo, ...deriveEntityEdgeIds(node.uc, node.city, node.subtype)])];
-
   // Published articles enrich the thin graph node with full content from the consolidated
   // ArticleDefinition: real description, dek, body, citations, dateModified, and entity tags.
   const def = published ? getArticleDefinition(node.slug) : undefined;
+
+  // Edges: existing graph links, then derived use-case/place/industry membership (the orphan fix),
+  // then the article's named entities promoted to first-class nodes (primaryEntity + entities[]).
+  const namedEntityNames = def ? [def.primaryEntity.name, ...def.entities.map((e) => e.name)] : [];
+  const edgeTargetIds = [
+    ...new Set([
+      ...node.connectsTo,
+      ...deriveEntityEdgeIds(node.uc, node.city, node.subtype),
+      ...deriveNamedEntityEdgeIds(namedEntityNames),
+    ]),
+  ];
+
   const tags = deriveNodeTags(node);
   if (def) {
     [def.primaryEntity.name, ...def.entities.map((e) => e.name), def.category].forEach((t) => {
@@ -171,6 +180,8 @@ function nodeToConcept(node: KnowledgeGraphNode): OkfConcept {
 
 function entityToConcept(entity: EntityDef): OkfConcept {
   const path = `${entity.dir}/${entity.slug}.md`;
+  const summary = [`**Kind:** ${entity.kind}`, '**Status:** reference'];
+  if (entity.sameAs) summary.push(`**See also:** ${entity.sameAs}`);
   return {
     id: entity.id,
     conceptType: entity.kind,
@@ -183,7 +194,7 @@ function entityToConcept(entity: EntityDef): OkfConcept {
     tags: entity.tags,
     status: 'reference',
     relationLabel: entity.kind,
-    summary: [`**Kind:** ${entity.kind}`, '**Status:** reference'],
+    summary,
     citations: [],
     edgeTargetIds: entity.relatedEntityIds ? [...entity.relatedEntityIds] : [],
   };

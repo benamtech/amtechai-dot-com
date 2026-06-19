@@ -133,6 +133,9 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [A Business Brain for a Salisbury business worth scaling: capture the operations before a second location](/playbooks/a-business-brain-for-a-salisbury-business-worth-scaling-capture-the-operations-before-a-second-location.md) — AMTECH use case by market.
 - [Business Brain](/use-cases/uc1-business-brain.md) — Use Case.
 - [Financial ops and owner briefing](/use-cases/uc8-owner-briefing.md) — Use Case.
+- [AI Employee](/entities/service-ai-employee.md) — Service.
+- [Business Brain](/entities/service-business-brain.md) — Service.
+- [Owner bottleneck](/entities/problem-owner-bottleneck.md) — Problem.
 
 # Referenced by
 

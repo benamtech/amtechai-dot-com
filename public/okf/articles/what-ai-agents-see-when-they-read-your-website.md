@@ -167,6 +167,13 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](/articles/build-local-seo-plan-with-chatgpt.md) — Published SEO systems anchor.
 - [How to Build a Business Brain for Free Before You Hire an AI Consultant](/articles/business-brain-free.md) — Published business-brain anchor.
 - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) — Published buying-decision anchor.
+- [Open Knowledge Format](/entities/concept-open-knowledge-format.md) — Method.
+- [Knowledge graph](/entities/concept-knowledge-graph.md) — Method.
+- [Materialized views](/entities/concept-materialized-views.md) — Method.
+- [OKF content audit](/entities/concept-okf-content-audit.md) — Method.
+- [AMTECH Knowledge Publishing Standard](/entities/concept-amtech-knowledge-publishing-standard.md) — Method.
+- [JSON-LD](/entities/concept-json-ld.md) — Tool.
+- [Agent-readable knowledge](/entities/concept-agent-readable-knowledge.md) — Outcome.
 
 # Referenced by
 

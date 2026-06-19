@@ -16,6 +16,8 @@
   - [Margin analysis for any inventory-and-service business: what every transaction is telling you](https://amtechai.com/okf/playbooks/margin-analysis-for-any-inventory-and-service-business-what-every-transaction-is-telling-you.md) — Reusable subtype playbook
   - [Transaction and margin analysis](https://amtechai.com/okf/use-cases/uc4-margin-analysis.md) — Use Case
   - [Quoting and takeoff](https://amtechai.com/okf/use-cases/uc6-quoting-and-takeoff.md) — Use Case
+  - [AI Employee](https://amtechai.com/okf/entities/service-ai-employee.md) — Service
+  - [Owner bottleneck](https://amtechai.com/okf/entities/problem-owner-bottleneck.md) — Problem
 
 ## Article
 

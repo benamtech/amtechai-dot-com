@@ -13,6 +13,13 @@
   - [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](https://amtechai.com/articles/build-local-seo-plan-with-chatgpt) — Published SEO systems anchor
   - [How to Build a Business Brain for Free Before You Hire an AI Consultant](https://amtechai.com/articles/business-brain-free) — Published business-brain anchor
   - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](https://amtechai.com/articles/amtech-vs-chatgpt-claude) — Published buying-decision anchor
+  - [Open Knowledge Format](https://amtechai.com/okf/entities/concept-open-knowledge-format.md) — Method
+  - [Knowledge graph](https://amtechai.com/okf/entities/concept-knowledge-graph.md) — Method
+  - [Materialized views](https://amtechai.com/okf/entities/concept-materialized-views.md) — Method
+  - [OKF content audit](https://amtechai.com/okf/entities/concept-okf-content-audit.md) — Method
+  - [AMTECH Knowledge Publishing Standard](https://amtechai.com/okf/entities/concept-amtech-knowledge-publishing-standard.md) — Method
+  - [JSON-LD](https://amtechai.com/okf/entities/concept-json-ld.md) — Tool
+  - [Agent-readable knowledge](https://amtechai.com/okf/entities/concept-agent-readable-knowledge.md) — Outcome
 
 ## Article
 

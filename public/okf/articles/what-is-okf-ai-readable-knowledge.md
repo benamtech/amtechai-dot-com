@@ -214,6 +214,17 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) — Published buying-decision anchor.
 - [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) — Published OKF audit walkthrough and content infrastructure explainer.
 - [AI learned to trade stocks before it could flip a burger: automate the operations brain, not the front desk](/playbooks/ai-learned-to-trade-stocks-before-it-could-flip-a-burger-automate-the-operations-brain-not-the-front-desk.md) — General operational authority.
+- [Open Knowledge Format](/entities/concept-open-knowledge-format.md) — Method.
+- [Knowledge graph](/entities/concept-knowledge-graph.md) — Method.
+- [OKF content audit](/entities/concept-okf-content-audit.md) — Method.
+- [AMTECH Knowledge Publishing Standard](/entities/concept-amtech-knowledge-publishing-standard.md) — Method.
+- [Structured data](/entities/concept-structured-data.md) — Method.
+- [JSON-LD](/entities/concept-json-ld.md) — Tool.
+- [llms.txt](/entities/concept-llms-txt.md) — Tool.
+- [AI Overviews](/entities/concept-ai-overviews.md) — Tool.
+- [OKF Audit Skill](/entities/tool-okf-audit-skill.md) — Tool.
+- [Agent-readable knowledge](/entities/concept-agent-readable-knowledge.md) — Outcome.
+- [Business Brain](/entities/service-business-brain.md) — Service.
 
 # Referenced by
 

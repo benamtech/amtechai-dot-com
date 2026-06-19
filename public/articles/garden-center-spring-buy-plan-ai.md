@@ -15,6 +15,8 @@
   - [An AI operations brain for a Salisbury garden center: perishable inventory, seasonal forecasting, supplier orders](https://amtechai.com/okf/playbooks/an-ai-operations-brain-for-a-salisbury-garden-center-perishable-inventory-seasonal-forecasting-supplier-orders.md) — Full operations back office by subtype
   - [How a garden center uses AI to forecast perishable inventory and time supplier orders](https://amtechai.com/okf/playbooks/how-a-garden-center-uses-ai-to-forecast-perishable-inventory-and-time-supplier-orders.md) — Reusable subtype playbook
   - [Demand forecasting](https://amtechai.com/okf/use-cases/uc3-demand-forecasting.md) — Use Case
+  - [Business Brain](https://amtechai.com/okf/entities/service-business-brain.md) — Service
+  - [Owner bottleneck](https://amtechai.com/okf/entities/problem-owner-bottleneck.md) — Problem
 
 ## Article
 

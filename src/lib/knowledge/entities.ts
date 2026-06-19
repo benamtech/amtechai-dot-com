@@ -8,12 +8,14 @@
  * the city node, down to the subtype" rule from the master graph doc, finally *encoded* in data
  * instead of only narrated.
  *
- * Scope (deliberately): Use Case, Place, Industry — all derivable, no authored guesswork.
- * Service / Problem / Method / Outcome entities (which need authored descriptions, ideally
- * lifted from ArticleDefinition.entities[]) are deferred to the content-consolidation step.
+ * Scope: Use Case, Place, Industry are derived from graph-node fields (uc/city/subtype) with no
+ * authored guesswork. Service / Method / Outcome / Tool / Problem entities are the promotion of
+ * the previously-inline `ArticleDefinition.entities[]` strings into first-class concept nodes:
+ * they carry authored descriptions and resolve to articles by name (see `deriveNamedEntityEdgeIds`),
+ * which makes the entity graph explicit instead of implicit.
  */
 
-export type EntityKind = 'Use Case' | 'Place' | 'Industry';
+export type EntityKind = 'Use Case' | 'Place' | 'Industry' | 'Service' | 'Method' | 'Outcome' | 'Tool' | 'Problem';
 
 export type EntityDef = {
   /** Stable concept id. Use-case ids are the bare token (e.g. "UC2") so they match node.uc directly. */
@@ -30,6 +32,10 @@ export type EntityDef = {
   matchSubtypes?: string[];
   /** Curated cross-entity edges (keeps composite entities like UC10 connected). */
   relatedEntityIds?: string[];
+  /** Names as they appear in ArticleDefinition.primaryEntity/entities[] that resolve to this node. */
+  matchNames?: string[];
+  /** Canonical URL this entity stands for (e.g. a skill page); rendered as a See-also line. */
+  sameAs?: string;
 };
 
 const useCases: EntityDef[] = [
@@ -67,7 +73,39 @@ const industries: EntityDef[] = [
   { id: 'industry-flooring', kind: 'Industry', dir: 'entities', slug: 'industry-flooring', title: 'Flooring contractor', description: 'Job costing across materials and labor exposes margin outliers.', tags: ['Industry', 'flooring contractor'], matchSubtypes: ['flooring contractor'] },
 ];
 
-export const entityDefs: EntityDef[] = [...useCases, ...places, ...industries];
+// Promoted entities: the recurring, connective Method / Tool / Outcome / Service / Problem concepts
+// that were previously only inline strings in ArticleDefinition.entities[]. Each resolves to the
+// articles that name it (matchNames), giving every node an inbound edge — no orphans. Cross-entity
+// `relatedEntityIds` thicken the cluster so the agent-readability concepts form a real subgraph.
+const concepts: EntityDef[] = [
+  { id: 'concept-okf', kind: 'Method', dir: 'entities', slug: 'concept-open-knowledge-format', title: 'Open Knowledge Format', description: "Google's lightweight format for AI-readable knowledge: a directory of markdown concept files with YAML frontmatter whose links form a portable knowledge graph.", tags: ['Method', 'Open Knowledge Format', 'OKF'], matchNames: ['Open Knowledge Format', 'OKF'], relatedEntityIds: ['concept-knowledge-graph', 'concept-materialized-views', 'concept-agent-readable-knowledge'] },
+  { id: 'concept-knowledge-graph', kind: 'Method', dir: 'entities', slug: 'concept-knowledge-graph', title: 'Knowledge graph', description: 'Named entities connected by typed relationships, so agents and search systems build context by traversing links between things rather than re-reading prose.', tags: ['Method', 'knowledge graph', 'entity graph'], matchNames: ['knowledge graph', 'entity graph'], relatedEntityIds: ['concept-okf', 'concept-ai-overviews'] },
+  { id: 'concept-materialized-views', kind: 'Method', dir: 'entities', slug: 'concept-materialized-views', title: 'Materialized views', description: 'One source of truth projected into many consumer surfaces — HTML, prerendered static pages, JSON-LD, markdown bundle, sitemap — so every reader gets a fit-for-purpose representation.', tags: ['Method', 'materialized views'], matchNames: ['materialized views'], relatedEntityIds: ['concept-okf', 'concept-publishing-standard'] },
+  { id: 'concept-okf-audit', kind: 'Method', dir: 'entities', slug: 'concept-okf-content-audit', title: 'OKF content audit', description: 'A six-dimension scoring method (0–30) for how readable a page or bundle is to AI agents: first-fetch clarity, concept packaging, entity coverage, citations, materialized views, and execution readiness.', tags: ['Method', 'OKF content audit', 'OKF audit'], matchNames: ['OKF content audit', 'OKF audit'], relatedEntityIds: ['concept-okf', 'tool-okf-audit-skill'] },
+  { id: 'concept-publishing-standard', kind: 'Method', dir: 'entities', slug: 'concept-amtech-knowledge-publishing-standard', title: 'AMTECH Knowledge Publishing Standard', description: 'The AMTECH discipline of authoring knowledge once and projecting it into every surface humans, crawlers, agents, and databases need, with validation before publish.', tags: ['Method', 'AMTECH Knowledge Publishing Standard'], matchNames: ['AMTECH Knowledge Publishing Standard'], relatedEntityIds: ['concept-okf', 'concept-materialized-views'] },
+  { id: 'concept-structured-data', kind: 'Method', dir: 'entities', slug: 'concept-structured-data', title: 'Structured data', description: 'Machine-readable clues about page meaning (author, date, type, FAQ, breadcrumbs) that agents and search systems use when prose alone is ambiguous.', tags: ['Method', 'structured data'], matchNames: ['structured data'], relatedEntityIds: ['concept-json-ld'] },
+  { id: 'concept-json-ld', kind: 'Tool', dir: 'entities', slug: 'concept-json-ld', title: 'JSON-LD', description: 'The JSON syntax for embedding schema.org structured data in a page so its meaning is explicit in the first-fetch surface.', tags: ['Tool', 'JSON-LD'], matchNames: ['JSON-LD'], relatedEntityIds: ['concept-structured-data'] },
+  { id: 'concept-llms-txt', kind: 'Tool', dir: 'entities', slug: 'concept-llms-txt', title: 'llms.txt', description: 'A discovery file that gives AI tools a direct orientation to a site’s most important content, complementing sitemap.xml and robots.txt.', tags: ['Tool', 'llms.txt'], matchNames: ['llms.txt'], relatedEntityIds: ['concept-okf'] },
+  { id: 'concept-ai-overviews', kind: 'Tool', dir: 'entities', slug: 'concept-ai-overviews', title: 'AI Overviews', description: "Google's generative search surface that may use query fan-out across related subtopics, rewarding clear entity relationships and cited claims.", tags: ['Tool', 'AI Overviews'], matchNames: ['AI Overviews'], relatedEntityIds: ['concept-knowledge-graph'] },
+  { id: 'tool-okf-audit-skill', kind: 'Tool', dir: 'entities', slug: 'tool-okf-audit-skill', title: 'OKF Audit Skill', description: 'The consumable AMTECH skill that runs the OKF content audit from a single URL in any agent, returning a score, priority fixes, and a remediation prompt.', tags: ['Tool', 'OKF Audit Skill', 'skill'], matchNames: ['OKF Audit Skill'], sameAs: 'https://amtechai.com/skills/okf-audit', relatedEntityIds: ['concept-okf-audit', 'concept-okf'] },
+  { id: 'concept-agent-readable-knowledge', kind: 'Outcome', dir: 'entities', slug: 'concept-agent-readable-knowledge', title: 'Agent-readable knowledge', description: 'The end state where an agent that fetches a URL gets enough structure, metadata, entities, and citations to use the content as trusted context without scraping or guessing.', tags: ['Outcome', 'agent-readable knowledge'], matchNames: ['agent-readable knowledge'], relatedEntityIds: ['concept-okf', 'concept-materialized-views'] },
+  { id: 'service-ai-employee', kind: 'Service', dir: 'entities', slug: 'service-ai-employee', title: 'AI Employee', description: 'A managed, connected operating assistant that reads business context, follows workflows, and reports to a human supervisor — not a one-off chatbot.', tags: ['Service', 'AI Employee', 'AI employees'], matchNames: ['AI Employee', 'AI employees', 'AI employee', 'AI agents'], relatedEntityIds: ['service-business-brain', 'problem-owner-bottleneck'] },
+  { id: 'service-business-brain', kind: 'Service', dir: 'entities', slug: 'service-business-brain', title: 'Business Brain', description: 'The durable operating-context layer — records, rules, examples, and approval boundaries — a business documents before agents or automation can use its knowledge reliably.', tags: ['Service', 'Business Brain'], matchNames: ['Business Brain', 'AMTECH Business Brain', 'business brain'], relatedEntityIds: ['service-ai-employee'] },
+  { id: 'problem-owner-bottleneck', kind: 'Problem', dir: 'entities', slug: 'problem-owner-bottleneck', title: 'Owner bottleneck', description: 'The constraint where a business cannot scale because key decisions, knowledge, and approvals all route through the owner; the problem AI Employees and a Business Brain are built to relieve.', tags: ['Problem', 'owner bottleneck'], matchNames: ['owner bottleneck'], relatedEntityIds: ['service-ai-employee', 'service-business-brain'] },
+];
+
+export const entityDefs: EntityDef[] = [...useCases, ...places, ...industries, ...concepts];
+
+/** Resolve which promoted-entity ids an article links to, from its primaryEntity/entities[] names. */
+export function deriveNamedEntityEdgeIds(names: string[]): string[] {
+  const wanted = new Set(names.map((n) => n.trim().toLowerCase()).filter(Boolean));
+  const ids: string[] = [];
+  for (const entity of concepts) {
+    const aliases = [entity.title, ...(entity.matchNames ?? [])].map((a) => a.toLowerCase());
+    if (aliases.some((alias) => wanted.has(alias))) ids.push(entity.id);
+  }
+  return [...new Set(ids)];
+}
 
 /** Resolve which entity ids a graph node links to, from its use case, city, and subtype. */
 export function deriveEntityEdgeIds(uc: string, city?: string, subtype?: string): string[] {

@@ -15,6 +15,9 @@
   - [The connected back office for a Sherman equipment-rental yard: reservations, fleet maintenance, utilization](https://amtechai.com/okf/playbooks/the-connected-back-office-for-a-sherman-equipment-rental-yard-reservations-fleet-maintenance-utilization.md) — Full operations back office by subtype
   - [An AI back office for a Phoenix HVAC company: install pipeline, parts procurement, maintenance contracts](https://amtechai.com/okf/playbooks/an-ai-back-office-for-a-phoenix-hvac-company-install-pipeline-parts-procurement-maintenance-contracts.md) — Full operations back office by subtype
   - [Full AI operations employee](https://amtechai.com/okf/use-cases/uc10-full-operations-employee.md) — Use Case
+  - [AI Employee](https://amtechai.com/okf/entities/service-ai-employee.md) — Service
+  - [Business Brain](https://amtechai.com/okf/entities/service-business-brain.md) — Service
+  - [Owner bottleneck](https://amtechai.com/okf/entities/problem-owner-bottleneck.md) — Problem
 
 ## Article
 

@@ -157,3 +157,5 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [An AI operations brain for a Salisbury garden center: perishable inventory, seasonal forecasting, supplier orders](/playbooks/an-ai-operations-brain-for-a-salisbury-garden-center-perishable-inventory-seasonal-forecasting-supplier-orders.md) — Full operations back office by subtype.
 - [How a garden center uses AI to forecast perishable inventory and time supplier orders](/playbooks/how-a-garden-center-uses-ai-to-forecast-perishable-inventory-and-time-supplier-orders.md) — Reusable subtype playbook.
 - [Demand forecasting](/use-cases/uc3-demand-forecasting.md) — Use Case.
+- [Business Brain](/entities/service-business-brain.md) — Service.
+- [Owner bottleneck](/entities/problem-owner-bottleneck.md) — Problem.

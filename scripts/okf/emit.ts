@@ -276,7 +276,7 @@ export function buildOkfFiles(): Map<string, string> {
   );
   files.set(
     `${OKF_DIR}/entities/index.md`,
-    subIndex('Entities', 'Places and industries that ground the operational knowledge graph.', concepts.filter((c) => c.dir === 'entities')),
+    subIndex('Entities', 'Places, industries, services, methods, tools, outcomes, and problems that ground the operational knowledge graph.', concepts.filter((c) => c.dir === 'entities')),
   );
 
   // Canonical-adjacent Markdown twins for published articles (served at /articles/<slug>.md).

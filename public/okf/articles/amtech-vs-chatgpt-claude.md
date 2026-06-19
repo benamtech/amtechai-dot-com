@@ -166,6 +166,9 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [The connected back office for a Sherman equipment-rental yard: reservations, fleet maintenance, utilization](/playbooks/the-connected-back-office-for-a-sherman-equipment-rental-yard-reservations-fleet-maintenance-utilization.md) — Full operations back office by subtype.
 - [An AI back office for a Phoenix HVAC company: install pipeline, parts procurement, maintenance contracts](/playbooks/an-ai-back-office-for-a-phoenix-hvac-company-install-pipeline-parts-procurement-maintenance-contracts.md) — Full operations back office by subtype.
 - [Full AI operations employee](/use-cases/uc10-full-operations-employee.md) — Use Case.
+- [AI Employee](/entities/service-ai-employee.md) — Service.
+- [Business Brain](/entities/service-business-brain.md) — Service.
+- [Owner bottleneck](/entities/problem-owner-bottleneck.md) — Problem.
 
 # Referenced by
 
