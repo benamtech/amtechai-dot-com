@@ -107,6 +107,13 @@ export default function AIEmployeeClaim() {
     }
   }, []);
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('t')) return;
+    const prefilledPhone = params.get('phone');
+    if (prefilledPhone) setPhone(prefilledPhone);
+  }, []);
+
   // Door 2: arrived from a text-in link. Validate it server-side, then prefill and
   // lock the phone so the form can skip the verification code entirely.
   useEffect(() => {

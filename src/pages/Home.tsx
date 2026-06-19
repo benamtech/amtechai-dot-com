@@ -1,11 +1,12 @@
-import { Link } from 'react-router-dom';
-import { ArrowRight, BookOpen, Briefcase, CheckCircle2, GraduationCap, Sparkles } from 'lucide-react';
+import { FormEvent, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, BookOpen, Phone, Quote } from 'lucide-react';
 import { getNodesByIds } from '../lib/articleKnowledgeGraph';
 
 const learningLinks = [
   {
     title: 'AMTECH vs ChatGPT and Claude',
-    description: 'Know when a prompt is enough and when the business needs a governed system.',
+    description: 'Know when a prompt is enough and when the business needs a working employee.',
     to: '/articles/amtech-vs-chatgpt-claude',
   },
   {
@@ -20,17 +21,6 @@ const learningLinks = [
   },
 ];
 
-const agentCapabilities = [
-  'Turn job notes into estimates, work orders, invoices, and follow-up drafts',
-  'Read intake forms, emails, photos, PDFs, spreadsheets, and customer history',
-  'Prepare daily crew briefs, material lists, punch lists, and status updates',
-  'Sort vendor quotes, flag missing information, and compare options',
-  'Answer routine customer questions with the right context and escalation rules',
-  'Keep reviews, referrals, reactivation, reminders, and nurture follow-up moving',
-  'Build owner dashboards from sales, jobs, calls, margins, inventory, or bookings',
-  'Operate around approvals so the human stays in control where judgment matters',
-];
-
 type HomepageNarrativeSection = {
   title: string;
   image: string;
@@ -42,121 +32,126 @@ type HomepageNarrativeSection = {
 
 const homepageNarrativeSections: HomepageNarrativeSection[] = [
   {
-    title: 'Most contractors are not behind. They are buried in repeat work.',
+    title: 'The problem is not effort. It is where the effort is going.',
     image: 'https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=1200&q=80',
     alt: 'Contractor reviewing plans in a workshop.',
     body: [
-      'Most AI adoption is still exploratory. Serious business owners are not behind; they are at the decision point where the next advantage gets built.',
-      'The businesses pulling ahead are not chasing every app. They are choosing the repeatable work that matters and shaping systems around how the operation already runs.',
-      'The move is from “AI sounds interesting” to “this is how it works inside the business.”',
+      'A serious owner can work hard all day and still lose the night to estimates, replies, records, invoices, job notes, vendor questions, and follow-up.',
+      'That work matters. It protects revenue and reputation. But it should not all require the owner to sit at a screen and push every task across the line.',
+      'The first win is not a dramatic reinvention. It is moving repeat computer work to a worker that can remember the business, follow the rule, prepare the artifact, and report back.',
     ],
-    related: { label: 'Compare DIY tools with governed systems', to: '/articles/amtech-vs-chatgpt-claude' },
+    related: { label: 'Compare AI tools with working employees', to: '/articles/amtech-vs-chatgpt-claude' },
   },
   {
-    title: 'The win is a business that feels lighter while doing more.',
+    title: 'Give the business a worker it can actually use.',
     image: 'https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=1200&q=80',
     alt: 'Organized tools and work documentation on a bench.',
     body: [
-      'Job notes become invoices. Vendor quotes get sorted. Daily crew briefs get written. Customer questions get drafted with the right context. Reviews, referrals, reminders, and follow-up stop waiting for a spare minute.',
-      'The owner still makes the important calls. The difference is that the routine computer work has a place to go, a standard to follow, and a clear point where human approval steps in.',
-      'That is how a normal local business starts to feel more organized, more responsive, and less dependent on late nights.',
+      'An AMTECH AI Employee is set up around your services, pricing, customers, documents, tools, tone, and operating rules. You reach it by text. It has its own number. It knows who it reports to.',
+      'You can ask for the estimate draft, the invoice note, the customer reply, the material check, the lead follow-up, the job summary, or the list of exceptions that need your attention.',
+      'The owner still owns the judgment. The employee handles the preparation, the repeat steps, and the clean handoff back to the person in charge.',
     ],
     related: { label: 'Build a business brain first', to: '/articles/business-brain-free' },
   },
   {
-    title: 'Picture Monday morning in a business with real memory.',
+    title: 'The business starts to see itself clearly.',
     image: 'https://images.unsplash.com/photo-1517048676732-d65bc937f952?auto=format&fit=crop&w=1200&q=80',
     alt: 'Modern team workspace with planning materials and laptops.',
     body: [
-      'The day starts with the numbers already assembled: booked work, open estimates, aging invoices, margin warnings, materials that need attention, customers waiting on replies, and the next best follow-up.',
-      'Crews leave with clear direction. The office sees what changed. The owner can review the exceptions instead of hunting through texts, inboxes, photos, and spreadsheets to reconstruct the truth.',
-      'The business has not become less human. It has become easier to steer.',
+      'A worker with memory changes the owner’s day. Open estimates, unpaid invoices, customer promises, missing details, margin concerns, and follow-up opportunities stop hiding across texts, inboxes, photos, and spreadsheets.',
+      'Morning check-ins can surface what happened, what is waiting, and what needs a decision. The owner reviews exceptions instead of reconstructing the entire operation from scattered fragments.',
+      'This is the practical mental shift: from carrying the business in your head to managing a business that can show you what needs to be done.',
     ],
     related: { label: 'Plan from real business memory', to: '/articles/business-brain-free' },
   },
   {
-    title: 'The data favors businesses that turn experiments into workflow.',
+    title: 'The right promise is smaller, stronger, and easier to trust.',
     image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
     alt: 'Clean dashboard and operating data on a monitor.',
     body: [
-      'Most organizations experimenting with AI see productivity gains. The larger lift comes when the repeatable work is redesigned around real data, approval points, and customer promises.',
-      'For contractors and local service businesses, the highest-leverage opportunities are usually documentation, quoting, coordination, follow-up, reporting, and back-office cleanup.',
-      'The gap is no longer access to AI. The gap is having a system that fits how the business actually runs.',
+      'Do not start by trusting AI with the whole company. Start by giving it real work with clear boundaries: draft this, summarize that, compare these, prepare the reply, find the missing detail, make the report.',
+      'AMTECH builds the first version around the work that already repeats. The employee learns the business context, uses approved procedures, and pauses where a human decision belongs.',
+      'A good first claim is simple: this should take less owner time tomorrow than it took yesterday.',
     ],
   },
   {
-    title: 'By 2028, the advantage belongs to the business owner with room to think.',
+    title: 'Capacity changes the way an owner thinks.',
     image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=1200&q=80',
     alt: 'Professional job site with organized construction activity.',
     body: [
-      'The owner is looking at real numbers instead of guessing. Better jobs get attention sooner. Follow-up is faster. Crew direction is cleaner. Admin does not swallow every quiet hour.',
-      'That extra room changes what the business can choose: better customers, better pricing, better hiring, better planning, and more of the work worth being known for.',
-      'Competitors doing everything the old way may still work hard. The difference is that hard work without a system keeps charging interest.',
+      'When the routine work has somewhere to go, the owner gets room back: room to price better, train better, hire better, follow up faster, protect margins, and choose the jobs worth becoming known for.',
+      'This is not about making the business less human. It is about giving the human operator a cleaner instrument panel and a worker that can carry the administrative weight.',
+      'Hard work still matters. The difference is whether every small task keeps collecting interest from the owner’s attention.',
     ],
     related: { label: 'Create an estimate with ChatGPT', to: '/articles/create-estimate-with-chatgpt' },
   },
   {
-    title: 'AMTECH turns useful AI into working business infrastructure.',
+    title: 'Claim the employee. Teach it the business. Put it to work.',
     image: 'https://images.unsplash.com/photo-1530124566582-a618bc2615dc?auto=format&fit=crop&w=1200&q=80',
     alt: 'Hands working with paperwork and professional tools.',
     body: [
-      'Generic chat tools can help with estimates and notes. But when work touches money, customers, crews, inventory, schedules, or reputation, one-off prompts are not enough.',
-      'Reliable results come from source data, workflow steps, approval points, exception handling, and dashboards built around the way the business already works.',
-      'AMTECH builds that layer so AI becomes part of the workday instead of another tab the owner has to remember to use.',
+      'The claim form asks for the plain facts: what the business does, who is on the team, what work wastes time, what tools you use, what a normal job looks like, and which customers you want more or less of.',
+      'That becomes the first business brain. The provisioner creates an isolated employee profile, gives it a phone number, schedules check-ins, and sets it up to report to you.',
+      'The offer is direct because the work is direct. Claim the AI Employee, then start handing it the tasks that should not keep living on your desk.',
     ],
   },
 ];
 
 
-const businessExamples: Array<{
-  business: string;
-  before: string;
-  after: string;
-}> = [];
-
-const repeatWorkOutcomes = [
-  'More time for high-value jobs and customer relationships',
-  'Faster turnaround from job completion to invoicing',
-  'Fewer quote, material, and coordination errors',
-  'Clearer visibility into what is actually happening',
-  'More capacity without proportionally more admin hours',
-];
-
-const funnelArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
+const additionalArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) => ({
   title: node.title,
   description: node.description,
   to: node.href,
 }));
 
 export default function Home() {
+  const navigate = useNavigate();
+  const [claimPhone, setClaimPhone] = useState('');
+
+  function submitPhoneClaim(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    const trimmed = claimPhone.trim();
+    navigate(trimmed ? `/claim?phone=${encodeURIComponent(trimmed)}` : '/claim');
+  }
+
   return (
-    <main className="bg-[#f4f4f4] text-black" data-business-examples-count={businessExamples.length}>
+    <main className="bg-[#f4f4f4] text-black">
       <section className="relative overflow-hidden border-b-4 border-black bg-white pt-36 pb-16 md:pt-44 md:pb-24">
         <div className="container-wide">
-          <div className="grid gap-12 lg:grid-cols-[1fr_420px] lg:items-end">
-            <div>
-              <h1 className="max-w-6xl text-[clamp(3.2rem,8.5vw,8.8rem)] font-black leading-[0.86] tracking-[-0.085em]">
-                Your next employee is an AI agent<span className="text-red">.</span>
-              </h1>
-              <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
-                AMTECH builds practical AI systems for serious local businesses: contractors, hardware stores, restaurants, shops, service companies, and any operation where repeat computer work is stealing owner time.
-              </p>
-            </div>
-            <div className="grid gap-3">
-              <Link to="/articles" className="group border-2 border-black bg-[#f4f4f4] p-5 transition hover:bg-white">
-                <Briefcase className="mb-8 h-6 w-6 text-red" />
-                <h2 className="text-2xl font-black tracking-[-0.04em]">I'm the owner.</h2>
-                <p className="mt-3 text-sm leading-6 text-black/62">Learn what AI can do, then work with AMTECH to map and build the right system.</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-black">Go to business path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
-              </Link>
-              <Link to="/sales-bootcamp" className="group border-2 border-black bg-black p-5 text-white transition hover:bg-[#151515]">
-                <GraduationCap className="mb-8 h-6 w-6 text-red" />
-                <h2 className="text-2xl font-black tracking-[-0.04em]">I work in sales.</h2>
-                <p className="mt-3 text-sm leading-6 text-white/62">Learn the basics, understand what businesses buy, and train toward selling AI services.</p>
-                <span className="mt-6 inline-flex items-center gap-2 text-sm font-black text-white">Go to bootcamp path <ArrowRight className="transition group-hover:translate-x-1" size={15} /></span>
-              </Link>
-            </div>
+          <div className="max-w-6xl">
+            <h1 className="max-w-6xl text-[clamp(3.2rem,8.5vw,8.8rem)] font-black leading-[0.86] tracking-[-0.085em]">
+              Your next employee is an AI agent<span className="text-red">.</span>
+            </h1>
+            <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
+              AMTECH sets up a textable AI Employee for serious local businesses. It learns your pricing, services, documents, customers, tools, and operating rules, then helps get estimates, invoices, follow-up, job notes, reports, and other office work done without making you learn another AI tool.
+            </p>
+            <Link
+              to="/claim"
+              className="mt-10 inline-flex min-h-12 items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright"
+            >
+              Claim my AI Employee
+              <ArrowRight size={16} />
+            </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="border-b-4 border-black bg-black py-12 text-white md:py-16">
+        <div className="container-wide">
+          <Link
+            to="/articles/amtech-vs-chatgpt-claude"
+            className="group grid gap-6 border border-white/16 bg-white/[0.03] p-6 transition hover:border-red/70 md:grid-cols-[1fr_auto] md:items-center md:p-8"
+          >
+            <div>
+              <h2 className="max-w-4xl text-[clamp(1.8rem,4vw,3.8rem)] font-black leading-[0.96] tracking-[-0.055em]">
+                Know the difference between using ChatGPT and managing an AI Employee.
+              </h2>
+            </div>
+            <span className="inline-flex items-center gap-2 text-sm font-black text-white">
+              Read the comparison
+              <ArrowRight className="transition group-hover:translate-x-1" size={16} />
+            </span>
+          </Link>
         </div>
       </section>
 
@@ -169,7 +164,7 @@ export default function Home() {
                 <div className={`absolute inset-0 ${index % 2 === 1 ? 'bg-black/25' : 'bg-red/10 mix-blend-multiply'}`} />
               </div>
               <div className="flex min-h-[560px] flex-col justify-center py-14 lg:px-14 lg:py-20">
-                <div className="border-2 border-current bg-white/5 p-7 md:p-10">
+                <div className="p-1 md:p-4">
                   <h3 className="text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{section.title}</h3>
                   {'stats' in section && section.stats ? (
                     <div className="mt-8 grid gap-3 sm:grid-cols-3">
@@ -185,65 +180,17 @@ export default function Home() {
                       <p key={paragraph} className={`text-base leading-8 md:text-lg ${index % 2 === 1 ? 'text-white/72' : 'text-black/66'}`}>{paragraph}</p>
                     ))}
                   </div>
+                  {section.related ? (
+                    <Link to={section.related.to} className={`mt-8 inline-flex items-center gap-2 text-sm font-black ${index % 2 === 1 ? 'text-white' : 'text-black'}`}>
+                      {section.related.label}
+                      <ArrowRight size={15} />
+                    </Link>
+                  ) : null}
                 </div>
               </div>
             </div>
           </article>
         ))}
-      </section>
-
-      <section className="border-b-4 border-black bg-white py-20 md:py-28">
-        <div className="container-wide">
-          <div className="max-w-5xl">
-            <h2 className="text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">If the business uses a computer, an agent can probably remove drag.</h2>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-black/64">A basic Hermes agent or custom AMTECH agent is not limited to one trade. It can support normal business work across documents, emails, calendars, forms, CRMs, spreadsheets, phones, reviews, inventory, estimates, bookings, and reports.</p>
-          </div>
-          <div className="mt-12 grid gap-3 md:grid-cols-2 lg:grid-cols-4">
-            {agentCapabilities.map((capability) => (
-              <div key={capability} className="border-2 border-black bg-[#f4f4f4] p-5">
-                <CheckCircle2 className="mb-5 h-5 w-5 text-red" />
-                <p className="text-sm font-black leading-6 tracking-[-0.02em]">{capability}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-b-4 border-black bg-black py-20 text-white md:py-28">
-        <div className="container-wide">
-          <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-            <h2 className="text-[clamp(2.3rem,5.5vw,5.4rem)] font-black leading-[0.9] tracking-[-0.07em]">Different businesses. Same operating advantage.</h2>
-            <p className="max-w-2xl text-lg leading-8 text-white/64">AMTECH does not sell a generic chatbot. We study the repeat loops in the business, then build the simplest system that gives the owner freedom, clarity, and leverage.</p>
-          </div>
-          <div className="mt-12 grid gap-4 lg:grid-cols-3">
-            {businessExamples.map((example) => (
-              <div key={example.business} className="border border-white/18 bg-white/[0.03] p-7">
-                <h3 className="text-2xl font-black tracking-[-0.04em] text-white">{example.business}</h3>
-                <p className="mt-5 text-sm font-black uppercase tracking-[0.18em] text-white/40">Before</p>
-                <p className="mt-2 leading-7 text-white/58">{example.before}</p>
-                <p className="mt-6 text-sm font-black uppercase tracking-[0.18em] text-white/40">After</p>
-                <p className="mt-2 leading-7 text-white/72">{example.after}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-[#f4f4f4] py-20 md:py-28">
-        <div className="container-wide grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-          <div>
-            <Sparkles className="mb-8 h-7 w-7 text-red" />
-            <h2 className="text-[clamp(2.1rem,5vw,4.8rem)] font-black leading-[0.92] tracking-[-0.065em]">What freedom and abundance look like in operations.</h2>
-            <p className="mt-6 text-lg leading-8 text-black/64">Not hype. More room. Better attention. Cleaner decisions. A business that can absorb opportunity without automatically turning it into chaos.</p>
-          </div>
-          <div className="grid gap-4">
-            {repeatWorkOutcomes.map((outcome) => (
-              <div key={outcome} className="border-2 border-black bg-white p-6 text-xl font-black leading-tight tracking-[-0.04em]">
-                {outcome}
-              </div>
-            ))}
-          </div>
-        </div>
       </section>
 
       <section className="border-y-4 border-black bg-white py-20 md:py-28">
@@ -265,7 +212,7 @@ export default function Home() {
             ))}
           </div>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {funnelArticles.slice(0, 2).map((article) => (
+            {additionalArticles.slice(0, 2).map((article) => (
               <Link key={article.to} to={article.to} className="group border-2 border-black bg-white p-6 transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#000]">
                 <h3 className="text-2xl font-black leading-tight tracking-[-0.04em]">{article.title}</h3>
                 <p className="mt-4 text-sm leading-6 text-black/62">{article.description}</p>
@@ -276,19 +223,51 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="border-b-4 border-black bg-[#f4f4f4] py-16 md:py-20">
+        <div className="container-wide">
+          <div className="grid gap-8 border-2 border-black bg-white p-7 md:p-10 lg:grid-cols-[120px_1fr] lg:items-start">
+            <Quote className="h-12 w-12 text-red" aria-hidden="true" />
+            <div>
+              <p className="max-w-5xl text-[clamp(1.6rem,3.4vw,3.2rem)] font-black leading-[1.02] tracking-[-0.05em]">
+                A landscaper sent photos, a voice note, and a rough price range. The AI Employee organized the scope, drafted the estimate, wrote the customer follow-up, and returned the approval points before the owner got back to the office.
+              </p>
+              <p className="mt-6 max-w-2xl text-base leading-7 text-black/58">
+                The hard work was still human judgment. The drag was gathering, formatting, and remembering. That is the part the employee handled.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="bg-black py-20 text-white md:py-28">
-        <div className="container-wide grid gap-10 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+        <div className="container-wide grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-center">
           <div>
-            <h2 className="text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">Bring the repeat work. We will map the system.</h2>
-            <p className="mt-7 max-w-3xl text-lg leading-8 text-white/66">If you are a serious operator, you do not need more random AI noise. You need the first practical system that gives the business memory, direction, and room to grow.</p>
+            <h2 className="text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">Put your number in. Claim your AI Employee.</h2>
+            <p className="mt-7 max-w-3xl text-lg leading-8 text-white/66">The claim page will ask seven business questions, verify the phone, capture consent, and start the setup path for a textable worker built around your business.</p>
           </div>
-          <div className="border border-red bg-red/10 p-7 md:p-9">
-            <h3 className="text-3xl font-black leading-none tracking-[-0.05em]">Start with one workflow.</h3>
-            <p className="mt-5 leading-7 text-white/64">Estimates, follow-up, customer intake, job handoff, inventory, reporting, reviews, scheduling, or admin cleanup. One clear target is enough to begin.</p>
-            <Link to="/schedule-demo" className="mt-9 inline-flex items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright">
-              Schedule a demo <ArrowRight size={16} />
-            </Link>
-          </div>
+          <form onSubmit={submitPhoneClaim} className="border border-red bg-red/10 p-7 md:p-9">
+            <label className="block">
+              <span className="mb-3 block text-sm font-black text-white/70">Mobile phone</span>
+              <input
+                value={claimPhone}
+                onChange={(event) => setClaimPhone(event.target.value)}
+                autoComplete="tel"
+                inputMode="tel"
+                placeholder="+18055550142"
+                className="h-14 w-full border-2 border-white bg-white px-4 text-base font-semibold text-black outline-none transition focus:border-red"
+              />
+            </label>
+            <button
+              type="submit"
+              className="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright"
+            >
+              Claim my AI Employee
+              <Phone size={16} />
+            </button>
+            <p className="mt-4 text-xs leading-5 text-white/45">
+              You will verify this number on the claim page before anything is provisioned.
+            </p>
+          </form>
         </div>
       </section>
     </main>
