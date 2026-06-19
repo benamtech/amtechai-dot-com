@@ -46,6 +46,8 @@ export type ArticleDefinition = {
   citations: ArticleCitation[];
   faqs: ArticleFaq[];
   blocks: ArticleContentBlock[];
+  /** Skill slug this article demonstrates in practice. Emits amtech:demonstrates meta tag. */
+  demonstratesSkill?: string;
 };
 
 export const AMTECH_ORGANIZATION_SCHEMA = {

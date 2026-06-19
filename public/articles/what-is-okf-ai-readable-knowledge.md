@@ -12,6 +12,7 @@
   - [How to Build a Business Brain for Free Before You Hire an AI Consultant](https://amtechai.com/articles/business-brain-free) — Published business-brain anchor
   - [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](https://amtechai.com/articles/build-local-seo-plan-with-chatgpt) — Published SEO systems anchor
   - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](https://amtechai.com/articles/amtech-vs-chatgpt-claude) — Published buying-decision anchor
+  - [What AI Agents See When They Read Your Website](https://amtechai.com/articles/what-ai-agents-see-when-they-read-your-website) — Published OKF audit walkthrough and content infrastructure explainer
   - [AI learned to trade stocks before it could flip a burger: automate the operations brain, not the front desk](https://amtechai.com/okf/playbooks/ai-learned-to-trade-stocks-before-it-could-flip-a-burger-automate-the-operations-brain-not-the-front-desk.md) — General operational authority
 
 ## Article

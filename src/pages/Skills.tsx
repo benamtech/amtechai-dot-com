@@ -58,8 +58,7 @@ export default function Skills() {
               <article key={skill.slug} className="border-2 border-black bg-white p-6 md:p-8">
                 <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
                   <div>
-                    <p className="font-mono text-xs font-bold uppercase tracking-[0.16em] text-red">{skill.name}</p>
-                    <h3 className="mt-3 text-3xl font-black tracking-[-0.04em] md:text-5xl">{skill.title}</h3>
+                    <h3 className="text-3xl font-black tracking-[-0.04em] md:text-5xl">{skill.title}</h3>
                     <p className="mt-5 max-w-3xl text-base leading-7 text-black/65">{skill.summary}</p>
                   </div>
                   <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">

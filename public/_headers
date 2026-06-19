@@ -13,8 +13,17 @@
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
 
 # Skill materialized views (markdown + manifests) — cache at the edge.
+# X-headers tell agents where to find the authority registry without fetching the page.
 /skills/*
   Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  X-Skill-Authority: https://amtechai.com/.well-known/skill-authority.json
+  X-Skill-Registry: https://amtechai.com/skills/index.json
+
+# Domain skill authority registry — readable by any agent cross-origin.
+/.well-known/skill-authority.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600
 
 # Discovery files.
 /llms.txt

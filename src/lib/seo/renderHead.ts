@@ -52,6 +52,9 @@ export function renderHeadTags(meta: PageMeta): string {
     };
     tags.push(`<script type="application/json" id="amtech-agent-map">${JSON.stringify(payload)}</script>`);
   }
+  for (const em of meta.extraMeta ?? []) {
+    tags.push(`<meta name="${esc(em.name)}" content="${esc(em.content)}" />`);
+  }
   return tags.join('\n    ');
 }
 

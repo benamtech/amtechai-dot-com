@@ -6,6 +6,7 @@ import { article as amtechVsChatgpt } from './amtech-vs-chatgpt-claude.ts';
 import { article as claudeSkillPricing } from './build-claude-skill-job-pricing.ts';
 import { article as okfAiReadableKnowledge } from './what-is-okf-ai-readable-knowledge.ts';
 import { articles as estimatePrompts } from './estimate-prompts.ts';
+import { article as whatAgentsSee } from './what-ai-agents-see-when-they-read-your-website.ts';
 
 /**
  * Every published article's full ArticleDefinition, keyed by slug. React-free so build
@@ -19,6 +20,7 @@ export const articleDefinitions: Record<string, ArticleDefinition> = {
   [amtechVsChatgpt.slug]: amtechVsChatgpt,
   [claudeSkillPricing.slug]: claudeSkillPricing,
   [okfAiReadableKnowledge.slug]: okfAiReadableKnowledge,
+  [whatAgentsSee.slug]: whatAgentsSee,
   ...estimatePrompts,
 };
 

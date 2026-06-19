@@ -115,6 +115,23 @@ async function main() {
     if (typeof sitemap !== 'string' || !sitemap.includes(skillUrl(skill))) fail(`public/sitemap.xml missing ${skill.slug}. Run npm run okf:build after skills changes.`);
   }
 
+  // skill-authority.json must exist and list every skill
+  const authorityRaw = await read('public/.well-known/skill-authority.json');
+  if (typeof authorityRaw !== 'string') {
+    fail('public/.well-known/skill-authority.json missing. Run npm run skills:build.');
+  } else {
+    try {
+      const authority = JSON.parse(authorityRaw) as { skills?: { slug: string }[] };
+      for (const skill of skillDefinitions) {
+        if (!authority.skills?.some((s) => s.slug === skill.slug)) {
+          fail(`public/.well-known/skill-authority.json missing entry for ${skill.slug}.`);
+        }
+      }
+    } catch {
+      fail('public/.well-known/skill-authority.json is not valid JSON.');
+    }
+  }
+
   if (errors.length) {
     console.error(`skills:validate found ${errors.length} error(s):`);
     errors.forEach((error) => console.error(`- ${error}`));

@@ -17,6 +17,7 @@ import { articleDefinitions } from '../knowledge/articles/index.ts';
 import { buildArticleSchema, AMTECH_ORGANIZATION_SCHEMA } from '../articles.ts';
 import { SITE_ORIGIN, getConcepts } from '../knowledge/concepts.ts';
 import { skillDefinitions, skillUrl, type SkillDefinition } from '../skills/registry.ts';
+import { getSkillContent } from '../skills/generated/skill-content.ts';
 
 export const SITE_NAME = 'AMTECH AI';
 export const DEFAULT_TITLE = 'AMTECH. — Your Next Employee Is a Computer';
@@ -60,6 +61,8 @@ export type PageMeta = {
   agentMap?: AgentMap;
   /** Real readable body for the prerendered static HTML (marketing/hub routes). */
   sections?: BodySection[];
+  /** Extra <meta name="..." content="..."> tags injected after JSON-LD (skill stamps, demonstrates). */
+  extraMeta?: { name: string; content: string }[];
 };
 
 const abs = (route: string) => `${SITE_ORIGIN}${route}`;
@@ -294,6 +297,10 @@ function articlePageMeta(): PageMeta[] {
       .filter((c): c is NonNullable<typeof c> => Boolean(c && c.resource))
       .slice(0, 6)
       .map((c) => ({ title: c.title, href: c.resource! }));
+    const extraMeta: { name: string; content: string }[] = [];
+    if (def.demonstratesSkill) {
+      extraMeta.push({ name: 'amtech:demonstrates', content: def.demonstratesSkill });
+    }
     return {
       route,
       title: withSuffix(def.title),
@@ -314,6 +321,7 @@ function articlePageMeta(): PageMeta[] {
         ],
         seeAlso,
       },
+      ...(extraMeta.length ? { extraMeta } : {}),
     };
   });
 }
@@ -399,6 +407,15 @@ function hubPageMeta(): PageMeta[] {
 function skillPageMeta(): PageMeta[] {
   return skillDefinitions.map((skill: SkillDefinition) => {
     const route = `/skills/${skill.slug}`;
+    const content = getSkillContent(skill.slug);
+    const extraMeta: { name: string; content: string }[] = [
+      { name: 'amtech:skill', content: skill.slug },
+      { name: 'amtech:skill-version', content: skill.version },
+      { name: 'amtech:skill-registry', content: 'https://amtechai.com/.well-known/skill-authority.json' },
+    ];
+    if (content?.archiveSha256) {
+      extraMeta.splice(2, 0, { name: 'amtech:skill-sha256', content: content.archiveSha256 });
+    }
     return {
       route,
       title: withSuffix(`${skill.title} for AI Agents`),
@@ -424,6 +441,7 @@ function skillPageMeta(): PageMeta[] {
           { type: 'application/json', href: skillUrl(skill, '/manifest.json') },
         ],
       },
+      extraMeta,
     };
   });
 }

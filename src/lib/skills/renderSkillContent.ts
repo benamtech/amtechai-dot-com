@@ -78,8 +78,7 @@ export function renderSkillContentHtml(slug: string): string {
 
   return `<main class="bg-[#f4f4f4] text-black">
     <div class="container-wide max-w-4xl py-16 pt-28 md:py-24 md:pt-36">
-      <p class="font-mono text-xs font-bold uppercase tracking-[0.16em] text-red">${esc(skill.name)} &middot; v${esc(skill.version)}</p>
-      <h1 class="mt-3 text-4xl font-black tracking-[-0.04em] md:text-5xl">${esc(skill.title)}</h1>
+      <h1 class="text-4xl font-black tracking-[-0.04em] md:text-5xl">${esc(skill.title)}</h1>
       <p class="mt-5 text-lg leading-8 text-black/70">${esc(skill.description)}</p>
       <dl class="mt-7 grid grid-cols-2 gap-px border border-black/15 bg-black/10 sm:grid-cols-4">${chips}</dl>
       <p class="mt-4 text-sm leading-7 text-black/60">${esc(safety.riskNote)}</p>

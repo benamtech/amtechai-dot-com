@@ -31,6 +31,7 @@ import LocalSeoKnowledgeGraphPlan from './pages/articles/LocalSeoKnowledgeGraphP
 import BusinessBrainFree from './pages/articles/BusinessBrainFree';
 import SalisburyRetailSalesDataAI from './pages/articles/SalisburyRetailSalesDataAI';
 import OkfAiReadableKnowledge from './pages/articles/OkfAiReadableKnowledge';
+import WhatAgentsSeeWebsite from './pages/articles/WhatAgentsSeeWebsite';
 
 export default function App() {
   return (
@@ -71,6 +72,7 @@ export default function App() {
           <Route path="/articles/business-brain-free" element={<BusinessBrainFree />} />
           <Route path="/articles/garden-center-spring-buy-plan-ai" element={<SalisburyRetailSalesDataAI />} />
           <Route path="/articles/what-is-okf-ai-readable-knowledge" element={<OkfAiReadableKnowledge />} />
+          <Route path="/articles/what-ai-agents-see-when-they-read-your-website" element={<WhatAgentsSeeWebsite />} />
         </Route>
       </Routes>
     </BrowserRouter>

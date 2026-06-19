@@ -2,7 +2,7 @@
 
 Purpose: give agents and humans a compressed map of the site so they can answer routing, form, database, and deployment questions without scanning every file.
 
-Most recent handoff: `docs/memory/status-2026-06-19--unified-meta-and-delivery.md`.
+Most recent handoff: `docs/memory/status-2026-06-19--skill-stamp-db-complete.md`.
 
 ## Architecture at a glance
 
@@ -94,7 +94,7 @@ Most recent handoff: `docs/memory/status-2026-06-19--unified-meta-and-delivery.m
   - `prerender.ts` (postbuild → per-route static HTML in `dist/`).
   - `db-seed-sql.ts` (emits idempotent seed SQL for the concept tables from the façade; `--no-body` for a compact seed), `db-verify.ts` (anon-key parity + RLS check vs the in-code source).
   - Commands: `npm run okf:build|okf:validate|okf:validate:phase3|okf:check|okf:prerender|okf:db:seed-sql|okf:db:verify`. Output committed under `public/okf/**` (74 concepts) + `public/{sitemap.xml,robots.txt,llms.txt}`. Standards, phase gates, Supabase schema, and future OKF/article positioning: `docs/okf/`.
-- `scripts/skills/`: AMTECH skill materialization tooling. `build-skills.ts` emits `public/skills/**`; `validate-skills.ts` verifies frontmatter, generated views, hashes, raw files, archive, and discovery links. Commands: `npm run skills:build|skills:validate|skills:check`.
+- `scripts/skills/`: AMTECH skill materialization tooling. `build-skills.ts` emits `public/skills/**` plus the trust layer — `public/.well-known/skill-authority.json` (canonical slug/version/sha256/archive URL per skill) and `archiveSha256` into the generated content read by `src/lib/seo/pageMeta.ts` for the `amtech:skill*` head stamps; `validate-skills.ts` verifies frontmatter, generated views, hashes, raw files, archive, and discovery links. Commands: `npm run skills:build|skills:validate|skills:check`. Articles that exercise a skill stamp `amtech:demonstrates`. DB projection: `public.skills` + `public.skill_article_links` (migration `20260619220000_create_skills_registry.sql`, public-read published-only RLS, service-role writes) mirror the registry the same way `concepts` mirror `src/lib/knowledge`.
 - `docs/memory`: durable short facts for future agents.
 - `netlify/functions`: Netlify Functions deployed with the Vite site; `claim.mjs` handles AI Employee Twilio Verify/provisioning and `sms-entry.mjs` is the optional onboarding SMS signpost.
 - `AI_EMPLOYEE_MVP`: AI Employee product bundle. Read `BUILD-PLAN.md` first, then `SUB_AGENTS.md` and `ai-employee-all-files/README.md`; `template/` is the Hermes profile, `schema/` is the form/manifest contract, `scripts/` is the provisioning factory, first-run setup, local checks, Caddy/systemd helpers, smoke tests, and authenticated hook, `.env.netlify.example` is the Netlify env checklist, `host/` contains local reverse-proxy templates, `cron/` is check-in scheduling, and `netlify/functions/` is the source-bundle copy/reference for claim/SMS functions.

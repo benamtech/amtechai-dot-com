@@ -20,7 +20,7 @@
     "supabaseClient": "src/lib/supabase.ts",
     "aiEmployeePlan": "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
     "aiEmployeeReference": "docs/AI_EMPLOYEE_MVP.md",
-    "latestHandoff": "docs/memory/status-2026-06-19--skill-surfaces-implemented.md"
+    "latestHandoff": "docs/memory/status-2026-06-19--skill-stamp-db-complete.md"
   },
   "npmScripts": {
     "dev": "Start the Vite dev server.",
@@ -460,21 +460,27 @@
         "src/lib/skills/registry.ts",
         "src/lib/skills/source/okf-audit/SKILL.md"
       ],
-      "tables": [],
+      "tables": [
+        "skills",
+        "skill_article_links"
+      ],
       "functions": [],
       "build": [
         "scripts/skills/build-skills.ts",
         "scripts/skills/validate-skills.ts",
         "scripts/okf/emit.ts",
-        "scripts/okf/prerender.ts"
+        "scripts/okf/prerender.ts",
+        "supabase/migrations/20260619220000_create_skills_registry.sql"
       ],
       "outputs": [
         "public/skills/**",
         "public/sitemap.xml",
         "public/llms.txt",
-        "dist/skills/**"
+        "dist/skills/**",
+        "public/.well-known/skill-authority.json",
+        "dist/.well-known/skill-authority.json"
       ],
-      "purpose": "One-link skill consumption surface. Source skill folders project to use.md, agent.md, SKILL.md, manifest.json, file indexes, raw files, checksums, and archives."
+      "purpose": "One-link skill consumption surface with a trust layer. Source skill folders project to use.md, agent.md, SKILL.md, manifest.json, file indexes, raw files, checksums, and archives. Skill pages stamp amtech:skill* meta (incl. archive sha256); articles stamp amtech:demonstrates. build-skills.ts emits /.well-known/skill-authority.json. public.skills + public.skill_article_links are the queryable DB projection of the registry (public-read, published-only RLS)."
     }
   ],
   "docs": [
@@ -501,6 +507,12 @@
     "docs/ARTICLE_SYSTEM.md",
     "docs/ARTICLE_PUBLISHING_AGENT.md",
     "docs/okf/README.md",
-    "docs/okf/07-future-article-notes.md"
+    "docs/okf/07-future-article-notes.md",
+    "docs/memory/validation-2026-06-19--okf-audit-linkedin-post.md",
+    "docs/memory/status-2026-06-19--okf-audit-live-test.md",
+    "docs/article-drafts/scoring-content-for-ai-agents-okf-audit.md",
+    "docs/memory/status-2026-06-19--okf-audit-article-pipeline.md",
+    "docs/memory/status-2026-06-19--skill-stamp-db-session-start.md",
+    "docs/memory/status-2026-06-19--skill-stamp-db-complete.md"
   ]
 }

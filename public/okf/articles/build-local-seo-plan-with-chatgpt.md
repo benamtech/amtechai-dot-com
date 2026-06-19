@@ -208,6 +208,7 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 
 # Referenced by
 
+- [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) — Published OKF audit walkthrough and content infrastructure explainer.
 - [What Is OKF? Google's New Format For AI-Readable Knowledge](/articles/what-is-okf-ai-readable-knowledge.md) — Published OKF and agentic-search explainer.
 
 # Citations

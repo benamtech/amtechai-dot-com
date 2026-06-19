@@ -31,8 +31,8 @@ function distPathFor(route: string): string {
 
 function rootText(html: string): string {
   // Vite hoists the module script into <head>, so #root closes right before </body>.
-  // Our prerendered bodies contain no nested <div>, so the first </div> is the root close.
-  const m = html.match(/<div id="root">([\s\S]*?)<\/div>/);
+  // Use greedy match to capture all content inside #root (handles pages with nested divs).
+  const m = html.match(/<div id="root">([\s\S]*)<\/div>\s*<\/body>/);
   const inner = m ? m[1] : '';
   return inner
     .replace(/<[^>]*>/g, ' ')

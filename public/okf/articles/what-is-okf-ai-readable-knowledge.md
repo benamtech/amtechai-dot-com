@@ -198,7 +198,12 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 - [How to Build a Business Brain for Free Before You Hire an AI Consultant](/articles/business-brain-free.md) — Published business-brain anchor.
 - [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](/articles/build-local-seo-plan-with-chatgpt.md) — Published SEO systems anchor.
 - [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) — Published buying-decision anchor.
+- [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) — Published OKF audit walkthrough and content infrastructure explainer.
 - [AI learned to trade stocks before it could flip a burger: automate the operations brain, not the front desk](/playbooks/ai-learned-to-trade-stocks-before-it-could-flip-a-burger-automate-the-operations-brain-not-the-front-desk.md) — General operational authority.
+
+# Referenced by
+
+- [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) — Published OKF audit walkthrough and content infrastructure explainer.
 
 # Citations
 
