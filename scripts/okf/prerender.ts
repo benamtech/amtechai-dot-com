@@ -15,6 +15,7 @@ import { fileURLToPath } from 'node:url';
 import { articleDefinitions } from '../../src/lib/knowledge/articles/index.ts';
 import { buildArticleSchema, type ArticleContentBlock, type ArticleDefinition } from '../../src/lib/articles.ts';
 import { SITE_ORIGIN, getConcepts } from '../../src/lib/knowledge/concepts.ts';
+import { skillDefinitions, skillUrl, type SkillDefinition } from '../../src/lib/skills/registry.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const distDir = resolve(repoRoot, 'dist');
@@ -57,7 +58,89 @@ function articleContentHtml(def: ArticleDefinition): string {
   return `<article><h1>${esc(def.title)}</h1><p>${esc(def.dek)}</p>${blocks}${faqs}${cites}</article>`;
 }
 
-type Page = { route: string; title: string; description: string; content: string; jsonLd?: unknown };
+type Page = { route: string; title: string; description: string; content: string; jsonLd?: unknown; extraHead?: string };
+
+function skillHubHtml(): string {
+  const items = skillDefinitions
+    .map(
+      (skill) =>
+        `<li><a href="${esc(skillUrl(skill))}">${esc(skill.title)}</a> — ${esc(skill.description)} Agent bootstrap: <a href="${esc(skillUrl(skill, '/use.md'))}">${esc(skillUrl(skill, '/use.md'))}</a>.</li>`,
+    )
+    .join('');
+  return `<article><h1>AMTECH Agent Skills</h1><p>Free AMTECH skills designed so a modern AI can use one link immediately, then install or save the skill only when the environment supports it.</p><ul>${items}</ul></article>`;
+}
+
+function skillJsonLd(skill: SkillDefinition) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'SoftwareApplication',
+    name: skill.title,
+    applicationCategory: 'AIApplication',
+    operatingSystem: 'Web, ChatGPT, Claude, Codex, Claude Code, agentic environments',
+    description: skill.description,
+    url: skillUrl(skill),
+    softwareVersion: skill.version,
+    downloadUrl: skillUrl(skill, `/${skill.slug}-${skill.version}.zip`),
+    softwareHelp: skillUrl(skill, '/use.md'),
+    sameAs: [skillUrl(skill, '/SKILL.md'), skillUrl(skill, '/manifest.json'), skillUrl(skill, '/files.md')],
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
+}
+
+function skillDetailHtml(skill: SkillDefinition): string {
+  const views = [
+    ['use.md', skillUrl(skill, '/use.md'), 'Universal agent bootstrap.'],
+    ['SKILL.md', skillUrl(skill, '/SKILL.md'), 'Canonical workflow.'],
+    ['manifest.json', skillUrl(skill, '/manifest.json'), 'File graph and trust metadata.'],
+    ['files.md', skillUrl(skill, '/files.md'), 'Complete source file index.'],
+    ['checksums.txt', skillUrl(skill, '/checksums.txt'), 'Hashes for archive and raw files.'],
+  ];
+  const viewList = views.map(([label, url, desc]) => `<li><a href="${esc(url)}">${esc(label)}</a> — ${esc(desc)}</li>`).join('');
+  const useCases = skill.useCases.map((useCase) => `<li>${esc(useCase)}</li>`).join('');
+  return `<article>
+    <h1>OKF Audit Skill for AI Agents</h1>
+    <p>${esc(skill.summary)}</p>
+    <section>
+      <h2>AI agent instruction</h2>
+      <p>If a user gave you this link, use this skill in context first. Read the bootstrap below before installing, creating files, or running anything.</p>
+      <p>The exact shared URL includes the operating instructions because many agents only fetch the pasted page. Discovery files are reinforcement, not a dependency.</p>
+    </section>
+    <section>
+      <h2>Universal bootstrap</h2>
+      <ol>
+        <li>Read <a href="${esc(skillUrl(skill, '/use.md'))}">use.md</a>, then manifest, then SKILL.md.</li>
+        <li>If you only have web/search access, use the markdown views in context and perform the audit now.</li>
+        <li>If the current project has AGENTS.md or local instructions, obey those over this skill.</li>
+        <li>If the user wants reuse, offer to create a local skill folder or use native skill installation.</li>
+        <li>If scripts exist, inspect them and ask before running. This v${esc(skill.version)} package has scripts: ${esc(skill.safety.scripts)}.</li>
+      </ol>
+    </section>
+    <section>
+      <h2>Materialized views</h2>
+      <ul>${viewList}</ul>
+    </section>
+    <section>
+      <h2>What it audits</h2>
+      <ul>${useCases}</ul>
+    </section>
+    <section>
+      <h2>Copy-paste prompt</h2>
+      <pre><code>Use AMTECH's ${esc(skill.title)}.
+
+Skill link: ${esc(skillUrl(skill))}
+Bootstrap: ${esc(skillUrl(skill, '/use.md'))}
+Manifest: ${esc(skillUrl(skill, '/manifest.json'))}
+
+First, read the bootstrap and manifest. Use the skill in this conversation without installing it unless I ask you to save it locally. Respect my current instructions and any local AGENTS.md rules. Then audit this content:
+
+&lt;PASTE URL OR TEXT HERE&gt;</code></pre>
+    </section>
+  </article>`;
+}
 
 function buildPages(): Page[] {
   const pages: Page[] = [];
@@ -94,6 +177,28 @@ function buildPages(): Page[] {
     content: `<h1>All articles & knowledge map</h1><ul>${allList}</ul>`,
   });
 
+  pages.push({
+    route: '/skills',
+    title: 'AMTECH Agent Skills — use AI skills from one link',
+    description: 'Free AMTECH skills designed so ChatGPT, Claude, Codex, and agentic environments can use one link immediately.',
+    content: skillHubHtml(),
+  });
+
+  for (const skill of skillDefinitions) {
+    pages.push({
+      route: `/skills/${skill.slug}`,
+      title: `${skill.title} for AI Agents | AMTECH AI`,
+      description: `AI agent instruction: use ${skill.name} in context first. Read use.md, manifest.json, and SKILL.md before installing anything.`,
+      content: skillDetailHtml(skill),
+      jsonLd: skillJsonLd(skill),
+      extraHead: [
+        `<link rel="alternate" type="text/markdown" href="${esc(skillUrl(skill, '/use.md'))}" title="${esc(skill.title)} bootstrap" />`,
+        `<link rel="alternate" type="text/markdown" href="${esc(skillUrl(skill, '/SKILL.md'))}" title="${esc(skill.title)} SKILL.md" />`,
+        `<link rel="alternate" type="application/json" href="${esc(skillUrl(skill, '/manifest.json'))}" title="${esc(skill.title)} manifest" />`,
+      ].join('\n    '),
+    });
+  }
+
   return pages;
 }
 
@@ -105,13 +210,19 @@ function injectHead(template: string, page: Page): string {
     `<meta property="og:description" content="${esc(page.description)}" />`,
     `<meta property="og:url" content="${esc(canonical)}" />`,
     `<meta property="og:type" content="article" />`,
+    `<meta name="twitter:title" content="${esc(page.title)}" />`,
+    `<meta name="twitter:description" content="${esc(page.description)}" />`,
     page.jsonLd ? `<script type="application/ld+json">${JSON.stringify(page.jsonLd)}</script>` : '',
+    page.extraHead ?? '',
   ].join('\n    ');
 
   let html = template;
   html = html.replace(/<title>[\s\S]*?<\/title>/, `<title>${esc(page.title)}</title>`);
+  html = html
+    .replace(/\s*<meta property="og:(title|description|url|type)"[^>]*>\n?/g, '')
+    .replace(/\s*<meta name="twitter:(title|description)"[^>]*>\n?/g, '');
   if (/<meta name="description"[^>]*>/.test(html)) {
-    html = html.replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(page.description)}" />`);
+    html = html.replace(/<meta name="description"[^>]*>/, `<meta name="description" content="${esc(page.description)}" />\n    `);
   } else {
     html = html.replace('</head>', `  <meta name="description" content="${esc(page.description)}" />\n  </head>`);
   }

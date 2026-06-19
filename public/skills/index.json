@@ -1,0 +1,16 @@
+{
+  "skills": [
+    {
+      "slug": "okf-audit",
+      "name": "okf-audit",
+      "title": "OKF Audit Skill",
+      "version": "0.1.0",
+      "description": "A consumable AMTECH skill for auditing articles, websites, drafts, sitemaps, and OKF bundles for AI-readable knowledge quality.",
+      "url": "https://amtechai.com/skills/okf-audit",
+      "use": "https://amtechai.com/skills/okf-audit/use.md",
+      "manifest": "https://amtechai.com/skills/okf-audit/manifest.json",
+      "archive": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip",
+      "archiveSha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8"
+    }
+  ]
+}

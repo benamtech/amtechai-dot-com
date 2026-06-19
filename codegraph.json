@@ -20,14 +20,17 @@
     "supabaseClient": "src/lib/supabase.ts",
     "aiEmployeePlan": "AI_EMPLOYEE_MVP/BUILD-PLAN.md",
     "aiEmployeeReference": "docs/AI_EMPLOYEE_MVP.md",
-    "latestHandoff": "docs/memory/status-2026-06-18--2324.md"
+    "latestHandoff": "docs/memory/status-2026-06-19--skill-surfaces-implemented.md"
   },
   "npmScripts": {
     "dev": "Start the Vite dev server.",
-    "build": "Build the production Vite bundle.",
+    "build": "Regenerate skill projections, regenerate OKF/discovery files, build the production Vite bundle, and prerender article + skill routes.",
     "preview": "Preview the production build locally.",
     "typecheck": "Run TypeScript app checks.",
     "lint": "Run eslint.",
+    "skills:build": "Materialize skill source folders into public/skills/** markdown, manifests, raw files, archives, and checksums.",
+    "skills:validate": "Validate generated skill surfaces, hashes, archive, and discovery links.",
+    "skills:check": "Regenerate skill + OKF/discovery files, then validate skill surfaces.",
     "ai:local:setup": "First-run setup for the local Hermes PC bundle.",
     "ai:local:check": "Check local Hermes/env/Caddy/Supabase prerequisites and dry-run provisioning.",
     "ai:caddy:render": "Render Caddy host config and print install/reload commands.",
@@ -144,6 +147,24 @@
         "src/lib/articleKnowledgeGraph.ts"
       ],
       "purpose": "Mobile-first index of all published articles and planned operational knowledge-graph nodes grouped by topic and node type"
+    },
+    {
+      "path": "/skills",
+      "page": "src/pages/Skills.tsx",
+      "components": [
+        "src/lib/skills",
+        "scripts/skills"
+      ],
+      "purpose": "AMTECH agent skills hub with first-fetch skill consumption positioning and links to materialized markdown/manifest/download surfaces"
+    },
+    {
+      "path": "/skills/:slug",
+      "page": "src/pages/SkillDetail.tsx",
+      "components": [
+        "src/lib/skills",
+        "scripts/skills"
+      ],
+      "purpose": "Human and agent bootstrap page for consumable skills; /skills/okf-audit includes static AI instructions, decision tree, materialized view links, and copy-paste prompt"
     },
     {
       "path": "/articles/write-pressure-washing-estimate-with-ai",
@@ -430,15 +451,45 @@
         "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py",
         "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/claim_number.py"
       ]
+    },
+    {
+      "name": "agent skill materialization",
+      "frontend": [
+        "src/pages/Skills.tsx",
+        "src/pages/SkillDetail.tsx",
+        "src/lib/skills/registry.ts",
+        "src/lib/skills/source/okf-audit/SKILL.md"
+      ],
+      "tables": [],
+      "functions": [],
+      "build": [
+        "scripts/skills/build-skills.ts",
+        "scripts/skills/validate-skills.ts",
+        "scripts/okf/emit.ts",
+        "scripts/okf/prerender.ts"
+      ],
+      "outputs": [
+        "public/skills/**",
+        "public/sitemap.xml",
+        "public/llms.txt",
+        "dist/skills/**"
+      ],
+      "purpose": "One-link skill consumption surface. Source skill folders project to use.md, agent.md, SKILL.md, manifest.json, file indexes, raw files, checksums, and archives."
     }
   ],
   "docs": [
     "docs/codegraph.md",
     "docs/AI_EMPLOYEE_MVP.md",
+    "docs/UNIVERSAL_SKILL_LINK_CONTRACT.md",
+    "docs/AMTECH_SHAREABLE_SKILLS_STRATEGY.md",
+    "docs/SKILL_MATERIALIZATION_PIPELINE.md",
     "wiki/db-forms-endpoints.md",
     "wiki/deployment/netlify-vite-supabase.md",
     "wiki/research/2026-06-17-codegraph-docs-and-token-efficiency.md",
+    "wiki/research/2026-06-19-shareable-agent-skills-and-projection-pipelines.md",
+    "docs/memory/shareable-skill-marketplace-research.md",
     "docs/article-drafts/okf-ai-readable-knowledge.md",
+    "docs/memory/status-2026-06-19--skill-surfaces-implemented.md",
     "docs/memory/status-2026-06-18--2324.md",
     "docs/skills/amtech-article-research-writer/SKILL.md",
     "docs/skills/amtech-article-research-writer/references/research-workflow.md",

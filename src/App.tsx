@@ -21,6 +21,8 @@ import Apply from './pages/Apply';
 import SalesRepApply from './pages/SalesRepApply';
 import Articles from './pages/Articles';
 import AllArticles from './pages/AllArticles';
+import Skills from './pages/Skills';
+import SkillDetail from './pages/SkillDetail';
 import { ChatGPTEstimateArticle, PaintingCostAIArticle, PressureWashingEstimateArticle } from './pages/AIEstimateArticles';
 import AmtechVsChatgptClaude from './pages/articles/AmtechVsChatgptClaude';
 import ClaudeSkillJobPricing from './pages/articles/ClaudeSkillJobPricing';
@@ -56,6 +58,8 @@ export default function App() {
           <Route path="/cost-calculator" element={<CostCalculator />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/all" element={<AllArticles />} />
+          <Route path="/skills" element={<Skills />} />
+          <Route path="/skills/:slug" element={<SkillDetail />} />
           <Route path="/articles/write-pressure-washing-estimate-with-ai" element={<PressureWashingEstimateArticle />} />
           <Route path="/articles/estimate-painting-cost-ai" element={<PaintingCostAIArticle />} />
           <Route path="/articles/create-estimate-with-chatgpt" element={<ChatGPTEstimateArticle />} />

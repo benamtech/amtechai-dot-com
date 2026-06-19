@@ -49,6 +49,18 @@ Capture future findings here as short dated entries:
 - Operational constraints in Supabase, Stripe, Resend, Netlify, or onboarding workflows.
 - Operational constraints in Hermes, Twilio Verify, Twilio Messaging/A2P, provisioning hooks, and AI Employee onboarding.
 
+## Dated product research
+
+### 2026-06-19 - Public free agent skills hub
+
+AMTECH should explore a public skill hub at `skills.amtechai.com`, starting with `skills.amtechai.com/okf-audit`. The strongest version is not a single install link; it is a projection pipeline that turns one complete skill folder into a human page, raw `SKILL.md`, agent landing markdown, copy-paste install prompt, file/script/reference/asset indexes, raw file views, versioned archive, manifest/checksums, GitHub-backed Codex plugin marketplace, llms.txt/OKF discovery entries, and an optional hosted Netlify audit flow. This intentionally takes advantage of how different AI search and agent contexts retrieve different text surfaces.
+
+Detailed research:
+
+- `docs/AMTECH_SHAREABLE_SKILLS_STRATEGY.md`
+- `docs/SKILL_MATERIALIZATION_PIPELINE.md`
+- `wiki/research/2026-06-19-shareable-agent-skills-and-projection-pipelines.md`
+
 ## Documentation rule
 
 Keep this file high signal. Link detailed research artifacts in `wiki/research/` instead of pasting long raw notes here.

@@ -5,6 +5,7 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
   { label: 'Learn AI', to: '/articles' },
+  { label: 'Agent Skills', to: '/skills' },
   { label: 'Our Work', to: '/our-work' },
   { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
 ];

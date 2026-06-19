@@ -11,6 +11,7 @@ This is the simplest Netlify path for AMTECH's static Vite site. The repository 
    - **Build command:** `npm run build`
    - **Publish directory:** `dist`
    - **Functions directory:** `netlify/functions`
+   - The build command runs `skills:build`, `okf:build`, `vite build`, and the postbuild prerender step. This means Netlify regenerates `public/skills/**`, `public/okf/**`, root discovery files, and static HTML for article/skill routes before publishing `dist`.
 5. Add environment variables under Netlify site settings:
    - `VITE_SUPABASE_URL`
    - `VITE_SUPABASE_ANON_KEY`
@@ -155,6 +156,9 @@ Then test:
 - `/schedule-demo`
 - `/pay`
 - `/claim`
+- `/skills`
+- `/skills/okf-audit`
+- `/skills/okf-audit/use.md`
 
 ## Sources
 

@@ -4,6 +4,7 @@ const links = [
   { label: 'How It Works', to: '/how-it-works' },
   { label: 'About', to: '/about' },
   { label: 'Pricing', to: '/pricing' },
+  { label: 'Agent Skills', to: '/skills' },
   { label: 'Contact', to: '/schedule-demo' },
 ];
 

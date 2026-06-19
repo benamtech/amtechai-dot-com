@@ -20,14 +20,18 @@ Operational memory:
 - For article publishing from supplied copy, use `docs/skills/amtech-article-publisher/` before editing article data, graph nodes, or generated OKF/discovery outputs.
 - For article research and draft creation, use `docs/skills/amtech-article-research-writer/`.
 - Use `docs/article-drafts/` for unpublished article drafts and research packets before converting a draft into live article code and graph nodes.
+- For AMTECH public/free skill hub work, read `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`, `docs/SKILL_MATERIALIZATION_PIPELINE.md`, `src/lib/skills/registry.ts`, and `scripts/skills/build-skills.ts`.
 - For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` first.
 
 Top-of-mind npm commands:
 - `npm run dev` - start the Vite dev server.
-- `npm run build` - production build.
+- `npm run build` - regenerate skills, regenerate OKF/discovery files, production build, and prerender.
 - `npm run preview` - preview the production build.
 - `npm run typecheck` - TypeScript app check.
 - `npm run lint` - eslint check.
+- `npm run skills:build` - materialize `src/lib/skills/source/*` into `public/skills/**`.
+- `npm run skills:validate` - validate generated skill surfaces, hashes, archive, and discovery links.
+- `npm run skills:check` - regenerate skill + OKF/discovery files and validate skill surfaces.
 - `npm run ai:local:setup` - first-run Hermes PC setup for the AI Employee bundle.
 - `npm run ai:local:check` - local Hermes/env/Caddy/Supabase prerequisite check plus dry-run provision check.
 - `npm run ai:caddy:render` - render/print Caddy host config install commands.

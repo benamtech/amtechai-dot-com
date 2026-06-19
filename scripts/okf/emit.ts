@@ -16,6 +16,7 @@ import {
   getTopicGroups,
   type OkfConcept,
 } from '../../src/lib/knowledge/concepts.ts';
+import { skillDefinitions, skillUrl } from '../../src/lib/skills/registry.ts';
 
 export const OKF_DIR = 'public/okf';
 
@@ -31,6 +32,7 @@ const MAIN_ROUTES = [
   '/cost-calculator',
   '/articles',
   '/articles/all',
+  '/skills',
 ];
 
 function yamlString(value: string): string {
@@ -157,7 +159,8 @@ function sitemap(concepts: OkfConcept[]): string {
   const published = concepts.filter((c) => c.dir === 'articles' && c.resource);
   const articleRoutes = published.map((c) => c.resource as string);
   const mainUrls = MAIN_ROUTES.map((route) => `${SITE_ORIGIN}${route === '/' ? '/' : route}`);
-  const urls = [...mainUrls, ...articleRoutes];
+  const skillRoutes = skillDefinitions.map((skill) => skillUrl(skill));
+  const urls = [...mainUrls, ...articleRoutes, ...skillRoutes];
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -188,6 +191,14 @@ function llms(concepts: OkfConcept[]): string {
   lines.push('## Key pages', '');
   lines.push(`- [Articles hub](${SITE_ORIGIN}/articles): the AMTECH operations-AI learning library.`);
   lines.push(`- [All articles & knowledge map](${SITE_ORIGIN}/articles/all): full index of published articles and planned operational nodes.`);
+  lines.push('');
+  lines.push('## Free AMTECH agent skills', '');
+  lines.push(`- [Agent skills hub](${SITE_ORIGIN}/skills): free AMTECH skills that can be used from one link.`);
+  skillDefinitions.forEach((skill) => {
+    lines.push(`- [${skill.title}](${skillUrl(skill)}): ${skill.description}`);
+    lines.push(`  - [Use in any AI](${skillUrl(skill, '/use.md')})`);
+    lines.push(`  - [Manifest](${skillUrl(skill, '/manifest.json')})`);
+  });
   lines.push('');
   lines.push('## Published articles', '');
   published.forEach((c) => lines.push(`- [${c.title}](${c.resource}): ${c.description}`));
