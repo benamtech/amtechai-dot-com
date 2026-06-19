@@ -34,6 +34,12 @@ Per-page meta was generic homepage defaults on every non-article route; meta cam
 
 Add/adjust any page meta in `src/lib/seo/pageMeta.ts` only. Run `npm run seo:check`. Never hand-edit `<head>` in `index.html`, pages, or the prerenderer.
 
+## Follow-on this session (after first deploy)
+
+- **Redirect fix:** `netlify.toml` `pretty_urls = false` — clean route URLs (`/skills/okf-audit`) now serve 200 directly instead of 301→trailing-slash (which handed redirect-averse agents an empty 301 body and fought the no-slash canonical). Commit `e8e2964`.
+- **Skill page rebuilt to render from the data model:** dropped the marketing layout ("Universal bootstrap", "Materialized views", display type, copy-paste prompt). `scripts/skills/build-skills.ts` now also emits `src/lib/skills/generated/skill-content.ts` (React-free: use.md text + every file's content). `src/lib/skills/renderSkillContent.ts` + `markdown.ts` produce ONE HTML string used by both the prerenderer and `src/pages/SkillDetail.tsx` (`dangerouslySetInnerHTML`). `/skills/okf-audit` body went from ~2.9KB marketing to ~35KB of real content: metadata chips, the full use.md bootstrap, use cases, every file with inline contents, and download/machine views. Head scaffolding (meta/OG/JSON-LD/agent-map) unchanged (owned by pageMeta/SeoManager).
+- **DB-as-source-of-truth note:** skills still live in the in-code registry + source files (the authoring model); the Supabase tables hold OKF *concepts*, not skills. The page renders from the model exactly as articles do. To make the DB a real mirror for skills, project them into Supabase (`skills`/`skill_files`, seeded from the registry, parity-checked like `concepts`) — NOT yet done; the build still reads the in-code model (the DB-read cutover is a separate future step for the whole system).
+
 ## Live test (was pending)
 
 Skills surface was committed + pushed earlier this session (commit `17c497e`) for live testing. This meta/delivery work is the next push. After deploy, verify on the live site: view-source on `/about`, `/pricing`, an article, and `/articles/<slug>.md` should all show correct per-page meta + real text.

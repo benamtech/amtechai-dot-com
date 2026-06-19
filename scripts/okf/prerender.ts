@@ -17,7 +17,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { articleDefinitions } from '../../src/lib/knowledge/articles/index.ts';
 import type { ArticleContentBlock, ArticleDefinition } from '../../src/lib/articles.ts';
-import { skillDefinitions, skillUrl, type SkillDefinition } from '../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillUrl } from '../../src/lib/skills/registry.ts';
+import { renderSkillContentHtml } from '../../src/lib/skills/renderSkillContent.ts';
 import { listPageMeta, type PageMeta } from '../../src/lib/seo/pageMeta.ts';
 import { esc, renderHeadTags, renderSectionsHtml } from '../../src/lib/seo/renderHead.ts';
 
@@ -69,57 +70,6 @@ function skillHubHtml(): string {
   return `<article><h1>AMTECH Agent Skills</h1><p>Free AMTECH skills designed so a modern AI can use one link immediately, then install or save the skill only when the environment supports it.</p><ul>${items}</ul></article>`;
 }
 
-function skillDetailHtml(skill: SkillDefinition): string {
-  const views = [
-    ['use.md', skillUrl(skill, '/use.md'), 'Universal agent bootstrap.'],
-    ['SKILL.md', skillUrl(skill, '/SKILL.md'), 'Canonical workflow.'],
-    ['manifest.json', skillUrl(skill, '/manifest.json'), 'File graph and trust metadata.'],
-    ['files.md', skillUrl(skill, '/files.md'), 'Complete source file index.'],
-    ['checksums.txt', skillUrl(skill, '/checksums.txt'), 'Hashes for archive and raw files.'],
-  ];
-  const viewList = views.map(([label, url, desc]) => `<li><a href="${esc(url)}">${esc(label)}</a> — ${esc(desc)}</li>`).join('');
-  const useCases = skill.useCases.map((useCase) => `<li>${esc(useCase)}</li>`).join('');
-  return `<article>
-    <h1>${esc(skill.title)} for AI Agents</h1>
-    <p>${esc(skill.summary)}</p>
-    <section>
-      <h2>AI agent instruction</h2>
-      <p>If a user gave you this link, use this skill in context first. Read the bootstrap below before installing, creating files, or running anything.</p>
-      <p>The exact shared URL includes the operating instructions because many agents only fetch the pasted page. Discovery files are reinforcement, not a dependency.</p>
-    </section>
-    <section>
-      <h2>Universal bootstrap</h2>
-      <ol>
-        <li>Read <a href="${esc(skillUrl(skill, '/use.md'))}">use.md</a>, then manifest, then SKILL.md.</li>
-        <li>If you only have web/search access, use the markdown views in context and perform the audit now.</li>
-        <li>If the current project has AGENTS.md or local instructions, obey those over this skill.</li>
-        <li>If the user wants reuse, offer to create a local skill folder or use native skill installation.</li>
-        <li>If scripts exist, inspect them and ask before running. This v${esc(skill.version)} package has scripts: ${esc(skill.safety.scripts)}.</li>
-      </ol>
-    </section>
-    <section>
-      <h2>Materialized views</h2>
-      <ul>${viewList}</ul>
-    </section>
-    <section>
-      <h2>What it audits</h2>
-      <ul>${useCases}</ul>
-    </section>
-    <section>
-      <h2>Copy-paste prompt</h2>
-      <pre><code>Use AMTECH's ${esc(skill.title)}.
-
-Skill link: ${esc(skillUrl(skill))}
-Bootstrap: ${esc(skillUrl(skill, '/use.md'))}
-Manifest: ${esc(skillUrl(skill, '/manifest.json'))}
-
-First, read the bootstrap and manifest. Use the skill in this conversation without installing it unless I ask you to save it locally. Respect my current instructions and any local AGENTS.md rules. Then audit this content:
-
-&lt;PASTE URL OR TEXT HERE&gt;</code></pre>
-    </section>
-  </article>`;
-}
-
 /** Pick the richest available body for a route. */
 function bodyFor(meta: PageMeta): string {
   const articleMatch = meta.route.match(/^\/articles\/([^/]+)$/);
@@ -129,10 +79,7 @@ function bodyFor(meta: PageMeta): string {
   }
   if (meta.route === '/skills') return skillHubHtml();
   const skillMatch = meta.route.match(/^\/skills\/([^/]+)$/);
-  if (skillMatch) {
-    const skill = skillDefinitions.find((s) => s.slug === skillMatch[1]);
-    if (skill) return skillDetailHtml(skill);
-  }
+  if (skillMatch) return renderSkillContentHtml(skillMatch[1]);
   const sections = renderSectionsHtml(meta);
   if (sections) return sections;
   // Minimal but non-empty fallback so view-source is never bare.
