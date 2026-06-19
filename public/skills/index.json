@@ -11,6 +11,18 @@
       "manifest": "https://amtechai.com/skills/okf-audit/manifest.json",
       "archive": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip",
       "archiveSha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8"
+    },
+    {
+      "slug": "knowledge-graph-builder",
+      "name": "knowledge-graph-builder",
+      "title": "Knowledge Graph Builder",
+      "version": "0.1.0",
+      "description": "A consumable AMTECH skill that generates a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic.",
+      "url": "https://amtechai.com/skills/knowledge-graph-builder",
+      "use": "https://amtechai.com/skills/knowledge-graph-builder/use.md",
+      "manifest": "https://amtechai.com/skills/knowledge-graph-builder/manifest.json",
+      "archive": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip",
+      "archiveSha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161"
     }
   ]
 }

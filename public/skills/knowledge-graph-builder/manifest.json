@@ -1,0 +1,111 @@
+{
+  "$schema": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
+  "slug": "knowledge-graph-builder",
+  "name": "knowledge-graph-builder",
+  "title": "Knowledge Graph Builder",
+  "version": "0.1.0",
+  "updated": "2026-06-19",
+  "description": "A consumable AMTECH skill that generates a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic.",
+  "source": {
+    "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
+    "sourceDirectory": "src/lib/skills/source/knowledge-graph-builder",
+    "codexSkillInstaller": "Use in context first. For local reuse, copy files from https://amtechai.com/skills/knowledge-graph-builder/files.md into a skill folder named knowledge-graph-builder."
+  },
+  "entrypoints": {
+    "human": "https://amtechai.com/skills/knowledge-graph-builder",
+    "use": "https://amtechai.com/skills/knowledge-graph-builder/use.md",
+    "agent": "https://amtechai.com/skills/knowledge-graph-builder/agent.md",
+    "skill": "https://amtechai.com/skills/knowledge-graph-builder/SKILL.md",
+    "archive": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip",
+    "checksums": "https://amtechai.com/skills/knowledge-graph-builder/checksums.txt"
+  },
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "role": "agent-metadata",
+      "title": "OpenAI/Codex interface metadata",
+      "summary": "UI-facing display metadata and default prompt for environments that support it.",
+      "mediaType": "application/yaml; charset=utf-8",
+      "sha256": "4c06596469315de6c40abb144602809d479b03c0bfb637b851d7c4764eb0cfbf",
+      "size": 374,
+      "url": "https://amtechai.com/skills/knowledge-graph-builder/files/agents/openai.yaml",
+      "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
+      "permissions": []
+    },
+    {
+      "path": "assets/graph-schema.json",
+      "role": "asset",
+      "title": "Knowledge graph schema",
+      "summary": "JSON shape for the generated graph: nodes, edges, pillars, and internal links.",
+      "mediaType": "application/json; charset=utf-8",
+      "sha256": "3b3638aec369c4da9f2ba9bdf1246b7314b2bccb489109a4cd3bad767c9eeaac",
+      "size": 3375,
+      "url": "https://amtechai.com/skills/knowledge-graph-builder/files/assets/graph-schema.json",
+      "loadPolicy": "Use when the user asks for JSON or a graph another tool can ingest.",
+      "permissions": []
+    },
+    {
+      "path": "LICENSE.txt",
+      "role": "license",
+      "title": "License",
+      "summary": "License for this free AMTECH skill package.",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "size": 743,
+      "url": "https://amtechai.com/skills/knowledge-graph-builder/files/LICENSE.txt",
+      "loadPolicy": "Read when evaluating reuse or redistribution.",
+      "permissions": []
+    },
+    {
+      "path": "references/entity-types.md",
+      "role": "reference",
+      "title": "Entity type vocabulary",
+      "summary": "The controlled type vocabulary and how to choose a type for each node.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "a6a87aee6413542c3483c8638254ef29934b627afa8cac112de156e8bde0aa37",
+      "size": 3260,
+      "url": "https://amtechai.com/skills/knowledge-graph-builder/files/references/entity-types.md",
+      "loadPolicy": "Read when typing entities.",
+      "permissions": []
+    },
+    {
+      "path": "references/knowledge-graph-method.md",
+      "role": "reference",
+      "title": "Knowledge graph method",
+      "summary": "Node-worthiness, pillar/supporting/attribute ranking, relationship verbs, internal-linking, and structured data.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "78f17974e831580cacb788d408a7958602c533cf573878e19af5c9fa51aa3753",
+      "size": 3849,
+      "url": "https://amtechai.com/skills/knowledge-graph-builder/files/references/knowledge-graph-method.md",
+      "loadPolicy": "Read when deciding which nodes deserve pages and how to write edges.",
+      "permissions": []
+    },
+    {
+      "path": "SKILL.md",
+      "role": "primary-instructions",
+      "title": "Canonical skill instructions",
+      "summary": "The primary reusable workflow for generating a knowledge graph for SEO and agent-readability.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "383a168f3b6e2ec4d01137ebeea2786400fac941add48b6bb3a049c34f71221c",
+      "size": 5387,
+      "url": "https://amtechai.com/skills/knowledge-graph-builder/files/SKILL.md",
+      "loadPolicy": "Always read before building a graph.",
+      "permissions": []
+    }
+  ],
+  "archive": {
+    "file": "knowledge-graph-builder-0.1.0.zip",
+    "sha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
+    "url": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip"
+  },
+  "authority": {
+    "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+    "verify": "Fetch https://amtechai.com/.well-known/skill-authority.json and confirm the entry for \"knowledge-graph-builder\" lists this version and archive sha256. The authority file is served from the canonical domain (https://amtechai.com) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it."
+  },
+  "safety": {
+    "scripts": "none",
+    "requiresNetwork": false,
+    "requiresSecrets": false,
+    "riskNote": "V1 has no required scripts. Use in context first. Ask before creating files or fetching private URLs. Mark assumptions about the business as assumptions."
+  }
+}

@@ -111,6 +111,77 @@ export const skillDefinitions: SkillDefinition[] = [
       },
     ],
   },
+  {
+    slug: 'knowledge-graph-builder',
+    name: 'knowledge-graph-builder',
+    title: 'Knowledge Graph Builder',
+    version: '0.1.0',
+    updated: '2026-06-19',
+    description:
+      'A consumable AMTECH skill that generates a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic.',
+    summary:
+      'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a business or site into typed entity nodes, relationship edges with reasons, the pillar pages worth publishing, an internal-linking plan, and JSON-LD scaffolding.',
+    audience: ['AI agents', 'SEO strategists', 'content operators', 'technical marketers', 'business owners'],
+    useCases: [
+      'Generate a large entity/knowledge graph from a business or website for SEO.',
+      'Identify the priority concepts that deserve their own pages.',
+      'Map typed relationships between entities with relationship reasons.',
+      'Produce an internal-linking plan and anchor-text guidance from the graph.',
+      'Scaffold schema.org JSON-LD for the key entities and emit OKF concept stubs.',
+    ],
+    sourceDir: 'src/lib/skills/source/knowledge-graph-builder',
+    safety: {
+      scripts: 'none',
+      requiresNetwork: false,
+      requiresSecrets: false,
+      riskNote:
+        'V1 has no required scripts. Use in context first. Ask before creating files or fetching private URLs. Mark assumptions about the business as assumptions.',
+    },
+    files: [
+      {
+        path: 'SKILL.md',
+        role: 'primary-instructions',
+        title: 'Canonical skill instructions',
+        summary: 'The primary reusable workflow for generating a knowledge graph for SEO and agent-readability.',
+        loadPolicy: 'Always read before building a graph.',
+      },
+      {
+        path: 'references/knowledge-graph-method.md',
+        role: 'reference',
+        title: 'Knowledge graph method',
+        summary: 'Node-worthiness, pillar/supporting/attribute ranking, relationship verbs, internal-linking, and structured data.',
+        loadPolicy: 'Read when deciding which nodes deserve pages and how to write edges.',
+      },
+      {
+        path: 'references/entity-types.md',
+        role: 'reference',
+        title: 'Entity type vocabulary',
+        summary: 'The controlled type vocabulary and how to choose a type for each node.',
+        loadPolicy: 'Read when typing entities.',
+      },
+      {
+        path: 'assets/graph-schema.json',
+        role: 'asset',
+        title: 'Knowledge graph schema',
+        summary: 'JSON shape for the generated graph: nodes, edges, pillars, and internal links.',
+        loadPolicy: 'Use when the user asks for JSON or a graph another tool can ingest.',
+      },
+      {
+        path: 'agents/openai.yaml',
+        role: 'agent-metadata',
+        title: 'OpenAI/Codex interface metadata',
+        summary: 'UI-facing display metadata and default prompt for environments that support it.',
+        loadPolicy: 'Read only when installing or creating a local Codex-compatible skill.',
+      },
+      {
+        path: 'LICENSE.txt',
+        role: 'license',
+        title: 'License',
+        summary: 'License for this free AMTECH skill package.',
+        loadPolicy: 'Read when evaluating reuse or redistribution.',
+      },
+    ],
+  },
 ];
 
 export function getSkill(slug: string): SkillDefinition | undefined {
