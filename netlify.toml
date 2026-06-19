@@ -3,6 +3,11 @@
   publish = "dist"
   functions = "netlify/functions"
 
+# Node 24 is required so the OKF/prerender build scripts (.ts run directly via type stripping)
+# work in CI. The `postbuild` step prerenders article + hub routes into dist/ for crawlers/agents.
+[build.environment]
+  NODE_VERSION = "24"
+
 [[redirects]]
   from = "/claim/start-from-sms"
   to = "/.netlify/functions/claim/start-from-sms"

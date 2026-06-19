@@ -51,6 +51,11 @@ These power the live `/claim` website flow, Netlify claim functions, and local H
 | `operator_applications` | `20260518063404_create_operator_applications.sql` | `src/pages/Apply.tsx` | Operator program applications. |
 | `sales_rep_applications` | `20260611161544_create_sales_rep_applications.sql` | `src/pages/SalesRepApply.tsx` | Sales rep pre-call applications. |
 | `ai_employee_claims` | `20260618193000_create_ai_employee_claims.sql` | `netlify/functions/claim.mjs` | Verified AI Employee claims, manifest payloads, consent records, Twilio verification status, and provision status. |
+| `concepts`, `concept_edges`, `concept_citations` | `20260618210000_okf_concepts.sql` | build-time only (`scripts/okf/db-seed-sql.ts` writes via service role; `db-verify.ts` reads via anon) | OKF knowledge graph store (Phase 3). 73 concepts (articles, playbooks, use cases, places, industries) + 166 edges + 19 citations. **Public-read RLS allows `status = 'published'` only**; no insert/update/delete policies (service role bypasses RLS at build). The browser does not query these. See `docs/okf/06-phase-3-foundation.md`. |
+
+### OKF knowledge store (Phase 3)
+
+The authored source of truth is the `src/lib/knowledge/` façade; the `concepts*` tables are a **build-time projection** of it (seeded by `npm run okf:db:seed-sql` through the service role / Supabase MCP). RLS exposes only the 8 `published` concepts to the anon key — verified by `npm run okf:db:verify`. The schema is also kept as a reviewable file at `docs/okf/phase-3-schema.sql`. Security advisors show no RLS issues on these tables.
 
 ### AI Employee consent storage
 
