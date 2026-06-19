@@ -8,6 +8,15 @@
 [build.environment]
   NODE_VERSION = "24"
 
+# Serve prerendered <route>/index.html directly at the clean, no-trailing-slash URL.
+# Without this, Netlify 301-redirects /skills/okf-audit -> /skills/okf-audit/ before serving,
+# which (a) gives redirect-averse agents/crawlers an empty 301 body and (b) fights our
+# no-slash <link rel="canonical">. pretty_urls=false removes the hop; the page serves 200 directly.
+[build.processing]
+  skip_processing = false
+[build.processing.html]
+  pretty_urls = false
+
 [[redirects]]
   from = "/claim/start-from-sms"
   to = "/.netlify/functions/claim/start-from-sms"
