@@ -1,0 +1,22 @@
+# Static response headers (Netlify). Discovery + correct media types for agent payloads.
+# Note: per-page rel="alternate" links are baked into each page's <head> (src/lib/seo/*),
+# so markdown twins are discoverable without per-path Link headers here.
+
+# OKF knowledge bundle — all Markdown, cache at the edge.
+/okf/*
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Canonical-adjacent article Markdown twins (/articles/<slug>.md).
+/articles/*.md
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Skill materialized views (markdown + manifests) — cache at the edge.
+/skills/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# Discovery files.
+/llms.txt
+  Content-Type: text/markdown; charset=utf-8
+  Cache-Control: public, max-age=3600

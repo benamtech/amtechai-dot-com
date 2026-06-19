@@ -206,6 +206,41 @@ function llms(concepts: OkfConcept[]): string {
   return lines.join('\n');
 }
 
+/**
+ * Canonical-adjacent Markdown twin for a published article, served at /articles/<slug>.md
+ * next to the HTML page. Agent-optimized: a "Knowledge map" traversal header (from the concept's
+ * edges) up front — it survives HTML→text cleaning and gives agents immediate structure — then the
+ * full article body. This is the clean payload the <head> rel="alternate" advertises.
+ */
+function articleTwin(concept: OkfConcept, index: Map<string, OkfConcept>): string {
+  const out: string[] = [];
+  out.push(`# ${concept.title}`, '');
+  out.push(`> ${concept.description}`, '');
+  out.push('## Knowledge map', '');
+  out.push(`- **Type:** ${concept.conceptType}`);
+  if (concept.resource) out.push(`- **Canonical page:** ${concept.resource}`);
+  out.push('- **Format:** Agent-optimized Markdown twin of the HTML article (clean, no page chrome).');
+  if (concept.tags.length) out.push(`- **Topics:** ${concept.tags.join(', ')}`);
+  if (concept.edgeTargetIds.length) {
+    out.push('- **See also:**');
+    concept.edgeTargetIds.forEach((id) => {
+      const t = index.get(id);
+      if (t) out.push(`  - [${t.title}](${t.resource ?? `${SITE_ORIGIN}/okf${t.bundlePath}`}) — ${t.relationLabel}`);
+    });
+  }
+  out.push('');
+  out.push('## Article', '');
+  out.push(concept.bodyMarkdown ?? concept.summary.map((s) => `- ${s}`).join('\n'), '');
+  if (concept.citations.length) {
+    out.push('## Citations', '');
+    concept.citations.forEach((c, i) => out.push(`[${i + 1}] [${c.label}](${c.url})${c.publisher ? ` — ${c.publisher}` : ''}`));
+    out.push('');
+  }
+  const okfHref = `${SITE_ORIGIN}/okf${concept.bundlePath}`;
+  out.push('---', '', `Alternate views: [HTML](${concept.resource ?? ''}) · [OKF concept](${okfHref}) · [llms.txt](${SITE_ORIGIN}/llms.txt)`, '');
+  return out.join('\n').replace(/\n+$/, '\n');
+}
+
 /** Build the full set of managed files. Keys are repo-root-relative paths. */
 export function buildOkfFiles(): Map<string, string> {
   const concepts = getConcepts();
@@ -243,6 +278,11 @@ export function buildOkfFiles(): Map<string, string> {
     `${OKF_DIR}/entities/index.md`,
     subIndex('Entities', 'Places and industries that ground the operational knowledge graph.', concepts.filter((c) => c.dir === 'entities')),
   );
+
+  // Canonical-adjacent Markdown twins for published articles (served at /articles/<slug>.md).
+  concepts
+    .filter((c) => c.dir === 'articles' && c.resource)
+    .forEach((c) => files.set(`public/articles/${c.slug}.md`, articleTwin(c, index)));
 
   // Discovery files (served from the site root).
   files.set('public/sitemap.xml', sitemap(concepts));

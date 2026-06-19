@@ -21,6 +21,7 @@ Operational memory:
 - For article research and draft creation, use `docs/skills/amtech-article-research-writer/`.
 - Use `docs/article-drafts/` for unpublished article drafts and research packets before converting a draft into live article code and graph nodes.
 - For AMTECH public/free skill hub work, read `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`, `docs/SKILL_MATERIALIZATION_PIPELINE.md`, `src/lib/skills/registry.ts`, and `scripts/skills/build-skills.ts`.
+- For ANY page meta/SEO/social/JSON-LD/agent-discovery work, edit `src/lib/seo/pageMeta.ts` (the single per-page meta authority) — never hand-edit `<head>` in `index.html`, page components, or the prerenderer. It feeds `scripts/okf/prerender.ts` (static HTML) and `src/components/seo/SeoManager.tsx` (runtime). Validate with `npm run seo:validate`. Full design: `docs/memory/plan-2026-06-19--unified-meta-and-delivery.md`.
 - For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` first.
 
 Top-of-mind npm commands:
@@ -32,6 +33,8 @@ Top-of-mind npm commands:
 - `npm run skills:build` - materialize `src/lib/skills/source/*` into `public/skills/**`.
 - `npm run skills:validate` - validate generated skill surfaces, hashes, archive, and discovery links.
 - `npm run skills:check` - regenerate skill + OKF/discovery files and validate skill surfaces.
+- `npm run seo:validate` - validate prerendered per-page meta, JSON-LD, body richness, and `.md` twins (also gated in `postbuild`).
+- `npm run seo:check` - build then run `seo:validate`.
 - `npm run ai:local:setup` - first-run Hermes PC setup for the AI Employee bundle.
 - `npm run ai:local:check` - local Hermes/env/Caddy/Supabase prerequisite check plus dry-run provision check.
 - `npm run ai:caddy:render` - render/print Caddy host config install commands.

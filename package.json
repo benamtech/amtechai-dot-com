@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "npm run skills:build && npm run okf:build && vite build",
-    "postbuild": "node scripts/okf/prerender.ts",
+    "postbuild": "node scripts/okf/prerender.ts && node scripts/seo/validate-seo.ts",
     "okf:prerender": "node scripts/okf/prerender.ts",
     "lint": "eslint .",
     "preview": "vite preview",
@@ -28,7 +28,9 @@
     "ai:claim:secret": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/generate_claim_link_secret.mjs",
     "ai:supabase:push": "AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/apply_supabase_ai_employee_migration.sh",
     "ai:supabase:verify": "cd AI_EMPLOYEE_MVP/ai-employee-all-files && node scripts/verify_supabase_claim_table.mjs",
-    "ai:provision:dry-run": "python3 AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py --manifest AI_EMPLOYEE_MVP/ai-employee-all-files/schema/client-manifest.example.json --dry-run"
+    "ai:provision:dry-run": "python3 AI_EMPLOYEE_MVP/ai-employee-all-files/scripts/provision_client.py --manifest AI_EMPLOYEE_MVP/ai-employee-all-files/schema/client-manifest.example.json --dry-run",
+    "seo:validate": "node scripts/seo/validate-seo.ts",
+    "seo:check": "npm run build && npm run seo:validate"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.1.0",

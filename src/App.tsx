@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import ScrollToTop from './components/ScrollToTop';
+import SeoManager from './components/seo/SeoManager';
 import Home from './pages/Home';
 import HowItWorks from './pages/HowItWorks';
 import About from './pages/About';
@@ -35,6 +36,7 @@ export default function App() {
   return (
     <BrowserRouter>
       <ScrollToTop />
+      <SeoManager />
       <Routes>
         <Route path="/wholesale" element={<Wholesale />} />
         <Route path="/wholesale-2" element={<Wholesale2 />} />
