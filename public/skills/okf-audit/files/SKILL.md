@@ -62,3 +62,7 @@ If the user asks for JSON, follow `assets/report-schema.json`.
 - If you can write files and the user wants reuse, ask before creating a local skill folder.
 - If scripts are added in a future version, inspect them and ask before running them.
 - Do not claim a site is OKF-compliant unless the required machine-readable files and relationships are actually present.
+
+## Source and verification
+
+This package is **update in progress** pending a website re-sign. Cross-check the [live page](https://amtechai.com/skills/okf-audit), [website manifest](https://amtechai.com/skills/okf-audit/manifest.json), [domain authority](https://amtechai.com/.well-known/skill-authority.json), [repository source on `main`](https://github.com/benamtech/amtech-skills-registry/tree/main/skills/okf-audit), and [repository catalog](https://github.com/benamtech/amtech-skills-registry/blob/main/index.json).

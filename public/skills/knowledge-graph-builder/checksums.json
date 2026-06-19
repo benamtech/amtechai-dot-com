@@ -1,8 +1,8 @@
 {
   "archive": {
     "file": "knowledge-graph-builder-0.1.0.zip",
-    "sha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
-    "sha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a"
+    "sha256": "3bb768a6fd93de086802460c773f21134e39c456ba4af99dc421a7e86deb752e",
+    "sha3_512": "c97167ce5efbbb0acf5319e7caf168d85d3acd4d00d0ebb20e5c0e065749d321aa9f82de243f5960897edf570207b1b18905be8c12be7d3fb2b6cd4be1473876"
   },
   "files": [
     {
@@ -37,9 +37,9 @@
     },
     {
       "path": "SKILL.md",
-      "size": 5387,
-      "sha256": "383a168f3b6e2ec4d01137ebeea2786400fac941add48b6bb3a049c34f71221c",
-      "sha3_512": "0a0df0bb850b3d470afa0fbe8a3f1299c5eb440beedbafddab7df5154d803e8dcbcbb6e0ddd1f02ba3a73f78923d3883662c91e3c6ce18752596baa07dffa8c8"
+      "size": 5951,
+      "sha256": "0ce276e135775b66d29e64a2d4adb2838e1340051d966200e38016f993d5d887",
+      "sha3_512": "c4b57321350e2dc9efcc983c2d5b109754a9065504caae973efe133114d22067f9cee62d0dd1fce635bc6c874596d0b740580134f8a5c32e8fac4243b273bb86"
     }
   ]
 }

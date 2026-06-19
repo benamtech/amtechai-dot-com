@@ -1,6 +1,6 @@
 {
   "schemaVersion": "amtech-signed-artifact/v1",
-  "certificateId": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+  "certificateId": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
   "subjectType": "skill",
   "subjectId": "knowledge-graph-builder",
   "owner": {
@@ -10,13 +10,13 @@
   "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
   "repository": {
     "url": "https://github.com/benamtech/amtech-skills-registry",
-    "commit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "commit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
     "path": "skills/knowledge-graph-builder"
   },
   "version": "0.1.0",
   "digests": {
-    "sha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
-    "sha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a"
+    "sha256": "3bb768a6fd93de086802460c773f21134e39c456ba4af99dc421a7e86deb752e",
+    "sha3_512": "c97167ce5efbbb0acf5319e7caf168d85d3acd4d00d0ebb20e5c0e065749d321aa9f82de243f5960897edf570207b1b18905be8c12be7d3fb2b6cd4be1473876"
   },
   "issuedAt": "2026-06-19T00:00:00.000Z",
   "issuer": {

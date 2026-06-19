@@ -66,3 +66,7 @@ When the user asks for machine output, return JSON conforming to `assets/graph-s
 - If you can only browse the web, work from the fetched page or description in context.
 - If you can write files and the user wants the OKF bundle, ask before creating a folder.
 - Do not invent facts about the business; mark assumptions as assumptions so they can be corrected.
+
+## Source and verification
+
+This package is **update in progress** pending a website re-sign. Cross-check the [live page](https://amtechai.com/skills/knowledge-graph-builder), [website manifest](https://amtechai.com/skills/knowledge-graph-builder/manifest.json), [domain authority](https://amtechai.com/.well-known/skill-authority.json), [repository source on `main`](https://github.com/benamtech/amtech-skills-registry/tree/main/skills/knowledge-graph-builder), and [repository catalog](https://github.com/benamtech/amtech-skills-registry/blob/main/index.json).

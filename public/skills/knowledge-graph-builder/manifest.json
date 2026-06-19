@@ -10,12 +10,12 @@
     "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
     "sourceDirectory": "src/lib/skills/source/knowledge-graph-builder",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/knowledge-graph-builder",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json",
-    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/knowledge-graph-builder",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/knowledge-graph-builder"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/knowledge-graph-builder",
@@ -97,9 +97,9 @@
       "title": "Canonical skill instructions",
       "summary": "The primary reusable workflow for generating a knowledge graph for SEO and agent-readability.",
       "mediaType": "text/markdown; charset=utf-8",
-      "sha256": "383a168f3b6e2ec4d01137ebeea2786400fac941add48b6bb3a049c34f71221c",
-      "sha3_512": "0a0df0bb850b3d470afa0fbe8a3f1299c5eb440beedbafddab7df5154d803e8dcbcbb6e0ddd1f02ba3a73f78923d3883662c91e3c6ce18752596baa07dffa8c8",
-      "size": 5387,
+      "sha256": "0ce276e135775b66d29e64a2d4adb2838e1340051d966200e38016f993d5d887",
+      "sha3_512": "c4b57321350e2dc9efcc983c2d5b109754a9065504caae973efe133114d22067f9cee62d0dd1fce635bc6c874596d0b740580134f8a5c32e8fac4243b273bb86",
+      "size": 5951,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/SKILL.md",
       "loadPolicy": "Always read before building a graph.",
       "permissions": []
@@ -107,12 +107,12 @@
   ],
   "archive": {
     "file": "knowledge-graph-builder-0.1.0.zip",
-    "sha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
-    "sha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a",
+    "sha256": "3bb768a6fd93de086802460c773f21134e39c456ba4af99dc421a7e86deb752e",
+    "sha3_512": "c97167ce5efbbb0acf5319e7caf168d85d3acd4d00d0ebb20e5c0e065749d321aa9f82de243f5960897edf570207b1b18905be8c12be7d3fb2b6cd4be1473876",
     "url": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip"
   },
   "certificate": {
-    "id": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+    "id": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
     "algorithm": "Ed25519",
     "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
     "signatureUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
@@ -127,8 +127,8 @@
       "SHA3-512"
     ],
     "signed": true,
-    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json",
-    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit 15bab1b2622acd6afd0fa5f66b8af4bde01c5e50 match this manifest and https://amtechai.com/.well-known/skill-authority.json."
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json",
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit 88d9ce86525d3e234a37b0c5c7b752fc2beb69bb match this manifest and https://amtechai.com/.well-known/skill-authority.json."
   },
   "safety": {
     "scripts": "none",

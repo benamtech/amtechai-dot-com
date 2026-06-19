@@ -96,11 +96,11 @@ The manifest is the key agent-readable bridge. It tells a model what exists befo
   "source": {
     "canonicalUrl": "https://amtechai.com/skills/okf-audit",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/okf-audit",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/okf-audit",

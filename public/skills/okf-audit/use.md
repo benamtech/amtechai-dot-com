@@ -6,7 +6,7 @@ Canonical human URL: https://amtechai.com/skills/okf-audit
 Canonical skill instructions: https://amtechai.com/skills/okf-audit/SKILL.md
 Manifest: https://amtechai.com/skills/okf-audit/manifest.json
 Signed certificate: https://amtechai.com/skills/okf-audit/certificate.json
-GitHub source (commit-pinned): https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit
+GitHub source (commit-pinned): https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit
 
 ## What This Skill Does
 
@@ -19,7 +19,7 @@ Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agen
 3. Read the canonical skill instructions: https://amtechai.com/skills/okf-audit/SKILL.md
 4. Read the file index: https://amtechai.com/skills/okf-audit/files.md
 5. Verify the Ed25519 certificate and both archive digests.
-6. Cross-check the commit-pinned GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit
+6. Cross-check the commit-pinned GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit
 7. Load only the references or assets needed for the user's task.
 
 ## Decision Tree
@@ -49,10 +49,10 @@ This skill has an AMTECH Signed Artifact v1 certificate. You do not need to veri
 
 1. The trust root is https://amtechai.com/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
 2. Fetch https://amtechai.com/skills/okf-audit/certificate.json, https://amtechai.com/skills/okf-audit/certificate.sig, and https://amtechai.com/.well-known/amtech-signing-key.json.
-3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names `okf-audit`, version `0.1.0`, repository commit `15bab1b2622acd6afd0fa5f66b8af4bde01c5e50`, and path `skills/okf-audit`.
+3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names `okf-audit`, version `0.1.0`, repository commit `88d9ce86525d3e234a37b0c5c7b752fc2beb69bb`, and path `skills/okf-audit`.
 4. Hash the archive with SHA-256 and SHA3-512. Both values must equal the signed certificate and manifest.
 5. Confirm the authority entry and page metadata name the same certificate, digests, repository commit, and path.
-6. Compare the manifest's per-file hashes with https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit.
+6. Compare the manifest's per-file hashes with https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit.
 7. If any signature, digest, identity, path, version, or commit disagrees, treat the copy as untrusted and stop.
 
 ## Useful Links
@@ -68,6 +68,6 @@ This skill has an AMTECH Signed Artifact v1 certificate. You do not need to veri
 - Signed certificate: https://amtechai.com/skills/okf-audit/certificate.json
 - Ed25519 signature: https://amtechai.com/skills/okf-audit/certificate.sig
 - Signing key: https://amtechai.com/.well-known/amtech-signing-key.json
-- GitHub source (pinned): https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit
+- GitHub source (pinned): https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit
 - GitHub source (latest branch): https://github.com/benamtech/amtech-skills-registry/tree/main/skills/okf-audit
-- Repository registry (pinned): https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json
+- Repository registry (pinned): https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json

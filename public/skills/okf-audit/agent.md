@@ -11,4 +11,4 @@ Outputs: audit summary, score, missing concepts/edges, rendering/discovery findi
 Start here: https://amtechai.com/skills/okf-audit/use.md
 Canonical instructions: https://amtechai.com/skills/okf-audit/SKILL.md
 Manifest: https://amtechai.com/skills/okf-audit/manifest.json
-GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit
+GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit
