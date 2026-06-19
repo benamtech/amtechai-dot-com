@@ -77,6 +77,8 @@ Consent lives in `ai_employee_claims`. The browser does not write the table dire
 
 These files live under root `netlify/functions/` and are deployed by `netlify.toml`. Redirects expose the clean routes used by the React form.
 
+The homepage final CTA may route to `/claim?phone=<encoded phone>` to prefill the browser form. This does not verify the phone or change any Netlify request shape; the user still sends and verifies the Twilio code in the normal web flow.
+
 | Function | Planned path | Caller | Request shape | Response | External dependency |
 | --- | --- | --- | --- | --- | --- |
 | `claim.mjs` send code | `/claim/send-code` | `src/pages/AIEmployeeClaim.tsx` | `{ phone }` | `{ ok, status }` | Twilio Verify. |
