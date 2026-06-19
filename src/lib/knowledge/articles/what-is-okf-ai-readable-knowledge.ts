@@ -39,7 +39,7 @@ export const article: ArticleDefinition = {
   slug: 'what-is-okf-ai-readable-knowledge',
   title: "What Is OKF? Google's New Format For AI-Readable Knowledge",
   description:
-    'OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, and why AMTECH treats OKF as one output of a larger publishing system.',
+    'OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, why AMTECH treats OKF as one output of a larger publishing system, and how to score your own content with the free OKF Audit Skill.',
   dek: 'OKF is not just a better wiki format. It is a portable surface for agent-readable concepts, and the first step toward a richer knowledge publishing system.',
   datePublished: '2026-06-19',
   dateModified: '2026-06-19',
@@ -62,6 +62,8 @@ export const article: ArticleDefinition = {
     { name: 'llms.txt', type: 'tool' },
     { name: 'Business Brain', type: 'service' },
     { name: 'AMTECH Knowledge Publishing Standard', type: 'method' },
+    { name: 'OKF audit', type: 'method' },
+    { name: 'OKF Audit Skill', type: 'tool', sameAs: ['https://amtechai.com/skills/okf-audit'] },
   ],
   internalLinks: [
     {
@@ -78,6 +80,16 @@ export const article: ArticleDefinition = {
       label: 'AMTECH vs. ChatGPT or Claude',
       href: '/articles/amtech-vs-chatgpt-claude',
       reason: "Connects agent-readable knowledge to AMTECH's distinction between one-off chat tools and managed AI Employees.",
+    },
+    {
+      label: 'Run the OKF Audit Skill on your own content',
+      href: '/skills/okf-audit',
+      reason: 'The consumable AMTECH skill that scores any page or bundle against the agent-readability rubric this article describes — fetch it from one URL and run it in any agent.',
+    },
+    {
+      label: 'See a live OKF audit score a real article 12/30',
+      href: '/articles/what-ai-agents-see-when-they-read-your-website',
+      reason: 'Shows the same audit skill applied dimension by dimension, with the five infrastructure gaps that keep good writing invisible to agents.',
     },
     {
       label: 'Browse the AMTECH article graph',
@@ -137,6 +149,11 @@ export const article: ArticleDefinition = {
       question: 'What is the first OKF concept I should write?',
       answer:
         'Write the concept your customers, team, or agents need to understand before anything else makes sense. Usually that is your core service, main framework, or the problem your product is built to solve.',
+    },
+    {
+      question: 'How do I know if my content is actually agent-readable?',
+      answer:
+        'Run the AMTECH OKF Audit Skill at amtechai.com/skills/okf-audit. It is a free consumable skill you can fetch into ChatGPT, Claude, Codex, Claude Code, or Cursor and point at any URL. It scores the page from 0 to 30 across six dimensions and returns the highest-priority fixes plus a copy-paste remediation prompt, so the answer becomes a score instead of a guess.',
     },
   ],
   blocks: [
@@ -278,6 +295,17 @@ export const article: ArticleDefinition = {
     },
     {
       type: 'section',
+      id: 'audit-with-the-skill',
+      eyebrow: 'AMTECH skill',
+      title: 'How to check whether your knowledge is actually agent-readable',
+      body: [
+        'Deciding what deserves to be a concept, how concepts relate, and which claims need citations is judgment work. But you do not have to guess whether the result reads well to an agent. AMTECH publishes a free consumable skill, the OKF Audit Skill, that scores any page, draft, sitemap, or OKF bundle against the same agent-readability rubric this article describes.',
+        'It is a skill in the literal sense: a portable instruction package an agent can fetch from one URL and run. There is nothing to install, no SDK, and no plugin. Point ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent at amtechai.com/skills/okf-audit, give it a URL, and it returns a score from 0 to 30 across six dimensions — first-fetch clarity, concept packaging, entity and relationship coverage, source and citation quality, materialized views, and agent execution readiness — plus the highest-priority fixes and a copy-paste remediation prompt.',
+        'This is the validation step that keeps OKF honest. A bundle can be valid markdown and still be a weak knowledge surface. Running the audit before you publish, and on your competitors after, turns "is this agent-readable?" from an opinion into a score you can act on.',
+      ],
+    },
+    {
+      type: 'section',
       id: 'short-version',
       eyebrow: 'Bottom line',
       title: 'The future of content is useful knowledge projected into many surfaces',
@@ -288,4 +316,5 @@ export const article: ArticleDefinition = {
       ],
     },
   ],
+  demonstratesSkill: 'okf-audit',
 };

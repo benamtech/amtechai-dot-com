@@ -1,7 +1,7 @@
 ---
 type: "Article"
 title: "What Is OKF? Google's New Format For AI-Readable Knowledge"
-description: "OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, and why AMTECH treats OKF as one output of a larger publishing system."
+description: "OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, why AMTECH treats OKF as one output of a larger publishing system, and how to score your own content with the free OKF Audit Skill."
 resource: "https://amtechai.com/articles/what-is-okf-ai-readable-knowledge"
 tags:
   - "Local authority"
@@ -16,13 +16,15 @@ tags:
   - "llms.txt"
   - "Business Brain"
   - "AMTECH Knowledge Publishing Standard"
+  - "OKF audit"
+  - "OKF Audit Skill"
   - "strategy"
 timestamp: "2026-06-19"
 status: "published"
 ---
 # What Is OKF? Google's New Format For AI-Readable Knowledge
 
-OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, and why AMTECH treats OKF as one output of a larger publishing system.
+OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, why AMTECH treats OKF as one output of a larger publishing system, and how to score your own content with the free OKF Audit Skill.
 
 > OKF is not just a better wiki format. It is a portable surface for agent-readable concepts, and the first step toward a richer knowledge publishing system.
 
@@ -165,6 +167,14 @@ You do not need a full graph pipeline on day one. Keep it simple if you have few
 
 Build a larger system when you publish many articles, care about AI search visibility, need structured data and human pages to stay in sync, or want the same knowledge to power articles, internal tools, search, and automation. That is when OKF should stop being the whole thing and become one generated surface from a stronger source model.
 
+## How to check whether your knowledge is actually agent-readable
+
+Deciding what deserves to be a concept, how concepts relate, and which claims need citations is judgment work. But you do not have to guess whether the result reads well to an agent. AMTECH publishes a free consumable skill, the OKF Audit Skill, that scores any page, draft, sitemap, or OKF bundle against the same agent-readability rubric this article describes.
+
+It is a skill in the literal sense: a portable instruction package an agent can fetch from one URL and run. There is nothing to install, no SDK, and no plugin. Point ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent at amtechai.com/skills/okf-audit, give it a URL, and it returns a score from 0 to 30 across six dimensions — first-fetch clarity, concept packaging, entity and relationship coverage, source and citation quality, materialized views, and agent execution readiness — plus the highest-priority fixes and a copy-paste remediation prompt.
+
+This is the validation step that keeps OKF honest. A bundle can be valid markdown and still be a weak knowledge surface. Running the audit before you publish, and on your competitors after, turns "is this agent-readable?" from an opinion into a score you can act on.
+
 ## The future of content is useful knowledge projected into many surfaces
 
 OKF is Google's lightweight format for AI-readable knowledge. It represents knowledge as markdown concept files with YAML frontmatter. The only required field is `type`. Links between files turn the bundle into a simple graph.
@@ -190,6 +200,10 @@ No. You can hand-author OKF files in a folder. A database becomes useful when yo
 ### What is the first OKF concept I should write?
 
 Write the concept your customers, team, or agents need to understand before anything else makes sense. Usually that is your core service, main framework, or the problem your product is built to solve.
+
+### How do I know if my content is actually agent-readable?
+
+Run the AMTECH OKF Audit Skill at amtechai.com/skills/okf-audit. It is a free consumable skill you can fetch into ChatGPT, Claude, Codex, Claude Code, or Cursor and point at any URL. It scores the page from 0 to 30 across six dimensions and returns the highest-priority fixes plus a copy-paste remediation prompt, so the answer becomes a score instead of a guess.
 
 # Related concepts
 
