@@ -227,9 +227,76 @@ function llmsMarkdown() {
   return lines.join('\n');
 }
 
+const DRAFT_2020_12 = 'https://json-schema.org/draft/2020-12/schema';
+
+/** JSON Schema describing a skill manifest.json (the per-skill package descriptor). */
+function manifestSchemaDoc(selfUrl: string, _authoritySchemaUrl: string) {
+  return {
+    $schema: DRAFT_2020_12,
+    $id: selfUrl,
+    title: 'AMTECH Skill Manifest v0',
+    description: 'Schema for an AMTECH consumable-skill manifest.json. The manifest is the per-skill package descriptor: entrypoints, per-file integrity hashes, the archive hash, and the authority (trust root) pointer.',
+    type: 'object',
+    required: ['$schema', 'slug', 'name', 'title', 'version', 'source', 'entrypoints', 'files', 'archive', 'authority', 'safety'],
+    additionalProperties: true,
+    properties: {
+      $schema: { type: 'string', format: 'uri', const: selfUrl },
+      slug: { type: 'string' },
+      name: { type: 'string' },
+      title: { type: 'string' },
+      version: { type: 'string' },
+      updated: { type: 'string' },
+      description: { type: 'string' },
+      source: { type: 'object', properties: { canonicalUrl: { type: 'string', format: 'uri' }, sourceDirectory: { type: 'string' }, codexSkillInstaller: { type: 'string' } }, required: ['canonicalUrl'] },
+      entrypoints: { type: 'object', properties: { human: { type: 'string', format: 'uri' }, use: { type: 'string', format: 'uri' }, agent: { type: 'string', format: 'uri' }, skill: { type: 'string', format: 'uri' }, archive: { type: 'string', format: 'uri' }, checksums: { type: 'string', format: 'uri' } }, required: ['human', 'use', 'skill', 'archive', 'checksums'] },
+      files: { type: 'array', items: { type: 'object', required: ['path', 'role', 'sha256', 'size', 'url'], properties: { path: { type: 'string' }, role: { type: 'string' }, sha256: { type: 'string', pattern: '^[a-f0-9]{64}$' }, size: { type: 'integer', minimum: 0 }, url: { type: 'string', format: 'uri' } } } },
+      archive: { type: 'object', required: ['file', 'sha256', 'url'], properties: { file: { type: 'string' }, sha256: { type: 'string', pattern: '^[a-f0-9]{64}$' }, url: { type: 'string', format: 'uri' } } },
+      authority: { type: 'object', required: ['authorityUrl', 'verify'], properties: { authorityUrl: { type: 'string', format: 'uri' }, verify: { type: 'string' } } },
+      safety: { type: 'object', required: ['scripts', 'requiresNetwork', 'requiresSecrets'], properties: { scripts: { enum: ['none', 'optional', 'required'] }, requiresNetwork: { type: 'boolean' }, requiresSecrets: { type: 'boolean' }, riskNote: { type: 'string' } } },
+    },
+  };
+}
+
+/** JSON Schema describing the domain-controlled skill-authority.json (the trust root). */
+function authoritySchemaDoc(selfUrl: string) {
+  return {
+    $schema: DRAFT_2020_12,
+    $id: selfUrl,
+    title: 'AMTECH Skill Authority v0',
+    description: 'Schema for the domain-controlled /.well-known/skill-authority.json. It is the trust root: an agent confirms a skill archive sha256 against the entry here, served only from the canonical domain.',
+    type: 'object',
+    required: ['$schema', 'authorityUrl', 'updated', 'skills'],
+    additionalProperties: false,
+    properties: {
+      $schema: { type: 'string', format: 'uri', const: selfUrl },
+      authorityUrl: { type: 'string', format: 'uri', description: 'Self-reference to this authority file on the canonical domain.' },
+      updated: { type: 'string', pattern: '^\\d{4}-\\d{2}-\\d{2}$' },
+      skills: {
+        type: 'array',
+        items: {
+          type: 'object',
+          required: ['slug', 'name', 'title', 'version', 'status', 'canonicalUrl', 'archiveUrl', 'archiveSha256', 'authorityUrl'],
+          additionalProperties: false,
+          properties: {
+            slug: { type: 'string' },
+            name: { type: 'string' },
+            title: { type: 'string' },
+            version: { type: 'string' },
+            status: { enum: ['published', 'planned', 'deprecated'] },
+            canonicalUrl: { type: 'string', format: 'uri' },
+            archiveUrl: { type: 'string', format: 'uri' },
+            archiveSha256: { type: 'string', pattern: '^[a-f0-9]{64}$' },
+            authorityUrl: { type: 'string', format: 'uri' },
+          },
+        },
+      },
+    },
+  };
+}
+
 function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: string, archiveName: string) {
   return {
-    schema: 'https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json',
+    $schema: `${SKILL_SITE_ORIGIN}/skills/schemas/amtech-skill-manifest-v0.json`,
     slug: skill.slug,
     name: skill.name,
     title: skill.title,
@@ -268,7 +335,7 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
       url: skillUrl(skill, `/${archiveName}`),
     },
     authority: {
-      registryUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
+      authorityUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
       verify: `Fetch ${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json and confirm the entry for "${skill.slug}" lists this version and archive sha256. The authority file is served from the canonical domain (${SKILL_SITE_ORIGIN}) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it.`,
     },
     safety: skill.safety,
@@ -482,9 +549,12 @@ async function main() {
   await writeText('public/skills/catalog.md', catalogMarkdown());
   await writeText('public/skills/llms.txt', llmsMarkdown());
 
-  // Domain-controlled skill authority file — agents verify skill hashes against this endpoint.
+  // Domain-controlled skill authority file — the trust root. Agents verify skill hashes against it.
+  const authoritySchemaUrl = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority-v0.json`;
+  const manifestSchemaUrl = `${SKILL_SITE_ORIGIN}/skills/schemas/amtech-skill-manifest-v0.json`;
   const skillAuthority = {
-    schema: 'https://amtechai.com/.well-known/skill-authority-v0.json',
+    $schema: authoritySchemaUrl,
+    authorityUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
     updated: new Date().toISOString().slice(0, 10),
     skills: index.map((s) => ({
       slug: s.slug,
@@ -495,10 +565,22 @@ async function main() {
       canonicalUrl: s.url,
       archiveUrl: s.archive,
       archiveSha256: s.archiveSha256,
-      registryUrl: 'https://amtechai.com/.well-known/skill-authority.json',
+      authorityUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
     })),
   };
   await writeText('public/.well-known/skill-authority.json', `${escJson(skillAuthority)}\n`);
+
+  // Served JSON Schemas (draft 2020-12) for the two trust documents. Publishing them turns the
+  // `$schema` identifiers into dereferenceable, validatable resources — on-thesis for a verifiable,
+  // agent-readable surface — and editors that honor $schema validate the documents automatically.
+  await writeText(
+    'public/skills/schemas/amtech-skill-manifest-v0.json',
+    `${escJson(manifestSchemaDoc(manifestSchemaUrl, authoritySchemaUrl))}\n`,
+  );
+  await writeText(
+    'public/.well-known/skill-authority-v0.json',
+    `${escJson(authoritySchemaDoc(authoritySchemaUrl))}\n`,
+  );
 
   // Generated React-free content module: the SkillDetail page and the prerenderer render from this.
   const contentMap = Object.fromEntries(contents.map((c) => [c.slug, c]));

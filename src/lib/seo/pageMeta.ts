@@ -411,7 +411,7 @@ function skillPageMeta(): PageMeta[] {
     const extraMeta: { name: string; content: string }[] = [
       { name: 'amtech:skill', content: skill.slug },
       { name: 'amtech:skill-version', content: skill.version },
-      { name: 'amtech:skill-registry', content: 'https://amtechai.com/.well-known/skill-authority.json' },
+      { name: 'amtech:skill-authority', content: 'https://amtechai.com/.well-known/skill-authority.json' },
     ];
     if (content?.archiveSha256) {
       extraMeta.splice(2, 0, { name: 'amtech:skill-sha256', content: content.archiveSha256 });

@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { skillDefinitions, skillPath, skillUrl } from '../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillPath, skillUrl, SKILL_SITE_ORIGIN } from '../../src/lib/skills/registry.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const errors: string[] = [];
@@ -13,12 +13,48 @@ type ManifestFile = {
 };
 
 type SkillManifest = {
+  $schema?: string;
   files?: ManifestFile[];
   archive?: {
     file?: string;
     sha256?: string;
   };
+  authority?: {
+    authorityUrl?: string;
+    verify?: string;
+  };
 };
+
+/** Map a canonical https://amtechai.com/... URL to its committed public/ path. */
+function publicPathForUrl(url: string): string | null {
+  if (!url.startsWith(`${SKILL_SITE_ORIGIN}/`)) return null;
+  return `public/${url.slice(SKILL_SITE_ORIGIN.length + 1)}`;
+}
+
+/** A served $schema target must exist, parse as JSON, and look like a JSON Schema (carry $id + $schema). */
+async function validateServedSchema(label: string, url: string | undefined) {
+  if (!url) {
+    fail(`${label}: missing $schema URL.`);
+    return;
+  }
+  const path = publicPathForUrl(url);
+  if (!path) {
+    fail(`${label}: $schema URL is not on the canonical origin: ${url}`);
+    return;
+  }
+  const raw = await read(path);
+  if (typeof raw !== 'string') {
+    fail(`${label}: $schema target not published at ${path}. Run npm run skills:build.`);
+    return;
+  }
+  try {
+    const doc = JSON.parse(raw) as { $id?: string; $schema?: string };
+    if (doc.$id !== url) fail(`${label}: ${path} $id (${doc.$id}) does not match its URL (${url}).`);
+    if (!doc.$schema) fail(`${label}: ${path} does not declare a $schema dialect.`);
+  } catch {
+    fail(`${label}: ${path} is not valid JSON.`);
+  }
+}
 
 async function read(relPath: string, binary = false): Promise<Buffer | string | null> {
   try {
@@ -72,6 +108,14 @@ async function validateSkill(slug: string) {
   }
 
   if (manifest) {
+    // Decision: $schema must be a served, dereferenceable JSON Schema; authority pointer must use
+    // the disambiguated `authorityUrl` field (never the old overloaded `registryUrl`).
+    await validateServedSchema(`${skill.slug}: manifest`, manifest.$schema);
+    if (!manifest.authority?.authorityUrl) fail(`${skill.slug}: manifest.authority.authorityUrl missing.`);
+    if ((manifest.authority as Record<string, unknown> | undefined)?.registryUrl) {
+      fail(`${skill.slug}: manifest.authority still uses the retired field name "registryUrl"; use "authorityUrl".`);
+    }
+
     for (const def of skill.files) {
       const entry = manifest.files?.find((file) => file.path === def.path);
       if (!entry) {
@@ -121,14 +165,25 @@ async function main() {
     fail('public/.well-known/skill-authority.json missing. Run npm run skills:build.');
   } else {
     try {
-      const authority = JSON.parse(authorityRaw) as { skills?: { slug: string }[] };
+      const authority = JSON.parse(authorityRaw) as {
+        $schema?: string;
+        authorityUrl?: string;
+        skills?: { slug: string; authorityUrl?: string }[];
+      } & Record<string, unknown>;
+      await validateServedSchema('skill-authority.json', authority.$schema);
+      if (!authority.authorityUrl) fail('skill-authority.json: top-level authorityUrl missing.');
+      if (authority.registryUrl) fail('skill-authority.json still uses the retired field name "registryUrl"; use "authorityUrl".');
       for (const skill of skillDefinitions) {
-        if (!authority.skills?.some((s) => s.slug === skill.slug)) {
+        const entry = authority.skills?.find((s) => s.slug === skill.slug);
+        if (!entry) {
           fail(`public/.well-known/skill-authority.json missing entry for ${skill.slug}.`);
+        } else if (!entry.authorityUrl) {
+          fail(`skill-authority.json entry ${skill.slug} missing authorityUrl.`);
         }
       }
-    } catch {
-      fail('public/.well-known/skill-authority.json is not valid JSON.');
+    } catch (error) {
+      if (error instanceof SyntaxError) fail('public/.well-known/skill-authority.json is not valid JSON.');
+      else throw error;
     }
   }
 

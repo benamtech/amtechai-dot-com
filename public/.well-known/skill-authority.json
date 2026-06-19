@@ -1,5 +1,6 @@
 {
-  "schema": "https://amtechai.com/.well-known/skill-authority-v0.json",
+  "$schema": "https://amtechai.com/.well-known/skill-authority-v0.json",
+  "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
   "updated": "2026-06-19",
   "skills": [
     {
@@ -11,7 +12,7 @@
       "canonicalUrl": "https://amtechai.com/skills/okf-audit",
       "archiveUrl": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip",
       "archiveSha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8",
-      "registryUrl": "https://amtechai.com/.well-known/skill-authority.json"
+      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json"
     }
   ]
 }

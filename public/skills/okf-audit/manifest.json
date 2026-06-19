@@ -1,5 +1,5 @@
 {
-  "schema": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
+  "$schema": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
   "slug": "okf-audit",
   "name": "okf-audit",
   "title": "OKF Audit Skill",
@@ -111,7 +111,7 @@
     "url": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip"
   },
   "authority": {
-    "registryUrl": "https://amtechai.com/.well-known/skill-authority.json",
+    "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
     "verify": "Fetch https://amtechai.com/.well-known/skill-authority.json and confirm the entry for \"okf-audit\" lists this version and archive sha256. The authority file is served from the canonical domain (https://amtechai.com) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it."
   },
   "safety": {

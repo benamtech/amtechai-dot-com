@@ -1,0 +1,196 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
+  "title": "AMTECH Skill Manifest v0",
+  "description": "Schema for an AMTECH consumable-skill manifest.json. The manifest is the per-skill package descriptor: entrypoints, per-file integrity hashes, the archive hash, and the authority (trust root) pointer.",
+  "type": "object",
+  "required": [
+    "$schema",
+    "slug",
+    "name",
+    "title",
+    "version",
+    "source",
+    "entrypoints",
+    "files",
+    "archive",
+    "authority",
+    "safety"
+  ],
+  "additionalProperties": true,
+  "properties": {
+    "$schema": {
+      "type": "string",
+      "format": "uri",
+      "const": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json"
+    },
+    "slug": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "version": {
+      "type": "string"
+    },
+    "updated": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "canonicalUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "sourceDirectory": {
+          "type": "string"
+        },
+        "codexSkillInstaller": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "canonicalUrl"
+      ]
+    },
+    "entrypoints": {
+      "type": "object",
+      "properties": {
+        "human": {
+          "type": "string",
+          "format": "uri"
+        },
+        "use": {
+          "type": "string",
+          "format": "uri"
+        },
+        "agent": {
+          "type": "string",
+          "format": "uri"
+        },
+        "skill": {
+          "type": "string",
+          "format": "uri"
+        },
+        "archive": {
+          "type": "string",
+          "format": "uri"
+        },
+        "checksums": {
+          "type": "string",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "human",
+        "use",
+        "skill",
+        "archive",
+        "checksums"
+      ]
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "path",
+          "role",
+          "sha256",
+          "size",
+          "url"
+        ],
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "role": {
+            "type": "string"
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "size": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        }
+      }
+    },
+    "archive": {
+      "type": "object",
+      "required": [
+        "file",
+        "sha256",
+        "url"
+      ],
+      "properties": {
+        "file": {
+          "type": "string"
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "authority": {
+      "type": "object",
+      "required": [
+        "authorityUrl",
+        "verify"
+      ],
+      "properties": {
+        "authorityUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "verify": {
+          "type": "string"
+        }
+      }
+    },
+    "safety": {
+      "type": "object",
+      "required": [
+        "scripts",
+        "requiresNetwork",
+        "requiresSecrets"
+      ],
+      "properties": {
+        "scripts": {
+          "enum": [
+            "none",
+            "optional",
+            "required"
+          ]
+        },
+        "requiresNetwork": {
+          "type": "boolean"
+        },
+        "requiresSecrets": {
+          "type": "boolean"
+        },
+        "riskNote": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

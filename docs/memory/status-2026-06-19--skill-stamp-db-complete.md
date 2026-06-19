@@ -18,7 +18,7 @@ confirmed in `dist/skills/okf-audit/index.html`:
 <meta name="amtech:skill" content="okf-audit" />
 <meta name="amtech:skill-version" content="0.1.0" />
 <meta name="amtech:skill-sha256" content="4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8" />
-<meta name="amtech:skill-registry" content="https://amtechai.com/.well-known/skill-authority.json" />
+<meta name="amtech:skill-authority" content="https://amtechai.com/.well-known/skill-authority.json" />
 ```
 
 ### 2. Article `amtech:demonstrates` tag (re-verified)
