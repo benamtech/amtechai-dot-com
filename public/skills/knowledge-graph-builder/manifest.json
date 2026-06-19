@@ -9,7 +9,13 @@
   "source": {
     "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
     "sourceDirectory": "src/lib/skills/source/knowledge-graph-builder",
-    "codexSkillInstaller": "Use in context first. For local reuse, copy files from https://amtechai.com/skills/knowledge-graph-builder/files.md into a skill folder named knowledge-graph-builder."
+    "repository": "https://github.com/benamtech/amtech-skills-registry",
+    "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "repositoryCommitSignature": "unsigned",
+    "repositoryPath": "skills/knowledge-graph-builder",
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/knowledge-graph-builder",
@@ -27,6 +33,7 @@
       "summary": "UI-facing display metadata and default prompt for environments that support it.",
       "mediaType": "application/yaml; charset=utf-8",
       "sha256": "4c06596469315de6c40abb144602809d479b03c0bfb637b851d7c4764eb0cfbf",
+      "sha3_512": "4f0be8cb480b681052587c498da9fc5f99cb4c411ab955f33278c4a6db4dcf349bddd7ae394681399abdfb20772f8512f627c947e9cee66e7d259bc46c25b1d9",
       "size": 374,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/agents/openai.yaml",
       "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
@@ -39,6 +46,7 @@
       "summary": "JSON shape for the generated graph: nodes, edges, pillars, and internal links.",
       "mediaType": "application/json; charset=utf-8",
       "sha256": "3b3638aec369c4da9f2ba9bdf1246b7314b2bccb489109a4cd3bad767c9eeaac",
+      "sha3_512": "b4fc3694ed0a73df0b95d568f12f35cfb4b9052dc4d2f0de22eb75e49eee19f7c1fb0e63358af51abf4c6069779a78e251c518e28271ca58e781dd46c98702e2",
       "size": 3375,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/assets/graph-schema.json",
       "loadPolicy": "Use when the user asks for JSON or a graph another tool can ingest.",
@@ -51,6 +59,7 @@
       "summary": "License for this free AMTECH skill package.",
       "mediaType": "text/plain; charset=utf-8",
       "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd",
       "size": 743,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/LICENSE.txt",
       "loadPolicy": "Read when evaluating reuse or redistribution.",
@@ -63,6 +72,7 @@
       "summary": "The controlled type vocabulary and how to choose a type for each node.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "a6a87aee6413542c3483c8638254ef29934b627afa8cac112de156e8bde0aa37",
+      "sha3_512": "24776225ae4a5bb9ed57b814d2ec5a4052f6c7b4842904d24b249c9e1440aa5d9889d33a7fb5f9073c16d0cde3760be9742e518d696b95eac60f3a357833865b",
       "size": 3260,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/references/entity-types.md",
       "loadPolicy": "Read when typing entities.",
@@ -75,6 +85,7 @@
       "summary": "Node-worthiness, pillar/supporting/attribute ranking, relationship verbs, internal-linking, and structured data.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "78f17974e831580cacb788d408a7958602c533cf573878e19af5c9fa51aa3753",
+      "sha3_512": "7665ce91944a08f23d321d8a0f04a3dfbb4c882580f77915802dc517ef0cfc7a8889df5af5744bad9066fd08e81d3657cf11784e6a277d4015a016f332a0dce1",
       "size": 3849,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/references/knowledge-graph-method.md",
       "loadPolicy": "Read when deciding which nodes deserve pages and how to write edges.",
@@ -87,6 +98,7 @@
       "summary": "The primary reusable workflow for generating a knowledge graph for SEO and agent-readability.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "383a168f3b6e2ec4d01137ebeea2786400fac941add48b6bb3a049c34f71221c",
+      "sha3_512": "0a0df0bb850b3d470afa0fbe8a3f1299c5eb440beedbafddab7df5154d803e8dcbcbb6e0ddd1f02ba3a73f78923d3883662c91e3c6ce18752596baa07dffa8c8",
       "size": 5387,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/SKILL.md",
       "loadPolicy": "Always read before building a graph.",
@@ -96,11 +108,27 @@
   "archive": {
     "file": "knowledge-graph-builder-0.1.0.zip",
     "sha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
+    "sha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a",
     "url": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip"
+  },
+  "certificate": {
+    "id": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+    "algorithm": "Ed25519",
+    "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
+    "signatureUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
+    "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
+    "signed": true
   },
   "authority": {
     "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
-    "verify": "Fetch https://amtechai.com/.well-known/skill-authority.json and confirm the entry for \"knowledge-graph-builder\" lists this version and archive sha256. The authority file is served from the canonical domain (https://amtechai.com) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it."
+    "method": "ed25519-canonical-json-v1",
+    "digestAlgorithms": [
+      "SHA-256",
+      "SHA3-512"
+    ],
+    "signed": true,
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json",
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit 15bab1b2622acd6afd0fa5f66b8af4bde01c5e50 match this manifest and https://amtechai.com/.well-known/skill-authority.json."
   },
   "safety": {
     "scripts": "none",

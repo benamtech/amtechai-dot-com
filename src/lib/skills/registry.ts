@@ -10,6 +10,16 @@ export type SkillFileDefinition = {
   permissions?: string[];
 };
 
+export type SkillRepository = {
+  url: string;
+  owner: string;
+  name: string;
+  defaultBranch: string;
+  commit: string;
+  path: string;
+  commitSignature: 'verified' | 'unverified' | 'unsigned';
+};
+
 export type SkillDefinition = {
   slug: string;
   name: string;
@@ -21,6 +31,7 @@ export type SkillDefinition = {
   audience: string[];
   useCases: string[];
   sourceDir: string;
+  repository: SkillRepository;
   safety: {
     scripts: 'none' | 'optional' | 'required';
     requiresNetwork: boolean;
@@ -32,6 +43,21 @@ export type SkillDefinition = {
 
 export const SKILL_BASE_PATH = '/skills';
 export const SKILL_SITE_ORIGIN = 'https://amtechai.com';
+export const SKILL_AUTHORITY_URL = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`;
+export const SKILL_REPOSITORY_URL = 'https://github.com/benamtech/amtech-skills-registry';
+export const SKILL_REPOSITORY_COMMIT = '15bab1b2622acd6afd0fa5f66b8af4bde01c5e50';
+
+function registryRepository(slug: string): SkillRepository {
+  return {
+    url: SKILL_REPOSITORY_URL,
+    owner: 'benamtech',
+    name: 'amtech-skills-registry',
+    defaultBranch: 'main',
+    commit: SKILL_REPOSITORY_COMMIT,
+    path: `skills/${slug}`,
+    commitSignature: 'unsigned',
+  };
+}
 
 export const skillDefinitions: SkillDefinition[] = [
   {
@@ -52,6 +78,7 @@ export const skillDefinitions: SkillDefinition[] = [
       'Generate a remediation prompt for another AI or implementation agent.',
     ],
     sourceDir: 'src/lib/skills/source/okf-audit',
+    repository: registryRepository('okf-audit'),
     safety: {
       scripts: 'none',
       requiresNetwork: true,
@@ -130,6 +157,7 @@ export const skillDefinitions: SkillDefinition[] = [
       'Scaffold schema.org JSON-LD for the key entities and emit OKF concept stubs.',
     ],
     sourceDir: 'src/lib/skills/source/knowledge-graph-builder',
+    repository: registryRepository('knowledge-graph-builder'),
     safety: {
       scripts: 'none',
       requiresNetwork: false,
@@ -194,4 +222,19 @@ export function skillPath(skill: SkillDefinition, suffix = ''): string {
 
 export function skillUrl(skill: SkillDefinition, suffix = ''): string {
   return `${SKILL_SITE_ORIGIN}${skillPath(skill, suffix)}`;
+}
+
+export function skillRepositoryTreeUrl(skill: SkillDefinition, pinned = true): string {
+  const ref = pinned ? skill.repository.commit : skill.repository.defaultBranch;
+  return `${skill.repository.url}/tree/${ref}/${skill.repository.path}`;
+}
+
+export function skillRepositoryFileUrl(skill: SkillDefinition, path: string, pinned = true): string {
+  const ref = pinned ? skill.repository.commit : skill.repository.defaultBranch;
+  return `${skill.repository.url}/blob/${ref}/${skill.repository.path}/${path}`;
+}
+
+export function skillRepositoryRegistryUrl(skill: SkillDefinition, pinned = true): string {
+  const ref = pinned ? skill.repository.commit : skill.repository.defaultBranch;
+  return `${skill.repository.url}/blob/${ref}/index.json`;
 }

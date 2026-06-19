@@ -10,7 +10,16 @@
       "use": "https://amtechai.com/skills/okf-audit/use.md",
       "manifest": "https://amtechai.com/skills/okf-audit/manifest.json",
       "archive": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip",
-      "archiveSha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8"
+      "archiveSha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8",
+      "archiveSha3_512": "24114f952a0df4db10772b2f40be26cb2dfa0a834ee90bf4890b8adce071e6c7278987622925cbefdf77615960f29f366cc9ab5930d466ccf6e274b62d1d7ebb",
+      "certificate": {
+        "id": "amtech:skill:okf-audit:24114f952a0df4db10772b2f",
+        "url": "https://amtechai.com/skills/okf-audit/certificate.json",
+        "signature": "https://amtechai.com/skills/okf-audit/certificate.sig"
+      },
+      "repository": "https://github.com/benamtech/amtech-skills-registry",
+      "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit"
     },
     {
       "slug": "knowledge-graph-builder",
@@ -22,7 +31,16 @@
       "use": "https://amtechai.com/skills/knowledge-graph-builder/use.md",
       "manifest": "https://amtechai.com/skills/knowledge-graph-builder/manifest.json",
       "archive": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip",
-      "archiveSha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161"
+      "archiveSha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
+      "archiveSha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a",
+      "certificate": {
+        "id": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+        "url": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
+        "signature": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig"
+      },
+      "repository": "https://github.com/benamtech/amtech-skills-registry",
+      "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder"
     }
   ]
 }

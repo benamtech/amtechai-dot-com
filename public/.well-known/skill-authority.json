@@ -2,6 +2,26 @@
   "$schema": "https://amtechai.com/.well-known/skill-authority-v0.json",
   "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
   "updated": "2026-06-19",
+  "issuer": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "repository": {
+    "url": "https://github.com/benamtech/amtech-skills-registry",
+    "commit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "commitSignature": "unsigned",
+    "registryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json"
+  },
+  "verification": {
+    "method": "ed25519-canonical-json-v1",
+    "digestAlgorithms": [
+      "SHA-256",
+      "SHA3-512"
+    ],
+    "signed": true,
+    "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
+    "note": "Each skill archive has an Ed25519 signature over a deterministic AMTECH Signed Artifact v1 certificate. SHA-256 is retained for compatibility and SHA3-512 provides a second digest construction."
+  },
   "skills": [
     {
       "slug": "okf-audit",
@@ -12,7 +32,17 @@
       "canonicalUrl": "https://amtechai.com/skills/okf-audit",
       "archiveUrl": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip",
       "archiveSha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8",
-      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json"
+      "archiveSha3_512": "24114f952a0df4db10772b2f40be26cb2dfa0a834ee90bf4890b8adce071e6c7278987622925cbefdf77615960f29f366cc9ab5930d466ccf6e274b62d1d7ebb",
+      "certificateId": "amtech:skill:okf-audit:24114f952a0df4db10772b2f",
+      "certificateUrl": "https://amtechai.com/skills/okf-audit/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/okf-audit/certificate.sig",
+      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+      "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
+      "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+      "repositoryCommitSignature": "unsigned",
+      "repositoryPath": "skills/okf-audit",
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json"
     },
     {
       "slug": "knowledge-graph-builder",
@@ -23,7 +53,17 @@
       "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
       "archiveUrl": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip",
       "archiveSha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
-      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json"
+      "archiveSha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a",
+      "certificateId": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+      "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
+      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+      "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
+      "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+      "repositoryCommitSignature": "unsigned",
+      "repositoryPath": "skills/knowledge-graph-builder",
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json"
     }
   ]
 }

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "amtech-signed-artifact/v1",
+  "certificateId": "amtech:skill:okf-audit:24114f952a0df4db10772b2f",
+  "subjectType": "skill",
+  "subjectId": "okf-audit",
+  "owner": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "canonicalUrl": "https://amtechai.com/skills/okf-audit",
+  "repository": {
+    "url": "https://github.com/benamtech/amtech-skills-registry",
+    "commit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "path": "skills/okf-audit"
+  },
+  "version": "0.1.0",
+  "digests": {
+    "sha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8",
+    "sha3_512": "24114f952a0df4db10772b2f40be26cb2dfa0a834ee90bf4890b8adce071e6c7278987622925cbefdf77615960f29f366cc9ab5930d466ccf6e274b62d1d7ebb"
+  },
+  "issuedAt": "2026-06-19T00:00:00.000Z",
+  "issuer": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "signingKeyId": "ed25519:2ecc5136b54f570e698487d3",
+  "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json"
+}

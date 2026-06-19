@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "amtech-signing-key/v1",
+  "issuer": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "keyId": "ed25519:2ecc5136b54f570e698487d3",
+  "algorithm": "Ed25519",
+  "publicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEA0NdEnebdYYoR0l6+NB92sdNpqeP2QLosbePhdBj42Ic=\n-----END PUBLIC KEY-----\n",
+  "fingerprint": {
+    "sha256": "2ecc5136b54f570e698487d345d8bac5e8298cbe972cf7cee4c756a60576e818",
+    "sha3_512": "9a5352d7c2fd8b8c49ce796683ee2c04fb3d5f5ff439f7c7f255500a1f263e8aa877a908b052452428c15a5835b1460d0e4d8c5d36870b6b6e21d758cf738704"
+  },
+  "validFrom": "2026-06-19T18:36:33.228Z",
+  "status": "active",
+  "purposes": [
+    "skill",
+    "content",
+    "message",
+    "repo-update",
+    "status"
+  ]
+}

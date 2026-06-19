@@ -480,7 +480,7 @@
         "public/.well-known/skill-authority.json",
         "dist/.well-known/skill-authority.json"
       ],
-      "purpose": "One-link skill consumption surface with a trust layer. Source skill folders project to use.md, agent.md, SKILL.md, manifest.json, file indexes, raw files, checksums, and archives. Skill pages stamp amtech:skill* meta (incl. archive sha256); articles stamp amtech:demonstrates. build-skills.ts emits /.well-known/skill-authority.json. public.skills + public.skill_article_links are the queryable DB projection of the registry (public-read, published-only RLS)."
+      "purpose": "One-link signed skill consumption surface. Source folders project to pages, manifests, archives, dual SHA-256/SHA3-512 checksums, and AMTECH Signed Artifact v1 certificates. Ed25519 signatures bind AMTECH ownership, skill/version, repository commit/path, and archive digests; the public key is served at /.well-known/amtech-signing-key.json. GitHub is source evidence, not the signing authority. public.skills + public.skill_article_links are the queryable DB projection."
     }
   ],
   "docs": [

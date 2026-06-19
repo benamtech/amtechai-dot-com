@@ -8,6 +8,9 @@
     "$schema",
     "authorityUrl",
     "updated",
+    "issuer",
+    "repository",
+    "verification",
     "skills"
   ],
   "additionalProperties": false,
@@ -26,6 +29,86 @@
       "type": "string",
       "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
     },
+    "issuer": {
+      "type": "object",
+      "required": [
+        "name",
+        "url"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "repository": {
+      "type": "object",
+      "required": [
+        "url",
+        "commit",
+        "commitSignature",
+        "registryUrl"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "commit": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{40}$"
+        },
+        "commitSignature": {
+          "enum": [
+            "verified",
+            "unverified",
+            "unsigned"
+          ]
+        },
+        "registryUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    "verification": {
+      "type": "object",
+      "required": [
+        "method",
+        "digestAlgorithms",
+        "signed",
+        "signingKeyUrl",
+        "note"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "method": {
+          "const": "ed25519-canonical-json-v1"
+        },
+        "digestAlgorithms": {
+          "const": [
+            "SHA-256",
+            "SHA3-512"
+          ]
+        },
+        "signed": {
+          "const": true
+        },
+        "signingKeyUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    },
     "skills": {
       "type": "array",
       "items": {
@@ -39,7 +122,17 @@
           "canonicalUrl",
           "archiveUrl",
           "archiveSha256",
-          "authorityUrl"
+          "archiveSha3_512",
+          "certificateId",
+          "certificateUrl",
+          "signatureUrl",
+          "authorityUrl",
+          "repositoryUrl",
+          "repositoryCommit",
+          "repositoryCommitSignature",
+          "repositoryPath",
+          "repositoryTreeUrl",
+          "repositoryRegistryUrl"
         ],
         "additionalProperties": false,
         "properties": {
@@ -74,7 +167,48 @@
             "type": "string",
             "pattern": "^[a-f0-9]{64}$"
           },
+          "archiveSha3_512": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{128}$"
+          },
+          "certificateId": {
+            "type": "string"
+          },
+          "certificateUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "signatureUrl": {
+            "type": "string",
+            "format": "uri"
+          },
           "authorityUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "repositoryUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "repositoryCommit": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{40}$"
+          },
+          "repositoryCommitSignature": {
+            "enum": [
+              "verified",
+              "unverified",
+              "unsigned"
+            ]
+          },
+          "repositoryPath": {
+            "type": "string"
+          },
+          "repositoryTreeUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "repositoryRegistryUrl": {
             "type": "string",
             "format": "uri"
           }

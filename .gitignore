@@ -21,6 +21,7 @@ dist-ssr
 *.sln
 *.sw?
 .env
+.amtech/
 AI_EMPLOYEE_MVP/ai-employee-all-files/.env.provision-hook
 AI_EMPLOYEE_MVP/ai-employee-all-files/.venv/
 AI_EMPLOYEE_MVP/ai-employee-all-files/state/

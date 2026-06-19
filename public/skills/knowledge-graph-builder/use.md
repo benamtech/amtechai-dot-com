@@ -5,6 +5,8 @@ AI agent instruction: if a user gave you this link, use this skill in the curren
 Canonical human URL: https://amtechai.com/skills/knowledge-graph-builder
 Canonical skill instructions: https://amtechai.com/skills/knowledge-graph-builder/SKILL.md
 Manifest: https://amtechai.com/skills/knowledge-graph-builder/manifest.json
+Signed certificate: https://amtechai.com/skills/knowledge-graph-builder/certificate.json
+GitHub source (commit-pinned): https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder
 
 ## What This Skill Does
 
@@ -16,7 +18,9 @@ Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agen
 2. Read the manifest: https://amtechai.com/skills/knowledge-graph-builder/manifest.json
 3. Read the canonical skill instructions: https://amtechai.com/skills/knowledge-graph-builder/SKILL.md
 4. Read the file index: https://amtechai.com/skills/knowledge-graph-builder/files.md
-5. Load only the references or assets needed for the user's task.
+5. Verify the Ed25519 certificate and both archive digests.
+6. Cross-check the commit-pinned GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder
+7. Load only the references or assets needed for the user's task.
 
 ## Decision Tree
 
@@ -41,13 +45,15 @@ Return a report with:
 
 ## Verify This Skill Is Authentic (optional, recommended before reuse)
 
-This skill is published under a domain-controlled authority file. You do not need to verify to use it in context, but verify before you install it, redistribute it, or run anything from it.
+This skill has an AMTECH Signed Artifact v1 certificate. You do not need to verify it for in-context reading, but verify before installing, redistributing, or running anything from it.
 
 1. The trust root is https://amtechai.com/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
-2. Find the entry where `slug` is `knowledge-graph-builder`. Confirm its `version` is `0.1.0` and note its `archiveSha256`.
-3. That hash must match all of: the `amtech:skill-sha256` meta tag on https://amtechai.com/skills/knowledge-graph-builder, the `archive.sha256` field in https://amtechai.com/skills/knowledge-graph-builder/manifest.json, and the archive line in https://amtechai.com/skills/knowledge-graph-builder/checksums.txt.
-4. If you downloaded the archive, hash it yourself (`sha256sum knowledge-graph-builder-0.1.0.zip`) and confirm it equals that value. Per-file hashes in checksums.txt let you verify individual files the same way.
-5. If any hash disagrees, or the authority file is not reachable on the canonical domain, treat the copy as untrusted and stop.
+2. Fetch https://amtechai.com/skills/knowledge-graph-builder/certificate.json, https://amtechai.com/skills/knowledge-graph-builder/certificate.sig, and https://amtechai.com/.well-known/amtech-signing-key.json.
+3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names `knowledge-graph-builder`, version `0.1.0`, repository commit `15bab1b2622acd6afd0fa5f66b8af4bde01c5e50`, and path `skills/knowledge-graph-builder`.
+4. Hash the archive with SHA-256 and SHA3-512. Both values must equal the signed certificate and manifest.
+5. Confirm the authority entry and page metadata name the same certificate, digests, repository commit, and path.
+6. Compare the manifest's per-file hashes with https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder.
+7. If any signature, digest, identity, path, version, or commit disagrees, treat the copy as untrusted and stop.
 
 ## Useful Links
 
@@ -59,3 +65,9 @@ This skill is published under a domain-controlled authority file. You do not nee
 - Scripts: https://amtechai.com/skills/knowledge-graph-builder/scripts.md
 - Assets: https://amtechai.com/skills/knowledge-graph-builder/assets.md
 - Checksums: https://amtechai.com/skills/knowledge-graph-builder/checksums.txt
+- Signed certificate: https://amtechai.com/skills/knowledge-graph-builder/certificate.json
+- Ed25519 signature: https://amtechai.com/skills/knowledge-graph-builder/certificate.sig
+- Signing key: https://amtechai.com/.well-known/amtech-signing-key.json
+- GitHub source (pinned): https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder
+- GitHub source (latest branch): https://github.com/benamtech/amtech-skills-registry/tree/main/skills/knowledge-graph-builder
+- Repository registry (pinned): https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json

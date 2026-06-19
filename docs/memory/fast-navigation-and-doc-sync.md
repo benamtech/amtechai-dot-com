@@ -23,6 +23,7 @@ When codebase changes affect any of the following, update all relevant reference
 - Deployment behavior, build settings, redirects, environment variables, or hosting assumptions.
 - Article-system surfaces, article drafts, knowledge graph priorities, or durable design, product, market, or internal research findings.
 - Repo-local reusable agent skills under `docs/skills/*`.
+- Public skill registry source URLs, Git commit pins, reciprocal website/repository links, manifest fields, authority/checksum behavior, or signature status. Keep `src/lib/skills/registry.ts`, generated public skill surfaces, `docs/agent-skills/`, `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`, and `docs/SKILL_MATERIALIZATION_PIPELINE.md` synchronized.
 - The article knowledge graph (`src/lib/articleKnowledgeGraph.ts`), the entity registry (`src/lib/knowledge/entities.ts`), or any article data (`src/lib/knowledge/articles/*`): also run `npm run okf:check` and commit the regenerated `public/okf/**` + `public/{sitemap.xml,robots.txt,llms.txt}` (the OKF freshness gate fails on a stale bundle). To keep the Supabase projection current, re-run `npm run okf:db:seed-sql` (apply via service role / MCP) and `npm run okf:db:verify`. Article routes prerender automatically via `postbuild`.
 - AI Employee MVP provisioning contract, Twilio/Hermes integration behavior, claim form fields, consent capture, or provisioning deployment assumptions.
 

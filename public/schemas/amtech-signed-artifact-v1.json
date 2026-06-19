@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://amtechai.com/schemas/amtech-signed-artifact-v1.json",
+  "title": "AMTECH Signed Artifact v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "certificateId",
+    "subjectType",
+    "subjectId",
+    "owner",
+    "digests",
+    "issuedAt",
+    "issuer",
+    "signingKeyId",
+    "signingKeyUrl"
+  ],
+  "properties": {
+    "schemaVersion": { "const": "amtech-signed-artifact/v1" },
+    "certificateId": { "type": "string" },
+    "subjectType": { "enum": ["skill", "content", "message", "repo-update", "status"] },
+    "subjectId": { "type": "string" },
+    "owner": { "$ref": "#/$defs/identity" },
+    "canonicalUrl": { "type": "string", "format": "uri" },
+    "repository": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "commit", "path"],
+      "properties": {
+        "url": { "type": "string", "format": "uri" },
+        "commit": { "type": "string", "pattern": "^[a-f0-9]{40}$" },
+        "path": { "type": "string" }
+      }
+    },
+    "version": { "type": "string" },
+    "digests": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sha256", "sha3_512"],
+      "properties": {
+        "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" },
+        "sha3_512": { "type": "string", "pattern": "^[a-f0-9]{128}$" }
+      }
+    },
+    "issuedAt": { "type": "string", "format": "date-time" },
+    "expiresAt": { "type": "string", "format": "date-time" },
+    "issuer": { "$ref": "#/$defs/identity" },
+    "signingKeyId": { "type": "string" },
+    "signingKeyUrl": { "type": "string", "format": "uri" }
+  },
+  "$defs": {
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "url"],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": "string", "format": "uri" }
+      }
+    }
+  }
+}

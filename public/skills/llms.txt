@@ -6,7 +6,9 @@
   - [Use in any AI](https://amtechai.com/skills/okf-audit/use.md)
   - [Canonical SKILL.md](https://amtechai.com/skills/okf-audit/SKILL.md)
   - [Manifest](https://amtechai.com/skills/okf-audit/manifest.json)
+  - [GitHub source](https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit)
 - [Knowledge Graph Builder](https://amtechai.com/skills/knowledge-graph-builder): A consumable AMTECH skill that generates a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic.
   - [Use in any AI](https://amtechai.com/skills/knowledge-graph-builder/use.md)
   - [Canonical SKILL.md](https://amtechai.com/skills/knowledge-graph-builder/SKILL.md)
   - [Manifest](https://amtechai.com/skills/knowledge-graph-builder/manifest.json)
+  - [GitHub source](https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/knowledge-graph-builder)

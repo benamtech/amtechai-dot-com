@@ -6,7 +6,15 @@
  * contents), and download/machine views. Content comes from the skill data model (registry +
  * generated content), not hand-written marketing copy.
  */
-import { getSkill, skillPath, type SkillDefinition } from './registry.ts';
+import {
+  getSkill,
+  skillPath,
+  skillRepositoryFileUrl,
+  skillRepositoryRegistryUrl,
+  skillRepositoryTreeUrl,
+  SKILL_AUTHORITY_URL,
+  type SkillDefinition,
+} from './registry.ts';
 import { getSkillContent, type GeneratedSkillContent, type GeneratedSkillFile } from './generated/skill-content.ts';
 import { renderMarkdown } from './markdown.ts';
 
@@ -63,6 +71,8 @@ export function renderSkillContentHtml(slug: string): string {
 
   const useCases = skill.useCases.map((u) => `<li class="leading-7">${esc(u)}</li>`).join('');
   const fileBlocks = content.files.map((f) => fileBlock(skill, f)).join('');
+  const shortCommit = skill.repository.commit.slice(0, 12);
+  const certificateId = content.certificateId ?? 'missing';
 
   const views: [string, string][] = [
     ['use.md — agent bootstrap', skillPath(skill, '/use.md')],
@@ -94,6 +104,20 @@ export function renderSkillContentHtml(slug: string): string {
       <section class="mt-12 border-t border-black/15 pt-10">
         <h2 class="text-2xl font-black tracking-[-0.03em]">What it does</h2>
         <ul class="mt-5 ml-5 list-disc space-y-2 text-black/75">${useCases}</ul>
+      </section>
+
+      <section class="mt-12 border-t border-black/15 pt-10">
+        <h2 class="text-2xl font-black tracking-[-0.03em]">Source &amp; verification</h2>
+        <p class="mt-3 text-sm leading-7 text-black/65">This package has an AMTECH Signed Artifact v1 certificate. Its canonical certificate is signed with Ed25519 and binds the owner, skill, version, repository commit, SHA-256 digest, and SHA3-512 digest.</p>
+        <ul class="mt-5 grid gap-2 sm:grid-cols-2">
+          <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillRepositoryTreeUrl(skill))}">GitHub source at ${esc(shortCommit)} &#8599;</a></li>
+          <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillRepositoryFileUrl(skill, 'SKILL.md'))}">Commit-pinned SKILL.md &#8599;</a></li>
+          <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillRepositoryRegistryUrl(skill))}">Commit-pinned repository registry &#8599;</a></li>
+          <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(SKILL_AUTHORITY_URL)}">Domain authority file &#8599;</a></li>
+          <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillPath(skill, '/certificate.json'))}">Signed certificate &#8599;</a></li>
+          <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillPath(skill, '/certificate.sig'))}">Ed25519 signature &#8599;</a></li>
+        </ul>
+        <p class="mt-4 font-mono text-xs leading-6 text-black/50">Certificate: ${esc(certificateId)}. Commit: ${esc(skill.repository.commit)}. Signature: Ed25519. Digests: SHA-256 + SHA3-512.</p>
       </section>
 
       <section class="mt-12 border-t border-black/15 pt-10">

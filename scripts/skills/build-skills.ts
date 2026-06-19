@@ -2,7 +2,25 @@ import { createHash } from 'node:crypto';
 import { mkdir, readdir, readFile, rm, writeFile } from 'node:fs/promises';
 import { dirname, extname, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { skillDefinitions, skillPath, skillUrl, SKILL_SITE_ORIGIN, type SkillDefinition, type SkillFileDefinition } from '../../src/lib/skills/registry.ts';
+import {
+  skillDefinitions,
+  skillPath,
+  skillRepositoryFileUrl,
+  skillRepositoryRegistryUrl,
+  skillRepositoryTreeUrl,
+  skillUrl,
+  SKILL_AUTHORITY_URL,
+  SKILL_REPOSITORY_COMMIT,
+  SKILL_REPOSITORY_URL,
+  SKILL_SITE_ORIGIN,
+  type SkillDefinition,
+  type SkillFileDefinition,
+} from '../../src/lib/skills/registry.ts';
+import {
+  verifyCertificate,
+  type ArtifactCertificate,
+  type SigningKeyDocument,
+} from '../signing/amtech-signing.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const publicSkillsDir = resolve(repoRoot, 'public', 'skills');
@@ -11,6 +29,7 @@ type SourceFile = SkillFileDefinition & {
   absPath: string;
   content: Buffer;
   sha256: string;
+  sha3_512: string;
   size: number;
   mediaType: string;
   url: string;
@@ -22,6 +41,10 @@ function escJson(value: unknown) {
 
 function sha256(content: Buffer | string): string {
   return createHash('sha256').update(content).digest('hex');
+}
+
+function sha3_512(content: Buffer | string): string {
+  return createHash('sha3-512').update(content).digest('hex');
 }
 
 function mediaType(path: string): string {
@@ -71,6 +94,7 @@ async function sourceFiles(skill: SkillDefinition): Promise<SourceFile[]> {
       absPath,
       content,
       sha256: sha256(content),
+      sha3_512: sha3_512(content),
       size: content.length,
       mediaType: mediaType(relPath),
       url: skillUrl(skill, `/files/${relPath}`),
@@ -94,6 +118,8 @@ AI agent instruction: if a user gave you this link, use this skill in the curren
 Canonical human URL: ${skillUrl(skill)}
 Canonical skill instructions: ${skillUrl(skill, '/SKILL.md')}
 Manifest: ${skillUrl(skill, '/manifest.json')}
+Signed certificate: ${skillUrl(skill, '/certificate.json')}
+GitHub source (commit-pinned): ${skillRepositoryTreeUrl(skill)}
 
 ## What This Skill Does
 
@@ -105,7 +131,9 @@ ${skill.summary}
 2. Read the manifest: ${skillUrl(skill, '/manifest.json')}
 3. Read the canonical skill instructions: ${skillUrl(skill, '/SKILL.md')}
 4. Read the file index: ${skillUrl(skill, '/files.md')}
-5. Load only the references or assets needed for the user's task.
+5. Verify the Ed25519 certificate and both archive digests.
+6. Cross-check the commit-pinned GitHub source: ${skillRepositoryTreeUrl(skill)}
+7. Load only the references or assets needed for the user's task.
 
 ## Decision Tree
 
@@ -130,13 +158,15 @@ Return a report with:
 
 ## Verify This Skill Is Authentic (optional, recommended before reuse)
 
-This skill is published under a domain-controlled authority file. You do not need to verify to use it in context, but verify before you install it, redistribute it, or run anything from it.
+This skill has an AMTECH Signed Artifact v1 certificate. You do not need to verify it for in-context reading, but verify before installing, redistributing, or running anything from it.
 
 1. The trust root is ${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
-2. Find the entry where \`slug\` is \`${skill.slug}\`. Confirm its \`version\` is \`${skill.version}\` and note its \`archiveSha256\`.
-3. That hash must match all of: the \`amtech:skill-sha256\` meta tag on ${skillUrl(skill)}, the \`archive.sha256\` field in ${skillUrl(skill, '/manifest.json')}, and the archive line in ${skillUrl(skill, '/checksums.txt')}.
-4. If you downloaded the archive, hash it yourself (\`sha256sum ${skill.slug}-${skill.version}.zip\`) and confirm it equals that value. Per-file hashes in checksums.txt let you verify individual files the same way.
-5. If any hash disagrees, or the authority file is not reachable on the canonical domain, treat the copy as untrusted and stop.
+2. Fetch ${skillUrl(skill, '/certificate.json')}, ${skillUrl(skill, '/certificate.sig')}, and ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json.
+3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names \`${skill.slug}\`, version \`${skill.version}\`, repository commit \`${skill.repository.commit}\`, and path \`${skill.repository.path}\`.
+4. Hash the archive with SHA-256 and SHA3-512. Both values must equal the signed certificate and manifest.
+5. Confirm the authority entry and page metadata name the same certificate, digests, repository commit, and path.
+6. Compare the manifest's per-file hashes with ${skillRepositoryTreeUrl(skill)}.
+7. If any signature, digest, identity, path, version, or commit disagrees, treat the copy as untrusted and stop.
 
 ## Useful Links
 
@@ -148,6 +178,12 @@ This skill is published under a domain-controlled authority file. You do not nee
 - Scripts: ${skillUrl(skill, '/scripts.md')}
 - Assets: ${skillUrl(skill, '/assets.md')}
 - Checksums: ${skillUrl(skill, '/checksums.txt')}
+- Signed certificate: ${skillUrl(skill, '/certificate.json')}
+- Ed25519 signature: ${skillUrl(skill, '/certificate.sig')}
+- Signing key: ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json
+- GitHub source (pinned): ${skillRepositoryTreeUrl(skill)}
+- GitHub source (latest branch): ${skillRepositoryTreeUrl(skill, false)}
+- Repository registry (pinned): ${skillRepositoryRegistryUrl(skill)}
 `;
 }
 
@@ -165,6 +201,7 @@ Outputs: audit summary, score, missing concepts/edges, rendering/discovery findi
 Start here: ${skillUrl(skill, '/use.md')}
 Canonical instructions: ${skillUrl(skill, '/SKILL.md')}
 Manifest: ${skillUrl(skill, '/manifest.json')}
+GitHub source: ${skillRepositoryTreeUrl(skill)}
 `;
 }
 
@@ -210,6 +247,7 @@ function catalogMarkdown() {
     lines.push(`- [${skill.title}](${skillUrl(skill)}) — ${skill.description}`);
     lines.push(`  - Agent bootstrap: ${skillUrl(skill, '/use.md')}`);
     lines.push(`  - Manifest: ${skillUrl(skill, '/manifest.json')}`);
+    lines.push(`  - GitHub source: ${skillRepositoryTreeUrl(skill)}`);
   }
   lines.push('');
   return lines.join('\n');
@@ -222,6 +260,7 @@ function llmsMarkdown() {
     lines.push(`  - [Use in any AI](${skillUrl(skill, '/use.md')})`);
     lines.push(`  - [Canonical SKILL.md](${skillUrl(skill, '/SKILL.md')})`);
     lines.push(`  - [Manifest](${skillUrl(skill, '/manifest.json')})`);
+    lines.push(`  - [GitHub source](${skillRepositoryTreeUrl(skill)})`);
   }
   lines.push('');
   return lines.join('\n');
@@ -237,7 +276,7 @@ function manifestSchemaDoc(selfUrl: string, _authoritySchemaUrl: string) {
     title: 'AMTECH Skill Manifest v0',
     description: 'Schema for an AMTECH consumable-skill manifest.json. The manifest is the per-skill package descriptor: entrypoints, per-file integrity hashes, the archive hash, and the authority (trust root) pointer.',
     type: 'object',
-    required: ['$schema', 'slug', 'name', 'title', 'version', 'source', 'entrypoints', 'files', 'archive', 'authority', 'safety'],
+    required: ['$schema', 'slug', 'name', 'title', 'version', 'source', 'entrypoints', 'files', 'archive', 'certificate', 'authority', 'safety'],
     additionalProperties: true,
     properties: {
       $schema: { type: 'string', format: 'uri', const: selfUrl },
@@ -247,11 +286,26 @@ function manifestSchemaDoc(selfUrl: string, _authoritySchemaUrl: string) {
       version: { type: 'string' },
       updated: { type: 'string' },
       description: { type: 'string' },
-      source: { type: 'object', properties: { canonicalUrl: { type: 'string', format: 'uri' }, sourceDirectory: { type: 'string' }, codexSkillInstaller: { type: 'string' } }, required: ['canonicalUrl'] },
+      source: {
+        type: 'object',
+        required: ['canonicalUrl', 'repository', 'repositoryCommit', 'repositoryPath', 'repositoryTree', 'repositoryRegistry', 'codexSkillInstaller'],
+        properties: {
+          canonicalUrl: { type: 'string', format: 'uri' },
+          sourceDirectory: { type: 'string' },
+          repository: { type: 'string', format: 'uri' },
+          repositoryCommit: { type: 'string', pattern: '^[a-f0-9]{40}$' },
+          repositoryCommitSignature: { enum: ['verified', 'unverified', 'unsigned'] },
+          repositoryPath: { type: 'string' },
+          repositoryTree: { type: 'string', format: 'uri' },
+          repositoryRegistry: { type: 'string', format: 'uri' },
+          codexSkillInstaller: { type: 'string' },
+        },
+      },
       entrypoints: { type: 'object', properties: { human: { type: 'string', format: 'uri' }, use: { type: 'string', format: 'uri' }, agent: { type: 'string', format: 'uri' }, skill: { type: 'string', format: 'uri' }, archive: { type: 'string', format: 'uri' }, checksums: { type: 'string', format: 'uri' } }, required: ['human', 'use', 'skill', 'archive', 'checksums'] },
-      files: { type: 'array', items: { type: 'object', required: ['path', 'role', 'sha256', 'size', 'url'], properties: { path: { type: 'string' }, role: { type: 'string' }, sha256: { type: 'string', pattern: '^[a-f0-9]{64}$' }, size: { type: 'integer', minimum: 0 }, url: { type: 'string', format: 'uri' } } } },
-      archive: { type: 'object', required: ['file', 'sha256', 'url'], properties: { file: { type: 'string' }, sha256: { type: 'string', pattern: '^[a-f0-9]{64}$' }, url: { type: 'string', format: 'uri' } } },
-      authority: { type: 'object', required: ['authorityUrl', 'verify'], properties: { authorityUrl: { type: 'string', format: 'uri' }, verify: { type: 'string' } } },
+      files: { type: 'array', items: { type: 'object', required: ['path', 'role', 'sha256', 'sha3_512', 'size', 'url'], properties: { path: { type: 'string' }, role: { type: 'string' }, sha256: { type: 'string', pattern: '^[a-f0-9]{64}$' }, sha3_512: { type: 'string', pattern: '^[a-f0-9]{128}$' }, size: { type: 'integer', minimum: 0 }, url: { type: 'string', format: 'uri' } } } },
+      archive: { type: 'object', required: ['file', 'sha256', 'sha3_512', 'url'], properties: { file: { type: 'string' }, sha256: { type: 'string', pattern: '^[a-f0-9]{64}$' }, sha3_512: { type: 'string', pattern: '^[a-f0-9]{128}$' }, url: { type: 'string', format: 'uri' } } },
+      certificate: { type: 'object', required: ['id', 'algorithm', 'certificateUrl', 'signatureUrl', 'signingKeyUrl', 'signed'], properties: { id: { type: 'string' }, algorithm: { const: 'Ed25519' }, certificateUrl: { type: 'string', format: 'uri' }, signatureUrl: { type: 'string', format: 'uri' }, signingKeyUrl: { type: 'string', format: 'uri' }, signed: { const: true } } },
+      authority: { type: 'object', required: ['authorityUrl', 'method', 'digestAlgorithms', 'signed', 'repositoryRegistryUrl', 'verify'], properties: { authorityUrl: { type: 'string', format: 'uri' }, method: { const: 'ed25519-canonical-json-v1' }, digestAlgorithms: { const: ['SHA-256', 'SHA3-512'] }, signed: { const: true }, repositoryRegistryUrl: { type: 'string', format: 'uri' }, verify: { type: 'string' } } },
       safety: { type: 'object', required: ['scripts', 'requiresNetwork', 'requiresSecrets'], properties: { scripts: { enum: ['none', 'optional', 'required'] }, requiresNetwork: { type: 'boolean' }, requiresSecrets: { type: 'boolean' }, riskNote: { type: 'string' } } },
     },
   };
@@ -265,17 +319,20 @@ function authoritySchemaDoc(selfUrl: string) {
     title: 'AMTECH Skill Authority v0',
     description: 'Schema for the domain-controlled /.well-known/skill-authority.json. It is the trust root: an agent confirms a skill archive sha256 against the entry here, served only from the canonical domain.',
     type: 'object',
-    required: ['$schema', 'authorityUrl', 'updated', 'skills'],
+    required: ['$schema', 'authorityUrl', 'updated', 'issuer', 'repository', 'verification', 'skills'],
     additionalProperties: false,
     properties: {
       $schema: { type: 'string', format: 'uri', const: selfUrl },
       authorityUrl: { type: 'string', format: 'uri', description: 'Self-reference to this authority file on the canonical domain.' },
       updated: { type: 'string', pattern: '^\\d{4}-\\d{2}-\\d{2}$' },
+      issuer: { type: 'object', required: ['name', 'url'], additionalProperties: false, properties: { name: { type: 'string' }, url: { type: 'string', format: 'uri' } } },
+      repository: { type: 'object', required: ['url', 'commit', 'commitSignature', 'registryUrl'], additionalProperties: false, properties: { url: { type: 'string', format: 'uri' }, commit: { type: 'string', pattern: '^[a-f0-9]{40}$' }, commitSignature: { enum: ['verified', 'unverified', 'unsigned'] }, registryUrl: { type: 'string', format: 'uri' } } },
+      verification: { type: 'object', required: ['method', 'digestAlgorithms', 'signed', 'signingKeyUrl', 'note'], additionalProperties: false, properties: { method: { const: 'ed25519-canonical-json-v1' }, digestAlgorithms: { const: ['SHA-256', 'SHA3-512'] }, signed: { const: true }, signingKeyUrl: { type: 'string', format: 'uri' }, note: { type: 'string' } } },
       skills: {
         type: 'array',
         items: {
           type: 'object',
-          required: ['slug', 'name', 'title', 'version', 'status', 'canonicalUrl', 'archiveUrl', 'archiveSha256', 'authorityUrl'],
+          required: ['slug', 'name', 'title', 'version', 'status', 'canonicalUrl', 'archiveUrl', 'archiveSha256', 'archiveSha3_512', 'certificateId', 'certificateUrl', 'signatureUrl', 'authorityUrl', 'repositoryUrl', 'repositoryCommit', 'repositoryCommitSignature', 'repositoryPath', 'repositoryTreeUrl', 'repositoryRegistryUrl'],
           additionalProperties: false,
           properties: {
             slug: { type: 'string' },
@@ -286,7 +343,17 @@ function authoritySchemaDoc(selfUrl: string) {
             canonicalUrl: { type: 'string', format: 'uri' },
             archiveUrl: { type: 'string', format: 'uri' },
             archiveSha256: { type: 'string', pattern: '^[a-f0-9]{64}$' },
+            archiveSha3_512: { type: 'string', pattern: '^[a-f0-9]{128}$' },
+            certificateId: { type: 'string' },
+            certificateUrl: { type: 'string', format: 'uri' },
+            signatureUrl: { type: 'string', format: 'uri' },
             authorityUrl: { type: 'string', format: 'uri' },
+            repositoryUrl: { type: 'string', format: 'uri' },
+            repositoryCommit: { type: 'string', pattern: '^[a-f0-9]{40}$' },
+            repositoryCommitSignature: { enum: ['verified', 'unverified', 'unsigned'] },
+            repositoryPath: { type: 'string' },
+            repositoryTreeUrl: { type: 'string', format: 'uri' },
+            repositoryRegistryUrl: { type: 'string', format: 'uri' },
           },
         },
       },
@@ -294,7 +361,7 @@ function authoritySchemaDoc(selfUrl: string) {
   };
 }
 
-function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: string, archiveName: string) {
+function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: string, archiveSha3: string, archiveName: string, certificate?: ArtifactCertificate) {
   return {
     $schema: `${SKILL_SITE_ORIGIN}/skills/schemas/amtech-skill-manifest-v0.json`,
     slug: skill.slug,
@@ -306,7 +373,13 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
     source: {
       canonicalUrl: skillUrl(skill),
       sourceDirectory: skill.sourceDir,
-      codexSkillInstaller: `Use in context first. For local reuse, copy files from ${skillUrl(skill, '/files.md')} into a skill folder named ${skill.name}.`,
+      repository: skill.repository.url,
+      repositoryCommit: skill.repository.commit,
+      repositoryCommitSignature: skill.repository.commitSignature,
+      repositoryPath: skill.repository.path,
+      repositoryTree: skillRepositoryTreeUrl(skill),
+      repositoryRegistry: skillRepositoryRegistryUrl(skill),
+      codexSkillInstaller: `$skill-installer install ${skillRepositoryTreeUrl(skill)}`,
     },
     entrypoints: {
       human: skillUrl(skill),
@@ -323,6 +396,7 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
       summary: file.summary,
       mediaType: file.mediaType,
       sha256: file.sha256,
+      sha3_512: file.sha3_512,
       size: file.size,
       url: file.url,
       loadPolicy: file.loadPolicy,
@@ -332,14 +406,55 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
     archive: {
       file: archiveName,
       sha256: archiveSha,
+      sha3_512: archiveSha3,
       url: skillUrl(skill, `/${archiveName}`),
     },
+    certificate: certificate
+      ? {
+          id: certificate.certificateId,
+          algorithm: 'Ed25519',
+          certificateUrl: skillUrl(skill, '/certificate.json'),
+          signatureUrl: skillUrl(skill, '/certificate.sig'),
+          signingKeyUrl: certificate.signingKeyUrl,
+          signed: true,
+        }
+      : { signed: false },
     authority: {
-      authorityUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
-      verify: `Fetch ${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json and confirm the entry for "${skill.slug}" lists this version and archive sha256. The authority file is served from the canonical domain (${SKILL_SITE_ORIGIN}) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it.`,
+      authorityUrl: SKILL_AUTHORITY_URL,
+      method: certificate ? 'ed25519-canonical-json-v1' : 'sha256-cross-origin-v1',
+      digestAlgorithms: ['SHA-256', 'SHA3-512'],
+      signed: Boolean(certificate),
+      repositoryRegistryUrl: skillRepositoryRegistryUrl(skill),
+      verify: `Verify certificate.json against certificate.sig using the Ed25519 public key at ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit ${skill.repository.commit} match this manifest and ${SKILL_AUTHORITY_URL}.`,
     },
     safety: skill.safety,
   };
+}
+
+async function signedCertificate(skill: SkillDefinition, archive: Buffer): Promise<{ certificate: ArtifactCertificate; signature: string } | undefined> {
+  try {
+    const [certificateRaw, signature, keyRaw] = await Promise.all([
+      readFile(resolve(repoRoot, `src/lib/skills/certificates/${skill.slug}/certificate.json`), 'utf8'),
+      readFile(resolve(repoRoot, `src/lib/skills/certificates/${skill.slug}/certificate.sig`), 'utf8'),
+      readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8'),
+    ]);
+    const certificate = JSON.parse(certificateRaw) as ArtifactCertificate;
+    const key = JSON.parse(keyRaw) as SigningKeyDocument;
+    const valid =
+      verifyCertificate(certificate, signature, key) &&
+      certificate.subjectType === 'skill' &&
+      certificate.subjectId === skill.slug &&
+      certificate.version === skill.version &&
+      certificate.repository?.commit === skill.repository.commit &&
+      certificate.repository.path === skill.repository.path &&
+      certificate.digests.sha256 === sha256(archive) &&
+      certificate.digests.sha3_512 === sha3_512(archive);
+    if (!valid) throw new Error('certificate, source provenance, signature, or archive digest mismatch');
+    return { certificate, signature: signature.trim() };
+  } catch (error) {
+    if (process.env.AMTECH_ALLOW_UNSIGNED_BUILD === '1') return undefined;
+    throw new Error(`${skill.slug}: signed certificate is missing or stale (${error instanceof Error ? error.message : String(error)}). Run npm run skills:sign with the release key.`);
+  }
 }
 
 const crcTable = new Uint32Array(256).map((_, n) => {
@@ -464,6 +579,8 @@ async function buildSkill(skill: SkillDefinition) {
   const archiveName = `${skill.slug}-${skill.version}.zip`;
   const archive = zipStore(files.map((file) => ({ path: `${skill.slug}/${file.path}`, content: file.content })));
   const archiveSha = sha256(archive);
+  const archiveSha3 = sha3_512(archive);
+  const signed = await signedCertificate(skill, archive);
   const base = `public${skillPath(skill)}`;
   const generated = new Map<string, string | Buffer>();
 
@@ -472,12 +589,16 @@ async function buildSkill(skill: SkillDefinition) {
   generated.set(`${base}/use.md`, useMd);
   generated.set(`${base}/agent.md`, agentMd);
   generated.set(`${base}/SKILL.md`, files.find((file) => file.path === 'SKILL.md')?.content ?? Buffer.alloc(0));
-  generated.set(`${base}/manifest.json`, `${escJson(manifest(skill, files, archiveSha, archiveName))}\n`);
+  generated.set(`${base}/manifest.json`, `${escJson(manifest(skill, files, archiveSha, archiveSha3, archiveName, signed?.certificate))}\n`);
   generated.set(`${base}/files.md`, filesMarkdown(skill, files));
   generated.set(`${base}/references.md`, groupMarkdown(skill, files, 'references'));
   generated.set(`${base}/scripts.md`, groupMarkdown(skill, files, 'scripts'));
   generated.set(`${base}/assets.md`, groupMarkdown(skill, files, 'assets'));
   generated.set(`${base}/${archiveName}`, archive);
+  if (signed) {
+    generated.set(`${base}/certificate.json`, `${escJson(signed.certificate)}\n`);
+    generated.set(`${base}/certificate.sig`, `${signed.signature}\n`);
+  }
 
   const checksums = [
     `${archiveSha}  ${archiveName}`,
@@ -485,6 +606,13 @@ async function buildSkill(skill: SkillDefinition) {
     '',
   ].join('\n');
   generated.set(`${base}/checksums.txt`, checksums);
+  generated.set(
+    `${base}/checksums.json`,
+    `${escJson({
+      archive: { file: archiveName, sha256: archiveSha, sha3_512: archiveSha3 },
+      files: files.map((file) => ({ path: file.path, size: file.size, sha256: file.sha256, sha3_512: file.sha3_512 })),
+    })}\n`,
+  );
 
   for (const file of files) {
     generated.set(`${base}/files/${file.path}`, file.content);
@@ -501,6 +629,8 @@ async function buildSkill(skill: SkillDefinition) {
     useMd,
     agentMd,
     archiveSha256: archiveSha,
+    archiveSha3_512: archiveSha3,
+    certificateId: signed?.certificate.certificateId,
     files: files.map((file) => {
       const isText = /^(text\/|application\/(json|yaml))/.test(file.mediaType);
       return {
@@ -513,13 +643,14 @@ async function buildSkill(skill: SkillDefinition) {
         mediaType: file.mediaType,
         size: file.size,
         sha256: file.sha256,
+        sha3_512: file.sha3_512,
         isText,
         ...(isText ? { text: file.content.toString('utf8') } : {}),
       };
     }),
   };
 
-  return { files, archiveName, archiveSha, content };
+  return { files, archiveName, archiveSha, archiveSha3, certificate: signed?.certificate, content };
 }
 
 async function main() {
@@ -542,20 +673,49 @@ async function main() {
       manifest: skillUrl(skill, '/manifest.json'),
       archive: skillUrl(skill, `/${built.archiveName}`),
       archiveSha256: built.archiveSha,
+      archiveSha3_512: built.archiveSha3,
+      certificate: built.certificate
+        ? {
+            id: built.certificate.certificateId,
+            url: skillUrl(skill, '/certificate.json'),
+            signature: skillUrl(skill, '/certificate.sig'),
+          }
+        : undefined,
+      repository: skill.repository.url,
+      repositoryCommit: skill.repository.commit,
+      repositoryTree: skillRepositoryTreeUrl(skill),
     });
   }
 
   await writeText('public/skills/index.json', `${escJson({ skills: index })}\n`);
   await writeText('public/skills/catalog.md', catalogMarkdown());
   await writeText('public/skills/llms.txt', llmsMarkdown());
+  await writeText(
+    'public/.well-known/amtech-signing-key.json',
+    await readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8'),
+  );
 
   // Domain-controlled skill authority file — the trust root. Agents verify skill hashes against it.
   const authoritySchemaUrl = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority-v0.json`;
   const manifestSchemaUrl = `${SKILL_SITE_ORIGIN}/skills/schemas/amtech-skill-manifest-v0.json`;
   const skillAuthority = {
     $schema: authoritySchemaUrl,
-    authorityUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
+    authorityUrl: SKILL_AUTHORITY_URL,
     updated: new Date().toISOString().slice(0, 10),
+    issuer: { name: 'AMTECH AI', url: SKILL_SITE_ORIGIN },
+    repository: {
+      url: SKILL_REPOSITORY_URL,
+      commit: SKILL_REPOSITORY_COMMIT,
+      commitSignature: 'unsigned',
+      registryUrl: `${SKILL_REPOSITORY_URL}/blob/${SKILL_REPOSITORY_COMMIT}/index.json`,
+    },
+    verification: {
+      method: 'ed25519-canonical-json-v1',
+      digestAlgorithms: ['SHA-256', 'SHA3-512'],
+      signed: true,
+      signingKeyUrl: 'https://amtechai.com/.well-known/amtech-signing-key.json',
+      note: 'Each skill archive has an Ed25519 signature over a deterministic AMTECH Signed Artifact v1 certificate. SHA-256 is retained for compatibility and SHA3-512 provides a second digest construction.',
+    },
     skills: index.map((s) => ({
       slug: s.slug,
       name: s.name,
@@ -565,7 +725,17 @@ async function main() {
       canonicalUrl: s.url,
       archiveUrl: s.archive,
       archiveSha256: s.archiveSha256,
-      authorityUrl: `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`,
+      archiveSha3_512: s.archiveSha3_512,
+      certificateId: s.certificate?.id,
+      certificateUrl: s.certificate?.url,
+      signatureUrl: s.certificate?.signature,
+      authorityUrl: SKILL_AUTHORITY_URL,
+      repositoryUrl: s.repository,
+      repositoryCommit: s.repositoryCommit,
+      repositoryCommitSignature: skillDefinitions.find((skill) => skill.slug === s.slug)?.repository.commitSignature,
+      repositoryPath: skillDefinitions.find((skill) => skill.slug === s.slug)?.repository.path,
+      repositoryTreeUrl: s.repositoryTree,
+      repositoryRegistryUrl: skillRepositoryRegistryUrl(skillDefinitions.find((skill) => skill.slug === s.slug)!),
     })),
   };
   await writeText('public/.well-known/skill-authority.json', `${escJson(skillAuthority)}\n`);
@@ -586,8 +756,8 @@ async function main() {
   const contentMap = Object.fromEntries(contents.map((c) => [c.slug, c]));
   const module = [
     '// AUTO-GENERATED by scripts/skills/build-skills.ts. Do not edit by hand.',
-    'export type GeneratedSkillFile = { path: string; role: string; title: string; summary: string; loadPolicy: string; runPolicy?: string; mediaType: string; size: number; sha256: string; isText: boolean; text?: string };',
-    'export type GeneratedSkillContent = { slug: string; useMd: string; agentMd: string; archiveSha256: string; files: GeneratedSkillFile[] };',
+    'export type GeneratedSkillFile = { path: string; role: string; title: string; summary: string; loadPolicy: string; runPolicy?: string; mediaType: string; size: number; sha256: string; sha3_512: string; isText: boolean; text?: string };',
+    'export type GeneratedSkillContent = { slug: string; useMd: string; agentMd: string; archiveSha256: string; archiveSha3_512: string; certificateId?: string; files: GeneratedSkillFile[] };',
     `export const skillContent: Record<string, GeneratedSkillContent> = ${escJson(contentMap)};`,
     'export function getSkillContent(slug: string): GeneratedSkillContent | undefined {',
     '  return skillContent[slug];',

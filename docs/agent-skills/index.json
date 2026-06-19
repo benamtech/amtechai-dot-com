@@ -3,10 +3,18 @@
   "description": "Free, source-visible agent skills from AMTECH. The git repository is the install source; https://amtechai.com/skills/ is the materialized-view layer (human pages, manifests, hashes, archives) generated from these folders.",
   "license": "MIT",
   "site": "https://amtechai.com/skills",
+  "repository": "https://github.com/benamtech/amtech-skills-registry",
   "authority": "https://amtechai.com/.well-known/skill-authority.json",
+  "verification": {
+    "method": "ed25519-canonical-json-v1",
+    "digestAlgorithms": ["SHA-256", "SHA3-512"],
+    "signed": true,
+    "signingKey": "https://amtechai.com/.well-known/amtech-signing-key.json"
+  },
   "categories": {
     "agent-tool": "Standalone tools any agent can run in-context from a single URL. Published and hashed at amtechai.com/skills.",
-    "ai-employee": "Operational skills that ship inside a deployed AMTECH AI Employee. These are templates: {{PLACEHOLDERS}} are filled at provisioning, and they assume a working directory with ./brain/ and ./output/."
+    "ai-employee": "Operational skills that ship inside a deployed AMTECH AI Employee. These are templates: {{PLACEHOLDERS}} are filled at provisioning, and they assume a working directory with ./brain/ and ./output/.",
+    "amtech-workflow": "AMTECH content workflow skills shared for inspection and adaptation. These depend on files and conventions in the main AMTECH website repository."
   },
   "skills": [
     {
@@ -17,6 +25,10 @@
       "path": "skills/okf-audit",
       "description": "Audit an article, website, draft, sitemap, llms.txt, markdown bundle, or OKF bundle for AI-readable knowledge quality, entity coverage, citations, and materialized views. Returns a score, findings, and a remediation prompt.",
       "canonicalUrl": "https://amtechai.com/skills/okf-audit",
+      "manifestUrl": "https://amtechai.com/skills/okf-audit/manifest.json",
+      "certificateId": "amtech:skill:okf-audit:24114f952a0df4db10772b2f",
+      "certificateUrl": "https://amtechai.com/skills/okf-audit/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/okf-audit/certificate.sig",
       "scripts": "none"
     },
     {
@@ -27,6 +39,10 @@
       "path": "skills/knowledge-graph-builder",
       "description": "Generate a large knowledge graph for SEO and AI-readable content from a business, site, product, or topic: typed entity nodes, relationship edges with reasons, the pillar pages worth publishing, an internal-linking plan, and JSON-LD scaffolding.",
       "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
+      "manifestUrl": "https://amtechai.com/skills/knowledge-graph-builder/manifest.json",
+      "certificateId": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+      "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
       "scripts": "none"
     },
     {
@@ -57,6 +73,28 @@
       "path": "skills/invoice",
       "description": "Create, draft, and send an invoice for completed work: pull the job detail, build the invoice, and produce a file ready to send.",
       "template": true,
+      "scripts": "none"
+    },
+    {
+      "slug": "amtech-article-research-writer",
+      "title": "AMTECH Article Research Writer",
+      "category": "amtech-workflow",
+      "version": "1.0.0",
+      "path": "skills/amtech-article-research-writer",
+      "description": "Research, plan, and draft information-gain, knowledge-graph-aware AMTECH articles from topics, notes, local documents, and external sources.",
+      "portability": "amtech-oriented",
+      "requiresRepositoryContext": true,
+      "scripts": "none"
+    },
+    {
+      "slug": "amtech-article-publisher",
+      "title": "AMTECH Article Publisher",
+      "category": "amtech-workflow",
+      "version": "1.0.0",
+      "path": "skills/amtech-article-publisher",
+      "description": "Publish supplied article copy into AMTECH's React article system, knowledge graph, OKF outputs, routes, and optional Supabase projection.",
+      "portability": "internal-first",
+      "requiresRepositoryContext": true,
       "scripts": "none"
     }
   ]

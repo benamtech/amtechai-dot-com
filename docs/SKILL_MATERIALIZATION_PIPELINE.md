@@ -56,7 +56,7 @@ For a skill slug such as `okf-audit`, v1 emits these views:
 | --- | --- | --- | --- |
 | Human page | `/skills/okf-audit` | Humans, search | Explains value, examples, trust notes, install choices. |
 | Agent landing markdown | `/skills/okf-audit/agent.md` | Generic agents | Short instructions: what this is, what to fetch next, how to inspect safely. |
-| Install prompt | `/skills/okf-audit/install.md` | User copy/paste | Prompt that tells an agent to inspect manifest/files before install. |
+| Universal bootstrap | `/skills/okf-audit/use.md` | Agents and user copy/paste | Prompt that tells an agent to inspect manifest/files/source before use or install. |
 | Raw skill | `/skills/okf-audit/SKILL.md` | Agents, Codex, crawlers | Exact primary skill instructions. |
 | Folder manifest | `/skills/okf-audit/manifest.json` | Agents/tools | Complete file graph, hashes, roles, source URLs, compatibility. |
 | File index | `/skills/okf-audit/files.md` | Agents/search | Markdown table of every bundled file and when to read/use it. |
@@ -87,26 +87,27 @@ The manifest is the key agent-readable bridge. It tells a model what exists befo
 
 ```json
 {
-  "schema": "https://skills.amtechai.com/schemas/amtech-skill-manifest-v0.json",
+  "$schema": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
   "slug": "okf-audit",
   "name": "okf-audit",
   "title": "OKF Audit",
   "version": "0.1.0",
   "updated": "2026-06-19",
   "source": {
-    "repo": "https://github.com/amtechai/agent-skills",
-    "tree": "https://github.com/amtechai/agent-skills/tree/v0.1.0/skills/okf-audit",
-    "commit": "CHANGE_ME",
-    "codexSkillInstaller": "$skill-installer install https://github.com/amtechai/agent-skills/tree/v0.1.0/skills/okf-audit",
-    "codexPluginMarketplace": "codex plugin marketplace add amtechai/agent-skills --ref v0.1.0 --sparse .agents/plugins"
+    "canonicalUrl": "https://amtechai.com/skills/okf-audit",
+    "repository": "https://github.com/benamtech/amtech-skills-registry",
+    "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "repositoryCommitSignature": "unsigned",
+    "repositoryPath": "skills/okf-audit",
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json"
   },
   "entrypoints": {
-    "human": "https://skills.amtechai.com/okf-audit",
-    "agent": "https://skills.amtechai.com/okf-audit/agent.md",
-    "skill": "https://skills.amtechai.com/okf-audit/SKILL.md",
-    "installPrompt": "https://skills.amtechai.com/okf-audit/install.md",
-    "archive": "https://skills.amtechai.com/okf-audit/okf-audit-0.1.0.zip",
-    "hostedTool": "https://skills.amtechai.com/okf-audit/audit"
+    "human": "https://amtechai.com/skills/okf-audit",
+    "use": "https://amtechai.com/skills/okf-audit/use.md",
+    "agent": "https://amtechai.com/skills/okf-audit/agent.md",
+    "skill": "https://amtechai.com/skills/okf-audit/SKILL.md",
+    "archive": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip"
   },
   "files": [
     {
@@ -114,7 +115,7 @@ The manifest is the key agent-readable bridge. It tells a model what exists befo
       "role": "primary-instructions",
       "mediaType": "text/markdown",
       "sha256": "CHANGE_ME",
-      "url": "https://skills.amtechai.com/okf-audit/files/SKILL.md",
+      "url": "https://amtechai.com/skills/okf-audit/files/SKILL.md",
       "loadPolicy": "always-read-before-use"
     },
     {
@@ -122,7 +123,7 @@ The manifest is the key agent-readable bridge. It tells a model what exists befo
       "role": "reference",
       "mediaType": "text/markdown",
       "sha256": "CHANGE_ME",
-      "url": "https://skills.amtechai.com/okf-audit/files/references/audit-rubric.md",
+      "url": "https://amtechai.com/skills/okf-audit/files/references/audit-rubric.md",
       "loadPolicy": "read-when-auditing"
     },
     {
@@ -130,7 +131,7 @@ The manifest is the key agent-readable bridge. It tells a model what exists befo
       "role": "script",
       "language": "javascript",
       "sha256": "CHANGE_ME",
-      "url": "https://skills.amtechai.com/okf-audit/files/scripts/score-okf.mjs",
+      "url": "https://amtechai.com/skills/okf-audit/files/scripts/score-okf.mjs",
       "loadPolicy": "inspect-before-run",
       "permissions": ["filesystem-read", "network-optional"],
       "runPolicy": "ask-user-before-execution"
@@ -151,7 +152,7 @@ The system should deliberately publish multiple text surfaces because different 
 
 Practical rules:
 
-- Put the exact skill name, URL, and task phrase in the `<title>`, H1, meta description, first paragraph, `agent.md`, `install.md`, and catalog entries.
+- Put the exact skill name, URL, task phrase, GitHub source, and authority URL in the `<title>`, H1, meta description, first paragraph, `agent.md`, `use.md`, and catalog entries.
 - Expose raw markdown paths. Many agents and search systems handle markdown better than JS-rendered pages.
 - Keep `agent.md` short enough to fit inside search snippets and first-fetch context.
 - Put the file graph in `manifest.json` and `files.md`, not only in page copy.
@@ -173,11 +174,11 @@ Add a build script later, likely `scripts/skills/build-skills.ts`, with these st
 3. Walk all files and classify them by path and media type.
 4. Hash every file and generate archive checksum.
 5. Copy raw files into `public/skills/<slug>/files/**`.
-6. Emit `SKILL.md`, `agent.md`, `install.md`, `files.md`, `scripts.md`, `references.md`, `assets.md`, `manifest.json`, `checksums.txt`, and the zip archive.
+6. Emit `SKILL.md`, `agent.md`, `use.md`, `files.md`, `scripts.md`, `references.md`, `assets.md`, `manifest.json`, `checksums.txt`, and the zip archive.
 7. Emit `public/skills/index.json`, `public/skills/catalog.md`, and `public/skills/llms.txt`.
 8. Add skill URLs to the main sitemap and root `llms.txt`.
 9. Optionally emit OKF concept pages under `public/okf/skills/**`.
-10. Validate that every manifest URL resolves locally and every file hash matches.
+10. Validate that every manifest URL resolves locally, every file hash matches, and repository/authority URLs are commit-pinned.
 
 ## Netlify Role
 
@@ -228,7 +229,8 @@ Before publishing a skill:
 - Every emitted URL exists in local build output.
 - Every checksum matches.
 - `scripts.md` lists every executable file and its run policy.
-- `install.md` tells agents to inspect before installing/running.
+- `use.md` tells agents to inspect before installing/running and links the commit-pinned GitHub source.
+- The authority entry and manifest agree on repository commit, path, archive SHA-256, and verification method.
 - The archive expands to exactly one skill folder with `SKILL.md`.
 - The plugin marketplace entry points to a real plugin folder.
 - Root `llms.txt`, `skills/llms.txt`, and sitemap include the intended public views.

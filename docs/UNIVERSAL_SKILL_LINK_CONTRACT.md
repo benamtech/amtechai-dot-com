@@ -25,7 +25,7 @@ Every human skill page must include, in static/prerendered HTML:
 - A direct link to `use.md`.
 - The use-in-context default.
 - A short decision tree for web-only, file-capable, and native-install-capable agents.
-- Links to `SKILL.md`, `manifest.json`, `files.md`, archive, and checksums.
+- Links to `SKILL.md`, `manifest.json`, `files.md`, archive, checksums, the commit-pinned GitHub source, and the domain authority file.
 - A copyable prompt a user can paste into another AI.
 
 Every skill must also emit:
@@ -33,7 +33,7 @@ Every skill must also emit:
 - `use.md`: universal bootstrap; read this first.
 - `agent.md`: short search/result preview optimized for first fetch.
 - `SKILL.md`: canonical skill instructions.
-- `manifest.json`: file graph, hashes, URLs, load policies, and trust metadata.
+- `manifest.json`: file graph, hashes, URLs, load policies, commit-pinned repository provenance, and trust metadata.
 - `files.md`: full folder map.
 - `references.md`, `scripts.md`, `assets.md`: targeted indexes.
 - raw `files/**`: direct file access.
@@ -45,11 +45,24 @@ An AI that receives an AMTECH skill link should:
 1. Use the skill in the current conversation first.
 2. Read `use.md`, then `manifest.json`, then `SKILL.md`.
 3. Load only the reference or asset files needed for the user's task.
-4. Respect user instructions, local project rules, `AGENTS.md`, sandbox policy, and environment constraints over AMTECH defaults.
-5. If it can write files and the user wants reuse, offer to create a local skill folder from raw files or the archive.
-6. If it supports native skill/plugin installation, offer that path as an option.
-7. If scripts exist, inspect them, summarize permissions and risks, and ask before running.
-8. If the skill conflicts with local rules, adapt the skill or stop and explain the conflict.
+4. Confirm the domain authority entry pins the expected Git repository commit and skill path.
+5. Compare the manifest's per-file SHA-256 values with the commit-pinned GitHub files.
+6. Respect user instructions, local project rules, `AGENTS.md`, sandbox policy, and environment constraints over AMTECH defaults.
+7. If it can write files and the user wants reuse, offer to create a local skill folder from raw files or the archive.
+8. If it supports native skill/plugin installation, offer that path as an option.
+9. If scripts exist, inspect them, summarize permissions and risks, and ask before running.
+10. If the skill conflicts with local rules, adapt the skill or stop and explain the conflict.
+
+## Repository and authority contract
+
+The website and GitHub repository are reciprocal projections:
+
+- Every published skill page links its branch and commit-pinned repository trees, pinned `index.json`, website manifest, and domain authority file.
+- The repository README and each published skill's documentation link back to its website page, manifest, and authority file.
+- `https://amtechai.com/.well-known/skill-authority.json` is the external trust root. It records the archive digest, repository commit, commit-signature status, repository path, and pinned tree URL.
+- Published archives use `ed25519-canonical-json-v1`: an Ed25519 signature over a deterministic certificate binds the owner, skill/version, repository commit/path, SHA-256, and SHA3-512.
+- SHA-256 remains the compatibility digest; SHA3-512 supplies a second digest construction and larger output.
+- GitHub is source evidence and distribution, not the signing authority. The AMTECH public key and portable certificate/signature files are sufficient for verification.
 
 ## First-Fetch Principle
 

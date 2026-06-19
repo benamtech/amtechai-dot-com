@@ -16,7 +16,7 @@ import {
   getTopicGroups,
   type OkfConcept,
 } from '../../src/lib/knowledge/concepts.ts';
-import { skillDefinitions, skillUrl } from '../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillRepositoryTreeUrl, skillUrl } from '../../src/lib/skills/registry.ts';
 
 export const OKF_DIR = 'public/okf';
 
@@ -198,6 +198,7 @@ function llms(concepts: OkfConcept[]): string {
     lines.push(`- [${skill.title}](${skillUrl(skill)}): ${skill.description}`);
     lines.push(`  - [Use in any AI](${skillUrl(skill, '/use.md')})`);
     lines.push(`  - [Manifest](${skillUrl(skill, '/manifest.json')})`);
+    lines.push(`  - [GitHub source](${skillRepositoryTreeUrl(skill)})`);
   });
   lines.push('');
   lines.push('## Published articles', '');

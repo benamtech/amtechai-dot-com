@@ -9,7 +9,13 @@
   "source": {
     "canonicalUrl": "https://amtechai.com/skills/okf-audit",
     "sourceDirectory": "src/lib/skills/source/okf-audit",
-    "codexSkillInstaller": "Use in context first. For local reuse, copy files from https://amtechai.com/skills/okf-audit/files.md into a skill folder named okf-audit."
+    "repository": "https://github.com/benamtech/amtech-skills-registry",
+    "repositoryCommit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "repositoryCommitSignature": "unsigned",
+    "repositoryPath": "skills/okf-audit",
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/skills/okf-audit"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/okf-audit",
@@ -27,6 +33,7 @@
       "summary": "UI-facing display metadata and default prompt for environments that support it.",
       "mediaType": "application/yaml; charset=utf-8",
       "sha256": "430521da3999c0f405652b3cd8b37f0536e629fa9148ecec3079a1d053b5c2e4",
+      "sha3_512": "79483050dc2e4e33cec264faa46a0d13486a0e568b02e10f2c488a00fbcc26ca86066f36f443851ed367a97e39878f038c3d0ecca63203d5d61f76c8c0f5bbad",
       "size": 254,
       "url": "https://amtechai.com/skills/okf-audit/files/agents/openai.yaml",
       "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
@@ -39,6 +46,7 @@
       "summary": "JSON shape for structured OKF audit reports.",
       "mediaType": "application/json; charset=utf-8",
       "sha256": "e2f3247d7064c7a749a78c08190f4ba5499aa86111a278d7b8588c71dd5bcb5a",
+      "sha3_512": "d79b8ca05e6ef0d689b69e5c7eb56cad536c1e94179f90fffdf11e235c6678aa39fb0e7e6b7dde33d2cd7c611e5bddd57768488d323b96a1faf866a08e60c12f",
       "size": 1470,
       "url": "https://amtechai.com/skills/okf-audit/files/assets/report-schema.json",
       "loadPolicy": "Use when the user asks for JSON or a structured report.",
@@ -51,6 +59,7 @@
       "summary": "License for this free AMTECH skill package.",
       "mediaType": "text/plain; charset=utf-8",
       "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd",
       "size": 743,
       "url": "https://amtechai.com/skills/okf-audit/files/LICENSE.txt",
       "loadPolicy": "Read when evaluating reuse or redistribution.",
@@ -63,6 +72,7 @@
       "summary": "Checklist for first-fetch HTML, markdown views, snippets, metadata, and retrieval surfaces.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "1341c395f8d6fde5e94269c367dbd022f13c462657ef6adfb4c8d7eb159108ba",
+      "sha3_512": "d4bd14d3d659c456e2fa18b817c90a1292054a0470b86625058b17b7a9a84f64ab9708d1e4d7efe61b35b5adbb5641214dda651fc623fc845a1e8cdb2deb0090",
       "size": 1527,
       "url": "https://amtechai.com/skills/okf-audit/files/references/agent-readable-content-checklist.md",
       "loadPolicy": "Read when auditing website rendering, snippets, or machine-readable surfaces.",
@@ -75,6 +85,7 @@
       "summary": "AMTECH-specific guidance for entity coverage, relationship mapping, and materialized views.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "b6abba048d2752d34d2e15b3c6383d9cb61420eee86be0f77d0031dc50a5719d",
+      "sha3_512": "e3c732157e91f2e999f6a003e93c0296625407d62c2e6159b97e32f5712ef7621d7a8f22ed0b1cef593187ff5a6e3fbfe591e577bf49df202396e4ec4c5705c5",
       "size": 1587,
       "url": "https://amtechai.com/skills/okf-audit/files/references/amtech-knowledge-graph-insights.md",
       "loadPolicy": "Read when recommending AMTECH-style knowledge graph improvements.",
@@ -87,6 +98,7 @@
       "summary": "Scoring dimensions and pass/fail signals for OKF-style concept packaging and graph quality.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "4dc9f4c7cf82a1befe340f0255cf1824027cf06a77f5226f4b0c01624870f257",
+      "sha3_512": "1b3d3835e5ecfbae20b37dafef5f45d75fe1592788afaa8e4a7089c37c762a7de8c2f32cac9a18f942af9fadd9893e9aaddc6c21b4cf3f3a870ef9931484cc93",
       "size": 2640,
       "url": "https://amtechai.com/skills/okf-audit/files/references/okf-audit-rubric.md",
       "loadPolicy": "Read when scoring or explaining audit findings.",
@@ -99,6 +111,7 @@
       "summary": "The primary reusable workflow for running an OKF and agent-readable content audit.",
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "5c9fd014cd1edaec61d65cf10af9140aabff9f5152d18f1d2e2d57dd669dffbe",
+      "sha3_512": "8d8cb1696e2a0761857f13d18df31f8c8f0abffb85cd59845bb5ad20c14c0fdb5a53ae71c63ee52aeae8f82c9ae224b1340f9d03584c41d7d4515b27b00b847a",
       "size": 2757,
       "url": "https://amtechai.com/skills/okf-audit/files/SKILL.md",
       "loadPolicy": "Always read before performing an audit.",
@@ -108,11 +121,27 @@
   "archive": {
     "file": "okf-audit-0.1.0.zip",
     "sha256": "4bd9090a84885a0e73882a45101b885b0d62b7c66dbeee8bc35bd94d646496c8",
+    "sha3_512": "24114f952a0df4db10772b2f40be26cb2dfa0a834ee90bf4890b8adce071e6c7278987622925cbefdf77615960f29f366cc9ab5930d466ccf6e274b62d1d7ebb",
     "url": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip"
+  },
+  "certificate": {
+    "id": "amtech:skill:okf-audit:24114f952a0df4db10772b2f",
+    "algorithm": "Ed25519",
+    "certificateUrl": "https://amtechai.com/skills/okf-audit/certificate.json",
+    "signatureUrl": "https://amtechai.com/skills/okf-audit/certificate.sig",
+    "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
+    "signed": true
   },
   "authority": {
     "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
-    "verify": "Fetch https://amtechai.com/.well-known/skill-authority.json and confirm the entry for \"okf-audit\" lists this version and archive sha256. The authority file is served from the canonical domain (https://amtechai.com) and is the trust root; the page meta tag amtech:skill-sha256 and this manifest must match it."
+    "method": "ed25519-canonical-json-v1",
+    "digestAlgorithms": [
+      "SHA-256",
+      "SHA3-512"
+    ],
+    "signed": true,
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/15bab1b2622acd6afd0fa5f66b8af4bde01c5e50/index.json",
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit 15bab1b2622acd6afd0fa5f66b8af4bde01c5e50 match this manifest and https://amtechai.com/.well-known/skill-authority.json."
   },
   "safety": {
     "scripts": "none",

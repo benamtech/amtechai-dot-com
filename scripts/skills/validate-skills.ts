@@ -3,6 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { skillDefinitions, skillPath, skillUrl, SKILL_SITE_ORIGIN } from '../../src/lib/skills/registry.ts';
+import { digest, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../signing/amtech-signing.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const errors: string[] = [];
@@ -10,15 +11,25 @@ const errors: string[] = [];
 type ManifestFile = {
   path: string;
   sha256: string;
+  sha3_512?: string;
 };
 
 type SkillManifest = {
   $schema?: string;
+  source?: {
+    repository?: string;
+    repositoryCommit?: string;
+    repositoryPath?: string;
+    repositoryTree?: string;
+    repositoryRegistry?: string;
+  };
   files?: ManifestFile[];
   archive?: {
     file?: string;
     sha256?: string;
+    sha3_512?: string;
   };
+  certificate?: { id?: string; signed?: boolean };
   authority?: {
     authorityUrl?: string;
     verify?: string;
@@ -81,7 +92,7 @@ async function validateSkill(slug: string) {
   const skill = skillDefinitions.find((item) => item.slug === slug);
   if (!skill) return;
   const base = `public${skillPath(skill)}`;
-  const required = ['use.md', 'agent.md', 'SKILL.md', 'manifest.json', 'files.md', 'references.md', 'scripts.md', 'assets.md', 'checksums.txt'];
+  const required = ['use.md', 'agent.md', 'SKILL.md', 'manifest.json', 'files.md', 'references.md', 'scripts.md', 'assets.md', 'checksums.txt', 'checksums.json', 'certificate.json', 'certificate.sig'];
 
   for (const file of required) {
     if (!(await read(`${base}/${file}`))) fail(`${skill.slug}: missing generated ${file}. Run npm run skills:build.`);
@@ -115,6 +126,11 @@ async function validateSkill(slug: string) {
     if ((manifest.authority as Record<string, unknown> | undefined)?.registryUrl) {
       fail(`${skill.slug}: manifest.authority still uses the retired field name "registryUrl"; use "authorityUrl".`);
     }
+    if (manifest.source?.repository !== skill.repository.url) fail(`${skill.slug}: manifest source repository mismatch.`);
+    if (manifest.source?.repositoryCommit !== skill.repository.commit) fail(`${skill.slug}: manifest source commit mismatch.`);
+    if (manifest.source?.repositoryPath !== skill.repository.path) fail(`${skill.slug}: manifest source path mismatch.`);
+    if (!manifest.source?.repositoryTree?.includes(skill.repository.commit)) fail(`${skill.slug}: manifest repository tree is not commit-pinned.`);
+    if (!manifest.source?.repositoryRegistry?.includes(skill.repository.commit)) fail(`${skill.slug}: manifest repository registry is not commit-pinned.`);
 
     for (const def of skill.files) {
       const entry = manifest.files?.find((file) => file.path === def.path);
@@ -128,6 +144,7 @@ async function validateSkill(slug: string) {
         continue;
       }
       if (sha256(raw) !== entry.sha256) fail(`${skill.slug}: hash mismatch for ${def.path}.`);
+      if (digest('sha3-512', raw) !== entry.sha3_512) fail(`${skill.slug}: SHA3-512 mismatch for ${def.path}.`);
     }
 
     const archivePath = manifest.archive?.file;
@@ -136,6 +153,19 @@ async function validateSkill(slug: string) {
       const archive = await read(`${base}/${archivePath}`, true);
       if (!archive || !(archive instanceof Buffer)) fail(`${skill.slug}: missing archive ${archivePath}.`);
       else if (sha256(archive) !== manifest.archive.sha256) fail(`${skill.slug}: archive hash mismatch.`);
+      else if (digest('sha3-512', archive) !== manifest.archive.sha3_512) fail(`${skill.slug}: archive SHA3-512 mismatch.`);
+    }
+    const [certificateRaw, signatureRaw, keyRaw] = await Promise.all([
+      read(`${base}/certificate.json`),
+      read(`${base}/certificate.sig`),
+      read('public/.well-known/amtech-signing-key.json'),
+    ]);
+    if (typeof certificateRaw === 'string' && typeof signatureRaw === 'string' && typeof keyRaw === 'string') {
+      const certificate = JSON.parse(certificateRaw) as ArtifactCertificate;
+      const key = JSON.parse(keyRaw) as SigningKeyDocument;
+      if (!verifyCertificate(certificate, signatureRaw, key)) fail(`${skill.slug}: Ed25519 certificate signature is invalid.`);
+      if (manifest.certificate?.signed !== true || manifest.certificate.id !== certificate.certificateId) fail(`${skill.slug}: manifest certificate metadata mismatch.`);
+      if (certificate.digests.sha256 !== manifest.archive?.sha256 || certificate.digests.sha3_512 !== manifest.archive?.sha3_512) fail(`${skill.slug}: certificate archive digests mismatch.`);
     }
   }
 }
@@ -168,10 +198,20 @@ async function main() {
       const authority = JSON.parse(authorityRaw) as {
         $schema?: string;
         authorityUrl?: string;
-        skills?: { slug: string; authorityUrl?: string }[];
+        repository?: { url?: string; commit?: string; commitSignature?: string; registryUrl?: string };
+        verification?: { method?: string; digestAlgorithms?: string[]; signed?: boolean; signingKeyUrl?: string };
+        skills?: { slug: string; authorityUrl?: string; repositoryCommit?: string; repositoryPath?: string; repositoryTreeUrl?: string }[];
       } & Record<string, unknown>;
       await validateServedSchema('skill-authority.json', authority.$schema);
       if (!authority.authorityUrl) fail('skill-authority.json: top-level authorityUrl missing.');
+      if (!authority.repository?.url) fail('skill-authority.json: repository.url missing.');
+      if (!authority.repository?.commit || !authority.repository.registryUrl?.includes(authority.repository.commit)) {
+        fail('skill-authority.json: top-level repository registry is not commit-pinned.');
+      }
+      if (authority.verification?.method !== 'ed25519-canonical-json-v1') fail('skill-authority.json: verification method mismatch.');
+      if (authority.verification?.digestAlgorithms?.join(',') !== 'SHA-256,SHA3-512') fail('skill-authority.json: digest algorithms mismatch.');
+      if (authority.verification?.signed !== true) fail('skill-authority.json: signed must be true.');
+      if (!authority.verification?.signingKeyUrl) fail('skill-authority.json: signingKeyUrl missing.');
       if (authority.registryUrl) fail('skill-authority.json still uses the retired field name "registryUrl"; use "authorityUrl".');
       for (const skill of skillDefinitions) {
         const entry = authority.skills?.find((s) => s.slug === skill.slug);
@@ -179,6 +219,10 @@ async function main() {
           fail(`public/.well-known/skill-authority.json missing entry for ${skill.slug}.`);
         } else if (!entry.authorityUrl) {
           fail(`skill-authority.json entry ${skill.slug} missing authorityUrl.`);
+        } else if (entry.repositoryCommit !== skill.repository.commit || entry.repositoryPath !== skill.repository.path) {
+          fail(`skill-authority.json entry ${skill.slug} repository provenance mismatch.`);
+        } else if (!entry.repositoryTreeUrl?.includes(skill.repository.commit)) {
+          fail(`skill-authority.json entry ${skill.slug} repository tree is not commit-pinned.`);
         }
       }
     } catch (error) {

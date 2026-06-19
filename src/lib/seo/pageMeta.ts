@@ -16,7 +16,7 @@
 import { articleDefinitions } from '../knowledge/articles/index.ts';
 import { buildArticleSchema, AMTECH_ORGANIZATION_SCHEMA } from '../articles.ts';
 import { SITE_ORIGIN, getConcepts } from '../knowledge/concepts.ts';
-import { skillDefinitions, skillUrl, type SkillDefinition } from '../skills/registry.ts';
+import { SKILL_REPOSITORY_URL, skillDefinitions, skillRepositoryRegistryUrl, skillRepositoryTreeUrl, skillUrl, type SkillDefinition } from '../skills/registry.ts';
 import { getSkillContent } from '../skills/generated/skill-content.ts';
 
 export const SITE_NAME = 'AMTECH AI';
@@ -382,7 +382,7 @@ function hubPageMeta(): PageMeta[] {
       route: '/skills',
       title: 'AMTECH Agent Skills — use AI skills from one link',
       description:
-        'Free AMTECH skills designed so ChatGPT, Claude, Codex, and agentic environments can use one link immediately.',
+        'Free AMTECH skills with commit-pinned GitHub source, signed certificates, and one-link agent bootstrap.',
       ogType: 'website',
       image: DEFAULT_OG_IMAGE,
       jsonLd: [],
@@ -391,14 +391,34 @@ function hubPageMeta(): PageMeta[] {
         {
           heading: 'AMTECH Agent Skills',
           paragraphs: [
-            'Free AMTECH skills designed so a modern AI can use one link immediately, then install or save the skill only when the environment supports it.',
+            'AMTECH treats skills as signed, git-backed artifacts. The registry is authored in source code, materialized into public skill pages and raw files, and linked back to a commit-pinned GitHub tree so humans and agents can verify provenance.',
           ],
-          bullets: skillDefinitions.map((s) => `${s.title} — ${s.description}`),
+          bullets: [
+            'The page, manifest, raw files, archive, checksums, and certificate are all published from the same registry source.',
+            'Each skill page links to the pinned GitHub tree, the raw bootstrap, the manifest, and the signed certificate.',
+            'The GitHub repo should link back to the public skill page so the registry works in both directions.',
+          ],
+        },
+        {
+          heading: 'How this compares',
+          paragraphs: [
+            'Anthropic skills are filesystem-first and load on demand across Claude products. OpenAI GPTs are community-built and review-gated. AMTECH sits closer to a signed source registry with agent-friendly materialized views than a pure storefront.',
+          ],
+          bullets: [
+            'Discovery is important, but provenance and reciprocal links are the default.',
+            'Signed certificates do more than a checksum stamp: they bind content, commit, and identity.',
+            'The registry is designed for both agent fetches and human review, not just browsing.',
+          ],
         },
       ],
       agentMap: {
-        summary: 'AMTECH free agent-skill hub. Each skill is usable from one link.',
-        seeAlso: skillDefinitions.map((s) => ({ title: s.title, href: skillUrl(s) })),
+        summary: 'AMTECH free agent-skill hub. Git-backed, signed, reciprocal, and usable from one link.',
+        seeAlso: [{ title: 'AMTECH skills registry on GitHub', href: SKILL_REPOSITORY_URL }, ...skillDefinitions.map((s) => ({ title: s.title, href: skillUrl(s) }))],
+        actions: [
+          'Treat the skills page as a registry, not just a catalog.',
+          'Verify the pinned source and the signed certificate before trusting a skill artifact.',
+          'When editing the external skills repo, link it back to the public skill page.',
+        ],
       },
     },
   ];
@@ -411,11 +431,15 @@ function skillPageMeta(): PageMeta[] {
     const extraMeta: { name: string; content: string }[] = [
       { name: 'amtech:skill', content: skill.slug },
       { name: 'amtech:skill-version', content: skill.version },
+      { name: 'amtech:skill-source', content: skillRepositoryTreeUrl(skill) },
+      { name: 'amtech:skill-source-commit', content: skill.repository.commit },
       { name: 'amtech:skill-authority', content: 'https://amtechai.com/.well-known/skill-authority.json' },
     ];
     if (content?.archiveSha256) {
       extraMeta.splice(2, 0, { name: 'amtech:skill-sha256', content: content.archiveSha256 });
     }
+    if (content?.archiveSha3_512) extraMeta.push({ name: 'amtech:skill-sha3-512', content: content.archiveSha3_512 });
+    if (content?.certificateId) extraMeta.push({ name: 'amtech:skill-certificate', content: content.certificateId });
     return {
       route,
       title: withSuffix(`${skill.title} for AI Agents`),
@@ -440,6 +464,10 @@ function skillPageMeta(): PageMeta[] {
           { type: 'text/markdown', href: skillUrl(skill, '/use.md') },
           { type: 'application/json', href: skillUrl(skill, '/manifest.json') },
         ],
+        seeAlso: [
+          { title: 'Commit-pinned GitHub source', href: skillRepositoryTreeUrl(skill) },
+          { title: 'Commit-pinned repository registry', href: skillRepositoryRegistryUrl(skill) },
+        ],
       },
       extraMeta,
     };
@@ -458,7 +486,8 @@ function skillDetailJsonLd(skill: SkillDefinition): JsonLdObject {
     softwareVersion: skill.version,
     downloadUrl: skillUrl(skill, `/${skill.slug}-${skill.version}.zip`),
     softwareHelp: skillUrl(skill, '/use.md'),
-    sameAs: [skillUrl(skill, '/SKILL.md'), skillUrl(skill, '/manifest.json'), skillUrl(skill, '/files.md')],
+    sameAs: [skillUrl(skill, '/SKILL.md'), skillUrl(skill, '/manifest.json'), skillUrl(skill, '/files.md'), skillRepositoryTreeUrl(skill)],
+    codeRepository: skillRepositoryTreeUrl(skill),
     offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
   };
 }

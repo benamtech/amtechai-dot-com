@@ -8,8 +8,8 @@ Purpose: define how AMTECH can publish free, URL-shareable agent skills without 
 
 AMTECH should not treat a "skill" as one file or one marketplace listing. Treat it as a canonical knowledge object that can be projected into several consumer-specific surfaces:
 
-- A human page: `https://skills.amtechai.com/okf-audit`
-- A copy-paste agent prompt: `https://skills.amtechai.com/okf-audit/install.md`
+- A human page: `https://amtechai.com/skills/okf-audit`
+- A copy-paste agent bootstrap: `https://amtechai.com/skills/okf-audit/use.md`
 - A raw skill folder in a public GitHub repo
 - A downloadable archive with hash metadata
 - A Codex plugin marketplace entry for users who want proper install UX
@@ -86,7 +86,7 @@ For each skill, generate:
 
 - `skills/<slug>/index.html`: glossy human page with examples and "copy prompt" controls.
 - `skills/<slug>/agent.md`: terse machine-first landing page that tells a generic agent what the skill is, what files exist, and what to fetch next.
-- `skills/<slug>/install.md`: short, agent-optimized installation prompt.
+- `skills/<slug>/use.md`: universal, agent-optimized bootstrap and safe-use prompt.
 - `skills/<slug>/SKILL.md`: raw canonical skill instructions for direct reading.
 - `skills/<slug>/manifest.json`: version, source URLs, checksums, compatibility, inputs, outputs, risk notes.
 - `skills/<slug>/files.md`: full file index for `SKILL.md`, `references/`, `scripts/`, `assets/`, licenses, schemas, and examples.
@@ -100,7 +100,7 @@ For each skill, generate:
 - `skills/llms.txt` or root `llms.txt` entries: curated discovery links for agents.
 - `okf/skills/<slug>.md`: optional OKF concept page connected to AMTECH's broader knowledge graph.
 
-For Codex plugin distribution, publish a Git repository such as `github.com/amtechai/agent-skills` with:
+For Codex plugin distribution, use `github.com/benamtech/amtech-skills-registry` with:
 
 ```text
 .agents/plugins/marketplace.json
@@ -112,7 +112,7 @@ plugins/amtech-free-skills/skills/okf-audit/references/*
 Then the installable command becomes:
 
 ```bash
-codex plugin marketplace add amtechai/agent-skills --ref main --sparse .agents/plugins
+codex plugin marketplace add benamtech/amtech-skills-registry --ref main
 ```
 
 The site should mirror this repo, explain it, and generate copy-paste prompts. The Git repo is the install source; the website is the agent-friendly view layer.
@@ -124,7 +124,7 @@ The key workaround is view multiplication. A normal web search, an AI answer eng
 The first public skill should be:
 
 ```text
-https://skills.amtechai.com/okf-audit
+https://amtechai.com/skills/okf-audit
 ```
 
 Working name: `okf-audit`
@@ -143,13 +143,13 @@ Purpose: let an owner, marketer, SEO, writer, or agent paste an article URL, web
 ### User-facing flows
 
 1. Human no-install flow:
-   - User visits `skills.amtechai.com/okf-audit`.
+   - User visits `amtechai.com/skills/okf-audit`.
    - Pastes a URL or text.
    - Netlify Function fetches and normalizes content.
    - The page returns a structured audit and an agent-ready remediation prompt.
 
 2. Agent copy-paste flow:
-   - User copies `install.md`.
+   - User copies `use.md`.
    - Pastes it into Codex, Claude Code, Cursor, or another agent.
    - The prompt tells the agent where the raw skill is, how to inspect it, and how to install it only after user approval.
 
@@ -161,7 +161,7 @@ Purpose: let an owner, marketer, SEO, writer, or agent paste an article URL, web
    - User tells Codex:
 
 ```text
-$skill-installer install https://github.com/amtechai/agent-skills/tree/main/skills/okf-audit
+$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/main/skills/okf-audit
 ```
 
 ### Hosted Netlify pipeline
@@ -180,7 +180,7 @@ Candidate endpoints:
 GET  /skills
 GET  /skills/index.json
 GET  /skills/okf-audit
-GET  /skills/okf-audit/install.md
+GET  /skills/okf-audit/use.md
 GET  /skills/okf-audit/SKILL.md
 GET  /skills/okf-audit/manifest.json
 POST /skills/okf-audit/audit
@@ -239,8 +239,8 @@ Recommended manifest fields:
 {
   "slug": "okf-audit",
   "version": "0.1.0",
-  "source": "https://github.com/amtechai/agent-skills/tree/v0.1.0/skills/okf-audit",
-  "archive": "https://skills.amtechai.com/okf-audit/okf-audit-0.1.0.zip",
+  "source": "https://github.com/benamtech/amtech-skills-registry/tree/main/skills/okf-audit",
+  "archive": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip",
   "sha256": "...",
   "scripts": "none",
   "requiresNetwork": true,

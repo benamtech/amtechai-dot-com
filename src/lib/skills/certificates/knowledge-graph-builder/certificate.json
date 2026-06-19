@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "amtech-signed-artifact/v1",
+  "certificateId": "amtech:skill:knowledge-graph-builder:ecf436abad033c6ca38c6ebe",
+  "subjectType": "skill",
+  "subjectId": "knowledge-graph-builder",
+  "owner": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
+  "repository": {
+    "url": "https://github.com/benamtech/amtech-skills-registry",
+    "commit": "15bab1b2622acd6afd0fa5f66b8af4bde01c5e50",
+    "path": "skills/knowledge-graph-builder"
+  },
+  "version": "0.1.0",
+  "digests": {
+    "sha256": "0a6eee7384d6090b54306140a375632e4a3e70232c424f642a116506e2b6b161",
+    "sha3_512": "ecf436abad033c6ca38c6ebe45dbb67f539d3c87a41189ccc1bb77ff1a794e61a4f9d95f1ef03fa744adae6b929d3f19566fc5688aa71c1bc9de60319f5e683a"
+  },
+  "issuedAt": "2026-06-19T00:00:00.000Z",
+  "issuer": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "signingKeyId": "ed25519:2ecc5136b54f570e698487d3",
+  "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json"
+}
