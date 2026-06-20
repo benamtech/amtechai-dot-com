@@ -38,9 +38,17 @@ export type ResourceLoader = {
   catalog?: () => Promise<Buffer | null>;
   /** Another skill's published certificate.json by slug — needed to recompute the catalog root. */
   siblingCertificate?: (slug: string) => Promise<Buffer | null>;
+  /** The domain authority document (/.well-known/skill-authority.json) — revocation + provenance (04 §1–2,6). */
+  authority?: () => Promise<Buffer | null>;
+  /** The latest signed authority record (docs/skills/standard/03) — set-integrity + sequence (04 §1). */
+  authorityRecord?: () => Promise<Buffer | null>;
 };
 
-export type VerifyOptions = { depth?: VerificationDepth };
+export type VerifyOptions = {
+  depth?: VerificationDepth;
+  /** Deterministic build-time stamp; the live CLI omits it and uses now(). Keeps artifacts byte-stable (G-X.7). */
+  checkedAt?: string;
+};
 
 export type SkillVerdict = {
   verdict: 'verified' | 'invalid' | 'revoked' | 'unverifiable';
@@ -50,6 +58,8 @@ export type SkillVerdict = {
   subject: { slug?: string; version?: string; certificateId?: string };
   reasonCodes: ReasonCode[];
   evidence: Record<string, 'pass' | 'fail' | 'skipped'>;
+  /** Authority sequence the verdict is anchored to (docs/skills/standard/03); null until a record resolves. */
+  authoritySequence: string | null;
   checkedAt: string;
 };
 
@@ -78,7 +88,8 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
   const requestedDepth: VerificationDepth = options.depth ?? 'graph-replay';
   const reasons: ReasonCode[] = [];
   const evidence: Record<string, 'pass' | 'fail' | 'skipped'> = {};
-  const checkedAt = new Date().toISOString();
+  const checkedAt = options.checkedAt ?? new Date().toISOString();
+  let authoritySequence: string | null = null;
   const fail = (code: ReasonCode, label: string) => {
     reasons.push(code);
     evidence[label] = 'fail';
@@ -95,6 +106,7 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
     subject,
     reasonCodes: reasons.length ? reasons : [REASON_CODES.UNREACHABLE],
     evidence,
+    authoritySequence,
     checkedAt,
   });
 
@@ -112,10 +124,33 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
   if (!keyBytes) return (fail(REASON_CODES.UNREACHABLE, 'signingKey'), baseFail('unverifiable', subject));
 
   const key = JSON.parse(keyBytes.toString('utf8')) as SigningKeyDocument;
+
+  // Authority resolution (04 §1–2) — REVOCATION is terminal and outranks every signature/integrity check:
+  // a revoked skill or key returns `revoked`, never `invalid`. Provenance (commit/path) is checked after.
+  type AuthorityEntry = { slug?: string; status?: string; repositoryCommit?: string; repositoryPath?: string };
+  let authorityEntry: AuthorityEntry | undefined;
+  const authorityBytes = loader.authority ? await loader.authority() : null;
+  if (authorityBytes) {
+    try {
+      const authority = JSON.parse(authorityBytes.toString('utf8')) as { skills?: AuthorityEntry[] };
+      authorityEntry = authority.skills?.find((s) => s.slug === cert.subjectId);
+    } catch {
+      fail(REASON_CODES.INVALID_SCHEMA, 'authority');
+    }
+  }
+  if (authorityEntry?.status === 'revoked') return (fail(REASON_CODES.REVOKED, 'authority'), baseFail('revoked', subject));
+  if (key.status !== 'active') return (fail(REASON_CODES.KEY_NOT_ACTIVE, 'signature'), baseFail('revoked', subject));
+
   if (cert.signingKeyId !== key.keyId) fail(REASON_CODES.IDENTITY_MISMATCH, 'signature');
-  else if (key.status !== 'active') fail(REASON_CODES.KEY_NOT_ACTIVE, 'signature');
   else if (!verifyCertificate(cert, sigBytes.toString('utf8'), key)) fail(REASON_CODES.INVALID_SIGNATURE, 'signature');
   else pass('signature');
+
+  // Provenance: the authority entry must pin the same commit/path the certificate binds (04 §6).
+  if (authorityEntry && (authorityEntry.repositoryCommit !== cert.repository?.commit || authorityEntry.repositoryPath !== cert.repository?.path)) {
+    fail(REASON_CODES.COMMIT_MISMATCH, 'authority');
+  } else if (authorityEntry) {
+    pass('authority');
+  }
 
   const method = effectiveMethod(cert);
   const ceiling = maxTierForMethod(method);
@@ -126,12 +161,12 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
 
   // A broken signature is terminal — nothing below it can be trusted.
   if (evidence.signature === 'fail') {
-    return { verdict: 'invalid', depth: 'link-only', trustTier: null, method, subject, reasonCodes: reasons, evidence, checkedAt };
+    return { verdict: 'invalid', depth: 'link-only', trustTier: null, method, subject, reasonCodes: reasons, evidence, authoritySequence, checkedAt };
   }
 
   if (requestedDepth === 'link-only') {
     const tier = ceiling !== null && tierRank(claimedTier) <= tierRank(ceiling) ? claimedTier : null;
-    return { verdict: reasons.length ? 'invalid' : 'verified', depth: 'link-only', trustTier: reasons.length ? null : tier, method, subject, reasonCodes: reasons, evidence, checkedAt };
+    return { verdict: reasons.length ? 'invalid' : 'verified', depth: 'link-only', trustTier: reasons.length ? null : tier, method, subject, reasonCodes: reasons, evidence, authoritySequence, checkedAt };
   }
 
   // ---- Step 2 — provenance: recompute sourcePackage over the published files ----------------------
@@ -258,6 +293,7 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
     subject,
     reasonCodes: verified ? [REASON_CODES.OK] : reasons,
     evidence,
+    authoritySequence,
     checkedAt,
   };
 }

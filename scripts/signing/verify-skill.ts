@@ -1,35 +1,34 @@
 /**
  * skills:verify — the link-first verifier CLI (docs/skills/standard/04). Thin wrapper over the pure
- * library (src/lib/skills/verification/verifySkill.ts): point it at a skill's canonical URL (or a local
- * `public/` dir) and it prints the spec verdict JSON — `{ verdict, depth, trustTier, method, subject,
- * reasonCodes, evidence, checkedAt }`. Exit 0 only when verdict === 'verified'.
+ * library (src/lib/skills/verification/verifySkill.ts). Accepts ANY accepted entry-point and converges
+ * (G-M2.1): a skill page, a bootstrap file, a certificate, the catalog.json, or the skill-authority.json.
+ * Prints the spec verdict JSON; a catalog/authority entry verifies every skill and prints an array.
+ * Exit 0 only when every resolved skill verdict is 'verified'.
  *
  *   npm run skills:verify https://amtechai.com/skills/okf-audit [--archive-byte]
- *   npm run skills:verify public/skills/okf-audit            # local published tree
+ *   npm run skills:verify https://amtechai.com/skills/catalog.json   # verify all
+ *   npm run skills:verify public/skills/okf-audit                    # local published tree
  */
-import { resolve } from 'node:path';
 import { verifySkill } from '../../src/lib/skills/verification/verifySkill.ts';
-import { httpLoader, localPublicLoader } from '../skills/verifier-loaders.ts';
+import { resolveEntry } from '../skills/verifier-loaders.ts';
 
 const args = process.argv.slice(2);
 const target = args.find((a) => !a.startsWith('--'));
 const depth = args.includes('--archive-byte') ? 'archive-byte' : args.includes('--link-only') ? 'link-only' : 'graph-replay';
 
 if (!target) {
-  console.error('usage: npm run skills:verify <skill-url-or-local-path> [--archive-byte|--link-only]');
+  console.error('usage: npm run skills:verify <url-or-local-path> [--archive-byte|--link-only]');
   process.exit(2);
 }
 
-function localLoader(path: string) {
-  const clean = path.replace(/\/+$/, '');
-  const slug = clean.split('/').pop()!;
-  const marker = clean.lastIndexOf('/skills/');
-  const publicDir = marker >= 0 ? clean.slice(0, marker) : 'public';
-  return localPublicLoader(resolve(process.cwd(), publicDir), slug);
+const { slugs, makeLoader } = await resolveEntry(target);
+if (slugs.length === 0) {
+  console.error(`could not resolve any skill from entry-point: ${target}`);
+  process.exit(2);
 }
 
-const loader = /^https?:\/\//.test(target) ? httpLoader(target) : localLoader(target);
+const verdicts = [];
+for (const slug of slugs) verdicts.push(await verifySkill(makeLoader(slug), { depth }));
 
-const verdict = await verifySkill(loader, { depth });
-console.log(JSON.stringify(verdict, null, 2));
-process.exit(verdict.verdict === 'verified' ? 0 : 1);
+console.log(JSON.stringify(verdicts.length === 1 ? verdicts[0] : verdicts, null, 2));
+process.exit(verdicts.every((v) => v.verdict === 'verified') ? 0 : 1);

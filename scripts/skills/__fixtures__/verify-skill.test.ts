@@ -26,6 +26,7 @@ function makeLoader(overrides: Record<string, Buffer | null> = {}): ResourceLoad
     signingKey: async () => ('signingKey' in overrides ? overrides.signingKey : read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json'))),
     catalog: async () => ('catalog' in overrides ? overrides.catalog : read(resolve(repoRoot, 'public/skills/catalog.json'))),
     siblingCertificate: async (slug) => read(resolve(repoRoot, 'public/skills', slug, 'certificate.json')),
+    authority: async () => ('authority' in overrides ? overrides.authority : read(resolve(repoRoot, 'public/.well-known/skill-authority.json'))),
   };
 }
 
@@ -62,6 +63,22 @@ test('mutated catalog root → CATALOG_ROOT_MISMATCH', async () => {
   const verdict = await verifySkill(makeLoader({ catalog: Buffer.from(JSON.stringify(catalog)) }));
   assert.equal(verdict.verdict, 'invalid');
   assert.ok(verdict.reasonCodes.includes(REASON_CODES.CATALOG_ROOT_MISMATCH), verdict.reasonCodes.join(', '));
+});
+
+test('revoked skill in the authority → revoked (REVOKED, not invalid)', async () => {
+  const authority = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/skill-authority.json')))!.toString('utf8'));
+  authority.skills.find((s: { slug: string }) => s.slug === SLUG).status = 'revoked';
+  const verdict = await verifySkill(makeLoader({ authority: Buffer.from(JSON.stringify(authority)) }));
+  assert.equal(verdict.verdict, 'revoked');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.REVOKED), verdict.reasonCodes.join(', '));
+});
+
+test('revoked signing key → revoked (KEY_NOT_ACTIVE)', async () => {
+  const key = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')))!.toString('utf8'));
+  key.status = 'revoked';
+  const verdict = await verifySkill(makeLoader({ signingKey: Buffer.from(JSON.stringify(key)) }));
+  assert.equal(verdict.verdict, 'revoked');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.KEY_NOT_ACTIVE), verdict.reasonCodes.join(', '));
 });
 
 test('unreachable certificate → unverifiable / UNREACHABLE', async () => {
