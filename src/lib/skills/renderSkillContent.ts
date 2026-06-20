@@ -96,6 +96,18 @@ export function renderSkillContentHtml(slug: string): string {
         .join('')}</ul>`
     : '';
 
+  // Build-time verdict badge (docs/skills/standard/05). Honest: "verified at build time" + a re-verify link
+  // to the self-describing recipe — the page never presents a static badge as a live check.
+  const verification = content.verification;
+  const verdictBadge = verification
+    ? `<div class="mt-5 flex flex-wrap items-center gap-x-3 gap-y-1 border border-black/15 bg-white px-4 py-3 text-sm">
+        <span class="font-mono text-xs font-bold uppercase tracking-[0.12em] ${verification.verdict === 'verified' ? 'text-green-700' : 'text-red'}">${esc(verification.verdict)}</span>
+        <span class="font-bold text-black">${esc(trustTierLabel[verification.trustTier ?? trustTier] ?? verification.trustTier ?? trustTier)}</span>
+        <span class="text-black/55">verified at build time &middot; authority seq ${esc(verification.authoritySequence ?? 'n/a')} &middot; checked ${esc((verification.checkedAt ?? '').slice(0, 10))}</span>
+        ${content.recipeUrl ? `<a class="font-mono text-xs font-bold text-red underline underline-offset-2" href="${esc(content.recipeUrl)}">re-verify (recipe) &#8599;</a>` : ''}
+      </div>`
+    : '';
+
   const views: [string, string][] = [
     ['use.md — agent bootstrap', skillPath(skill, '/use.md')],
     ['SKILL.md — canonical instructions', skillPath(skill, '/SKILL.md')],
@@ -130,6 +142,7 @@ export function renderSkillContentHtml(slug: string): string {
 
       <section class="mt-12 border-t border-black/15 pt-10">
         <h2 class="text-2xl font-black tracking-[-0.03em]">Source &amp; verification</h2>
+        ${verdictBadge}
         <p class="mt-3 text-sm leading-7 text-black/65">This package has an AMTECH Signed Artifact v2 certificate. Its canonical certificate is signed with Ed25519 and binds the owner, skill, version, repository commit, SHA-256 digest, and SHA3-512 digest&mdash;plus a <code class="font-mono text-xs">sourcePackage</code> digest that anchors the same bytes across the website and the source registry.${evidenceLinks ? ` The certificate also carries an <code class="font-mono text-xs">attestations</code> predicate: an offline conformance run and an AMTECH human review${policyVersion ? ` under <code class="font-mono text-xs">${esc(policyVersion)}</code>` : ''}, each verified at build time with its evidence published below.` : ''}</p>
         ${evidenceLinks}
         <ul class="mt-5 grid gap-2 sm:grid-cols-2">

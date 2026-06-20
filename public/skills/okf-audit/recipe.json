@@ -1,0 +1,30 @@
+{
+  "schemaVersion": "amtech-skill-recipe/v1",
+  "skill": "okf-audit",
+  "version": "0.1.0",
+  "method": "graph-replay",
+  "note": "Recompute this verdict yourself from the published surfaces; determinism is the security property (docs/skills/standard/09). The meta tag only transports this pointer — it is never the proof.",
+  "expected": {
+    "verdict": "verified",
+    "trustTier": "amtech-reviewed",
+    "method": "amtech-review",
+    "authoritySequence": "0"
+  },
+  "inputs": {
+    "certificate": "https://amtechai.com/skills/okf-audit/certificate.json",
+    "signature": "https://amtechai.com/skills/okf-audit/certificate.sig",
+    "signingKey": "https://amtechai.com/.well-known/amtech-signing-key.json",
+    "manifest": "https://amtechai.com/skills/okf-audit/manifest.json",
+    "catalog": "https://amtechai.com/skills/catalog.json",
+    "authority": "https://amtechai.com/.well-known/skill-authority.json",
+    "authorityRecord": "https://amtechai.com/.well-known/authority/records/0000.json"
+  },
+  "steps": [
+    "Ed25519-verify certificate.json over canonical JSON (RFC 8785) against the signing key → INVALID_SIGNATURE / IDENTITY_MISMATCH.",
+    "Recompute sourcePackage over the published files and compare to certificate.sourcePackage → SOURCE_PACKAGE_MISMATCH.",
+    "Recompute each manifest file SHA-256 and compare to its integrity (SRI) → MANIFEST_DIGEST_MISMATCH.",
+    "Recompute the catalog root over the per-skill certificate digests and compare to catalog.json → CATALOG_ROOT_MISMATCH.",
+    "Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH."
+  ],
+  "verifier": "npm run skills:verify https://amtechai.com/skills/okf-audit"
+}

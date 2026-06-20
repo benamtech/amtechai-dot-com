@@ -66,6 +66,7 @@ function skillBlock(skill: SkillDefinition): string {
       <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs text-black/55">
         <div><dt class="inline font-semibold text-black/70">Status:</dt> <dd class="inline">published</dd></div>
         <div><dt class="inline font-semibold text-black/70">Trust tier:</dt> <dd class="inline">${esc(TRUST_TIER_LABEL[trustTier] ?? trustTier)}</dd></div>
+        ${content?.verification ? `<div><dt class="inline font-semibold text-black/70">Verdict:</dt> <dd class="inline">${esc(content.verification.verdict)} (build-time, seq ${esc(content.verification.authoritySequence ?? 'n/a')})</dd></div>` : ''}
         <div><dt class="inline font-semibold text-black/70">Certificate:</dt> <dd class="inline">${esc(certificateId)}</dd></div>
       </dl>
       <ul class="mt-5 grid gap-2 sm:grid-cols-2">${links}</ul>

@@ -8,7 +8,12 @@ import { REASON_CODES, type ReasonCode } from '../../src/lib/skills/verification
 import { computeConformanceEvidence, serializeEvidence } from './run-conformance.ts';
 import { checkAttestationGates } from './attestation-gates.ts';
 import { verifySkill } from '../../src/lib/skills/verification/verifySkill.ts';
+import { maxTierForMethod, tierRank } from '../../src/lib/skills/verification/methodRegistry.ts';
 import { localPublicLoader } from './verifier-loaders.ts';
+import { getSkillContent } from '../../src/lib/skills/generated/skill-content.ts';
+import { getPageMeta } from '../../src/lib/seo/pageMeta.ts';
+import { renderHeadTags } from '../../src/lib/seo/renderHead.ts';
+import { renderSkillContentHtml } from '../../src/lib/skills/renderSkillContent.ts';
 import {
   renderHubContentHtml,
   HUB_INSTRUCTION_SENTINEL,
@@ -267,6 +272,50 @@ async function validateVerifier(slug: string) {
 }
 
 /**
+ * G-M3.1–3.3 + G-X.3/X.4 — multi-surface consistency (docs/skills/standard/05+07). One build-time verifier
+ * run is the source of truth; the catalog, manifest, generated content, head meta, and body badge must ALL
+ * project the same verdict/tier/sequence — and no surface may claim a tier the method can't prove. This is
+ * the gate that keeps meta tags honest: the head can never say more than the recomputed verdict.
+ */
+async function validateSurfaces(slug: string) {
+  const skill = skillDefinitions.find((s) => s.slug === slug) as SkillDefinition | undefined;
+  if (!skill) return;
+  const verdict = await verifySkill(localPublicLoader(resolve(repoRoot, 'public'), slug));
+
+  // G-X.3 / G-M3.2 — the proven tier must not exceed the method's ceiling.
+  if (verdict.trustTier && verdict.method) {
+    const ceiling = maxTierForMethod(verdict.method);
+    if (!ceiling || tierRank(verdict.trustTier) > tierRank(ceiling)) {
+      failCode(slug, REASON_CODES.TIER_NOT_SUPPORTED, `verdict tier ${verdict.trustTier} exceeds method ${verdict.method} ceiling (G-M3.2).`);
+    }
+  }
+
+  const sameVerdict = (s: { verdict?: string; trustTier?: string | null; authoritySequence?: string | null; checkedAt?: string } | undefined, name: string) => {
+    if (!s) return fail(`${slug}: ${name} missing verification block (G-M3.1).`);
+    if (s.verdict !== verdict.verdict || s.trustTier !== verdict.trustTier || s.authoritySequence !== verdict.authoritySequence) {
+      fail(`${slug}: ${name} verdict disagrees with the recomputed verifier verdict (G-X.4).`);
+    }
+    if (!s.checkedAt) fail(`${slug}: ${name} missing checkedAt build-time marker (G-M3.3).`);
+  };
+
+  const catalogRaw = await read('public/skills/catalog.json');
+  if (typeof catalogRaw === 'string') {
+    const entry = (JSON.parse(catalogRaw).skills as { slug: string; verification?: Record<string, never> }[]).find((e) => e.slug === slug);
+    sameVerdict(entry?.verification, 'catalog.json');
+  }
+  const manifestRaw = await read(`public${skillPath(skill)}/manifest.json`);
+  if (typeof manifestRaw === 'string') sameVerdict(JSON.parse(manifestRaw).verification, 'manifest.json');
+  sameVerdict(getSkillContent(slug)?.verification, 'generated skill-content');
+
+  // Head meta + body badge (G-X.4) — the head TRANSPORTS the verdict (descriptive), the body SHOWS it.
+  const meta = getPageMeta(`/skills/${slug}`);
+  const head = meta ? renderHeadTags(meta) : '';
+  if (!head.includes(`name="amtech:skill:verdict" content="${verdict.verdict}"`)) fail(`${slug}: head meta missing/!= amtech:skill:verdict (G-X.4).`);
+  if (verdict.trustTier && !head.includes(`name="amtech:skill:trust-tier" content="${verdict.trustTier}"`)) fail(`${slug}: head meta trust-tier disagrees (G-X.4).`);
+  if (!renderSkillContentHtml(slug).includes(verdict.verdict)) fail(`${slug}: body badge missing the verdict (G-X.4).`);
+}
+
+/**
  * G-M4.1/4.2 — authority record (M4 groundwork, docs/skills/standard/03+07). The published genesis record
  * must parse + verify under the active key, the domain authority's `latestRecordHash` must equal the
  * record's canonical digest, and the record's `catalogRoot` must equal the published catalog root.
@@ -374,6 +423,7 @@ async function main() {
   for (const skill of skillDefinitions) await validateSkill(skill.slug);
   for (const skill of skillDefinitions) await validateAttestations(skill.slug);
   for (const skill of skillDefinitions) await validateVerifier(skill.slug);
+  for (const skill of skillDefinitions) await validateSurfaces(skill.slug);
   await validateAuthorityRecord();
   await validateCatalogBootstrap();
 

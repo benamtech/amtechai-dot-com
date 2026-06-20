@@ -161,5 +161,14 @@
     "requiresNetwork": false,
     "requiresSecrets": false,
     "riskNote": "V1 has no required scripts. Use in context first. Ask before creating files or fetching private URLs. Mark assumptions about the business as assumptions."
+  },
+  "verification": {
+    "verdict": "verified",
+    "trustTier": "amtech-reviewed",
+    "method": "amtech-review",
+    "depth": "graph-replay",
+    "authoritySequence": "0",
+    "checkedAt": "2026-06-19T00:00:00.000Z",
+    "recipeUrl": "https://amtechai.com/skills/knowledge-graph-builder/recipe.json"
   }
 }

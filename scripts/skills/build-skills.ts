@@ -23,6 +23,8 @@ import {
   type ArtifactCertificate,
   type SigningKeyDocument,
 } from '../signing/amtech-signing.ts';
+import { verifySkill, type SkillVerdict } from '../../src/lib/skills/verification/verifySkill.ts';
+import { localPublicLoader } from './verifier-loaders.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const publicSkillsDir = resolve(repoRoot, 'public', 'skills');
@@ -756,6 +758,9 @@ async function buildSkill(skill: SkillDefinition) {
     policyVersion: signed?.certificate.attestations?.policyVersion,
     conformanceEvidenceUrl: signed?.certificate.attestations?.conformance.evidence.url,
     reviewEvidenceUrl: signed?.certificate.attestations?.review?.evidence.url,
+    // Quick file-route map (docs/skills/standard/05) — the agent-map `files` block surfaces this so an
+    // agent navigates the package without parsing the body. `integrity` is the SRI the manifest binds.
+    fileRoutes: files.map((file) => ({ path: file.path, url: file.url, role: file.role, integrity: sriSha256FromHex(file.sha256) })),
     files: files.map((file) => {
       const isText = /^(text\/|application\/(json|yaml))/.test(file.mediaType);
       return {
@@ -795,6 +800,53 @@ function computeCatalogRoot(entries: { slug: string; certificateBytesSha256: str
     .map((entry) => ({ slug: entry.slug, cert: entry.certificateBytesSha256 }))
     .sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
   return sha256(canonicalJson(leaves));
+}
+
+/** The verdict fields every M3 surface projects (docs/skills/standard/05) — from ONE build-time verifier run. */
+function verdictSurface(v: SkillVerdict) {
+  return { verdict: v.verdict, trustTier: v.trustTier, method: v.method, depth: v.depth, authoritySequence: v.authoritySequence, checkedAt: v.checkedAt };
+}
+
+/**
+ * The self-describing verification recipe (docs/skills/standard/04+09) — the *ingredients plus the expected
+ * result* of the deterministic graph-replay check, so an agent recomputes the verdict instead of trusting a
+ * badge. This is what the head's `amtech:skill:recipe` meta points to; the proof is the recompute, not the meta.
+ */
+function recipeDoc(skill: SkillDefinition, v: SkillVerdict) {
+  const recordsBase = `${SKILL_SITE_ORIGIN}/.well-known/authority/records/0000.json`;
+  return {
+    schemaVersion: 'amtech-skill-recipe/v1',
+    skill: skill.slug,
+    version: skill.version,
+    method: 'graph-replay',
+    note: 'Recompute this verdict yourself from the published surfaces; determinism is the security property (docs/skills/standard/09). The meta tag only transports this pointer — it is never the proof.',
+    expected: { verdict: v.verdict, trustTier: v.trustTier, method: v.method, authoritySequence: v.authoritySequence },
+    inputs: {
+      certificate: skillUrl(skill, '/certificate.json'),
+      signature: skillUrl(skill, '/certificate.sig'),
+      signingKey: `${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json`,
+      manifest: skillUrl(skill, '/manifest.json'),
+      catalog: HUB_CATALOG_URL,
+      authority: SKILL_AUTHORITY_URL,
+      authorityRecord: recordsBase,
+    },
+    steps: [
+      'Ed25519-verify certificate.json over canonical JSON (RFC 8785) against the signing key → INVALID_SIGNATURE / IDENTITY_MISMATCH.',
+      'Recompute sourcePackage over the published files and compare to certificate.sourcePackage → SOURCE_PACKAGE_MISMATCH.',
+      'Recompute each manifest file SHA-256 and compare to its integrity (SRI) → MANIFEST_DIGEST_MISMATCH.',
+      'Recompute the catalog root over the per-skill certificate digests and compare to catalog.json → CATALOG_ROOT_MISMATCH.',
+      'Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH.',
+    ],
+    verifier: `npm run skills:verify ${skillUrl(skill)}`,
+  };
+}
+
+/** Rewrite the delimited generated verdict block in public/_headers, preserving the hand-maintained rules. */
+async function writeHeadersBlock(block: string) {
+  const path = resolve(repoRoot, 'public/_headers');
+  const existing = (await readFile(path, 'utf8').catch(() => '')) as string;
+  const stripped = existing.replace(/\n*# >>> AMTECH skills verdicts[\s\S]*?# <<< AMTECH skills verdicts\n*/g, '\n');
+  await writeFile(path, `${stripped.replace(/\n+$/, '')}\n\n${block}\n`, 'utf8');
 }
 
 async function main() {
@@ -982,13 +1034,60 @@ async function main() {
     `${escJson(authoritySchemaDoc(authoritySchemaUrl))}\n`,
   );
 
+  // --- M3: project ONE build-time verifier run to every surface (docs/skills/standard/05). The verdict is
+  // produced by the engine (04) over the now-complete published tree; meta/JSON-LD/headers/body are all
+  // projections of it. checkedAt = the deterministic release date so artifacts stay byte-stable (G-X.7).
+  const releaseCheckedAt = `${[...skillDefinitions].map((s) => s.updated).sort().at(-1)}T00:00:00.000Z`;
+  const publicDir = resolve(repoRoot, 'public');
+  const verdicts = new Map<string, SkillVerdict>();
+  for (const skill of skillDefinitions) {
+    verdicts.set(skill.slug, await verifySkill(localPublicLoader(publicDir, skill.slug), { checkedAt: releaseCheckedAt }));
+  }
+
+  // catalog.json — per-skill verdict (catalogRoot is cert-based, so adding a verdict does not change it).
+  for (const entry of catalogDoc.skills as Record<string, unknown>[]) {
+    const v = verdicts.get(entry.slug as string);
+    if (v) entry.verification = verdictSurface(v);
+  }
+  await writeText('public/skills/catalog.json', `${escJson(catalogDoc)}\n`);
+
+  // Per-skill: manifest verification block + recipe.json + a response-header line; thread the verdict into
+  // the generated content (drives the page badge + head meta via pageMeta.ts).
+  const headerBlock: string[] = ['# >>> AMTECH skills verdicts (generated by scripts/skills/build-skills.ts — do not edit)'];
+  for (const skill of skillDefinitions) {
+    const v = verdicts.get(skill.slug);
+    if (!v) continue;
+    const recipeUrl = skillUrl(skill, '/recipe.json');
+    const manifestRel = `public${skillPath(skill)}/manifest.json`;
+    const mf = JSON.parse(await readFile(resolve(repoRoot, manifestRel), 'utf8')) as Record<string, unknown>;
+    mf.verification = { ...verdictSurface(v), recipeUrl };
+    await writeText(manifestRel, `${escJson(mf)}\n`);
+    await writeText(`public${skillPath(skill)}/recipe.json`, `${escJson(recipeDoc(skill, v))}\n`);
+    headerBlock.push(
+      `${skillPath(skill)}`,
+      `  X-AMTECH-Skill-Verification: ${v.verdict}; tier=${v.trustTier ?? 'none'}; seq=${v.authoritySequence ?? 'none'}; checked-at=${v.checkedAt}`,
+      '',
+    );
+    const content = contents.find((c) => c.slug === skill.slug) as Record<string, unknown> | undefined;
+    if (content) {
+      content.verification = verdictSurface(v);
+      content.recipeUrl = recipeUrl;
+    }
+  }
+  headerBlock.push('# <<< AMTECH skills verdicts');
+  await writeHeadersBlock(headerBlock.join('\n'));
+
   // Generated React-free content module: the SkillDetail page and the prerenderer render from this.
   const contentMap = Object.fromEntries(contents.map((c) => [c.slug, c]));
   const module = [
     '// AUTO-GENERATED by scripts/skills/build-skills.ts. Do not edit by hand.',
     'export type GeneratedSkillFile = { path: string; role: string; title: string; summary: string; loadPolicy: string; runPolicy?: string; mediaType: string; size: number; sha256: string; sha3_512: string; isText: boolean; text?: string };',
-    'export type GeneratedSkillContent = { slug: string; useMd: string; agentMd: string; archiveSha256: string; archiveSha3_512: string; certificateId?: string; trustTier?: string; policyVersion?: string; conformanceEvidenceUrl?: string; reviewEvidenceUrl?: string; files: GeneratedSkillFile[] };',
+    'export type GeneratedSkillFileRoute = { path: string; url: string; role: string; integrity: string };',
+    'export type GeneratedSkillVerification = { verdict: string; trustTier: string | null; method: string | null; depth: string; authoritySequence: string | null; checkedAt: string };',
+    'export type GeneratedSkillContent = { slug: string; useMd: string; agentMd: string; archiveSha256: string; archiveSha3_512: string; certificateId?: string; trustTier?: string; policyVersion?: string; conformanceEvidenceUrl?: string; reviewEvidenceUrl?: string; recipeUrl?: string; verification?: GeneratedSkillVerification; fileRoutes: GeneratedSkillFileRoute[]; files: GeneratedSkillFile[] };',
     `export const skillContent: Record<string, GeneratedSkillContent> = ${escJson(contentMap)};`,
+    `export const skillCatalogRoot = ${JSON.stringify(catalogRoot)};`,
+    `export const skillsCount = ${JSON.stringify(skillDefinitions.length)};`,
     'export function getSkillContent(slug: string): GeneratedSkillContent | undefined {',
     '  return skillContent[slug];',
     '}',

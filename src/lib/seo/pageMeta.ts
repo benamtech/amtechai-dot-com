@@ -17,7 +17,10 @@ import { articleDefinitions } from '../knowledge/articles/index.ts';
 import { buildArticleSchema, AMTECH_ORGANIZATION_SCHEMA } from '../articles.ts';
 import { SITE_ORIGIN, getConcepts } from '../knowledge/concepts.ts';
 import { SKILL_REPOSITORY_URL, skillDefinitions, skillRepositoryRegistryUrl, skillRepositoryTreeUrl, skillUrl, type SkillDefinition } from '../skills/registry.ts';
-import { getSkillContent } from '../skills/generated/skill-content.ts';
+import { getSkillContent, skillCatalogRoot, skillsCount } from '../skills/generated/skill-content.ts';
+
+const HUB_CATALOG_URL = `${SITE_ORIGIN}/skills/catalog.json`;
+const HUB_AUTHORITY_URL = `${SITE_ORIGIN}/.well-known/skill-authority.json`;
 
 export const SITE_NAME = 'AMTECH AI';
 export const DEFAULT_TITLE = 'AMTECH. — Your Next Employee Is a Computer';
@@ -42,6 +45,12 @@ export type AgentMap = {
   alternates?: { type: string; href: string }[];
   /** Related routes worth traversing (knowledge-graph neighbors). */
   seeAlso?: { title: string; href: string }[];
+  /** Skill bootstrap order (docs/skills/standard/05) — the head transports the pointer, not the proof. */
+  skill?: { bootstrap: string[] };
+  /** The self-describing verification contract: the recipe + verdict + reason-code surface to recompute. */
+  verify?: Record<string, unknown>;
+  /** Quick file-route map: where each archive file is published, with its SRI digest. */
+  files?: { path: string; url: string; role: string; integrity: string }[];
 };
 
 export type PageMeta = {
@@ -419,7 +428,21 @@ function hubPageMeta(): PageMeta[] {
           'Verify the pinned source and the signed certificate before trusting a skill artifact.',
           'When editing the external skills repo, link it back to the public skill page.',
         ],
+        // The hub is a 04 entry point (docs/skills/standard/06): the verify block carries the set-integrity
+        // recipe (catalog root over the per-skill certificate digests) + the reason-code contract.
+        verify: {
+          catalog: HUB_CATALOG_URL,
+          authority: HUB_AUTHORITY_URL,
+          catalogRoot: skillCatalogRoot,
+          catalogRootRecipe: 'sha256(canonicalJson([{slug, cert: sha256(certificate.json bytes)}] sorted by slug)) — recompute and compare → CATALOG_ROOT_MISMATCH on drift.',
+          verifier: 'npm run skills:verify https://amtechai.com/skills/catalog.json',
+        },
       },
+      extraMeta: [
+        { name: 'amtech:catalog', content: HUB_CATALOG_URL },
+        { name: 'amtech:skills:count', content: String(skillsCount) },
+        { name: 'amtech:catalog:root', content: skillCatalogRoot },
+      ],
     },
   ];
 }
@@ -440,13 +463,40 @@ function skillPageMeta(): PageMeta[] {
     }
     if (content?.archiveSha3_512) extraMeta.push({ name: 'amtech:skill-sha3-512', content: content.archiveSha3_512 });
     if (content?.certificateId) extraMeta.push({ name: 'amtech:skill-certificate', content: content.certificateId });
+
+    // Tier-1 verdict meta (docs/skills/standard/05) — projected from the ONE build-time verifier run; the
+    // head transports the verdict + recipe POINTER, never the proof (the consistency gate forbids over-claim).
+    const v = content?.verification;
+    const verifyBlock: Record<string, unknown> | undefined = v
+      ? {
+          verdict: v.verdict,
+          trustTier: v.trustTier,
+          method: v.method,
+          depth: v.depth,
+          authoritySequence: v.authoritySequence,
+          checkedAt: v.checkedAt,
+          buildTime: true,
+          recipe: content?.recipeUrl,
+          verifier: `npm run skills:verify ${skillUrl(skill)}`,
+          reasonCodesNote: 'Canonical reason-code set: src/lib/skills/verification/reasonCodes.ts (recompute to re-derive).',
+        }
+      : undefined;
+    if (v) {
+      extraMeta.push(
+        { name: 'amtech:skill:trust-tier', content: v.trustTier ?? 'none' },
+        { name: 'amtech:skill:verdict', content: v.verdict },
+        { name: 'amtech:skill:checked-at', content: v.checkedAt },
+        { name: 'amtech:skill:authority-sequence', content: v.authoritySequence ?? 'none' },
+      );
+      if (content?.recipeUrl) extraMeta.push({ name: 'amtech:skill:recipe', content: content.recipeUrl });
+    }
     return {
       route,
       title: withSuffix(`${skill.title} for AI Agents`),
       description: `AI agent instruction: use ${skill.name} in context first. Read use.md, manifest.json, and SKILL.md before installing anything.`,
       ogType: 'website',
       image: DEFAULT_OG_IMAGE,
-      jsonLd: [skillDetailJsonLd(skill)],
+      jsonLd: v ? [skillDetailJsonLd(skill), skillVerdictJsonLd(skill, v)] : [skillDetailJsonLd(skill)],
       alternates: [
         { type: 'text/markdown', href: skillUrl(skill, '/use.md'), title: `${skill.title} bootstrap` },
         { type: 'text/markdown', href: skillUrl(skill, '/SKILL.md'), title: `${skill.title} SKILL.md` },
@@ -468,10 +518,27 @@ function skillPageMeta(): PageMeta[] {
           { title: 'Commit-pinned GitHub source', href: skillRepositoryTreeUrl(skill) },
           { title: 'Commit-pinned repository registry', href: skillRepositoryRegistryUrl(skill) },
         ],
+        skill: { bootstrap: [skillUrl(skill, '/use.md'), skillUrl(skill, '/manifest.json'), skillUrl(skill, '/SKILL.md')] },
+        ...(verifyBlock ? { verify: verifyBlock } : {}),
+        ...(content?.fileRoutes ? { files: content.fileRoutes } : {}),
       },
       extraMeta,
     };
   });
+}
+
+/** Build-time verdict as a ClaimReview-shaped block (docs/skills/standard/05) — a head-level structured verdict. */
+function skillVerdictJsonLd(skill: SkillDefinition, v: NonNullable<ReturnType<typeof getSkillContent>>['verification']): JsonLdObject {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'ClaimReview',
+    url: skillUrl(skill),
+    datePublished: v!.checkedAt,
+    claimReviewed: `AMTECH skill ${skill.slug} ${skill.version} is ${v!.verdict} at trust tier ${v!.trustTier} (verified at build time, authority sequence ${v!.authoritySequence}).`,
+    reviewRating: { '@type': 'Rating', ratingValue: v!.verdict === 'verified' ? 5 : 1, bestRating: 5, worstRating: 1, alternateName: v!.verdict },
+    itemReviewed: { '@type': 'SoftwareApplication', name: skill.title, applicationCategory: 'AIApplication', softwareVersion: skill.version },
+    author: { '@type': 'Organization', name: 'AMTECH AI', url: SITE_ORIGIN },
+  };
 }
 
 function skillDetailJsonLd(skill: SkillDefinition): JsonLdObject {
