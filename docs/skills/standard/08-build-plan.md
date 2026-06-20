@@ -41,7 +41,9 @@ Spec: `02` (+ ladder/method `09`). Gates: G-M1.1–G-M1.4, G-X.1–X.2. **Largel
 ---
 
 ## M2 — Link-first verifier (+ verification-method registry & self-describing recipe)
-Spec: `04` + `09`. Gates: G-M2.1–G-M2.3, G-X.3, G-X.5–X.7.
+Spec: `04` + `09`. Gates: G-M2.1–G-M2.3, G-X.3, G-X.5–X.7. **Status: COMPLETE 2026-06-20** — pure
+`src/lib/skills/verification/verifySkill.ts` + `methodRegistry.ts`; `scripts/skills/verifier-loaders.ts`
+`resolveEntry()` converges from any entry-point; `skills:verify` CLI; `revoked` handling; G-M2 fixtures.
 
 **Do:**
 1. `scripts/signing/verify-skill.ts` (+ reusable lib) — generalize `verify-artifact.ts`; accept page/bootstrap/catalog/certificate/authority URLs; check sequence → `verified|revoked|invalid` + reason codes (consume `reasonCodes.ts`) + depth (link-only / **graph-replay** / archive-byte) + `method`/`trustTier`.
@@ -56,7 +58,11 @@ Spec: `04` + `09`. Gates: G-M2.1–G-M2.3, G-X.3, G-X.5–X.7.
 ---
 
 ## M3 — Multi-surface exposure (+ head-level recipe delivery)
-Spec: `05` + `09`. Gates: G-M3.1–G-M3.3, G-X.4.
+Spec: `05` + `09`. Gates: G-M3.1–G-M3.3, G-X.4. **Status: COMPLETE 2026-06-20** — `build-skills.ts` runs ONE
+verifier pass (deterministic `checkedAt`) and projects the verdict to `catalog.json`/`manifest.json`
+`verification`, the generated content (+ fileRoutes), `_headers`, Tier-1 `amtech:skill:*` meta, agent-map
+`skill`/`verify`/`files`, `ClaimReview` JSON-LD, the body badge, and per-skill **`recipe.json`**; the head/body
+consistency gate (`validateSurfaces`) enforces agreement + method-ceiling honesty.
 
 **Do:**
 1. `src/lib/seo/renderHead.ts` + `src/lib/skills/renderSkillContent.ts` — HTML badge + JSON-LD verdict block (skill + hub) with `checkedAt`/`authoritySequence`; **Tier-1 `amtech:skill:*` meta + `amtech:skill:recipe`**, agent-map `skill`/`verify`/`files` blocks, `rel` + **SRI** link relations (Tier-2).
@@ -69,7 +75,12 @@ Spec: `05` + `09`. Gates: G-M3.1–G-M3.3, G-X.4.
 ---
 
 ## M4 — Immutable authority history
-Spec: `03`. Gates: G-M4.1–G-M4.4.
+Spec: `03`. Gates: G-M4.1–G-M4.4. **Groundwork DONE 2026-06-20** — `scripts/signing/sign-authority.ts` emits the
+signed **genesis** `amtech-authority-record/v1` (sequence 0, folds the catalog root + per-skill cert digest/tier);
+`build-skills.ts` publishes the record + `log.json` and writes `latestSequence`/`latestRecordHash` into
+`skill-authority.json`; the verifier checks the pointer (G-M4.2) and emits `authoritySequence`. **Remaining (M4
+proper):** the record chain (`previousRecordHash`), key-rotate/skill-revoke events, the registry cross-witness,
+and signed publishing commits (steps 1–5 below).
 
 **Do:**
 1. New `scripts/skills/build-authority.ts` (or extend `build-skills.ts`) — emit `amtech-authority-record/v1` records to `public/.well-known/authority/records/NNNN.json`, append `log.json`, and rewrite `skill-authority.json` as the latest pointer (`latestSequence`, `latestRecordHash`, materialized `state`). Sign each record (Ed25519 over canonical JSON). Fold the `amtech:catalog:root` (M3) into each record so the chain commits to the exact skill set at that sequence; a verification-method/registry change (`09`) is recordable as a policy event.
@@ -114,6 +125,11 @@ The registry holds **7 packages**; only `okf-audit` + `knowledge-graph-builder` 
 Onboarding them now would mean hand-running the two-phase release once per skill — volatile and error-prone. The plan is to **publish them as a batch after M0–M4 land**, once the standard is stable, using a repeatable pipeline (M5). Keep them referenced and intact until then.
 
 ## M5 (follow-on) — "Certified AMTECH skill publishing" pipeline + onboard backlog
+
+**Groundwork DONE 2026-06-20** — `scripts/skills/publish-skill.ts` (`npm run skills:publish -- --dry-run
+[<slug>|--all]`) prints the ordered certified-publishing plan over `src/lib/skills/onboarding-backlog.json` (the
+5 deferred skills); live onboarding is intentionally refused until M0–M4 are stable. The live pipeline + batch
+onboarding remain follow-on.
 
 After M0–M4 stabilize the standard, build a repeatable **Certified AMTECH skill publishing** pipeline (itself a candidate AMTECH skill) that turns "add a skill" into a single low-volatility operation instead of a manual two-phase release. It should: take a skill source folder → run tests + record review evidence (M1) → materialize website surfaces (M0/M3) → execute the registry two-phase release (Phase 1 registry commit + `pending-resign`, Phase 2 website `skills:sign`/`check`/`build`, then flip to `signed`) → append the authority record (M4) → verify (M2) end-to-end, with the gates in `07` enforced automatically.
 

@@ -33,6 +33,13 @@ All static surfaces for a given skill MUST project from one verifier run at buil
 - Headers: `public/_headers` (already sets content-type/caching for `/skills/*`).
 - Verdict source: the `04` library — never recompute verification logic per surface.
 
+**Implemented 2026-06-20 (M3):** one build-time `04` verifier run is projected to every surface above —
+`verification` blocks in `catalog.json`/`manifest.json`, the generated content, the `X-AMTECH-Skill-Verification`
+header, Tier-1 `amtech:skill:*` meta, agent-map `skill`/`verify`/`files`, a `ClaimReview` JSON-LD, the visible
+body badge, and a first-class `/skills/<slug>/recipe.json` (`amtech-skill-recipe/v1`). The head/body consistency
+gate (`scripts/skills/validate-skills.ts` `validateSurfaces`, G-X.4) fails the build if any surface disagrees or
+over-claims a tier. The verdict carries a real `authoritySequence` from the genesis authority record (`03`).
+
 ## Head-level / meta-tag delivery (adopted: Tier-1/2; Tier-3 research-gated)
 
 The `<head>` is itself a high-signal channel many agents read first; AMTECH already emits a JSON-LD block, an `amtech-agent-map` JSON island, a `<noscript>` summary, and arbitrary `<meta name>` tags (`extraMeta`) via `src/lib/seo/renderHead.ts` + `pageMeta.ts`. The head does not merely *point to* a badge — it carries the **self-describing verification recipe** (`04`) so an agent can **recompute** the verdict instead of trusting it.

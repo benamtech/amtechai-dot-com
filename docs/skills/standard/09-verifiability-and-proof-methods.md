@@ -61,6 +61,13 @@ disagrees with the bound value → `REPLAY_MISMATCH`. The recipe's *ingredients*
 meta + `rel`/SRI link relations, `05`) but the head is never the only channel — the same recipe is reachable from
 the cert + manifest directly.
 
+**Materialized (2026-06-20):** the build emits the recipe as a first-class machine surface
+`/skills/<slug>/recipe.json` (`amtech-skill-recipe/v1`) — the input pointers (cert, manifest+SRI, catalog root,
+authority record), the ordered steps with their reason codes, and the **expected** verdict. `amtech:skill:recipe`
+in the head points to it. Crucially, `graph-replay` is the property the verifier (`04`) **assigns** from this
+recomputable data; the head meta only *transports the pointer*, it is never the proof. Set integrity now also
+binds the signed **authority record** (`03`) whose digest the verdict's `authoritySequence` references.
+
 ### Why this is not ZKP / live-model / PoW
 - **No fixed model to prove over** and LLM inference isn't bit-reproducible → a literal proof of "prompt→output"
   is infeasible and out of scope. `graph-replay` proves *what is digest-bound and deterministic*, not AI behavior.

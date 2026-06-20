@@ -16,6 +16,8 @@ The signing key document (`amtech-signing-key/v1`, served at `/.well-known/amtec
 
 Chosen mechanism (see trade-off note). Every authority change appends a numbered, signed record; the live authority file becomes the **latest pointer**.
 
+**Groundwork shipped 2026-06-20:** `scripts/signing/sign-authority.ts` emits the **genesis** record (`sequence:"0"`, `previousRecordHash:null`, `event:"genesis"`) folding the catalog root + each skill's certificate digest/tier; `build-skills.ts` publishes it to `/.well-known/authority/records/0000.json` (+ `.sig`, + `log.json`) and writes `latestSequence`/`latestRecordHash` into `skill-authority.json`. The verifier (`04`) checks the latest-pointer obligation below and surfaces `authoritySequence`. Chain growth beyond genesis, key/skill-revoke **events**, signed publishing **commits**, and the registry **cross-witness** are M4 proper.
+
 ### Record (`amtech-authority-record/v1`)
 ```jsonc
 {
