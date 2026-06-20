@@ -1,6 +1,6 @@
 # AMTECH Skill Certificate-Authority Standard
 
-Status: **draft / spec phase**, 2026-06-19. Normative once `07-phase-gates-and-acceptance.md` gates are wired and M0–M4 land.
+Status: **draft / spec phase**, 2026-06-19; reconciled 2026-06-20 (verifiability ladder + method registry `09`, head-level recipe delivery adopted, tier/reason-code names unified with the M1 code). Normative once `07-phase-gates-and-acceptance.md` gates are wired and M0–M4 land.
 
 ## What this is
 
@@ -22,12 +22,14 @@ v1 proves *provenance* (who/where/which bytes) and the live Ed25519 chain verifi
 | `06-catalog-bootstrap.md` | `/skills` hub self-bootstrap (M0, ships first) |
 | `07-phase-gates-and-acceptance.md` | Acceptance gates + validator wiring |
 | `08-build-plan.md` | Agentic-dev build plan: M0→M4, exact files, acceptance |
+| `09-verifiability-and-proof-methods.md` | Verifiability ladder, method registry, `graph-replay` recipe, reserved/horizon rungs |
 
 ## Locked decisions (this phase)
 
 - **Posture:** borrow concepts, AMTECH-native, statically hostable. (Not strict DSSE/Rekor interop.)
 - **Immutability mechanism:** Option A — git-anchored hash-chained signed snapshots — with a designed-in upgrade path to a full Merkle log (Option B). See `wiki/research/2026-06-19-immutable-authority-history-options.md`.
 - **Catalog bootstrap (M0)** ships before the new CA features.
+- **Verifiability ladder + method registry (`09`):** `signed < structure-verified < amtech-reviewed < replay-verified` (+ reserved `behavior-verified`, horizon `proof-verified`). The `replay-verified` rung is **deterministic recompute** (`graph-replay`) any party re-runs client-side — the self-describing recipe — **not** live-model, ZK, or proof-of-work. Verification is self-executing so a re-renderer must recompute "verified", not forward a badge.
 - **Two repositories:** work spans `amtechai-dot-com` (this repo — source, signing, verifier, website surfaces, M0–M3 + authority generation) and `amtech-skills-registry` (the public git-backed install source — synced skill folders, signed publishing commits, reciprocal links, authority cross-witness). Releases that touch both must keep the website's authority commit-pin and the registry's signed commit in lockstep. Access in Claude Code: `gh` is authed for both; clone the registry and `/add-dir` it. Details in `08-build-plan.md` → "Cross-repo work".
 
 ## Research backing

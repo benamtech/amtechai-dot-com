@@ -53,6 +53,10 @@ Fix `commitSignature: "unsigned"`: registry commits that publish a record MUST b
 
 Git is a Merkle DAG; the public registry repo mirrors every authority record under signed commits. A verifier that fetches a record from `amtechai.com` **and** confirms the matching record + signed commit on GitHub performs a lightweight cross-witness check — the CT/CONIKS gossip idea with GitHub as the second view. This is the v2 equivocation story; full STH gossip is deferred with Option B.
 
+## Verification methods, policy & independent monitors
+
+The active **verification-method registry** (`09`) and the review/test **policy** travel under `attestations.policyVersion`. A change to either is a policy event and MAY be recorded as an authority event (alongside `key-rotate`/`skill-revoke`) so a consumer can detect when the rules under which a tier was granted have moved — a tier is only meaningful relative to the policy/method set in force when it was issued. Beyond the GitHub commit witness, **independent replay-monitors** (`01`) are a second, permissionless class of witness: anyone who re-runs the deterministic `graph-replay` check (`04`/`09`) plus the authority-chain checks above confirms the same state without an AMTECH service, strengthening the equivocation defense.
+
 ## Designed-in upgrade path to Option B (full Merkle log)
 
 Because each record is content-addressed (canonical-JSON SHA-256) and sequence-ordered, a later build step can fold the exact record hashes into a Merkle tree and publish signed tree heads + inclusion/consistency proofs **without changing any record**. Promote when (a) a second independent monitor exists and (b) scale makes O(log n) proofs worthwhile.

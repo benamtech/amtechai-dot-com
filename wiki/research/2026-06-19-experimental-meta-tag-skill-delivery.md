@@ -1,7 +1,7 @@
 # Experimental Meta-Tag Delivery of Skill / Verification Instructions
 
 Date: 2026-06-19
-Status: **exploration** — "may not be sensible or needed, but worth looking into." Not yet a spec requirement. Feeds `docs/skills/standard/05-multi-surface-exposure.md` and `06-catalog-bootstrap.md` if adopted.
+Status: **adopted (Tier-1/2), Tier-3 research-gated** (reconciled 2026-06-20). Now normative in `docs/skills/standard/05-multi-surface-exposure.md` + `06-catalog-bootstrap.md`: the head carries the **self-describing verification recipe** (`04`/`09`) — Tier-1 `amtech:skill:*` meta + recipe pointer, Tier-2 `rel`/SRI link relations + verification JSON-LD, Tier-3 descriptive opt-in attribute pending empirical validation. All under the head/body consistency gate.
 
 Question: can `<head>` meta tags (and adjacent head-level islands) deliver skill instructions — hub navigation, per-skill bootstrap, file navigation, verification verdicts — in unique/experimental ways, beyond visible body content?
 
