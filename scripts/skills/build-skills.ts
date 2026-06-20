@@ -939,30 +939,33 @@ async function main() {
   // a pre-sign build (AMTECH_ALLOW_UNSIGNED_BUILD) — pointers stay null until the record exists.
   let latestSequence: string | null = null;
   let latestRecordHash: string | null = null;
-  const recordSrc = await readFile(resolve(repoRoot, 'src/lib/skills/authority/records/0000.json'), 'utf8').catch(() => null);
-  const recordSig = await readFile(resolve(repoRoot, 'src/lib/skills/authority/records/0000.sig'), 'utf8').catch(() => null);
-  if (typeof recordSrc === 'string' && typeof recordSig === 'string') {
-    const record = JSON.parse(recordSrc) as { sequence?: string };
-    latestSequence = record.sequence ?? '0';
-    latestRecordHash = sha256(canonicalJson(record)); // hash over canonical form (independent of pretty-printing)
-    await writeText('public/.well-known/authority/records/0000.json', recordSrc.endsWith('\n') ? recordSrc : `${recordSrc}\n`);
-    await writeText('public/.well-known/authority/records/0000.sig', recordSig.endsWith('\n') ? recordSig : `${recordSig}\n`);
+  let latestState: unknown = undefined;
+  const recordsSrcDir = resolve(repoRoot, 'src/lib/skills/authority/records');
+  const recordFiles = (await readdir(recordsSrcDir).catch(() => [] as string[])).filter((f) => /^\d{4}\.json$/.test(f)).sort();
+  const logEntries: { sequence: string; recordHash: string; recordUrl: string; signatureUrl: string }[] = [];
+  for (const file of recordFiles) {
+    const stem = file.replace('.json', '');
+    const recordSrc = await readFile(resolve(recordsSrcDir, `${stem}.json`), 'utf8');
+    const recordSig = await readFile(resolve(recordsSrcDir, `${stem}.sig`), 'utf8').catch(() => null);
+    if (!recordSig) continue;
+    const record = JSON.parse(recordSrc) as { sequence?: string; state?: unknown };
+    const recordHash = sha256(canonicalJson(record)); // hash over canonical form (independent of pretty-printing)
+    await writeText(`public/.well-known/authority/records/${stem}.json`, recordSrc.endsWith('\n') ? recordSrc : `${recordSrc}\n`);
+    await writeText(`public/.well-known/authority/records/${stem}.sig`, recordSig.endsWith('\n') ? recordSig : `${recordSig}\n`);
+    logEntries.push({
+      sequence: record.sequence ?? stem,
+      recordHash,
+      recordUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/records/${stem}.json`,
+      signatureUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/records/${stem}.sig`,
+    });
+    latestSequence = record.sequence ?? stem;
+    latestRecordHash = recordHash;
+    latestState = record.state;
+  }
+  if (logEntries.length) {
     await writeText(
       'public/.well-known/authority/log.json',
-      `${escJson({
-        schemaVersion: 'amtech-authority-log/v1',
-        authorityUrl: SKILL_AUTHORITY_URL,
-        latestSequence,
-        latestRecordHash,
-        records: [
-          {
-            sequence: latestSequence,
-            recordHash: latestRecordHash,
-            recordUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/records/0000.json`,
-            signatureUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/records/0000.sig`,
-          },
-        ],
-      })}\n`,
+      `${escJson({ schemaVersion: 'amtech-authority-log/v1', authorityUrl: SKILL_AUTHORITY_URL, latestSequence, latestRecordHash, records: logEntries })}\n`,
     );
   }
 
@@ -979,6 +982,7 @@ async function main() {
     latestSequence,
     latestRecordHash,
     authorityLogUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/log.json`,
+    state: latestState,
     repository: {
       url: SKILL_REPOSITORY_URL,
       commit: SKILL_REPOSITORY_COMMIT,

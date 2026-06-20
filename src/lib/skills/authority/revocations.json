@@ -1,0 +1,6 @@
+{
+  "note": "Authority revocation input (docs/skills/standard/03). Listing a slug/keyId here makes the next `npm run skills:sign` append a signed authority record with a skill-revoke / key-revoke event; the verifier then returns `revoked`. `asOf` is the deterministic stamp for the appended record. Removing an entry does NOT rewrite history — it appends a later record (the revocation stays in the chain).",
+  "asOf": null,
+  "skills": [],
+  "keys": []
+}

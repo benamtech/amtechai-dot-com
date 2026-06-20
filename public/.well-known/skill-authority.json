@@ -7,8 +7,36 @@
     "url": "https://amtechai.com"
   },
   "latestSequence": "0",
-  "latestRecordHash": "08de92448b4aa7bb8e807e61a902c04be52eaa4aca36f58bbbc33c7bfc543395",
+  "latestRecordHash": "48974b95909602f8b6a6a12e366bed57c2f4038399c6f3f8a9826621274d1982",
   "authorityLogUrl": "https://amtechai.com/.well-known/authority/log.json",
+  "state": {
+    "catalogRoot": "1b5e8b8a62caf26b6f352a00e436bce8692ccb901485158f37af7a0040f7eb33",
+    "skills": [
+      {
+        "slug": "knowledge-graph-builder",
+        "version": "0.1.0",
+        "certificateId": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
+        "certificateSha256": "7f927442968da0b033ed60e54c3494641e076f9f3a819a0ac68c3e2367256fd2",
+        "trustTier": "amtech-reviewed",
+        "status": "active"
+      },
+      {
+        "slug": "okf-audit",
+        "version": "0.1.0",
+        "certificateId": "amtech:skill:okf-audit:36f53231aa75bab64166abe7",
+        "certificateSha256": "0681d0a6bf1770d59d8c345ebcf13a1eef14a91b86475f986b5c89a2b81fbe01",
+        "trustTier": "amtech-reviewed",
+        "status": "active"
+      }
+    ],
+    "keys": [
+      {
+        "keyId": "ed25519:2ecc5136b54f570e698487d3",
+        "status": "active",
+        "validFrom": "2026-06-19T18:36:33.228Z"
+      }
+    ]
+  },
   "repository": {
     "url": "https://github.com/benamtech/amtech-skills-registry",
     "commit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",

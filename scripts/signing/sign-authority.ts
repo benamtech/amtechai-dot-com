@@ -1,17 +1,18 @@
 /**
- * AMTECH authority-record signer (M4 groundwork — docs/skills/standard/03 + 07 G-M4).
+ * AMTECH authority-record signer (M4 — docs/skills/standard/03 + 07 G-M4).
  *
- * Emits the GENESIS `amtech-authority-record/v1` record: a signed snapshot that commits to the exact
- * skill SET at this release — the catalog root plus each skill's certificate digest and tier. This is the
- * head of the (future) immutable, hash-chained authority history; `previousRecordHash` is null and
- * `event` is `genesis`. Multi-record chaining + key-rotation/revocation events are M4 proper.
+ * Maintains the immutable, hash-chained authority history. Each run computes the desired materialized
+ * `state` (the published skill set + key statuses, with revocations applied) and compares it to the head
+ * record's state: if UNCHANGED it appends nothing (idempotent — re-signing an unchanged release is a no-op);
+ * if CHANGED it APPENDS a new record `N+1` chaining `previousRecordHash → sha256(canonicalJson(head))`, with
+ * `events[]` describing the diff (skill-publish / skill-revoke / key-rotate / key-revoke). Existing records
+ * are immutable and never rewritten. build-skills.ts publishes every record + log.json + the latest pointer.
  *
- * Mirrors sign-skills.ts: needs the release private key, re-derives + matches the committed public key,
- * writes the signed record to src/lib/skills/authority/ (build-skills.ts publishes it). Runs AFTER
- * sign-skills.ts so the committed certificates exist. The catalog-root preimage is IDENTICAL to
- * build-skills.computeCatalogRoot and registry/validate.mjs (one value across all three).
+ * Mirrors sign-skills.ts: needs the release private key, re-derives + matches the committed public key, runs
+ * AFTER sign-skills.ts. The catalog-root preimage is IDENTICAL to build-skills.computeCatalogRoot and
+ * registry/validate.mjs (one value across all three).
  */
-import { readFile, mkdir, writeFile } from 'node:fs/promises';
+import { readFile, readdir, mkdir, writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import {
   canonicalJson,
@@ -34,50 +35,110 @@ if (derivedKey.keyId !== existingKey.keyId || derivedKey.fingerprint.sha256 !== 
   throw new Error('Private signing key does not match committed AMTECH public key metadata.');
 }
 
-type SkillState = { slug: string; version: string; certificateId: string; certificateSha256: string; trustTier: string };
+type SkillState = { slug: string; version: string; certificateId: string; certificateSha256: string; trustTier: string; status: 'active' | 'revoked' };
+type KeyState = { keyId: string; status: string; validFrom: string };
+type AuthorityState = { catalogRoot: string; skills: SkillState[]; keys: KeyState[] };
+type AuthorityEvent = Record<string, unknown> & { type: string };
+type AuthorityRecord = {
+  schemaVersion: 'amtech-authority-record/v1';
+  sequence: string;
+  previousRecordHash: { sha256: string } | null;
+  issuedAt: string;
+  authorityUrl: string;
+  events: AuthorityEvent[];
+  state: AuthorityState;
+  signingKeyId: string;
+  signingKeyUrl: string;
+};
 
-const skillState: SkillState[] = [];
+const recordsDir = resolve('src/lib/skills/authority/records');
+
+// --- Revocation input (docs/skills/standard/03). Listing a slug/keyId appends a revoke event next run. ---
+type Revocations = { asOf?: string | null; skills?: { slug: string; reason: string }[]; keys?: { keyId: string; reason: string }[] };
+const revocations = JSON.parse(
+  (await readFile(resolve('src/lib/skills/authority/revocations.json'), 'utf8').catch(() => '{}')) as string,
+) as Revocations;
+const revokedSkills = new Map((revocations.skills ?? []).map((r) => [r.slug, r.reason]));
+const revokedKeys = new Map((revocations.keys ?? []).map((r) => [r.keyId, r.reason]));
+
+// --- Desired materialized state from current certs + revocations. ---
+const skills: SkillState[] = [];
 for (const skill of skillDefinitions) {
   const certBytes = await readFile(resolve(`src/lib/skills/certificates/${skill.slug}/certificate.json`)).catch(() => null);
   if (!certBytes) throw new Error(`sign-authority: missing certificate for ${skill.slug}; run sign-skills first.`);
   const cert = JSON.parse(certBytes.toString('utf8')) as { certificateId?: string; version?: string; attestations?: { trustTier?: string } };
-  skillState.push({
+  skills.push({
     slug: skill.slug,
     version: cert.version ?? skill.version,
     certificateId: cert.certificateId ?? '',
     certificateSha256: digest('sha256', certBytes),
     trustTier: cert.attestations?.trustTier ?? 'signed',
+    status: revokedSkills.has(skill.slug) ? 'revoked' : 'active',
   });
 }
-skillState.sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
+skills.sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
 
-// Catalog root — the SAME preimage as build-skills.computeCatalogRoot + registry/validate.mjs.
-const catalogRoot = digest('sha256', canonicalJson(skillState.map((s) => ({ slug: s.slug, cert: s.certificateSha256 }))));
-// Deterministic release stamp = the latest skill update date (keeps the record byte-stable across builds).
-const issuedAt = `${[...skillDefinitions].map((s) => s.updated).sort().at(-1)}T00:00:00.000Z`;
+// Catalog root — over ALL published certs (revocation is an authority flag, not an unpublish), so it stays
+// equal to build-skills.computeCatalogRoot + registry/validate.mjs.
+const catalogRoot = digest('sha256', canonicalJson(skills.map((s) => ({ slug: s.slug, cert: s.certificateSha256 }))));
+const keys: KeyState[] = [{ keyId: existingKey.keyId, status: revokedKeys.has(existingKey.keyId) ? 'revoked' : existingKey.status, validFrom: existingKey.validFrom }];
+const nextState: AuthorityState = { catalogRoot, skills, keys };
 
-// Genesis record (docs/skills/standard/03): events[] of what changed + the full materialized `state`.
-const record = {
+// --- Load the existing immutable chain; find the head. ---
+const files = (await readdir(recordsDir).catch(() => [] as string[])).filter((f) => /^\d{4}\.json$/.test(f)).sort();
+const chain: AuthorityRecord[] = [];
+for (const f of files) chain.push(JSON.parse(await readFile(resolve(recordsDir, f), 'utf8')) as AuthorityRecord);
+const head = chain.at(-1) ?? null;
+
+// --- Idempotent: unchanged state appends nothing. ---
+if (head && canonicalJson(head.state) === canonicalJson(nextState)) {
+  console.log(`Authority unchanged — head record seq ${head.sequence} is current (no append).`);
+  process.exit(0);
+}
+
+// --- Compute the diff events. ---
+function skillPublish(s: SkillState): AuthorityEvent {
+  return { type: 'skill-publish', slug: s.slug, version: s.version, certificateId: s.certificateId, certificateSha256: s.certificateSha256, trustTier: s.trustTier };
+}
+function diffEvents(prev: AuthorityState | null, next: AuthorityState): AuthorityEvent[] {
+  if (!prev) return [{ type: 'genesis' }, ...next.skills.map(skillPublish)];
+  const events: AuthorityEvent[] = [];
+  const prevSkills = new Map(prev.skills.map((s) => [s.slug, s]));
+  for (const s of next.skills) {
+    const p = prevSkills.get(s.slug);
+    if (!p || p.certificateSha256 !== s.certificateSha256) events.push(skillPublish(s));
+    if (s.status === 'revoked' && p?.status !== 'revoked') events.push({ type: 'skill-revoke', slug: s.slug, reason: revokedSkills.get(s.slug) ?? 'unspecified' });
+  }
+  const prevKeys = new Map(prev.keys.map((k) => [k.keyId, k]));
+  for (const k of next.keys) {
+    const p = prevKeys.get(k.keyId);
+    if (k.status === 'revoked' && p?.status !== 'revoked') events.push({ type: 'key-revoke', keyId: k.keyId, reason: revokedKeys.get(k.keyId) ?? 'unspecified' });
+  }
+  const prevActive = prev.keys.find((k) => k.status === 'active')?.keyId;
+  const nextActive = next.keys.find((k) => k.status === 'active')?.keyId;
+  if (prevActive && nextActive && prevActive !== nextActive) events.push({ type: 'key-rotate', fromKeyId: prevActive, toKeyId: nextActive });
+  return events;
+}
+
+const sequence = head ? String(Number(head.sequence) + 1) : '0';
+const previousRecordHash = head ? { sha256: digest('sha256', canonicalJson(head)) } : null;
+// Deterministic stamp: the later of the latest skill update and the revocations `asOf`.
+const issuedAt = [revocations.asOf ?? '', `${[...skillDefinitions].map((s) => s.updated).sort().at(-1)}T00:00:00.000Z`].filter(Boolean).sort().at(-1)!;
+
+const record: AuthorityRecord = {
   schemaVersion: 'amtech-authority-record/v1',
-  sequence: '0',
-  previousRecordHash: null,
+  sequence,
+  previousRecordHash,
   issuedAt,
   authorityUrl: SKILL_AUTHORITY_URL,
-  events: [
-    { type: 'genesis' },
-    ...skillState.map((s) => ({ type: 'skill-publish', slug: s.slug, version: s.version, certificateId: s.certificateId, certificateSha256: s.certificateSha256, trustTier: s.trustTier })),
-  ],
-  state: {
-    catalogRoot,
-    skills: skillState,
-    keys: [{ keyId: existingKey.keyId, status: existingKey.status, validFrom: existingKey.validFrom }],
-  },
+  events: diffEvents(head?.state ?? null, nextState),
+  state: nextState,
   signingKeyId: existingKey.keyId,
   signingKeyUrl: SIGNING_KEY_URL,
 };
 
-const dir = resolve('src/lib/skills/authority/records');
-await mkdir(dir, { recursive: true });
-await writeFile(resolve(dir, '0000.json'), `${JSON.stringify(record, null, 2)}\n`, 'utf8');
-await writeFile(resolve(dir, '0000.sig'), `${signCanonical(record, privateKey)}\n`, 'utf8');
-console.log(`Signed authority record seq 0 (genesis): catalogRoot ${catalogRoot.slice(0, 16)}…, ${skillState.length} skill(s).`);
+await mkdir(recordsDir, { recursive: true });
+const stem = sequence.padStart(4, '0');
+await writeFile(resolve(recordsDir, `${stem}.json`), `${JSON.stringify(record, null, 2)}\n`, 'utf8');
+await writeFile(resolve(recordsDir, `${stem}.sig`), `${signCanonical(record, privateKey)}\n`, 'utf8');
+console.log(`Signed authority record seq ${sequence} (${record.events.map((e) => e.type).join(', ')}): catalogRoot ${catalogRoot.slice(0, 16)}…, ${skills.length} skill(s).`);
