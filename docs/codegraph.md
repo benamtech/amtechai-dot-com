@@ -2,7 +2,7 @@
 
 Purpose: give agents and humans a compressed map of the site so they can answer routing, form, database, and deployment questions without scanning every file.
 
-Most recent handoff: `docs/memory/status-2026-06-19--skill-ca-standard-research-and-spec.md` (skill certificate-authority standard — research + spec phase; build plan in `docs/skills/standard/08-build-plan.md`).
+Most recent handoff: `docs/memory/status-2026-06-19--cross-repo-setup.md` (cross-repo environment ready for the skill certificate-authority standard; registry cloned at `~/Desktop/amtech-skills-registry`, build plan in `docs/skills/standard/08-build-plan.md`).
 
 ## Architecture at a glance
 

@@ -88,6 +88,22 @@ Implementation spans **two repositories** — an executing session needs access 
 
 **Access in Claude Code (confirmed possible):** `gh` is authenticated (account `benamtech`) and reaches both repos. Clone `amtech-skills-registry` locally and add it as an extra working directory (`/add-dir <path>`); Read/Edit/Write/Bash work on any absolute path and git on the second repo works via `git -C <path>`. Releases that change both must keep the website's authority commit-pin and the registry's signed commit consistent (single coordinated release step).
 
+### Registry repo — current state (discovered 2026-06-19, cloned at `~/Desktop/amtech-skills-registry`)
+
+The standalone registry is **already productionized** and is the authoritative source — **not** the in-repo `docs/agent-skills/` copy, which is a stale earlier snapshot that has drifted (treat the cloned GitHub repo as truth; reconcile or regenerate `docs/agent-skills/` separately). Registry HEAD `88d9ce8` **matches the live authority commit-pin**, so the two origins are currently in lockstep.
+
+What the registry already implements (do **not** rebuild — integrate with it):
+- `ed25519-canonical-json-v1` verification + dual digests; `registry/checksums.json` (per-file SHA-256 + SHA3-512); `registry/validate.mjs --write|--check` staleness gate; `registry/amtech-signing-key.json` public-key mirror (no private key in the repo).
+- `index.json` canonical catalog (7 skill packages across `agent-tool` / `ai-employee` / `amtech-workflow`; only `okf-audit` + `knowledge-graph-builder` are `publishedOnWebsite`); index never embeds its own commit (website authority pins externally).
+- Codex plugin + marketplace (`plugins/amtech-free-skills/`), reciprocal website links, and a CI validation workflow.
+- A documented **two-phase release** (see `registry/README.md` + `docs/agent-skills/REPO_AGENT_HANDOFF.md`): Phase 1 changes registry bytes, marks affected certs `pending-resign`, pushes, returns the SHA; Phase 2 the website pins the SHA, runs `skills:sign`/`skills:check`/`build`, deploys, then a follow-up registry sync mirrors the new certs and flips status to `signed`. Until both complete, packages are "update in progress."
+
+Implications for our milestones (the **delta** to build, registry-side):
+- **M1 (attestations)** — the registry's mirrored certs + `index.json` `verification` block must carry the v2 attestation/trust-tier fields; `registry/validate.mjs` must learn the v2 schema.
+- **M4 (immutable authority)** — the git-anchored authority records + the equivocation cross-witness must hook into the existing two-phase protocol (the registry is the second witness); **fix `commitSignature: "unsigned"`** by signing the Phase-1 publishing commit.
+- **Reconcile now-vs-spec:** registry `index.json` marks `okf-audit` `pending-resign` while the live website cert verifies — close this status lag as part of M1/M4 (flip to `signed` only if certs validate against the pinned bytes/commit).
+- **M0/M2/M3** are website-only; no registry change required.
+
 ## Out of scope for v2 (documented futures)
 - Full RFC-6962 Merkle log + inclusion/consistency proofs (Option B — upgrade path designed into M4 records).
 - Multi-key thresholds / delegated roles (TUF-style).
