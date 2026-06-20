@@ -18,8 +18,9 @@ export function localPublicLoader(publicDir: string, slug: string): ResourceLoad
     catalog: () => read(resolve(publicDir, 'skills/catalog.json')),
     siblingCertificate: (s) => read(resolve(publicDir, 'skills', s, 'certificate.json')),
     authority: () => read(resolve(publicDir, '.well-known/skill-authority.json')),
-    authorityRecord: () => read(resolve(publicDir, '.well-known/authority/records/0000.json')),
-    authorityRecordSig: () => read(resolve(publicDir, '.well-known/authority/records/0000.sig')),
+    authorityLog: () => read(resolve(publicDir, '.well-known/authority/log.json')),
+    authorityRecordStem: (stem) => read(resolve(publicDir, '.well-known/authority/records', `${stem}.json`)),
+    authorityRecordStemSig: (stem) => read(resolve(publicDir, '.well-known/authority/records', `${stem}.sig`)),
   };
 }
 
@@ -33,8 +34,9 @@ export function httpLoader(baseUrl: string): ResourceLoader {
     catalog: () => fetchBytes(`${origin}/skills/catalog.json`),
     siblingCertificate: (s) => fetchBytes(`${origin}/skills/${s}/certificate.json`),
     authority: () => fetchBytes(`${origin}/.well-known/skill-authority.json`),
-    authorityRecord: () => fetchBytes(`${origin}/.well-known/authority/records/0000.json`),
-    authorityRecordSig: () => fetchBytes(`${origin}/.well-known/authority/records/0000.sig`),
+    authorityLog: () => fetchBytes(`${origin}/.well-known/authority/log.json`),
+    authorityRecordStem: (stem) => fetchBytes(`${origin}/.well-known/authority/records/${stem}.json`),
+    authorityRecordStemSig: (stem) => fetchBytes(`${origin}/.well-known/authority/records/${stem}.sig`),
   };
 }
 

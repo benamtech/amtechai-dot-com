@@ -41,10 +41,12 @@ export type ResourceLoader = {
   siblingCertificate?: (slug: string) => Promise<Buffer | null>;
   /** The domain authority document (/.well-known/skill-authority.json) — revocation + provenance (04 §1–2,6). */
   authority?: () => Promise<Buffer | null>;
-  /** The latest signed authority record (docs/skills/standard/03) — set-integrity + sequence (04 §1). */
-  authorityRecord?: () => Promise<Buffer | null>;
-  /** The detached signature for the latest authority record. */
-  authorityRecordSig?: () => Promise<Buffer | null>;
+  /** The append-only authority log (/.well-known/authority/log.json) — the chain index (docs/skills/standard/03). */
+  authorityLog?: () => Promise<Buffer | null>;
+  /** A signed authority record by zero-padded sequence stem (e.g. '0000'). */
+  authorityRecordStem?: (stem: string) => Promise<Buffer | null>;
+  /** The detached signature for an authority record by stem. */
+  authorityRecordStemSig?: (stem: string) => Promise<Buffer | null>;
 };
 
 export type VerifyOptions = {
@@ -264,29 +266,49 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
     evidence.catalogRoot = 'skipped';
   }
 
-  // ---- Authority record (04 §1, M4 groundwork): the latest SIGNED record commits to the skill SET -----
-  // The domain authority's latest pointer must equal the record's canonical digest, the record signature
-  // must verify, and this skill's certificate digest must appear in the record's set. Drift → AUTHORITY_MISMATCH.
-  if (loader.authorityRecord && loader.authority) {
-    const [recordBytes, recordSigBytes, authDocBytes] = await Promise.all([
-      loader.authorityRecord(),
-      loader.authorityRecordSig?.() ?? Promise.resolve(null),
-      loader.authority(),
-    ]);
-    if (!recordBytes || !authDocBytes) {
+  // ---- Authority chain (04 §1, M4): walk the SIGNED hash-chain and honor revocations ------------------
+  // Obligations: gap-free + monotonic sequence; each previousRecordHash links to the prior record's canonical
+  // digest; each record's log-entry hash matches; each signature verifies; the latest pointer equals the head
+  // digest; this skill's certificate digest is in the head state; and a skill-revoke in the SIGNED head state
+  // → `revoked` (tamper-evident, independent of the unsigned authority file's status hint). Drift → AUTHORITY_MISMATCH.
+  if (loader.authorityLog && loader.authorityRecordStem && loader.authority) {
+    const [logBytes, authDocBytes] = await Promise.all([loader.authorityLog(), loader.authority()]);
+    if (!logBytes || !authDocBytes) {
       evidence.authorityRecord = 'skipped';
     } else {
       try {
-        const record = JSON.parse(recordBytes.toString('utf8')) as { sequence?: string; state?: { catalogRoot?: string; skills?: { slug: string; certificateSha256: string }[] } };
+        const log = JSON.parse(logBytes.toString('utf8')) as { records?: { sequence: string; recordHash: string }[] };
         const authDoc = JSON.parse(authDocBytes.toString('utf8')) as { latestRecordHash?: string };
-        const recordHash = digest('sha256', canonicalJson(record));
-        const leafOk = record.state?.skills?.some((s) => s.slug === cert.subjectId && s.certificateSha256 === sha256(certBytes));
-        if (authDoc.latestRecordHash !== recordHash) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
-        else if (recordSigBytes && !verifyCanonical(record, recordSigBytes.toString('utf8'), key)) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
-        else if (!leafOk) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
-        else {
-          pass('authorityRecord');
-          authoritySequence = record.sequence ?? null;
+        const entries = (log.records ?? []).slice().sort((a, b) => Number(a.sequence) - Number(b.sequence));
+        let prevHash: string | null = null;
+        let headRecord: { sequence?: string; state?: { skills?: { slug: string; certificateSha256: string; status?: string }[] } } | null = null;
+        let chainOk = entries.length > 0;
+        for (let i = 0; i < entries.length; i++) {
+          const stem = String(entries[i].sequence).padStart(4, '0');
+          const [recBytes, sigBytes] = await Promise.all([loader.authorityRecordStem(stem), loader.authorityRecordStemSig?.(stem) ?? Promise.resolve(null)]);
+          if (!recBytes) { chainOk = false; break; }
+          const rec = JSON.parse(recBytes.toString('utf8')) as { sequence?: string; previousRecordHash?: { sha256?: string } | null; events?: { type?: string; slug?: string }[]; state?: { skills?: { slug: string; certificateSha256: string; status?: string }[] } };
+          const recHash = digest('sha256', canonicalJson(rec));
+          const linkOk = i === 0 ? rec.previousRecordHash == null : rec.previousRecordHash?.sha256 === prevHash;
+          if (Number(rec.sequence) !== i || !linkOk || entries[i].recordHash !== recHash) { chainOk = false; break; }
+          if (sigBytes && !verifyCanonical(rec, sigBytes.toString('utf8'), key)) { chainOk = false; break; }
+          prevHash = recHash;
+          headRecord = rec;
+        }
+        if (!chainOk || !headRecord) {
+          fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
+        } else if (authDoc.latestRecordHash !== prevHash) {
+          fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
+        } else {
+          const entry = headRecord.state?.skills?.find((s) => s.slug === cert.subjectId && s.certificateSha256 === sha256(certBytes));
+          if (!entry) {
+            fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
+          } else if (entry.status === 'revoked') {
+            return (fail(REASON_CODES.REVOKED, 'authority'), baseFail('revoked', subject));
+          } else {
+            pass('authorityRecord');
+            authoritySequence = headRecord.sequence ?? null;
+          }
         }
       } catch {
         fail(REASON_CODES.INVALID_SCHEMA, 'authorityRecord');

@@ -27,8 +27,9 @@ function makeLoader(overrides: Record<string, Buffer | null> = {}): ResourceLoad
     catalog: async () => ('catalog' in overrides ? overrides.catalog : read(resolve(repoRoot, 'public/skills/catalog.json'))),
     siblingCertificate: async (slug) => read(resolve(repoRoot, 'public/skills', slug, 'certificate.json')),
     authority: async () => ('authority' in overrides ? overrides.authority : read(resolve(repoRoot, 'public/.well-known/skill-authority.json'))),
-    authorityRecord: async () => ('authorityRecord' in overrides ? overrides.authorityRecord : read(resolve(repoRoot, 'public/.well-known/authority/records/0000.json'))),
-    authorityRecordSig: async () => read(resolve(repoRoot, 'public/.well-known/authority/records/0000.sig')),
+    authorityLog: async () => ('authorityLog' in overrides ? overrides.authorityLog : read(resolve(repoRoot, 'public/.well-known/authority/log.json'))),
+    authorityRecordStem: async (stem) => (`record:${stem}` in overrides ? overrides[`record:${stem}`] : read(resolve(repoRoot, 'public/.well-known/authority/records', `${stem}.json`))),
+    authorityRecordStemSig: async (stem) => read(resolve(repoRoot, 'public/.well-known/authority/records', `${stem}.sig`)),
   };
 }
 
@@ -44,10 +45,10 @@ test('positive control: the published okf-audit verifies to its attested tier', 
   assert.equal(verdict.authoritySequence, '0', 'genesis record anchors the verdict at sequence 0');
 });
 
-test('tampered authority record → AUTHORITY_MISMATCH', async () => {
+test('tampered authority record in the chain → AUTHORITY_MISMATCH', async () => {
   const record = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/records/0000.json')))!.toString('utf8'));
-  record.state.catalogRoot = '0'.repeat(64); // breaks the latestRecordHash pointer + the signature
-  const verdict = await verifySkill(makeLoader({ authorityRecord: Buffer.from(JSON.stringify(record)) }));
+  record.state.catalogRoot = '0'.repeat(64); // breaks the log-entry hash + the latest pointer + the signature
+  const verdict = await verifySkill(makeLoader({ 'record:0000': Buffer.from(JSON.stringify(record)) }));
   assert.equal(verdict.verdict, 'invalid');
   assert.ok(verdict.reasonCodes.includes(REASON_CODES.AUTHORITY_MISMATCH), verdict.reasonCodes.join(', '));
 });

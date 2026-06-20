@@ -969,6 +969,12 @@ async function main() {
     );
   }
 
+  // Revoked-skill set from the materialized authority state — the link-only fast-path revocation hint; the
+  // signed chain (verifier graph-replay) is the tamper-evident source.
+  const revokedSlugs = new Set<string>(
+    ((latestState as { skills?: { slug: string; status?: string }[] } | undefined)?.skills ?? []).filter((s) => s.status === 'revoked').map((s) => s.slug),
+  );
+
   // Domain-controlled skill authority file — the trust root. Agents verify skill hashes against it.
   const authoritySchemaUrl = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority-v0.json`;
   const manifestSchemaUrl = `${SKILL_SITE_ORIGIN}/skills/schemas/amtech-skill-manifest-v0.json`;
@@ -1001,7 +1007,7 @@ async function main() {
       name: s.name,
       title: s.title,
       version: s.version,
-      status: 'published',
+      status: revokedSlugs.has(s.slug) ? 'revoked' : 'published',
       trustTier: s.trustTier,
       policyVersion: s.policyVersion,
       canonicalUrl: s.url,
