@@ -34,6 +34,7 @@
       "mediaType": "application/yaml; charset=utf-8",
       "sha256": "4c06596469315de6c40abb144602809d479b03c0bfb637b851d7c4764eb0cfbf",
       "sha3_512": "4f0be8cb480b681052587c498da9fc5f99cb4c411ab955f33278c4a6db4dcf349bddd7ae394681399abdfb20772f8512f627c947e9cee66e7d259bc46c25b1d9",
+      "integrity": "sha256-TAZZZGkxXebECrsURgKAnUebA8C/tje4UdfEdk6wz78=",
       "size": 374,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/agents/openai.yaml",
       "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
@@ -47,6 +48,7 @@
       "mediaType": "application/json; charset=utf-8",
       "sha256": "3b3638aec369c4da9f2ba9bdf1246b7314b2bccb489109a4cd3bad767c9eeaac",
       "sha3_512": "b4fc3694ed0a73df0b95d568f12f35cfb4b9052dc4d2f0de22eb75e49eee19f7c1fb0e63358af51abf4c6069779a78e251c518e28271ca58e781dd46c98702e2",
+      "integrity": "sha256-OzY4rsNpxNqfK6m98SRrcxSyvMtIkQmkzTutdnye6qw=",
       "size": 3375,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/assets/graph-schema.json",
       "loadPolicy": "Use when the user asks for JSON or a graph another tool can ingest.",
@@ -60,6 +62,7 @@
       "mediaType": "text/plain; charset=utf-8",
       "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
       "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd",
+      "integrity": "sha256-g5JBR3BCUphGFbgqoS42OyNug6yMZMcx81ipUUS3+Ls=",
       "size": 743,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/LICENSE.txt",
       "loadPolicy": "Read when evaluating reuse or redistribution.",
@@ -73,6 +76,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "a6a87aee6413542c3483c8638254ef29934b627afa8cac112de156e8bde0aa37",
       "sha3_512": "24776225ae4a5bb9ed57b814d2ec5a4052f6c7b4842904d24b249c9e1440aa5d9889d33a7fb5f9073c16d0cde3760be9742e518d696b95eac60f3a357833865b",
+      "integrity": "sha256-pqh67mQTVCw0g8hjglTvKZNLYnr6jKwRLeFW6L3gqjc=",
       "size": 3260,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/references/entity-types.md",
       "loadPolicy": "Read when typing entities.",
@@ -86,6 +90,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "78f17974e831580cacb788d408a7958602c533cf573878e19af5c9fa51aa3753",
       "sha3_512": "7665ce91944a08f23d321d8a0f04a3dfbb4c882580f77915802dc517ef0cfc7a8889df5af5744bad9066fd08e81d3657cf11784e6a277d4015a016f332a0dce1",
+      "integrity": "sha256-ePF5dOgxWAyst4jUCKeVhgLFM89XOHjhmvXJ+lGqN1M=",
       "size": 3849,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/references/knowledge-graph-method.md",
       "loadPolicy": "Read when deciding which nodes deserve pages and how to write edges.",
@@ -99,6 +104,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "0ce276e135775b66d29e64a2d4adb2838e1340051d966200e38016f993d5d887",
       "sha3_512": "c4b57321350e2dc9efcc983c2d5b109754a9065504caae973efe133114d22067f9cee62d0dd1fce635bc6c874596d0b740580134f8a5c32e8fac4243b273bb86",
+      "integrity": "sha256-DOJ24TV3W2bSnmSi1K2yg44TQAUdlmIA44AW+ZPV2Ic=",
       "size": 5951,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/SKILL.md",
       "loadPolicy": "Always read before building a graph.",
@@ -109,15 +115,35 @@
     "file": "knowledge-graph-builder-0.1.0.zip",
     "sha256": "3bb768a6fd93de086802460c773f21134e39c456ba4af99dc421a7e86deb752e",
     "sha3_512": "c97167ce5efbbb0acf5319e7caf168d85d3acd4d00d0ebb20e5c0e065749d321aa9f82de243f5960897edf570207b1b18905be8c12be7d3fb2b6cd4be1473876",
+    "integrity": "sha256-O7dopv2T3ghoAkYMdz8hE045xFa6SvmdxCGn6G3rdS4=",
     "url": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip"
+  },
+  "sourcePackage": {
+    "sha256": "b90edacc410ef5f94e806dd06c8c987754bc2c72e2ac8cb164a63396b5eeaabd",
+    "sha3_512": "20c81717a51b4f119659a789a95ec4736248ae5f20c9705628157e41b3254381263dc57f584dc199aef0b7773dd7483cdc9e3f28e9085143b6bc0396bdf52582"
   },
   "certificate": {
     "id": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
+    "schemaVersion": "amtech-signed-artifact/v2",
     "algorithm": "Ed25519",
     "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
     "signatureUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
     "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
-    "signed": true
+    "signed": true,
+    "trustTier": "amtech-reviewed",
+    "policyVersion": "amtech-skill-policy/1",
+    "attestations": {
+      "conformance": {
+        "method": "static-contract",
+        "result": "pass",
+        "evidenceUrl": "https://amtechai.com/skills/knowledge-graph-builder/evidence/conformance.json"
+      },
+      "review": {
+        "result": "approved",
+        "reviewer": "amtech:reviewer:ben",
+        "evidenceUrl": "https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json"
+      }
+    }
   },
   "authority": {
     "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",

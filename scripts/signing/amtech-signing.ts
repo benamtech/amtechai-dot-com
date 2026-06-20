@@ -1,12 +1,61 @@
 import { createHash, createPrivateKey, createPublicKey, sign, verify, type KeyObject } from 'node:crypto';
 
-export const SIGNED_ARTIFACT_SCHEMA = 'https://amtechai.com/schemas/amtech-signed-artifact-v1.json';
+export const SIGNED_ARTIFACT_SCHEMA = 'https://amtechai.com/schemas/amtech-signed-artifact-v2.json';
 export const SIGNING_KEY_URL = 'https://amtechai.com/.well-known/amtech-signing-key.json';
 
 export type SignedSubjectType = 'skill' | 'content' | 'message' | 'repo-update' | 'status';
 
+/**
+ * Trust tiers (docs/skills/standard/02 + the ladder in 09). Ordered weakest→strongest.
+ * `replay-verified` = the deterministic-recompute rung (method `graph-replay`), the "missing middle"
+ * any party re-runs client-side. `behavior-verified` (live-model) is a reserved v2 non-goal;
+ * `proof-verified` (zk-compute) is a documented horizon, not a runtime tier.
+ */
+export type TrustTier =
+  | 'signed'
+  | 'structure-verified'
+  | 'amtech-reviewed'
+  | 'replay-verified'
+  | 'behavior-verified';
+
+export type EvidenceRef = { url: string; sha256: string };
+
+/**
+ * The assurance predicate over the certificate's subject (the skill archive). All values are
+ * strings/objects/arrays-of-strings — NO JSON numbers in the signed payload (RFC 8785 / I-JSON safety).
+ */
+export type SkillAttestations = {
+  policyVersion: string;
+  trustTier: TrustTier;
+  permissions: {
+    filesystem: 'none' | 'read' | 'read-write' | 'read-write-optional';
+    network: 'none' | 'outbound' | 'bidirectional';
+    secrets: 'none' | 'declared';
+    /** Exact list of executables shipped in the archive — signer-verified against archive contents. */
+    scripts: string[];
+  };
+  /** Offline contract-conformance (method:'static-contract' now; 'live-model' reserved). Not a live AI test. */
+  conformance: {
+    suite: string;
+    suiteVersion: string;
+    method: 'static-contract' | 'live-model';
+    sourceCommit: string;
+    result: 'pass' | 'fail';
+    ranAt: string;
+    evidence: EvidenceRef;
+  };
+  /** AMTECH publisher/reviewer attestation. Required for trustTier 'amtech-reviewed'. */
+  review?: {
+    reviewer: { type: 'human'; id: string; name: string };
+    result: 'approved' | 'rejected' | 'waived';
+    reviewedAt: string;
+    policyVersion: string;
+    evidence: EvidenceRef;
+  };
+};
+
 export type ArtifactCertificate = {
-  schemaVersion: 'amtech-signed-artifact/v1';
+  schemaVersion: 'amtech-signed-artifact/v1' | 'amtech-signed-artifact/v2';
   certificateId: string;
   subjectType: SignedSubjectType;
   subjectId: string;
@@ -15,11 +64,15 @@ export type ArtifactCertificate = {
   repository?: { url: string; commit: string; path: string };
   version?: string;
   digests: { sha256: string; sha3_512: string };
+  /** v2: digest over the canonical source-package payload — the cross-repo verification anchor. */
+  sourcePackage?: { sha256: string; sha3_512: string };
   issuedAt: string;
   expiresAt?: string;
   issuer: { name: string; url: string };
   signingKeyId: string;
   signingKeyUrl: string;
+  /** v2: assurance predicate (tested/reviewed under a policy). Absent on v1 certs (tier 'signed'). */
+  attestations?: SkillAttestations;
 };
 
 export type SigningKeyDocument = {
@@ -55,6 +108,22 @@ export function canonicalJson(value: unknown): string {
       .join(',')}}`;
   }
   throw new Error(`Unsupported canonical JSON value: ${typeof value}`);
+}
+
+/**
+ * Canonical source-package digest — the cross-repo verification anchor (docs/skills/standard/02).
+ * Both the website (over src/lib/skills/source/<slug>/) and the registry (over skills/<slug>/) compute
+ * this identically, so the SAME signed certificate verifies in both repos. Construction: array of
+ * { path, size, contentBase64 } sorted by `path` in UTF-16 code-unit order, serialized with
+ * canonicalJson (keys sorted), digested. `registry/validate.mjs` mirrors this exactly.
+ */
+export function packagePayloadDigest(files: { path: string; content: Buffer }[]): { sha256: string; sha3_512: string } {
+  const sorted = [...files].sort((a, b) => (a.path < b.path ? -1 : a.path > b.path ? 1 : 0));
+  const payload = Buffer.from(
+    canonicalJson(sorted.map((file) => ({ path: file.path, size: file.content.length, contentBase64: file.content.toString('base64') }))),
+    'utf8',
+  );
+  return { sha256: digest('sha256', payload), sha3_512: digest('sha3-512', payload) };
 }
 
 export function publicKeyFingerprint(publicKey: KeyObject): { sha256: string; sha3_512: string } {

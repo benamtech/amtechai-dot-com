@@ -15,7 +15,18 @@
       "certificate": {
         "id": "amtech:skill:okf-audit:36f53231aa75bab64166abe7",
         "url": "https://amtechai.com/skills/okf-audit/certificate.json",
-        "signature": "https://amtechai.com/skills/okf-audit/certificate.sig"
+        "signature": "https://amtechai.com/skills/okf-audit/certificate.sig",
+        "sha256": "0681d0a6bf1770d59d8c345ebcf13a1eef14a91b86475f986b5c89a2b81fbe01"
+      },
+      "trustTier": "amtech-reviewed",
+      "policyVersion": "amtech-skill-policy/1",
+      "sourcePackage": {
+        "sha256": "17cb62aaf3db3bb5a4b1e522450d7dbc117552af5e8c8307b414e140ea4ef58a",
+        "sha3_512": "75e250603086776d7143cb635219b601092c6d1724dc510b900a59487468845a1d26d3449a08f5c0e035d1ac81e55539b3af13eacb014fd288db01c6997d2b1b"
+      },
+      "evidence": {
+        "conformance": "https://amtechai.com/skills/okf-audit/evidence/conformance.json",
+        "review": "https://amtechai.com/skills/okf-audit/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
       "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
@@ -36,7 +47,18 @@
       "certificate": {
         "id": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
         "url": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
-        "signature": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig"
+        "signature": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
+        "sha256": "7f927442968da0b033ed60e54c3494641e076f9f3a819a0ac68c3e2367256fd2"
+      },
+      "trustTier": "amtech-reviewed",
+      "policyVersion": "amtech-skill-policy/1",
+      "sourcePackage": {
+        "sha256": "b90edacc410ef5f94e806dd06c8c987754bc2c72e2ac8cb164a63396b5eeaabd",
+        "sha3_512": "20c81717a51b4f119659a789a95ec4736248ae5f20c9705628157e41b3254381263dc57f584dc199aef0b7773dd7483cdc9e3f28e9085143b6bc0396bdf52582"
+      },
+      "evidence": {
+        "conformance": "https://amtechai.com/skills/knowledge-graph-builder/evidence/conformance.json",
+        "review": "https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
       "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",

@@ -1,0 +1,19 @@
+{
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "requiredFrontmatter": ["name", "description"],
+  "requiredSections": ["## Read Order", "## Build Workflow", "## Output"],
+  "schemas": [
+    {
+      "asset": "assets/graph-schema.json",
+      "goldenExample": "knowledge-graph.json",
+      "requiredOutputDocumented": ["Domain frame", "Entity table", "Edge list"]
+    }
+  ],
+  "permissions": {
+    "filesystem": "read-write-optional",
+    "network": "none",
+    "secrets": "none"
+  }
+}

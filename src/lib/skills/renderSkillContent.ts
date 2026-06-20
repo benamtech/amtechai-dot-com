@@ -62,9 +62,17 @@ export function renderSkillContentHtml(slug: string): string {
   if (!skill || !content) return notFound();
 
   const safety = skill.safety;
+  const trustTierLabel: Record<string, string> = {
+    signed: 'Signed',
+    'structure-verified': 'Structure-verified',
+    'amtech-reviewed': 'AMTECH-reviewed',
+    'replay-verified': 'Replay-verified',
+    'behavior-verified': 'Behavior-verified',
+  };
+  const trustTier = content.trustTier ?? 'signed';
   const chips = [
     chip('Version', skill.version),
-    chip('Updated', skill.updated),
+    chip('Trust tier', trustTierLabel[trustTier] ?? trustTier),
     chip('Scripts', safety.scripts),
     chip('Network', safety.requiresNetwork ? 'required' : 'no'),
   ].join('');
@@ -73,6 +81,20 @@ export function renderSkillContentHtml(slug: string): string {
   const fileBlocks = content.files.map((f) => fileBlock(skill, f)).join('');
   const shortCommit = skill.repository.commit.slice(0, 12);
   const certificateId = content.certificateId ?? 'missing';
+  const policyVersion = content.policyVersion;
+
+  const evidenceItems: [string, string][] = [];
+  if (content.conformanceEvidenceUrl) {
+    evidenceItems.push(['Conformance evidence (offline checks)', content.conformanceEvidenceUrl]);
+  }
+  if (content.reviewEvidenceUrl) {
+    evidenceItems.push(['AMTECH review evidence', content.reviewEvidenceUrl]);
+  }
+  const evidenceLinks = evidenceItems.length
+    ? `<ul class="mt-5 grid gap-2 sm:grid-cols-2">${evidenceItems
+        .map(([label, href]) => `<li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black hover:bg-black hover:text-white" href="${esc(href)}">${esc(label)} &#8599;</a></li>`)
+        .join('')}</ul>`
+    : '';
 
   const views: [string, string][] = [
     ['use.md — agent bootstrap', skillPath(skill, '/use.md')],
@@ -108,7 +130,8 @@ export function renderSkillContentHtml(slug: string): string {
 
       <section class="mt-12 border-t border-black/15 pt-10">
         <h2 class="text-2xl font-black tracking-[-0.03em]">Source &amp; verification</h2>
-        <p class="mt-3 text-sm leading-7 text-black/65">This package has an AMTECH Signed Artifact v1 certificate. Its canonical certificate is signed with Ed25519 and binds the owner, skill, version, repository commit, SHA-256 digest, and SHA3-512 digest.</p>
+        <p class="mt-3 text-sm leading-7 text-black/65">This package has an AMTECH Signed Artifact v2 certificate. Its canonical certificate is signed with Ed25519 and binds the owner, skill, version, repository commit, SHA-256 digest, and SHA3-512 digest&mdash;plus a <code class="font-mono text-xs">sourcePackage</code> digest that anchors the same bytes across the website and the source registry.${evidenceLinks ? ` The certificate also carries an <code class="font-mono text-xs">attestations</code> predicate: an offline conformance run and an AMTECH human review${policyVersion ? ` under <code class="font-mono text-xs">${esc(policyVersion)}</code>` : ''}, each verified at build time with its evidence published below.` : ''}</p>
+        ${evidenceLinks}
         <ul class="mt-5 grid gap-2 sm:grid-cols-2">
           <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillRepositoryTreeUrl(skill))}">GitHub source at ${esc(shortCommit)} &#8599;</a></li>
           <li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black" href="${esc(skillRepositoryFileUrl(skill, 'SKILL.md'))}">Commit-pinned SKILL.md &#8599;</a></li>

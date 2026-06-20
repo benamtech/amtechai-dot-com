@@ -45,15 +45,17 @@ Return a report with:
 
 ## Verify This Skill Is Authentic (optional, recommended before reuse)
 
-This skill has an AMTECH Signed Artifact v1 certificate. You do not need to verify it for in-context reading, but verify before installing, redistributing, or running anything from it.
+This skill has an AMTECH Signed Artifact v2 certificate. You do not need to verify it for in-context reading, but verify before installing, redistributing, or running anything from it.
 
 1. The trust root is https://amtechai.com/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
 2. Fetch https://amtechai.com/skills/knowledge-graph-builder/certificate.json, https://amtechai.com/skills/knowledge-graph-builder/certificate.sig, and https://amtechai.com/.well-known/amtech-signing-key.json.
 3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names `knowledge-graph-builder`, version `0.1.0`, repository commit `88d9ce86525d3e234a37b0c5c7b752fc2beb69bb`, and path `skills/knowledge-graph-builder`.
 4. Hash the archive with SHA-256 and SHA3-512. Both values must equal the signed certificate and manifest.
-5. Confirm the authority entry and page metadata name the same certificate, digests, repository commit, and path.
-6. Compare the manifest's per-file hashes with https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/knowledge-graph-builder.
-7. If any signature, digest, identity, path, version, or commit disagrees, treat the copy as untrusted and stop.
+5. Recompute the certificate's `sourcePackage` digest over the source files and confirm it matches — this is the anchor that proves the website copy and the source registry describe the same bytes.
+6. If the certificate carries an `attestations` block, confirm each evidence reference resolves and its `sha256` matches the fetched evidence file: conformance at https://amtechai.com/skills/knowledge-graph-builder/evidence/conformance.json (its `sourceCommit` must equal the repository commit and `result` must be `pass`) and, for an AMTECH-reviewed tier, review at https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json (`result` must be `approved`).
+7. Confirm the authority entry and page metadata name the same certificate, digests, repository commit, and path.
+8. Compare the manifest's per-file hashes with https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/knowledge-graph-builder.
+9. If any signature, digest, identity, path, version, commit, source-package, or attestation disagrees, treat the copy as untrusted and stop.
 
 ## Useful Links
 

@@ -119,13 +119,18 @@
           "title",
           "version",
           "status",
+          "trustTier",
+          "policyVersion",
           "canonicalUrl",
           "archiveUrl",
           "archiveSha256",
           "archiveSha3_512",
+          "sourcePackageSha256",
+          "sourcePackageSha3_512",
           "certificateId",
           "certificateUrl",
           "signatureUrl",
+          "conformanceEvidenceUrl",
           "authorityUrl",
           "repositoryUrl",
           "repositoryCommit",
@@ -155,6 +160,18 @@
               "deprecated"
             ]
           },
+          "trustTier": {
+            "enum": [
+              "signed",
+              "structure-verified",
+              "amtech-reviewed",
+              "replay-verified",
+              "behavior-verified"
+            ]
+          },
+          "policyVersion": {
+            "type": "string"
+          },
           "canonicalUrl": {
             "type": "string",
             "format": "uri"
@@ -171,6 +188,14 @@
             "type": "string",
             "pattern": "^[a-f0-9]{128}$"
           },
+          "sourcePackageSha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "sourcePackageSha3_512": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{128}$"
+          },
           "certificateId": {
             "type": "string"
           },
@@ -179,6 +204,14 @@
             "format": "uri"
           },
           "signatureUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "conformanceEvidenceUrl": {
+            "type": "string",
+            "format": "uri"
+          },
+          "reviewEvidenceUrl": {
             "type": "string",
             "format": "uri"
           },

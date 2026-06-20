@@ -34,6 +34,7 @@
       "mediaType": "application/yaml; charset=utf-8",
       "sha256": "430521da3999c0f405652b3cd8b37f0536e629fa9148ecec3079a1d053b5c2e4",
       "sha3_512": "79483050dc2e4e33cec264faa46a0d13486a0e568b02e10f2c488a00fbcc26ca86066f36f443851ed367a97e39878f038c3d0ecca63203d5d61f76c8c0f5bbad",
+      "integrity": "sha256-QwUh2jmZwPQFZSs82LN/BTbmKfqRSOzsMHmh0FO1wuQ=",
       "size": 254,
       "url": "https://amtechai.com/skills/okf-audit/files/agents/openai.yaml",
       "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
@@ -47,6 +48,7 @@
       "mediaType": "application/json; charset=utf-8",
       "sha256": "e2f3247d7064c7a749a78c08190f4ba5499aa86111a278d7b8588c71dd5bcb5a",
       "sha3_512": "d79b8ca05e6ef0d689b69e5c7eb56cad536c1e94179f90fffdf11e235c6678aa39fb0e7e6b7dde33d2cd7c611e5bddd57768488d323b96a1faf866a08e60c12f",
+      "integrity": "sha256-4vMkfXBkx6dJp4wIGQ9LpUmaqGERonjXuFiMcd1by1o=",
       "size": 1470,
       "url": "https://amtechai.com/skills/okf-audit/files/assets/report-schema.json",
       "loadPolicy": "Use when the user asks for JSON or a structured report.",
@@ -60,6 +62,7 @@
       "mediaType": "text/plain; charset=utf-8",
       "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
       "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd",
+      "integrity": "sha256-g5JBR3BCUphGFbgqoS42OyNug6yMZMcx81ipUUS3+Ls=",
       "size": 743,
       "url": "https://amtechai.com/skills/okf-audit/files/LICENSE.txt",
       "loadPolicy": "Read when evaluating reuse or redistribution.",
@@ -73,6 +76,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "1341c395f8d6fde5e94269c367dbd022f13c462657ef6adfb4c8d7eb159108ba",
       "sha3_512": "d4bd14d3d659c456e2fa18b817c90a1292054a0470b86625058b17b7a9a84f64ab9708d1e4d7efe61b35b5adbb5641214dda651fc623fc845a1e8cdb2deb0090",
+      "integrity": "sha256-E0HDlfjW/eXpQmnDZ9vQIvE8RiZX72rftMjX6xWRCLo=",
       "size": 1527,
       "url": "https://amtechai.com/skills/okf-audit/files/references/agent-readable-content-checklist.md",
       "loadPolicy": "Read when auditing website rendering, snippets, or machine-readable surfaces.",
@@ -86,6 +90,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "b6abba048d2752d34d2e15b3c6383d9cb61420eee86be0f77d0031dc50a5719d",
       "sha3_512": "e3c732157e91f2e999f6a003e93c0296625407d62c2e6159b97e32f5712ef7621d7a8f22ed0b1cef593187ff5a6e3fbfe591e577bf49df202396e4ec4c5705c5",
+      "integrity": "sha256-tqu6BI0nUtNNLhWzxjg9nLYUIO7oa+D3fQAx3FClcZ0=",
       "size": 1587,
       "url": "https://amtechai.com/skills/okf-audit/files/references/amtech-knowledge-graph-insights.md",
       "loadPolicy": "Read when recommending AMTECH-style knowledge graph improvements.",
@@ -99,6 +104,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "4dc9f4c7cf82a1befe340f0255cf1824027cf06a77f5226f4b0c01624870f257",
       "sha3_512": "1b3d3835e5ecfbae20b37dafef5f45d75fe1592788afaa8e4a7089c37c762a7de8c2f32cac9a18f942af9fadd9893e9aaddc6c21b4cf3f3a870ef9931484cc93",
+      "integrity": "sha256-Tcn0x8+Cob7+NA8CVc8YJAJ88Gp39SJvSwwBYkhw8lc=",
       "size": 2640,
       "url": "https://amtechai.com/skills/okf-audit/files/references/okf-audit-rubric.md",
       "loadPolicy": "Read when scoring or explaining audit findings.",
@@ -112,6 +118,7 @@
       "mediaType": "text/markdown; charset=utf-8",
       "sha256": "431fd709bd70bf7f4a9d3803aa930e56fed1a6fd600485aae29b1a892730aa9c",
       "sha3_512": "2052c5001a3cd3e97cd8a069d120d744437fcb8c09da7b1c521e043fed6ea1294758f65a2ca3a086b340ace1a1cd41081a840ff2ca7fde46483c94e9b021ece2",
+      "integrity": "sha256-Qx/XCb1wv39KnTgDqpMOVv7Rpv1gBIWq4psaiScwqpw=",
       "size": 3279,
       "url": "https://amtechai.com/skills/okf-audit/files/SKILL.md",
       "loadPolicy": "Always read before performing an audit.",
@@ -122,15 +129,35 @@
     "file": "okf-audit-0.1.0.zip",
     "sha256": "c7f1292b9e4b91a539b43b015186a8cc9a7220d0d9a93e62fe6e69e7a643f6a7",
     "sha3_512": "36f53231aa75bab64166abe7c9a8f0761fa335d0f89713c7013fe0ed07e6e1f8e3641537759e8a28626d15ee868bd5766214315aca628e11e1a3da1e7fd9cb7a",
+    "integrity": "sha256-x/EpK55LkaU5tDsBUYaozJpyINDZqT5i/m5p56ZD9qc=",
     "url": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip"
+  },
+  "sourcePackage": {
+    "sha256": "17cb62aaf3db3bb5a4b1e522450d7dbc117552af5e8c8307b414e140ea4ef58a",
+    "sha3_512": "75e250603086776d7143cb635219b601092c6d1724dc510b900a59487468845a1d26d3449a08f5c0e035d1ac81e55539b3af13eacb014fd288db01c6997d2b1b"
   },
   "certificate": {
     "id": "amtech:skill:okf-audit:36f53231aa75bab64166abe7",
+    "schemaVersion": "amtech-signed-artifact/v2",
     "algorithm": "Ed25519",
     "certificateUrl": "https://amtechai.com/skills/okf-audit/certificate.json",
     "signatureUrl": "https://amtechai.com/skills/okf-audit/certificate.sig",
     "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
-    "signed": true
+    "signed": true,
+    "trustTier": "amtech-reviewed",
+    "policyVersion": "amtech-skill-policy/1",
+    "attestations": {
+      "conformance": {
+        "method": "static-contract",
+        "result": "pass",
+        "evidenceUrl": "https://amtechai.com/skills/okf-audit/evidence/conformance.json"
+      },
+      "review": {
+        "result": "approved",
+        "reviewer": "amtech:reviewer:ben",
+        "evidenceUrl": "https://amtechai.com/skills/okf-audit/evidence/review.json"
+      }
+    }
   },
   "authority": {
     "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",

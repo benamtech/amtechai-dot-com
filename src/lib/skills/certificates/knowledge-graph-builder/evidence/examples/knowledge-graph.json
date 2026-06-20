@@ -1,0 +1,62 @@
+{
+  "domain": {
+    "name": "Coastal Pressure Washing Co",
+    "audience": "Homeowners and property managers on the Gulf Coast",
+    "summary": "Exterior cleaning services for residential and commercial properties, focused on pressure and soft washing."
+  },
+  "nodes": [
+    {
+      "id": "pressure-washing",
+      "title": "Pressure Washing",
+      "type": "Service",
+      "rank": "pillar",
+      "description": "Core high-pressure exterior cleaning service for driveways, siding, and concrete.",
+      "searchIntent": "What is pressure washing and when does my property need it?",
+      "schemaType": "Service",
+      "tags": ["exterior", "cleaning", "residential"]
+    },
+    {
+      "id": "soft-washing",
+      "title": "Soft Washing",
+      "type": "Method",
+      "rank": "supporting",
+      "description": "Low-pressure cleaning method for delicate surfaces like roofs and painted siding."
+    },
+    {
+      "id": "roof-cleaning",
+      "title": "Roof Cleaning",
+      "type": "Use Case",
+      "rank": "supporting",
+      "description": "Removing algae, lichen, and black streaks from shingle and tile roofs."
+    }
+  ],
+  "edges": [
+    {
+      "source": "soft-washing",
+      "target": "pressure-washing",
+      "relationship": "is a kind of",
+      "reason": "Soft washing is a gentler form of pressure washing used where high pressure would cause damage."
+    },
+    {
+      "source": "roof-cleaning",
+      "target": "soft-washing",
+      "relationship": "depends on",
+      "reason": "Roof cleaning relies on soft washing to avoid stripping or breaking shingles."
+    }
+  ],
+  "pillars": [
+    {
+      "nodeId": "pressure-washing",
+      "reason": "Highest-volume search intent and the hub that every other service links back to.",
+      "targetSearchIntent": "What is pressure washing and when does my property need it?"
+    }
+  ],
+  "internalLinks": [
+    {
+      "from": "roof-cleaning",
+      "to": "soft-washing",
+      "anchorGuidance": "Link the phrase 'gentle soft-wash method' on the roof-cleaning page to the soft-washing page."
+    }
+  ],
+  "buildPrompt": "Write the pressure-washing pillar page answering its core search intent, then draft the soft-washing and roof-cleaning supporting pages, adding the internal link from roof cleaning to soft washing using the given anchor guidance."
+}

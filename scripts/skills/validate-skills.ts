@@ -1,9 +1,14 @@
 import { createHash } from 'node:crypto';
-import { readFile } from 'node:fs/promises';
+import { readFile, readdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { skillDefinitions, skillPath, skillUrl, SKILL_AUTHORITY_URL, SKILL_SITE_ORIGIN } from '../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillPath, skillUrl, SKILL_AUTHORITY_URL, SKILL_SITE_ORIGIN, type SkillDefinition } from '../../src/lib/skills/registry.ts';
 import { digest, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../signing/amtech-signing.ts';
+import { REASON_CODES, type ReasonCode } from '../../src/lib/skills/verification/reasonCodes.ts';
+import { computeConformanceEvidence, serializeEvidence } from './run-conformance.ts';
+import { checkAttestationGates } from './attestation-gates.ts';
+import { verifySkill } from '../../src/lib/skills/verification/verifySkill.ts';
+import { localPublicLoader } from './verifier-loaders.ts';
 import {
   renderHubContentHtml,
   HUB_INSTRUCTION_SENTINEL,
@@ -88,6 +93,31 @@ function sha256(content: Buffer | string): string {
 
 function fail(message: string) {
   errors.push(message);
+}
+
+/**
+ * Record a failure tagged with a canonical reason code. G-X.1: the code MUST be a member of
+ * REASON_CODES (the import + ReasonCode type make this a compile-time guarantee; the runtime guard
+ * catches a stringly-typed mistake too).
+ */
+function failCode(slug: string, code: ReasonCode, message: string) {
+  if (!(Object.values(REASON_CODES) as string[]).includes(code)) {
+    errors.push(`${slug}: internal error — unknown reason code '${code}'.`);
+    return;
+  }
+  errors.push(`${slug}: [${code}] ${message}`);
+}
+
+/** Read every file under a skill source dir as { path, content }, sorted — mirrors the signer exactly. */
+async function readSourceFiles(absDir: string, rel = ''): Promise<{ path: string; content: Buffer }[]> {
+  const entries = await readdir(absDir, { withFileTypes: true });
+  const out: { path: string; content: Buffer }[] = [];
+  for (const entry of entries.sort((a, b) => a.name.localeCompare(b.name))) {
+    const childRel = rel ? `${rel}/${entry.name}` : entry.name;
+    if (entry.isDirectory()) out.push(...(await readSourceFiles(resolve(absDir, entry.name), childRel)));
+    else if (entry.isFile()) out.push({ path: childRel, content: await readFile(resolve(absDir, entry.name)) });
+  }
+  return out;
 }
 
 function hasSkillFrontmatter(content: string): boolean {
@@ -177,6 +207,66 @@ async function validateSkill(slug: string) {
 }
 
 /**
+ * G-M1 — attestation gates (docs/skills/standard/02 §"Signer-enforced gates", 07). The verifier
+ * NEVER trusts that the signer ran correctly: it independently re-asserts every gate over the
+ * PUBLISHED artifacts (the bytes a consumer actually fetches). Each failure carries its canonical
+ * reason code so surfaces, the registry, and the M2 verifier agree on what went wrong.
+ */
+async function validateAttestations(slug: string) {
+  const skill = skillDefinitions.find((item) => item.slug === slug) as SkillDefinition | undefined;
+  if (!skill) return;
+  const base = `public${skillPath(skill)}`;
+
+  const certificateRaw = await read(`${base}/certificate.json`);
+  if (typeof certificateRaw !== 'string') return; // validateSkill already reported the missing cert.
+  let certificate: ArtifactCertificate;
+  try {
+    certificate = JSON.parse(certificateRaw) as ArtifactCertificate;
+  } catch {
+    failCode(slug, REASON_CODES.INVALID_SCHEMA, 'certificate.json is not valid JSON.');
+    return;
+  }
+
+  const sourceFiles = await readSourceFiles(resolve(repoRoot, skill.sourceDir));
+  const publishedConformanceBytes = (await read(`${base}/evidence/conformance.json`, true)) as Buffer | null;
+  const publishedReviewBytes = (await read(`${base}/evidence/review.json`, true)) as Buffer | null;
+
+  // G-M1.4 — recompute the evidence so the gates can assert byte-equality (defeats hand-edited evidence).
+  let freshConformanceSerialized: string | undefined;
+  try {
+    freshConformanceSerialized = serializeEvidence(await computeConformanceEvidence(slug));
+  } catch (error) {
+    failCode(slug, REASON_CODES.CONFORMANCE_FAILED, `conformance recompute crashed: ${error instanceof Error ? error.message : String(error)}.`);
+  }
+
+  const findings = checkAttestationGates({
+    certificate,
+    repositoryCommit: skill.repository.commit,
+    sourceFiles,
+    publishedConformanceBytes,
+    publishedReviewBytes,
+    freshConformanceSerialized,
+  });
+  for (const finding of findings) failCode(slug, finding.code, finding.message);
+}
+
+/**
+ * G-M2.3 — run the LINK-FIRST VERIFIER (docs/skills/standard/04 + 09 graph-replay recipe) over every
+ * published skill, exactly as a third party would: the same pure verifier, reading only the published
+ * surfaces under public/. The build fails unless every skill verdict is 'verified'. This is the gate
+ * that proves the self-describing recipe actually re-derives the verdict — not just that the signer ran.
+ */
+async function validateVerifier(slug: string) {
+  const loader = localPublicLoader(resolve(repoRoot, 'public'), slug);
+  const verdict = await verifySkill(loader);
+  if (verdict.verdict !== 'verified') {
+    for (const code of verdict.reasonCodes) failCode(slug, code, `link-first verifier verdict '${verdict.verdict}' (depth ${verdict.depth}).`);
+  } else if (!verdict.trustTier) {
+    failCode(slug, REASON_CODES.TIER_NOT_SUPPORTED, 'verifier returned verified but no trust tier.');
+  }
+}
+
+/**
  * G-M0 — catalog/hub bootstrap gates (docs/skills/standard/07). The hub (/skills) must be
  * self-bootstrapping: a machine catalog that matches the registry, hub agent-bootstrap files that
  * point at the catalog + authority, and prerendered HTML carrying the instruction block + decision
@@ -245,6 +335,8 @@ async function validateCatalogBootstrap() {
 
 async function main() {
   for (const skill of skillDefinitions) await validateSkill(skill.slug);
+  for (const skill of skillDefinitions) await validateAttestations(skill.slug);
+  for (const skill of skillDefinitions) await validateVerifier(skill.slug);
   await validateCatalogBootstrap();
 
   const rootLlms = await read('public/llms.txt');

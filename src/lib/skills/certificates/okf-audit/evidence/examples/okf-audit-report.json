@@ -1,0 +1,41 @@
+{
+  "summary": "The submitted article explains AI-assisted estimating but buries its core concepts below the fold and ships no machine-readable views, so an agent must read the whole page to learn what it teaches.",
+  "scores": {
+    "overall": 18,
+    "okfReadability": 3,
+    "entityGraph": 3,
+    "discoveryRendering": 4,
+    "trustSourceQuality": 4
+  },
+  "findings": [
+    {
+      "severity": "high",
+      "title": "No first-fetch answer",
+      "detail": "The opening 200 words do not state what the page teaches or who it serves, so a first-fetch agent cannot act without reading further."
+    },
+    {
+      "severity": "medium",
+      "title": "Thin entity coverage",
+      "detail": "Key entities such as job pricing and demand forecasting are named once and never linked to a defining page."
+    },
+    {
+      "severity": "low",
+      "title": "Citations lack publishers",
+      "detail": "Two external claims cite a URL but not the publisher, weakening source trust signals."
+    }
+  ],
+  "missingConceptsAndEdges": [
+    "estimate -> depends on -> labor rate",
+    "demand forecast -> serves -> purchasing plan"
+  ],
+  "materializedViewOpportunities": [
+    "Publish a /article.md markdown twin advertised via rel=alternate",
+    "Emit JSON-LD for the core HowTo so agents can extract steps"
+  ],
+  "priorityFixes": [
+    "Add a first-fetch answer paragraph in the opening 150 words",
+    "Link the five core entities to their pillar pages with descriptive anchors",
+    "Ship a markdown twin and JSON-LD block"
+  ],
+  "remediationPrompt": "Rewrite the article so the first 150 words answer the core question, add internal links for the five named entities to their pillar pages, and emit a markdown twin plus a HowTo JSON-LD block. Keep all factual claims and add the publisher for each citation."
+}

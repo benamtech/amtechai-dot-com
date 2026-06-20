@@ -36,9 +36,18 @@ function linkRow(label: string, href: string): string {
   return `<li><a class="block border border-black/15 bg-white px-4 py-3 text-sm font-semibold text-black hover:border-black hover:bg-black hover:text-white" href="${esc(href)}">${esc(label)}</a></li>`;
 }
 
+const TRUST_TIER_LABEL: Record<string, string> = {
+  signed: 'Signed (provenance + digests)',
+  'structure-verified': 'Structure-verified',
+  'amtech-reviewed': 'AMTECH-reviewed & published',
+  'replay-verified': 'Replay-verified',
+  'behavior-verified': 'Behavior-verified',
+};
+
 function skillBlock(skill: SkillDefinition): string {
   const content = getSkillContent(skill.slug);
   const certificateId = content?.certificateId ?? 'pending';
+  const trustTier = content?.trustTier ?? 'signed';
   const links = [
     linkRow('Skill page', skillPath(skill)),
     linkRow('use.md — agent bootstrap', skillPath(skill, '/use.md')),
@@ -56,7 +65,7 @@ function skillBlock(skill: SkillDefinition): string {
       <p class="mt-3 text-sm leading-7 text-black/70">${esc(skill.summary)}</p>
       <dl class="mt-4 flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs text-black/55">
         <div><dt class="inline font-semibold text-black/70">Status:</dt> <dd class="inline">published</dd></div>
-        <div><dt class="inline font-semibold text-black/70">Provenance:</dt> <dd class="inline">Ed25519-signed (v1 certificate)</dd></div>
+        <div><dt class="inline font-semibold text-black/70">Trust tier:</dt> <dd class="inline">${esc(TRUST_TIER_LABEL[trustTier] ?? trustTier)}</dd></div>
         <div><dt class="inline font-semibold text-black/70">Certificate:</dt> <dd class="inline">${esc(certificateId)}</dd></div>
       </dl>
       <ul class="mt-5 grid gap-2 sm:grid-cols-2">${links}</ul>

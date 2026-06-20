@@ -1,0 +1,133 @@
+{
+  "schemaVersion": "amtech-skill-conformance/v1",
+  "skill": "okf-audit",
+  "version": "0.1.0",
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "sourceCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
+  "ranAt": "2026-06-19T00:00:00.000Z",
+  "result": "pass",
+  "checks": [
+    {
+      "name": "frontmatter:name",
+      "result": "pass"
+    },
+    {
+      "name": "frontmatter:description",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Read Order",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Audit Workflow",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Output Format",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/okf-audit-rubric.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/agent-readable-content-checklist.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/amtech-knowledge-graph-insights.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:assets/report-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:assets/report-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/agent-readable-content-checklist.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/amtech-knowledge-graph-insights.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/okf-audit-rubric.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "scripts-match-declared",
+      "result": "pass"
+    },
+    {
+      "name": "schema-parses:assets/report-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "schema-compiles:assets/report-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-parses:okf-audit-report.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-validates:okf-audit-report.json",
+      "result": "pass"
+    },
+    {
+      "name": "contract-count:assets/report-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Summary",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Score",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Findings",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Priority Fixes",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Remediation Prompt",
+      "result": "pass"
+    }
+  ]
+}
