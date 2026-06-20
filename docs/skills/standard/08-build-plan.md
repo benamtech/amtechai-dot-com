@@ -79,6 +79,15 @@ Spec: `03`. Gates: G-M4.1–G-M4.4.
 
 ---
 
+## Cross-repo work (two repositories)
+
+Implementation spans **two repositories** — an executing session needs access to both.
+
+- **`amtechai-dot-com` (this repo).** Canonical skill source (`src/lib/skills/`), signing (`scripts/signing/`), build + validate (`scripts/skills/`), the verifier, the website surfaces, and the generated artifacts under `public/skills/**` + `public/.well-known/**`. **M0, M1, M2, M3 land here**, plus the M4 authority-record generation and signing.
+- **`amtech-skills-registry` (separate GitHub repo, `github.com/benamtech/amtech-skills-registry`).** The public git-backed install source. Today its content is staged in-repo at `docs/agent-skills/` and published to the standalone repo. Registry-side work: synced skill folders + `index.json`, **signed publishing commits** (M4 fixes `commitSignature: "unsigned"`), reciprocal README/authority back-links, and the **cross-witness mirror of authority records** (the equivocation defense in `03`). The authority file's `repository.commit` pins a commit in *this* repo, so the two must be released in lockstep.
+
+**Access in Claude Code (confirmed possible):** `gh` is authenticated (account `benamtech`) and reaches both repos. Clone `amtech-skills-registry` locally and add it as an extra working directory (`/add-dir <path>`); Read/Edit/Write/Bash work on any absolute path and git on the second repo works via `git -C <path>`. Releases that change both must keep the website's authority commit-pin and the registry's signed commit consistent (single coordinated release step).
+
 ## Out of scope for v2 (documented futures)
 - Full RFC-6962 Merkle log + inclusion/consistency proofs (Option B — upgrade path designed into M4 records).
 - Multi-key thresholds / delegated roles (TUF-style).

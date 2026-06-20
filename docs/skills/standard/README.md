@@ -28,6 +28,7 @@ v1 proves *provenance* (who/where/which bytes) and the live Ed25519 chain verifi
 - **Posture:** borrow concepts, AMTECH-native, statically hostable. (Not strict DSSE/Rekor interop.)
 - **Immutability mechanism:** Option A — git-anchored hash-chained signed snapshots — with a designed-in upgrade path to a full Merkle log (Option B). See `wiki/research/2026-06-19-immutable-authority-history-options.md`.
 - **Catalog bootstrap (M0)** ships before the new CA features.
+- **Two repositories:** work spans `amtechai-dot-com` (this repo — source, signing, verifier, website surfaces, M0–M3 + authority generation) and `amtech-skills-registry` (the public git-backed install source — synced skill folders, signed publishing commits, reciprocal links, authority cross-witness). Releases that touch both must keep the website's authority commit-pin and the registry's signed commit in lockstep. Access in Claude Code: `gh` is authed for both; clone the registry and `/add-dir` it. Details in `08-build-plan.md` → "Cross-repo work".
 
 ## Research backing
 
