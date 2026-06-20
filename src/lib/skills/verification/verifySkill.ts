@@ -281,7 +281,7 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
         const authDoc = JSON.parse(authDocBytes.toString('utf8')) as { latestRecordHash?: string };
         const entries = (log.records ?? []).slice().sort((a, b) => Number(a.sequence) - Number(b.sequence));
         let prevHash: string | null = null;
-        let headRecord: { sequence?: string; state?: { skills?: { slug: string; certificateSha256: string; status?: string }[] } } | null = null;
+        let headRecord: { sequence?: string; state?: { skills?: { slug: string; certificateSha256: string; status?: string }[]; keys?: { keyId: string; status?: string }[] } } | null = null;
         let chainOk = entries.length > 0;
         for (let i = 0; i < entries.length; i++) {
           const stem = String(entries[i].sequence).padStart(4, '0');
@@ -301,10 +301,13 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
           fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
         } else {
           const entry = headRecord.state?.skills?.find((s) => s.slug === cert.subjectId && s.certificateSha256 === sha256(certBytes));
+          const keyEntry = headRecord.state?.keys?.find((k) => k.keyId === cert.signingKeyId);
           if (!entry) {
             fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
           } else if (entry.status === 'revoked') {
             return (fail(REASON_CODES.REVOKED, 'authority'), baseFail('revoked', subject));
+          } else if (keyEntry?.status === 'revoked') {
+            return (fail(REASON_CODES.KEY_NOT_ACTIVE, 'authority'), baseFail('revoked', subject));
           } else {
             pass('authorityRecord');
             authoritySequence = headRecord.sequence ?? null;

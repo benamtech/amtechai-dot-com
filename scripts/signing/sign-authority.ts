@@ -81,14 +81,23 @@ skills.sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
 // Catalog root — over ALL published certs (revocation is an authority flag, not an unpublish), so it stays
 // equal to build-skills.computeCatalogRoot + registry/validate.mjs.
 const catalogRoot = digest('sha256', canonicalJson(skills.map((s) => ({ slug: s.slug, cert: s.certificateSha256 }))));
-const keys: KeyState[] = [{ keyId: existingKey.keyId, status: revokedKeys.has(existingKey.keyId) ? 'revoked' : existingKey.status, validFrom: existingKey.validFrom }];
-const nextState: AuthorityState = { catalogRoot, skills, keys };
 
 // --- Load the existing immutable chain; find the head. ---
 const files = (await readdir(recordsDir).catch(() => [] as string[])).filter((f) => /^\d{4}\.json$/.test(f)).sort();
 const chain: AuthorityRecord[] = [];
 for (const f of files) chain.push(JSON.parse(await readFile(resolve(recordsDir, f), 'utf8')) as AuthorityRecord);
 const head = chain.at(-1) ?? null;
+
+// Carry forward prior keys: the current key is `active`; a superseded prior active becomes `retired`; any key
+// listed in revocations becomes `revoked`. This records rotation + revocation in the materialized state.
+const keysMap = new Map<string, KeyState>((head?.state.keys ?? []).map((k) => [k.keyId, { ...k }]));
+keysMap.set(existingKey.keyId, { keyId: existingKey.keyId, status: 'active', validFrom: existingKey.validFrom });
+for (const k of keysMap.values()) {
+  if (k.keyId !== existingKey.keyId && k.status === 'active') k.status = 'retired';
+  if (revokedKeys.has(k.keyId)) k.status = 'revoked';
+}
+const keys: KeyState[] = [...keysMap.values()].sort((a, b) => (a.keyId < b.keyId ? -1 : a.keyId > b.keyId ? 1 : 0));
+const nextState: AuthorityState = { catalogRoot, skills, keys };
 
 // --- Idempotent: unchanged state appends nothing. ---
 if (head && canonicalJson(head.state) === canonicalJson(nextState)) {
