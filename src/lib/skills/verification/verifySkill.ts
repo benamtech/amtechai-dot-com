@@ -20,6 +20,7 @@ import {
   canonicalJson,
   digest,
   packagePayloadDigest,
+  verifyCanonical,
   verifyCertificate,
   type ArtifactCertificate,
   type SigningKeyDocument,
@@ -42,6 +43,8 @@ export type ResourceLoader = {
   authority?: () => Promise<Buffer | null>;
   /** The latest signed authority record (docs/skills/standard/03) — set-integrity + sequence (04 §1). */
   authorityRecord?: () => Promise<Buffer | null>;
+  /** The detached signature for the latest authority record. */
+  authorityRecordSig?: () => Promise<Buffer | null>;
 };
 
 export type VerifyOptions = {
@@ -259,6 +262,36 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
     }
   } else {
     evidence.catalogRoot = 'skipped';
+  }
+
+  // ---- Authority record (04 §1, M4 groundwork): the latest SIGNED record commits to the skill SET -----
+  // The domain authority's latest pointer must equal the record's canonical digest, the record signature
+  // must verify, and this skill's certificate digest must appear in the record's set. Drift → AUTHORITY_MISMATCH.
+  if (loader.authorityRecord && loader.authority) {
+    const [recordBytes, recordSigBytes, authDocBytes] = await Promise.all([
+      loader.authorityRecord(),
+      loader.authorityRecordSig?.() ?? Promise.resolve(null),
+      loader.authority(),
+    ]);
+    if (!recordBytes || !authDocBytes) {
+      evidence.authorityRecord = 'skipped';
+    } else {
+      try {
+        const record = JSON.parse(recordBytes.toString('utf8')) as { sequence?: string; catalogRoot?: string; skills?: { slug: string; certificateSha256: string }[] };
+        const authDoc = JSON.parse(authDocBytes.toString('utf8')) as { latestRecordHash?: string };
+        const recordHash = digest('sha256', canonicalJson(record));
+        const leafOk = record.skills?.some((s) => s.slug === cert.subjectId && s.certificateSha256 === sha256(certBytes));
+        if (authDoc.latestRecordHash !== recordHash) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
+        else if (recordSigBytes && !verifyCanonical(record, recordSigBytes.toString('utf8'), key)) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
+        else if (!leafOk) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
+        else {
+          pass('authorityRecord');
+          authoritySequence = record.sequence ?? null;
+        }
+      } catch {
+        fail(REASON_CODES.INVALID_SCHEMA, 'authorityRecord');
+      }
+    }
   }
 
   // ---- Step 5 — determinism: recompute the digest-bound step once more and require byte-equality ---

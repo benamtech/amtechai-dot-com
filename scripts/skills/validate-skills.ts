@@ -3,7 +3,7 @@ import { readFile, readdir } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { skillDefinitions, skillPath, skillUrl, SKILL_AUTHORITY_URL, SKILL_SITE_ORIGIN, type SkillDefinition } from '../../src/lib/skills/registry.ts';
-import { digest, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../signing/amtech-signing.ts';
+import { canonicalJson, digest, verifyCanonical, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../signing/amtech-signing.ts';
 import { REASON_CODES, type ReasonCode } from '../../src/lib/skills/verification/reasonCodes.ts';
 import { computeConformanceEvidence, serializeEvidence } from './run-conformance.ts';
 import { checkAttestationGates } from './attestation-gates.ts';
@@ -267,6 +267,43 @@ async function validateVerifier(slug: string) {
 }
 
 /**
+ * G-M4.1/4.2 — authority record (M4 groundwork, docs/skills/standard/03+07). The published genesis record
+ * must parse + verify under the active key, the domain authority's `latestRecordHash` must equal the
+ * record's canonical digest, and the record's `catalogRoot` must equal the published catalog root.
+ */
+async function validateAuthorityRecord() {
+  const [recordRaw, sigRaw, authRaw, keyRaw, catalogRaw] = await Promise.all([
+    read('public/.well-known/authority/records/0000.json'),
+    read('public/.well-known/authority/records/0000.sig'),
+    read('public/.well-known/skill-authority.json'),
+    read('public/.well-known/amtech-signing-key.json'),
+    read('public/skills/catalog.json'),
+  ]);
+  if (typeof recordRaw !== 'string' || typeof sigRaw !== 'string') {
+    failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'genesis authority record/signature missing. Run npm run skills:sign.');
+    return;
+  }
+  try {
+    const record = JSON.parse(recordRaw) as { sequence?: string; catalogRoot?: string };
+    const recordHash = digest('sha256', canonicalJson(record));
+    if (typeof keyRaw === 'string' && !verifyCanonical(record, sigRaw, JSON.parse(keyRaw) as SigningKeyDocument)) {
+      failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'genesis record signature does not verify (G-M4.1).');
+    }
+    if (typeof authRaw === 'string') {
+      const auth = JSON.parse(authRaw) as { latestRecordHash?: string; latestSequence?: string };
+      if (auth.latestRecordHash !== recordHash) failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, `skill-authority.latestRecordHash != record digest (G-M4.2).`);
+      if (auth.latestSequence !== record.sequence) failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'skill-authority.latestSequence != record sequence.');
+    }
+    if (typeof catalogRaw === 'string') {
+      const catalog = JSON.parse(catalogRaw) as { catalogRoot?: string };
+      if (catalog.catalogRoot !== record.catalogRoot) failCode('authority', REASON_CODES.CATALOG_ROOT_MISMATCH, 'authority record catalogRoot != catalog.json catalogRoot.');
+    }
+  } catch {
+    failCode('authority', REASON_CODES.INVALID_SCHEMA, 'genesis authority record is not valid JSON.');
+  }
+}
+
+/**
  * G-M0 — catalog/hub bootstrap gates (docs/skills/standard/07). The hub (/skills) must be
  * self-bootstrapping: a machine catalog that matches the registry, hub agent-bootstrap files that
  * point at the catalog + authority, and prerendered HTML carrying the instruction block + decision
@@ -337,6 +374,7 @@ async function main() {
   for (const skill of skillDefinitions) await validateSkill(skill.slug);
   for (const skill of skillDefinitions) await validateAttestations(skill.slug);
   for (const skill of skillDefinitions) await validateVerifier(skill.slug);
+  await validateAuthorityRecord();
   await validateCatalogBootstrap();
 
   const rootLlms = await read('public/llms.txt');

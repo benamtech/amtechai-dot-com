@@ -160,6 +160,16 @@ export function signCertificate(certificate: ArtifactCertificate, privateKey: Ke
   return sign(null, Buffer.from(canonicalJson(certificate)), privateKey).toString('base64url');
 }
 
+/** Generic Ed25519 signature over any canonical-JSON-serializable value (authority records, etc.). */
+export function signCanonical(value: unknown, privateKey: KeyObject): string {
+  return sign(null, Buffer.from(canonicalJson(value)), privateKey).toString('base64url');
+}
+
+/** Verify a generic canonical-JSON signature against a published key document (key status checked by caller). */
+export function verifyCanonical(value: unknown, signature: string, key: SigningKeyDocument): boolean {
+  return verify(null, Buffer.from(canonicalJson(value)), createPublicKey(key.publicKeyPem), Buffer.from(signature.trim(), 'base64url'));
+}
+
 export function verifyCertificate(certificate: ArtifactCertificate, signature: string, key: SigningKeyDocument): boolean {
   if (certificate.signingKeyId !== key.keyId || key.status !== 'active') return false;
   return verify(null, Buffer.from(canonicalJson(certificate)), createPublicKey(key.publicKeyPem), Buffer.from(signature.trim(), 'base64url'));

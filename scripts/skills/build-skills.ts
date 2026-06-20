@@ -882,6 +882,38 @@ async function main() {
     await readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8'),
   );
 
+  // Authority record (M4 groundwork — docs/skills/standard/03). Mirror the cert pattern: sign-authority.ts
+  // emits the signed genesis record under src/, build publishes it and exposes the latest pointer. Absent on
+  // a pre-sign build (AMTECH_ALLOW_UNSIGNED_BUILD) — pointers stay null until the record exists.
+  let latestSequence: string | null = null;
+  let latestRecordHash: string | null = null;
+  const recordSrc = await readFile(resolve(repoRoot, 'src/lib/skills/authority/records/0000.json'), 'utf8').catch(() => null);
+  const recordSig = await readFile(resolve(repoRoot, 'src/lib/skills/authority/records/0000.sig'), 'utf8').catch(() => null);
+  if (typeof recordSrc === 'string' && typeof recordSig === 'string') {
+    const record = JSON.parse(recordSrc) as { sequence?: string };
+    latestSequence = record.sequence ?? '0';
+    latestRecordHash = sha256(canonicalJson(record)); // hash over canonical form (independent of pretty-printing)
+    await writeText('public/.well-known/authority/records/0000.json', recordSrc.endsWith('\n') ? recordSrc : `${recordSrc}\n`);
+    await writeText('public/.well-known/authority/records/0000.sig', recordSig.endsWith('\n') ? recordSig : `${recordSig}\n`);
+    await writeText(
+      'public/.well-known/authority/log.json',
+      `${escJson({
+        schemaVersion: 'amtech-authority-log/v1',
+        authorityUrl: SKILL_AUTHORITY_URL,
+        latestSequence,
+        latestRecordHash,
+        records: [
+          {
+            sequence: latestSequence,
+            recordHash: latestRecordHash,
+            recordUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/records/0000.json`,
+            signatureUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/records/0000.sig`,
+          },
+        ],
+      })}\n`,
+    );
+  }
+
   // Domain-controlled skill authority file — the trust root. Agents verify skill hashes against it.
   const authoritySchemaUrl = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority-v0.json`;
   const manifestSchemaUrl = `${SKILL_SITE_ORIGIN}/skills/schemas/amtech-skill-manifest-v0.json`;
@@ -890,6 +922,11 @@ async function main() {
     authorityUrl: SKILL_AUTHORITY_URL,
     updated: new Date().toISOString().slice(0, 10),
     issuer: { name: 'AMTECH AI', url: SKILL_SITE_ORIGIN },
+    // Latest immutable authority record (M4 groundwork). The verifier confirms latestRecordHash equals the
+    // published record's canonical digest (G-M4.2); the chain/history grows in M4 proper.
+    latestSequence,
+    latestRecordHash,
+    authorityLogUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/log.json`,
     repository: {
       url: SKILL_REPOSITORY_URL,
       commit: SKILL_REPOSITORY_COMMIT,

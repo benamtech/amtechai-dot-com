@@ -19,6 +19,7 @@ export function localPublicLoader(publicDir: string, slug: string): ResourceLoad
     siblingCertificate: (s) => read(resolve(publicDir, 'skills', s, 'certificate.json')),
     authority: () => read(resolve(publicDir, '.well-known/skill-authority.json')),
     authorityRecord: () => read(resolve(publicDir, '.well-known/authority/records/0000.json')),
+    authorityRecordSig: () => read(resolve(publicDir, '.well-known/authority/records/0000.sig')),
   };
 }
 
@@ -33,6 +34,7 @@ export function httpLoader(baseUrl: string): ResourceLoader {
     siblingCertificate: (s) => fetchBytes(`${origin}/skills/${s}/certificate.json`),
     authority: () => fetchBytes(`${origin}/.well-known/skill-authority.json`),
     authorityRecord: () => fetchBytes(`${origin}/.well-known/authority/records/0000.json`),
+    authorityRecordSig: () => fetchBytes(`${origin}/.well-known/authority/records/0000.sig`),
   };
 }
 

@@ -6,6 +6,9 @@
     "name": "AMTECH AI",
     "url": "https://amtechai.com"
   },
+  "latestSequence": "0",
+  "latestRecordHash": "ba98f4301df4b71939e4f9b88fe2b1827ec3bbdc4977a61f61e043148e05c87a",
+  "authorityLogUrl": "https://amtechai.com/.well-known/authority/log.json",
   "repository": {
     "url": "https://github.com/benamtech/amtech-skills-registry",
     "commit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
