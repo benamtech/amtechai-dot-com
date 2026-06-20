@@ -2,7 +2,7 @@
 
 Purpose: give agents and humans a compressed map of the site so they can answer routing, form, database, and deployment questions without scanning every file.
 
-Most recent handoff: `docs/memory/status-2026-06-19--skill-stamp-db-complete.md`.
+Most recent handoff: `docs/memory/status-2026-06-19--skill-ca-standard-research-and-spec.md` (skill certificate-authority standard — research + spec phase; build plan in `docs/skills/standard/08-build-plan.md`).
 
 ## Architecture at a glance
 
@@ -80,7 +80,8 @@ Most recent handoff: `docs/memory/status-2026-06-19--skill-stamp-db-complete.md`
 - `docs/article-drafts`: unpublished article drafts and research packets. Drafts may include validity checks, proposed graph roles, internal/external link plans, source notes, FAQ candidates, and candidate `ArticleDefinition` metadata. They are not live routes and do not regenerate OKF until converted into `src/lib/knowledge/articles/*` and `src/lib/articleKnowledgeGraph.ts`.
 - `docs/skills`: repo-local reusable agent skills. `docs/skills/amtech-article-research-writer/` researches, plans, and drafts AMTECH-standard information-gain articles before live publish. `docs/skills/amtech-article-publisher/` publishes supplied article copy into the live article system, article knowledge graph, OKF bundle, prerendered route, and optional Supabase projection.
 - `docs/AMTECH_SHAREABLE_SKILLS_STRATEGY.md` and `docs/SKILL_MATERIALIZATION_PIPELINE.md`: research/spec docs for a public AMTECH free-skill hub and the folder-to-many-views materialization pipeline.
-- `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`: implemented contract for making each public skill URL self-bootstrapping for web-search-only and agentic environments.
+- `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`: implemented contract for making each public skill URL self-bootstrapping for web-search-only and agentic environments. **Now also requires the `/skills` hub itself to self-bootstrap** (catalog bootstrap, see the standard below).
+- `docs/skills/standard/`: **spec set for the AMTECH skill certificate-authority standard** — the next-phase hardening of the signed registry into a defensible CA. Read `README.md` first, then `01`–`08`. Covers the v2 attestation certificate (test+review evidence), a link-first verifier (`verified|revoked|invalid` + reason codes), multi-surface verdict exposure, the catalog/hub bootstrap (M0, ships first), an immutable git-anchored hash-chained authority history (Option A, upgrade path to a Merkle log), phase gates, and an agentic-dev build plan (`08-build-plan.md`, M0→M4). Research backing: `wiki/research/2026-06-19-skill-certificate-authority-prior-art.md` + the three sibling `2026-06-19-skill-*`/`*-authority-*`/`*-verification` notes. Borrows concepts from TUF, in-toto/DSSE/SLSA, Certificate Transparency/CONIKS, Sigstore, and RFC 8785 while staying AMTECH-native and statically hostable. As of 2026-06-19 this is spec/research only; M0–M4 are unimplemented.
 - `docs/seo`: AMTECH article-system research, master operational knowledge graph, and article opportunity sequencing.
 - `docs/ARTICLE_PUBLISHING_AGENT.md`: compatibility pointer to `docs/skills/amtech-article-publisher/SKILL.md` for older docs and agent memory.
 - `src/lib/articleKnowledgeGraph.ts`: live article graph data used by `/articles` and `/articles/all`, including published articles and planned nodes.

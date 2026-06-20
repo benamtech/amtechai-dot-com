@@ -16,6 +16,10 @@ https://amtechai.com/skills/okf-audit
 
 the first fetched page must tell the AI exactly what to do next. The page cannot assume the AI will inspect `llms.txt`, a sitemap, a manifest, or hidden adjacent files.
 
+## Catalog/hub pages must also self-bootstrap
+
+The hub page `https://amtechai.com/skills` is itself a shareable URL — often the first one a person pastes ("here are AMTECH's skills"). It MUST be self-bootstrapping under the same first-fetch principle, not only the per-skill `/skills/<slug>` pages. The hub must carry, in static/prerendered HTML, an `AI agent instruction` block, a catalog-level decision tree (enumerate → pick a skill → open its page → verify), and a per-skill list linking each skill's page, `use.md`, manifest, certificate, and the authority file. It must also emit a machine `catalog.json`, a hub `use.md`, and a hub `agent.md`. Full requirement: `docs/skills/standard/06-catalog-bootstrap.md`.
+
 ## Required First-Fetch Content
 
 Every human skill page must include, in static/prerendered HTML:

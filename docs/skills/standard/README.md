@@ -1,0 +1,47 @@
+# AMTECH Skill Certificate-Authority Standard
+
+Status: **draft / spec phase**, 2026-06-19. Normative once `07-phase-gates-and-acceptance.md` gates are wired and M0–M4 land.
+
+## What this is
+
+The standard that turns AMTECH's working v1 signed skill registry into a defensible **certificate authority** for agent skills: structured signed assurance evidence, a published verifier, the same verdict on every surface, and an immutable authority history. It is **AMTECH-native but borrows proven concepts** from TUF, in-toto/DSSE/SLSA, Certificate Transparency / CONIKS, Sigstore, and RFC 8785, and stays **statically hostable** on Netlify/GitHub. The research behind every choice lives in `wiki/research/2026-06-19-*` (start with the prior-art note).
+
+## Why (the gap v1 leaves)
+
+v1 proves *provenance* (who/where/which bytes) and the live Ed25519 chain verifies end-to-end. It does **not** prove *assurance* (was it tested/reviewed), it has **no published verifier** (verification is manual), it does **not** expose a verdict to agents, and its authority file is a **single mutable** record with no history. See `docs/memory/handoff-2026-06-19--skill-verification-next-steps.md`.
+
+## Read in order
+
+| File | Subject |
+| --- | --- |
+| `01-trust-model-and-threats.md` | Actors, trust roots, threats, non-goals |
+| `02-certificate-attestation-schema.md` | `amtech-signed-artifact/v2`: test + review attestations |
+| `03-authority-and-key-management.md` | Key lifecycle, rotation/revocation, immutable history (Option A) |
+| `04-link-first-verifier.md` | Verifier contract, reason codes, link-only vs archive-byte |
+| `05-multi-surface-exposure.md` | Same verdict in HTML/JSON-LD/headers/catalog/manifest/CLI |
+| `06-catalog-bootstrap.md` | `/skills` hub self-bootstrap (M0, ships first) |
+| `07-phase-gates-and-acceptance.md` | Acceptance gates + validator wiring |
+| `08-build-plan.md` | Agentic-dev build plan: M0→M4, exact files, acceptance |
+
+## Locked decisions (this phase)
+
+- **Posture:** borrow concepts, AMTECH-native, statically hostable. (Not strict DSSE/Rekor interop.)
+- **Immutability mechanism:** Option A — git-anchored hash-chained signed snapshots — with a designed-in upgrade path to a full Merkle log (Option B). See `wiki/research/2026-06-19-immutable-authority-history-options.md`.
+- **Catalog bootstrap (M0)** ships before the new CA features.
+
+## Research backing
+
+- `wiki/research/2026-06-19-skill-certificate-authority-prior-art.md`
+- `wiki/research/2026-06-19-skill-attestation-evidence-model.md`
+- `wiki/research/2026-06-19-immutable-authority-history-options.md`
+- `wiki/research/2026-06-19-link-first-skill-verification.md`
+- `wiki/research/2026-06-19-experimental-meta-tag-skill-delivery.md` (exploration — head-level/meta-tag delivery)
+
+## Implementation anchors (existing code to reuse, not replace)
+
+- `scripts/signing/amtech-signing.ts` — cert type, `canonicalJson`, `verifyCertificate`, `digest`.
+- `scripts/signing/{sign-skills,verify-artifact}.ts` — signing + portable verify.
+- `scripts/skills/{build-skills,validate-skills}.ts` — materialization + validation.
+- `src/lib/skills/registry.ts`, `src/lib/skills/certificates/**` — registry + cert/key store.
+- `public/.well-known/{skill-authority.json,amtech-signing-key.json}` — current authority + key.
+- `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`, `docs/SKILL_MATERIALIZATION_PIPELINE.md`, `docs/SKILL_SIGNING.md`.

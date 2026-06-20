@@ -1,5 +1,8 @@
 # AMTECH Signed Artifact v1
 
+> **Next phase:** the certificate-authority standard that adds structured test/review **attestations** (`amtech-signed-artifact/v2`), a link-first verifier, multi-surface verdicts, and an immutable authority history is specified in `docs/skills/standard/` (start at its `README.md`). Research backing: `wiki/research/2026-06-19-*`. This file documents the current v1 signing that standard builds on.
+
+
 AMTECH signs deterministic skill archives with Ed25519. SHA-256 remains available for compatibility; SHA3-512 provides a second digest construction. The signed certificate binds the owner, subject, version, canonical URL, repository commit/path, both archive digests, issuer, time, and signing-key ID.
 
 ## Files
