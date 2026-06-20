@@ -30,7 +30,7 @@ No surface may report `verified` unless it resolves to the same signed certifica
 - **G-M3.2** No static surface claims a tier the evidence can't prove.
 - **G-M3.3** Static surfaces carry `checkedAt` (build-time honesty marker).
 
-### M4 — Immutable authority history
+### M4 — Immutable authority history (**COMPLETE 2026-06-20**)
 - **G-M4.1** `log.json` is gap-free + monotonic; each record's `previousRecordHash` chains; each signature verifies.
 - **G-M4.2** `skill-authority.json` `latestRecordHash` == head record digest; `latestSequence` == head sequence.
 - **G-M4.3** A `skill-revoke`/`key-revoke` event makes the verifier return `revoked` for the affected subject.

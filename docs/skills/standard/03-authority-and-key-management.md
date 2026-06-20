@@ -16,7 +16,16 @@ The signing key document (`amtech-signing-key/v1`, served at `/.well-known/amtec
 
 Chosen mechanism (see trade-off note). Every authority change appends a numbered, signed record; the live authority file becomes the **latest pointer**.
 
-**Groundwork shipped 2026-06-20:** `scripts/signing/sign-authority.ts` emits the **genesis** record (`sequence:"0"`, `previousRecordHash:null`, `event:"genesis"`) folding the catalog root + each skill's certificate digest/tier; `build-skills.ts` publishes it to `/.well-known/authority/records/0000.json` (+ `.sig`, + `log.json`) and writes `latestSequence`/`latestRecordHash` into `skill-authority.json`. The verifier (`04`) checks the latest-pointer obligation below and surfaces `authoritySequence`. Chain growth beyond genesis, key/skill-revoke **events**, signed publishing **commits**, and the registry **cross-witness** are M4 proper.
+**Implemented 2026-06-20 (M4 full — `docs/memory/status-2026-06-20--m4-full-m5-pipeline.md`):**
+`scripts/signing/sign-authority.ts` maintains the chain: it materializes the desired `state` (records use
+`events[]` + `state{catalogRoot, skills[], keys[]}`) and **appends** a record only when the state changes
+(idempotent), chaining `previousRecordHash → sha256(canonicalJson(head))`. Revocations come from
+`src/lib/skills/authority/revocations.json` (skill-revoke / key-revoke events); key lifecycle (active/retired/
+revoked + key-rotate) is handled by `scripts/signing/rotate-key.ts`. `build-skills.ts` publishes every record +
+`log.json` + the latest pointer + materialized `state`. The verifier (`04`) walks the full chain and honors
+skill/key revocation → `revoked`. The registry mirrors the chain under `authority/` and `registry/validate.mjs`
+cross-witnesses it; `commitSignature` is the `git-history` witness. Deferred: multi-key-by-keyId historical
+serving, GPG/SSH commit signing, Option B Merkle log.
 
 ### Record (`amtech-authority-record/v1`)
 ```jsonc

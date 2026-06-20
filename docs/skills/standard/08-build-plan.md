@@ -75,12 +75,14 @@ consistency gate (`validateSurfaces`) enforces agreement + method-ceiling honest
 ---
 
 ## M4 — Immutable authority history
-Spec: `03`. Gates: G-M4.1–G-M4.4. **Groundwork DONE 2026-06-20** — `scripts/signing/sign-authority.ts` emits the
-signed **genesis** `amtech-authority-record/v1` (sequence 0, folds the catalog root + per-skill cert digest/tier);
-`build-skills.ts` publishes the record + `log.json` and writes `latestSequence`/`latestRecordHash` into
-`skill-authority.json`; the verifier checks the pointer (G-M4.2) and emits `authoritySequence`. **Remaining (M4
-proper):** the record chain (`previousRecordHash`), key-rotate/skill-revoke events, the registry cross-witness,
-and signed publishing commits (steps 1–5 below).
+Spec: `03`. Gates: G-M4.1–G-M4.4. **COMPLETE 2026-06-20** (`docs/memory/status-2026-06-20--m4-full-m5-pipeline.md`)
+— `sign-authority.ts` maintains the hash-chained history: idempotent append (unchanged state → no record), `events[]`
+diff + materialized `state{skills,keys}`, revocations via `src/lib/skills/authority/revocations.json`. The verifier
+(`verifySkill.ts`) walks the chain (gap-free/linked/signed/latest-pointer) and honors `skill-revoke`/`key-revoke`
+from the signed head state → `revoked`. `rotate-key.ts` (`signing:rotate`) handles key lifecycle (active/retired/
+revoked + key-rotate event). The registry mirrors the chain under `authority/` and `registry/validate.mjs`
+cross-witnesses it; `commitSignature` is the `git-history` witness (G-M4.4). Deferred: multi-key-by-keyId historical
+serving, GPG/SSH commit signing, Option B Merkle log.
 
 **Do:**
 1. New `scripts/skills/build-authority.ts` (or extend `build-skills.ts`) — emit `amtech-authority-record/v1` records to `public/.well-known/authority/records/NNNN.json`, append `log.json`, and rewrite `skill-authority.json` as the latest pointer (`latestSequence`, `latestRecordHash`, materialized `state`). Sign each record (Ed25519 over canonical JSON). Fold the `amtech:catalog:root` (M3) into each record so the chain commits to the exact skill set at that sequence; a verification-method/registry change (`09`) is recordable as a policy event.
@@ -126,10 +128,11 @@ Onboarding them now would mean hand-running the two-phase release once per skill
 
 ## M5 (follow-on) — "Certified AMTECH skill publishing" pipeline + onboard backlog
 
-**Groundwork DONE 2026-06-20** — `scripts/skills/publish-skill.ts` (`npm run skills:publish -- --dry-run
-[<slug>|--all]`) prints the ordered certified-publishing plan over `src/lib/skills/onboarding-backlog.json` (the
-5 deferred skills); live onboarding is intentionally refused until M0–M4 are stable. The live pipeline + batch
-onboarding remain follow-on.
+**Live pipeline DONE 2026-06-20** — `scripts/skills/publish-skill.ts` now has `--execute <slug>` (registered skills:
+conformance → build → sign certs + authority record → check (verifier + consistency + chain gates) → verify →
+registry cross-witness; gated + idempotent) alongside `--dry-run [<slug>|--all]`. Self-tested on `okf-audit` (no
+diff). **Remaining:** rewrite the 5 backlog skills (`onboarding-backlog.json`) to our format (schema + golden +
+review), then `--execute` each + the registry two-phase. The batch-onboarding itself is the next session.
 
 After M0–M4 stabilize the standard, build a repeatable **Certified AMTECH skill publishing** pipeline (itself a candidate AMTECH skill) that turns "add a skill" into a single low-volatility operation instead of a manual two-phase release. It should: take a skill source folder → run tests + record review evidence (M1) → materialize website surfaces (M0/M3) → execute the registry two-phase release (Phase 1 registry commit + `pending-resign`, Phase 2 website `skills:sign`/`check`/`build`, then flip to `signed`) → append the authority record (M4) → verify (M2) end-to-end, with the gates in `07` enforced automatically.
 
