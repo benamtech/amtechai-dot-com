@@ -1,7 +1,7 @@
 {
   "$schema": "https://amtechai.com/.well-known/skill-authority-v0.json",
   "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
-  "updated": "2026-06-19",
+  "updated": "2026-06-20",
   "issuer": {
     "name": "AMTECH AI",
     "url": "https://amtechai.com"

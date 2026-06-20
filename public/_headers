@@ -19,6 +19,12 @@
   X-Skill-Authority: https://amtechai.com/.well-known/skill-authority.json
   X-Skill-Catalog: https://amtechai.com/skills/index.json
 
+# Machine catalog (amtech-skill-catalog/v1) — the hub's enumerable skill list, readable cross-origin.
+/skills/catalog.json
+  Content-Type: application/json; charset=utf-8
+  Access-Control-Allow-Origin: *
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
 # Served JSON Schemas for the trust documents — dereferenced by tooling cross-origin.
 /skills/schemas/*
   Content-Type: application/schema+json; charset=utf-8

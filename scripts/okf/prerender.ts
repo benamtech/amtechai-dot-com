@@ -17,8 +17,8 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { articleDefinitions } from '../../src/lib/knowledge/articles/index.ts';
 import type { ArticleContentBlock, ArticleDefinition } from '../../src/lib/articles.ts';
-import { skillDefinitions, skillUrl } from '../../src/lib/skills/registry.ts';
 import { renderSkillContentHtml } from '../../src/lib/skills/renderSkillContent.ts';
+import { renderHubContentHtml } from '../../src/lib/skills/renderHubContent.ts';
 import { listPageMeta, type PageMeta } from '../../src/lib/seo/pageMeta.ts';
 import { esc, renderHeadTags, renderSectionsHtml } from '../../src/lib/seo/renderHead.ts';
 
@@ -60,16 +60,6 @@ function articleContentHtml(def: ArticleDefinition): string {
   return `<article><h1>${esc(def.title)}</h1><p>${esc(def.dek)}</p>${blocks}${faqs}${cites}</article>`;
 }
 
-function skillHubHtml(): string {
-  const items = skillDefinitions
-    .map(
-      (skill) =>
-        `<li><a href="${esc(skillUrl(skill))}">${esc(skill.title)}</a> — ${esc(skill.description)} Agent bootstrap: <a href="${esc(skillUrl(skill, '/use.md'))}">${esc(skillUrl(skill, '/use.md'))}</a>.</li>`,
-    )
-    .join('');
-  return `<article><h1>AMTECH Agent Skills</h1><p>Free AMTECH skills designed so a modern AI can use one link immediately, then install or save the skill only when the environment supports it.</p><ul>${items}</ul></article>`;
-}
-
 /** Pick the richest available body for a route. */
 function bodyFor(meta: PageMeta): string {
   const articleMatch = meta.route.match(/^\/articles\/([^/]+)$/);
@@ -77,7 +67,7 @@ function bodyFor(meta: PageMeta): string {
     const def = articleDefinitions[articleMatch[1] as keyof typeof articleDefinitions];
     if (def) return articleContentHtml(def);
   }
-  if (meta.route === '/skills') return skillHubHtml();
+  if (meta.route === '/skills') return renderHubContentHtml();
   const skillMatch = meta.route.match(/^\/skills\/([^/]+)$/);
   if (skillMatch) return renderSkillContentHtml(skillMatch[1]);
   const sections = renderSectionsHtml(meta);

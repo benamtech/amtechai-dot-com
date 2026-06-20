@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "amtech-skill-catalog/v1",
+  "issuer": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+  "generatedAt": "2026-06-20",
+  "skills": [
+    {
+      "slug": "okf-audit",
+      "name": "okf-audit",
+      "title": "OKF Audit Skill",
+      "version": "0.1.0",
+      "status": "published",
+      "canonicalUrl": "https://amtechai.com/skills/okf-audit",
+      "useUrl": "https://amtechai.com/skills/okf-audit/use.md",
+      "manifestUrl": "https://amtechai.com/skills/okf-audit/manifest.json",
+      "certificateUrl": "https://amtechai.com/skills/okf-audit/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/okf-audit/certificate.sig"
+    },
+    {
+      "slug": "knowledge-graph-builder",
+      "name": "knowledge-graph-builder",
+      "title": "Knowledge Graph Builder",
+      "version": "0.1.0",
+      "status": "published",
+      "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
+      "useUrl": "https://amtechai.com/skills/knowledge-graph-builder/use.md",
+      "manifestUrl": "https://amtechai.com/skills/knowledge-graph-builder/manifest.json",
+      "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig"
+    }
+  ]
+}

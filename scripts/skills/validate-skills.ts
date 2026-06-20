@@ -2,8 +2,14 @@ import { createHash } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { skillDefinitions, skillPath, skillUrl, SKILL_SITE_ORIGIN } from '../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillPath, skillUrl, SKILL_AUTHORITY_URL, SKILL_SITE_ORIGIN } from '../../src/lib/skills/registry.ts';
 import { digest, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../signing/amtech-signing.ts';
+import {
+  renderHubContentHtml,
+  HUB_INSTRUCTION_SENTINEL,
+  HUB_DECISION_TREE_SENTINEL,
+  SKILL_CATALOG_URL,
+} from '../../src/lib/skills/renderHubContent.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const errors: string[] = [];
@@ -170,8 +176,76 @@ async function validateSkill(slug: string) {
   }
 }
 
+/**
+ * G-M0 — catalog/hub bootstrap gates (docs/skills/standard/07). The hub (/skills) must be
+ * self-bootstrapping: a machine catalog that matches the registry, hub agent-bootstrap files that
+ * point at the catalog + authority, and prerendered HTML carrying the instruction block + decision
+ * tree (asserted against the shared renderer that feeds the prerenderer).
+ */
+async function validateCatalogBootstrap() {
+  // G-M0.1 — catalog.json exists, schema-valid, lists exactly the registry's skills.
+  const catalogRaw = await read('public/skills/catalog.json');
+  if (typeof catalogRaw !== 'string') {
+    fail('public/skills/catalog.json missing. Run npm run skills:build.');
+  } else {
+    try {
+      const catalog = JSON.parse(catalogRaw) as {
+        schemaVersion?: string;
+        authorityUrl?: string;
+        skills?: { slug?: string; version?: string; status?: string; canonicalUrl?: string; useUrl?: string; manifestUrl?: string; certificateUrl?: string; signatureUrl?: string }[];
+      };
+      if (catalog.schemaVersion !== 'amtech-skill-catalog/v1') fail('catalog.json: schemaVersion must be amtech-skill-catalog/v1.');
+      if (catalog.authorityUrl !== SKILL_AUTHORITY_URL) fail('catalog.json: authorityUrl mismatch.');
+      const entries = catalog.skills ?? [];
+      if (entries.length !== skillDefinitions.length) fail(`catalog.json: lists ${entries.length} skill(s); registry has ${skillDefinitions.length}.`);
+      for (const skill of skillDefinitions) {
+        const entry = entries.find((e) => e.slug === skill.slug);
+        if (!entry) {
+          fail(`catalog.json: missing entry for ${skill.slug}.`);
+          continue;
+        }
+        if (entry.version !== skill.version) fail(`catalog.json: ${skill.slug} version mismatch (${entry.version} != ${skill.version}).`);
+        if (entry.status !== 'published') fail(`catalog.json: ${skill.slug} status must be published.`);
+        if (entry.canonicalUrl !== skillUrl(skill)) fail(`catalog.json: ${skill.slug} canonicalUrl mismatch.`);
+        for (const [field, value] of [
+          ['useUrl', entry.useUrl],
+          ['manifestUrl', entry.manifestUrl],
+          ['certificateUrl', entry.certificateUrl],
+          ['signatureUrl', entry.signatureUrl],
+        ] as const) {
+          if (!value) fail(`catalog.json: ${skill.slug} missing ${field}.`);
+        }
+      }
+    } catch (error) {
+      if (error instanceof SyntaxError) fail('public/skills/catalog.json is not valid JSON.');
+      else throw error;
+    }
+  }
+
+  // G-M0.2 — hub use.md + agent.md exist and link the catalog + authority.
+  for (const file of ['use.md', 'agent.md'] as const) {
+    const content = await read(`public/skills/${file}`);
+    if (typeof content !== 'string') {
+      fail(`public/skills/${file} missing. Run npm run skills:build.`);
+      continue;
+    }
+    if (!content.includes(SKILL_CATALOG_URL)) fail(`public/skills/${file}: missing catalog.json URL.`);
+    if (!content.includes(SKILL_AUTHORITY_URL)) fail(`public/skills/${file}: missing authority URL.`);
+  }
+
+  // G-M0.3 — prerendered hub HTML (the shared renderer feeding scripts/okf/prerender.ts) carries the
+  // agent-instruction block and the decision tree, and enumerates every skill page.
+  const hubHtml = renderHubContentHtml();
+  if (!hubHtml.includes(HUB_INSTRUCTION_SENTINEL)) fail(`hub HTML missing the agent-instruction block ("${HUB_INSTRUCTION_SENTINEL}").`);
+  if (!hubHtml.includes(HUB_DECISION_TREE_SENTINEL)) fail(`hub HTML missing the decision tree ("${HUB_DECISION_TREE_SENTINEL}").`);
+  for (const skill of skillDefinitions) {
+    if (!hubHtml.includes(`href="${skillPath(skill)}"`)) fail(`hub HTML missing a link to ${skillPath(skill)}.`);
+  }
+}
+
 async function main() {
   for (const skill of skillDefinitions) await validateSkill(skill.slug);
+  await validateCatalogBootstrap();
 
   const rootLlms = await read('public/llms.txt');
   const sitemap = await read('public/sitemap.xml');

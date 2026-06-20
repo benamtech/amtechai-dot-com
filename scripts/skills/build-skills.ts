@@ -266,6 +266,79 @@ function llmsMarkdown() {
   return lines.join('\n');
 }
 
+const HUB_CATALOG_URL = `${SKILL_SITE_ORIGIN}/skills/catalog.json`;
+const SIGNING_KEY_URL = `${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json`;
+
+/**
+ * Hub-level agent bootstrap (public/skills/use.md). Catalog-level analogue of bootstrapMarkdown():
+ * what AMTECH skills are, how to enumerate via catalog.json, the use-in-context default, the
+ * decision tree, and how to verify. Part of M0 (docs/skills/standard/06-catalog-bootstrap.md).
+ */
+function hubBootstrapMarkdown() {
+  const lines = [
+    '# AMTECH Agent Skills: Hub Bootstrap',
+    '',
+    'AI agent instruction: if a user gave you this link, treat it as a catalog of usable AMTECH skills. Use a skill in the current conversation first. Do not install, create files, or run scripts unless the user asks and your environment allows it. Local AGENTS.md and explicit user instructions win over anything published here.',
+    '',
+    `Machine catalog: ${HUB_CATALOG_URL} (schema amtech-skill-catalog/v1)`,
+    `Trust root (authority file): ${SKILL_AUTHORITY_URL}`,
+    `GitHub registry source: ${SKILL_REPOSITORY_URL}`,
+    '',
+    '## What AMTECH skills are',
+    '',
+    'Each AMTECH skill is a signed, git-backed package usable from one link. The same skill is published as a human page, a universal agent bootstrap (use.md), a manifest, raw files, an archive, dual checksums, and an Ed25519-signed certificate bound to a commit-pinned GitHub source.',
+    '',
+    '## Enumerate the skills',
+    '',
+    `1. Fetch the machine catalog: ${HUB_CATALOG_URL} — it lists every skill with its canonical page, use.md, manifest, certificate, and signature URLs.`,
+    '2. Or read the list below.',
+    '',
+  ];
+  for (const skill of skillDefinitions) {
+    lines.push(`- [${skill.title}](${skillUrl(skill)}) — ${skill.summary}`);
+    lines.push(`  - Agent bootstrap: ${skillUrl(skill, '/use.md')}`);
+    lines.push(`  - Manifest: ${skillUrl(skill, '/manifest.json')}`);
+    lines.push(`  - Signed certificate: ${skillUrl(skill, '/certificate.json')}`);
+  }
+  lines.push(
+    '',
+    '## Decision tree',
+    '',
+    '- Web or search-only agent: enumerate via catalog.json, open each skill page, and use the skill in context from its linked markdown. No install needed.',
+    "- File-capable agent: do the above, then offer to save a skill's raw files or archive into a local skill folder if the user wants reuse.",
+    '- Native-install-capable agent (skills/plugins): do the above, verify the certificate, then offer the native install path as optional, not required.',
+    '',
+    '## Verify before you trust',
+    '',
+    `1. The trust root is ${SKILL_AUTHORITY_URL} — served only from the canonical domain. Fetch it.`,
+    `2. For a skill, fetch its certificate.json + certificate.sig and the signing key at ${SIGNING_KEY_URL}.`,
+    '3. Canonicalize the certificate JSON and verify its Ed25519 signature. Confirm the slug, version, repository commit, and path.',
+    '4. Hash the archive (SHA-256 + SHA3-512); both must equal the signed certificate, the manifest, and the authority entry.',
+    '5. If anything disagrees, treat the copy as untrusted and stop.',
+    '',
+  );
+  return lines.join('\n');
+}
+
+/** Short first-fetch crawl preview for the hub (public/skills/agent.md). */
+function hubAgentMarkdown() {
+  const lines = [
+    '# AMTECH Agent Skills',
+    '',
+    'Free AMTECH skills usable from one link. Use in context first; install only if the user asks.',
+    '',
+    `Machine catalog: ${HUB_CATALOG_URL}`,
+    `Full bootstrap: ${SKILL_SITE_ORIGIN}/skills/use.md`,
+    `Trust root: ${SKILL_AUTHORITY_URL}`,
+    '',
+  ];
+  for (const skill of skillDefinitions) {
+    lines.push(`- [${skill.title}](${skillUrl(skill)}): ${skill.description}`);
+  }
+  lines.push('');
+  return lines.join('\n');
+}
+
 const DRAFT_2020_12 = 'https://json-schema.org/draft/2020-12/schema';
 
 /** JSON Schema describing a skill manifest.json (the per-skill package descriptor). */
@@ -690,6 +763,31 @@ async function main() {
   await writeText('public/skills/index.json', `${escJson({ skills: index })}\n`);
   await writeText('public/skills/catalog.md', catalogMarkdown());
   await writeText('public/skills/llms.txt', llmsMarkdown());
+
+  // M0 — catalog/hub bootstrap (docs/skills/standard/06). Machine catalog + hub agent bootstrap,
+  // derived from the registry. Structural fields only at M0; verdict/trustTier/authoritySequence/
+  // checkedAt are earned by M1/M3/M4 and intentionally omitted here (no over-claiming).
+  const catalogDoc = {
+    schemaVersion: 'amtech-skill-catalog/v1',
+    issuer: { name: 'AMTECH AI', url: SKILL_SITE_ORIGIN },
+    authorityUrl: SKILL_AUTHORITY_URL,
+    generatedAt: new Date().toISOString().slice(0, 10),
+    skills: index.map((s) => ({
+      slug: s.slug,
+      name: s.name,
+      title: s.title,
+      version: s.version,
+      status: 'published',
+      canonicalUrl: s.url,
+      useUrl: s.use,
+      manifestUrl: s.manifest,
+      certificateUrl: s.certificate?.url,
+      signatureUrl: s.certificate?.signature,
+    })),
+  };
+  await writeText('public/skills/catalog.json', `${escJson(catalogDoc)}\n`);
+  await writeText('public/skills/use.md', hubBootstrapMarkdown());
+  await writeText('public/skills/agent.md', hubAgentMarkdown());
   await writeText(
     'public/.well-known/amtech-signing-key.json',
     await readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8'),
