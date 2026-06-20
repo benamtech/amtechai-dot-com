@@ -40,7 +40,7 @@
   "repository": {
     "url": "https://github.com/benamtech/amtech-skills-registry",
     "commit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
-    "commitSignature": "unsigned",
+    "commitSignature": "git-history",
     "registryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json"
   },
   "verification": {

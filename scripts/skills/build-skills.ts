@@ -992,7 +992,7 @@ async function main() {
     repository: {
       url: SKILL_REPOSITORY_URL,
       commit: SKILL_REPOSITORY_COMMIT,
-      commitSignature: 'unsigned',
+      commitSignature: process.env.AMTECH_AUTHORITY_COMMIT_WITNESS ?? 'git-history',
       registryUrl: `${SKILL_REPOSITORY_URL}/blob/${SKILL_REPOSITORY_COMMIT}/index.json`,
     },
     verification: {
