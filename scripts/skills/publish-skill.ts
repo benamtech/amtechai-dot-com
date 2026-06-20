@@ -1,49 +1,86 @@
 /**
- * skills:publish — the "Certified AMTECH skill publishing" pipeline (M5 GROUNDWORK, docs/skills/standard/08).
+ * skills:publish — the "Certified AMTECH skill publishing" pipeline (M5, docs/skills/standard/08).
  *
- * Turns "add a skill" into one repeatable low-volatility operation instead of a manual two-phase release:
- * conformance (M1) → materialize surfaces (M0/M3) → registry two-phase release → authority record (M4) →
- * verify (M2), with the 07 gates enforced automatically. This scaffold ships the ORDERED PLAN as a dry run
- * over the onboarding backlog; live onboarding is intentionally not implemented until M0-M4 are stable.
+ * Turns "add a skill" into one repeatable, gated, idempotent operation instead of a manual cross-repo
+ * two-phase release. Two modes:
+ *   --dry-run [<slug>|--all]   print the ordered plan over the onboarding backlog (no execution).
+ *   --execute <slug>           run the website-side pipeline for a REGISTERED skill (conformance → build →
+ *                              sign certs → sign-authority → check (verifier + consistency + chain gates) →
+ *                              verify), then mirror the authority chain into the registry and cross-witness it.
+ *                              Idempotent: an already-certified, unchanged skill produces no diff.
  *
- *   npm run skills:publish -- --dry-run <slug>     plan one backlog skill
- *   npm run skills:publish -- --dry-run --all      plan every backlog skill
+ * Outward cross-repo COMMITS (the registry two-phase pending-resign → signed) remain the explicit operator/
+ * release step; --execute runs every gate + the mirror so that step is mechanical and safe.
  */
-import { readFile } from 'node:fs/promises';
+import { execFileSync } from 'node:child_process';
+import { cpSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
-
-type BacklogSkill = { slug: string; category: string; registryPath: string; status: string; requiresRepositoryContext?: boolean };
-type Backlog = { skills: BacklogSkill[] };
+import { skillDefinitions } from '../../src/lib/skills/registry.ts';
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
+const execute = args.includes('--execute');
 const all = args.includes('--all');
 const slug = args.find((a) => !a.startsWith('--'));
+const repoRoot = process.cwd();
 
-const backlog = JSON.parse(await readFile(resolve('src/lib/skills/onboarding-backlog.json'), 'utf8')) as Backlog;
-
-if (!dryRun) {
-  console.error('skills:publish: live onboarding is NOT implemented yet (M5 groundwork). Re-run with --dry-run to print the plan.');
+if (!dryRun && !execute) {
+  console.error('usage: npm run skills:publish -- --dry-run [<slug>|--all]   |   --execute <slug>');
   process.exit(2);
 }
 
-const targets = all ? backlog.skills : backlog.skills.filter((s) => s.slug === slug);
+// ---------------------------------------------------------------- --execute (live website pipeline) -----
+if (execute) {
+  if (!slug) {
+    console.error('skills:publish --execute: name a registered skill, e.g. `npm run skills:publish -- --execute okf-audit`.');
+    process.exit(2);
+  }
+  const skill = skillDefinitions.find((s) => s.slug === slug);
+  if (!skill) {
+    console.error(`skills:publish --execute: '${slug}' is not a registered skill. Add it to src/lib/skills/registry.ts (+ conformance.config.json, golden example, review evidence) first.`);
+    process.exit(2);
+  }
+  const run = (label: string, cmd: string, cmdArgs: string[]) => {
+    console.log(`\n── [${label}] ${cmd} ${cmdArgs.join(' ')}`);
+    execFileSync(cmd, cmdArgs, { stdio: 'inherit' });
+  };
+
+  run('M1+M4 sign (conformance, certs, authority record)', 'npm', ['run', 'skills:sign']);
+  run('M2+M3 check (verifier + consistency + chain gates + tests)', 'npm', ['run', 'skills:check']);
+  run('M2 verify (link-first verdict for the target)', 'npm', ['run', 'skills:verify', '--', `public/skills/${slug}`]);
+
+  // Cross-witness: mirror the signed authority chain into the registry + independently validate it.
+  const registry = process.env.AMTECH_SKILLS_REGISTRY ?? resolve(process.env.HOME ?? '', 'Desktop/amtech-skills-registry');
+  if (existsSync(registry)) {
+    mkdirSync(resolve(registry, 'authority/records'), { recursive: true });
+    cpSync(resolve(repoRoot, 'public/.well-known/authority/records'), resolve(registry, 'authority/records'), { recursive: true });
+    cpSync(resolve(repoRoot, 'public/.well-known/authority/log.json'), resolve(registry, 'authority/log.json'));
+    run('registry cross-witness', 'node', [resolve(registry, 'registry/validate.mjs'), '--check']);
+  } else {
+    console.log(`\n(registry not found at ${registry}; skipping cross-witness — set AMTECH_SKILLS_REGISTRY to enable)`);
+  }
+
+  console.log(`\n✓ publish pipeline complete for ${slug} (idempotent for an already-certified, unchanged skill).`);
+  console.log('Next (operator/release step, outward): commit + push BOTH repos in lockstep — registry two-phase');
+  console.log('(Phase 1 pending-resign → Phase 2 signed) and re-pin the website authority to the registry commit.');
+  process.exit(0);
+}
+
+// ------------------------------------------------------------------------------- --dry-run (plan) -------
+type BacklogSkill = { slug: string; category: string; registryPath: string; status: string; requiresRepositoryContext?: boolean };
+const backlog = (JSON.parse(readFileSync(resolve('src/lib/skills/onboarding-backlog.json'), 'utf8')) as { skills: BacklogSkill[] }).skills;
+const targets = all ? backlog : backlog.filter((s) => s.slug === slug);
 if (targets.length === 0) {
-  console.error(`skills:publish: no backlog skill matched '${slug ?? ''}'. Known: ${backlog.skills.map((s) => s.slug).join(', ')}. Use --all.`);
+  console.error(`skills:publish --dry-run: no backlog skill matched '${slug ?? ''}'. Known: ${backlog.map((s) => s.slug).join(', ')}. Use --all.`);
   process.exit(2);
 }
 
-/** The ordered certified-publishing stages — each names the real script/gate it will drive in M5 proper. */
 function stages(s: BacklogSkill): string[] {
   return [
-    `Register source: add ${s.registryPath} to src/lib/skills/registry.ts + a conformance.config.json + review evidence.${s.requiresRepositoryContext ? ' (requiresRepositoryContext — confirm host repo deps before certifying.)' : ''}`,
-    'M1 conformance: npm run skills:conformance — Ajv schema compile + golden example validates + instruction↔schema consistency; record deterministic evidence (ranAt = release date).',
-    'M0/M3 materialize: npm run skills:build — emit page/use.md/manifest (per-file SRI)/catalog (catalogRoot) + the verdict surfaces.',
-    'Registry two-phase, Phase 1: commit the canonical bytes to amtech-skills-registry, mark the cert pending-resign, push, capture the SHA.',
-    'Sign: pin the Phase-1 SHA, npm run skills:sign — independent signer gates emit the v2 amtech-reviewed certificate + sourcePackage; sign-authority appends the authority record (M4).',
-    'M2 verify + gates: npm run skills:check — build validator runs the link-first verifier over the skill (G-M2.3) and the head/body consistency gate (G-M3.1, G-X.4); build fails unless verdict === verified.',
-    'Registry two-phase, Phase 2: mirror the byte-identical cert into the registry, flip pending-resign → signed, recompute the catalog root in registry/validate.mjs (cross-repo set proof), keep the website↔registry commit pin in lockstep.',
-    'Release: npm run build + deploy; re-run the live black-box walk from https://amtechai.com/skills (a fresh agent enumerates, reaches the page, and recomputes the verdict via recipe.json).',
+    `Rewrite + register: bring ${s.registryPath} to our format (SKILL.md + a JSON output schema asset + golden example), add a SkillDefinition + conformance.config.json + review evidence.${s.requiresRepositoryContext ? ' (requiresRepositoryContext — resolve host-repo deps before certifying.)' : ''}`,
+    'Run the live pipeline: npm run skills:publish -- --execute ' + s.slug + ' — conformance → build → sign (certs + authority record) → check (verifier + consistency + chain gates) → verify → registry cross-witness.',
+    'Registry two-phase (operator/release): Phase 1 commit canonical bytes + pending-resign (capture SHA); Phase 2 pin the SHA, mirror the byte-identical cert + authority records, flip signed.',
+    'Release: re-pin the website authority to the registry commit, npm run build + deploy, re-run the live black-box walk from https://amtechai.com/skills.',
   ];
 }
 
@@ -51,4 +88,4 @@ for (const s of targets) {
   console.log(`\n=== Certified AMTECH skill publishing — DRY RUN — ${s.slug} [${s.category}] ===`);
   stages(s).forEach((step, i) => console.log(`  ${String(i + 1).padStart(2)}. ${step}`));
 }
-console.log(`\nPlanned ${targets.length} skill(s). Dry run only — no files written, no commits, no release. (M5 groundwork; live pipeline lands after M0-M4 stabilize.)`);
+console.log(`\nPlanned ${targets.length} skill(s). Dry run only — no execution. Run --execute <slug> once the skill is in our format.`);
