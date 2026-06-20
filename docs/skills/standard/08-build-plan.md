@@ -90,7 +90,7 @@ Implementation spans **two repositories** — an executing session needs access 
 
 ### Registry repo — current state (discovered 2026-06-19, cloned at `~/Desktop/amtech-skills-registry`)
 
-The standalone registry is **already productionized** and is the authoritative source — **not** the in-repo `docs/agent-skills/` copy, which is a stale earlier snapshot that has drifted (treat the cloned GitHub repo as truth; reconcile or regenerate `docs/agent-skills/` separately). Registry HEAD `88d9ce8` **matches the live authority commit-pin**, so the two origins are currently in lockstep.
+The standalone registry is **already productionized**. The in-repo `docs/agent-skills/` copy is **not stale and must not be deleted** — it holds the full set of skill packages, including ones intentionally **not yet published/certified on the website** (a deliberate backlog, see below). Registry HEAD `88d9ce8` **matches the live authority commit-pin**, so the *published* origins are in lockstep; for the productionized registry surfaces (checksums/validate/plugin/CI), treat the cloned GitHub repo as current.
 
 What the registry already implements (do **not** rebuild — integrate with it):
 - `ed25519-canonical-json-v1` verification + dual digests; `registry/checksums.json` (per-file SHA-256 + SHA3-512); `registry/validate.mjs --write|--check` staleness gate; `registry/amtech-signing-key.json` public-key mirror (no private key in the repo).
@@ -103,6 +103,18 @@ Implications for our milestones (the **delta** to build, registry-side):
 - **M4 (immutable authority)** — the git-anchored authority records + the equivocation cross-witness must hook into the existing two-phase protocol (the registry is the second witness); **fix `commitSignature: "unsigned"`** by signing the Phase-1 publishing commit.
 - **Reconcile now-vs-spec:** registry `index.json` marks `okf-audit` `pending-resign` while the live website cert verifies — close this status lag as part of M1/M4 (flip to `signed` only if certs validate against the pinned bytes/commit).
 - **M0/M2/M3** are website-only; no registry change required.
+
+### Skill onboarding backlog (deferred to M5, on purpose)
+
+The registry holds **7 packages**; only `okf-audit` + `knowledge-graph-builder` (`agent-tool`) are website-published/certified today. The remaining packages — `estimate`, `invoice`, `daily-checkin` (`ai-employee`), `amtech-article-publisher`, `amtech-article-research-writer` (`amtech-workflow`) — are a **deliberate backlog to certify and publish to the website registry, not stale content**. Do not delete `docs/agent-skills/`; it is where these live.
+
+Onboarding them now would mean hand-running the two-phase release once per skill — volatile and error-prone. The plan is to **publish them as a batch after M0–M4 land**, once the standard is stable, using a repeatable pipeline (M5). Keep them referenced and intact until then.
+
+## M5 (follow-on) — "Certified AMTECH skill publishing" pipeline + onboard backlog
+
+After M0–M4 stabilize the standard, build a repeatable **Certified AMTECH skill publishing** pipeline (itself a candidate AMTECH skill) that turns "add a skill" into a single low-volatility operation instead of a manual two-phase release. It should: take a skill source folder → run tests + record review evidence (M1) → materialize website surfaces (M0/M3) → execute the registry two-phase release (Phase 1 registry commit + `pending-resign`, Phase 2 website `skills:sign`/`check`/`build`, then flip to `signed`) → append the authority record (M4) → verify (M2) end-to-end, with the gates in `07` enforced automatically.
+
+Then use it to **batch-onboard the backlog**: `estimate`, `invoice`, `daily-checkin`, `amtech-article-publisher`, `amtech-article-research-writer`. This is *why* onboarding is deferred — do it once, repeatably, on a stable standard. Spec this milestone in detail only after M0–M4 are real.
 
 ## Out of scope for v2 (documented futures)
 - Full RFC-6962 Merkle log + inclusion/consistency proofs (Option B — upgrade path designed into M4 records).
