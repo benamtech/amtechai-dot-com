@@ -333,7 +333,7 @@ async function validateAuthorityRecord() {
     return;
   }
   try {
-    const record = JSON.parse(recordRaw) as { sequence?: string; catalogRoot?: string };
+    const record = JSON.parse(recordRaw) as { sequence?: string; state?: { catalogRoot?: string } };
     const recordHash = digest('sha256', canonicalJson(record));
     if (typeof keyRaw === 'string' && !verifyCanonical(record, sigRaw, JSON.parse(keyRaw) as SigningKeyDocument)) {
       failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'genesis record signature does not verify (G-M4.1).');
@@ -345,7 +345,7 @@ async function validateAuthorityRecord() {
     }
     if (typeof catalogRaw === 'string') {
       const catalog = JSON.parse(catalogRaw) as { catalogRoot?: string };
-      if (catalog.catalogRoot !== record.catalogRoot) failCode('authority', REASON_CODES.CATALOG_ROOT_MISMATCH, 'authority record catalogRoot != catalog.json catalogRoot.');
+      if (catalog.catalogRoot !== record.state?.catalogRoot) failCode('authority', REASON_CODES.CATALOG_ROOT_MISMATCH, 'authority record state.catalogRoot != catalog.json catalogRoot.');
     }
   } catch {
     failCode('authority', REASON_CODES.INVALID_SCHEMA, 'genesis authority record is not valid JSON.');

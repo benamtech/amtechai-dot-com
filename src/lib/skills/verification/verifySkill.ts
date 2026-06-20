@@ -277,10 +277,10 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
       evidence.authorityRecord = 'skipped';
     } else {
       try {
-        const record = JSON.parse(recordBytes.toString('utf8')) as { sequence?: string; catalogRoot?: string; skills?: { slug: string; certificateSha256: string }[] };
+        const record = JSON.parse(recordBytes.toString('utf8')) as { sequence?: string; state?: { catalogRoot?: string; skills?: { slug: string; certificateSha256: string }[] } };
         const authDoc = JSON.parse(authDocBytes.toString('utf8')) as { latestRecordHash?: string };
         const recordHash = digest('sha256', canonicalJson(record));
-        const leafOk = record.skills?.some((s) => s.slug === cert.subjectId && s.certificateSha256 === sha256(certBytes));
+        const leafOk = record.state?.skills?.some((s) => s.slug === cert.subjectId && s.certificateSha256 === sha256(certBytes));
         if (authDoc.latestRecordHash !== recordHash) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
         else if (recordSigBytes && !verifyCanonical(record, recordSigBytes.toString('utf8'), key)) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');
         else if (!leafOk) fail(REASON_CODES.AUTHORITY_MISMATCH, 'authorityRecord');

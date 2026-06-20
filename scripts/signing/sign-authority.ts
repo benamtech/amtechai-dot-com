@@ -34,31 +34,44 @@ if (derivedKey.keyId !== existingKey.keyId || derivedKey.fingerprint.sha256 !== 
   throw new Error('Private signing key does not match committed AMTECH public key metadata.');
 }
 
-type Leaf = { slug: string; certificateSha256: string; trustTier: string };
+type SkillState = { slug: string; version: string; certificateId: string; certificateSha256: string; trustTier: string };
 
-const leaves: Leaf[] = [];
+const skillState: SkillState[] = [];
 for (const skill of skillDefinitions) {
   const certBytes = await readFile(resolve(`src/lib/skills/certificates/${skill.slug}/certificate.json`)).catch(() => null);
   if (!certBytes) throw new Error(`sign-authority: missing certificate for ${skill.slug}; run sign-skills first.`);
-  const cert = JSON.parse(certBytes.toString('utf8')) as { attestations?: { trustTier?: string } };
-  leaves.push({ slug: skill.slug, certificateSha256: digest('sha256', certBytes), trustTier: cert.attestations?.trustTier ?? 'signed' });
+  const cert = JSON.parse(certBytes.toString('utf8')) as { certificateId?: string; version?: string; attestations?: { trustTier?: string } };
+  skillState.push({
+    slug: skill.slug,
+    version: cert.version ?? skill.version,
+    certificateId: cert.certificateId ?? '',
+    certificateSha256: digest('sha256', certBytes),
+    trustTier: cert.attestations?.trustTier ?? 'signed',
+  });
 }
-leaves.sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
+skillState.sort((a, b) => (a.slug < b.slug ? -1 : a.slug > b.slug ? 1 : 0));
 
 // Catalog root — the SAME preimage as build-skills.computeCatalogRoot + registry/validate.mjs.
-const catalogRoot = digest('sha256', canonicalJson(leaves.map((l) => ({ slug: l.slug, cert: l.certificateSha256 }))));
+const catalogRoot = digest('sha256', canonicalJson(skillState.map((s) => ({ slug: s.slug, cert: s.certificateSha256 }))));
 // Deterministic release stamp = the latest skill update date (keeps the record byte-stable across builds).
 const issuedAt = `${[...skillDefinitions].map((s) => s.updated).sort().at(-1)}T00:00:00.000Z`;
 
+// Genesis record (docs/skills/standard/03): events[] of what changed + the full materialized `state`.
 const record = {
   schemaVersion: 'amtech-authority-record/v1',
   sequence: '0',
   previousRecordHash: null,
-  event: 'genesis',
   issuedAt,
   authorityUrl: SKILL_AUTHORITY_URL,
-  catalogRoot,
-  skills: leaves,
+  events: [
+    { type: 'genesis' },
+    ...skillState.map((s) => ({ type: 'skill-publish', slug: s.slug, version: s.version, certificateId: s.certificateId, certificateSha256: s.certificateSha256, trustTier: s.trustTier })),
+  ],
+  state: {
+    catalogRoot,
+    skills: skillState,
+    keys: [{ keyId: existingKey.keyId, status: existingKey.status, validFrom: existingKey.validFrom }],
+  },
   signingKeyId: existingKey.keyId,
   signingKeyUrl: SIGNING_KEY_URL,
 };
@@ -67,4 +80,4 @@ const dir = resolve('src/lib/skills/authority/records');
 await mkdir(dir, { recursive: true });
 await writeFile(resolve(dir, '0000.json'), `${JSON.stringify(record, null, 2)}\n`, 'utf8');
 await writeFile(resolve(dir, '0000.sig'), `${signCanonical(record, privateKey)}\n`, 'utf8');
-console.log(`Signed authority record seq 0 (genesis): catalogRoot ${catalogRoot.slice(0, 16)}…, ${leaves.length} skill(s).`);
+console.log(`Signed authority record seq 0 (genesis): catalogRoot ${catalogRoot.slice(0, 16)}…, ${skillState.length} skill(s).`);

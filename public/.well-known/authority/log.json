@@ -2,11 +2,11 @@
   "schemaVersion": "amtech-authority-log/v1",
   "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
   "latestSequence": "0",
-  "latestRecordHash": "ba98f4301df4b71939e4f9b88fe2b1827ec3bbdc4977a61f61e043148e05c87a",
+  "latestRecordHash": "08de92448b4aa7bb8e807e61a902c04be52eaa4aca36f58bbbc33c7bfc543395",
   "records": [
     {
       "sequence": "0",
-      "recordHash": "ba98f4301df4b71939e4f9b88fe2b1827ec3bbdc4977a61f61e043148e05c87a",
+      "recordHash": "08de92448b4aa7bb8e807e61a902c04be52eaa4aca36f58bbbc33c7bfc543395",
       "recordUrl": "https://amtechai.com/.well-known/authority/records/0000.json",
       "signatureUrl": "https://amtechai.com/.well-known/authority/records/0000.sig"
     }

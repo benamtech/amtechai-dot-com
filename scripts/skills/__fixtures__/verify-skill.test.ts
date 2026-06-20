@@ -46,7 +46,7 @@ test('positive control: the published okf-audit verifies to its attested tier', 
 
 test('tampered authority record → AUTHORITY_MISMATCH', async () => {
   const record = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/records/0000.json')))!.toString('utf8'));
-  record.catalogRoot = '0'.repeat(64); // breaks the latestRecordHash pointer + the signature
+  record.state.catalogRoot = '0'.repeat(64); // breaks the latestRecordHash pointer + the signature
   const verdict = await verifySkill(makeLoader({ authorityRecord: Buffer.from(JSON.stringify(record)) }));
   assert.equal(verdict.verdict, 'invalid');
   assert.ok(verdict.reasonCodes.includes(REASON_CODES.AUTHORITY_MISMATCH), verdict.reasonCodes.join(', '));
