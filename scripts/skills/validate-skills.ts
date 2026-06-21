@@ -348,11 +348,11 @@ async function validateAuthorityRecord() {
       const catalog = JSON.parse(catalogRaw) as { catalogRoot?: string };
       if (catalog.catalogRoot !== record.state?.catalogRoot) failCode('authority', REASON_CODES.CATALOG_ROOT_MISMATCH, 'authority record state.catalogRoot != catalog.json catalogRoot.');
     }
-    // G-M4.4 — the publishing commit is witnessed (the immutable public git history is the cross-witness);
-    // "unsigned" is no longer acceptable once the authority chain ships.
+    // G-M4.4 — publishing commits are SSH-signed; `commitSignature` records the signer fingerprint
+    // ("ssh:SHA256:…"). "unsigned"/"git-history" are no longer acceptable once the commit-signing key exists.
     if (typeof authRaw === 'string') {
       const witness = (JSON.parse(authRaw) as { repository?: { commitSignature?: string } }).repository?.commitSignature;
-      if (!witness || witness === 'unsigned') failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'skill-authority repository.commitSignature is unsigned (G-M4.4).');
+      if (!witness?.startsWith('ssh:')) failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, `skill-authority repository.commitSignature must be an ssh: signer fingerprint (got ${witness ?? 'none'}) (G-M4.4).`);
     }
   } catch {
     failCode('authority', REASON_CODES.INVALID_SCHEMA, 'genesis authority record is not valid JSON.');

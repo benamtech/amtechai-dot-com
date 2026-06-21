@@ -26,6 +26,7 @@
     "skills:check": "npm run skills:build && npm run okf:build && npm run skills:validate && npm run skills:test",
     "signing:keygen": "node scripts/signing/generate-key.ts",
     "signing:rotate": "node scripts/signing/rotate-key.ts",
+    "signing:commit-keygen": "node scripts/signing/generate-commit-key.ts",
     "skills:sign": "npm run skills:conformance && AMTECH_ALLOW_UNSIGNED_BUILD=1 npm run skills:build && node scripts/signing/sign-skills.ts && node scripts/signing/sign-authority.ts && npm run skills:build && npm run skills:validate",
     "artifact:sign": "node scripts/signing/sign-artifact.ts",
     "artifact:verify": "node scripts/signing/verify-artifact.ts",

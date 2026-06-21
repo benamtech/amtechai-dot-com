@@ -61,6 +61,12 @@ function sriSha256FromHex(hexDigest: string): string {
   return `sha256-${Buffer.from(hexDigest, 'hex').toString('base64')}`;
 }
 
+/** OpenSSH SHA256 fingerprint of a public-key line ("ssh-ed25519 <base64> comment") — matches `ssh-keygen -lf`. */
+function sshKeyFingerprint(pubLine: string): string {
+  const blob = pubLine.trim().split(/\s+/)[1] ?? '';
+  return `SHA256:${createHash('sha256').update(Buffer.from(blob, 'base64')).digest('base64').replace(/=+$/, '')}`;
+}
+
 function mediaType(path: string): string {
   const ext = extname(path).toLowerCase();
   if (ext === '.md') return 'text/markdown; charset=utf-8';
@@ -930,6 +936,9 @@ async function main() {
   await writeText('public/skills/agent.md', hubAgentMarkdown());
   const activeKeyRaw = await readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8');
   await writeText('public/.well-known/amtech-signing-key.json', activeKeyRaw);
+  // Publish the SSH commit-signing public key (the witness for signed publishing commits, docs/skills/standard/03).
+  const commitPubRaw = await readFile(resolve(repoRoot, 'signing/commit-signing-key.pub'), 'utf8').catch(() => null);
+  if (commitPubRaw) await writeText('public/.well-known/commit-signing-key.pub', commitPubRaw.endsWith('\n') ? commitPubRaw : `${commitPubRaw}\n`);
   // Multi-key historical serving (docs/skills/standard/03): publish every key document by id so a cert
   // signed by a now-retired key still verifies (active-at-issuance). Filename sanitizes the keyId's ':'/'/'.
   const keyDir = (id: string) => `public/.well-known/keys/${id.replace(/[:/]/g, '_')}.json`;
@@ -999,7 +1008,7 @@ async function main() {
     repository: {
       url: SKILL_REPOSITORY_URL,
       commit: SKILL_REPOSITORY_COMMIT,
-      commitSignature: process.env.AMTECH_AUTHORITY_COMMIT_WITNESS ?? 'git-history',
+      commitSignature: commitPubRaw ? `ssh:${sshKeyFingerprint(commitPubRaw)}` : (process.env.AMTECH_AUTHORITY_COMMIT_WITNESS ?? 'git-history'),
       registryUrl: `${SKILL_REPOSITORY_URL}/blob/${SKILL_REPOSITORY_COMMIT}/index.json`,
     },
     verification: {
