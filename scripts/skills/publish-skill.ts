@@ -1,79 +1,101 @@
 /**
  * skills:publish — the "Certified AMTECH skill publishing" pipeline (M5, docs/skills/standard/08).
  *
- *   --dry-run [<slug>]   print the ordered release plan for a registered skill (no execution).
- *   --execute <slug>     run the website-side pipeline for a REGISTERED skill (conformance → build →
- *                        sign certs → sign-authority → check → verify), then mirror the signed authority
- *                        chain into the registry and cross-witness it. Idempotent.
+ *   --dry-run [<slug>]      print the ordered release plan (no execution).
+ *   --execute [--push]      run the ATOMIC, SSH-signed, cross-repo release end-to-end:
+ *     1. website: skills:sign (certs bind sourcePackage) → skills:check → build.
+ *     2. registry: mirror source + certs + authority chain + index (every skill `signed`) → ONE SSH-signed
+ *        commit (no pending-resign window). Capture that commit.
+ *     3. website: re-pin SKILL_REPOSITORY_COMMIT to the registry release commit (provenance only — no re-sign),
+ *        rebuild, skills:check → SSH-signed website commit.
+ *     4. registry/validate.mjs --check (sourcePackage proof + cross-witness).
+ *   `--push` pushes both repos (the only outward step); without it the release is committed locally for review.
  *
- * Outward cross-repo COMMITS (the atomic signed release) remain the explicit operator/release step;
- * --execute runs every gate + the mirror so that step is mechanical and safe.
+ * Idempotent: re-running with no source change makes no cert/record change and yields no diff.
  */
 import { execFileSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { skillDefinitions } from '../../src/lib/skills/registry.ts';
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const execute = args.includes('--execute');
+const push = args.includes('--push');
 const slug = args.find((a) => !a.startsWith('--'));
 const repoRoot = process.cwd();
+const registry = process.env.AMTECH_SKILLS_REGISTRY ?? resolve(process.env.HOME ?? '', 'Desktop/amtech-skills-registry');
 
 if (!dryRun && !execute) {
-  console.error('usage: npm run skills:publish -- --dry-run [<slug>]   |   --execute <slug>');
+  console.error('usage: npm run skills:publish -- --dry-run [<slug>]   |   --execute [--push]');
   process.exit(2);
 }
 
-function requireRegistered(name: string | undefined) {
-  if (!name) {
-    console.error('skills:publish: name a registered skill, e.g. `npm run skills:publish -- --execute okf-audit`.');
-    process.exit(2);
-  }
-  const skill = skillDefinitions.find((s) => s.slug === name);
-  if (!skill) {
-    console.error(`skills:publish: '${name}' is not a registered skill. Add it to src/lib/skills/registry.ts (+ conformance.config.json, golden, review) first.`);
-    process.exit(2);
-  }
-  return skill;
-}
+const run = (label: string, cmd: string, cmdArgs: string[], cwd = repoRoot) => {
+  console.log(`\n── [${label}] ${cmd} ${cmdArgs.join(' ')}`);
+  execFileSync(cmd, cmdArgs, { stdio: 'inherit', cwd });
+};
+const git = (cwd: string, ...a: string[]) => execFileSync('git', a, { cwd, encoding: 'utf8' }).trim();
 
 if (execute) {
-  const skill = requireRegistered(slug);
-  const run = (label: string, cmd: string, cmdArgs: string[]) => {
-    console.log(`\n── [${label}] ${cmd} ${cmdArgs.join(' ')}`);
-    execFileSync(cmd, cmdArgs, { stdio: 'inherit' });
-  };
-  run('M1+M4 sign (conformance, certs, authority record)', 'npm', ['run', 'skills:sign']);
-  run('M2+M3 check (verifier + consistency + chain gates + tests)', 'npm', ['run', 'skills:check']);
-  run('M2 verify (link-first verdict for the target)', 'npm', ['run', 'skills:verify', '--', `public/skills/${skill.slug}`]);
-
-  const registry = process.env.AMTECH_SKILLS_REGISTRY ?? resolve(process.env.HOME ?? '', 'Desktop/amtech-skills-registry');
-  if (existsSync(registry)) {
-    mkdirSync(resolve(registry, 'authority/records'), { recursive: true });
-    cpSync(resolve(repoRoot, 'public/.well-known/authority/records'), resolve(registry, 'authority/records'), { recursive: true });
-    cpSync(resolve(repoRoot, 'public/.well-known/authority/log.json'), resolve(registry, 'authority/log.json'));
-    run('registry cross-witness', 'node', [resolve(registry, 'registry/validate.mjs'), '--check']);
-  } else {
-    console.log(`\n(registry not found at ${registry}; skipping cross-witness — set AMTECH_SKILLS_REGISTRY to enable)`);
+  if (!existsSync(registry)) {
+    console.error(`skills:publish --execute: registry not found at ${registry}. Set AMTECH_SKILLS_REGISTRY.`);
+    process.exit(2);
   }
-  console.log(`\n✓ publish pipeline complete for ${skill.slug} (idempotent for an already-certified, unchanged skill).`);
-  console.log('Next (operator/release step, outward): the atomic signed cross-repo release — commit source + certs in');
-  console.log('ONE registry commit (all signed), set the website provenance pin, commit + push both repos in lockstep.');
+
+  // 1. Website: sign (sourcePackage-anchored certs + authority record) → check → build.
+  run('sign', 'npm', ['run', 'skills:sign']);
+  run('check', 'npm', ['run', 'skills:check']);
+
+  // 2. Mirror source + certs + authority chain into the registry; mark every published skill `signed`.
+  const newRoot = JSON.parse(readFileSync(resolve(repoRoot, 'public/skills/catalog.json'), 'utf8')).catalogRoot as string;
+  for (const skill of skillDefinitions) {
+    cpSync(resolve(repoRoot, skill.sourceDir), resolve(registry, skill.repository.path), { recursive: true });
+    mkdirSync(resolve(registry, 'registry/skills', skill.slug), { recursive: true });
+    for (const f of ['certificate.json', 'certificate.sig']) cpSync(resolve(repoRoot, 'public/skills', skill.slug, f), resolve(registry, 'registry/skills', skill.slug, f));
+  }
+  mkdirSync(resolve(registry, 'authority/records'), { recursive: true });
+  cpSync(resolve(repoRoot, 'public/.well-known/authority/records'), resolve(registry, 'authority/records'), { recursive: true });
+  cpSync(resolve(repoRoot, 'public/.well-known/authority/log.json'), resolve(registry, 'authority/log.json'));
+  const index = JSON.parse(readFileSync(resolve(registry, 'index.json'), 'utf8'));
+  index.verification.catalogRoot = newRoot;
+  for (const s of index.skills) if (s.publishedOnWebsite && s.verification) { s.verification.signed = true; s.verification.status = 'signed'; s.verification.certificate = `registry/skills/${s.slug}/certificate.json`; }
+  writeFileSync(resolve(registry, 'index.json'), `${JSON.stringify(index, null, 2)}\n`);
+  run('registry checksums', 'node', ['registry/validate.mjs', '--write'], registry);
+  run('registry validate', 'node', ['registry/validate.mjs', '--check'], registry);
+
+  // 3. Registry: ONE SSH-signed atomic commit (all signed; no pending-resign).
+  git(registry, 'add', '-A');
+  if (git(registry, 'status', '--porcelain')) git(registry, 'commit', '-S', '-q', '-m', 'release: certified AMTECH skills (atomic, all signed)');
+  const releaseCommit = git(registry, 'rev-parse', 'HEAD');
+  console.log(`\nregistry release commit: ${releaseCommit}`);
+
+  // 4. Website: re-pin provenance to the release commit (NOT in the signed cert → no re-sign), rebuild, check.
+  const registryTs = resolve(repoRoot, 'src/lib/skills/registry.ts');
+  writeFileSync(registryTs, readFileSync(registryTs, 'utf8').replace(/export const SKILL_REPOSITORY_COMMIT = '[0-9a-f]{40}';/, `export const SKILL_REPOSITORY_COMMIT = '${releaseCommit}';`));
+  run('rebuild (provenance pin)', 'npm', ['run', 'skills:build']);
+  run('check', 'npm', ['run', 'skills:check']);
+  git(repoRoot, 'add', '-A');
+  if (git(repoRoot, 'status', '--porcelain')) git(repoRoot, 'commit', '-S', '-q', '-m', `release: pin website provenance to registry ${releaseCommit.slice(0, 12)}`);
+
+  if (push) {
+    run('push website', 'git', ['push'], repoRoot);
+    run('push registry', 'git', ['push'], registry);
+  }
+  console.log(`\n✓ atomic release complete${push ? ' + pushed' : ' (local; re-run with --push to publish)'}. Every published skill is signed; no pending-resign.`);
   process.exit(0);
 }
 
 // --dry-run
-const targets = slug ? [requireRegistered(slug)] : skillDefinitions;
+const targets = slug ? skillDefinitions.filter((s) => s.slug === slug) : skillDefinitions;
 for (const skill of targets) {
   console.log(`\n=== Certified AMTECH skill publishing — DRY RUN — ${skill.slug} ===`);
   [
-    'M1 conformance: npm run skills:conformance — schema compile + golden validates + documented outputs.',
-    'M0/M3 materialize: npm run skills:build — page, manifest (per-file SRI), catalog (catalogRoot), recipe.json, verdict surfaces.',
-    'Sign: npm run skills:sign — v2 amtech-reviewed cert (sourcePackage anchor) + the appended authority record.',
-    'M2 verify + gates: npm run skills:check — link-first verifier (G-M2.3) + head/body consistency (G-X.4).',
-    'Atomic release: mirror source + certs + authority chain into the registry in ONE signed commit (all signed),',
-    'set the website provenance pin to that commit, rebuild (provenance only), commit + push both repos in lockstep.',
+    'M1 conformance + M0/M3 materialize (skills:sign runs conformance, build, sign, the authority record).',
+    'M2 verify + gates (skills:check): link-first verifier (G-M2.3) + head/body consistency (G-X.4) + chain.',
+    'Atomic release: mirror source + certs + chain into the registry, mark all signed → ONE SSH-signed commit.',
+    'Provenance pin: set the website SKILL_REPOSITORY_COMMIT to the release commit, rebuild, SSH-signed commit.',
+    'Verify: registry/validate.mjs --check (sourcePackage proof + cross-witness). No pending-resign.',
   ].forEach((step, i) => console.log(`  ${String(i + 1).padStart(2)}. ${step}`));
 }
-console.log(`\nPlanned ${targets.length} skill(s). Dry run only — no execution.`);
+console.log(`\nPlanned ${targets.length} skill(s). Dry run only. Run --execute [--push] for the real release.`);
