@@ -1,55 +1,53 @@
 /**
  * skills:publish — the "Certified AMTECH skill publishing" pipeline (M5, docs/skills/standard/08).
  *
- * Turns "add a skill" into one repeatable, gated, idempotent operation instead of a manual cross-repo
- * two-phase release. Two modes:
- *   --dry-run [<slug>|--all]   print the ordered plan over the onboarding backlog (no execution).
- *   --execute <slug>           run the website-side pipeline for a REGISTERED skill (conformance → build →
- *                              sign certs → sign-authority → check (verifier + consistency + chain gates) →
- *                              verify), then mirror the authority chain into the registry and cross-witness it.
- *                              Idempotent: an already-certified, unchanged skill produces no diff.
+ *   --dry-run [<slug>]   print the ordered release plan for a registered skill (no execution).
+ *   --execute <slug>     run the website-side pipeline for a REGISTERED skill (conformance → build →
+ *                        sign certs → sign-authority → check → verify), then mirror the signed authority
+ *                        chain into the registry and cross-witness it. Idempotent.
  *
- * Outward cross-repo COMMITS (the registry two-phase pending-resign → signed) remain the explicit operator/
- * release step; --execute runs every gate + the mirror so that step is mechanical and safe.
+ * Outward cross-repo COMMITS (the atomic signed release) remain the explicit operator/release step;
+ * --execute runs every gate + the mirror so that step is mechanical and safe.
  */
 import { execFileSync } from 'node:child_process';
-import { cpSync, existsSync, mkdirSync, readFileSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { skillDefinitions } from '../../src/lib/skills/registry.ts';
 
 const args = process.argv.slice(2);
 const dryRun = args.includes('--dry-run');
 const execute = args.includes('--execute');
-const all = args.includes('--all');
 const slug = args.find((a) => !a.startsWith('--'));
 const repoRoot = process.cwd();
 
 if (!dryRun && !execute) {
-  console.error('usage: npm run skills:publish -- --dry-run [<slug>|--all]   |   --execute <slug>');
+  console.error('usage: npm run skills:publish -- --dry-run [<slug>]   |   --execute <slug>');
   process.exit(2);
 }
 
-// ---------------------------------------------------------------- --execute (live website pipeline) -----
-if (execute) {
-  if (!slug) {
-    console.error('skills:publish --execute: name a registered skill, e.g. `npm run skills:publish -- --execute okf-audit`.');
+function requireRegistered(name: string | undefined) {
+  if (!name) {
+    console.error('skills:publish: name a registered skill, e.g. `npm run skills:publish -- --execute okf-audit`.');
     process.exit(2);
   }
-  const skill = skillDefinitions.find((s) => s.slug === slug);
+  const skill = skillDefinitions.find((s) => s.slug === name);
   if (!skill) {
-    console.error(`skills:publish --execute: '${slug}' is not a registered skill. Add it to src/lib/skills/registry.ts (+ conformance.config.json, golden example, review evidence) first.`);
+    console.error(`skills:publish: '${name}' is not a registered skill. Add it to src/lib/skills/registry.ts (+ conformance.config.json, golden, review) first.`);
     process.exit(2);
   }
+  return skill;
+}
+
+if (execute) {
+  const skill = requireRegistered(slug);
   const run = (label: string, cmd: string, cmdArgs: string[]) => {
     console.log(`\n── [${label}] ${cmd} ${cmdArgs.join(' ')}`);
     execFileSync(cmd, cmdArgs, { stdio: 'inherit' });
   };
-
   run('M1+M4 sign (conformance, certs, authority record)', 'npm', ['run', 'skills:sign']);
   run('M2+M3 check (verifier + consistency + chain gates + tests)', 'npm', ['run', 'skills:check']);
-  run('M2 verify (link-first verdict for the target)', 'npm', ['run', 'skills:verify', '--', `public/skills/${slug}`]);
+  run('M2 verify (link-first verdict for the target)', 'npm', ['run', 'skills:verify', '--', `public/skills/${skill.slug}`]);
 
-  // Cross-witness: mirror the signed authority chain into the registry + independently validate it.
   const registry = process.env.AMTECH_SKILLS_REGISTRY ?? resolve(process.env.HOME ?? '', 'Desktop/amtech-skills-registry');
   if (existsSync(registry)) {
     mkdirSync(resolve(registry, 'authority/records'), { recursive: true });
@@ -59,33 +57,23 @@ if (execute) {
   } else {
     console.log(`\n(registry not found at ${registry}; skipping cross-witness — set AMTECH_SKILLS_REGISTRY to enable)`);
   }
-
-  console.log(`\n✓ publish pipeline complete for ${slug} (idempotent for an already-certified, unchanged skill).`);
-  console.log('Next (operator/release step, outward): commit + push BOTH repos in lockstep — registry two-phase');
-  console.log('(Phase 1 pending-resign → Phase 2 signed) and re-pin the website authority to the registry commit.');
+  console.log(`\n✓ publish pipeline complete for ${skill.slug} (idempotent for an already-certified, unchanged skill).`);
+  console.log('Next (operator/release step, outward): the atomic signed cross-repo release — commit source + certs in');
+  console.log('ONE registry commit (all signed), set the website provenance pin, commit + push both repos in lockstep.');
   process.exit(0);
 }
 
-// ------------------------------------------------------------------------------- --dry-run (plan) -------
-type BacklogSkill = { slug: string; category: string; registryPath: string; status: string; requiresRepositoryContext?: boolean };
-const backlog = (JSON.parse(readFileSync(resolve('src/lib/skills/onboarding-backlog.json'), 'utf8')) as { skills: BacklogSkill[] }).skills;
-const targets = all ? backlog : backlog.filter((s) => s.slug === slug);
-if (targets.length === 0) {
-  console.error(`skills:publish --dry-run: no backlog skill matched '${slug ?? ''}'. Known: ${backlog.map((s) => s.slug).join(', ')}. Use --all.`);
-  process.exit(2);
+// --dry-run
+const targets = slug ? [requireRegistered(slug)] : skillDefinitions;
+for (const skill of targets) {
+  console.log(`\n=== Certified AMTECH skill publishing — DRY RUN — ${skill.slug} ===`);
+  [
+    'M1 conformance: npm run skills:conformance — schema compile + golden validates + documented outputs.',
+    'M0/M3 materialize: npm run skills:build — page, manifest (per-file SRI), catalog (catalogRoot), recipe.json, verdict surfaces.',
+    'Sign: npm run skills:sign — v2 amtech-reviewed cert (sourcePackage anchor) + the appended authority record.',
+    'M2 verify + gates: npm run skills:check — link-first verifier (G-M2.3) + head/body consistency (G-X.4).',
+    'Atomic release: mirror source + certs + authority chain into the registry in ONE signed commit (all signed),',
+    'set the website provenance pin to that commit, rebuild (provenance only), commit + push both repos in lockstep.',
+  ].forEach((step, i) => console.log(`  ${String(i + 1).padStart(2)}. ${step}`));
 }
-
-function stages(s: BacklogSkill): string[] {
-  return [
-    `Rewrite + register: bring ${s.registryPath} to our format (SKILL.md + a JSON output schema asset + golden example), add a SkillDefinition + conformance.config.json + review evidence.${s.requiresRepositoryContext ? ' (requiresRepositoryContext — resolve host-repo deps before certifying.)' : ''}`,
-    'Run the live pipeline: npm run skills:publish -- --execute ' + s.slug + ' — conformance → build → sign (certs + authority record) → check (verifier + consistency + chain gates) → verify → registry cross-witness.',
-    'Registry two-phase (operator/release): Phase 1 commit canonical bytes + pending-resign (capture SHA); Phase 2 pin the SHA, mirror the byte-identical cert + authority records, flip signed.',
-    'Release: re-pin the website authority to the registry commit, npm run build + deploy, re-run the live black-box walk from https://amtechai.com/skills.',
-  ];
-}
-
-for (const s of targets) {
-  console.log(`\n=== Certified AMTECH skill publishing — DRY RUN — ${s.slug} [${s.category}] ===`);
-  stages(s).forEach((step, i) => console.log(`  ${String(i + 1).padStart(2)}. ${step}`));
-}
-console.log(`\nPlanned ${targets.length} skill(s). Dry run only — no execution. Run --execute <slug> once the skill is in our format.`);
+console.log(`\nPlanned ${targets.length} skill(s). Dry run only — no execution.`);
