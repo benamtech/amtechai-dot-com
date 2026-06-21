@@ -49,6 +49,11 @@ export function renderHeadTags(meta: PageMeta): string {
       ...(meta.agentMap.actions ? { actions: meta.agentMap.actions } : {}),
       ...(meta.agentMap.alternates ? { alternates: meta.agentMap.alternates.map((a) => ({ ...a, href: absUrl(a.href) })) } : {}),
       ...(meta.agentMap.seeAlso ? { seeAlso: meta.agentMap.seeAlso } : {}),
+      // Skill CA blocks (docs/skills/standard/05): bootstrap order, the verification recipe + verdict, and the
+      // quick file-route map. Descriptive pointers only — the proof is the recompute, never the head.
+      ...(meta.agentMap.skill ? { skill: meta.agentMap.skill } : {}),
+      ...(meta.agentMap.verify ? { verify: meta.agentMap.verify } : {}),
+      ...(meta.agentMap.files ? { files: meta.agentMap.files } : {}),
     };
     tags.push(`<script type="application/json" id="amtech-agent-map">${JSON.stringify(payload)}</script>`);
   }

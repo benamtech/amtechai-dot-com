@@ -1,0 +1,27 @@
+{
+  "meta": {
+    "title": "OKF Is a Projection, Not the Whole System",
+    "audience": "technical marketers and content operators adopting agent-readable content",
+    "slug": "okf-is-a-projection-not-the-whole-system",
+    "category": "standard",
+    "status": "draft"
+  },
+  "uniqueInsight": "Most teams treat an Open Knowledge Format bundle as the canonical artifact; it is better understood as one projection of a single canonical model, so the real leverage is owning the model and generating many discovery surfaces from it.",
+  "entities": {
+    "primary": "Open Knowledge Format (OKF)",
+    "related": ["knowledge graph", "materialized views", "first-fetch principle", "agent-readable content"],
+    "internalLinks": [
+      { "target": "knowledge-graph-materialization", "reason": "OKF is one of several views materialized from the same graph." },
+      { "target": "first-fetch-principle", "reason": "Explains why each projected surface must self-bootstrap for an agent." }
+    ]
+  },
+  "citations": [
+    { "source": "Google Open Knowledge Format announcement", "url": "https://developers.google.com/", "why": "Primary description of the format this article reframes." },
+    { "source": "RFC 8785 (JSON Canonicalization Scheme)", "url": "https://www.rfc-editor.org/rfc/rfc8785", "why": "Grounds the determinism claim for projected, verifiable surfaces." }
+  ],
+  "draft": "## OKF is a projection, not the whole system\n\nTeams adopting agent-readable content often ask \"should we publish OKF?\" as if the bundle were the product. It is not. OKF is one projection of a canonical knowledge model. Own the model, and OKF, HTML, JSON-LD, and a markdown twin all fall out of it deterministically.\n\nThe practical payoff: you stop hand-maintaining four surfaces that drift apart, and you start generating them from one source whose every view can be recomputed and checked.\n\n### What to do\n\n1. Model the concept once, with its entities and relationships.\n2. Project the surfaces an agent might fetch first.\n3. Bind each projection to the model with a digest so a consumer can verify it.\n",
+  "faq": [
+    { "question": "Is OKF a replacement for a knowledge graph?", "answer": "No. OKF is a portable projection of a graph; the graph (or canonical model) remains the source of truth." },
+    { "question": "Why generate multiple surfaces instead of just publishing OKF?", "answer": "Different agents fetch different surfaces first; projecting them all from one model keeps them consistent and verifiable." }
+  ]
+}

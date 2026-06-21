@@ -16,8 +16,9 @@ No surface may report `verified` unless it resolves to the same signed certifica
 
 ### M1 — Attestations (`v2`)
 - **G-M1.1** Every published cert is `amtech-signed-artifact/v2` with an `attestations` block (or explicitly tier `signed` for back-compat).
-- **G-M1.2** Signer refused conditions all enforced (commit match, freshness ≤ max-age, `result==pass`, evidence digests resolve, scripts match archive, review approved for `human-reviewed`). Negative tests: a stale/absent/mismatched-evidence fixture **fails** signing.
+- **G-M1.2** Signer refused conditions all enforced (freshness ≤ max-age, `result==pass`, evidence digests resolve, scripts match archive, `sourcePackage` recomputes as the cross-repo anchor, review approved for `amtech-reviewed`). Negative fixtures — stale evidence, mutated source bytes (`SOURCE_PACKAGE_MISMATCH`), undeclared script, golden-fails-schema — each **fails** signing with the canonical reason code. (The cert binds no git commit; `sourcePackage` is the anchor.)
 - **G-M1.3** Published evidence files resolve and recompute to the cert's `evidence.sha256`.
+- **G-M1.4** Re-running the conformance runner reproduces the committed evidence **byte-for-byte** (defeats hand-edited evidence); `sourcePackage` matches across this repo and the registry mirror.
 
 ### M2 — Verifier
 - **G-M2.1** `npm run skills:verify <url>` returns the `04` JSON for page/bootstrap/catalog/certificate/authority inputs.
@@ -29,11 +30,20 @@ No surface may report `verified` unless it resolves to the same signed certifica
 - **G-M3.2** No static surface claims a tier the evidence can't prove.
 - **G-M3.3** Static surfaces carry `checkedAt` (build-time honesty marker).
 
-### M4 — Immutable authority history
+### M4 — Immutable authority history (**COMPLETE 2026-06-20**)
 - **G-M4.1** `log.json` is gap-free + monotonic; each record's `previousRecordHash` chains; each signature verifies.
 - **G-M4.2** `skill-authority.json` `latestRecordHash` == head record digest; `latestSequence` == head sequence.
 - **G-M4.3** A `skill-revoke`/`key-revoke` event makes the verifier return `revoked` for the affected subject.
 - **G-M4.4** Publishing commits are signed (`commitSignature` ≠ `unsigned`); the GitHub mirror matches the published records.
+
+## Cross-cutting gates (apply from M1 onward)
+- **G-X.1 Reason-code unification** — every reason string emitted by signer/runner/validator/verifier is a member of `src/lib/skills/verification/reasonCodes.ts`; `04`'s documented set equals the module. Drift fails the build.
+- **G-X.2 Tier-name unification** — `TrustTier` in `scripts/signing/amtech-signing.ts` equals the ladder names in `02`/`09`.
+- **G-X.3 Method → tier honesty** — no surface (cert, body, head meta, JSON-LD, header) reports a tier the declared `method` can't prove (`09` registry).
+- **G-X.4 Head/body consistency** — head-level claims (`amtech:skill:*`, agent-map, JSON-LD) match the cert + visible body for the same skill; divergence fails.
+- **G-X.5 SRI integrity** — each published machine file's recomputed SHA-256 equals the digest the signed manifest binds (else `MANIFEST_DIGEST_MISMATCH`).
+- **G-X.6 Catalog root** — the recomputed catalog root equals the published `amtech:catalog:root` (else `CATALOG_ROOT_MISMATCH`).
+- **G-X.7 Replay determinism** — any bound `graph-replay` step reproduces byte-for-byte across two runs (else `REPLAY_NONDETERMINISTIC`).
 
 ## Validator wiring
 - Extend `scripts/skills/validate-skills.ts` with G-M0/M1/M3 checks; add a verifier-conformance step (G-M2); add authority-chain checks (G-M4).

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "amtech-skill-review/v1",
+  "skill": "estimate",
+  "version": "1.0.0",
+  "policyVersion": "amtech-skill-policy/1",
+  "reviewer": {
+    "type": "human",
+    "id": "amtech:reviewer:ben",
+    "name": "Ben (AMTECH)"
+  },
+  "result": "approved",
+  "reviewedAt": "2026-06-20T00:00:00.000Z",
+  "checklist": {
+    "instructionsClearAndScoped": true,
+    "noUndeclaredScriptsOrNetwork": true,
+    "outputContractMatchesPublishedSchema": true,
+    "useInContextFirstPosture": true,
+    "noMisleadingOrOverbroadClaims": true,
+    "referencesResolveAndAreOnTopic": true
+  },
+  "notes": "AMTECH reviewed the standalone estimate skill: instructions are scoped to building a structured estimate from user-provided rates, it ships no scripts and requires no network or secrets, and its documented Output Format matches the published estimate schema (amtech-job-estimate/v1). The skill is use-in-context-first and never sends or invents a price. Approved for publication by AMTECH as reviewer and publisher under amtech-skill-policy/1."
+}

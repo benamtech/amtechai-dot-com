@@ -138,6 +138,7 @@
           "role",
           "sha256",
           "sha3_512",
+          "integrity",
           "size",
           "url"
         ],
@@ -156,6 +157,10 @@
             "type": "string",
             "pattern": "^[a-f0-9]{128}$"
           },
+          "integrity": {
+            "type": "string",
+            "pattern": "^sha256-[A-Za-z0-9+/]+=*$"
+          },
           "size": {
             "type": "integer",
             "minimum": 0
@@ -173,6 +178,7 @@
         "file",
         "sha256",
         "sha3_512",
+        "integrity",
         "url"
       ],
       "properties": {
@@ -186,6 +192,10 @@
         "sha3_512": {
           "type": "string",
           "pattern": "^[a-f0-9]{128}$"
+        },
+        "integrity": {
+          "type": "string",
+          "pattern": "^sha256-[A-Za-z0-9+/]+=*$"
         },
         "url": {
           "type": "string",

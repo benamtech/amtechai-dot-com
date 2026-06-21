@@ -9,6 +9,7 @@ Part of the AMTECH Skill Certificate-Authority Standard. Research: `wiki/researc
 - **Reviewer.** Human (or automated suite) that produces the assurance evidence attested in the certificate (`02`).
 - **Consumer / agent.** Receives a skill URL, runs the verifier, decides whether to use / install / run.
 - **Independent witness.** The public GitHub registry repo (signed commits) — a second view of the authority chain used to detect equivocation (`03`).
+- **Independent replay-monitor.** Any third party that re-runs a skill's deterministic `graph-replay` check from the published, digest-bound surfaces and confirms the same verdict. Verification needs no AMTECH service; the check is permissionless and reproducible (`04`, `09`).
 
 ## Trust roots
 
@@ -25,12 +26,16 @@ A consumer who trusts the AMTECH key + the domain + the git pin can verify every
 | Malicious / tampered skill | Bytes differ from what was reviewed | Dual-digest binding in signed cert; archive-byte verification | 02, 04 |
 | Forged certificate | Attacker mints a cert | Ed25519 signature over canonical JSON; key id must match published key | 02, 04 |
 | Unreviewed skill passed off as trusted | "Signed" ≠ "tested/reviewed" | Structured attestations + trust tiers; verifier reports only the proven tier | 02, 04 |
-| Stale evidence | Old passing test reused for a new release | `tests.sourceCommit` must equal release commit; max-age freshness gate | 02 |
+| Stale evidence | Old passing test reused for a new release | max-age freshness gate; `sourcePackage` (source byte digest) re-binds the evidence to the exact source bytes | 02 |
 | Key compromise | Release key stolen | Key revocation event in authority history; `revoked` verdict; rotation | 03 |
 | Rollback / fast-forward | Serving an old (or far-future) authority state | Sequence numbers + latest-pointer + freshness signal (TUF idea) | 03 |
 | History rewrite | Issuer silently edits past records | Hash-chained append-only records; latest-pointer hash; git as Merkle anchor | 03 |
 | Split-view / equivocation | Different history shown to different parties | Cross-witness against signed GitHub commits (CONIKS/CT idea, lightweight) | 03 |
 | Undeclared capability | Skill does more than it claims (network, fs, scripts) | `permissions` block verified against archive contents at signing | 02 |
+| Verification-method spoofing | Attestation names a method that claims more assurance than it proves | Verifier maps `method → max-tier`; unknown/unsupported method → `METHOD_UNKNOWN`, never a high tier | 04, 09 |
+| Head/body divergence | Head-level meta asserts a verdict the visible body / cert doesn't support | Consistency gate: every surface projects one build-time verifier run; head falls under it | 05, 07 |
+| Replay non-determinism | A "reproducible" check that isn't, so no third party can re-derive the verdict | Determinism gate; every replay step digest-bound + byte-stable; else `REPLAY_NONDETERMINISTIC` | 07, 09 |
+| Badge-forwarding | A downstream re-renderer forwards "verified" without re-checking | Self-describing recipe in-surface forces recompute; a stale/forged forward fails the recompute | 05, 09 |
 | Discovery dead-end | Agent lands somewhere with no path to verify | Self-bootstrapping page **and hub** + authority-chain discovery from any surface | 06, 04 |
 
 ## Non-goals (explicit)
@@ -39,6 +44,7 @@ A consumer who trusts the AMTECH key + the domain + the git pin can verify every
 - **No keyless/OIDC (Fulcio) signing** and **no hosted log server (Rekor)** — stable offline key + static git-anchored records instead.
 - **No multi-key thresholds in v2** — single release key; thresholds are a documented future option (TUF-style).
 - **The pre-rendered verification badge is a build-time assertion**, not a live check; live assurance requires running the verifier (`05`).
+- **No live-model behavioral testing and no zero-knowledge / on-chain compute in v2.** `behavior-verified` (method `live-model`) is reserved and `proof-verified` (method `zk-compute`) is a documented horizon. The `replay-verified` rung is **deterministic recompute** (`graph-replay`) any party re-runs — not a compute network, not consensus, not proof-of-work. (`09`)
 
 ## Related
 - `02-certificate-attestation-schema.md`, `03-authority-and-key-management.md`, `04-link-first-verifier.md`, `06-catalog-bootstrap.md`

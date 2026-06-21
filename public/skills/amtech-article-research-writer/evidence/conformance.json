@@ -1,0 +1,128 @@
+{
+  "schemaVersion": "amtech-skill-conformance/v1",
+  "skill": "amtech-article-research-writer",
+  "version": "1.0.0",
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "ranAt": "2026-06-20T00:00:00.000Z",
+  "result": "pass",
+  "checks": [
+    {
+      "name": "frontmatter:name",
+      "result": "pass"
+    },
+    {
+      "name": "frontmatter:description",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Read Order",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Workflow",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Output Format",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/research-workflow.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/draft-template.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:assets/article-brief-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:assets/article-brief-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/draft-template.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/research-workflow.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "scripts-match-declared",
+      "result": "pass"
+    },
+    {
+      "name": "schema-parses:assets/article-brief-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "schema-compiles:assets/article-brief-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-parses:article-brief-example.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-validates:article-brief-example.json",
+      "result": "pass"
+    },
+    {
+      "name": "contract-count:assets/article-brief-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Meta",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Unique Insight",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Entities",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Citations",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Draft",
+      "result": "pass"
+    },
+    {
+      "name": "documented:FAQ",
+      "result": "pass"
+    }
+  ]
+}

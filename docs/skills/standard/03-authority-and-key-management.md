@@ -10,11 +10,24 @@ The signing key document (`amtech-signing-key/v1`, served at `/.well-known/amtec
 - **retired** — superseded by rotation; still valid for verifying certificates issued during its validity window (historical verification uses active-at-issuance semantics).
 - **revoked** — compromised; certificates relying on it return `revoked` regardless of issuance date.
 - **Offline discipline:** the private key stays at `.amtech/signing-private-key.pem` (mode 0600, git-ignored). Online surfaces never hold it. `npm run skills:sign` is the only operation that touches it.
-- **Rotation:** generate a new key, publish its key document as `active`, mark the prior `retired`, and emit a `key-rotate` event in the authority history (below). Future: multiple key documents addressable by `keyId` so retired keys remain fetchable for historical verification.
+- **Rotation:** generate a new key, publish its key document as `active`, mark the prior `retired`, and emit a `key-rotate` event in the authority history (below).
+- **Multi-key serving (implemented 2026-06-20):** every key document is served at `/.well-known/keys/<keyId>.json`; the verifier fetches the cert's key by `signingKeyId` and accepts a `retired` key for the certs + authority records it signed (active-at-issuance), so a rotation does NOT invalidate history or force re-signing every cert. `revoked` → `revoked`. The chain walk verifies each record under its own signing key.
+- **Signed publishing commits (implemented 2026-06-20):** a dedicated Ed25519 SSH commit-signing key (private git-ignored under `.amtech/`, public + `allowed_signers` committed under `signing/`, served at `/.well-known/commit-signing-key.pub`) signs every publishing commit; `skill-authority.repository.commitSignature` records the signer fingerprint (`ssh:SHA256:…`).
 
 ## Immutable authority history — Option A (git-anchored hash-chained signed snapshots)
 
 Chosen mechanism (see trade-off note). Every authority change appends a numbered, signed record; the live authority file becomes the **latest pointer**.
+
+**Implemented 2026-06-20 (M4 full — `docs/memory/status-2026-06-20--m4-full-m5-pipeline.md`):**
+`scripts/signing/sign-authority.ts` maintains the chain: it materializes the desired `state` (records use
+`events[]` + `state{catalogRoot, skills[], keys[]}`) and **appends** a record only when the state changes
+(idempotent), chaining `previousRecordHash → sha256(canonicalJson(head))`. Revocations come from
+`src/lib/skills/authority/revocations.json` (skill-revoke / key-revoke events); key lifecycle (active/retired/
+revoked + key-rotate) is handled by `scripts/signing/rotate-key.ts`. `build-skills.ts` publishes every record +
+`log.json` + the latest pointer + materialized `state`. The verifier (`04`) walks the full chain and honors
+skill/key revocation → `revoked`. The registry mirrors the chain under `authority/` and `registry/validate.mjs`
+cross-witnesses it; `commitSignature` is the `git-history` witness. Deferred: multi-key-by-keyId historical
+serving, GPG/SSH commit signing, Option B Merkle log.
 
 ### Record (`amtech-authority-record/v1`)
 ```jsonc
@@ -52,6 +65,10 @@ Fix `commitSignature: "unsigned"`: registry commits that publish a record MUST b
 ## Equivocation / split-view defense (stated property)
 
 Git is a Merkle DAG; the public registry repo mirrors every authority record under signed commits. A verifier that fetches a record from `amtechai.com` **and** confirms the matching record + signed commit on GitHub performs a lightweight cross-witness check — the CT/CONIKS gossip idea with GitHub as the second view. This is the v2 equivocation story; full STH gossip is deferred with Option B.
+
+## Verification methods, policy & independent monitors
+
+The active **verification-method registry** (`09`) and the review/test **policy** travel under `attestations.policyVersion`. A change to either is a policy event and MAY be recorded as an authority event (alongside `key-rotate`/`skill-revoke`) so a consumer can detect when the rules under which a tier was granted have moved — a tier is only meaningful relative to the policy/method set in force when it was issued. Beyond the GitHub commit witness, **independent replay-monitors** (`01`) are a second, permissionless class of witness: anyone who re-runs the deterministic `graph-replay` check (`04`/`09`) plus the authority-chain checks above confirms the same state without an AMTECH service, strengthening the equivocation defense.
 
 ## Designed-in upgrade path to Option B (full Merkle log)
 

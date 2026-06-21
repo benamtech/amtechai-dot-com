@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "amtech-skill-review/v1",
+  "skill": "okf-audit",
+  "version": "0.1.0",
+  "policyVersion": "amtech-skill-policy/1",
+  "reviewer": {
+    "type": "human",
+    "id": "amtech:reviewer:ben",
+    "name": "Ben (AMTECH)"
+  },
+  "result": "approved",
+  "reviewedAt": "2026-06-19T00:00:00.000Z",
+  "checklist": {
+    "instructionsClearAndScoped": true,
+    "noUndeclaredScriptsOrNetwork": true,
+    "outputContractMatchesPublishedSchema": true,
+    "useInContextFirstPosture": true,
+    "noMisleadingOrOverbroadClaims": true,
+    "referencesResolveAndAreOnTopic": true
+  },
+  "notes": "AMTECH reviewed the okf-audit instructions, reference files, and output schema. The skill is use-in-context-first, ships no scripts and declares only outbound fetch capability, and its documented output format matches the published report schema. Approved for publication by AMTECH as reviewer and publisher under amtech-skill-policy/1."
+}

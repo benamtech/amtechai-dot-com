@@ -45,7 +45,7 @@ export const SKILL_BASE_PATH = '/skills';
 export const SKILL_SITE_ORIGIN = 'https://amtechai.com';
 export const SKILL_AUTHORITY_URL = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`;
 export const SKILL_REPOSITORY_URL = 'https://github.com/benamtech/amtech-skills-registry';
-export const SKILL_REPOSITORY_COMMIT = '88d9ce86525d3e234a37b0c5c7b752fc2beb69bb';
+export const SKILL_REPOSITORY_COMMIT = 'd53b6c8c51bd95ccf09f80f8ed757c608aa56034';
 
 function registryRepository(slug: string): SkillRepository {
   return {
@@ -200,6 +200,141 @@ export const skillDefinitions: SkillDefinition[] = [
         title: 'OpenAI/Codex interface metadata',
         summary: 'UI-facing display metadata and default prompt for environments that support it.',
         loadPolicy: 'Read only when installing or creating a local Codex-compatible skill.',
+      },
+      {
+        path: 'LICENSE.txt',
+        role: 'license',
+        title: 'License',
+        summary: 'License for this free AMTECH skill package.',
+        loadPolicy: 'Read when evaluating reuse or redistribution.',
+      },
+    ],
+  },
+  {
+    slug: 'estimate',
+    name: 'estimate',
+    title: 'Estimate Skill',
+    version: '1.0.0',
+    updated: '2026-06-20',
+    description:
+      'A consumable AMTECH skill that builds a clean, structured job estimate from a described job and the rates you provide.',
+    summary:
+      'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a job description and your rates into a structured estimate: line items, totals, adjustments, and flagged assumptions.',
+    audience: ['AI agents', 'service business owners', 'estimators', 'operations staff', 'office managers'],
+    useCases: [
+      'Build a priced estimate for a job from a scope description and known rates.',
+      'Produce a clean structured estimate (line items, totals, assumptions) for review.',
+      'Draft a blank estimate template for a trade or service.',
+      'Return a machine-readable estimate that matches the published schema.',
+    ],
+    sourceDir: 'src/lib/skills/source/estimate',
+    repository: registryRepository('estimate'),
+    safety: {
+      scripts: 'none',
+      requiresNetwork: false,
+      requiresSecrets: false,
+      riskNote:
+        'No scripts, no network, no secrets. Use in context first. Never invents a rate; saving a file or sending to a customer happens only on explicit confirmation.',
+    },
+    files: [
+      {
+        path: 'SKILL.md',
+        role: 'primary-instructions',
+        title: 'Canonical skill instructions',
+        summary: 'The primary workflow for building a structured job estimate from a job and provided rates.',
+        loadPolicy: 'Always read before building an estimate.',
+      },
+      {
+        path: 'agents/openai.yaml',
+        role: 'agent-metadata',
+        title: 'OpenAI/Codex interface metadata',
+        summary: 'UI-facing display metadata and default prompt for environments that support it.',
+        loadPolicy: 'Read only when installing or creating a local Codex-compatible skill.',
+      },
+      {
+        path: 'references/estimating-discipline.md',
+        role: 'reference',
+        title: 'Estimating discipline',
+        summary: 'How to handle missing rates, line items, minimums, taxes, markups, and the arithmetic check.',
+        loadPolicy: 'Read when deciding how to price line items or handle a missing rate.',
+      },
+      {
+        path: 'assets/estimate-schema.json',
+        role: 'asset',
+        title: 'Estimate schema',
+        summary: 'JSON shape for a structured job estimate (amtech-job-estimate/v1).',
+        loadPolicy: 'Use when the user asks for JSON or a structured estimate.',
+      },
+      {
+        path: 'LICENSE.txt',
+        role: 'license',
+        title: 'License',
+        summary: 'License for this free AMTECH skill package.',
+        loadPolicy: 'Read when evaluating reuse or redistribution.',
+      },
+    ],
+  },
+  {
+    slug: 'amtech-article-research-writer',
+    name: 'amtech-article-research-writer',
+    title: 'Article Research Writer',
+    version: '1.0.0',
+    updated: '2026-06-20',
+    description:
+      'A consumable AMTECH skill that researches, plans, and drafts an information-gain article brief from a topic, notes, and sources.',
+    summary:
+      'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a topic and your sources into a structured article brief: audience, unique insight, entities and internal links, citations, a markdown draft, and FAQ.',
+    audience: ['AI agents', 'content operators', 'technical marketers', 'founders', 'SEO strategists'],
+    useCases: [
+      'Research and draft an information-gain article from a topic and notes.',
+      'Find the unique insight and a precise audience for a piece.',
+      'Plan entities, internal links, and citations for an article.',
+      'Return a structured article brief that matches the published schema.',
+    ],
+    sourceDir: 'src/lib/skills/source/amtech-article-research-writer',
+    repository: registryRepository('amtech-article-research-writer'),
+    safety: {
+      scripts: 'none',
+      requiresNetwork: true,
+      requiresSecrets: false,
+      riskNote:
+        'No scripts. May fetch public sources to research and cite. Use in context first; produces a draft and stops before publishing to any live system.',
+    },
+    files: [
+      {
+        path: 'SKILL.md',
+        role: 'primary-instructions',
+        title: 'Canonical skill instructions',
+        summary: 'The primary workflow for researching, planning, and drafting an information-gain article brief.',
+        loadPolicy: 'Always read before drafting.',
+      },
+      {
+        path: 'agents/openai.yaml',
+        role: 'agent-metadata',
+        title: 'OpenAI/Codex interface metadata',
+        summary: 'UI-facing display metadata and default prompt for environments that support it.',
+        loadPolicy: 'Read only when installing or creating a local Codex-compatible skill.',
+      },
+      {
+        path: 'references/research-workflow.md',
+        role: 'reference',
+        title: 'Research workflow',
+        summary: 'Deeper procedure for source gathering, synthesis, audience laddering, and graph placement.',
+        loadPolicy: 'Read when gathering sources or synthesizing the unique insight.',
+      },
+      {
+        path: 'references/draft-template.md',
+        role: 'reference',
+        title: 'Draft template',
+        summary: 'The reusable markdown skeleton for the article brief.',
+        loadPolicy: 'Read when assembling the draft.',
+      },
+      {
+        path: 'assets/article-brief-schema.json',
+        role: 'asset',
+        title: 'Article brief schema',
+        summary: 'JSON shape for a structured article research brief (amtech-article-research-brief/v1).',
+        loadPolicy: 'Use when the user asks for JSON or a structured brief.',
       },
       {
         path: 'LICENSE.txt',

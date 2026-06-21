@@ -1,0 +1,19 @@
+{
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "requiredFrontmatter": ["name", "description"],
+  "requiredSections": ["## Read Order", "## Workflow", "## Output Format"],
+  "schemas": [
+    {
+      "asset": "assets/article-brief-schema.json",
+      "goldenExample": "article-brief-example.json",
+      "requiredOutputDocumented": ["Meta", "Unique Insight", "Entities", "Citations", "Draft", "FAQ"]
+    }
+  ],
+  "permissions": {
+    "filesystem": "read-write-optional",
+    "network": "outbound",
+    "secrets": "none"
+  }
+}

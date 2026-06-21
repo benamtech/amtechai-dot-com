@@ -1,0 +1,117 @@
+/**
+ * Link-first verifier tests (docs/skills/standard/04 + 09 graph-replay recipe). A local ResourceLoader
+ * reads the real published surfaces under public/skills/; each negative case overrides exactly one
+ * resource with a mutation and asserts the exact reason code. The positive control proves the unmutated
+ * published skill verifies to its attested tier.
+ *
+ * Run: npm run skills:test (node --test).
+ */
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { readFile } from 'node:fs/promises';
+import { resolve, dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { verifySkill, type ResourceLoader } from '../../../src/lib/skills/verification/verifySkill.ts';
+import { REASON_CODES } from '../../../src/lib/skills/verification/reasonCodes.ts';
+
+const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
+const SLUG = 'okf-audit';
+const read = (abs: string) => readFile(abs).catch(() => null);
+
+/** Loader over the real public/ surfaces; `overrides` (keyed by logical resource) inject mutations. */
+function makeLoader(overrides: Record<string, Buffer | null> = {}): ResourceLoader {
+  const base = resolve(repoRoot, 'public/skills', SLUG);
+  return {
+    skillFile: async (rel) => (rel in overrides ? overrides[rel] : read(resolve(base, rel))),
+    signingKey: async () => ('signingKey' in overrides ? overrides.signingKey : read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json'))),
+    signingKeyById: async (keyId) => ('signingKeyById' in overrides ? overrides.signingKeyById : read(resolve(repoRoot, 'public/.well-known/keys', `${keyId.replace(/[:/]/g, '_')}.json`))),
+    catalog: async () => ('catalog' in overrides ? overrides.catalog : read(resolve(repoRoot, 'public/skills/catalog.json'))),
+    siblingCertificate: async (slug) => read(resolve(repoRoot, 'public/skills', slug, 'certificate.json')),
+    authority: async () => ('authority' in overrides ? overrides.authority : read(resolve(repoRoot, 'public/.well-known/skill-authority.json'))),
+    authorityLog: async () => ('authorityLog' in overrides ? overrides.authorityLog : read(resolve(repoRoot, 'public/.well-known/authority/log.json'))),
+    authorityRecordStem: async (stem) => (`record:${stem}` in overrides ? overrides[`record:${stem}`] : read(resolve(repoRoot, 'public/.well-known/authority/records', `${stem}.json`))),
+    authorityRecordStemSig: async (stem) => read(resolve(repoRoot, 'public/.well-known/authority/records', `${stem}.sig`)),
+  };
+}
+
+test('positive control: the published okf-audit verifies to its attested tier', async () => {
+  const verdict = await verifySkill(makeLoader());
+  assert.equal(verdict.verdict, 'verified', JSON.stringify(verdict));
+  assert.equal(verdict.trustTier, 'amtech-reviewed');
+  assert.equal(verdict.method, 'amtech-review');
+  assert.equal(verdict.depth, 'graph-replay');
+  assert.deepEqual(verdict.reasonCodes, [REASON_CODES.OK]);
+  assert.equal(verdict.evidence.catalogRoot, 'pass');
+  assert.equal(verdict.evidence.authorityRecord, 'pass');
+  assert.ok(verdict.authoritySequence !== null && /^\d+$/.test(verdict.authoritySequence), `verdict anchored to a chain sequence, got ${verdict.authoritySequence}`);
+});
+
+test('tampered authority record in the chain → AUTHORITY_MISMATCH', async () => {
+  const record = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/records/0000.json')))!.toString('utf8'));
+  record.state.catalogRoot = '0'.repeat(64); // breaks the log-entry hash + the latest pointer + the signature
+  const verdict = await verifySkill(makeLoader({ 'record:0000': Buffer.from(JSON.stringify(record)) }));
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.AUTHORITY_MISMATCH), verdict.reasonCodes.join(', '));
+});
+
+test('tampered certificate → INVALID_SIGNATURE', async () => {
+  const real = JSON.parse((await read(resolve(repoRoot, 'public/skills', SLUG, 'certificate.json')))!.toString('utf8'));
+  real.version = '9.9.9'; // breaks the Ed25519 signature over the canonical certificate
+  const verdict = await verifySkill(makeLoader({ 'certificate.json': Buffer.from(JSON.stringify(real)) }));
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.INVALID_SIGNATURE), verdict.reasonCodes.join(', '));
+});
+
+test('mutated published file → MANIFEST_DIGEST_MISMATCH (+ SOURCE_PACKAGE_MISMATCH)', async () => {
+  const manifest = JSON.parse((await read(resolve(repoRoot, 'public/skills', SLUG, 'manifest.json')))!.toString('utf8'));
+  const target = manifest.files[0].path as string;
+  const verdict = await verifySkill(makeLoader({ [`files/${target}`]: Buffer.from('tampered bytes that do not match the signed manifest') }));
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.MANIFEST_DIGEST_MISMATCH), verdict.reasonCodes.join(', '));
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.SOURCE_PACKAGE_MISMATCH), verdict.reasonCodes.join(', '));
+});
+
+test('mutated catalog root → CATALOG_ROOT_MISMATCH', async () => {
+  const catalog = JSON.parse((await read(resolve(repoRoot, 'public/skills/catalog.json')))!.toString('utf8'));
+  catalog.catalogRoot = '0'.repeat(64);
+  const verdict = await verifySkill(makeLoader({ catalog: Buffer.from(JSON.stringify(catalog)) }));
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.CATALOG_ROOT_MISMATCH), verdict.reasonCodes.join(', '));
+});
+
+test('revoked skill in the authority → revoked (REVOKED, not invalid)', async () => {
+  const authority = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/skill-authority.json')))!.toString('utf8'));
+  authority.skills.find((s: { slug: string }) => s.slug === SLUG).status = 'revoked';
+  const verdict = await verifySkill(makeLoader({ authority: Buffer.from(JSON.stringify(authority)) }));
+  assert.equal(verdict.verdict, 'revoked');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.REVOKED), verdict.reasonCodes.join(', '));
+});
+
+test('revoked signing key → revoked (KEY_NOT_ACTIVE)', async () => {
+  const key = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')))!.toString('utf8'));
+  key.status = 'revoked';
+  const verdict = await verifySkill(makeLoader({ signingKeyById: Buffer.from(JSON.stringify(key)) }));
+  assert.equal(verdict.verdict, 'revoked');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.KEY_NOT_ACTIVE), verdict.reasonCodes.join(', '));
+});
+
+test('RETIRED signing key still verifies its historical certs (active-at-issuance)', async () => {
+  const key = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')))!.toString('utf8'));
+  key.status = 'retired';
+  const verdict = await verifySkill(makeLoader({ signingKeyById: Buffer.from(JSON.stringify(key)) }));
+  assert.equal(verdict.verdict, 'verified', JSON.stringify(verdict.reasonCodes));
+  assert.equal(verdict.trustTier, 'amtech-reviewed');
+});
+
+test('unreachable certificate → unverifiable / UNREACHABLE', async () => {
+  const verdict = await verifySkill(makeLoader({ 'certificate.json': null }));
+  assert.equal(verdict.verdict, 'unverifiable');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.UNREACHABLE));
+});
+
+test('link-only depth verifies the signature without recomputing the graph', async () => {
+  const verdict = await verifySkill(makeLoader(), { depth: 'link-only' });
+  assert.equal(verdict.verdict, 'verified');
+  assert.equal(verdict.depth, 'link-only');
+  assert.equal(verdict.trustTier, 'amtech-reviewed');
+});

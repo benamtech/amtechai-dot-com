@@ -1,0 +1,116 @@
+{
+  "schemaVersion": "amtech-skill-conformance/v1",
+  "skill": "knowledge-graph-builder",
+  "version": "0.1.0",
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "ranAt": "2026-06-19T00:00:00.000Z",
+  "result": "pass",
+  "checks": [
+    {
+      "name": "frontmatter:name",
+      "result": "pass"
+    },
+    {
+      "name": "frontmatter:description",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Read Order",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Build Workflow",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Output",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/knowledge-graph-method.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/entity-types.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:assets/graph-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:assets/graph-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/entity-types.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/knowledge-graph-method.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "scripts-match-declared",
+      "result": "pass"
+    },
+    {
+      "name": "schema-parses:assets/graph-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "schema-compiles:assets/graph-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-parses:knowledge-graph.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-validates:knowledge-graph.json",
+      "result": "pass"
+    },
+    {
+      "name": "contract-count:assets/graph-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Domain frame",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Entity table",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Edge list",
+      "result": "pass"
+    }
+  ]
+}

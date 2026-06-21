@@ -1,6 +1,11 @@
 # Link-First Skill Verification
 
 Date: 2026-06-19
+> **Historical research — superseded by the normative `docs/skills/standard/04`+`09` and
+> `src/lib/skills/verification/reasonCodes.ts`.** The reason-code names below (`OK_VERIFIED`,
+> `REPO_PIN_MISMATCH`, …) and the "repo pin / `repository.commit`" model are pre-implementation; the shipped
+> system uses the canonical `REASON_CODES` enum and binds **`sourcePackage`** (a source byte digest), not a git
+> commit. Read for the reasoning; trust the specs for the facts.
 
 Question (work item 2): how does a verifier turn any AMTECH skill-related URL into exactly one of `verified | revoked | invalid`, with machine-readable evidence and reason codes — and how is that result exposed everywhere an agent might look?
 

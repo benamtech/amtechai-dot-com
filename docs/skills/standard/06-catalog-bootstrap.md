@@ -24,7 +24,7 @@ Black-box test this session: an agent handed `https://amtechai.com/skills/okf-au
   "skills": [
     {
       "slug": "okf-audit", "name": "okf-audit", "title": "OKF Audit Skill",
-      "version": "0.1.0", "status": "published", "trustTier": "human-reviewed",
+      "version": "0.1.0", "status": "published", "trustTier": "amtech-reviewed",
       "verdict": "verified", "checkedAt": "2026-06-19T...", "authoritySequence": 7,
       "canonicalUrl": "https://amtechai.com/skills/okf-audit",
       "useUrl": ".../skills/okf-audit/use.md",
@@ -43,6 +43,10 @@ Derived from `src/lib/skills/registry.ts` — never hand-maintained.
 
 ### 4. Headers
 `public/_headers` serves `catalog.json` with the right content-type/caching alongside the existing `/skills/*` rules.
+
+### 5. Hub head-level surfaces (Tier-1/2, see `05`)
+- `amtech:catalog` (URL of `catalog.json`), `amtech:skills:count`, and **`amtech:catalog:root`** — a digest over the per-skill certificate digests so an agent can confirm the skill *set* is complete and untampered (recompute → `CATALOG_ROOT_MISMATCH` on drift; M4 folds the same root into the authority record).
+- The `amtech-agent-map` island gains a `verify` block (the recompute recipe + the reason-code contract) — the hub is a `04` entry point.
 
 ## Acceptance (re-run the live black-box walk)
 A fresh agent given **only** `https://amtechai.com/skills` can:

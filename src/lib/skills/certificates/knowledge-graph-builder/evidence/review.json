@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "amtech-skill-review/v1",
+  "skill": "knowledge-graph-builder",
+  "version": "0.1.0",
+  "policyVersion": "amtech-skill-policy/1",
+  "reviewer": {
+    "type": "human",
+    "id": "amtech:reviewer:ben",
+    "name": "Ben (AMTECH)"
+  },
+  "result": "approved",
+  "reviewedAt": "2026-06-19T00:00:00.000Z",
+  "checklist": {
+    "instructionsClearAndScoped": true,
+    "noUndeclaredScriptsOrNetwork": true,
+    "outputContractMatchesPublishedSchema": true,
+    "useInContextFirstPosture": true,
+    "noMisleadingOrOverbroadClaims": true,
+    "referencesResolveAndAreOnTopic": true
+  },
+  "notes": "AMTECH reviewed the knowledge-graph-builder instructions, reference files, and output schema. The skill is use-in-context-first, ships no scripts and requires no network or secrets, and its documented output (domain frame, entity table, edge list) matches the published graph schema. Approved for publication by AMTECH as reviewer and publisher under amtech-skill-policy/1."
+}
