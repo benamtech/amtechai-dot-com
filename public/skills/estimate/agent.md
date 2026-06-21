@@ -11,4 +11,4 @@ Outputs: audit summary, score, missing concepts/edges, rendering/discovery findi
 Start here: https://amtechai.com/skills/estimate/use.md
 Canonical instructions: https://amtechai.com/skills/estimate/SKILL.md
 Manifest: https://amtechai.com/skills/estimate/manifest.json
-GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/estimate
+GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/skills/estimate
