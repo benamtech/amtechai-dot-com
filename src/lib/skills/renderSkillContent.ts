@@ -108,6 +108,12 @@ export function renderSkillContentHtml(slug: string): string {
       </div>`
     : '';
 
+  // Mount point for the client-side "Verify this yourself" widget (src/components/skills/RecomputeWidget.tsx,
+  // portaled in by SkillDetail.tsx). Empty in the prerendered/static HTML — agents without JS still get the
+  // build-time badge above and the recipe link; the live recompute hydrates here when JS runs. Only emitted
+  // when there is a signed verdict to recompute.
+  const recomputeMount = verification ? `<div data-recompute-widget class="mt-3"></div>` : '';
+
   const views: [string, string][] = [
     ['use.md — agent bootstrap', skillPath(skill, '/use.md')],
     ['SKILL.md — canonical instructions', skillPath(skill, '/SKILL.md')],
@@ -143,6 +149,7 @@ export function renderSkillContentHtml(slug: string): string {
       <section class="mt-12 border-t border-black/15 pt-10">
         <h2 class="text-2xl font-black tracking-[-0.03em]">Source &amp; verification</h2>
         ${verdictBadge}
+        ${recomputeMount}
         <p class="mt-3 text-sm leading-7 text-black/65">This package has an AMTECH Signed Artifact v2 certificate. Its canonical certificate is signed with Ed25519 and binds the owner, skill, version, repository path, SHA-256 digest, and SHA3-512 digest&mdash;plus a <code class="font-mono text-xs">sourcePackage</code> digest that anchors the same bytes across the website and the source registry (the cross-repo anchor is this digest, not a git commit).${evidenceLinks ? ` The certificate also carries an <code class="font-mono text-xs">attestations</code> predicate: an offline conformance run and an AMTECH human review${policyVersion ? ` under <code class="font-mono text-xs">${esc(policyVersion)}</code>` : ''}, each verified at build time with its evidence published below.` : ''}</p>
         ${evidenceLinks}
         <ul class="mt-5 grid gap-2 sm:grid-cols-2">
