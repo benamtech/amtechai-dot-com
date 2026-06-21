@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "amtech-skill-review/v1",
+  "skill": "amtech-article-research-writer",
+  "version": "1.0.0",
+  "policyVersion": "amtech-skill-policy/1",
+  "reviewer": {
+    "type": "human",
+    "id": "amtech:reviewer:ben",
+    "name": "Ben (AMTECH)"
+  },
+  "result": "approved",
+  "reviewedAt": "2026-06-20T00:00:00.000Z",
+  "checklist": {
+    "instructionsClearAndScoped": true,
+    "noUndeclaredScriptsOrNetwork": true,
+    "outputContractMatchesPublishedSchema": true,
+    "useInContextFirstPosture": true,
+    "noMisleadingOrOverbroadClaims": true,
+    "referencesResolveAndAreOnTopic": true
+  },
+  "notes": "AMTECH reviewed the standalone article research writer skill: it was rewritten to drop all AMTECH-repo coupling, ships no scripts, declares only outbound fetch for source gathering, and its documented Output Format matches the published article-brief schema (amtech-article-research-brief/v1). The skill is use-in-context-first, writes for information gain, and stops before publishing. Approved for publication by AMTECH as reviewer and publisher under amtech-skill-policy/1."
+}

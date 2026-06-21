@@ -1,0 +1,45 @@
+{
+  "archive": {
+    "file": "amtech-article-research-writer-1.0.0.zip",
+    "sha256": "3687f9e0ae0dbd9899f06a305835afd2fee975473b083739392168dafdcfde90",
+    "sha3_512": "d95432e7b8718af77324ff9747d47f230a850b92291ae6e0006b8e770e188cf74aed405dca207bd944f183131cfcca565d1f49857f9051fb328df6ce76978581"
+  },
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "size": 297,
+      "sha256": "13163f4c1abbcf087b42a9353ef6b69c06737c0dcbb30690721027a752bd7f5a",
+      "sha3_512": "4656a5fdf2472ee343676a7bcf4c1de12f6b4e73a9b5c40d74bceef1ea25b611339d13fa9ff9fa3e7f5df64f5cfc216a3e30c7258e5d2e340a8bcc88c1811eb9"
+    },
+    {
+      "path": "assets/article-brief-schema.json",
+      "size": 1822,
+      "sha256": "44774418d3a2dc0e109388a44b149d156c99e8d1bfa09e0956dcd999049a6ce9",
+      "sha3_512": "3360429beb99c249c2db0f9685602bd3029f5cac709d817781ba6e4e98f804c125f8a3c84e182468e3c770f1364e504a32444a37e6c16fbfc7d8ccd2c54e15a9"
+    },
+    {
+      "path": "LICENSE.txt",
+      "size": 743,
+      "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd"
+    },
+    {
+      "path": "references/draft-template.md",
+      "size": 905,
+      "sha256": "92cd461fd5a37bf9bc2d957c8c1a20e54d4f1ff7f1942ef461f4e57d5b7ba09c",
+      "sha3_512": "ee4713060a4e465cedf30b1ca26203298adfd3d66b38463114a74904f9a80a6b2c85192d0a3af4a2ec72bd33467ec71d80622ecf32da048733f384caf0b57c52"
+    },
+    {
+      "path": "references/research-workflow.md",
+      "size": 1770,
+      "sha256": "1d130587b47e0fc34d123ae9ca3d9bacf21e5c552ce37364bab38fdfd67916d9",
+      "sha3_512": "2d89e2d68ffd65b96c81c71d7b9581b56ea562926b14842567c8da0fc1631a88c1ea5247ef1bc0c354cecd627687c80e9c8d43e0f16abcf58e70bc3ee8fd0e04"
+    },
+    {
+      "path": "SKILL.md",
+      "size": 3759,
+      "sha256": "7c46279c5fbfcd86e2b049ff65a2096a14a0e167b7628b68316119663d135c61",
+      "sha3_512": "d36e15cc15d2792260e782d0fbef6505649680a876da235c517f9af99d3f753c5f4881ec0107d406d56cfbc1e852d616d30c6eca83095b8b934301a734a3846e"
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "customer": "Smith Residence",
+  "job": "Kitchen backsplash tile install, approximately 30 sq ft",
+  "lineItems": [
+    { "description": "Tile install labor", "category": "labor", "quantity": 6, "unit": "hour", "unitPrice": 75, "lineTotal": 450 },
+    { "description": "Ceramic subway tile", "category": "materials", "quantity": 32, "unit": "sq ft", "unitPrice": 8.5, "lineTotal": 272 },
+    { "description": "Thinset and grout", "category": "materials", "quantity": 1, "unit": "set", "unitPrice": 45, "lineTotal": 45 },
+    { "description": "Trip and setup minimum", "category": "fee", "quantity": 1, "unit": "flat", "unitPrice": 60, "lineTotal": 60 }
+  ],
+  "totals": {
+    "currency": "USD",
+    "subtotal": 827,
+    "adjustments": [ { "label": "Sales tax", "kind": "tax", "amount": 68.23 } ],
+    "grandTotal": 895.23
+  },
+  "assumptions": [
+    "Labor rate of $75/hr was confirmed by the supervisor.",
+    "Tile quantity quoted at 32 sq ft to cover ~30 sq ft plus a waste factor.",
+    "Sales tax estimated at 8.25%; confirm the local rate before sending."
+  ]
+}

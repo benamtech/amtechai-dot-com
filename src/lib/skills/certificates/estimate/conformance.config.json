@@ -1,0 +1,19 @@
+{
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "requiredFrontmatter": ["name", "description"],
+  "requiredSections": ["## Read Order", "## Workflow", "## Output Format"],
+  "schemas": [
+    {
+      "asset": "assets/estimate-schema.json",
+      "goldenExample": "estimate-example.json",
+      "requiredOutputDocumented": ["Customer", "Job", "Line Items", "Totals", "Assumptions"]
+    }
+  ],
+  "permissions": {
+    "filesystem": "read-write-optional",
+    "network": "none",
+    "secrets": "none"
+  }
+}

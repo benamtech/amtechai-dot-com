@@ -1,0 +1,174 @@
+{
+  "$schema": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
+  "slug": "amtech-article-research-writer",
+  "name": "amtech-article-research-writer",
+  "title": "Article Research Writer",
+  "version": "1.0.0",
+  "updated": "2026-06-20",
+  "description": "A consumable AMTECH skill that researches, plans, and drafts an information-gain article brief from a topic, notes, and sources.",
+  "source": {
+    "canonicalUrl": "https://amtechai.com/skills/amtech-article-research-writer",
+    "sourceDirectory": "src/lib/skills/source/amtech-article-research-writer",
+    "repository": "https://github.com/benamtech/amtech-skills-registry",
+    "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
+    "repositoryCommitSignature": "unsigned",
+    "repositoryPath": "skills/amtech-article-research-writer",
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/amtech-article-research-writer",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/amtech-article-research-writer"
+  },
+  "entrypoints": {
+    "human": "https://amtechai.com/skills/amtech-article-research-writer",
+    "use": "https://amtechai.com/skills/amtech-article-research-writer/use.md",
+    "agent": "https://amtechai.com/skills/amtech-article-research-writer/agent.md",
+    "skill": "https://amtechai.com/skills/amtech-article-research-writer/SKILL.md",
+    "archive": "https://amtechai.com/skills/amtech-article-research-writer/amtech-article-research-writer-1.0.0.zip",
+    "checksums": "https://amtechai.com/skills/amtech-article-research-writer/checksums.txt"
+  },
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "role": "agent-metadata",
+      "title": "OpenAI/Codex interface metadata",
+      "summary": "UI-facing display metadata and default prompt for environments that support it.",
+      "mediaType": "application/yaml; charset=utf-8",
+      "sha256": "13163f4c1abbcf087b42a9353ef6b69c06737c0dcbb30690721027a752bd7f5a",
+      "sha3_512": "4656a5fdf2472ee343676a7bcf4c1de12f6b4e73a9b5c40d74bceef1ea25b611339d13fa9ff9fa3e7f5df64f5cfc216a3e30c7258e5d2e340a8bcc88c1811eb9",
+      "integrity": "sha256-ExY/TBq7zwh7Qqk1Pva2nAZzfA3LswaQchAnp1K9f1o=",
+      "size": 297,
+      "url": "https://amtechai.com/skills/amtech-article-research-writer/files/agents/openai.yaml",
+      "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
+      "permissions": []
+    },
+    {
+      "path": "assets/article-brief-schema.json",
+      "role": "asset",
+      "title": "Article brief schema",
+      "summary": "JSON shape for a structured article research brief (amtech-article-research-brief/v1).",
+      "mediaType": "application/json; charset=utf-8",
+      "sha256": "44774418d3a2dc0e109388a44b149d156c99e8d1bfa09e0956dcd999049a6ce9",
+      "sha3_512": "3360429beb99c249c2db0f9685602bd3029f5cac709d817781ba6e4e98f804c125f8a3c84e182468e3c770f1364e504a32444a37e6c16fbfc7d8ccd2c54e15a9",
+      "integrity": "sha256-RHdEGNOi3A4Qk4ikSxSdFWyZ6NG/oJ4JVtzZmQSabOk=",
+      "size": 1822,
+      "url": "https://amtechai.com/skills/amtech-article-research-writer/files/assets/article-brief-schema.json",
+      "loadPolicy": "Use when the user asks for JSON or a structured brief.",
+      "permissions": []
+    },
+    {
+      "path": "LICENSE.txt",
+      "role": "license",
+      "title": "License",
+      "summary": "License for this free AMTECH skill package.",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd",
+      "integrity": "sha256-g5JBR3BCUphGFbgqoS42OyNug6yMZMcx81ipUUS3+Ls=",
+      "size": 743,
+      "url": "https://amtechai.com/skills/amtech-article-research-writer/files/LICENSE.txt",
+      "loadPolicy": "Read when evaluating reuse or redistribution.",
+      "permissions": []
+    },
+    {
+      "path": "references/draft-template.md",
+      "role": "reference",
+      "title": "Draft template",
+      "summary": "The reusable markdown skeleton for the article brief.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "92cd461fd5a37bf9bc2d957c8c1a20e54d4f1ff7f1942ef461f4e57d5b7ba09c",
+      "sha3_512": "ee4713060a4e465cedf30b1ca26203298adfd3d66b38463114a74904f9a80a6b2c85192d0a3af4a2ec72bd33467ec71d80622ecf32da048733f384caf0b57c52",
+      "integrity": "sha256-ks1GH9Wje/m8LZV8jBog5U1PH/fxlC70YfTlfVt7oJw=",
+      "size": 905,
+      "url": "https://amtechai.com/skills/amtech-article-research-writer/files/references/draft-template.md",
+      "loadPolicy": "Read when assembling the draft.",
+      "permissions": []
+    },
+    {
+      "path": "references/research-workflow.md",
+      "role": "reference",
+      "title": "Research workflow",
+      "summary": "Deeper procedure for source gathering, synthesis, audience laddering, and graph placement.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "1d130587b47e0fc34d123ae9ca3d9bacf21e5c552ce37364bab38fdfd67916d9",
+      "sha3_512": "2d89e2d68ffd65b96c81c71d7b9581b56ea562926b14842567c8da0fc1631a88c1ea5247ef1bc0c354cecd627687c80e9c8d43e0f16abcf58e70bc3ee8fd0e04",
+      "integrity": "sha256-HRMFh7R+D8NNEjrpyj2brPIeXFUs43NkurOP39Z5Ftk=",
+      "size": 1770,
+      "url": "https://amtechai.com/skills/amtech-article-research-writer/files/references/research-workflow.md",
+      "loadPolicy": "Read when gathering sources or synthesizing the unique insight.",
+      "permissions": []
+    },
+    {
+      "path": "SKILL.md",
+      "role": "primary-instructions",
+      "title": "Canonical skill instructions",
+      "summary": "The primary workflow for researching, planning, and drafting an information-gain article brief.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "7c46279c5fbfcd86e2b049ff65a2096a14a0e167b7628b68316119663d135c61",
+      "sha3_512": "d36e15cc15d2792260e782d0fbef6505649680a876da235c517f9af99d3f753c5f4881ec0107d406d56cfbc1e852d616d30c6eca83095b8b934301a734a3846e",
+      "integrity": "sha256-fEYnnF+/zYbisEn/ZaIJahSg4We3YotoMWEZZj0TXGE=",
+      "size": 3759,
+      "url": "https://amtechai.com/skills/amtech-article-research-writer/files/SKILL.md",
+      "loadPolicy": "Always read before drafting.",
+      "permissions": []
+    }
+  ],
+  "archive": {
+    "file": "amtech-article-research-writer-1.0.0.zip",
+    "sha256": "3687f9e0ae0dbd9899f06a305835afd2fee975473b083739392168dafdcfde90",
+    "sha3_512": "d95432e7b8718af77324ff9747d47f230a850b92291ae6e0006b8e770e188cf74aed405dca207bd944f183131cfcca565d1f49857f9051fb328df6ce76978581",
+    "integrity": "sha256-Nof54K4NvZiZ8GowWDWv0v7pdUc7CDc5OSFo2v3P3pA=",
+    "url": "https://amtechai.com/skills/amtech-article-research-writer/amtech-article-research-writer-1.0.0.zip"
+  },
+  "sourcePackage": {
+    "sha256": "d8251c4e9ee088c63d97150fbf0ad0f3012c8e40f816f67b69448a0eab4b82e9",
+    "sha3_512": "e2d848a1044bf1ee8e0b38075395a7515b4b3816fa97c646f0dd2cce5fa836ad3732feedabc3046cdc29855ae25f6c3d74d316ff6c1900b972b259a299a4d40a"
+  },
+  "certificate": {
+    "id": "amtech:skill:amtech-article-research-writer:d95432e7b8718af77324ff97",
+    "schemaVersion": "amtech-signed-artifact/v2",
+    "algorithm": "Ed25519",
+    "certificateUrl": "https://amtechai.com/skills/amtech-article-research-writer/certificate.json",
+    "signatureUrl": "https://amtechai.com/skills/amtech-article-research-writer/certificate.sig",
+    "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
+    "signed": true,
+    "trustTier": "amtech-reviewed",
+    "policyVersion": "amtech-skill-policy/1",
+    "attestations": {
+      "conformance": {
+        "method": "static-contract",
+        "result": "pass",
+        "evidenceUrl": "https://amtechai.com/skills/amtech-article-research-writer/evidence/conformance.json"
+      },
+      "review": {
+        "result": "approved",
+        "reviewer": "amtech:reviewer:ben",
+        "evidenceUrl": "https://amtechai.com/skills/amtech-article-research-writer/evidence/review.json"
+      }
+    }
+  },
+  "authority": {
+    "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+    "method": "ed25519-canonical-json-v1",
+    "digestAlgorithms": [
+      "SHA-256",
+      "SHA3-512"
+    ],
+    "signed": true,
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit d251e2151d75ac2757d13f8ce51e511b1d17681a match this manifest and https://amtechai.com/.well-known/skill-authority.json."
+  },
+  "safety": {
+    "scripts": "none",
+    "requiresNetwork": true,
+    "requiresSecrets": false,
+    "riskNote": "No scripts. May fetch public sources to research and cite. Use in context first; produces a draft and stops before publishing to any live system."
+  },
+  "verification": {
+    "verdict": "verified",
+    "trustTier": "amtech-reviewed",
+    "method": "amtech-review",
+    "depth": "graph-replay",
+    "authoritySequence": "1",
+    "checkedAt": "2026-06-20T00:00:00.000Z",
+    "recipeUrl": "https://amtechai.com/skills/amtech-article-research-writer/recipe.json"
+  }
+}

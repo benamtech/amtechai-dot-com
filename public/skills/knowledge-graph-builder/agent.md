@@ -11,4 +11,4 @@ Outputs: audit summary, score, missing concepts/edges, rendering/discovery findi
 Start here: https://amtechai.com/skills/knowledge-graph-builder/use.md
 Canonical instructions: https://amtechai.com/skills/knowledge-graph-builder/SKILL.md
 Manifest: https://amtechai.com/skills/knowledge-graph-builder/manifest.json
-GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/knowledge-graph-builder
+GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/knowledge-graph-builder

@@ -321,22 +321,24 @@ async function validateSurfaces(slug: string) {
  * record's canonical digest, and the record's `catalogRoot` must equal the published catalog root.
  */
 async function validateAuthorityRecord() {
+  const logRaw = await read('public/.well-known/authority/log.json');
+  const headStem = typeof logRaw === 'string' ? String(JSON.parse(logRaw).latestSequence ?? '0').padStart(4, '0') : '0000';
   const [recordRaw, sigRaw, authRaw, keyRaw, catalogRaw] = await Promise.all([
-    read('public/.well-known/authority/records/0000.json'),
-    read('public/.well-known/authority/records/0000.sig'),
+    read(`public/.well-known/authority/records/${headStem}.json`),
+    read(`public/.well-known/authority/records/${headStem}.sig`),
     read('public/.well-known/skill-authority.json'),
     read('public/.well-known/amtech-signing-key.json'),
     read('public/skills/catalog.json'),
   ]);
   if (typeof recordRaw !== 'string' || typeof sigRaw !== 'string') {
-    failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'genesis authority record/signature missing. Run npm run skills:sign.');
+    failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'head authority record/signature missing. Run npm run skills:sign.');
     return;
   }
   try {
     const record = JSON.parse(recordRaw) as { sequence?: string; state?: { catalogRoot?: string } };
     const recordHash = digest('sha256', canonicalJson(record));
     if (typeof keyRaw === 'string' && !verifyCanonical(record, sigRaw, JSON.parse(keyRaw) as SigningKeyDocument)) {
-      failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'genesis record signature does not verify (G-M4.1).');
+      failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'head record signature does not verify (G-M4.1).');
     }
     if (typeof authRaw === 'string') {
       const auth = JSON.parse(authRaw) as { latestRecordHash?: string; latestSequence?: string };

@@ -1,22 +1,38 @@
 {
   "$schema": "https://amtechai.com/.well-known/skill-authority-v0.json",
   "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
-  "updated": "2026-06-20",
+  "updated": "2026-06-21",
   "issuer": {
     "name": "AMTECH AI",
     "url": "https://amtechai.com"
   },
-  "latestSequence": "0",
-  "latestRecordHash": "48974b95909602f8b6a6a12e366bed57c2f4038399c6f3f8a9826621274d1982",
+  "latestSequence": "1",
+  "latestRecordHash": "d9d5b27cfc98324ed4ba350e481c05ddd3c12563140f126f8cb64ebeeb968212",
   "authorityLogUrl": "https://amtechai.com/.well-known/authority/log.json",
   "state": {
-    "catalogRoot": "1b5e8b8a62caf26b6f352a00e436bce8692ccb901485158f37af7a0040f7eb33",
+    "catalogRoot": "0fac2bed3c1aa3627b60db1380a471144caf7b9cf024bb534208230987c518bd",
     "skills": [
+      {
+        "slug": "amtech-article-research-writer",
+        "version": "1.0.0",
+        "certificateId": "amtech:skill:amtech-article-research-writer:d95432e7b8718af77324ff97",
+        "certificateSha256": "f8dd5bcabdac3865eaa1c075e6837fa7cb532f816fcaea6029459a4058eb18cd",
+        "trustTier": "amtech-reviewed",
+        "status": "active"
+      },
+      {
+        "slug": "estimate",
+        "version": "1.0.0",
+        "certificateId": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
+        "certificateSha256": "ee8f610c763ad0491c2134a3f9bc26426328b1994352e113174058a197ab0dc6",
+        "trustTier": "amtech-reviewed",
+        "status": "active"
+      },
       {
         "slug": "knowledge-graph-builder",
         "version": "0.1.0",
         "certificateId": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
-        "certificateSha256": "7f927442968da0b033ed60e54c3494641e076f9f3a819a0ac68c3e2367256fd2",
+        "certificateSha256": "03bafe63ae453ae90e656a4e6da6a46406bebb94ba5809cd667602e9716df4a0",
         "trustTier": "amtech-reviewed",
         "status": "active"
       },
@@ -24,7 +40,7 @@
         "slug": "okf-audit",
         "version": "0.1.0",
         "certificateId": "amtech:skill:okf-audit:36f53231aa75bab64166abe7",
-        "certificateSha256": "0681d0a6bf1770d59d8c345ebcf13a1eef14a91b86475f986b5c89a2b81fbe01",
+        "certificateSha256": "98fcfb9ca699d74a30610ad37dcd41a4a194b9a5c0a779079909710a9105df8c",
         "trustTier": "amtech-reviewed",
         "status": "active"
       }
@@ -39,9 +55,9 @@
   },
   "repository": {
     "url": "https://github.com/benamtech/amtech-skills-registry",
-    "commit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
+    "commit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
     "commitSignature": "git-history",
-    "registryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json"
+    "registryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json"
   },
   "verification": {
     "method": "ed25519-canonical-json-v1",
@@ -75,11 +91,11 @@
       "reviewEvidenceUrl": "https://amtechai.com/skills/okf-audit/evidence/review.json",
       "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
       "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
+      "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
       "repositoryCommitSignature": "unsigned",
       "repositoryPath": "skills/okf-audit",
-      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit",
-      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json"
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/okf-audit",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json"
     },
     {
       "slug": "knowledge-graph-builder",
@@ -102,11 +118,65 @@
       "reviewEvidenceUrl": "https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json",
       "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
       "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
+      "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
       "repositoryCommitSignature": "unsigned",
       "repositoryPath": "skills/knowledge-graph-builder",
-      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/knowledge-graph-builder",
-      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json"
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/knowledge-graph-builder",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json"
+    },
+    {
+      "slug": "estimate",
+      "name": "estimate",
+      "title": "Estimate Skill",
+      "version": "1.0.0",
+      "status": "published",
+      "trustTier": "amtech-reviewed",
+      "policyVersion": "amtech-skill-policy/1",
+      "canonicalUrl": "https://amtechai.com/skills/estimate",
+      "archiveUrl": "https://amtechai.com/skills/estimate/estimate-1.0.0.zip",
+      "archiveSha256": "b641e6fc19eff2341b774a281740f62de8a2c2b30f81fd219f20cc382d5e8596",
+      "archiveSha3_512": "d325bfc1bde45b616eeb25ae474d196336d48826137304179a46010cce81c9410b1e6136815b33ef49a1a37b1d81bc4172b6458c2e8306a98d4225b32c76fe82",
+      "sourcePackageSha256": "27480e331ca991fdc9e9d8e442b7e6c1b3c688e7e5c6495d06a21bbcda0722c7",
+      "sourcePackageSha3_512": "972cc1334411126ca06e1b93944d3c21fd6f5291c4b3e3083faf460455d8cc2fca2fd8f48924b2790844f32f5622ce02bbf9b281069171e6464e9058bee5ad1e",
+      "certificateId": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
+      "certificateUrl": "https://amtechai.com/skills/estimate/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/estimate/certificate.sig",
+      "conformanceEvidenceUrl": "https://amtechai.com/skills/estimate/evidence/conformance.json",
+      "reviewEvidenceUrl": "https://amtechai.com/skills/estimate/evidence/review.json",
+      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+      "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
+      "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
+      "repositoryCommitSignature": "unsigned",
+      "repositoryPath": "skills/estimate",
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/estimate",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json"
+    },
+    {
+      "slug": "amtech-article-research-writer",
+      "name": "amtech-article-research-writer",
+      "title": "Article Research Writer",
+      "version": "1.0.0",
+      "status": "published",
+      "trustTier": "amtech-reviewed",
+      "policyVersion": "amtech-skill-policy/1",
+      "canonicalUrl": "https://amtechai.com/skills/amtech-article-research-writer",
+      "archiveUrl": "https://amtechai.com/skills/amtech-article-research-writer/amtech-article-research-writer-1.0.0.zip",
+      "archiveSha256": "3687f9e0ae0dbd9899f06a305835afd2fee975473b083739392168dafdcfde90",
+      "archiveSha3_512": "d95432e7b8718af77324ff9747d47f230a850b92291ae6e0006b8e770e188cf74aed405dca207bd944f183131cfcca565d1f49857f9051fb328df6ce76978581",
+      "sourcePackageSha256": "d8251c4e9ee088c63d97150fbf0ad0f3012c8e40f816f67b69448a0eab4b82e9",
+      "sourcePackageSha3_512": "e2d848a1044bf1ee8e0b38075395a7515b4b3816fa97c646f0dd2cce5fa836ad3732feedabc3046cdc29855ae25f6c3d74d316ff6c1900b972b259a299a4d40a",
+      "certificateId": "amtech:skill:amtech-article-research-writer:d95432e7b8718af77324ff97",
+      "certificateUrl": "https://amtechai.com/skills/amtech-article-research-writer/certificate.json",
+      "signatureUrl": "https://amtechai.com/skills/amtech-article-research-writer/certificate.sig",
+      "conformanceEvidenceUrl": "https://amtechai.com/skills/amtech-article-research-writer/evidence/conformance.json",
+      "reviewEvidenceUrl": "https://amtechai.com/skills/amtech-article-research-writer/evidence/review.json",
+      "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+      "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
+      "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
+      "repositoryCommitSignature": "unsigned",
+      "repositoryPath": "skills/amtech-article-research-writer",
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/amtech-article-research-writer",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json"
     }
   ]
 }

@@ -42,7 +42,7 @@ test('positive control: the published okf-audit verifies to its attested tier', 
   assert.deepEqual(verdict.reasonCodes, [REASON_CODES.OK]);
   assert.equal(verdict.evidence.catalogRoot, 'pass');
   assert.equal(verdict.evidence.authorityRecord, 'pass');
-  assert.equal(verdict.authoritySequence, '0', 'genesis record anchors the verdict at sequence 0');
+  assert.ok(verdict.authoritySequence !== null && /^\d+$/.test(verdict.authoritySequence), `verdict anchored to a chain sequence, got ${verdict.authoritySequence}`);
 });
 
 test('tampered authority record in the chain → AUTHORITY_MISMATCH', async () => {

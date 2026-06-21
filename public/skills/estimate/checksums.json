@@ -1,0 +1,39 @@
+{
+  "archive": {
+    "file": "estimate-1.0.0.zip",
+    "sha256": "b641e6fc19eff2341b774a281740f62de8a2c2b30f81fd219f20cc382d5e8596",
+    "sha3_512": "d325bfc1bde45b616eeb25ae474d196336d48826137304179a46010cce81c9410b1e6136815b33ef49a1a37b1d81bc4172b6458c2e8306a98d4225b32c76fe82"
+  },
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "size": 250,
+      "sha256": "aafe667875f6e3e3f9d76b345e2892772c7c1987a3b73fe63c637e6873bc8e88",
+      "sha3_512": "fea231fa2fd87d7a158b825efa39833ae67d4fba8b749bb1fa284628d2c0c19e295aa0b6b2717bc1a787757759dab31a005d0c3aacb787d8edb11e4f7b24b514"
+    },
+    {
+      "path": "assets/estimate-schema.json",
+      "size": 1667,
+      "sha256": "3873bc9aea0cd645967ac6951dc7b4254861433c00af42e9da3bbe87db2d35c7",
+      "sha3_512": "c8a9e038194e99a4cffdaf601382c7e54ca4f9cbd52664fefb73005bf18a0f074ea6a451f427a31ba45c8098effca4a6fcede6ae07534d4f9b9c00979e0d9098"
+    },
+    {
+      "path": "LICENSE.txt",
+      "size": 743,
+      "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd"
+    },
+    {
+      "path": "references/estimating-discipline.md",
+      "size": 1537,
+      "sha256": "6b995505de254aab1996462f9171529bc0d2e17bd411c11b652cae15f41dd78b",
+      "sha3_512": "d2de8b73a3aa0f6699bc7e459ae514f5ce4fc9e08b180a0e2c61ee30733cf5397ca73365046a19cf4a42e9ee54a56107589dee7f0aee8eb79faf83cd39ec714b"
+    },
+    {
+      "path": "SKILL.md",
+      "size": 3203,
+      "sha256": "7a0fd262c470af67b6e2ff2be0601817457dfa19ce433d923e38cc59f781a99d",
+      "sha3_512": "8f0e1ef7ba9e9a8dd44c30dca6e3c387ee422239a3051f9d60b54969bb4c77fdb7bed0f2a8448b94ee49f04a65a6bca1c41162b48e5d794d8a14d57e17469a3e"
+    }
+  ]
+}

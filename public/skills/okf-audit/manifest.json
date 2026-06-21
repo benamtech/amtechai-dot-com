@@ -10,12 +10,12 @@
     "canonicalUrl": "https://amtechai.com/skills/okf-audit",
     "sourceDirectory": "src/lib/skills/source/okf-audit",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "88d9ce86525d3e234a37b0c5c7b752fc2beb69bb",
+    "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/okf-audit",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json",
-    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/skills/okf-audit"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/okf-audit",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/okf-audit"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/okf-audit",
@@ -167,8 +167,8 @@
       "SHA3-512"
     ],
     "signed": true,
-    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/88d9ce86525d3e234a37b0c5c7b752fc2beb69bb/index.json",
-    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit 88d9ce86525d3e234a37b0c5c7b752fc2beb69bb match this manifest and https://amtechai.com/.well-known/skill-authority.json."
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit d251e2151d75ac2757d13f8ce51e511b1d17681a match this manifest and https://amtechai.com/.well-known/skill-authority.json."
   },
   "safety": {
     "scripts": "none",
@@ -181,8 +181,8 @@
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
     "depth": "graph-replay",
-    "authoritySequence": "0",
-    "checkedAt": "2026-06-19T00:00:00.000Z",
+    "authoritySequence": "1",
+    "checkedAt": "2026-06-20T00:00:00.000Z",
     "recipeUrl": "https://amtechai.com/skills/okf-audit/recipe.json"
   }
 }

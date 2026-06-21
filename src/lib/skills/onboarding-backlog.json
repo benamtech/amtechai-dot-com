@@ -4,10 +4,10 @@
   "registry": "https://github.com/benamtech/amtech-skills-registry",
   "blockedBy": "M0-M4 stable + the M5 pipeline implemented",
   "skills": [
-    { "slug": "estimate", "category": "ai-employee", "registryPath": "skills/estimate", "status": "backlog", "requiresRepositoryContext": false },
+    { "slug": "estimate", "category": "agent-tool", "registryPath": "skills/estimate", "status": "onboarded", "onboardedAt": "2026-06-20", "requiresRepositoryContext": false },
+    { "slug": "amtech-article-research-writer", "category": "agent-tool", "registryPath": "skills/amtech-article-research-writer", "status": "onboarded", "onboardedAt": "2026-06-20", "requiresRepositoryContext": false },
     { "slug": "invoice", "category": "ai-employee", "registryPath": "skills/invoice", "status": "backlog", "requiresRepositoryContext": false },
     { "slug": "daily-checkin", "category": "ai-employee", "registryPath": "skills/daily-checkin", "status": "backlog", "requiresRepositoryContext": false },
-    { "slug": "amtech-article-publisher", "category": "amtech-workflow", "registryPath": "skills/amtech-article-publisher", "status": "backlog", "requiresRepositoryContext": true },
-    { "slug": "amtech-article-research-writer", "category": "amtech-workflow", "registryPath": "skills/amtech-article-research-writer", "status": "backlog", "requiresRepositoryContext": true }
+    { "slug": "amtech-article-publisher", "category": "amtech-workflow", "registryPath": "skills/amtech-article-publisher", "status": "backlog", "requiresRepositoryContext": true }
   ]
 }

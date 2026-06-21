@@ -23,6 +23,14 @@ Each AMTECH skill is a signed, git-backed package usable from one link. The same
   - Agent bootstrap: https://amtechai.com/skills/knowledge-graph-builder/use.md
   - Manifest: https://amtechai.com/skills/knowledge-graph-builder/manifest.json
   - Signed certificate: https://amtechai.com/skills/knowledge-graph-builder/certificate.json
+- [Estimate Skill](https://amtechai.com/skills/estimate) — Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a job description and your rates into a structured estimate: line items, totals, adjustments, and flagged assumptions.
+  - Agent bootstrap: https://amtechai.com/skills/estimate/use.md
+  - Manifest: https://amtechai.com/skills/estimate/manifest.json
+  - Signed certificate: https://amtechai.com/skills/estimate/certificate.json
+- [Article Research Writer](https://amtechai.com/skills/amtech-article-research-writer) — Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a topic and your sources into a structured article brief: audience, unique insight, entities and internal links, citations, a markdown draft, and FAQ.
+  - Agent bootstrap: https://amtechai.com/skills/amtech-article-research-writer/use.md
+  - Manifest: https://amtechai.com/skills/amtech-article-research-writer/manifest.json
+  - Signed certificate: https://amtechai.com/skills/amtech-article-research-writer/certificate.json
 
 ## Decision tree
 

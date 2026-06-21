@@ -1,0 +1,160 @@
+{
+  "$schema": "https://amtechai.com/skills/schemas/amtech-skill-manifest-v0.json",
+  "slug": "estimate",
+  "name": "estimate",
+  "title": "Estimate Skill",
+  "version": "1.0.0",
+  "updated": "2026-06-20",
+  "description": "A consumable AMTECH skill that builds a clean, structured job estimate from a described job and the rates you provide.",
+  "source": {
+    "canonicalUrl": "https://amtechai.com/skills/estimate",
+    "sourceDirectory": "src/lib/skills/source/estimate",
+    "repository": "https://github.com/benamtech/amtech-skills-registry",
+    "repositoryCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
+    "repositoryCommitSignature": "unsigned",
+    "repositoryPath": "skills/estimate",
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/estimate",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/d251e2151d75ac2757d13f8ce51e511b1d17681a/skills/estimate"
+  },
+  "entrypoints": {
+    "human": "https://amtechai.com/skills/estimate",
+    "use": "https://amtechai.com/skills/estimate/use.md",
+    "agent": "https://amtechai.com/skills/estimate/agent.md",
+    "skill": "https://amtechai.com/skills/estimate/SKILL.md",
+    "archive": "https://amtechai.com/skills/estimate/estimate-1.0.0.zip",
+    "checksums": "https://amtechai.com/skills/estimate/checksums.txt"
+  },
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "role": "agent-metadata",
+      "title": "OpenAI/Codex interface metadata",
+      "summary": "UI-facing display metadata and default prompt for environments that support it.",
+      "mediaType": "application/yaml; charset=utf-8",
+      "sha256": "aafe667875f6e3e3f9d76b345e2892772c7c1987a3b73fe63c637e6873bc8e88",
+      "sha3_512": "fea231fa2fd87d7a158b825efa39833ae67d4fba8b749bb1fa284628d2c0c19e295aa0b6b2717bc1a787757759dab31a005d0c3aacb787d8edb11e4f7b24b514",
+      "integrity": "sha256-qv5meHX24+P512s0XiiSdyx8GYejtz/mPGN+aHO8jog=",
+      "size": 250,
+      "url": "https://amtechai.com/skills/estimate/files/agents/openai.yaml",
+      "loadPolicy": "Read only when installing or creating a local Codex-compatible skill.",
+      "permissions": []
+    },
+    {
+      "path": "assets/estimate-schema.json",
+      "role": "asset",
+      "title": "Estimate schema",
+      "summary": "JSON shape for a structured job estimate (amtech-job-estimate/v1).",
+      "mediaType": "application/json; charset=utf-8",
+      "sha256": "3873bc9aea0cd645967ac6951dc7b4254861433c00af42e9da3bbe87db2d35c7",
+      "sha3_512": "c8a9e038194e99a4cffdaf601382c7e54ca4f9cbd52664fefb73005bf18a0f074ea6a451f427a31ba45c8098effca4a6fcede6ae07534d4f9b9c00979e0d9098",
+      "integrity": "sha256-OHO8muoM1kWWesaVHce0JUhhQzwAr0Lp2ju+h9stNcc=",
+      "size": 1667,
+      "url": "https://amtechai.com/skills/estimate/files/assets/estimate-schema.json",
+      "loadPolicy": "Use when the user asks for JSON or a structured estimate.",
+      "permissions": []
+    },
+    {
+      "path": "LICENSE.txt",
+      "role": "license",
+      "title": "License",
+      "summary": "License for this free AMTECH skill package.",
+      "mediaType": "text/plain; charset=utf-8",
+      "sha256": "83924147704252984615b82aa12e363b236e83ac8c64c731f358a95144b7f8bb",
+      "sha3_512": "59fae872d3d27e40cd102ff9341649362c2b38506a012f43550cbf50bbbf3b3c05a85d7853feb01dd0a200ade98c6e414d1f7af9c96aa1e42d8117326a155ecd",
+      "integrity": "sha256-g5JBR3BCUphGFbgqoS42OyNug6yMZMcx81ipUUS3+Ls=",
+      "size": 743,
+      "url": "https://amtechai.com/skills/estimate/files/LICENSE.txt",
+      "loadPolicy": "Read when evaluating reuse or redistribution.",
+      "permissions": []
+    },
+    {
+      "path": "references/estimating-discipline.md",
+      "role": "reference",
+      "title": "Estimating discipline",
+      "summary": "How to handle missing rates, line items, minimums, taxes, markups, and the arithmetic check.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "6b995505de254aab1996462f9171529bc0d2e17bd411c11b652cae15f41dd78b",
+      "sha3_512": "d2de8b73a3aa0f6699bc7e459ae514f5ce4fc9e08b180a0e2c61ee30733cf5397ca73365046a19cf4a42e9ee54a56107589dee7f0aee8eb79faf83cd39ec714b",
+      "integrity": "sha256-a5lVBd4lSqsZlkYvkXFSm8DS4XvUEcEbZSyuFfQd14s=",
+      "size": 1537,
+      "url": "https://amtechai.com/skills/estimate/files/references/estimating-discipline.md",
+      "loadPolicy": "Read when deciding how to price line items or handle a missing rate.",
+      "permissions": []
+    },
+    {
+      "path": "SKILL.md",
+      "role": "primary-instructions",
+      "title": "Canonical skill instructions",
+      "summary": "The primary workflow for building a structured job estimate from a job and provided rates.",
+      "mediaType": "text/markdown; charset=utf-8",
+      "sha256": "7a0fd262c470af67b6e2ff2be0601817457dfa19ce433d923e38cc59f781a99d",
+      "sha3_512": "8f0e1ef7ba9e9a8dd44c30dca6e3c387ee422239a3051f9d60b54969bb4c77fdb7bed0f2a8448b94ee49f04a65a6bca1c41162b48e5d794d8a14d57e17469a3e",
+      "integrity": "sha256-eg/SYsRwr2e24v8r4GAYF0V9+hnOQz2SPjjMWfeBqZ0=",
+      "size": 3203,
+      "url": "https://amtechai.com/skills/estimate/files/SKILL.md",
+      "loadPolicy": "Always read before building an estimate.",
+      "permissions": []
+    }
+  ],
+  "archive": {
+    "file": "estimate-1.0.0.zip",
+    "sha256": "b641e6fc19eff2341b774a281740f62de8a2c2b30f81fd219f20cc382d5e8596",
+    "sha3_512": "d325bfc1bde45b616eeb25ae474d196336d48826137304179a46010cce81c9410b1e6136815b33ef49a1a37b1d81bc4172b6458c2e8306a98d4225b32c76fe82",
+    "integrity": "sha256-tkHm/Bnv8jQbd0ooF0D2LeiiwrMPgf0hnyDMOC1ehZY=",
+    "url": "https://amtechai.com/skills/estimate/estimate-1.0.0.zip"
+  },
+  "sourcePackage": {
+    "sha256": "27480e331ca991fdc9e9d8e442b7e6c1b3c688e7e5c6495d06a21bbcda0722c7",
+    "sha3_512": "972cc1334411126ca06e1b93944d3c21fd6f5291c4b3e3083faf460455d8cc2fca2fd8f48924b2790844f32f5622ce02bbf9b281069171e6464e9058bee5ad1e"
+  },
+  "certificate": {
+    "id": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
+    "schemaVersion": "amtech-signed-artifact/v2",
+    "algorithm": "Ed25519",
+    "certificateUrl": "https://amtechai.com/skills/estimate/certificate.json",
+    "signatureUrl": "https://amtechai.com/skills/estimate/certificate.sig",
+    "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json",
+    "signed": true,
+    "trustTier": "amtech-reviewed",
+    "policyVersion": "amtech-skill-policy/1",
+    "attestations": {
+      "conformance": {
+        "method": "static-contract",
+        "result": "pass",
+        "evidenceUrl": "https://amtechai.com/skills/estimate/evidence/conformance.json"
+      },
+      "review": {
+        "result": "approved",
+        "reviewer": "amtech:reviewer:ben",
+        "evidenceUrl": "https://amtechai.com/skills/estimate/evidence/review.json"
+      }
+    }
+  },
+  "authority": {
+    "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
+    "method": "ed25519-canonical-json-v1",
+    "digestAlgorithms": [
+      "SHA-256",
+      "SHA3-512"
+    ],
+    "signed": true,
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit d251e2151d75ac2757d13f8ce51e511b1d17681a match this manifest and https://amtechai.com/.well-known/skill-authority.json."
+  },
+  "safety": {
+    "scripts": "none",
+    "requiresNetwork": false,
+    "requiresSecrets": false,
+    "riskNote": "No scripts, no network, no secrets. Use in context first. Never invents a rate; saving a file or sending to a customer happens only on explicit confirmation."
+  },
+  "verification": {
+    "verdict": "verified",
+    "trustTier": "amtech-reviewed",
+    "method": "amtech-review",
+    "depth": "graph-replay",
+    "authoritySequence": "1",
+    "checkedAt": "2026-06-20T00:00:00.000Z",
+    "recipeUrl": "https://amtechai.com/skills/estimate/recipe.json"
+  }
+}

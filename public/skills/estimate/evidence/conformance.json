@@ -1,0 +1,117 @@
+{
+  "schemaVersion": "amtech-skill-conformance/v1",
+  "skill": "estimate",
+  "version": "1.0.0",
+  "suite": "amtech-skill-contract-conformance",
+  "suiteVersion": "0.1.0",
+  "method": "static-contract",
+  "sourceCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
+  "ranAt": "2026-06-20T00:00:00.000Z",
+  "result": "pass",
+  "checks": [
+    {
+      "name": "frontmatter:name",
+      "result": "pass"
+    },
+    {
+      "name": "frontmatter:description",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Read Order",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Workflow",
+      "result": "pass"
+    },
+    {
+      "name": "section:## Output Format",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:references/estimating-discipline.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:assets/estimate-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-resolves:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:agents/openai.yaml",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:assets/estimate-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:LICENSE.txt",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:references/estimating-discipline.md",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:SKILL.md",
+      "result": "pass"
+    },
+    {
+      "name": "scripts-match-declared",
+      "result": "pass"
+    },
+    {
+      "name": "schema-parses:assets/estimate-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "schema-compiles:assets/estimate-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-parses:estimate-example.json",
+      "result": "pass"
+    },
+    {
+      "name": "golden-validates:estimate-example.json",
+      "result": "pass"
+    },
+    {
+      "name": "contract-count:assets/estimate-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Customer",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Job",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Line Items",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Totals",
+      "result": "pass"
+    },
+    {
+      "name": "documented:Assumptions",
+      "result": "pass"
+    }
+  ]
+}

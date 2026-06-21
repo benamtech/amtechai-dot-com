@@ -8,7 +8,7 @@
     "verdict": "verified",
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
-    "authoritySequence": "0"
+    "authoritySequence": "1"
   },
   "inputs": {
     "certificate": "https://amtechai.com/skills/okf-audit/certificate.json",
