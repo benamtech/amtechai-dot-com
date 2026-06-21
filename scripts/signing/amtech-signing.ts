@@ -39,7 +39,6 @@ export type SkillAttestations = {
     suite: string;
     suiteVersion: string;
     method: 'static-contract' | 'live-model';
-    sourceCommit: string;
     result: 'pass' | 'fail';
     ranAt: string;
     evidence: EvidenceRef;
@@ -61,7 +60,13 @@ export type ArtifactCertificate = {
   subjectId: string;
   owner: { name: string; url: string };
   canonicalUrl?: string;
-  repository?: { url: string; commit: string; path: string };
+  /**
+   * Source location bound by the signed cert: {url, path}. The cross-repo anchor is `sourcePackage` (the byte
+   * digest, docs/skills/standard/02) — NOT a git commit. The release commit is recorded only as provenance in
+   * the manifest/authority at build time, so a release is atomic (one registry commit) with no pending-resign.
+   * There is deliberately no `commit` in the signed payload (no dual-shape to spoof against).
+   */
+  repository?: { url: string; path: string };
   version?: string;
   digests: { sha256: string; sha3_512: string };
   /** v2: digest over the canonical source-package payload — the cross-repo verification anchor. */

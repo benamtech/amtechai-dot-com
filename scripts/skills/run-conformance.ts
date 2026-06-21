@@ -46,7 +46,6 @@ export type ConformanceEvidence = {
   suite: string;
   suiteVersion: string;
   method: 'static-contract' | 'live-model';
-  sourceCommit: string;
   ranAt: string;
   result: 'pass' | 'fail';
   checks: ConformanceCheck[];
@@ -165,7 +164,6 @@ export async function computeConformanceEvidence(slug: string): Promise<Conforma
     suite: config.suite,
     suiteVersion: config.suiteVersion,
     method: config.method,
-    sourceCommit: skill.repository.commit,
     ranAt: `${skill.updated}T00:00:00.000Z`,
     result,
     checks,

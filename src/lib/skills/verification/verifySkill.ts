@@ -150,9 +150,10 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
   else if (!verifyCertificate(cert, sigBytes.toString('utf8'), key)) fail(REASON_CODES.INVALID_SIGNATURE, 'signature');
   else pass('signature');
 
-  // Provenance: the authority entry must pin the same commit/path the certificate binds (04 §6).
-  if (authorityEntry && (authorityEntry.repositoryCommit !== cert.repository?.commit || authorityEntry.repositoryPath !== cert.repository?.path)) {
-    fail(REASON_CODES.COMMIT_MISMATCH, 'authority');
+  // Provenance: the authority entry must name the same source path the certificate binds. The cross-repo
+  // proof is `sourcePackage` (recomputed below), not a git commit.
+  if (authorityEntry && authorityEntry.repositoryPath !== cert.repository?.path) {
+    fail(REASON_CODES.SOURCE_PACKAGE_MISMATCH, 'authority');
   } else if (authorityEntry) {
     pass('authority');
   }

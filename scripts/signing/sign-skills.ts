@@ -53,7 +53,7 @@ async function readSourceFiles(absDir: string, rel = ''): Promise<{ path: string
   return out;
 }
 
-type ConformanceFile = { suite: string; suiteVersion: string; method: 'static-contract' | 'live-model'; sourceCommit: string; result: 'pass' | 'fail'; ranAt: string };
+type ConformanceFile = { suite: string; suiteVersion: string; method: 'static-contract' | 'live-model'; result: 'pass' | 'fail'; ranAt: string };
 type ReviewFile = { reviewer?: { type?: string; id?: string; name?: string }; result?: string; reviewedAt?: string; policyVersion?: string };
 type ConformanceConfig = { permissions: { filesystem: SkillAttestations['permissions']['filesystem']; network: SkillAttestations['permissions']['network']; secrets: SkillAttestations['permissions']['secrets'] } };
 
@@ -75,12 +75,9 @@ async function buildAttestations(skill: SkillDefinition, sourceFiles: { path: st
   const reviewPath = resolve(certDir, 'evidence/review.json');
   const config = await readJson<ConformanceConfig>(skill.slug, resolve(certDir, 'conformance.config.json'), REASON_CODES.EVIDENCE_MISSING);
 
-  // --- conformance gates ---
+  // --- conformance gates --- (the sourcePackage digest is the cross-repo source anchor; no commit binding)
   const conformanceBytes = await readFile(conformancePath).catch(() => fail(skill.slug, REASON_CODES.EVIDENCE_MISSING, 'conformance.json missing'));
   const conformance = JSON.parse(conformanceBytes.toString('utf8')) as ConformanceFile;
-  if (conformance.sourceCommit !== skill.repository.commit) {
-    fail(skill.slug, REASON_CODES.COMMIT_MISMATCH, `conformance.sourceCommit ${conformance.sourceCommit} != repository.commit ${skill.repository.commit}`);
-  }
   if (conformance.result !== 'pass') fail(skill.slug, REASON_CODES.CONFORMANCE_FAILED, 'conformance result is not pass');
   if (!Number.isFinite(ageInDays(conformance.ranAt)) || ageInDays(conformance.ranAt) > MAX_EVIDENCE_AGE_DAYS) {
     fail(skill.slug, REASON_CODES.STALE_EVIDENCE, `conformance ranAt ${conformance.ranAt} is older than ${MAX_EVIDENCE_AGE_DAYS}d`);
@@ -113,7 +110,6 @@ async function buildAttestations(skill: SkillDefinition, sourceFiles: { path: st
       suite: conformance.suite,
       suiteVersion: conformance.suiteVersion,
       method: conformance.method,
-      sourceCommit: conformance.sourceCommit,
       result: conformance.result,
       ranAt: conformance.ranAt,
       evidence: { url: `${base}/conformance.json`, sha256: digest('sha256', conformanceBytes) },
@@ -147,7 +143,7 @@ for (const skill of skillDefinitions as SkillDefinition[]) {
     subjectId: skill.slug,
     owner: { name: 'AMTECH AI', url: 'https://amtechai.com' },
     canonicalUrl: skillUrl(skill),
-    repository: { url: skill.repository.url, commit: skill.repository.commit, path: skill.repository.path },
+    repository: { url: skill.repository.url, path: skill.repository.path },
     version: skill.version,
     digests: { sha256, sha3_512 },
     sourcePackage,

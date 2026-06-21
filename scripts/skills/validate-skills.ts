@@ -246,7 +246,6 @@ async function validateAttestations(slug: string) {
 
   const findings = checkAttestationGates({
     certificate,
-    repositoryCommit: skill.repository.commit,
     sourceFiles,
     publishedConformanceBytes,
     publishedReviewBytes,

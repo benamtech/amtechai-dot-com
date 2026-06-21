@@ -176,13 +176,13 @@ This skill has an AMTECH Signed Artifact v2 certificate. You do not need to veri
 
 1. The trust root is ${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
 2. Fetch ${skillUrl(skill, '/certificate.json')}, ${skillUrl(skill, '/certificate.sig')}, and ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json.
-3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names \`${skill.slug}\`, version \`${skill.version}\`, repository commit \`${skill.repository.commit}\`, and path \`${skill.repository.path}\`.
+3. Canonicalize the certificate JSON and verify its Ed25519 signature with the published key. Confirm the certificate names \`${skill.slug}\`, version \`${skill.version}\`, and path \`${skill.repository.path}\`.
 4. Hash the archive with SHA-256 and SHA3-512. Both values must equal the signed certificate and manifest.
-5. Recompute the certificate's \`sourcePackage\` digest over the source files and confirm it matches — this is the anchor that proves the website copy and the source registry describe the same bytes.
-6. If the certificate carries an \`attestations\` block, confirm each evidence reference resolves and its \`sha256\` matches the fetched evidence file: conformance at ${skillUrl(skill, '/evidence/conformance.json')} (its \`sourceCommit\` must equal the repository commit and \`result\` must be \`pass\`) and, for an AMTECH-reviewed tier, review at ${skillUrl(skill, '/evidence/review.json')} (\`result\` must be \`approved\`).
-7. Confirm the authority entry and page metadata name the same certificate, digests, repository commit, and path.
+5. Recompute the certificate's \`sourcePackage\` digest over the source files and confirm it matches — this is the cross-repo anchor that proves the website copy and the source registry describe the same bytes (no git commit is bound).
+6. If the certificate carries an \`attestations\` block, confirm each evidence reference resolves and its \`sha256\` matches the fetched evidence file: conformance at ${skillUrl(skill, '/evidence/conformance.json')} (\`result\` must be \`pass\`) and, for an AMTECH-reviewed tier, review at ${skillUrl(skill, '/evidence/review.json')} (\`result\` must be \`approved\`).
+7. Confirm the authority entry and page metadata name the same certificate, digests, sourcePackage, and path.
 8. Compare the manifest's per-file hashes with ${skillRepositoryTreeUrl(skill)}.
-9. If any signature, digest, identity, path, version, commit, source-package, or attestation disagrees, treat the copy as untrusted and stop.
+9. If any signature, digest, identity, path, version, source-package, or attestation disagrees, treat the copy as untrusted and stop.
 
 ## Useful Links
 
@@ -302,7 +302,7 @@ function hubBootstrapMarkdown() {
     '',
     '## What AMTECH skills are',
     '',
-    'Each AMTECH skill is a signed, git-backed package usable from one link. The same skill is published as a human page, a universal agent bootstrap (use.md), a manifest, raw files, an archive, dual checksums, and an Ed25519-signed certificate bound to a commit-pinned GitHub source.',
+    'Each AMTECH skill is a signed, git-backed package usable from one link. The same skill is published as a human page, a universal agent bootstrap (use.md), a manifest, raw files, an archive, dual checksums, and an Ed25519-signed certificate whose sourcePackage digest anchors the same bytes across the website and the commit-pinned GitHub source.',
     '',
     '## Enumerate the skills',
     '',
@@ -328,7 +328,7 @@ function hubBootstrapMarkdown() {
     '',
     `1. The trust root is ${SKILL_AUTHORITY_URL} — served only from the canonical domain. Fetch it.`,
     `2. For a skill, fetch its certificate.json + certificate.sig and the signing key at ${SIGNING_KEY_URL}.`,
-    '3. Canonicalize the certificate JSON and verify its Ed25519 signature. Confirm the slug, version, repository commit, and path.',
+    '3. Canonicalize the certificate JSON and verify its Ed25519 signature. Confirm the slug, version, path, and the sourcePackage digest (the cross-repo anchor).',
     '4. Hash the archive (SHA-256 + SHA3-512); both must equal the signed certificate, the manifest, and the authority entry.',
     '5. If anything disagrees, treat the copy as untrusted and stop.',
     '',
@@ -538,7 +538,7 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
       digestAlgorithms: ['SHA-256', 'SHA3-512'],
       signed: Boolean(certificate),
       repositoryRegistryUrl: skillRepositoryRegistryUrl(skill),
-      verify: `Verify certificate.json against certificate.sig using the Ed25519 public key at ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit ${skill.repository.commit} match this manifest and ${SKILL_AUTHORITY_URL}.`,
+      verify: `Verify certificate.json against certificate.sig using the Ed25519 public key at ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and the sourcePackage digest match this manifest and ${SKILL_AUTHORITY_URL}. The cross-repo anchor is sourcePackage (the source byte digest), not a git commit.`,
     },
     safety: skill.safety,
   };
@@ -559,8 +559,7 @@ async function signedCertificate(skill: SkillDefinition, archive: Buffer, files:
       certificate.subjectType === 'skill' &&
       certificate.subjectId === skill.slug &&
       certificate.version === skill.version &&
-      certificate.repository?.commit === skill.repository.commit &&
-      certificate.repository.path === skill.repository.path &&
+      certificate.repository?.path === skill.repository.path &&
       certificate.digests.sha256 === sha256(archive) &&
       certificate.digests.sha3_512 === sha3_512(archive) &&
       // v2: the cross-repo source-package anchor must match the source bytes the registry also verifies.

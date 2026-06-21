@@ -168,7 +168,7 @@
     ],
     "signed": true,
     "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d251e2151d75ac2757d13f8ce51e511b1d17681a/index.json",
-    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and commit d251e2151d75ac2757d13f8ce51e511b1d17681a match this manifest and https://amtechai.com/.well-known/skill-authority.json."
+    "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and the sourcePackage digest match this manifest and https://amtechai.com/.well-known/skill-authority.json. The cross-repo anchor is sourcePackage (the source byte digest), not a git commit."
   },
   "safety": {
     "scripts": "none",
@@ -181,7 +181,7 @@
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
     "depth": "graph-replay",
-    "authoritySequence": "1",
+    "authoritySequence": "2",
     "checkedAt": "2026-06-20T00:00:00.000Z",
     "recipeUrl": "https://amtechai.com/skills/okf-audit/recipe.json"
   }

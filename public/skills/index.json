@@ -16,7 +16,7 @@
         "id": "amtech:skill:okf-audit:36f53231aa75bab64166abe7",
         "url": "https://amtechai.com/skills/okf-audit/certificate.json",
         "signature": "https://amtechai.com/skills/okf-audit/certificate.sig",
-        "sha256": "98fcfb9ca699d74a30610ad37dcd41a4a194b9a5c0a779079909710a9105df8c"
+        "sha256": "19ae2744f2d0507802316ed283fc861b78de7c88bdf73b34654731c5ebceb643"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
@@ -48,7 +48,7 @@
         "id": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
         "url": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
         "signature": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
-        "sha256": "03bafe63ae453ae90e656a4e6da6a46406bebb94ba5809cd667602e9716df4a0"
+        "sha256": "cd77385f032231996fe51897ee8f1e5319bc20889806b61cc166f90ea9f6ae77"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
@@ -80,7 +80,7 @@
         "id": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
         "url": "https://amtechai.com/skills/estimate/certificate.json",
         "signature": "https://amtechai.com/skills/estimate/certificate.sig",
-        "sha256": "ee8f610c763ad0491c2134a3f9bc26426328b1994352e113174058a197ab0dc6"
+        "sha256": "4d78d36f85dc1752696fe4b473c231ee3a6d469d49c26482afa12125a5534f39"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
@@ -112,7 +112,7 @@
         "id": "amtech:skill:amtech-article-research-writer:d95432e7b8718af77324ff97",
         "url": "https://amtechai.com/skills/amtech-article-research-writer/certificate.json",
         "signature": "https://amtechai.com/skills/amtech-article-research-writer/certificate.sig",
-        "sha256": "f8dd5bcabdac3865eaa1c075e6837fa7cb532f816fcaea6029459a4058eb18cd"
+        "sha256": "4615d1c0927ed9f26146d227bbe5d5a80a8b02fc29b26af436c35a64a965421d"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",

@@ -8,7 +8,7 @@ GitHub registry source: https://github.com/benamtech/amtech-skills-registry
 
 ## What AMTECH skills are
 
-Each AMTECH skill is a signed, git-backed package usable from one link. The same skill is published as a human page, a universal agent bootstrap (use.md), a manifest, raw files, an archive, dual checksums, and an Ed25519-signed certificate bound to a commit-pinned GitHub source.
+Each AMTECH skill is a signed, git-backed package usable from one link. The same skill is published as a human page, a universal agent bootstrap (use.md), a manifest, raw files, an archive, dual checksums, and an Ed25519-signed certificate whose sourcePackage digest anchors the same bytes across the website and the commit-pinned GitHub source.
 
 ## Enumerate the skills
 
@@ -42,6 +42,6 @@ Each AMTECH skill is a signed, git-backed package usable from one link. The same
 
 1. The trust root is https://amtechai.com/.well-known/skill-authority.json — served only from the canonical domain. Fetch it.
 2. For a skill, fetch its certificate.json + certificate.sig and the signing key at https://amtechai.com/.well-known/amtech-signing-key.json.
-3. Canonicalize the certificate JSON and verify its Ed25519 signature. Confirm the slug, version, repository commit, and path.
+3. Canonicalize the certificate JSON and verify its Ed25519 signature. Confirm the slug, version, path, and the sourcePackage digest (the cross-repo anchor).
 4. Hash the archive (SHA-256 + SHA3-512); both must equal the signed certificate, the manifest, and the authority entry.
 5. If anything disagrees, treat the copy as untrusted and stop.

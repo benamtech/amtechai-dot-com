@@ -42,7 +42,7 @@ async function baseInput(): Promise<AttestationGateInput> {
   const publishedConformanceBytes = await readFile(resolve(base, 'evidence/conformance.json'));
   const publishedReviewBytes = await readFile(resolve(base, 'evidence/review.json'));
   const freshConformanceSerialized = serializeEvidence(await computeConformanceEvidence(SLUG));
-  return { certificate, repositoryCommit: skill.repository.commit, sourceFiles, publishedConformanceBytes, publishedReviewBytes, freshConformanceSerialized };
+  return { certificate, sourceFiles, publishedConformanceBytes, publishedReviewBytes, freshConformanceSerialized };
 }
 
 const codes = (input: AttestationGateInput): ReasonCode[] => checkAttestationGates(input).map((f) => f.code);
@@ -57,10 +57,10 @@ test('fixture 1: stale conformance.ranAt → STALE_EVIDENCE', async () => {
   assert.ok(codes(input).includes(REASON_CODES.STALE_EVIDENCE), `expected STALE_EVIDENCE, got ${codes(input).join(', ')}`);
 });
 
-test('fixture 2: conformance.sourceCommit != repository commit → COMMIT_MISMATCH', async () => {
+test('fixture 2: mutated source bytes → SOURCE_PACKAGE_MISMATCH (the cross-repo anchor)', async () => {
   const input = await baseInput();
-  input.certificate.attestations!.conformance.sourceCommit = '0000000000000000000000000000000000000000';
-  assert.ok(codes(input).includes(REASON_CODES.COMMIT_MISMATCH), `expected COMMIT_MISMATCH, got ${codes(input).join(', ')}`);
+  input.sourceFiles = input.sourceFiles.map((f) => (f.path === 'SKILL.md' ? { ...f, content: Buffer.concat([f.content, Buffer.from(' ')]) } : f));
+  assert.ok(codes(input).includes(REASON_CODES.SOURCE_PACKAGE_MISMATCH), `expected SOURCE_PACKAGE_MISMATCH, got ${codes(input).join(', ')}`);
 });
 
 test('fixture 3: undeclared executable shipped in source → UNDECLARED_SCRIPT', async () => {

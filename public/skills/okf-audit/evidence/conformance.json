@@ -5,7 +5,6 @@
   "suite": "amtech-skill-contract-conformance",
   "suiteVersion": "0.1.0",
   "method": "static-contract",
-  "sourceCommit": "d251e2151d75ac2757d13f8ce51e511b1d17681a",
   "ranAt": "2026-06-19T00:00:00.000Z",
   "result": "pass",
   "checks": [

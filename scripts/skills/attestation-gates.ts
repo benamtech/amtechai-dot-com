@@ -19,8 +19,6 @@ export type GateFinding = { code: ReasonCode; message: string };
 
 export type AttestationGateInput = {
   certificate: ArtifactCertificate;
-  /** Authority/registry-pinned commit the conformance evidence must match. */
-  repositoryCommit: string;
   /** The exact source bytes the archive is built from (sorted internally by packagePayloadDigest). */
   sourceFiles: { path: string; content: Buffer }[];
   /** Published evidence files a consumer would fetch; null = not found at the canonical origin. */
@@ -38,7 +36,7 @@ const sha256 = (content: Buffer) => createHash('sha256').update(content).digest(
 export function checkAttestationGates(input: AttestationGateInput): GateFinding[] {
   const findings: GateFinding[] = [];
   const add = (code: ReasonCode, message: string) => findings.push({ code, message });
-  const { certificate, repositoryCommit, sourceFiles, now = Date.now() } = input;
+  const { certificate, sourceFiles, now = Date.now() } = input;
 
   // G-M1.1 — v2 + attestations present.
   if (certificate.schemaVersion !== 'amtech-signed-artifact/v2') {
@@ -55,11 +53,9 @@ export function checkAttestationGates(input: AttestationGateInput): GateFinding[
     add(REASON_CODES.TIER_NOT_SUPPORTED, `attestations.trustTier '${att.trustTier}' is not a known trust tier.`);
   }
 
-  // G-M1.2 — independent re-assertion of the signer gates.
+  // G-M1.2 — independent re-assertion of the signer gates. The cross-repo source proof is `sourcePackage`
+  // (checked below); there is no git-commit binding.
   const conformance = att.conformance;
-  if (conformance.sourceCommit !== repositoryCommit) {
-    add(REASON_CODES.COMMIT_MISMATCH, `conformance.sourceCommit ${conformance.sourceCommit} != repository.commit ${repositoryCommit}.`);
-  }
   const ageDays = (now - new Date(conformance.ranAt).getTime()) / 86_400_000;
   if (!Number.isFinite(ageDays) || ageDays > MAX_EVIDENCE_AGE_DAYS) {
     add(REASON_CODES.STALE_EVIDENCE, `conformance ranAt ${conformance.ranAt} is older than ${MAX_EVIDENCE_AGE_DAYS}d.`);
