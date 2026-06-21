@@ -136,6 +136,15 @@ export default function Home() {
         </div>
       </section>
 
+      <section aria-label="agent-entry" className="border-b border-black/15 bg-white py-3">
+        <div className="container-wide flex flex-wrap items-center gap-x-4 gap-y-1">
+          <span className="text-xs text-black/45">This site is agent-readable.</span>
+          <a href="/skills" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">Skills</a>
+          <a href="/okf/index.md" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">Knowledge graph</a>
+          <a href="/llms.txt" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">llms.txt</a>
+        </div>
+      </section>
+
       <section className="border-b-4 border-black bg-black py-12 text-white md:py-16">
         <div className="container-wide">
           <Link

@@ -67,6 +67,7 @@ export function buildArticleSchema(article: ArticleDefinition) {
       '@id': `${url}#article`,
       headline: article.title,
       description: article.description,
+      keywords: [article.primaryEntity, ...article.entities].map((e) => e.name).join(', '),
       datePublished: article.datePublished,
       dateModified: article.dateModified,
       author: {
