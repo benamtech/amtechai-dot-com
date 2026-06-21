@@ -23,7 +23,7 @@ The verifier reports which depth it performed.
 3. Fetch certificate + signature + signing-key document. A required surface unreachable → **`UNREACHABLE`** ("can't determine", not `invalid`).
 4. Schema valid, `certificate.signingKeyId == key.keyId`, key usable (active, or active-at-issuance for historical) → else **`invalid`** (`INVALID_SCHEMA` / `IDENTITY_MISMATCH` / `KEY_NOT_ACTIVE`).
 5. Ed25519 verify over `canonicalJson(certificate)` → fail = **`invalid`** (`INVALID_SIGNATURE`).
-6. `certificate.repository.{commit,path}` matches the authority record → else **`invalid`** (`COMMIT_MISMATCH`); recompute `sourcePackage` → mismatch **`invalid`** (`SOURCE_PACKAGE_MISMATCH`).
+6. `certificate.repository.path` matches the authority record, and the **`sourcePackage`** digest recomputes over the published files → else **`invalid`** (`SOURCE_PACKAGE_MISMATCH`). The cert binds no git commit — `sourcePackage` is the cross-repo anchor; the release commit is provenance only.
 7. (v2) attestations present, fresh, commit-matched, `evidence.sha256` resolves; map `conformance.method → max-tier` (unknown → `METHOD_UNKNOWN`) → else **`invalid`** (`MISSING_ATTESTATIONS` / `STALE_EVIDENCE` / `EVIDENCE_DIGEST_MISMATCH`).
 8. (graph-replay depth) recompute the self-describing recipe: per-file SRI vs. signed manifest (`MANIFEST_DIGEST_MISMATCH`), catalog root (`CATALOG_ROOT_MISMATCH`), any bound replay step (`REPLAY_MISMATCH` / `REPLAY_NONDETERMINISTIC`).
 9. (archive-byte only) recompute archive digests; mismatch = **`invalid`** (`DIGEST_MISMATCH`).
@@ -46,7 +46,7 @@ Determinism is the security property: re-running reproduces the verdict byte-for
 
 The reason-code set is **canonical in `src/lib/skills/verification/reasonCodes.ts`** — one enum shared by the signer gates (`02`), the conformance runner, the build validator (`07`), and this verifier. Adding/renaming a code is a change to that module; doc and code must not drift (`07` gates this).
 
-`OK` · `INVALID_SIGNATURE` · `KEY_NOT_ACTIVE` · `IDENTITY_MISMATCH` · `DIGEST_MISMATCH` · `SOURCE_PACKAGE_MISMATCH` · `COMMIT_MISMATCH` · `MISSING_ATTESTATIONS` · `EVIDENCE_MISSING` · `EVIDENCE_DIGEST_MISMATCH` · `STALE_EVIDENCE` · `CONFORMANCE_FAILED` · `UNDECLARED_SCRIPT` · `REVIEW_NOT_APPROVED` · `TIER_NOT_SUPPORTED` · `INVALID_SCHEMA` · `UNREACHABLE` · `METHOD_UNKNOWN` · `REPLAY_MISMATCH` · `REPLAY_NONDETERMINISTIC` · `MANIFEST_DIGEST_MISMATCH` · `CATALOG_ROOT_MISMATCH` · `REVOKED` · `AUTHORITY_MISMATCH`
+`OK` · `INVALID_SIGNATURE` · `KEY_NOT_ACTIVE` · `IDENTITY_MISMATCH` · `DIGEST_MISMATCH` · `SOURCE_PACKAGE_MISMATCH` · `MISSING_ATTESTATIONS` · `EVIDENCE_MISSING` · `EVIDENCE_DIGEST_MISMATCH` · `STALE_EVIDENCE` · `CONFORMANCE_FAILED` · `UNDECLARED_SCRIPT` · `REVIEW_NOT_APPROVED` · `TIER_NOT_SUPPORTED` · `INVALID_SCHEMA` · `UNREACHABLE` · `METHOD_UNKNOWN` · `REPLAY_MISMATCH` · `REPLAY_NONDETERMINISTIC` · `MANIFEST_DIGEST_MISMATCH` · `CATALOG_ROOT_MISMATCH` · `REVOKED` · `AUTHORITY_MISMATCH`
 
 `UNREACHABLE` (a required surface couldn't be fetched) is distinct from `invalid` — it means "could not determine," not "failed."
 

@@ -10,7 +10,9 @@ The signing key document (`amtech-signing-key/v1`, served at `/.well-known/amtec
 - **retired** — superseded by rotation; still valid for verifying certificates issued during its validity window (historical verification uses active-at-issuance semantics).
 - **revoked** — compromised; certificates relying on it return `revoked` regardless of issuance date.
 - **Offline discipline:** the private key stays at `.amtech/signing-private-key.pem` (mode 0600, git-ignored). Online surfaces never hold it. `npm run skills:sign` is the only operation that touches it.
-- **Rotation:** generate a new key, publish its key document as `active`, mark the prior `retired`, and emit a `key-rotate` event in the authority history (below). Future: multiple key documents addressable by `keyId` so retired keys remain fetchable for historical verification.
+- **Rotation:** generate a new key, publish its key document as `active`, mark the prior `retired`, and emit a `key-rotate` event in the authority history (below).
+- **Multi-key serving (implemented 2026-06-20):** every key document is served at `/.well-known/keys/<keyId>.json`; the verifier fetches the cert's key by `signingKeyId` and accepts a `retired` key for the certs + authority records it signed (active-at-issuance), so a rotation does NOT invalidate history or force re-signing every cert. `revoked` → `revoked`. The chain walk verifies each record under its own signing key.
+- **Signed publishing commits (implemented 2026-06-20):** a dedicated Ed25519 SSH commit-signing key (private git-ignored under `.amtech/`, public + `allowed_signers` committed under `signing/`, served at `/.well-known/commit-signing-key.pub`) signs every publishing commit; `skill-authority.repository.commitSignature` records the signer fingerprint (`ssh:SHA256:…`).
 
 ## Immutable authority history — Option A (git-anchored hash-chained signed snapshots)
 

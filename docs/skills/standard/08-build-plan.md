@@ -75,7 +75,9 @@ consistency gate (`validateSurfaces`) enforces agreement + method-ceiling honest
 ---
 
 ## M4 — Immutable authority history
-Spec: `03`. Gates: G-M4.1–G-M4.4. **COMPLETE 2026-06-20** (`docs/memory/status-2026-06-20--m4-full-m5-pipeline.md`)
+Spec: `03`. Gates: G-M4.1–G-M4.4. **TOTALLY COMPLETE 2026-06-20** (`docs/memory/status-2026-06-20--m4-atomic-m5-finished.md`):
+chain + revocation + **atomic sourcePackage-anchored release (no commit binding, no pending-resign)** + **multi-key
+historical serving** + **SSH-signed publishing commits**. Earlier groundwork notes below. (`docs/memory/status-2026-06-20--m4-full-m5-pipeline.md`)
 — `sign-authority.ts` maintains the hash-chained history: idempotent append (unchanged state → no record), `events[]`
 diff + materialized `state{skills,keys}`, revocations via `src/lib/skills/authority/revocations.json`. The verifier
 (`verifySkill.ts`) walks the chain (gap-free/linked/signed/latest-pointer) and honors `skill-revoke`/`key-revoke`

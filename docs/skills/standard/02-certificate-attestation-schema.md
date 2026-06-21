@@ -29,7 +29,6 @@ Extend the certificate so a `verified` result proves **assurance** (tested + rev
     "suite": "okf-audit-conformance",
     "suiteVersion": "0.3.1",
     "method": "static-contract",             // static-contract (now) | live-model (reserved) — method registry, see 09
-    "sourceCommit": "<must equal repository.commit>",
     "result": "pass",                        // pass | fail
     "ranAt": "2026-06-19T00:00:00.000Z",
     "evidence": { "url": "https://amtechai.com/skills/<slug>/evidence/conformance.json",
@@ -48,7 +47,7 @@ Extend the certificate so a `verified` result proves **assurance** (tested + rev
 
 ### Field rules
 - `trustTier` MUST NOT exceed what the present evidence proves (see ladder below); the `method` of the evidence maps to a maximum tier via the registry in `09`.
-- `conformance.sourceCommit` MUST equal `repository.commit`.
+- **The signed cert binds no git commit.** `repository` is `{ url, path }`; the cross-repo anchor is `sourcePackage` (the source byte digest, recomputed in both repos). The release commit is recorded only as provenance in the manifest/authority — so a release is atomic (one registry commit) with no `pending-resign` window (implemented 2026-06-20).
 - `permissions.scripts` MUST list exactly the executables present in the archive (no more, no fewer).
 - Every `evidence.sha256` MUST resolve to a committed/published file whose recomputed SHA-256 matches.
 - All signed values are strings/objects only — **no JSON numbers in signed payloads** (I-JSON / canonicalization safety, RFC 8785 rationale).
@@ -69,8 +68,7 @@ The verifier (`04`) reports only the tier the evidence + method support, never h
 ## Signer-enforced gates (the "build fails" requirement)
 
 `npm run skills:sign` MUST refuse to emit a v2 certificate for the declared `trustTier` unless **all** apply:
-1. `conformance.sourceCommit == repository.commit`.
-2. `conformance.ranAt` within max-age (default **90 days**, `MAX_EVIDENCE_AGE_DAYS`; per-policy override allowed).
+1. `conformance.ranAt` within max-age (default **90 days**, `MAX_EVIDENCE_AGE_DAYS`; per-policy override allowed).
 3. `conformance.result == pass`.
 4. each `evidence.sha256` resolves and recomputes equal.
 5. `permissions.scripts` equals the archive's executable set (machine-checked against archive contents).
