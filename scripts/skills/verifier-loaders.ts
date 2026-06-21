@@ -15,6 +15,7 @@ export function localPublicLoader(publicDir: string, slug: string): ResourceLoad
   return {
     skillFile: (rel) => read(resolve(skillBase, rel)),
     signingKey: () => read(resolve(publicDir, '.well-known/amtech-signing-key.json')),
+    signingKeyById: (keyId) => read(resolve(publicDir, '.well-known/keys', `${keyId.replace(/[:/]/g, '_')}.json`)),
     catalog: () => read(resolve(publicDir, 'skills/catalog.json')),
     siblingCertificate: (s) => read(resolve(publicDir, 'skills', s, 'certificate.json')),
     authority: () => read(resolve(publicDir, '.well-known/skill-authority.json')),
@@ -31,6 +32,7 @@ export function httpLoader(baseUrl: string): ResourceLoader {
   return {
     skillFile: (rel) => fetchBytes(`${base}/${rel}`),
     signingKey: () => fetchBytes(`${origin}/.well-known/amtech-signing-key.json`),
+    signingKeyById: (keyId) => fetchBytes(`${origin}/.well-known/keys/${keyId.replace(/[:/]/g, '_')}.json`),
     catalog: () => fetchBytes(`${origin}/skills/catalog.json`),
     siblingCertificate: (s) => fetchBytes(`${origin}/skills/${s}/certificate.json`),
     authority: () => fetchBytes(`${origin}/.well-known/skill-authority.json`),

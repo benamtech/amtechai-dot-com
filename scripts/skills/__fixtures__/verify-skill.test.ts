@@ -24,6 +24,7 @@ function makeLoader(overrides: Record<string, Buffer | null> = {}): ResourceLoad
   return {
     skillFile: async (rel) => (rel in overrides ? overrides[rel] : read(resolve(base, rel))),
     signingKey: async () => ('signingKey' in overrides ? overrides.signingKey : read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json'))),
+    signingKeyById: async (keyId) => ('signingKeyById' in overrides ? overrides.signingKeyById : read(resolve(repoRoot, 'public/.well-known/keys', `${keyId.replace(/[:/]/g, '_')}.json`))),
     catalog: async () => ('catalog' in overrides ? overrides.catalog : read(resolve(repoRoot, 'public/skills/catalog.json'))),
     siblingCertificate: async (slug) => read(resolve(repoRoot, 'public/skills', slug, 'certificate.json')),
     authority: async () => ('authority' in overrides ? overrides.authority : read(resolve(repoRoot, 'public/.well-known/skill-authority.json'))),
@@ -89,9 +90,17 @@ test('revoked skill in the authority → revoked (REVOKED, not invalid)', async 
 test('revoked signing key → revoked (KEY_NOT_ACTIVE)', async () => {
   const key = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')))!.toString('utf8'));
   key.status = 'revoked';
-  const verdict = await verifySkill(makeLoader({ signingKey: Buffer.from(JSON.stringify(key)) }));
+  const verdict = await verifySkill(makeLoader({ signingKeyById: Buffer.from(JSON.stringify(key)) }));
   assert.equal(verdict.verdict, 'revoked');
   assert.ok(verdict.reasonCodes.includes(REASON_CODES.KEY_NOT_ACTIVE), verdict.reasonCodes.join(', '));
+});
+
+test('RETIRED signing key still verifies its historical certs (active-at-issuance)', async () => {
+  const key = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')))!.toString('utf8'));
+  key.status = 'retired';
+  const verdict = await verifySkill(makeLoader({ signingKeyById: Buffer.from(JSON.stringify(key)) }));
+  assert.equal(verdict.verdict, 'verified', JSON.stringify(verdict.reasonCodes));
+  assert.equal(verdict.trustTier, 'amtech-reviewed');
 });
 
 test('unreachable certificate → unverifiable / UNREACHABLE', async () => {

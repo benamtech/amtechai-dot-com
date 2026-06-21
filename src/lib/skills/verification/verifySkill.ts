@@ -21,7 +21,6 @@ import {
   digest,
   packagePayloadDigest,
   verifyCanonical,
-  verifyCertificate,
   type ArtifactCertificate,
   type SigningKeyDocument,
 } from '../../../../scripts/signing/amtech-signing.ts';
@@ -33,8 +32,10 @@ import type { TrustTier } from '../../../../scripts/signing/amtech-signing.ts';
 export type ResourceLoader = {
   /** Bytes for a path relative to the skill base, e.g. 'certificate.json', 'manifest.json', 'files/SKILL.md'. */
   skillFile: (relPath: string) => Promise<Buffer | null>;
-  /** The served signing-key document (/.well-known/amtech-signing-key.json). */
+  /** The served active signing-key document (/.well-known/amtech-signing-key.json). */
   signingKey: () => Promise<Buffer | null>;
+  /** A key document by keyId (/.well-known/keys/<keyId>.json) — historical/active-at-issuance verification. */
+  signingKeyById?: (keyId: string) => Promise<Buffer | null>;
   /** The catalog.json (set-integrity). Omit/return null to skip the catalog-root check. */
   catalog?: () => Promise<Buffer | null>;
   /** Another skill's published certificate.json by slug — needed to recompute the catalog root. */
@@ -116,7 +117,7 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
   });
 
   // ---- Step 1 — authenticity (link-only floor) ---------------------------------------------------
-  const [certBytes, sigBytes, keyBytes] = await Promise.all([loader.skillFile('certificate.json'), loader.skillFile('certificate.sig'), loader.signingKey()]);
+  const [certBytes, sigBytes] = await Promise.all([loader.skillFile('certificate.json'), loader.skillFile('certificate.sig')]);
   if (!certBytes) return (fail(REASON_CODES.UNREACHABLE, 'certificate'), baseFail('unverifiable'));
   let cert: ArtifactCertificate;
   try {
@@ -126,6 +127,10 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
   }
   const subject = { slug: cert.subjectId, version: cert.version, certificateId: cert.certificateId };
   if (!sigBytes) return (fail(REASON_CODES.UNREACHABLE, 'signature'), baseFail('unverifiable', subject));
+
+  // Fetch the cert's key BY keyId (active-at-issuance — a retired key still verifies its historical certs),
+  // falling back to the served active key (docs/skills/standard/03).
+  const keyBytes = (loader.signingKeyById ? await loader.signingKeyById(cert.signingKeyId) : null) ?? (await loader.signingKey());
   if (!keyBytes) return (fail(REASON_CODES.UNREACHABLE, 'signingKey'), baseFail('unverifiable', subject));
 
   const key = JSON.parse(keyBytes.toString('utf8')) as SigningKeyDocument;
@@ -144,10 +149,13 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
     }
   }
   if (authorityEntry?.status === 'revoked') return (fail(REASON_CODES.REVOKED, 'authority'), baseFail('revoked', subject));
-  if (key.status !== 'active') return (fail(REASON_CODES.KEY_NOT_ACTIVE, 'signature'), baseFail('revoked', subject));
 
+  // Key status: a `retired` key still verifies certs issued during its validity (active-at-issuance); a
+  // `revoked` key is terminal (`revoked`); an unknown status is not acceptable.
   if (cert.signingKeyId !== key.keyId) fail(REASON_CODES.IDENTITY_MISMATCH, 'signature');
-  else if (!verifyCertificate(cert, sigBytes.toString('utf8'), key)) fail(REASON_CODES.INVALID_SIGNATURE, 'signature');
+  else if (key.status === 'revoked') return (fail(REASON_CODES.KEY_NOT_ACTIVE, 'signature'), baseFail('revoked', subject));
+  else if (key.status !== 'active' && key.status !== 'retired') fail(REASON_CODES.KEY_NOT_ACTIVE, 'signature');
+  else if (!verifyCanonical(cert, sigBytes.toString('utf8'), key)) fail(REASON_CODES.INVALID_SIGNATURE, 'signature');
   else pass('signature');
 
   // Provenance: the authority entry must name the same source path the certificate binds. The cross-repo
@@ -288,11 +296,17 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
           const stem = String(entries[i].sequence).padStart(4, '0');
           const [recBytes, sigBytes] = await Promise.all([loader.authorityRecordStem(stem), loader.authorityRecordStemSig?.(stem) ?? Promise.resolve(null)]);
           if (!recBytes) { chainOk = false; break; }
-          const rec = JSON.parse(recBytes.toString('utf8')) as { sequence?: string; previousRecordHash?: { sha256?: string } | null; events?: { type?: string; slug?: string }[]; state?: { skills?: { slug: string; certificateSha256: string; status?: string }[] } };
+          const rec = JSON.parse(recBytes.toString('utf8')) as { sequence?: string; signingKeyId?: string; previousRecordHash?: { sha256?: string } | null; events?: { type?: string; slug?: string }[]; state?: { skills?: { slug: string; certificateSha256: string; status?: string }[] } };
           const recHash = digest('sha256', canonicalJson(rec));
           const linkOk = i === 0 ? rec.previousRecordHash == null : rec.previousRecordHash?.sha256 === prevHash;
           if (Number(rec.sequence) !== i || !linkOk || entries[i].recordHash !== recHash) { chainOk = false; break; }
-          if (sigBytes && !verifyCanonical(rec, sigBytes.toString('utf8'), key)) { chainOk = false; break; }
+          // Verify each record under ITS signing key by id (a retired key still verifies records it signed).
+          let recKey = key;
+          if (rec.signingKeyId && rec.signingKeyId !== key.keyId && loader.signingKeyById) {
+            const rkBytes = await loader.signingKeyById(rec.signingKeyId);
+            if (rkBytes) recKey = JSON.parse(rkBytes.toString('utf8')) as SigningKeyDocument;
+          }
+          if (sigBytes && !verifyCanonical(rec, sigBytes.toString('utf8'), recKey)) { chainOk = false; break; }
           prevHash = recHash;
           headRecord = rec;
         }

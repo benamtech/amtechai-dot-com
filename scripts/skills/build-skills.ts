@@ -928,10 +928,18 @@ async function main() {
   await writeText('public/skills/catalog.json', `${escJson(catalogDoc)}\n`);
   await writeText('public/skills/use.md', hubBootstrapMarkdown());
   await writeText('public/skills/agent.md', hubAgentMarkdown());
-  await writeText(
-    'public/.well-known/amtech-signing-key.json',
-    await readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8'),
-  );
+  const activeKeyRaw = await readFile(resolve(repoRoot, 'src/lib/skills/certificates/amtech-signing-key.json'), 'utf8');
+  await writeText('public/.well-known/amtech-signing-key.json', activeKeyRaw);
+  // Multi-key historical serving (docs/skills/standard/03): publish every key document by id so a cert
+  // signed by a now-retired key still verifies (active-at-issuance). Filename sanitizes the keyId's ':'/'/'.
+  const keyDir = (id: string) => `public/.well-known/keys/${id.replace(/[:/]/g, '_')}.json`;
+  const activeKey = JSON.parse(activeKeyRaw) as { keyId: string };
+  await writeText(keyDir(activeKey.keyId), activeKeyRaw);
+  const retiredKeysDir = resolve(repoRoot, 'src/lib/skills/certificates/keys');
+  for (const file of (await readdir(retiredKeysDir).catch(() => [] as string[])).filter((f) => f.endsWith('.json'))) {
+    const raw = await readFile(resolve(retiredKeysDir, file), 'utf8');
+    await writeText(keyDir((JSON.parse(raw) as { keyId: string }).keyId), raw);
+  }
 
   // Authority record (M4 groundwork — docs/skills/standard/03). Mirror the cert pattern: sign-authority.ts
   // emits the signed genesis record under src/, build publishes it and exposes the latest pointer. Absent on
