@@ -122,23 +122,22 @@ Implications for our milestones (the **delta** to build, registry-side):
 - **Reconcile now-vs-spec:** registry `index.json` marks `okf-audit` `pending-resign` while the live website cert verifies — close this status lag as part of M1/M4 (flip to `signed` only if certs validate against the pinned bytes/commit).
 - **M0/M2/M3** are website-only; no registry change required.
 
-### Skill onboarding backlog (deferred to M5, on purpose)
+## M5 — "Certified AMTECH skill publishing" pipeline (DONE 2026-06-20)
 
-The registry holds **7 packages**; only `okf-audit` + `knowledge-graph-builder` (`agent-tool`) are website-published/certified today. The remaining packages — `estimate`, `invoice`, `daily-checkin` (`ai-employee`), `amtech-article-publisher`, `amtech-article-research-writer` (`amtech-workflow`) — are a **deliberate backlog to certify and publish to the website registry, not stale content**. Do not delete `docs/agent-skills/`; it is where these live.
+`scripts/skills/publish-skill.ts -- --execute [--push]` runs the whole **atomic, SSH-signed, cross-repo release**:
+sign (sourcePackage-anchored certs + authority record) → check (verifier + consistency + chain gates) → mirror
+source + certs + chain into the registry and mark every published skill `signed` → **one SSH-signed registry
+commit (no `pending-resign` window)** → re-pin the website provenance commit (no re-sign) → rebuild + check →
+SSH-signed website commit → `registry/validate.mjs --check`. Idempotent. There is no two-phase / "update in
+progress" state any more (the atomic-anchor change in `02` removed it).
 
-Onboarding them now would mean hand-running the two-phase release once per skill — volatile and error-prone. The plan is to **publish them as a batch after M0–M4 land**, once the standard is stable, using a repeatable pipeline (M5). Keep them referenced and intact until then.
+**4 certified skills today:** `okf-audit`, `knowledge-graph-builder` (agent-tool) and `estimate`,
+`amtech-article-research-writer` (rewritten standalone, onboarded via the pipeline 2026-06-20).
 
-## M5 (follow-on) — "Certified AMTECH skill publishing" pipeline + onboard backlog
-
-**Live pipeline DONE 2026-06-20** — `scripts/skills/publish-skill.ts` now has `--execute <slug>` (registered skills:
-conformance → build → sign certs + authority record → check (verifier + consistency + chain gates) → verify →
-registry cross-witness; gated + idempotent) alongside `--dry-run [<slug>|--all]`. Self-tested on `okf-audit` (no
-diff). **Remaining:** rewrite the 5 backlog skills (`onboarding-backlog.json`) to our format (schema + golden +
-review), then `--execute` each + the registry two-phase. The batch-onboarding itself is the next session.
-
-After M0–M4 stabilize the standard, build a repeatable **Certified AMTECH skill publishing** pipeline (itself a candidate AMTECH skill) that turns "add a skill" into a single low-volatility operation instead of a manual two-phase release. It should: take a skill source folder → run tests + record review evidence (M1) → materialize website surfaces (M0/M3) → execute the registry two-phase release (Phase 1 registry commit + `pending-resign`, Phase 2 website `skills:sign`/`check`/`build`, then flip to `signed`) → append the authority record (M4) → verify (M2) end-to-end, with the gates in `07` enforced automatically.
-
-Then use it to **batch-onboard the backlog**: `estimate`, `invoice`, `daily-checkin`, `amtech-article-publisher`, `amtech-article-research-writer`. This is *why* onboarding is deferred — do it once, repeatably, on a stable standard. Spec this milestone in detail only after M0–M4 are real.
+**Backlog dropped:** `invoice`, `daily-checkin`, `amtech-article-publisher` will not be added (the `ai-employee`
+templates and the repo-bound publisher are not appropriate standalone public tools). They remain repo-only in the
+registry. To onboard any new skill: author it in our format (SKILL.md + a JSON output schema + golden + review),
+register it, and run `skills:publish -- --execute --push`.
 
 ## Out of scope for v2 (documented futures)
 - Full RFC-6962 Merkle log + inclusion/consistency proofs (Option B — upgrade path designed into M4 records).

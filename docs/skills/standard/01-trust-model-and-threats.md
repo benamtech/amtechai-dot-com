@@ -26,7 +26,7 @@ A consumer who trusts the AMTECH key + the domain + the git pin can verify every
 | Malicious / tampered skill | Bytes differ from what was reviewed | Dual-digest binding in signed cert; archive-byte verification | 02, 04 |
 | Forged certificate | Attacker mints a cert | Ed25519 signature over canonical JSON; key id must match published key | 02, 04 |
 | Unreviewed skill passed off as trusted | "Signed" ≠ "tested/reviewed" | Structured attestations + trust tiers; verifier reports only the proven tier | 02, 04 |
-| Stale evidence | Old passing test reused for a new release | `tests.sourceCommit` must equal release commit; max-age freshness gate | 02 |
+| Stale evidence | Old passing test reused for a new release | max-age freshness gate; `sourcePackage` (source byte digest) re-binds the evidence to the exact source bytes | 02 |
 | Key compromise | Release key stolen | Key revocation event in authority history; `revoked` verdict; rotation | 03 |
 | Rollback / fast-forward | Serving an old (or far-future) authority state | Sequence numbers + latest-pointer + freshness signal (TUF idea) | 03 |
 | History rewrite | Issuer silently edits past records | Hash-chained append-only records; latest-pointer hash; git as Merkle anchor | 03 |

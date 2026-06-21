@@ -16,7 +16,7 @@ No surface may report `verified` unless it resolves to the same signed certifica
 
 ### M1 — Attestations (`v2`)
 - **G-M1.1** Every published cert is `amtech-signed-artifact/v2` with an `attestations` block (or explicitly tier `signed` for back-compat).
-- **G-M1.2** Signer refused conditions all enforced (commit match, freshness ≤ max-age, `result==pass`, evidence digests resolve, scripts match archive, `sourcePackage` recomputes, review approved for `amtech-reviewed`). Negative fixtures — stale evidence, `sourceCommit` mismatch, undeclared script, golden-fails-schema — each **fails** signing with the canonical reason code.
+- **G-M1.2** Signer refused conditions all enforced (freshness ≤ max-age, `result==pass`, evidence digests resolve, scripts match archive, `sourcePackage` recomputes as the cross-repo anchor, review approved for `amtech-reviewed`). Negative fixtures — stale evidence, mutated source bytes (`SOURCE_PACKAGE_MISMATCH`), undeclared script, golden-fails-schema — each **fails** signing with the canonical reason code. (The cert binds no git commit; `sourcePackage` is the anchor.)
 - **G-M1.3** Published evidence files resolve and recompute to the cert's `evidence.sha256`.
 - **G-M1.4** Re-running the conformance runner reproduces the committed evidence **byte-for-byte** (defeats hand-edited evidence); `sourcePackage` matches across this repo and the registry mirror.
 
