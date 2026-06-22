@@ -27,6 +27,7 @@ import {
 import { REASON_CODES, type ReasonCode } from './reasonCodes.ts';
 import { depthForMethod, maxTierForMethod, tierRank, type VerificationDepth, type VerificationMethod } from './methodRegistry.ts';
 import type { TrustTier } from '../../../../scripts/signing/amtech-signing.ts';
+import { leafHash, verifyInclusion, verifyConsistency } from '../merkle.ts';
 
 /** Loads published bytes for one skill. Every getter returns null when the resource is unreachable. */
 export type ResourceLoader = {
@@ -36,6 +37,9 @@ export type ResourceLoader = {
   signingKey: () => Promise<Buffer | null>;
   /** A key document by keyId (/.well-known/keys/<keyId>.json) — historical/active-at-issuance verification. */
   signingKeyById?: (keyId: string) => Promise<Buffer | null>;
+  /** A key document by absolute URL — used to resolve STH witness keys that may live on ANOTHER domain
+   *  (docs/skills/standard/11 — federation). Each witness signature carries its own `signingKeyUrl`. */
+  keyByUrl?: (url: string) => Promise<Buffer | null>;
   /** The catalog.json (set-integrity). Omit/return null to skip the catalog-root check. */
   catalog?: () => Promise<Buffer | null>;
   /** Another skill's published certificate.json by slug — needed to recompute the catalog root. */
@@ -48,12 +52,31 @@ export type ResourceLoader = {
   authorityRecordStem?: (stem: string) => Promise<Buffer | null>;
   /** The detached signature for an authority record by stem. */
   authorityRecordStemSig?: (stem: string) => Promise<Buffer | null>;
+  /** The latest signed tree head (/.well-known/authority/sth.json) — transparency log (docs/skills/standard/03). */
+  authoritySth?: () => Promise<Buffer | null>;
+  /** A precomputed Merkle inclusion proof for a record index at a tree size. */
+  authorityInclusionProof?: (treeSize: string, index: number) => Promise<Buffer | null>;
+  /** A precomputed consistency proof from `fromSize` to the current `treeSize` (for STH pinning). */
+  authorityConsistencyProof?: (treeSize: string, fromSize: number) => Promise<Buffer | null>;
 };
+
+/**
+ * Trust-minimization policy for the signed tree head (docs/skills/standard/03 §Merkle, scaffolding #2).
+ * Defaults reproduce today's behavior (one authority signature, no witnesses, no external anchor). Raising
+ * `minWitnessSigs` or `requireAnchor` is how "independently witnessed / externally anchored" becomes a
+ * default flip, not a format change — once real witnesses/anchors exist.
+ */
+export type SthTrustPolicy = { minAuthoritySigs?: number; minWitnessSigs?: number; requireAnchor?: boolean };
 
 export type VerifyOptions = {
   depth?: VerificationDepth;
   /** Deterministic build-time stamp; the live CLI omits it and uses now(). Keeps artifacts byte-stable (G-X.7). */
   checkedAt?: string;
+  /** STH trust policy (scaffolding #2). Omitted → { minAuthoritySigs: 1, minWitnessSigs: 0, requireAnchor: false }. */
+  trustPolicy?: SthTrustPolicy;
+  /** A previously-seen STH the caller pins (scaffolding #3). The verifier proves the current STH append-only
+   *  EXTENDS it via a consistency proof and fails closed on rollback/equivocation. Stateful agents (Hermes). */
+  pinnedSth?: { treeSize: string; rootHash: string };
 };
 
 export type SkillVerdict = {
@@ -78,6 +101,30 @@ const sha256 = (b: Buffer) => digest('sha256', b);
 const sriOf = (b: Buffer) => `sha256-${createDigestBase64(b)}`;
 function createDigestBase64(b: Buffer): string {
   return Buffer.from(sha256(b), 'hex').toString('base64');
+}
+
+/**
+ * External-anchor record on an STH: a claim that the Merkle root was committed to an independent system
+ * (a public chain like Bitcoin or Nockchain, a transparency log, a signed git tag) so its existence-at-time
+ * is witnessable WITHOUT trusting AMTECH (docs/skills/standard/11). `target` MUST equal the STH `rootHash`.
+ */
+export type AnchorRecord = { type?: string; ref?: string; target?: string; anchoredAt?: string };
+export type AnchorVerifier = (anchor: AnchorRecord, rootHash: string) => boolean | Promise<boolean>;
+
+/**
+ * Pluggable anchor-verifier registry — the "breaker" the broadcasting backend hooks into. EMPTY today: we
+ * wire the mechanism end-to-end but broadcast nothing yet. When the operator starts publishing STH roots to a
+ * chain (Bitcoin / Nockchain / …), register `type → verifier` here and `requireAnchor: true` lights up. Until
+ * then verifyAnchor returns false, so requiring an anchor fails CLOSED (you cannot require an uncheckable claim).
+ */
+export const ANCHOR_VERIFIERS: Record<string, AnchorVerifier> = {};
+
+async function verifyAnchor(anchors: AnchorRecord[], rootHash: string): Promise<boolean> {
+  for (const a of anchors) {
+    const verify = a?.type ? ANCHOR_VERIFIERS[a.type] : undefined;
+    if (verify && a.target === rootHash && (await verify(a, rootHash))) return true;
+  }
+  return false;
 }
 
 /** The effective verification method a certificate's attestations declare (docs/skills/standard/09). */
@@ -353,6 +400,93 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
           } else {
             pass('authorityRecord');
             authoritySequence = headRecord.sequence ?? null;
+
+            // ---- Transparency log (docs/skills/standard/03 — Option B): verify the signed tree head, the
+            //      head record's Merkle inclusion, the STH trust policy, and (if pinned) the consistency proof.
+            //      Additive: if no STH is served, the chain walk above already established the verdict. ----
+            if (loader.authoritySth) {
+              const sthBytes = await loader.authoritySth();
+              if (!sthBytes) {
+                evidence.authoritySth = 'skipped';
+              } else {
+                try {
+                  const sth = JSON.parse(sthBytes.toString('utf8')) as {
+                    treeSize?: string;
+                    rootHash?: string;
+                    latestRecordHash?: string;
+                    signatures?: { role?: string; signingKeyId?: string; signingKeyUrl?: string; signature?: string }[];
+                    anchors?: { type?: string }[];
+                  };
+                  const policy = {
+                    minAuthoritySigs: options.trustPolicy?.minAuthoritySigs ?? 1,
+                    minWitnessSigs: options.trustPolicy?.minWitnessSigs ?? 0,
+                    requireAnchor: options.trustPolicy?.requireAnchor ?? false,
+                  };
+                  // Signed core = STH minus `signatures` + `anchors` (so witnesses/anchors append without re-signing).
+                  const core: Record<string, unknown> = { ...sth };
+                  delete core.signatures;
+                  delete core.anchors;
+                  let authValid = 0;
+                  let witnessValid = 0;
+                  for (const s of sth.signatures ?? []) {
+                    if (!s.signature) continue;
+                    // Resolve the signer's key. Witnesses (docs/skills/standard/11) carry their own signingKeyUrl
+                    // and may live on another domain → resolve by URL; the authority key resolves by id as before.
+                    let sKey: SigningKeyDocument | null = s.signingKeyId === key.keyId ? key : null;
+                    if (!sKey && s.role === 'witness' && s.signingKeyUrl && loader.keyByUrl) {
+                      const kb = await loader.keyByUrl(s.signingKeyUrl);
+                      if (kb) sKey = JSON.parse(kb.toString('utf8')) as SigningKeyDocument;
+                    }
+                    if (!sKey && s.signingKeyId && loader.signingKeyById) {
+                      const kb = await loader.signingKeyById(s.signingKeyId);
+                      if (kb) sKey = JSON.parse(kb.toString('utf8')) as SigningKeyDocument;
+                    }
+                    if (sKey && sKey.status !== 'revoked' && verifyCanonical(core, s.signature, sKey)) {
+                      if (s.role === 'witness') witnessValid += 1;
+                      else if (s.role === 'authority') authValid += 1;
+                    }
+                  }
+                  // External-anchor check is structural for now (verifyAnchor); requireAnchor fails closed until live.
+                  const anchorOk = !policy.requireAnchor || (await verifyAnchor(sth.anchors ?? [], sth.rootHash ?? ''));
+                  const headBound = sth.treeSize === String(entries.length) && sth.latestRecordHash === prevHash;
+                  let inclusionOk = false;
+                  if (loader.authorityInclusionProof && sth.treeSize && sth.rootHash) {
+                    const headIndex = entries.length - 1;
+                    const pb = await loader.authorityInclusionProof(sth.treeSize, headIndex);
+                    if (pb) {
+                      const proof = JSON.parse(pb.toString('utf8')) as { auditPath?: string[] };
+                      inclusionOk = verifyInclusion(leafHash(canonicalJson(headRecord)), headIndex, entries.length, proof.auditPath ?? [], sth.rootHash);
+                    }
+                  }
+                  if (authValid < policy.minAuthoritySigs || witnessValid < policy.minWitnessSigs || !anchorOk) {
+                    fail(REASON_CODES.STH_SIGNATURE_INVALID, 'authoritySth');
+                  } else if (!headBound) {
+                    fail(REASON_CODES.AUTHORITY_MISMATCH, 'authoritySth');
+                  } else if (!inclusionOk) {
+                    fail(REASON_CODES.INCLUSION_PROOF_INVALID, 'authoritySth');
+                  } else {
+                    pass('authoritySth');
+                  }
+
+                  // STH pinning (scaffolding #3): prove the current STH append-only EXTENDS the pinned one.
+                  if (options.pinnedSth && sth.rootHash && sth.treeSize) {
+                    const fromSize = Number(options.pinnedSth.treeSize);
+                    let consistencyOk = fromSize === entries.length && options.pinnedSth.rootHash === sth.rootHash;
+                    if (!consistencyOk && loader.authorityConsistencyProof) {
+                      const cb = await loader.authorityConsistencyProof(sth.treeSize, fromSize);
+                      if (cb) {
+                        const cp = JSON.parse(cb.toString('utf8')) as { proof?: string[] };
+                        consistencyOk = verifyConsistency(fromSize, entries.length, options.pinnedSth.rootHash, sth.rootHash, cp.proof ?? []);
+                      }
+                    }
+                    if (consistencyOk) pass('authorityConsistency');
+                    else fail(REASON_CODES.CONSISTENCY_PROOF_INVALID, 'authorityConsistency');
+                  }
+                } catch {
+                  fail(REASON_CODES.INVALID_SCHEMA, 'authoritySth');
+                }
+              }
+            }
           }
         }
       } catch {

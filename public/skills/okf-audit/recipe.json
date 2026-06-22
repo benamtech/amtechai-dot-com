@@ -17,7 +17,9 @@
     "manifest": "https://amtechai.com/skills/okf-audit/manifest.json",
     "catalog": "https://amtechai.com/skills/catalog.json",
     "authority": "https://amtechai.com/.well-known/skill-authority.json",
-    "authorityRecord": "https://amtechai.com/.well-known/authority/records/0000.json"
+    "authorityRecord": "https://amtechai.com/.well-known/authority/records/0000.json",
+    "authoritySth": "https://amtechai.com/.well-known/authority/sth.json",
+    "inclusionProof": "https://amtechai.com/.well-known/authority/proofs/{treeSize}/inclusion/{index}.json"
   },
   "steps": [
     "Ed25519-verify certificate.json over canonical JSON (RFC 8785) against the signing key → INVALID_SIGNATURE / IDENTITY_MISMATCH.",
@@ -25,7 +27,9 @@
     "Recompute SHA-256/SHA3-512 of the served use.md and agent.md and compare to certificate.bootstrap → BOOTSTRAP_DIGEST_MISMATCH.",
     "Recompute each manifest file SHA-256 and compare to its integrity (SRI) → MANIFEST_DIGEST_MISMATCH.",
     "Recompute the catalog root over the per-skill certificate digests and compare to catalog.json → CATALOG_ROOT_MISMATCH.",
-    "Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH."
+    "Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH.",
+    "Verify the signed tree head (sth.json) under the signing key and recompute the RFC-6962 Merkle root over the records → STH_SIGNATURE_INVALID / MERKLE_ROOT_MISMATCH.",
+    "Verify the head record’s Merkle inclusion proof against the STH root → INCLUSION_PROOF_INVALID; (optional) verify a consistency proof from a previously-pinned STH → CONSISTENCY_PROOF_INVALID."
   ],
   "verifier": "npm run skills:verify https://amtechai.com/skills/okf-audit"
 }

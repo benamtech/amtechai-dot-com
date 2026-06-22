@@ -7,6 +7,11 @@
   "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
   "generatedAt": "2026-06-22",
   "catalogRoot": "c829571e1f16dde556ad64ad53f6b8ba83873bc73843b5e72b2efe586e30f87e",
+  "authoritySth": {
+    "treeSize": "6",
+    "rootHash": "ed0e2db175dcb94d2172ae79d2612562714219ea071f267e48dcea3d85da7a4e",
+    "sthUrl": "https://amtechai.com/.well-known/authority/sth.json"
+  },
   "skills": [
     {
       "slug": "okf-audit",

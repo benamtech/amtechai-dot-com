@@ -57,6 +57,20 @@ if (execute) {
   mkdirSync(resolve(registry, 'authority/records'), { recursive: true });
   cpSync(resolve(repoRoot, 'public/.well-known/authority/records'), resolve(registry, 'authority/records'), { recursive: true });
   cpSync(resolve(repoRoot, 'public/.well-known/authority/log.json'), resolve(registry, 'authority/log.json'));
+  // Transparency log (docs/skills/standard/03 — Option B): mirror the signed tree head + the immutable per-size
+  // STH archive so registry/validate.mjs independently cross-witnesses the RFC-6962 root + append-only history.
+  cpSync(resolve(repoRoot, 'public/.well-known/authority/sth.json'), resolve(registry, 'authority/sth.json'));
+  if (existsSync(resolve(repoRoot, 'public/.well-known/authority/sth'))) {
+    cpSync(resolve(repoRoot, 'public/.well-known/authority/sth'), resolve(registry, 'authority/sth'), { recursive: true });
+  }
+  // Registry-state broadcast message + receipts ledger (docs/skills/standard/11) — mirror so the registry is a
+  // complete witness of the anchor too (the cert verifies standalone via the same key).
+  if (existsSync(resolve(repoRoot, 'public/.well-known/authority/anchor'))) {
+    cpSync(resolve(repoRoot, 'public/.well-known/authority/anchor'), resolve(registry, 'authority/anchor'), { recursive: true });
+  }
+  for (const f of ['receipts.json', 'receipts.asc']) {
+    if (existsSync(resolve(repoRoot, `public/.well-known/authority/${f}`))) cpSync(resolve(repoRoot, `public/.well-known/authority/${f}`), resolve(registry, `authority/${f}`));
+  }
   const index = JSON.parse(readFileSync(resolve(registry, 'index.json'), 'utf8'));
   index.verification.catalogRoot = newRoot;
   for (const s of index.skills) if (s.publishedOnWebsite && s.verification) { s.verification.signed = true; s.verification.status = 'signed'; s.verification.certificate = `registry/skills/${s.slug}/certificate.json`; }

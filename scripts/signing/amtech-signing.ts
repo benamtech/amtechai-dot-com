@@ -3,7 +3,7 @@ import { createHash, createPrivateKey, createPublicKey, sign, verify, type KeyOb
 export const SIGNED_ARTIFACT_SCHEMA = 'https://amtechai.com/schemas/amtech-signed-artifact-v2.json';
 export const SIGNING_KEY_URL = 'https://amtechai.com/.well-known/amtech-signing-key.json';
 
-export type SignedSubjectType = 'skill' | 'content' | 'message' | 'repo-update' | 'status';
+export type SignedSubjectType = 'skill' | 'content' | 'message' | 'repo-update' | 'status' | 'registry-state';
 
 /**
  * Trust tiers (docs/skills/standard/02 + the ladder in 09). Ordered weakest→strongest.
@@ -154,7 +154,7 @@ export function signingKeyDocument(publicKey: KeyObject, validFrom: string): Sig
     fingerprint,
     validFrom,
     status: 'active',
-    purposes: ['skill', 'content', 'message', 'repo-update', 'status'],
+    purposes: ['skill', 'content', 'message', 'repo-update', 'status', 'registry-state'],
   };
 }
 

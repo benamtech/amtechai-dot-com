@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "amtech-signed-artifact/v2",
+  "certificateId": "amtech:registry-state:amtech-skills-tree-6-ed0e2db175dc:6715573e34e8b13fde1a1127",
+  "subjectType": "registry-state",
+  "subjectId": "amtech-skills-tree-6-ed0e2db175dc",
+  "owner": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "canonicalUrl": "https://amtechai.com/.well-known/authority/anchor/state.json",
+  "version": "6",
+  "digests": {
+    "sha256": "69d8b1697ce29d55af8ad20bd68d1ea0481d013872307173b0e4b287125c7ce3",
+    "sha3_512": "6715573e34e8b13fde1a11276c79d48a1001dc1094ea0c47be8036992b1e8516395139317f291434841548d4e7430e55a53918241ebb0bb50bc06e37537fa53e"
+  },
+  "issuedAt": "2026-06-20T00:00:00.000Z",
+  "issuer": {
+    "name": "AMTECH AI",
+    "url": "https://amtechai.com"
+  },
+  "signingKeyId": "ed25519:2ecc5136b54f570e698487d3",
+  "signingKeyUrl": "https://amtechai.com/.well-known/amtech-signing-key.json"
+}

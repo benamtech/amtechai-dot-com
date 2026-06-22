@@ -18,7 +18,7 @@ function arg(name: string, required = true): string | undefined {
 }
 
 const type = arg('type') as SignedSubjectType;
-if (!['content', 'message', 'repo-update', 'status', 'skill'].includes(type)) throw new Error(`Unsupported --type: ${type}`);
+if (!['content', 'message', 'repo-update', 'status', 'skill', 'registry-state'].includes(type)) throw new Error(`Unsupported --type: ${type}`);
 const subjectId = arg('id')!;
 const input = resolve(arg('file')!);
 const output = resolve(arg('output')!);
