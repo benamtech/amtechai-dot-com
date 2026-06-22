@@ -456,6 +456,22 @@ async function validateTransparencyLog() {
     const a = (JSON.parse(catalogRaw) as { authoritySth?: { rootHash?: string } }).authoritySth;
     if (a?.rootHash !== sth.rootHash) fail('catalog.json authoritySth.rootHash != sth.json rootHash.');
   }
+
+  // Broadcast anchor (docs/skills/standard/11): the AMTECH status certificate over the STH must verify with the
+  // SAME machinery as every skill cert (verifyCertificate) and bind the served STH bytes. Absent → skipped.
+  const [anchorRaw, anchorSig, sthBytes] = await Promise.all([
+    read('public/.well-known/authority/anchor/certificate.json'),
+    read('public/.well-known/authority/anchor/certificate.sig'),
+    read('public/.well-known/authority/sth.json', true),
+  ]);
+  if (typeof anchorRaw === 'string' && typeof anchorSig === 'string' && typeof keyRaw === 'string') {
+    const anchorCert = JSON.parse(anchorRaw) as ArtifactCertificate;
+    if (anchorCert.subjectType !== 'status' || anchorCert.subjectId !== 'authority-sth') fail('anchor: certificate is not a status/authority-sth artifact.');
+    if (!verifyCertificate(anchorCert, anchorSig, JSON.parse(keyRaw) as SigningKeyDocument)) failCode('authority', REASON_CODES.INVALID_SIGNATURE, 'anchor certificate signature does not verify.');
+    if (Buffer.isBuffer(sthBytes) && digest('sha256', sthBytes) !== anchorCert.digests.sha256) failCode('authority', REASON_CODES.DIGEST_MISMATCH, 'anchor certificate digest != served STH bytes.');
+  } else if (typeof anchorRaw === 'string' || typeof anchorSig === 'string') {
+    fail('anchor: certificate.json/certificate.sig incomplete.');
+  }
 }
 
 /**

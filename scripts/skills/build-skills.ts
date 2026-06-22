@@ -1042,6 +1042,9 @@ async function main() {
     await copyTree(resolve(authoritySrcDir, 'sth'), 'public/.well-known/authority/sth');
     await copyTree(resolve(authoritySrcDir, 'proofs'), 'public/.well-known/authority/proofs');
     merklePointer = { treeSize: sthObj.treeSize, rootHash: sthObj.rootHash, sthUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/sth.json` };
+    // Broadcast anchor (docs/skills/standard/11): the AMTECH status certificate over the STH, served as the
+    // canonical timestamped+signed object external witnesses/chains anchor. Emitted by sign-anchor.ts.
+    await copyTree(resolve(authoritySrcDir, 'anchor'), 'public/.well-known/authority/anchor');
   }
 
   // Revoked-skill set from the materialized authority state — the link-only fast-path revocation hint; the

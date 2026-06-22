@@ -11,8 +11,10 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { generateKeyPairSync } from 'node:crypto';
 import { verifySkill, type ResourceLoader } from '../../../src/lib/skills/verification/verifySkill.ts';
 import { REASON_CODES } from '../../../src/lib/skills/verification/reasonCodes.ts';
+import { derivePublicKey, loadPrivateKey, signCanonical, signingKeyDocument, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../../signing/amtech-signing.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const SLUG = 'okf-audit';
@@ -164,4 +166,37 @@ test('trust policy: requiring an unmet witness signature fails closed → STH_SI
   const verdict = await verifySkill(makeLoader(), { trustPolicy: { minWitnessSigs: 1 } });
   assert.equal(verdict.verdict, 'invalid');
   assert.ok(verdict.reasonCodes.includes(REASON_CODES.STH_SIGNATURE_INVALID), verdict.reasonCodes.join(', '));
+});
+
+test('federation: an independent witness co-signature (key resolved by URL) satisfies minWitnessSigs', async () => {
+  // Stand up an independent witness key (could live on any domain) and have it co-sign the STH's signed core.
+  const sth = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/sth.json')))!.toString('utf8'));
+  const priv = loadPrivateKey(generateKeyPairSync('ed25519').privateKey.export({ type: 'pkcs8', format: 'pem' }).toString());
+  const witnessKey = signingKeyDocument(derivePublicKey(priv), new Date().toISOString());
+  const core = { ...sth };
+  delete core.signatures;
+  delete core.anchors;
+  const witnessUrl = 'https://witness.example/keys/w1.json';
+  sth.signatures.push({ role: 'witness', signingKeyId: witnessKey.keyId, signingKeyUrl: witnessUrl, signature: signCanonical(core, priv) });
+  const base = makeLoader({ authoritySth: Buffer.from(JSON.stringify(sth)) });
+  const loader: ResourceLoader = { ...base, keyByUrl: async (url) => (url === witnessUrl ? Buffer.from(JSON.stringify(witnessKey)) : null) };
+  const verdict = await verifySkill(loader, { trustPolicy: { minWitnessSigs: 1 } });
+  assert.equal(verdict.verdict, 'verified', verdict.reasonCodes.join(', '));
+  assert.equal(verdict.evidence.authoritySth, 'pass');
+});
+
+test('broadcast anchor: the AMTECH status certificate verifies + binds the served STH bytes', async () => {
+  const [certRaw, sigRaw, keyRaw, sthBytes] = await Promise.all([
+    read(resolve(repoRoot, 'public/.well-known/authority/anchor/certificate.json')),
+    read(resolve(repoRoot, 'public/.well-known/authority/anchor/certificate.sig')),
+    read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')),
+    read(resolve(repoRoot, 'public/.well-known/authority/sth.json')),
+  ]);
+  assert.ok(certRaw && sigRaw && keyRaw && sthBytes, 'anchor artifacts present');
+  const cert = JSON.parse(certRaw!.toString('utf8')) as ArtifactCertificate;
+  assert.equal(cert.subjectType, 'status');
+  assert.equal(cert.subjectId, 'authority-sth');
+  assert.ok(verifyCertificate(cert, sigRaw!.toString('utf8'), JSON.parse(keyRaw!.toString('utf8')) as SigningKeyDocument), 'anchor cert Ed25519 verifies');
+  const { createHash } = await import('node:crypto');
+  assert.equal(createHash('sha256').update(sthBytes!).digest('hex'), cert.digests.sha256, 'anchor binds the served STH bytes');
 });

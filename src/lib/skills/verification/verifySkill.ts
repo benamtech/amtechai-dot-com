@@ -37,6 +37,9 @@ export type ResourceLoader = {
   signingKey: () => Promise<Buffer | null>;
   /** A key document by keyId (/.well-known/keys/<keyId>.json) — historical/active-at-issuance verification. */
   signingKeyById?: (keyId: string) => Promise<Buffer | null>;
+  /** A key document by absolute URL — used to resolve STH witness keys that may live on ANOTHER domain
+   *  (docs/skills/standard/11 — federation). Each witness signature carries its own `signingKeyUrl`. */
+  keyByUrl?: (url: string) => Promise<Buffer | null>;
   /** The catalog.json (set-integrity). Omit/return null to skip the catalog-root check. */
   catalog?: () => Promise<Buffer | null>;
   /** Another skill's published certificate.json by slug — needed to recompute the catalog root. */
@@ -101,13 +104,26 @@ function createDigestBase64(b: Buffer): string {
 }
 
 /**
- * External-anchor verification for an STH (docs/skills/standard/03 §Merkle, trust-minimization scaffolding #4)
- * — RESERVED. When OpenTimestamps→Bitcoin / Sigstore-Rekor / signed-git-tag anchoring of the Merkle root
- * ships, this confirms an anchor proves the root existed independently of AMTECH. Until then it is a no-op
- * returning false, so a policy with `requireAnchor: true` fails CLOSED — you cannot require what no verifier
- * can yet check. Default policy leaves `requireAnchor: false`, so this does not affect today's verdicts.
+ * External-anchor record on an STH: a claim that the Merkle root was committed to an independent system
+ * (a public chain like Bitcoin or Nockchain, a transparency log, a signed git tag) so its existence-at-time
+ * is witnessable WITHOUT trusting AMTECH (docs/skills/standard/11). `target` MUST equal the STH `rootHash`.
  */
-function verifyAnchor(_anchors: unknown[]): boolean {
+export type AnchorRecord = { type?: string; ref?: string; target?: string; anchoredAt?: string };
+export type AnchorVerifier = (anchor: AnchorRecord, rootHash: string) => boolean | Promise<boolean>;
+
+/**
+ * Pluggable anchor-verifier registry — the "breaker" the broadcasting backend hooks into. EMPTY today: we
+ * wire the mechanism end-to-end but broadcast nothing yet. When the operator starts publishing STH roots to a
+ * chain (Bitcoin / Nockchain / …), register `type → verifier` here and `requireAnchor: true` lights up. Until
+ * then verifyAnchor returns false, so requiring an anchor fails CLOSED (you cannot require an uncheckable claim).
+ */
+export const ANCHOR_VERIFIERS: Record<string, AnchorVerifier> = {};
+
+async function verifyAnchor(anchors: AnchorRecord[], rootHash: string): Promise<boolean> {
+  for (const a of anchors) {
+    const verify = a?.type ? ANCHOR_VERIFIERS[a.type] : undefined;
+    if (verify && a.target === rootHash && (await verify(a, rootHash))) return true;
+  }
   return false;
 }
 
@@ -398,8 +414,8 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
                     treeSize?: string;
                     rootHash?: string;
                     latestRecordHash?: string;
-                    signatures?: { role?: string; signingKeyId?: string; signature?: string }[];
-                    anchors?: unknown[];
+                    signatures?: { role?: string; signingKeyId?: string; signingKeyUrl?: string; signature?: string }[];
+                    anchors?: { type?: string }[];
                   };
                   const policy = {
                     minAuthoritySigs: options.trustPolicy?.minAuthoritySigs ?? 1,
@@ -414,17 +430,24 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
                   let witnessValid = 0;
                   for (const s of sth.signatures ?? []) {
                     if (!s.signature) continue;
-                    let sKey = key;
-                    if (s.signingKeyId && s.signingKeyId !== key.keyId && loader.signingKeyById) {
+                    // Resolve the signer's key. Witnesses (docs/skills/standard/11) carry their own signingKeyUrl
+                    // and may live on another domain → resolve by URL; the authority key resolves by id as before.
+                    let sKey: SigningKeyDocument | null = s.signingKeyId === key.keyId ? key : null;
+                    if (!sKey && s.role === 'witness' && s.signingKeyUrl && loader.keyByUrl) {
+                      const kb = await loader.keyByUrl(s.signingKeyUrl);
+                      if (kb) sKey = JSON.parse(kb.toString('utf8')) as SigningKeyDocument;
+                    }
+                    if (!sKey && s.signingKeyId && loader.signingKeyById) {
                       const kb = await loader.signingKeyById(s.signingKeyId);
                       if (kb) sKey = JSON.parse(kb.toString('utf8')) as SigningKeyDocument;
                     }
-                    if (verifyCanonical(core, s.signature, sKey)) {
+                    if (sKey && sKey.status !== 'revoked' && verifyCanonical(core, s.signature, sKey)) {
                       if (s.role === 'witness') witnessValid += 1;
                       else if (s.role === 'authority') authValid += 1;
                     }
                   }
-                  const anchorOk = !policy.requireAnchor || verifyAnchor(sth.anchors ?? []);
+                  // External-anchor check is structural for now (verifyAnchor); requireAnchor fails closed until live.
+                  const anchorOk = !policy.requireAnchor || (await verifyAnchor(sth.anchors ?? [], sth.rootHash ?? ''));
                   const headBound = sth.treeSize === String(entries.length) && sth.latestRecordHash === prevHash;
                   let inclusionOk = false;
                   if (loader.authorityInclusionProof && sth.treeSize && sth.rootHash) {

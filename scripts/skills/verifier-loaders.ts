@@ -16,6 +16,15 @@ export function localPublicLoader(publicDir: string, slug: string): ResourceLoad
     skillFile: (rel) => read(resolve(skillBase, rel)),
     signingKey: () => read(resolve(publicDir, '.well-known/amtech-signing-key.json')),
     signingKeyById: (keyId) => read(resolve(publicDir, '.well-known/keys', `${keyId.replace(/[:/]/g, '_')}.json`)),
+    // Resolve a key by URL against the local tree (same-origin witness keys under public/); cross-domain
+    // witnesses aren't reachable from the offline build → null (the witness simply isn't counted locally).
+    keyByUrl: (url) => {
+      try {
+        return read(resolve(publicDir, new URL(url).pathname.replace(/^\//, '')));
+      } catch {
+        return Promise.resolve(null);
+      }
+    },
     catalog: () => read(resolve(publicDir, 'skills/catalog.json')),
     siblingCertificate: (s) => read(resolve(publicDir, 'skills', s, 'certificate.json')),
     authority: () => read(resolve(publicDir, '.well-known/skill-authority.json')),
@@ -36,6 +45,8 @@ export function httpLoader(baseUrl: string): ResourceLoader {
     skillFile: (rel) => fetchBytes(`${base}/${rel}`),
     signingKey: () => fetchBytes(`${origin}/.well-known/amtech-signing-key.json`),
     signingKeyById: (keyId) => fetchBytes(`${origin}/.well-known/keys/${keyId.replace(/[:/]/g, '_')}.json`),
+    // Witness keys may live on ANOTHER domain (federation) — fetch the absolute URL the signature carries.
+    keyByUrl: (url) => fetchBytes(url),
     catalog: () => fetchBytes(`${origin}/skills/catalog.json`),
     siblingCertificate: (s) => fetchBytes(`${origin}/skills/${s}/certificate.json`),
     authority: () => fetchBytes(`${origin}/.well-known/skill-authority.json`),
