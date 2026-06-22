@@ -54,8 +54,11 @@ Re-signed twice (Context section, then the host-path backtick fix). Final: autho
   (`SKILL_REPOSITORY_COMMIT` → `239190ab…`). Pushed `3a3edc4..ec903db`.
 - Registry `skill-ca-v2-reconcile`: release commit `239190a` (mirrors source + certs + authority chain + STH +
   anchor + receipts; all `signed`; `validate.mjs --check` green). Pushed `a90753e..239190a`.
-- **Feature branches only — NOT merged to `main`, NO Netlify prod deploy.** Live `main` still serves authority
-  seq 5. Next: open lockstep PRs (registry + website) to merge to `main` when ready, preserving the pin.
+- **MERGED TO MAIN + DEPLOYED 2026-06-22** (lockstep merge commits, preserving the pin): registry PR #4 → main
+  `a159ea3`, website PR #55 → main `4b0b720`. Netlify deployed; live `/.well-known/authority/sth.json` serves
+  treeSize 10. LIVE-verified: `skills:verify https://amtechai.com/skills/estimate` →
+  verified·amtech-reviewed·bootstrap pass·authoritySth pass·**seq 9**; live `use.md` carries the `## Context` +
+  `## Reference Files` sections. Authority is now LIVE at **seq 9 / STH tree 10** (was seq 5).
 - Proofs housekeeping: `sign-authority.ts` `rm`s + regenerates `proofs/` for the current tree size only
   (`proofs/10/` = 10 inclusion + consistency-from-{6,7,8,9}); all signed `sth/<n>.json` archives retained; proofs
   are recomputable. Correct/minimal, same as production — not data loss.
