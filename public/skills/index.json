@@ -29,8 +29,8 @@
         "review": "https://amtechai.com/skills/okf-audit/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/okf-audit"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/okf-audit"
     },
     {
       "slug": "knowledge-graph-builder",
@@ -61,8 +61,8 @@
         "review": "https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/knowledge-graph-builder"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/knowledge-graph-builder"
     },
     {
       "slug": "estimate",
@@ -93,8 +93,8 @@
         "review": "https://amtechai.com/skills/estimate/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/estimate"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/estimate"
     },
     {
       "slug": "amtech-article-research-writer",
@@ -125,8 +125,8 @@
         "review": "https://amtechai.com/skills/amtech-article-research-writer/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/amtech-article-research-writer"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/amtech-article-research-writer"
     }
   ]
 }
