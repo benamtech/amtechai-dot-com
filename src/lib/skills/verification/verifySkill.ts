@@ -220,6 +220,33 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
     pass('sourcePackage');
   }
 
+  // Bootstrap binding (docs/skills/standard/04): the served agent-entry surfaces — use.md and agent.md, the
+  // first two files an agent fetches — must match the signed cert.bootstrap. This is what makes tampering with
+  // or omitting the front door a hard failure; they live outside sourcePackage/the archive, so nothing else
+  // covers them. Required for skill certs.
+  if (cert.subjectType === 'skill') {
+    if (!cert.bootstrap) {
+      fail(REASON_CODES.BOOTSTRAP_DIGEST_MISMATCH, 'bootstrap');
+    } else {
+      let bootstrapOk = true;
+      const bootstrapFiles: [string, { sha256: string; sha3_512: string }][] = [
+        ['use.md', cert.bootstrap.use],
+        ['agent.md', cert.bootstrap.agent],
+      ];
+      for (const [path, ref] of bootstrapFiles) {
+        const bytes = await loader.skillFile(path);
+        if (!bytes) {
+          fail(REASON_CODES.EVIDENCE_MISSING, 'bootstrap');
+          bootstrapOk = false;
+        } else if (sha256(bytes) !== ref.sha256 || digest('sha3-512', bytes) !== ref.sha3_512) {
+          fail(REASON_CODES.BOOTSTRAP_DIGEST_MISMATCH, 'bootstrap');
+          bootstrapOk = false;
+        }
+      }
+      if (bootstrapOk) pass('bootstrap');
+    }
+  }
+
   // Evidence-digest resolution (published evidence must match the cert's evidence refs).
   const att = cert.attestations;
   if (att) {

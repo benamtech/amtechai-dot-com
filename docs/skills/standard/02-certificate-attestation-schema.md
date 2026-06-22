@@ -12,6 +12,7 @@ Extend the certificate so a `verified` result proves **assurance** (tested + rev
 - **All v1 fields retained** (owner, canonicalUrl, repository, version, digests, issuedAt, issuer, signingKeyId/Url, certificateId, subjectType/Id). v1 certs remain valid and verify as trust tier `signed`.
 - **New `attestations` object** (subject is already the archive, bound by `digests`; `attestations` is the predicate).
 - **New top-level `sourcePackage` digest** — `{ sha256, sha3_512 }` over the canonical source-package payload. This is the **cross-repo verification anchor**: the website and the registry compute it independently from the same source files and must agree, so *one* certificate verifies in *both* repos with no second cert format (`packagePayloadDigest()` in `amtech-signing.ts`, mirrored in the registry's `validate.mjs`).
+- **New top-level `bootstrap` digests** — `{ use: { sha256, sha3_512 }, agent: { sha256, sha3_512 } }` over the GENERATED agent-entry surfaces `use.md` and `agent.md`. These are the **first two files an agent fetches**, yet they are website artifacts (not in `sourcePackage` or the archive), so without a signed digest nothing detects tampering with — or omission of — the front door. This field closes that gap; the link-first verifier (`04`) recomputes it over the served files. The registry's `validate.mjs` ignores it (these surfaces are website-only) but still verifies the whole signed certificate, so one certificate continues to verify in both repos.
 
 ## `attestations` (normative)
 
@@ -73,9 +74,10 @@ The verifier (`04`) reports only the tier the evidence + method support, never h
 4. each `evidence.sha256` resolves and recomputes equal.
 5. `permissions.scripts` equals the archive's executable set (machine-checked against archive contents).
 6. `sourcePackage` recomputes equal from the source files (cross-repo anchor).
-7. for `amtech-reviewed`: `review.result == approved` and `review.policyVersion == policyVersion` and reviewer id present.
+7. `bootstrap.use`/`bootstrap.agent` digests equal the freshly generated `use.md`/`agent.md` bytes (the signer reads the unsigned build's output before signing; the build re-asserts this so a drifted bootstrap is a stale-cert failure).
+8. for `amtech-reviewed`: `review.result == approved` and `review.policyVersion == policyVersion` and reviewer id present.
 
-Reason codes for each refusal are the canonical strings in `src/lib/skills/verification/reasonCodes.ts` (e.g. `COMMIT_MISMATCH`, `STALE_EVIDENCE`, `CONFORMANCE_FAILED`, `EVIDENCE_DIGEST_MISMATCH`, `UNDECLARED_SCRIPT`, `SOURCE_PACKAGE_MISMATCH`, `REVIEW_NOT_APPROVED`, `TIER_NOT_SUPPORTED`) — the same set the verifier (`04`) reports.
+Reason codes for each refusal are the canonical strings in `src/lib/skills/verification/reasonCodes.ts` (e.g. `STALE_EVIDENCE`, `CONFORMANCE_FAILED`, `EVIDENCE_DIGEST_MISMATCH`, `UNDECLARED_SCRIPT`, `SOURCE_PACKAGE_MISMATCH`, `BOOTSTRAP_DIGEST_MISMATCH`, `REVIEW_NOT_APPROVED`, `TIER_NOT_SUPPORTED`) — the same set the verifier (`04`) reports.
 
 Any failure → hard build failure (mirror `scripts/okf/validate-okf.ts` gate style). Absent evidence is a failure, not a downgrade — the author must either supply evidence or declare a lower tier.
 
@@ -87,7 +89,7 @@ Any failure → hard build failure (mirror `scripts/okf/validate-okf.ts` gate st
 
 ## Type changes (implementation pointer)
 
-Extend `ArtifactCertificate` in `scripts/signing/amtech-signing.ts` with the optional `attestations` object and bump the literal `schemaVersion`. `canonicalJson` already sorts keys + drops `undefined`, so signing/verifying the larger object needs no canonicalization change. Add the gate logic in `scripts/signing/sign-skills.ts` and assert published evidence + tier in `scripts/skills/validate-skills.ts`.
+Extend `ArtifactCertificate` in `scripts/signing/amtech-signing.ts` with the optional `attestations`, `sourcePackage`, and `bootstrap` objects (the latter additive within `v2`). `canonicalJson` already sorts keys + drops `undefined`, so signing/verifying the larger object needs no canonicalization change. Add the gate logic in `scripts/signing/sign-skills.ts` (read+hash `public/skills/<slug>/{use,agent}.md` into `bootstrap`) and assert published evidence + tier in `scripts/skills/validate-skills.ts`. The verifier recompute lives in `src/lib/skills/verification/verifySkill.ts` (`BOOTSTRAP_DIGEST_MISMATCH`).
 
 ## Related
 - `01-trust-model-and-threats.md` (threats this addresses), `04-link-first-verifier.md` (how a verifier consumes this), `07-phase-gates-and-acceptance.md` (gates).

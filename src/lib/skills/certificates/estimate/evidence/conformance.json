@@ -73,6 +73,42 @@
       "result": "pass"
     },
     {
+      "name": "bootstrap:taskVerb",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:inputs",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputsSummary",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputContract",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Customer",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Job",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Line Items",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Totals",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Assumptions",
+      "result": "pass"
+    },
+    {
       "name": "schema-parses:assets/estimate-schema.json",
       "result": "pass"
     },

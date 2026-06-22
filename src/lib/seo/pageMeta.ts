@@ -128,7 +128,31 @@ const AUTHORED: AuthoredEntry[] = [
           'Handles scheduling, intake, and the repetitive back-office work that slows owners down.',
         ],
       },
+      {
+        heading: 'This site is agent-readable.',
+        paragraphs: ['Structured content is available at these surfaces:'],
+        bullets: [
+          'Free agent skills — https://amtechai.com/skills',
+          'Knowledge graph (OKF bundle) — https://amtechai.com/okf/index.md',
+          'Agent orientation — https://amtechai.com/llms.txt',
+          'Published articles — https://amtechai.com/articles',
+        ],
+      },
     ],
+    agentMap: {
+      summary: 'AMTECH AI sets up AI employees for local service businesses — purchasing, quoting, scheduling, and admin.',
+      actions: [
+        'Start at /skills for free agent skills usable from one link.',
+        'Read /llms.txt for a structured orientation to this site.',
+        'Browse /okf/index.md for the full knowledge graph.',
+      ],
+      seeAlso: [
+        { title: 'Free agent skills', href: '/skills' },
+        { title: 'Knowledge graph (OKF bundle)', href: '/okf/index.md' },
+        { title: 'Agent orientation (llms.txt)', href: '/llms.txt' },
+        { title: 'Articles hub', href: '/articles' },
+      ],
+    },
   },
   {
     route: '/how-it-works',

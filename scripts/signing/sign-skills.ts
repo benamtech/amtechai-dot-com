@@ -136,6 +136,16 @@ for (const skill of skillDefinitions as SkillDefinition[]) {
   const sha3_512 = digest('sha3-512', archive);
   const attestations = await buildAttestations(skill, sourceFiles);
 
+  // Bind the generated agent-entry surfaces (the first two files an agent fetches). The unsigned build has
+  // already written them to public/; read+hash them so changing or omitting them breaks the signature.
+  const bootstrapDigests = async (name: 'use.md' | 'agent.md') => {
+    const bytes = await readFile(resolve(`public/skills/${skill.slug}/${name}`)).catch(() =>
+      fail(skill.slug, REASON_CODES.EVIDENCE_MISSING, `${name} missing — run the unsigned build before signing`),
+    );
+    return { sha256: digest('sha256', bytes), sha3_512: digest('sha3-512', bytes) };
+  };
+  const bootstrap = { use: await bootstrapDigests('use.md'), agent: await bootstrapDigests('agent.md') };
+
   const certificate: ArtifactCertificate = {
     schemaVersion: 'amtech-signed-artifact/v2',
     certificateId: certificateId('skill', skill.slug, sha3_512),
@@ -147,6 +157,7 @@ for (const skill of skillDefinitions as SkillDefinition[]) {
     version: skill.version,
     digests: { sha256, sha3_512 },
     sourcePackage,
+    bootstrap,
     issuedAt: `${skill.updated}T00:00:00.000Z`,
     issuer: existingKey.issuer,
     signingKeyId: existingKey.keyId,

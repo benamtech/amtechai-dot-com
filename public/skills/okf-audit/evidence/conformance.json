@@ -89,6 +89,50 @@
       "result": "pass"
     },
     {
+      "name": "bootstrap:taskVerb",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:inputs",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputsSummary",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputContract",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Summary",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Score",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Findings",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Missing Concepts And Edges",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Materialized View Opportunities",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Priority Fixes",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Copy-Paste Remediation Prompt",
+      "result": "pass"
+    },
+    {
       "name": "schema-parses:assets/report-schema.json",
       "result": "pass"
     },

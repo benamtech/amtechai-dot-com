@@ -81,6 +81,46 @@
       "result": "pass"
     },
     {
+      "name": "bootstrap:taskVerb",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:inputs",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputsSummary",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputContract",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Meta",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Unique Insight",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Entities",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Citations",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Draft",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:FAQ",
+      "result": "pass"
+    },
+    {
       "name": "schema-parses:assets/article-brief-schema.json",
       "result": "pass"
     },

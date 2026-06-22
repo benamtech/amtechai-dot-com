@@ -10,12 +10,12 @@
     "canonicalUrl": "https://amtechai.com/skills/knowledge-graph-builder",
     "sourceDirectory": "src/lib/skills/source/knowledge-graph-builder",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "d53b6c8c51bd95ccf09f80f8ed757c608aa56034",
+    "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/knowledge-graph-builder",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/skills/knowledge-graph-builder",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/index.json",
-    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/skills/knowledge-graph-builder"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/knowledge-graph-builder",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/knowledge-graph-builder"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/knowledge-graph-builder",
@@ -102,10 +102,10 @@
       "title": "Canonical skill instructions",
       "summary": "The primary reusable workflow for generating a knowledge graph for SEO and agent-readability.",
       "mediaType": "text/markdown; charset=utf-8",
-      "sha256": "0ce276e135775b66d29e64a2d4adb2838e1340051d966200e38016f993d5d887",
-      "sha3_512": "c4b57321350e2dc9efcc983c2d5b109754a9065504caae973efe133114d22067f9cee62d0dd1fce635bc6c874596d0b740580134f8a5c32e8fac4243b273bb86",
-      "integrity": "sha256-DOJ24TV3W2bSnmSi1K2yg44TQAUdlmIA44AW+ZPV2Ic=",
-      "size": 5951,
+      "sha256": "8ab320dd4a3b9ddb9b94bd1785d560dea06b4d802b83f4cff32ecb7339b5ff9a",
+      "sha3_512": "66938b1a99c4c807361cb2d5efde5d9f44dc5a0f707c61f47d99316c60f047c20a4da1d597fbce5ed440d313bea22fe5bd9984e15a5cef3da569248cd7f6a183",
+      "integrity": "sha256-irMg3Uo7ndublL0XhdVg3qBrTYArg/TP8y7Lczm1/5o=",
+      "size": 5941,
       "url": "https://amtechai.com/skills/knowledge-graph-builder/files/SKILL.md",
       "loadPolicy": "Always read before building a graph.",
       "permissions": []
@@ -113,17 +113,27 @@
   ],
   "archive": {
     "file": "knowledge-graph-builder-0.1.0.zip",
-    "sha256": "3bb768a6fd93de086802460c773f21134e39c456ba4af99dc421a7e86deb752e",
-    "sha3_512": "c97167ce5efbbb0acf5319e7caf168d85d3acd4d00d0ebb20e5c0e065749d321aa9f82de243f5960897edf570207b1b18905be8c12be7d3fb2b6cd4be1473876",
-    "integrity": "sha256-O7dopv2T3ghoAkYMdz8hE045xFa6SvmdxCGn6G3rdS4=",
+    "sha256": "965bdcb734684d9c88c02e31aec5f7d9a342177a86dd4bdabf716e32d42aab78",
+    "sha3_512": "fc84e67b4b192827965763522e2418197507524aa42c30e18c6646bd30f64c69971737506e7f70574fbbf52f79e0405eca80a530c1e5df54396637d61b465b67",
+    "integrity": "sha256-llvctzRoTZyIwC4xrsX32aNCF3qG3Uvav3FuMtQqq3g=",
     "url": "https://amtechai.com/skills/knowledge-graph-builder/knowledge-graph-builder-0.1.0.zip"
   },
   "sourcePackage": {
-    "sha256": "b90edacc410ef5f94e806dd06c8c987754bc2c72e2ac8cb164a63396b5eeaabd",
-    "sha3_512": "20c81717a51b4f119659a789a95ec4736248ae5f20c9705628157e41b3254381263dc57f584dc199aef0b7773dd7483cdc9e3f28e9085143b6bc0396bdf52582"
+    "sha256": "292238897abb124a6411434cabe1c9c624d679eb0cec535b5d31b88462a987dd",
+    "sha3_512": "7abc04654ab96b840f74a9c5d321cf7a5e891433462e4caf6f9c09095529308251beade990ead567f17eccda1f19518f4e85fe12d91364a0a1e25aded4dc9260"
+  },
+  "bootstrap": {
+    "use": {
+      "sha256": "afa8614d97532368ee00e47449ab000f4f2e8d43164d47a7f41a2a5c7eb0270e",
+      "sha3_512": "bf4ebba1df2259462a1938d2636c74d458bf98505fc9fe358a0c0af65708a8078ad787d2dd988a9ab9badac80dccbdf6b2acc779d535123403339ec79ba672e3"
+    },
+    "agent": {
+      "sha256": "a9c0162c01bf30524e10363d2ec554553db9bc428b503106f91ed5e43b1dd1c2",
+      "sha3_512": "2addb1d45131be19b0b964c5e3f6f5240476efafc413e83077cf032953066a7c5e3e6ba8697edafced04e8cfaf097c9e2fe665be76dc9d910843afc0d4f43489"
+    }
   },
   "certificate": {
-    "id": "amtech:skill:knowledge-graph-builder:c97167ce5efbbb0acf5319e7",
+    "id": "amtech:skill:knowledge-graph-builder:fc84e67b4b19282796576352",
     "schemaVersion": "amtech-signed-artifact/v2",
     "algorithm": "Ed25519",
     "certificateUrl": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
@@ -153,7 +163,7 @@
       "SHA3-512"
     ],
     "signed": true,
-    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/index.json",
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json",
     "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and the sourcePackage digest match this manifest and https://amtechai.com/.well-known/skill-authority.json. The cross-repo anchor is sourcePackage (the source byte digest), not a git commit."
   },
   "safety": {
@@ -167,7 +177,7 @@
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
     "depth": "graph-replay",
-    "authoritySequence": "2",
+    "authoritySequence": "5",
     "checkedAt": "2026-06-20T00:00:00.000Z",
     "recipeUrl": "https://amtechai.com/skills/knowledge-graph-builder/recipe.json"
   }

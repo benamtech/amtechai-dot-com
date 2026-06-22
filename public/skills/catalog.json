@@ -5,8 +5,8 @@
     "url": "https://amtechai.com"
   },
   "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
-  "generatedAt": "2026-06-21",
-  "catalogRoot": "899ed8ca828b0d11d89110fa5d5fe83f44999bd9ffc67980e2d1cb7ec8c26599",
+  "generatedAt": "2026-06-22",
+  "catalogRoot": "c829571e1f16dde556ad64ad53f6b8ba83873bc73843b5e72b2efe586e30f87e",
   "skills": [
     {
       "slug": "okf-audit",
@@ -25,7 +25,7 @@
         "trustTier": "amtech-reviewed",
         "method": "amtech-review",
         "depth": "graph-replay",
-        "authoritySequence": "2",
+        "authoritySequence": "5",
         "checkedAt": "2026-06-20T00:00:00.000Z"
       }
     },
@@ -46,7 +46,7 @@
         "trustTier": "amtech-reviewed",
         "method": "amtech-review",
         "depth": "graph-replay",
-        "authoritySequence": "2",
+        "authoritySequence": "5",
         "checkedAt": "2026-06-20T00:00:00.000Z"
       }
     },
@@ -67,7 +67,7 @@
         "trustTier": "amtech-reviewed",
         "method": "amtech-review",
         "depth": "graph-replay",
-        "authoritySequence": "2",
+        "authoritySequence": "5",
         "checkedAt": "2026-06-20T00:00:00.000Z"
       }
     },
@@ -88,7 +88,7 @@
         "trustTier": "amtech-reviewed",
         "method": "amtech-review",
         "depth": "graph-replay",
-        "authoritySequence": "2",
+        "authoritySequence": "5",
         "checkedAt": "2026-06-20T00:00:00.000Z"
       }
     }
