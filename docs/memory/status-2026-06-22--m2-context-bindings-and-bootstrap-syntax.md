@@ -43,11 +43,22 @@ Researched the Claude Skills authoring guide + ecosystem; applied the universal,
   base64 char, which can land in Ed25519 `==` padding bits and decode unchanged (no-op forgery) — surfaced by the
   new signature bytes. Now flips the FIRST char. Verifier itself was always correct.
 
-## Verification / release state (LOCAL, unpushed)
+## Verification / release state (COMMITTED + PUSHED to feature branches; lockstep)
 Re-signed twice (Context section, then the host-path backtick fix). Final: authority seq **9**, catalog root
 `322e22da…`, STH tree size **10** root `9cfc0227bed4c5ef…`, broadcast receipt **entry 4**
 (`amtech:registry-state:amtech-skills-tree-10-9cfc0227bed4:…`). `npm run skills:check` green (**87 tests**, was 71),
 `npm run typecheck` green, `skills:validate` green. Still `amtech-reviewed` (behavior tier not yet earned).
+
+**Released 2026-06-22 via `skills:publish --execute --push` (atomic cross-repo, SSH-signed, lockstep):**
+- Website `skill-ca-merkle-transparency`: feature commit `a4aefd0` (M0–M2) + provenance-pin commit `ec903db`
+  (`SKILL_REPOSITORY_COMMIT` → `239190ab…`). Pushed `3a3edc4..ec903db`.
+- Registry `skill-ca-v2-reconcile`: release commit `239190a` (mirrors source + certs + authority chain + STH +
+  anchor + receipts; all `signed`; `validate.mjs --check` green). Pushed `a90753e..239190a`.
+- **Feature branches only — NOT merged to `main`, NO Netlify prod deploy.** Live `main` still serves authority
+  seq 5. Next: open lockstep PRs (registry + website) to merge to `main` when ready, preserving the pin.
+- Proofs housekeeping: `sign-authority.ts` `rm`s + regenerates `proofs/` for the current tree size only
+  (`proofs/10/` = 10 inclusion + consistency-from-{6,7,8,9}); all signed `sth/<n>.json` archives retained; proofs
+  are recomputable. Correct/minimal, same as production — not data loss.
 
 ## Next (plan)
 M3 (eval harness: `eval/cases.json` + deterministic `score-estimate.ts` + `run-eval.md` + `behavior.config.json`),
