@@ -27,4 +27,14 @@ The first `skills:publish --execute` failed at the provenance-pin rebuild: `use.
 `npm run skills:publish -- --execute` then pushed both repos. Atomic, SSH-signed (key `SHA256:8DKLJqHsNPm/AKQW/LRzSQh5tfK6TkyfcZdAq+TaBtA`):
 - **registry** `amtech-skills-registry` @ `048c371` (branch `skill-ca-v2-reconcile`, pushed) — mirrors source+certs+authority chain, all skills `signed`, one signed commit.
 - **website** @ `209e6d2` (branch `skill-ca-m4-finish-m5`, pushed) — `SKILL_REPOSITORY_COMMIT` pinned to `048c371`; pin matches registry HEAD.
-- `registry/validate.mjs --check` green; 38 tests green; no `pending-resign`. Feature branches (not `main`), so this publishes for review, not a live deploy. The release overwrote the previously-stale `docs/agent-skills/**`-equivalent registry mirror with the corrected source.
+- `registry/validate.mjs --check` green; 38 tests green; no `pending-resign`. The release overwrote the previously-stale `docs/agent-skills/**`-equivalent registry mirror with the corrected source.
+
+## Merged to production (done this session)
+Both PRs merged to `main` in lockstep, **merge commits** (not squash) to preserve the pinned SHAs:
+- registry PR **#2** (`skill-ca-v2-reconcile` → `main`) MERGED → `048c371` is on registry `main`.
+- website PR **#52** (`skill-ca-m4-finish-m5` → `main`) MERGED → release on website `main`, `SKILL_REPOSITORY_COMMIT` = `048c371`. Lockstep verified: website-main pin resolves on registry-main.
+- This shipped the **entire M0–M5 skill-CA standard** (30 commits) + the bootstrap work, not just the fix. Website `main` merge triggers a Netlify production deploy (async; confirm the deploy log goes green).
+- **Live production verify confirmed:** `npm run skills:verify https://amtechai.com/skills/estimate` → `verified`, `graph-replay`, `amtech-reviewed`, every evidence `pass` incl. `bootstrap: pass`, `authoritySequence: 5`. The signed front door verifies end-to-end on the real domain.
+
+## Trust-model note (for whoever extends this)
+The crypto (Ed25519 over RFC-8785 canonical JSON; SHA-256+SHA3-512 content digests; hash-chained signed authority) proves internal consistency + one signature. The root of trust is **domain control / TLS+CA + the self-served signing key** at `/.well-known/` — not an independent anchor. No external transparency log; the registry "cross-witness" is same-owner, so it raises the bar against equivocation/rollback but isn't CT-grade. Attestations (`amtech-reviewed`, `static-contract`) are signed human/offline claims, not proof-of-behavior. Largest hardening opportunity if this ever needs to be trustless: an independent append-only witnessed log + an out-of-band key anchor.
