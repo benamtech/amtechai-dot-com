@@ -20,5 +20,11 @@ Branch `skill-ca-m4-finish-m5`. Builds on the v2 FEATURE-COMPLETE state (`status
 ## Verification
 Re-signed locally with `.amtech/signing-private-key.pem` (twice — once for binding, once after the SKILL.md footer edits). `npm run skills:check` green: validate + **38 tests** + consistency/chain gates. Authority chain at **seq 4**. Tamper/omission proven: baseline `verified` (evidence.bootstrap=pass) → tamper `use.md` → `invalid/BOOTSTRAP_DIGEST_MISMATCH` → remove `agent.md` → `invalid/EVIDENCE_MISSING` → restored → `verified`. Typecheck clean.
 
-## Still TODO (not run this session)
-- **Cross-repo release:** `npm run skills:publish -- --execute [--push]` (registry cloned at `~/Desktop/amtech-skills-registry`). Dry-run plan verified sane. This mirrors source+certs+chain into the registry and is the only outward step; it will also reconcile the stale `docs/agent-skills/**` registry-staging mirror (which still shows the old okf/kgb footers — a registry-side copy, not a website-signed surface).
+## Commit-independence fix (surfaced during the release)
+The first `skills:publish --execute` failed at the provenance-pin rebuild: `use.md`/`agent.md` embedded the **commit-pinned** GitHub URL (`skillRepositoryTreeUrl(skill)`), so re-pinning `SKILL_REPOSITORY_COMMIT` after signing changed the bootstrap bytes → `certificate.bootstrap` mismatch. This is fundamentally circular (the post-release commit can't live in data signed before that commit exists) and violates the standard's "no git commit in signed payloads" rule. Fix: the signed `use.md`/`agent.md` now reference GitHub by **branch** (`skillRepositoryTreeUrl(skill, false)` / `skillRepositoryRegistryUrl(skill, false)`); the exact pinned commit + per-file hashes stay in the unsigned `manifest.json`/authority (where the standard puts provenance). Verified: re-pinning the commit and rebuilding no longer breaks the bootstrap.
+
+## Released (done this session)
+`npm run skills:publish -- --execute` then pushed both repos. Atomic, SSH-signed (key `SHA256:8DKLJqHsNPm/AKQW/LRzSQh5tfK6TkyfcZdAq+TaBtA`):
+- **registry** `amtech-skills-registry` @ `048c371` (branch `skill-ca-v2-reconcile`, pushed) — mirrors source+certs+authority chain, all skills `signed`, one signed commit.
+- **website** @ `209e6d2` (branch `skill-ca-m4-finish-m5`, pushed) — `SKILL_REPOSITORY_COMMIT` pinned to `048c371`; pin matches registry HEAD.
+- `registry/validate.mjs --check` green; 38 tests green; no `pending-resign`. Feature branches (not `main`), so this publishes for review, not a live deploy. The release overwrote the previously-stale `docs/agent-skills/**`-equivalent registry mirror with the corrected source.
