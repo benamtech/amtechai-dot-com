@@ -22,6 +22,14 @@ Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agen
 6. Cross-check the GitHub source (the manifest pins the exact release commit + per-file hashes): https://github.com/benamtech/amtech-skills-registry/tree/main/skills/amtech-article-research-writer
 7. Load only the references or assets needed for the user's task.
 
+## Reference Files (progressive disclosure)
+
+Load a file only when the task needs it. Each link is one level deep, so read the whole file rather than a preview.
+
+- **Article brief schema** — Use when the user asks for JSON or a structured brief. → Read [`assets/article-brief-schema.json`](https://amtechai.com/skills/amtech-article-research-writer/files/assets/article-brief-schema.json)
+- **Draft template** — Read when assembling the draft. → Read [`references/draft-template.md`](https://amtechai.com/skills/amtech-article-research-writer/files/references/draft-template.md)
+- **Research workflow** — Read when gathering sources or synthesizing the unique insight. → Read [`references/research-workflow.md`](https://amtechai.com/skills/amtech-article-research-writer/files/references/research-workflow.md)
+
 ## Decision Tree
 
 - If you only have web or search access: use these linked markdown files in context and produce the brief now.

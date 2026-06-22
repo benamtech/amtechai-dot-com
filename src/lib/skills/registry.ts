@@ -20,6 +20,20 @@ export type SkillRepository = {
   commitSignature: 'verified' | 'unverified' | 'unsigned';
 };
 
+/**
+ * Context binding (standard/05 + 12): a skill declares named context slots it can consume, and a per-host map of
+ * where that host keeps each slot. Lets the same canonical skill "use the data the context already has" instead of
+ * re-asking. Optional + additive — absent means the generic ask-the-user behavior.
+ */
+export type SkillContextBinding = {
+  /** Slot name the skill consumes, e.g. "rates". */
+  slot: string;
+  /** What the slot is, for the host-agnostic Context section. */
+  description: string;
+  /** Per-host source hints: host id -> where that host keeps this slot. */
+  hosts: Record<string, string>;
+};
+
 export type SkillDefinition = {
   slug: string;
   name: string;
@@ -47,13 +61,17 @@ export type SkillDefinition = {
     riskNote: string;
   };
   files: SkillFileDefinition[];
+  /** Optional context slots + per-host source map (standard/05 + 12). Absent = generic ask-the-user. */
+  contextBindings?: SkillContextBinding[];
+  /** Optional ISO date (YYYY-MM-DD) of the last authoring review — drives the `10` freshness gate. */
+  lastReviewed?: string;
 };
 
 export const SKILL_BASE_PATH = '/skills';
 export const SKILL_SITE_ORIGIN = 'https://amtechai.com';
 export const SKILL_AUTHORITY_URL = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`;
 export const SKILL_REPOSITORY_URL = 'https://github.com/benamtech/amtech-skills-registry';
-export const SKILL_REPOSITORY_COMMIT = 'a90753e4431acbe17a0a862f981607643282595b';
+export const SKILL_REPOSITORY_COMMIT = '239190ab675407834c0ceef47ebbed7d148b1aca';
 
 function registryRepository(slug: string): SkillRepository {
   return {
@@ -74,8 +92,9 @@ export const skillDefinitions: SkillDefinition[] = [
     title: 'OKF Audit Skill',
     version: '0.1.0',
     updated: '2026-06-19',
+    lastReviewed: '2026-06-19',
     description:
-      'A consumable AMTECH skill for auditing articles, websites, drafts, sitemaps, and OKF bundles for AI-readable knowledge quality.',
+      'Use when auditing an article, website, draft, sitemap, llms.txt file, markdown bundle, or OKF bundle for AI-readable knowledge quality, OKF-style concept packaging, entity coverage, citations, internal links, materialized views, and AMTECH knowledge graph improvements.',
     summary:
       'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to audit content for OKF-style structure, agent-readable surfaces, entity coverage, citations, links, and materialized views.',
     audience: ['AI agents', 'content strategists', 'technical marketers', 'business owners', 'SEO operators'],
@@ -165,8 +184,9 @@ export const skillDefinitions: SkillDefinition[] = [
     title: 'Knowledge Graph Builder',
     version: '0.1.0',
     updated: '2026-06-19',
+    lastReviewed: '2026-06-19',
     description:
-      'A consumable AMTECH skill that generates a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic.',
+      'Use when you need to generate a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic — typed entity nodes, relationship edges with reasons, the priority concepts worth their own pages, an internal-linking plan, and JSON-LD scaffolding. The output is the entity-SEO and agent-readability foundation a site publishes against.',
     summary:
       'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a business or site into typed entity nodes, relationship edges with reasons, the pillar pages worth publishing, an internal-linking plan, and JSON-LD scaffolding.',
     audience: ['AI agents', 'SEO strategists', 'content operators', 'technical marketers', 'business owners'],
@@ -250,8 +270,9 @@ export const skillDefinitions: SkillDefinition[] = [
     title: 'Estimate Skill',
     version: '1.0.0',
     updated: '2026-06-20',
+    lastReviewed: '2026-06-20',
     description:
-      'A consumable AMTECH skill that builds a clean, structured job estimate from a described job and the rates you provide.',
+      'Use when creating, drafting, pricing, or reviewing a job estimate or quote. Builds line items, computes totals, and returns a clean structured estimate from a described job and the rates you provide.',
     summary:
       'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a job description and your rates into a structured estimate: line items, totals, adjustments, and flagged assumptions.',
     audience: ['AI agents', 'service business owners', 'estimators', 'operations staff', 'office managers'],
@@ -265,6 +286,38 @@ export const skillDefinitions: SkillDefinition[] = [
     inputs: ['a job description', 'the rates you provide', 'optional measurements, quantities, or materials'],
     outputContract: ['Customer', 'Job', 'Line Items', 'Totals', 'Assumptions'],
     outputsSummary: 'a structured estimate: customer, job, line items, totals with adjustments, and flagged assumptions',
+    contextBindings: [
+      {
+        slot: 'rates',
+        description: 'the labor, material, and unit prices the estimate is priced from',
+        hosts: {
+          generic: 'ask the user for the rates',
+          hermes: 'your business brain (`./brain/business-brain.md`) and any rates saved in memory',
+          'claude-code': 'the working tree — `AGENTS.md`, a rate sheet, or pricing config',
+          codex: 'the default prompt context and any attached rate files',
+        },
+      },
+      {
+        slot: 'customer',
+        description: 'who the estimate is for (name, contact, job address)',
+        hosts: {
+          generic: 'ask the user for the customer',
+          hermes: 'the current message thread or saved memory',
+          'claude-code': 'the task description or repo notes',
+          codex: 'the conversation',
+        },
+      },
+      {
+        slot: 'tax_markup_rules',
+        description: 'standing tax, markup, discount, or minimum-charge rules to apply to the totals',
+        hosts: {
+          generic: 'ask the user, or omit if none apply',
+          hermes: 'your business brain (`./brain/business-brain.md`)',
+          'claude-code': 'repo config or `AGENTS.md`',
+          codex: 'the default prompt context',
+        },
+      },
+    ],
     sourceDir: 'src/lib/skills/source/estimate',
     repository: registryRepository('estimate'),
     safety: {
@@ -297,6 +350,13 @@ export const skillDefinitions: SkillDefinition[] = [
         loadPolicy: 'Read when deciding how to price line items or handle a missing rate.',
       },
       {
+        path: 'hosts/hermes.md',
+        role: 'reference',
+        title: 'Hermes host hint',
+        summary: 'Where an AMTECH Hermes employee finds estimate context (rates, customer, tax/markup rules) and how to write back newly-learned rates.',
+        loadPolicy: 'Read when running as an AMTECH Hermes employee with a business brain and memory.',
+      },
+      {
         path: 'assets/estimate-schema.json',
         role: 'asset',
         title: 'Estimate schema',
@@ -318,8 +378,9 @@ export const skillDefinitions: SkillDefinition[] = [
     title: 'Article Research Writer',
     version: '1.0.0',
     updated: '2026-06-20',
+    lastReviewed: '2026-06-20',
     description:
-      'A consumable AMTECH skill that researches, plans, and drafts an information-gain article brief from a topic, notes, and sources.',
+      'Use when researching, planning, and drafting an information-gain article from a topic, notes, sources, or rough positioning. Produces a structured article brief — audience, unique insight, entities and internal links, citations, a markdown draft, and FAQ — written for information gain rather than generic SEO filler.',
     summary:
       'Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a topic and your sources into a structured article brief: audience, unique insight, entities and internal links, citations, a markdown draft, and FAQ.',
     audience: ['AI agents', 'content operators', 'technical marketers', 'founders', 'SEO strategists'],

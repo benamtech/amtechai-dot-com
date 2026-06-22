@@ -42,9 +42,30 @@ export const REASON_CODES = {
   STH_SIGNATURE_INVALID: 'STH_SIGNATURE_INVALID',         // signed tree head fails the trust policy (no valid authority sig)
   INCLUSION_PROOF_INVALID: 'INCLUSION_PROOF_INVALID',     // the head record's Merkle inclusion proof did not verify
   CONSISTENCY_PROOF_INVALID: 'CONSISTENCY_PROOF_INVALID', // STH is not an append-only extension of a pinned earlier STH
+  // Behavioral verification (docs/skills/standard/10) — reserved/piped now, wired in M4.
+  BEHAVIOR_NOT_PROVEN: 'BEHAVIOR_NOT_PROVEN',             // trustTier behavior-verified but no passing behavior attestation
+  BEHAVIOR_UPLIFT_INSUFFICIENT: 'BEHAVIOR_UPLIFT_INSUFFICIENT', // deltaPp <= behaviorPolicy.minDeltaPp
+  // Credential brokering + entitlement (docs/skills/standard/13 + 02) — reserved/piped now, wired with the first
+  // credentialed/paid skill. The CA authorizes; the host brokers/enforces.
+  UNDECLARED_SECRET: 'UNDECLARED_SECRET',                 // a script uses a credential the signed manifest didn't declare
+  SECRET_SCOPE_MISMATCH: 'SECRET_SCOPE_MISMATCH',         // requested scope exceeds the declared credentials manifest
+  ENTITLEMENT_REQUIRED: 'ENTITLEMENT_REQUIRED',           // premium skill used without a valid entitlement certificate
+  ENTITLEMENT_INVALID: 'ENTITLEMENT_INVALID',             // entitlement cert expired/revoked/holder-mismatched
+  HOLDER_NOT_ACTIVE: 'HOLDER_NOT_ACTIVE',                 // client/holder certificate suspended/revoked
 } as const;
 
 export type ReasonCode = (typeof REASON_CODES)[keyof typeof REASON_CODES];
 
 /** Default signed-evidence freshness window (docs/skills/standard/02 — per-policy override allowed). */
 export const MAX_EVIDENCE_AGE_DAYS = 90;
+
+/**
+ * Authoring-review freshness window (docs/skills/standard/10 — "skills decay"). A skill's `lastReviewed` must be
+ * within this many days of the release date for the authoring-discipline gate to pass. Relative to the release
+ * (not wall-clock), so the conformance evidence stays deterministic + byte-stable.
+ */
+export const MAX_AUTHORING_REVIEW_AGE_DAYS = 365;
+
+/** Behavioral uplift policy (docs/skills/standard/10). Gate at any real uplift now; raise minDeltaPp later as a
+ *  policy event without a schema change. Piped for M4; unused until the behavior tier wires in. */
+export const BEHAVIOR_POLICY = { minDeltaPp: 0 } as const;

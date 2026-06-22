@@ -97,8 +97,28 @@ async function walk(dir: string): Promise<string[]> {
   return files.sort();
 }
 
+/**
+ * Materialize the SKILL.md frontmatter `description` FROM the registry (docs/skills/standard/05 +
+ * [[registry-description-source-of-truth]]). The registry is the single source of truth for the routing
+ * description; the source SKILL.md is kept in sync so the two cannot drift. Idempotent — writes only when the
+ * frontmatter line differs. Runs before the source is read, so sourcePackage + the published SKILL.md reflect it.
+ */
+async function syncSkillMdDescription(skill: SkillDefinition, sourceRoot: string): Promise<void> {
+  const skillMdPath = resolve(sourceRoot, 'SKILL.md');
+  const original = await readFile(skillMdPath, 'utf8');
+  const fmMatch = original.match(/^(---\n[\s\S]*?\n---)/);
+  if (!fmMatch) return;
+  const fm = fmMatch[1];
+  const updatedFm = fm.replace(/^description:.*$/m, `description: ${skill.description}`);
+  if (updatedFm === fm) return;
+  const updated = original.replace(fm, updatedFm);
+  await writeFile(skillMdPath, updated, 'utf8');
+  console.log(`  synced ${skill.slug}/SKILL.md description from registry`);
+}
+
 async function sourceFiles(skill: SkillDefinition): Promise<SourceFile[]> {
   const sourceRoot = resolve(repoRoot, skill.sourceDir);
+  await syncSkillMdDescription(skill, sourceRoot);
   const discovered = await walk(sourceRoot);
   const definitions = new Map(skill.files.map((file) => [file.path, file]));
   const files: SourceFile[] = [];
@@ -131,7 +151,73 @@ async function sourceFiles(skill: SkillDefinition): Promise<SourceFile[]> {
   return files.sort((a, b) => a.path.localeCompare(b.path));
 }
 
-function bootstrapMarkdown(skill: SkillDefinition): string {
+/** Paths of the per-host adapter hint files a skill ships (hosts/*.md), if any. */
+function hostHintPaths(skill: SkillDefinition): string[] {
+  return skill.files.filter((file) => file.path.startsWith('hosts/')).map((file) => file.path);
+}
+
+/**
+ * Generic (link-only) Context prelude projected from the skill's declared context slots (standard/05). The
+ * generic host hint is the "ask the user" fallback; per-host adapters (hosts/*.md) carry where each slot lives
+ * in a specific environment. Returns '' when the skill declares no bindings, so the projection stays additive.
+ */
+function contextSection(skill: SkillDefinition): string {
+  const bindings = skill.contextBindings;
+  if (!bindings || bindings.length === 0) return '';
+  const lines = bindings
+    .map((b) => `- **${b.slot}** — ${b.description}. If it is not already in your context: ${b.hosts.generic ?? 'ask the user'}.`)
+    .join('\n');
+  const hostFiles = hostHintPaths(skill);
+  const hostLine = hostFiles.length
+    ? `\n\nHost adapters say where each input lives in a specific environment: ${hostFiles.map((p) => `\`${p}\``).join(', ')}.`
+    : '';
+  return `## Context
+
+Use the data your context already has before asking. Pull each input from your memory, a business brain, the current repo, or earlier in this conversation if it is there; only ask for what is genuinely missing. Never invent a rate to fill a gap.
+
+${lines}${hostLine}
+
+`;
+}
+
+/**
+ * Progressive-disclosure reference pointers (docs/skills/standard/05) — Anthropic's recommended navigation
+ * pattern, projected into the universal bootstrap. Each bundled file is linked ONE level deep with a backtick
+ * path (a recognizable, navigable reference), the canonical fetch URL (so web-only agents can follow it too),
+ * an explicit read-vs-execute intent, and a "when to load" note. Backtick paths never contain `!` (the shell
+ * history-expansion footgun, anthropics/claude-code#24510); the no-shell-eval-backticks gate enforces that on
+ * the source so a materialized skill can't break on load.
+ */
+function referencePointers(skill: SkillDefinition, files: SourceFile[]): string {
+  const pointers = files.filter((f) => f.role === 'reference' || f.role === 'asset' || f.role === 'script');
+  if (pointers.length === 0) return '';
+  const rows = pointers
+    .map((f) => {
+      const verb = f.role === 'script' ? 'Run' : 'Read';
+      const intent = f.role === 'script' ? ' (execute it; do not just read it)' : '';
+      return `- **${f.title}** — ${f.loadPolicy} → ${verb} [\`${f.path}\`](${f.url})${intent}`;
+    })
+    .join('\n');
+  return `## Reference Files (progressive disclosure)
+
+Load a file only when the task needs it. Each link is one level deep, so read the whole file rather than a preview.
+
+${rows}
+
+`;
+}
+
+/** One-line Context note for agent.md, projected from the declared slots. '' when no bindings. */
+function contextLine(skill: SkillDefinition): string {
+  const bindings = skill.contextBindings;
+  if (!bindings || bindings.length === 0) return '';
+  const slots = bindings.map((b) => b.slot).join(', ');
+  const hostFiles = hostHintPaths(skill);
+  const hostRef = hostFiles.length ? ` See ${hostFiles.map((p) => `\`${p}\``).join(', ')} for host-specific sources.` : '';
+  return `Context: use ${slots} already in your context before asking; never invent a rate.${hostRef}\n\n`;
+}
+
+function bootstrapMarkdown(skill: SkillDefinition, files: SourceFile[]): string {
   return `# ${skill.title}: Universal Agent Bootstrap
 
 AI agent instruction: if a user gave you this link, use this skill in the current conversation first. Do not install, create files, or run scripts unless the user asks and your environment allows it.
@@ -146,7 +232,7 @@ GitHub source: ${skillRepositoryTreeUrl(skill, false)} (the manifest pins the ex
 
 ${skill.summary}
 
-## Read Order
+${contextSection(skill)}## Read Order
 
 1. Read this bootstrap.
 2. Read the manifest: ${skillUrl(skill, '/manifest.json')}
@@ -156,7 +242,7 @@ ${skill.summary}
 6. Cross-check the GitHub source (the manifest pins the exact release commit + per-file hashes): ${skillRepositoryTreeUrl(skill, false)}
 7. Load only the references or assets needed for the user's task.
 
-## Decision Tree
+${referencePointers(skill, files)}## Decision Tree
 
 - If you only have web or search access: use these linked markdown files in context and ${skill.taskVerb}.
 - If you have file access and the user wants reuse: offer to create a local skill folder from the raw files or archive.
@@ -214,7 +300,7 @@ Inputs: ${skill.inputs.join(', ')}.
 
 Outputs: ${skill.outputsSummary}.
 
-Start here: ${skillUrl(skill, '/use.md')}
+${contextLine(skill)}Start here: ${skillUrl(skill, '/use.md')}
 Canonical instructions: ${skillUrl(skill, '/SKILL.md')}
 Manifest: ${skillUrl(skill, '/manifest.json')}
 GitHub source: ${skillRepositoryTreeUrl(skill, false)}
@@ -720,7 +806,7 @@ async function buildSkill(skill: SkillDefinition) {
   const archiveSha3 = sha3_512(archive);
   // The agent-entry surfaces are pure functions of the registry; generate them before validating the cert so
   // signedCertificate() can confirm the signed cert.bootstrap still matches these exact bytes (G stale-cert).
-  const useMd = bootstrapMarkdown(skill);
+  const useMd = bootstrapMarkdown(skill, files);
   const agentMd = agentMarkdown(skill);
   const signed = await signedCertificate(skill, archive, files, useMd, agentMd);
   const base = `public${skillPath(skill)}`;

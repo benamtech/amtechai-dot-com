@@ -76,6 +76,9 @@ The verifier (`04`) reports only the tier the evidence + method support, never h
 6. `sourcePackage` recomputes equal from the source files (cross-repo anchor).
 7. `bootstrap.use`/`bootstrap.agent` digests equal the freshly generated `use.md`/`agent.md` bytes (the signer reads the unsigned build's output before signing; the build re-asserts this so a drifted bootstrap is a stale-cert failure).
 8. for `amtech-reviewed`: `review.result == approved` and `review.policyVersion == policyVersion` and reviewer id present.
+9. for `behavior-verified`: `attestations.behavior` present with `method == "behavior-eval"`, `result == "pass"`, `deltaPp > behaviorPolicy.minDeltaPp`, fresh `ranAt`, and `behavior.evidence`/`behavior.evalSet` digests resolve (the eval set is part of `sourcePackage`). Full schema + metric in `10-behavioral-verification-and-evals.md`.
+
+The offline `conformance` (`static-contract`) checks now also include **authoring-discipline** sub-checks (description quality + trigger phrase, SKILL.md body length, reference depth, evidence-first Output Contract, `lastReviewed` freshness, and `no-shell-eval-backticks` — no inline backtick code span containing `!`, which triggers shell history-expansion and can break a skill on load, anthropics/claude-code#24510) — the effectiveness wisdom + the bootstrap-loadability conventions encoded as recomputable gates. See `run-conformance.ts`, `05` (bootstrap syntax conventions), and `10`.
 
 Reason codes for each refusal are the canonical strings in `src/lib/skills/verification/reasonCodes.ts` (e.g. `STALE_EVIDENCE`, `CONFORMANCE_FAILED`, `EVIDENCE_DIGEST_MISMATCH`, `UNDECLARED_SCRIPT`, `SOURCE_PACKAGE_MISMATCH`, `BOOTSTRAP_DIGEST_MISMATCH`, `REVIEW_NOT_APPROVED`, `TIER_NOT_SUPPORTED`) — the same set the verifier (`04`) reports.
 
@@ -91,5 +94,37 @@ Any failure → hard build failure (mirror `scripts/okf/validate-okf.ts` gate st
 
 Extend `ArtifactCertificate` in `scripts/signing/amtech-signing.ts` with the optional `attestations`, `sourcePackage`, and `bootstrap` objects (the latter additive within `v2`). `canonicalJson` already sorts keys + drops `undefined`, so signing/verifying the larger object needs no canonicalization change. Add the gate logic in `scripts/signing/sign-skills.ts` (read+hash `public/skills/<slug>/{use,agent}.md` into `bootstrap`) and assert published evidence + tier in `scripts/skills/validate-skills.ts`. The verifier recompute lives in `src/lib/skills/verification/verifySkill.ts` (`BOOTSTRAP_DIGEST_MISMATCH`).
 
+## Entitlement certificates (`subjectType: 'entitlement'`)
+
+The same envelope certifies that a holder is **entitled** to a (premium) skill — "this skill was paid for." No new
+crypto; a new subject type + a verifier check. Ed25519-signed by the AMTECH key like any artifact:
+
+```jsonc
+{
+  "schemaVersion": "amtech-signed-artifact/v2",
+  "subjectType": "entitlement",
+  "subjectId": "amtech:entitlement:acme-plumbing:parts-ordering",
+  "owner": { "id": "amtech:client:acme-plumbing", "name": "Acme Plumbing" },
+  "entitlement": {
+    "holderId": "amtech:holder:client_8f3a",        // ties to the client/holder cert (13)
+    "skill": { "slug": "parts-ordering", "minVersion": "1.0.0" },  // or a specific certificateId
+    "orderRef": "stripe:pi_...",                     // provenance of the purchase
+    "issuedAt": "2026-06-22T...", "expiresAt": "2027-06-22T...",
+    "status": "active"                                // active | expired | revoked
+  }
+}
+```
+
+Gate (host/verifier): a premium skill unlocks only with a valid, unexpired, non-revoked entitlement whose
+`holderId` matches the running agent's holder cert (`13`) and whose `skill` covers the requested slug/version.
+Revocation/expiry are authority events (`03`). Free skills (e.g. `estimate`) carry no entitlement requirement.
+
+## Behavior attestation (`subjectType: skill`)
+
+`attestations.behavior` records measured uplift over the prompt-only baseline and earns `behavior-verified`. Full
+envelope, metric (`deltaPp`/`normalizedGain`), eval-set format, harness, and gates are normative in
+`10-behavioral-verification-and-evals.md`. It binds by digest like `conformance`/`review`, but is offline-measured
+(not byte-equality re-run) — reproducibility comes from the published, `sourcePackage`-bound eval set + scorer.
+
 ## Related
-- `01-trust-model-and-threats.md` (threats this addresses), `04-link-first-verifier.md` (how a verifier consumes this), `07-phase-gates-and-acceptance.md` (gates).
+- `01-trust-model-and-threats.md` (threats this addresses), `04-link-first-verifier.md` (how a verifier consumes this), `07-phase-gates-and-acceptance.md` (gates), `10` (behavior attestation), `12` (capability from `permissions`), `13` (holder + entitlement certs).

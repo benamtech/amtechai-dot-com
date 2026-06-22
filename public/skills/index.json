@@ -5,7 +5,7 @@
       "name": "okf-audit",
       "title": "OKF Audit Skill",
       "version": "0.1.0",
-      "description": "A consumable AMTECH skill for auditing articles, websites, drafts, sitemaps, and OKF bundles for AI-readable knowledge quality.",
+      "description": "Use when auditing an article, website, draft, sitemap, llms.txt file, markdown bundle, or OKF bundle for AI-readable knowledge quality, OKF-style concept packaging, entity coverage, citations, internal links, materialized views, and AMTECH knowledge graph improvements.",
       "url": "https://amtechai.com/skills/okf-audit",
       "use": "https://amtechai.com/skills/okf-audit/use.md",
       "manifest": "https://amtechai.com/skills/okf-audit/manifest.json",
@@ -16,7 +16,7 @@
         "id": "amtech:skill:okf-audit:c251106617a9dc103c8d6eed",
         "url": "https://amtechai.com/skills/okf-audit/certificate.json",
         "signature": "https://amtechai.com/skills/okf-audit/certificate.sig",
-        "sha256": "15773ec04408665947a5c89ab7f3c76a015c50819731dbf749c7c87cae92636f"
+        "sha256": "f2da75257765e8ba4e3c6becdab8cc648f9c3e856be65c3bafeba12ad52d6f67"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
@@ -29,15 +29,15 @@
         "review": "https://amtechai.com/skills/okf-audit/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/okf-audit"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/okf-audit"
     },
     {
       "slug": "knowledge-graph-builder",
       "name": "knowledge-graph-builder",
       "title": "Knowledge Graph Builder",
       "version": "0.1.0",
-      "description": "A consumable AMTECH skill that generates a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic.",
+      "description": "Use when you need to generate a large knowledge graph for SEO and AI-readable content from a business, website, product, or topic — typed entity nodes, relationship edges with reasons, the priority concepts worth their own pages, an internal-linking plan, and JSON-LD scaffolding. The output is the entity-SEO and agent-readability foundation a site publishes against.",
       "url": "https://amtechai.com/skills/knowledge-graph-builder",
       "use": "https://amtechai.com/skills/knowledge-graph-builder/use.md",
       "manifest": "https://amtechai.com/skills/knowledge-graph-builder/manifest.json",
@@ -48,7 +48,7 @@
         "id": "amtech:skill:knowledge-graph-builder:fc84e67b4b19282796576352",
         "url": "https://amtechai.com/skills/knowledge-graph-builder/certificate.json",
         "signature": "https://amtechai.com/skills/knowledge-graph-builder/certificate.sig",
-        "sha256": "3ac051eb7e54da18fa558a8cac10b512cc385d802dbc5e1ac99a230fcf1d280c"
+        "sha256": "74f92c7452548fcc0461aa81248311992a9e4503ccbba19a766026e20624f7b5"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
@@ -61,47 +61,47 @@
         "review": "https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/knowledge-graph-builder"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/knowledge-graph-builder"
     },
     {
       "slug": "estimate",
       "name": "estimate",
       "title": "Estimate Skill",
       "version": "1.0.0",
-      "description": "A consumable AMTECH skill that builds a clean, structured job estimate from a described job and the rates you provide.",
+      "description": "Use when creating, drafting, pricing, or reviewing a job estimate or quote. Builds line items, computes totals, and returns a clean structured estimate from a described job and the rates you provide.",
       "url": "https://amtechai.com/skills/estimate",
       "use": "https://amtechai.com/skills/estimate/use.md",
       "manifest": "https://amtechai.com/skills/estimate/manifest.json",
       "archive": "https://amtechai.com/skills/estimate/estimate-1.0.0.zip",
-      "archiveSha256": "b641e6fc19eff2341b774a281740f62de8a2c2b30f81fd219f20cc382d5e8596",
-      "archiveSha3_512": "d325bfc1bde45b616eeb25ae474d196336d48826137304179a46010cce81c9410b1e6136815b33ef49a1a37b1d81bc4172b6458c2e8306a98d4225b32c76fe82",
+      "archiveSha256": "19ee6c98756337996a4bc6109afc361015d81e0c3e30894850b719e8e7f03ac9",
+      "archiveSha3_512": "7d4f23261777c9c85990f66e7614ac85bbd25d258c440d3f8371d6503fb7c67d95df08c33fab5e77d5d8bfa9e6ea67c4ec41e750befe93b7c752505cdb7ef075",
       "certificate": {
-        "id": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
+        "id": "amtech:skill:estimate:7d4f23261777c9c85990f66e",
         "url": "https://amtechai.com/skills/estimate/certificate.json",
         "signature": "https://amtechai.com/skills/estimate/certificate.sig",
-        "sha256": "9ec0d8364318255a3d16262fb003b01e9d15b445bad2a8064e4f1ab8ac7d42c1"
+        "sha256": "5efa81dd1e804541020e3a97a24853156ee74802be1e8efe6c163f8708758d39"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
       "sourcePackage": {
-        "sha256": "27480e331ca991fdc9e9d8e442b7e6c1b3c688e7e5c6495d06a21bbcda0722c7",
-        "sha3_512": "972cc1334411126ca06e1b93944d3c21fd6f5291c4b3e3083faf460455d8cc2fca2fd8f48924b2790844f32f5622ce02bbf9b281069171e6464e9058bee5ad1e"
+        "sha256": "61015929858722f1040802f0e7e73362663d22c90a786e68e843e22bb8b90b4f",
+        "sha3_512": "d32604cc811b3742f4aea1d4df5256c9115551d801d4b1adfaf947f311eb26fe2f3f02062ccb53925ca3a915cac51112c7aeac3090387a309fc9365bee55d673"
       },
       "evidence": {
         "conformance": "https://amtechai.com/skills/estimate/evidence/conformance.json",
         "review": "https://amtechai.com/skills/estimate/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/estimate"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/estimate"
     },
     {
       "slug": "amtech-article-research-writer",
       "name": "amtech-article-research-writer",
       "title": "Article Research Writer",
       "version": "1.0.0",
-      "description": "A consumable AMTECH skill that researches, plans, and drafts an information-gain article brief from a topic, notes, and sources.",
+      "description": "Use when researching, planning, and drafting an information-gain article from a topic, notes, sources, or rough positioning. Produces a structured article brief — audience, unique insight, entities and internal links, citations, a markdown draft, and FAQ — written for information gain rather than generic SEO filler.",
       "url": "https://amtechai.com/skills/amtech-article-research-writer",
       "use": "https://amtechai.com/skills/amtech-article-research-writer/use.md",
       "manifest": "https://amtechai.com/skills/amtech-article-research-writer/manifest.json",
@@ -112,7 +112,7 @@
         "id": "amtech:skill:amtech-article-research-writer:d95432e7b8718af77324ff97",
         "url": "https://amtechai.com/skills/amtech-article-research-writer/certificate.json",
         "signature": "https://amtechai.com/skills/amtech-article-research-writer/certificate.sig",
-        "sha256": "3e0d46ce5ca8b08076c19f55b5764dc6845caa80878fb43921e648f81dd228c2"
+        "sha256": "38277e923b54881f8f595ca9be1ad91faaf619f7c183ba568cc9aa86f69b43f9"
       },
       "trustTier": "amtech-reviewed",
       "policyVersion": "amtech-skill-policy/1",
@@ -125,8 +125,8 @@
         "review": "https://amtechai.com/skills/amtech-article-research-writer/evidence/review.json"
       },
       "repository": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
-      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/amtech-article-research-writer"
+      "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
+      "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/amtech-article-research-writer"
     }
   ]
 }

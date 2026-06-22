@@ -8,7 +8,7 @@
     "verdict": "verified",
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
-    "authoritySequence": "5"
+    "authoritySequence": "9"
   },
   "inputs": {
     "certificate": "https://amtechai.com/skills/estimate/certificate.json",

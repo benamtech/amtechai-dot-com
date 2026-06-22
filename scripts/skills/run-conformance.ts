@@ -22,6 +22,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import Ajv2020 from 'ajv/dist/2020.js';
 import { skillDefinitions, type SkillDefinition } from '../../src/lib/skills/registry.ts';
+import { MAX_AUTHORING_REVIEW_AGE_DAYS } from '../../src/lib/skills/verification/reasonCodes.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 
@@ -54,6 +55,118 @@ export type ConformanceEvidence = {
 function frontmatterBlock(skillMd: string): string {
   const match = skillMd.match(/^---\n([\s\S]*?)\n---/);
   return match ? match[1] : '';
+}
+
+function bodyAfterFrontmatter(skillMd: string): string {
+  const match = skillMd.match(/^---\n[\s\S]*?\n---\n?([\s\S]*)$/);
+  return match ? match[1] : skillMd;
+}
+
+function frontmatterValue(fm: string, key: string): string {
+  const match = fm.match(new RegExp(`^${key}:\\s*(.+)$`, 'm'));
+  return match ? match[1].trim() : '';
+}
+
+/**
+ * Authoring-discipline gates (docs/skills/standard/10 + wiki/research/2026-06-22-skill-effectiveness-...). The
+ * effectiveness wisdom — what ties a skill to measured uplift — encoded as DETERMINISTIC, recomputable checks so
+ * the conformance evidence stays byte-stable (validate-skills re-runs it). Pure: callers pass bytes, so it is
+ * unit-testable with mutated inputs (see __fixtures__/authoring-discipline.test.ts). BOTH descriptions are
+ * checked (the SKILL.md frontmatter description an agent routes on AND the registry/catalog description), plus a
+ * consistency check between them.
+ */
+export type AuthoringInput = {
+  /** SKILL.md frontmatter `description` — what an agent loads to decide whether to use the skill (routing). */
+  routingDescription: string;
+  /** Registry/catalog `description` — the catalog + website blurb. */
+  catalogDescription: string;
+  /** SKILL.md body with the frontmatter stripped. */
+  skillMdBody: string;
+  /** Bundled reference-role markdown files (path + content). */
+  referenceFiles: { path: string; content: string }[];
+  /** The documented Output Contract sections (registry `outputContract`). */
+  outputContract: string[];
+  /** ISO date (YYYY-MM-DD) of the last authoring review. */
+  lastReviewed?: string;
+  /** Release-relative clock (= the conformance ranAt), so freshness stays deterministic. */
+  ranAt: string;
+};
+
+const FIRST_SECOND_PERSON_OPENER = /^\s*(i|i'll|i'd|i can|we|we'll|you|you'll|let me)\b/i;
+const FIRST_SECOND_PERSON_PHRASE = /\b(i can help|you can use this|we will help|i will help)\b/i;
+const TRIGGER_CUE = /\b(use when|use this|use to|use for|when )/i;
+const NESTED_LOCAL_LINK = /\]\(\s*(?!https?:|mailto:|#)[^)]*\.(md|json|ya?ml|txt)\b[^)]*\)/i;
+const TOC_HEADING = /^##+\s*(contents|table of contents)\b/im;
+const SHELL_EVAL_BACKTICK = /`[^`\n]*![^`\n]*`/;
+
+export function authoringDisciplineChecks(input: AuthoringInput): ConformanceCheck[] {
+  const checks: ConformanceCheck[] = [];
+  const add = (name: string, ok: boolean, detail?: string) =>
+    checks.push(ok ? { name, result: 'pass' } : { name, result: 'fail', detail });
+
+  const isThirdPerson = (d: string) => !FIRST_SECOND_PERSON_OPENER.test(d.trim()) && !FIRST_SECOND_PERSON_PHRASE.test(d);
+
+  // Routing description (frontmatter) — third person + a trigger cue + adequate length (02 caps at 1024).
+  add('authoring:routing-desc-third-person', isThirdPerson(input.routingDescription), 'routing description uses first/second person voice');
+  add('authoring:routing-desc-trigger', TRIGGER_CUE.test(input.routingDescription), 'routing description has no "when/use/for" trigger cue');
+  add('authoring:routing-desc-length', input.routingDescription.length >= 40 && input.routingDescription.length <= 1024, `routing description length ${input.routingDescription.length} not in 40..1024`);
+
+  // Catalog description (registry) — third person + adequate length.
+  add('authoring:catalog-desc-third-person', isThirdPerson(input.catalogDescription), 'catalog description uses first/second person voice');
+  add('authoring:catalog-desc-length', input.catalogDescription.length >= 40 && input.catalogDescription.length <= 1024, `catalog description length ${input.catalogDescription.length} not in 40..1024`);
+
+  // Source of truth — the SKILL.md frontmatter (routing) description MUST equal the registry (catalog)
+  // description. The registry is authoritative; build-skills materializes the frontmatter from it, so the two
+  // cannot drift ([[registry-description-source-of-truth]]). This supersedes a softer term-overlap check.
+  add('authoring:desc-matches-registry', input.routingDescription.trim() === input.catalogDescription.trim(), 'SKILL.md frontmatter description != registry description (the registry is the source of truth)');
+
+  // Conciseness — SKILL.md body under 500 lines (progressive disclosure; comprehensive skills measurably degrade).
+  const bodyLines = input.skillMdBody.replace(/\s+$/, '').split('\n').length;
+  add('authoring:body-under-500', bodyLines <= 500, `SKILL.md body is ${bodyLines} lines (>500)`);
+
+  // Progressive disclosure — references one level deep (Claude partial-reads nested refs) and a TOC on long ones.
+  for (const file of input.referenceFiles) {
+    if (NESTED_LOCAL_LINK.test(file.content)) {
+      add(`authoring:refs-one-deep:${file.path}`, false, `${file.path} links to another local file (nested reference)`);
+    }
+    const lineCount = file.content.replace(/\s+$/, '').split('\n').length;
+    if (lineCount > 100) {
+      add(`authoring:refs-toc:${file.path}`, TOC_HEADING.test(file.content), `${file.path} is ${lineCount} lines but has no "## Contents" table of contents`);
+    }
+  }
+  // Stable umbrella results so a skill with no reference files still emits the named checks (deterministic set).
+  add('authoring:refs-one-deep', input.referenceFiles.every((f) => !NESTED_LOCAL_LINK.test(f.content)), 'a reference file links to another local file');
+  add('authoring:refs-toc', input.referenceFiles.every((f) => f.content.replace(/\s+$/, '').split('\n').length <= 100 || TOC_HEADING.test(f.content)), 'a reference file over 100 lines lacks a table of contents');
+
+  // No shell-eval footgun — an inline-code (backtick) span containing `!` triggers shell history expansion
+  // when a host shells out the wrapped path/command, which can break the skill on load
+  // (anthropics/claude-code#24510). Keep backtick spans free of `!` across the body and reference files so the
+  // materialized skill is safe to bootstrap. Deterministic; complements the backtick-path navigation convention.
+  const offending = [
+    { label: 'SKILL.md body', content: input.skillMdBody },
+    ...input.referenceFiles.map((f) => ({ label: f.path, content: f.content })),
+  ].find((s) => SHELL_EVAL_BACKTICK.test(s.content));
+  add('authoring:no-shell-eval-backticks', !offending, offending ? `${offending.label} has a backtick code span containing '!' (shell history-expansion footgun)` : undefined);
+
+  // Evidence-first — a real structured Output Contract (≥3 sections), not a single blob.
+  add('authoring:output-contract', input.outputContract.length >= 3, `outputContract has ${input.outputContract.length} section(s) (<3)`);
+
+  // Freshness — lastReviewed present, valid, and within the review window of the release date (skills decay).
+  let freshOk = false;
+  let freshDetail = 'lastReviewed missing';
+  if (input.lastReviewed) {
+    const reviewed = new Date(`${input.lastReviewed}T00:00:00.000Z`).getTime();
+    const ran = new Date(input.ranAt).getTime();
+    if (!Number.isFinite(reviewed)) freshDetail = `lastReviewed '${input.lastReviewed}' is not a valid date`;
+    else {
+      const ageDays = (ran - reviewed) / 86_400_000;
+      freshOk = ageDays >= 0 && ageDays <= MAX_AUTHORING_REVIEW_AGE_DAYS;
+      freshDetail = `lastReviewed is ${ageDays.toFixed(0)}d before release (window ${MAX_AUTHORING_REVIEW_AGE_DAYS}d)`;
+    }
+  }
+  add('authoring:last-reviewed', freshOk, freshDetail);
+
+  return checks;
 }
 
 /** Recursively list source files relative to the skill source dir (so we can detect undeclared files). */
@@ -124,6 +237,25 @@ export async function computeConformanceEvidence(slug: string): Promise<Conforma
   add('bootstrap:outputContract', skill.outputContract.length > 0, 'registry outputContract is empty');
   for (const section of skill.outputContract) {
     add(`bootstrap-output:${section}`, skillMd.includes(section), `outputContract section '${section}' is not documented in SKILL.md`);
+  }
+
+  // authoring-discipline (docs/skills/standard/10) — the effectiveness wisdom as deterministic, recomputable
+  // checks. BOTH the routing (frontmatter) and catalog (registry) descriptions, conciseness, progressive
+  // disclosure, evidence-first contract, freshness. Pure fn so it's unit-testable with mutated inputs.
+  const referenceFiles: { path: string; content: string }[] = [];
+  for (const file of skill.files.filter((f) => f.role === 'reference')) {
+    referenceFiles.push({ path: file.path, content: await readFile(resolve(sourceDir, file.path), 'utf8') });
+  }
+  for (const check of authoringDisciplineChecks({
+    routingDescription: frontmatterValue(fm, 'description'),
+    catalogDescription: skill.description,
+    skillMdBody: bodyAfterFrontmatter(skillMd),
+    referenceFiles,
+    outputContract: skill.outputContract,
+    lastReviewed: skill.lastReviewed,
+    ranAt: `${skill.updated}T00:00:00.000Z`,
+  })) {
+    checks.push(check);
   }
 
   // contract — schema compiles + golden validates; consistency — documented outputs

@@ -5,17 +5,17 @@
   "title": "OKF Audit Skill",
   "version": "0.1.0",
   "updated": "2026-06-19",
-  "description": "A consumable AMTECH skill for auditing articles, websites, drafts, sitemaps, and OKF bundles for AI-readable knowledge quality.",
+  "description": "Use when auditing an article, website, draft, sitemap, llms.txt file, markdown bundle, or OKF bundle for AI-readable knowledge quality, OKF-style concept packaging, entity coverage, citations, internal links, materialized views, and AMTECH knowledge graph improvements.",
   "source": {
     "canonicalUrl": "https://amtechai.com/skills/okf-audit",
     "sourceDirectory": "src/lib/skills/source/okf-audit",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
+    "repositoryCommit": "239190ab675407834c0ceef47ebbed7d148b1aca",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/okf-audit",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/okf-audit",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json",
-    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/okf-audit"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/okf-audit",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/239190ab675407834c0ceef47ebbed7d148b1aca/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/239190ab675407834c0ceef47ebbed7d148b1aca/skills/okf-audit"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/okf-audit",
@@ -138,12 +138,12 @@
   },
   "bootstrap": {
     "use": {
-      "sha256": "0699590bf0e0ed1edc2b35c29c09939481b2c578c64c316d924afef04d00a034",
-      "sha3_512": "0ea04988ffccd36b04da74ca5940b225f27667858cb46293d878842e09d659d6d00b13496748b1356c00f1ad7a8b29d5482984a4fece9b11311beb09a7ce84f9"
+      "sha256": "18bf1cc0b91faa183e2b7b09e050a7d06f209d5766cb70ef074e13fb70f3fbed",
+      "sha3_512": "6a9785f5e609e9d19b685b500f727df1d2d875554094e40e0c74e1780921585d24775a274b4291eba45954a8ba25926339f1fcab08fa24af293760942c457f56"
     },
     "agent": {
-      "sha256": "6c94a952f775456c34a9316ab23b1ee0a76a076da85e057df5abdedbb30d76ea",
-      "sha3_512": "8eec6dcbb2d94cb9c328804edad753fdbef4999ac34f03b5b981d6ea669d9ac16e8f5bd994445177276bd4bca75a109930578709b7965165d8003092efc121dd"
+      "sha256": "41320b5c718c1835222eacf90c18da5445d84ee64cf710b396e1140f42195216",
+      "sha3_512": "2f0aab1bf3c211601a520e29ba42d82b4110db642ae02fa662d3bc2aecaf75e8a0ce8a38b0d8758d487af2318ab0b5096b328f2d57e11ad0588ebccd11703224"
     }
   },
   "certificate": {
@@ -177,7 +177,7 @@
       "SHA3-512"
     ],
     "signed": true,
-    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json",
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/239190ab675407834c0ceef47ebbed7d148b1aca/index.json",
     "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and the sourcePackage digest match this manifest and https://amtechai.com/.well-known/skill-authority.json. The cross-repo anchor is sourcePackage (the source byte digest), not a git commit."
   },
   "safety": {
@@ -191,7 +191,7 @@
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
     "depth": "graph-replay",
-    "authoritySequence": "5",
+    "authoritySequence": "9",
     "checkedAt": "2026-06-20T00:00:00.000Z",
     "recipeUrl": "https://amtechai.com/skills/okf-audit/recipe.json"
   }

@@ -2,7 +2,7 @@
 
 AI agent instruction: use this skill in context first. Read https://amtechai.com/skills/amtech-article-research-writer/use.md before installing anything.
 
-A consumable AMTECH skill that researches, plans, and drafts an information-gain article brief from a topic, notes, and sources.
+Use when researching, planning, and drafting an information-gain article from a topic, notes, sources, or rough positioning. Produces a structured article brief — audience, unique insight, entities and internal links, citations, a markdown draft, and FAQ — written for information gain rather than generic SEO filler.
 
 Inputs: a topic, pasted notes, links or sources, a rough angle or positioning.
 

@@ -22,8 +22,11 @@ to recompute it**.
 | `structure-verified` | `static-contract` | offline contract conformance (schema compiles, golden validates, instruction↔schema consistency) | none, static |
 | `amtech-reviewed` | `amtech-review` | AMTECH reviewed + published under a named policy | none, human |
 | **`replay-verified`** | **`graph-replay`** | a deterministic, evidence-bound check **any party re-runs from the published surfaces**, reproducing every digest | none — recompute |
-| `behavior-verified` *(reserved)* | `live-model` | a live-model behavioral pass | hosted inference — **v2 non-goal** |
+| **`behavior-verified`** | **`behavior-eval`** | **measured uplift over the prompt-only baseline** (`deltaPp > minDeltaPp`) on a published eval set, re-derivable by anyone | agent-in-loop (model-agnostic) or hosted `live-model` |
 | `proof-verified` *(horizon)* | `zk-compute` | a succinct proof of a compute job | verifiable compute — **documented horizon** |
+
+`behavior-verified` is now **defined** (method `behavior-eval`) — see `10-behavioral-verification-and-evals.md`.
+The hosted `live-model` reference run remains a variant that writes the same `attestations.behavior` envelope.
 
 The verifier (`04`) reports the **maximum tier the present method + evidence support**, never higher. Tiers are
 cumulative: `replay-verified` presupposes the lower rungs' checks also pass.
@@ -82,10 +85,13 @@ emits (`{ verdict, tier, method, checkedAt, reasonCodes[] }`, the `04` shape) so
 **never signs** this (it cannot, statically). This is the honest home for the "testing-skill points an agent at a
 challenge and checks the response" idea — it *enables* behavioral assurance without *claiming* it. Build deferred.
 
-## Reserved / horizon (explicit v2 non-goals)
-- **`behavior-verified` (`live-model`)** — reserved. A future AMTECH-hosted reference run records the same
-  attestation envelope (`method:"live-model"`) so the cert + verifier are unchanged; the CA attests "reference run
-  on <date> with <model/config>", never live consumer behavior.
+## Defined since 2026-06-22 / horizon
+- **`behavior-verified` (`behavior-eval`)** — **defined** (`10`). Earned by measured uplift over the prompt-only
+  baseline on a published, `sourcePackage`-bound eval set, scored by a deterministic scorer; the default harness is
+  `agent-in-loop` (model-agnostic, runnable in an ordinary agentic environment). The evidence is offline-measured
+  (LLM output isn't bit-reproducible) and bound by digest; reproducibility is the published eval set + scorer
+  (consumer re-derivation = the behavioral witness). The hosted `live-model` reference run is a variant on the same
+  envelope: "reference run on <date> with <model/config>," never live consumer behavior.
 - **`proof-verified` (`zk-compute`)** — horizon only. Revisit if a *statically hostable* succinct-proof path for a
   meaningful compute job appears; not implemented, not promised.
 

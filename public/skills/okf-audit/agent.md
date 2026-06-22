@@ -2,7 +2,7 @@
 
 AI agent instruction: use this skill in context first. Read https://amtechai.com/skills/okf-audit/use.md before installing anything.
 
-A consumable AMTECH skill for auditing articles, websites, drafts, sitemaps, and OKF bundles for AI-readable knowledge quality.
+Use when auditing an article, website, draft, sitemap, llms.txt file, markdown bundle, or OKF bundle for AI-readable knowledge quality, OKF-style concept packaging, entity coverage, citations, internal links, materialized views, and AMTECH knowledge graph improvements.
 
 Inputs: a URL, pasted text, an article draft, a sitemap, an llms.txt file, a markdown bundle, an OKF bundle.
 

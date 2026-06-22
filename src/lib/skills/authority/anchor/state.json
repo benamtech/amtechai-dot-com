@@ -6,14 +6,14 @@
   "issuedAt": "2026-06-20T00:00:00.000Z",
   "treeHead": {
     "algorithm": "rfc6962-sha256",
-    "treeSize": "6",
-    "rootHash": "ed0e2db175dcb94d2172ae79d2612562714219ea071f267e48dcea3d85da7a4e",
-    "latestSequence": "5",
-    "latestRecordHash": "d540bd4b1524837b64f064ee4958554efabce0deba58d3615d922cf9655e9055",
+    "treeSize": "10",
+    "rootHash": "9cfc0227bed4c5ef1c628db70a9b5b0b6a3f9bb728e8a51d3272a2788a2b64ed",
+    "latestSequence": "9",
+    "latestRecordHash": "bff9d4a5de24600f780261e1b45406ab56e9d7ff707d4c8b5d3343f1acb5640a",
     "sthUrl": "https://amtechai.com/.well-known/authority/sth.json"
   },
   "catalog": {
-    "catalogRoot": "c829571e1f16dde556ad64ad53f6b8ba83873bc73843b5e72b2efe586e30f87e",
+    "catalogRoot": "322e22da77ab9398086882e93385e19c2e06337303ec30391926bbbbcc59e9b2",
     "catalogUrl": "https://amtechai.com/skills/catalog.json",
     "skillCount": "4"
   },
@@ -32,7 +32,7 @@
       "version": "1.0.0",
       "trustTier": "amtech-reviewed",
       "status": "active",
-      "certificateId": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
+      "certificateId": "amtech:skill:estimate:7d4f23261777c9c85990f66e",
       "certificateUrl": "https://amtechai.com/skills/estimate/certificate.json",
       "skillUrl": "https://amtechai.com/skills/estimate"
     },
