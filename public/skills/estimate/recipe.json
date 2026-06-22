@@ -8,7 +8,7 @@
     "verdict": "verified",
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
-    "authoritySequence": "2"
+    "authoritySequence": "5"
   },
   "inputs": {
     "certificate": "https://amtechai.com/skills/estimate/certificate.json",
@@ -22,6 +22,7 @@
   "steps": [
     "Ed25519-verify certificate.json over canonical JSON (RFC 8785) against the signing key → INVALID_SIGNATURE / IDENTITY_MISMATCH.",
     "Recompute sourcePackage over the published files and compare to certificate.sourcePackage → SOURCE_PACKAGE_MISMATCH.",
+    "Recompute SHA-256/SHA3-512 of the served use.md and agent.md and compare to certificate.bootstrap → BOOTSTRAP_DIGEST_MISMATCH.",
     "Recompute each manifest file SHA-256 and compare to its integrity (SRI) → MANIFEST_DIGEST_MISMATCH.",
     "Recompute the catalog root over the per-skill certificate digests and compare to catalog.json → CATALOG_ROOT_MISMATCH.",
     "Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH."

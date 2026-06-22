@@ -24,10 +24,11 @@ The verifier reports which depth it performed.
 4. Schema valid, `certificate.signingKeyId == key.keyId`, key usable (active, or active-at-issuance for historical) → else **`invalid`** (`INVALID_SCHEMA` / `IDENTITY_MISMATCH` / `KEY_NOT_ACTIVE`).
 5. Ed25519 verify over `canonicalJson(certificate)` → fail = **`invalid`** (`INVALID_SIGNATURE`).
 6. `certificate.repository.path` matches the authority record, and the **`sourcePackage`** digest recomputes over the published files → else **`invalid`** (`SOURCE_PACKAGE_MISMATCH`). The cert binds no git commit — `sourcePackage` is the cross-repo anchor; the release commit is provenance only.
-7. (v2) attestations present, fresh, commit-matched, `evidence.sha256` resolves; map `conformance.method → max-tier` (unknown → `METHOD_UNKNOWN`) → else **`invalid`** (`MISSING_ATTESTATIONS` / `STALE_EVIDENCE` / `EVIDENCE_DIGEST_MISMATCH`).
-8. (graph-replay depth) recompute the self-describing recipe: per-file SRI vs. signed manifest (`MANIFEST_DIGEST_MISMATCH`), catalog root (`CATALOG_ROOT_MISMATCH`), any bound replay step (`REPLAY_MISMATCH` / `REPLAY_NONDETERMINISTIC`).
-9. (archive-byte only) recompute archive digests; mismatch = **`invalid`** (`DIGEST_MISMATCH`).
-10. All pass → **`verified`** (`OK`) with the proven `trustTier`, `method`, and depth.
+7. (skill certs) the served **`use.md`** and **`agent.md`** — the agent-entry surfaces — recompute SHA-256/SHA3-512 equal to **`certificate.bootstrap`**; a missing field or file, or any drift → **`invalid`** (`BOOTSTRAP_DIGEST_MISMATCH`, missing file `EVIDENCE_MISSING`). This binds the first two files an agent fetches, which sit outside `sourcePackage`/the archive.
+8. (v2) attestations present, fresh, commit-matched, `evidence.sha256` resolves; map `conformance.method → max-tier` (unknown → `METHOD_UNKNOWN`) → else **`invalid`** (`MISSING_ATTESTATIONS` / `STALE_EVIDENCE` / `EVIDENCE_DIGEST_MISMATCH`).
+9. (graph-replay depth) recompute the self-describing recipe: per-file SRI vs. signed manifest (`MANIFEST_DIGEST_MISMATCH`), catalog root (`CATALOG_ROOT_MISMATCH`), any bound replay step (`REPLAY_MISMATCH` / `REPLAY_NONDETERMINISTIC`).
+10. (archive-byte only) recompute archive digests; mismatch = **`invalid`** (`DIGEST_MISMATCH`).
+11. All pass → **`verified`** (`OK`) with the proven `trustTier`, `method`, and depth.
 
 **Acceptance boundary:** no path returns `verified` unless it resolves to the same signed certificate **and** the current immutable authority state.
 
@@ -38,15 +39,16 @@ The verifier reads the attestation **envelope**, not the method internals: it ma
 `replay-verified` is earned by the **self-describing recipe**: the verified surfaces carry the *ingredients and the expected result* of a cheap deterministic check, so a consumer — or a downstream re-renderer — **recomputes** the verdict instead of trusting a rendered badge. All client-side via WebCrypto:
 1. canonicalize the certificate (RFC 8785 / JCS) and Ed25519-verify it against the published key;
 2. recompute the archive digests + `sourcePackage` (the cross-repo anchor);
-3. recompute each published file's SHA-256 and compare to the **SRI digest** the signed manifest binds (`MANIFEST_DIGEST_MISMATCH` on drift);
-4. recompute the **catalog root** over the per-skill digests (`CATALOG_ROOT_MISMATCH` on drift).
+3. recompute the served `use.md`/`agent.md` digests and compare to the signed **`bootstrap`** (`BOOTSTRAP_DIGEST_MISMATCH` on drift) — the agent-entry surfaces;
+4. recompute each published file's SHA-256 and compare to the **SRI digest** the signed manifest binds (`MANIFEST_DIGEST_MISMATCH` on drift);
+5. recompute the **catalog root** over the per-skill digests (`CATALOG_ROOT_MISMATCH` on drift).
 Determinism is the security property: re-running reproduces the verdict byte-for-byte; a step that doesn't → `REPLAY_NONDETERMINISTIC`. This is the `graph-replay` method (`09`) — deterministic recompute, **not** a live model, ZK, or proof-of-work.
 
 ## Reason codes (stable strings)
 
 The reason-code set is **canonical in `src/lib/skills/verification/reasonCodes.ts`** — one enum shared by the signer gates (`02`), the conformance runner, the build validator (`07`), and this verifier. Adding/renaming a code is a change to that module; doc and code must not drift (`07` gates this).
 
-`OK` · `INVALID_SIGNATURE` · `KEY_NOT_ACTIVE` · `IDENTITY_MISMATCH` · `DIGEST_MISMATCH` · `SOURCE_PACKAGE_MISMATCH` · `MISSING_ATTESTATIONS` · `EVIDENCE_MISSING` · `EVIDENCE_DIGEST_MISMATCH` · `STALE_EVIDENCE` · `CONFORMANCE_FAILED` · `UNDECLARED_SCRIPT` · `REVIEW_NOT_APPROVED` · `TIER_NOT_SUPPORTED` · `INVALID_SCHEMA` · `UNREACHABLE` · `METHOD_UNKNOWN` · `REPLAY_MISMATCH` · `REPLAY_NONDETERMINISTIC` · `MANIFEST_DIGEST_MISMATCH` · `CATALOG_ROOT_MISMATCH` · `REVOKED` · `AUTHORITY_MISMATCH`
+`OK` · `INVALID_SIGNATURE` · `KEY_NOT_ACTIVE` · `IDENTITY_MISMATCH` · `DIGEST_MISMATCH` · `SOURCE_PACKAGE_MISMATCH` · `BOOTSTRAP_DIGEST_MISMATCH` · `MISSING_ATTESTATIONS` · `EVIDENCE_MISSING` · `EVIDENCE_DIGEST_MISMATCH` · `STALE_EVIDENCE` · `CONFORMANCE_FAILED` · `UNDECLARED_SCRIPT` · `REVIEW_NOT_APPROVED` · `TIER_NOT_SUPPORTED` · `INVALID_SCHEMA` · `UNREACHABLE` · `METHOD_UNKNOWN` · `REPLAY_MISMATCH` · `REPLAY_NONDETERMINISTIC` · `MANIFEST_DIGEST_MISMATCH` · `CATALOG_ROOT_MISMATCH` · `REVOKED` · `AUTHORITY_MISMATCH`
 
 `UNREACHABLE` (a required surface couldn't be fetched) is distinct from `invalid` — it means "could not determine," not "failed."
 

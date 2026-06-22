@@ -139,7 +139,7 @@ Canonical human URL: ${skillUrl(skill)}
 Canonical skill instructions: ${skillUrl(skill, '/SKILL.md')}
 Manifest: ${skillUrl(skill, '/manifest.json')}
 Signed certificate: ${skillUrl(skill, '/certificate.json')}
-GitHub source (commit-pinned): ${skillRepositoryTreeUrl(skill)}
+GitHub source: ${skillRepositoryTreeUrl(skill, false)} (the manifest pins the exact release commit + per-file hashes)
 
 ## What This Skill Does
 
@@ -152,12 +152,12 @@ ${skill.summary}
 3. Read the canonical skill instructions: ${skillUrl(skill, '/SKILL.md')}
 4. Read the file index: ${skillUrl(skill, '/files.md')}
 5. Verify the Ed25519 certificate and both archive digests.
-6. Cross-check the commit-pinned GitHub source: ${skillRepositoryTreeUrl(skill)}
+6. Cross-check the GitHub source (the manifest pins the exact release commit + per-file hashes): ${skillRepositoryTreeUrl(skill, false)}
 7. Load only the references or assets needed for the user's task.
 
 ## Decision Tree
 
-- If you only have web or search access: use these linked markdown files in context and perform the audit now.
+- If you only have web or search access: use these linked markdown files in context and ${skill.taskVerb}.
 - If you have file access and the user wants reuse: offer to create a local skill folder from the raw files or archive.
 - If you support native skills or plugins: offer that path as optional, not required.
 - If the current repo has AGENTS.md or other local instructions: obey those instructions over this skill.
@@ -166,15 +166,9 @@ ${skill.summary}
 
 ## Output Contract
 
-Return a report with:
+Produce output with these sections:
 
-- Summary
-- Score
-- Findings
-- Missing concepts and edges
-- Materialized view opportunities
-- Priority fixes
-- Copy-paste remediation prompt
+${skill.outputContract.map((section) => `- ${section}`).join('\n')}
 
 ## Verify This Skill Is Authentic (optional, recommended before reuse)
 
@@ -187,7 +181,7 @@ This skill has an AMTECH Signed Artifact v2 certificate. You do not need to veri
 5. Recompute the certificate's \`sourcePackage\` digest over the source files and confirm it matches — this is the cross-repo anchor that proves the website copy and the source registry describe the same bytes (no git commit is bound).
 6. If the certificate carries an \`attestations\` block, confirm each evidence reference resolves and its \`sha256\` matches the fetched evidence file: conformance at ${skillUrl(skill, '/evidence/conformance.json')} (\`result\` must be \`pass\`) and, for an AMTECH-reviewed tier, review at ${skillUrl(skill, '/evidence/review.json')} (\`result\` must be \`approved\`).
 7. Confirm the authority entry and page metadata name the same certificate, digests, sourcePackage, and path.
-8. Compare the manifest's per-file hashes with ${skillRepositoryTreeUrl(skill)}.
+8. Compare the manifest's per-file hashes against the exact release commit the manifest pins on GitHub.
 9. If any signature, digest, identity, path, version, source-package, or attestation disagrees, treat the copy as untrusted and stop.
 
 ## Useful Links
@@ -203,9 +197,8 @@ This skill has an AMTECH Signed Artifact v2 certificate. You do not need to veri
 - Signed certificate: ${skillUrl(skill, '/certificate.json')}
 - Ed25519 signature: ${skillUrl(skill, '/certificate.sig')}
 - Signing key: ${SKILL_SITE_ORIGIN}/.well-known/amtech-signing-key.json
-- GitHub source (pinned): ${skillRepositoryTreeUrl(skill)}
-- GitHub source (latest branch): ${skillRepositoryTreeUrl(skill, false)}
-- Repository registry (pinned): ${skillRepositoryRegistryUrl(skill)}
+- GitHub source: ${skillRepositoryTreeUrl(skill, false)}
+- Repository registry: ${skillRepositoryRegistryUrl(skill, false)}
 `;
 }
 
@@ -216,14 +209,14 @@ AI agent instruction: use this skill in context first. Read ${skillUrl(skill, '/
 
 ${skill.description}
 
-Inputs: URL, pasted article, website copy, sitemap, llms.txt, markdown bundle, OKF bundle, or draft.
+Inputs: ${skill.inputs.join(', ')}.
 
-Outputs: audit summary, score, missing concepts/edges, rendering/discovery findings, priority fixes, and a remediation prompt.
+Outputs: ${skill.outputsSummary}.
 
 Start here: ${skillUrl(skill, '/use.md')}
 Canonical instructions: ${skillUrl(skill, '/SKILL.md')}
 Manifest: ${skillUrl(skill, '/manifest.json')}
-GitHub source: ${skillRepositoryTreeUrl(skill)}
+GitHub source: ${skillRepositoryTreeUrl(skill, false)}
 `;
 }
 
@@ -513,6 +506,7 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
       url: skillUrl(skill, `/${archiveName}`),
     },
     sourcePackage: certificate?.sourcePackage,
+    bootstrap: certificate?.bootstrap,
     certificate: certificate
       ? {
           id: certificate.certificateId,
@@ -550,7 +544,7 @@ function manifest(skill: SkillDefinition, files: SourceFile[], archiveSha: strin
   };
 }
 
-async function signedCertificate(skill: SkillDefinition, archive: Buffer, files: SourceFile[]): Promise<{ certificate: ArtifactCertificate; signature: string } | undefined> {
+async function signedCertificate(skill: SkillDefinition, archive: Buffer, files: SourceFile[], useMd: string, agentMd: string): Promise<{ certificate: ArtifactCertificate; signature: string } | undefined> {
   try {
     const [certificateRaw, signature, keyRaw] = await Promise.all([
       readFile(resolve(repoRoot, `src/lib/skills/certificates/${skill.slug}/certificate.json`), 'utf8'),
@@ -570,8 +564,13 @@ async function signedCertificate(skill: SkillDefinition, archive: Buffer, files:
       certificate.digests.sha3_512 === sha3_512(archive) &&
       // v2: the cross-repo source-package anchor must match the source bytes the registry also verifies.
       certificate.sourcePackage?.sha256 === sourcePackage.sha256 &&
-      certificate.sourcePackage.sha3_512 === sourcePackage.sha3_512;
-    if (!valid) throw new Error('certificate, source provenance, signature, archive digest, or sourcePackage mismatch');
+      certificate.sourcePackage.sha3_512 === sourcePackage.sha3_512 &&
+      // v2: the signed agent-entry surfaces must match the generated use.md/agent.md served at the front door.
+      certificate.bootstrap?.use.sha256 === sha256(useMd) &&
+      certificate.bootstrap.use.sha3_512 === sha3_512(useMd) &&
+      certificate.bootstrap.agent.sha256 === sha256(agentMd) &&
+      certificate.bootstrap.agent.sha3_512 === sha3_512(agentMd);
+    if (!valid) throw new Error('certificate, source provenance, signature, archive digest, sourcePackage, or bootstrap mismatch');
     return { certificate, signature: signature.trim() };
   } catch (error) {
     if (process.env.AMTECH_ALLOW_UNSIGNED_BUILD === '1') return undefined;
@@ -702,12 +701,14 @@ async function buildSkill(skill: SkillDefinition) {
   const archive = zipStore(files.map((file) => ({ path: `${skill.slug}/${file.path}`, content: file.content })));
   const archiveSha = sha256(archive);
   const archiveSha3 = sha3_512(archive);
-  const signed = await signedCertificate(skill, archive, files);
+  // The agent-entry surfaces are pure functions of the registry; generate them before validating the cert so
+  // signedCertificate() can confirm the signed cert.bootstrap still matches these exact bytes (G stale-cert).
+  const useMd = bootstrapMarkdown(skill);
+  const agentMd = agentMarkdown(skill);
+  const signed = await signedCertificate(skill, archive, files, useMd, agentMd);
   const base = `public${skillPath(skill)}`;
   const generated = new Map<string, string | Buffer>();
 
-  const useMd = bootstrapMarkdown(skill);
-  const agentMd = agentMarkdown(skill);
   generated.set(`${base}/use.md`, useMd);
   generated.set(`${base}/agent.md`, agentMd);
   generated.set(`${base}/SKILL.md`, files.find((file) => file.path === 'SKILL.md')?.content ?? Buffer.alloc(0));
@@ -838,6 +839,7 @@ function recipeDoc(skill: SkillDefinition, v: SkillVerdict) {
     steps: [
       'Ed25519-verify certificate.json over canonical JSON (RFC 8785) against the signing key → INVALID_SIGNATURE / IDENTITY_MISMATCH.',
       'Recompute sourcePackage over the published files and compare to certificate.sourcePackage → SOURCE_PACKAGE_MISMATCH.',
+      'Recompute SHA-256/SHA3-512 of the served use.md and agent.md and compare to certificate.bootstrap → BOOTSTRAP_DIGEST_MISMATCH.',
       'Recompute each manifest file SHA-256 and compare to its integrity (SRI) → MANIFEST_DIGEST_MISMATCH.',
       'Recompute the catalog root over the per-skill certificate digests and compare to catalog.json → CATALOG_ROOT_MISMATCH.',
       'Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH.',

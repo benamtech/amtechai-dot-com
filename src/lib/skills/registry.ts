@@ -30,6 +30,14 @@ export type SkillDefinition = {
   summary: string;
   audience: string[];
   useCases: string[];
+  /** Decision-tree action verb for the bootstrap (e.g. "build the estimate now"). */
+  taskVerb: string;
+  /** agent.md "Inputs:" items — what the skill accepts. */
+  inputs: string[];
+  /** use.md "## Output Contract" sections — MUST equal this skill's SKILL.md `## Output Format`/`## Output`. */
+  outputContract: string[];
+  /** agent.md "Outputs:" one-line summary. */
+  outputsSummary: string;
   sourceDir: string;
   repository: SkillRepository;
   safety: {
@@ -45,7 +53,7 @@ export const SKILL_BASE_PATH = '/skills';
 export const SKILL_SITE_ORIGIN = 'https://amtechai.com';
 export const SKILL_AUTHORITY_URL = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`;
 export const SKILL_REPOSITORY_URL = 'https://github.com/benamtech/amtech-skills-registry';
-export const SKILL_REPOSITORY_COMMIT = 'd53b6c8c51bd95ccf09f80f8ed757c608aa56034';
+export const SKILL_REPOSITORY_COMMIT = '048c371ce966b328eaef29788dc7b29bf27fe166';
 
 function registryRepository(slug: string): SkillRepository {
   return {
@@ -77,6 +85,19 @@ export const skillDefinitions: SkillDefinition[] = [
       'Evaluate sitemap, llms.txt, markdown, JSON, and HTML surfaces.',
       'Generate a remediation prompt for another AI or implementation agent.',
     ],
+    taskVerb: 'perform the audit now',
+    inputs: ['a URL', 'pasted text', 'an article draft', 'a sitemap', 'an llms.txt file', 'a markdown bundle', 'an OKF bundle'],
+    outputContract: [
+      'Summary',
+      'Score',
+      'Findings',
+      'Missing Concepts And Edges',
+      'Materialized View Opportunities',
+      'Priority Fixes',
+      'Copy-Paste Remediation Prompt',
+    ],
+    outputsSummary:
+      'an audit summary, a score, findings, missing concepts and edges, materialized-view opportunities, priority fixes, and a copy-paste remediation prompt',
     sourceDir: 'src/lib/skills/source/okf-audit',
     repository: registryRepository('okf-audit'),
     safety: {
@@ -156,6 +177,19 @@ export const skillDefinitions: SkillDefinition[] = [
       'Produce an internal-linking plan and anchor-text guidance from the graph.',
       'Scaffold schema.org JSON-LD for the key entities and emit OKF concept stubs.',
     ],
+    taskVerb: 'build the graph now',
+    inputs: ['a business description', 'a website URL or sitemap', 'a product, service, or topic area', 'an existing content list or keyword set'],
+    outputContract: [
+      'Domain frame',
+      'Entity table',
+      'Edge list',
+      'Pillar pages to publish',
+      'Internal-linking plan',
+      'Structured-data scaffolding',
+      'Copy-paste build prompt',
+    ],
+    outputsSummary:
+      'a domain frame, an entity table, an edge list, pillar pages to publish, an internal-linking plan, structured-data scaffolding, and a copy-paste build prompt',
     sourceDir: 'src/lib/skills/source/knowledge-graph-builder',
     repository: registryRepository('knowledge-graph-builder'),
     safety: {
@@ -227,6 +261,10 @@ export const skillDefinitions: SkillDefinition[] = [
       'Draft a blank estimate template for a trade or service.',
       'Return a machine-readable estimate that matches the published schema.',
     ],
+    taskVerb: 'build the estimate now',
+    inputs: ['a job description', 'the rates you provide', 'optional measurements, quantities, or materials'],
+    outputContract: ['Customer', 'Job', 'Line Items', 'Totals', 'Assumptions'],
+    outputsSummary: 'a structured estimate: customer, job, line items, totals with adjustments, and flagged assumptions',
     sourceDir: 'src/lib/skills/source/estimate',
     repository: registryRepository('estimate'),
     safety: {
@@ -291,6 +329,10 @@ export const skillDefinitions: SkillDefinition[] = [
       'Plan entities, internal links, and citations for an article.',
       'Return a structured article brief that matches the published schema.',
     ],
+    taskVerb: 'produce the brief now',
+    inputs: ['a topic', 'pasted notes', 'links or sources', 'a rough angle or positioning'],
+    outputContract: ['Meta', 'Unique Insight', 'Entities', 'Citations', 'Draft', 'FAQ'],
+    outputsSummary: 'a structured article brief: meta, the unique insight, entities and internal links, citations, a markdown draft, and an FAQ',
     sourceDir: 'src/lib/skills/source/amtech-article-research-writer',
     repository: registryRepository('amtech-article-research-writer'),
     safety: {

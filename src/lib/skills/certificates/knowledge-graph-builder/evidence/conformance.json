@@ -81,6 +81,50 @@
       "result": "pass"
     },
     {
+      "name": "bootstrap:taskVerb",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:inputs",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputsSummary",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap:outputContract",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Domain frame",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Entity table",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Edge list",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Pillar pages to publish",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Internal-linking plan",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Structured-data scaffolding",
+      "result": "pass"
+    },
+    {
+      "name": "bootstrap-output:Copy-paste build prompt",
+      "result": "pass"
+    },
+    {
       "name": "schema-parses:assets/graph-schema.json",
       "result": "pass"
     },

@@ -10,12 +10,12 @@
     "canonicalUrl": "https://amtechai.com/skills/okf-audit",
     "sourceDirectory": "src/lib/skills/source/okf-audit",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "d53b6c8c51bd95ccf09f80f8ed757c608aa56034",
+    "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/okf-audit",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/skills/okf-audit",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/index.json",
-    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/skills/okf-audit"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/okf-audit",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/okf-audit"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/okf-audit",
@@ -116,10 +116,10 @@
       "title": "Canonical skill instructions",
       "summary": "The primary reusable workflow for running an OKF and agent-readable content audit.",
       "mediaType": "text/markdown; charset=utf-8",
-      "sha256": "431fd709bd70bf7f4a9d3803aa930e56fed1a6fd600485aae29b1a892730aa9c",
-      "sha3_512": "2052c5001a3cd3e97cd8a069d120d744437fcb8c09da7b1c521e043fed6ea1294758f65a2ca3a086b340ace1a1cd41081a840ff2ca7fde46483c94e9b021ece2",
-      "integrity": "sha256-Qx/XCb1wv39KnTgDqpMOVv7Rpv1gBIWq4psaiScwqpw=",
-      "size": 3279,
+      "sha256": "9c04d8af98b25e04a5092c4f8df8900de47d39447201ea799996ea37d5a4097e",
+      "sha3_512": "1d3c678fe98164e090058e4f7d37b374ddcb534802f5ed9c2fe5ea6ce6689ac8e3029c7847674c6c96b51e64dea1772564877e4a698db786c882626933cfdbac",
+      "integrity": "sha256-nATYr5iyXgSlCSxPjfiQDeR9OURyAep5mZbqN9WkCX4=",
+      "size": 3269,
       "url": "https://amtechai.com/skills/okf-audit/files/SKILL.md",
       "loadPolicy": "Always read before performing an audit.",
       "permissions": []
@@ -127,17 +127,27 @@
   ],
   "archive": {
     "file": "okf-audit-0.1.0.zip",
-    "sha256": "c7f1292b9e4b91a539b43b015186a8cc9a7220d0d9a93e62fe6e69e7a643f6a7",
-    "sha3_512": "36f53231aa75bab64166abe7c9a8f0761fa335d0f89713c7013fe0ed07e6e1f8e3641537759e8a28626d15ee868bd5766214315aca628e11e1a3da1e7fd9cb7a",
-    "integrity": "sha256-x/EpK55LkaU5tDsBUYaozJpyINDZqT5i/m5p56ZD9qc=",
+    "sha256": "d95f0abcf5241028790da58307d80bf40b9cd7f5c76cb807e4fdd6f4661133c1",
+    "sha3_512": "c251106617a9dc103c8d6eed90cf699f9507768fa79fe8d444d95e75cd88e2008c1982e9cc578b664e6f68b82f4187c71854d64264a1c1f4c0c5e6836acc5046",
+    "integrity": "sha256-2V8KvPUkECh5DaWDB9gL9Auc1/XHbLgH5P3W9GYRM8E=",
     "url": "https://amtechai.com/skills/okf-audit/okf-audit-0.1.0.zip"
   },
   "sourcePackage": {
-    "sha256": "17cb62aaf3db3bb5a4b1e522450d7dbc117552af5e8c8307b414e140ea4ef58a",
-    "sha3_512": "75e250603086776d7143cb635219b601092c6d1724dc510b900a59487468845a1d26d3449a08f5c0e035d1ac81e55539b3af13eacb014fd288db01c6997d2b1b"
+    "sha256": "ba5994b7e7a0276fa87f4281d7728cf98d40799664b1f374669a43a438247aba",
+    "sha3_512": "158c96c8af31102e447937b792e39c25adfcd7fcb4484d8811d9c90a71a3584c7805bd9754dce012d25f46d92a361af54728420f82bfcecbe98e274318cb01e5"
+  },
+  "bootstrap": {
+    "use": {
+      "sha256": "0699590bf0e0ed1edc2b35c29c09939481b2c578c64c316d924afef04d00a034",
+      "sha3_512": "0ea04988ffccd36b04da74ca5940b225f27667858cb46293d878842e09d659d6d00b13496748b1356c00f1ad7a8b29d5482984a4fece9b11311beb09a7ce84f9"
+    },
+    "agent": {
+      "sha256": "6c94a952f775456c34a9316ab23b1ee0a76a076da85e057df5abdedbb30d76ea",
+      "sha3_512": "8eec6dcbb2d94cb9c328804edad753fdbef4999ac34f03b5b981d6ea669d9ac16e8f5bd994445177276bd4bca75a109930578709b7965165d8003092efc121dd"
+    }
   },
   "certificate": {
-    "id": "amtech:skill:okf-audit:36f53231aa75bab64166abe7",
+    "id": "amtech:skill:okf-audit:c251106617a9dc103c8d6eed",
     "schemaVersion": "amtech-signed-artifact/v2",
     "algorithm": "Ed25519",
     "certificateUrl": "https://amtechai.com/skills/okf-audit/certificate.json",
@@ -167,7 +177,7 @@
       "SHA3-512"
     ],
     "signed": true,
-    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/d53b6c8c51bd95ccf09f80f8ed757c608aa56034/index.json",
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json",
     "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and the sourcePackage digest match this manifest and https://amtechai.com/.well-known/skill-authority.json. The cross-repo anchor is sourcePackage (the source byte digest), not a git commit."
   },
   "safety": {
@@ -181,7 +191,7 @@
     "trustTier": "amtech-reviewed",
     "method": "amtech-review",
     "depth": "graph-replay",
-    "authoritySequence": "2",
+    "authoritySequence": "5",
     "checkedAt": "2026-06-20T00:00:00.000Z",
     "recipeUrl": "https://amtechai.com/skills/okf-audit/recipe.json"
   }

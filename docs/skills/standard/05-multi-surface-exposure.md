@@ -14,7 +14,7 @@ Publish the **same** verification verdict everywhere an agent, crawler, or human
 | JSON-LD | Machine block (verdict, tier, certificateId, authoritySequence, checkedAt) | `<head>` via `renderHead.ts` / skill render |
 | Catalog JSON | `verdict` + `trustTier` per skill | `public/skills/catalog.json` (M0) |
 | Manifest JSON | Same per-skill verdict + cert/authority links | `public/skills/<slug>/manifest.json` |
-| Agent bootstrap | One-line status + how to re-verify | `use.md` / `agent.md` (skill + hub) |
+| Agent bootstrap | Per-skill instructions, decision tree, Output Contract + one-line status & how to re-verify | `use.md` / `agent.md` (skill + hub) — **signed**: per-skill `use.md`/`agent.md` bytes are bound by `certificate.bootstrap` and recomputed by `04` (`BOOTSTRAP_DIGEST_MISMATCH`), so the front door is integrity-protected, not just a convenience wrapper |
 | Response headers | `X-AMTECH-Skill-Verification: verified; tier=amtech-reviewed; seq=7` | `public/_headers` |
 | Self-describing recipe | Recompute ingredients + per-file SRI + catalog root (earn `replay-verified` client-side) | `<head>` meta + `rel` link relations + signed `manifest.json` |
 | CLI / API | Full `04` JSON | `npm run skills:verify` / Netlify fn |

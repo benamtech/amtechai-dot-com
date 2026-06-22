@@ -115,6 +115,17 @@ export async function computeConformanceEvidence(slug: string): Promise<Conforma
     `declared scripts [${declaredScripts.join(', ')}] != executable-looking source files [${presentScripts.join(', ')}]`,
   );
 
+  // consistency — the registry's bootstrap contract (which drives the SIGNED use.md/agent.md) is non-empty and
+  // each declared output section is documented in SKILL.md. Catches the OKF-boilerplate class of drift where a
+  // skill's agent-entry surfaces describe a different skill's output (build-skills.ts bootstrapMarkdown).
+  add('bootstrap:taskVerb', skill.taskVerb.trim().length > 0, 'registry taskVerb is empty');
+  add('bootstrap:inputs', skill.inputs.length > 0, 'registry inputs is empty');
+  add('bootstrap:outputsSummary', skill.outputsSummary.trim().length > 0, 'registry outputsSummary is empty');
+  add('bootstrap:outputContract', skill.outputContract.length > 0, 'registry outputContract is empty');
+  for (const section of skill.outputContract) {
+    add(`bootstrap-output:${section}`, skillMd.includes(section), `outputContract section '${section}' is not documented in SKILL.md`);
+  }
+
   // contract — schema compiles + golden validates; consistency — documented outputs
   const ajv = new Ajv2020({ allErrors: true, strict: false });
   for (const entry of config.schemas) {

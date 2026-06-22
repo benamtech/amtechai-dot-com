@@ -71,6 +71,13 @@ export type ArtifactCertificate = {
   digests: { sha256: string; sha3_512: string };
   /** v2: digest over the canonical source-package payload — the cross-repo verification anchor. */
   sourcePackage?: { sha256: string; sha3_512: string };
+  /**
+   * v2: digests of the GENERATED agent-entry surfaces (`use.md`, `agent.md`) — the first two files an agent
+   * fetches. These are website artifacts (not in `sourcePackage`/the archive), so this signed field is what
+   * makes tampering with — or omitting — the front door detectable. The link-first verifier recomputes these
+   * over the served files (docs/skills/standard/04). Registry-side validation ignores it (website-only).
+   */
+  bootstrap?: { use: { sha256: string; sha3_512: string }; agent: { sha256: string; sha3_512: string } };
   issuedAt: string;
   expiresAt?: string;
   issuer: { name: string; url: string };
