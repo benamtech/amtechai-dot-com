@@ -19,16 +19,22 @@ Do **not** advertise "federated/witnessed/anchored/trustless" until a real secon
 
 The new surfaces are built ON the existing standards — the same `amtech-signed-artifact/v2` certificate, canonical JSON (RFC 8785), the served Ed25519 key, `signCertificate`/`verifyCertificate`, and the same reason codes. No new signature format is introduced. This keeps one verifier, one key, one trust model across skills, the authority log, and the broadcast anchor.
 
-## B. The broadcast endpoint (`/.well-known/authority/anchor/`)
+## B. The broadcast message (`/.well-known/authority/anchor/`)
 
-amtechai.com publishes the canonical, timestamped, signed object that **incorporates the signed tree head** and is ready to be broadcast/anchored — and it is itself **an AMTECH status certificate**:
+amtechai.com publishes the canonical, timestamped, signed message a witness / external anchor consumes — **useful to agentic search and to us**, and built ON the existing AMTECH certificate standard:
 
-- `scripts/signing/sign-anchor.ts` emits an `ArtifactCertificate` with `subjectType: 'status'`, `subjectId: 'authority-sth'`, `version: <treeSize>`, `digests` = SHA-256/SHA3-512 over the served `sth.json` bytes, `canonicalUrl` = the anchor URL, `issuedAt` = the STH timestamp (deterministic), signed by the domain Ed25519 key. Idempotent (re-signs nothing if it already binds the current STH).
-- Published at `/.well-known/authority/anchor/certificate.json` (+ `.sig`), alongside the `sth.json` it binds.
-- **Verifiable with the existing tooling, unchanged:** `npm run artifact:verify -- --artifact sth.json --certificate anchor/certificate.json --signature anchor/certificate.sig --key amtech-signing-key.json` → `valid: true`. `validate-skills.ts` gates it in the build.
-- **Optional PGP co-signature** (`certificate.asc`): wired in `sign-anchor.ts` — emitted only if `gpg` + `AMTECH_ANCHOR_PGP_KEY` are present; absent otherwise. A second, different-keyspace signature for parties who anchor trust in PGP/WoT.
+1. **The registry-state packet** (`amtech-registry-state/v1`, `anchor/state.json`) — a self-describing snapshot: the certified skills (slug / version / trust tier / certificate URL), the catalog root, the signed RFC-6962 **tree head** (`treeSize`, `rootHash`, `latestRecordHash`, `sthUrl`), and the verify recipe. One artifact answers *"what does AMTECH certify and how do I check it."*
+2. **An AMTECH Signed Artifact certificate** (`amtech-signed-artifact/v2`, `subjectType: 'registry-state'`, `subjectId: amtech-skills-tree-<treeSize>-<rootPrefix>`, `version: <treeSize>`) that **binds the packet bytes** (SHA-256/SHA3-512), `canonicalUrl` = the packet URL, `issuedAt` = the STH timestamp, Ed25519-signed by the domain key. `scripts/signing/sign-anchor.ts`; idempotent.
 
-This is the object an external witness or chain consumes: one signed, timestamped, scheme-locked attestation of the latest log state.
+The subject is meaningful (`amtech:registry-state:amtech-skills-tree-6-ed0e2db175dc:…` — not an opaque `authority-sth`), and the bound subject is the useful packet, not a bare hash.
+
+- **Verifiable with the existing tooling, unchanged:** `npm run artifact:verify -- --artifact anchor/state.json --certificate anchor/certificate.json --signature anchor/certificate.sig --key amtech-signing-key.json` → `valid: true`. `validate-skills.ts` gates it (cert verifies + binds `state.json` + the packet's tree head == the published STH root).
+- **Optional PGP co-signature** (`certificate.asc`): wired in `sign-anchor.ts` — emitted only if `gpg` + `AMTECH_ANCHOR_PGP_KEY` are present. A second, different-keyspace signature for parties who anchor trust in PGP/WoT; **no cryptographic/anti-equivocation value when signed by the same operator** — only useful to bridge an existing PGP reputation. Deferred.
+
+### Broadcasting + the receipts ledger (`receipts.json`)
+Broadcasting is the deliberate act of recording that a registry-state message went out, and where it was externally anchored. `scripts/signing/broadcast-anchor.ts` (`npm run skills:broadcast`) appends one signed entry to an **append-only receipts ledger** `/.well-known/authority/receipts.json` (`amtech-anchor-receipts/v1`): `{ certificateId, treeSize, rootHash, stateSha256, certSha256, anchorUrl, broadcastAt, receipts: [] }`. **This is NOT a second hash-chain** — ordering comes from the tree size; the authority log is the only chain. The `receipts[]` slot is where a Bitcoin / OpenTimestamps / Nockchain / third-party-witness receipt lands once off-site broadcasting is live, at which point `ANCHOR_VERIFIERS` checks it. Idempotent (same root → no-op). Ledger Ed25519-signed by the domain key; optional PGP.
+
+This is the object an external witness or chain consumes: one signed, timestamped, self-describing attestation of the latest verified registry state, plus a ledger of where it has been anchored.
 
 ## C. Federation — independent witnesses
 
@@ -52,9 +58,10 @@ The same `subjectType` machinery already spans `skill | content | message | repo
 
 ## What is implemented now (2026-06-22)
 
-- `sign-anchor.ts` (status cert over the STH) + `skills:sign` pipeline step + build publishing + `validate-skills` gate; verifiable via `artifact:verify`. PGP co-sign wired-optional.
-- Witness federation: role-tagged STH signatures + verifier `keyByUrl` resolution + `{ minWitnessSigs }` policy. Tested with an independent witness key.
-- `ANCHOR_VERIFIERS` pluggable registry + `anchors[]` + fail-closed `requireAnchor`.
+- **Registry-state broadcast message:** `sign-anchor.ts` emits the `amtech-registry-state/v1` packet (`anchor/state.json`) + a `registry-state` AMTECH certificate binding it (`subjectType: 'registry-state'` added to the standard); in the `skills:sign` pipeline; published + gated by `validate-skills`; verifiable via `artifact:verify`. PGP co-sign wired-optional.
+- **Broadcast + receipts ledger:** `broadcast-anchor.ts` / `npm run skills:broadcast` appends a signed entry to the append-only `receipts.json` (with the empty `receipts[]` slot for path A). First artifact broadcast (entry 0). Not a second hash-chain.
+- **Witness federation:** role-tagged STH signatures + verifier `keyByUrl` resolution + `{ minWitnessSigs }` policy. Tested with an independent witness key.
+- **External anchoring "breaker":** `ANCHOR_VERIFIERS` pluggable registry + `anchors[]`/`receipts[]` + fail-closed `requireAnchor`.
 
 ## What is deferred (explicit non-goals until pursued)
 

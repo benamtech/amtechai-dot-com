@@ -104,7 +104,9 @@ function transparencyLogSection(): string {
         ${artifactRow('sth.json — signed tree head', `${AUTHORITY_BASE}/sth.json`)}
         ${sth ? artifactRow(`sth/${sth.treeSize}.json — immutable STH archive`, `${AUTHORITY_BASE}/sth/${sth.treeSize}.json`) : ''}
         ${artifactRow('log.json — append-only record index', `${AUTHORITY_BASE}/log.json`)}
-        ${artifactRow('anchor/certificate.json — broadcast status cert over the STH (AMTECH Signed Artifact)', `${AUTHORITY_BASE}/anchor/certificate.json`, 'timestamped + Ed25519-signed')}
+        ${artifactRow('anchor/state.json — signed registry-state packet (certified skills + tree head + verify)', `${AUTHORITY_BASE}/anchor/state.json`, 'the broadcast message')}
+        ${artifactRow('anchor/certificate.json — AMTECH registry-state certificate over state.json', `${AUTHORITY_BASE}/anchor/certificate.json`, 'timestamped + Ed25519-signed')}
+        ${artifactRow('receipts.json — broadcast + external-anchor receipts ledger', `${AUTHORITY_BASE}/receipts.json`, 'path A')}
       </ul>
       <h3 class="mt-6 text-sm font-black uppercase tracking-[0.1em] text-black/60">Leaves (${leaves.length})</h3>
       <ul class="mt-3 grid gap-2">${leafCards}</ul>

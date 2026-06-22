@@ -63,6 +63,14 @@ if (execute) {
   if (existsSync(resolve(repoRoot, 'public/.well-known/authority/sth'))) {
     cpSync(resolve(repoRoot, 'public/.well-known/authority/sth'), resolve(registry, 'authority/sth'), { recursive: true });
   }
+  // Registry-state broadcast message + receipts ledger (docs/skills/standard/11) — mirror so the registry is a
+  // complete witness of the anchor too (the cert verifies standalone via the same key).
+  if (existsSync(resolve(repoRoot, 'public/.well-known/authority/anchor'))) {
+    cpSync(resolve(repoRoot, 'public/.well-known/authority/anchor'), resolve(registry, 'authority/anchor'), { recursive: true });
+  }
+  for (const f of ['receipts.json', 'receipts.asc']) {
+    if (existsSync(resolve(repoRoot, `public/.well-known/authority/${f}`))) cpSync(resolve(repoRoot, `public/.well-known/authority/${f}`), resolve(registry, `authority/${f}`));
+  }
   const index = JSON.parse(readFileSync(resolve(registry, 'index.json'), 'utf8'));
   index.verification.catalogRoot = newRoot;
   for (const s of index.skills) if (s.publishedOnWebsite && s.verification) { s.verification.signed = true; s.verification.status = 'signed'; s.verification.certificate = `registry/skills/${s.slug}/certificate.json`; }

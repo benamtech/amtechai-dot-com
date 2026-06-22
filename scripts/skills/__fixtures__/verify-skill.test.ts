@@ -14,7 +14,7 @@ import { fileURLToPath } from 'node:url';
 import { generateKeyPairSync } from 'node:crypto';
 import { verifySkill, type ResourceLoader } from '../../../src/lib/skills/verification/verifySkill.ts';
 import { REASON_CODES } from '../../../src/lib/skills/verification/reasonCodes.ts';
-import { derivePublicKey, loadPrivateKey, signCanonical, signingKeyDocument, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../../signing/amtech-signing.ts';
+import { derivePublicKey, loadPrivateKey, signCanonical, signingKeyDocument, verifyCanonical, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../../signing/amtech-signing.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const SLUG = 'okf-audit';
@@ -185,18 +185,39 @@ test('federation: an independent witness co-signature (key resolved by URL) sati
   assert.equal(verdict.evidence.authoritySth, 'pass');
 });
 
-test('broadcast anchor: the AMTECH status certificate verifies + binds the served STH bytes', async () => {
-  const [certRaw, sigRaw, keyRaw, sthBytes] = await Promise.all([
+test('broadcast anchor: the AMTECH registry-state certificate verifies + binds state.json whose tree head is the STH root', async () => {
+  const [certRaw, sigRaw, keyRaw, stateBytes, sthRaw] = await Promise.all([
     read(resolve(repoRoot, 'public/.well-known/authority/anchor/certificate.json')),
     read(resolve(repoRoot, 'public/.well-known/authority/anchor/certificate.sig')),
     read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')),
+    read(resolve(repoRoot, 'public/.well-known/authority/anchor/state.json')),
     read(resolve(repoRoot, 'public/.well-known/authority/sth.json')),
   ]);
-  assert.ok(certRaw && sigRaw && keyRaw && sthBytes, 'anchor artifacts present');
+  assert.ok(certRaw && sigRaw && keyRaw && stateBytes && sthRaw, 'anchor artifacts present');
   const cert = JSON.parse(certRaw!.toString('utf8')) as ArtifactCertificate;
-  assert.equal(cert.subjectType, 'status');
-  assert.equal(cert.subjectId, 'authority-sth');
+  assert.equal(cert.subjectType, 'registry-state');
+  assert.ok(cert.subjectId.startsWith('amtech-skills-tree-'), `useful subjectId, got ${cert.subjectId}`);
   assert.ok(verifyCertificate(cert, sigRaw!.toString('utf8'), JSON.parse(keyRaw!.toString('utf8')) as SigningKeyDocument), 'anchor cert Ed25519 verifies');
   const { createHash } = await import('node:crypto');
-  assert.equal(createHash('sha256').update(sthBytes!).digest('hex'), cert.digests.sha256, 'anchor binds the served STH bytes');
+  assert.equal(createHash('sha256').update(stateBytes!).digest('hex'), cert.digests.sha256, 'anchor binds the served state.json packet');
+  const state = JSON.parse(stateBytes!.toString('utf8')) as { treeHead?: { rootHash?: string }; certified?: unknown[] };
+  const sth = JSON.parse(sthRaw!.toString('utf8')) as { rootHash?: string };
+  assert.equal(state.treeHead?.rootHash, sth.rootHash, 'packet tree head == published STH root');
+  assert.ok(Array.isArray(state.certified) && state.certified.length > 0, 'packet lists certified skills (useful to agents)');
+});
+
+test('broadcast receipts ledger: signed, append-only, latest entry tracks the current root', async () => {
+  const [ledgerRaw, keyRaw, sthRaw] = await Promise.all([
+    read(resolve(repoRoot, 'public/.well-known/authority/receipts.json')),
+    read(resolve(repoRoot, 'public/.well-known/amtech-signing-key.json')),
+    read(resolve(repoRoot, 'public/.well-known/authority/sth.json')),
+  ]);
+  if (!ledgerRaw) return; // ledger only exists after a broadcast
+  const ledger = JSON.parse(ledgerRaw.toString('utf8')) as { entries: { rootHash: string; receipts: unknown[] }[]; signatures?: { role?: string; signature: string }[] };
+  const sth = JSON.parse(sthRaw!.toString('utf8')) as { rootHash?: string };
+  assert.ok(ledger.entries.length >= 1, 'at least one broadcast entry');
+  assert.equal(ledger.entries.at(-1)!.rootHash, sth.rootHash, 'latest broadcast tracks the current STH root');
+  const { signatures, ...core } = ledger as Record<string, unknown>;
+  const sig = (signatures as { role?: string; signature: string }[]).find((s) => s.role === 'authority')!;
+  assert.ok(verifyCanonical(core, sig.signature, JSON.parse(keyRaw!.toString('utf8')) as SigningKeyDocument), 'ledger Ed25519 signature verifies');
 });
