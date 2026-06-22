@@ -17,7 +17,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { skillDefinitions } from '../../../src/lib/skills/registry.ts';
+import { skillDefinitions, skillUrl } from '../../../src/lib/skills/registry.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..', '..');
 const read = (slug: string, name: 'use.md' | 'agent.md') =>
@@ -41,6 +41,25 @@ for (const skill of skillDefinitions) {
       assert.ok(agentMd.includes(input), `agent.md Inputs missing "${input}"`);
     }
     assert.ok(agentMd.includes(skill.outputsSummary), 'agent.md missing outputs summary');
+  });
+
+  test(`${skill.slug}: use.md projects progressive-disclosure reference pointers (backtick path + link + intent)`, async () => {
+    const useMd = await read(skill.slug, 'use.md');
+    const pointed = skill.files.filter((f) => f.role === 'reference' || f.role === 'asset' || f.role === 'script');
+    if (pointed.length === 0) {
+      assert.ok(!useMd.includes('## Reference Files'), 'no pointable files, so no Reference Files section expected');
+      return;
+    }
+    assert.ok(useMd.includes('## Reference Files'), 'use.md missing the "## Reference Files" progressive-disclosure section');
+    for (const f of pointed) {
+      const verb = f.role === 'script' ? 'Run' : 'Read';
+      const url = skillUrl(skill, `/files/${f.path}`);
+      // backtick path inside a markdown link to the canonical fetch URL, with explicit read/execute intent.
+      assert.ok(
+        useMd.includes(`${verb} [\`${f.path}\`](${url})`),
+        `use.md missing ${verb} pointer for \`${f.path}\``,
+      );
+    }
   });
 
   test(`${skill.slug}: bootstrap is free of other skills' output sections`, async () => {

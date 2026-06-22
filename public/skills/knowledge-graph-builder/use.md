@@ -22,6 +22,14 @@ Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agen
 6. Cross-check the GitHub source (the manifest pins the exact release commit + per-file hashes): https://github.com/benamtech/amtech-skills-registry/tree/main/skills/knowledge-graph-builder
 7. Load only the references or assets needed for the user's task.
 
+## Reference Files (progressive disclosure)
+
+Load a file only when the task needs it. Each link is one level deep, so read the whole file rather than a preview.
+
+- **Knowledge graph schema** — Use when the user asks for JSON or a graph another tool can ingest. → Read [`assets/graph-schema.json`](https://amtechai.com/skills/knowledge-graph-builder/files/assets/graph-schema.json)
+- **Entity type vocabulary** — Read when typing entities. → Read [`references/entity-types.md`](https://amtechai.com/skills/knowledge-graph-builder/files/references/entity-types.md)
+- **Knowledge graph method** — Read when deciding which nodes deserve pages and how to write edges. → Read [`references/knowledge-graph-method.md`](https://amtechai.com/skills/knowledge-graph-builder/files/references/knowledge-graph-method.md)
+
 ## Decision Tree
 
 - If you only have web or search access: use these linked markdown files in context and build the graph now.

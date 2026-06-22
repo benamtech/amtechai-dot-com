@@ -6,31 +6,31 @@
     "name": "AMTECH AI",
     "url": "https://amtechai.com"
   },
-  "latestSequence": "5",
-  "latestRecordHash": "d540bd4b1524837b64f064ee4958554efabce0deba58d3615d922cf9655e9055",
+  "latestSequence": "9",
+  "latestRecordHash": "bff9d4a5de24600f780261e1b45406ab56e9d7ff707d4c8b5d3343f1acb5640a",
   "authorityLogUrl": "https://amtechai.com/.well-known/authority/log.json",
   "merkle": {
-    "treeSize": "6",
-    "rootHash": "ed0e2db175dcb94d2172ae79d2612562714219ea071f267e48dcea3d85da7a4e",
+    "treeSize": "10",
+    "rootHash": "9cfc0227bed4c5ef1c628db70a9b5b0b6a3f9bb728e8a51d3272a2788a2b64ed",
     "sthUrl": "https://amtechai.com/.well-known/authority/sth.json",
     "algorithm": "rfc6962-sha256"
   },
   "state": {
-    "catalogRoot": "c829571e1f16dde556ad64ad53f6b8ba83873bc73843b5e72b2efe586e30f87e",
+    "catalogRoot": "322e22da77ab9398086882e93385e19c2e06337303ec30391926bbbbcc59e9b2",
     "skills": [
       {
         "slug": "amtech-article-research-writer",
         "version": "1.0.0",
         "certificateId": "amtech:skill:amtech-article-research-writer:d95432e7b8718af77324ff97",
-        "certificateSha256": "3e0d46ce5ca8b08076c19f55b5764dc6845caa80878fb43921e648f81dd228c2",
+        "certificateSha256": "38277e923b54881f8f595ca9be1ad91faaf619f7c183ba568cc9aa86f69b43f9",
         "trustTier": "amtech-reviewed",
         "status": "active"
       },
       {
         "slug": "estimate",
         "version": "1.0.0",
-        "certificateId": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
-        "certificateSha256": "9ec0d8364318255a3d16262fb003b01e9d15b445bad2a8064e4f1ab8ac7d42c1",
+        "certificateId": "amtech:skill:estimate:7d4f23261777c9c85990f66e",
+        "certificateSha256": "5efa81dd1e804541020e3a97a24853156ee74802be1e8efe6c163f8708758d39",
         "trustTier": "amtech-reviewed",
         "status": "active"
       },
@@ -38,7 +38,7 @@
         "slug": "knowledge-graph-builder",
         "version": "0.1.0",
         "certificateId": "amtech:skill:knowledge-graph-builder:fc84e67b4b19282796576352",
-        "certificateSha256": "3ac051eb7e54da18fa558a8cac10b512cc385d802dbc5e1ac99a230fcf1d280c",
+        "certificateSha256": "74f92c7452548fcc0461aa81248311992a9e4503ccbba19a766026e20624f7b5",
         "trustTier": "amtech-reviewed",
         "status": "active"
       },
@@ -46,7 +46,7 @@
         "slug": "okf-audit",
         "version": "0.1.0",
         "certificateId": "amtech:skill:okf-audit:c251106617a9dc103c8d6eed",
-        "certificateSha256": "15773ec04408665947a5c89ab7f3c76a015c50819731dbf749c7c87cae92636f",
+        "certificateSha256": "f2da75257765e8ba4e3c6becdab8cc648f9c3e856be65c3bafeba12ad52d6f67",
         "trustTier": "amtech-reviewed",
         "status": "active"
       }
@@ -140,11 +140,11 @@
       "policyVersion": "amtech-skill-policy/1",
       "canonicalUrl": "https://amtechai.com/skills/estimate",
       "archiveUrl": "https://amtechai.com/skills/estimate/estimate-1.0.0.zip",
-      "archiveSha256": "b641e6fc19eff2341b774a281740f62de8a2c2b30f81fd219f20cc382d5e8596",
-      "archiveSha3_512": "d325bfc1bde45b616eeb25ae474d196336d48826137304179a46010cce81c9410b1e6136815b33ef49a1a37b1d81bc4172b6458c2e8306a98d4225b32c76fe82",
-      "sourcePackageSha256": "27480e331ca991fdc9e9d8e442b7e6c1b3c688e7e5c6495d06a21bbcda0722c7",
-      "sourcePackageSha3_512": "972cc1334411126ca06e1b93944d3c21fd6f5291c4b3e3083faf460455d8cc2fca2fd8f48924b2790844f32f5622ce02bbf9b281069171e6464e9058bee5ad1e",
-      "certificateId": "amtech:skill:estimate:d325bfc1bde45b616eeb25ae",
+      "archiveSha256": "19ee6c98756337996a4bc6109afc361015d81e0c3e30894850b719e8e7f03ac9",
+      "archiveSha3_512": "7d4f23261777c9c85990f66e7614ac85bbd25d258c440d3f8371d6503fb7c67d95df08c33fab5e77d5d8bfa9e6ea67c4ec41e750befe93b7c752505cdb7ef075",
+      "sourcePackageSha256": "61015929858722f1040802f0e7e73362663d22c90a786e68e843e22bb8b90b4f",
+      "sourcePackageSha3_512": "d32604cc811b3742f4aea1d4df5256c9115551d801d4b1adfaf947f311eb26fe2f3f02062ccb53925ca3a915cac51112c7aeac3090387a309fc9365bee55d673",
+      "certificateId": "amtech:skill:estimate:7d4f23261777c9c85990f66e",
       "certificateUrl": "https://amtechai.com/skills/estimate/certificate.json",
       "signatureUrl": "https://amtechai.com/skills/estimate/certificate.sig",
       "conformanceEvidenceUrl": "https://amtechai.com/skills/estimate/evidence/conformance.json",

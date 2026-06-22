@@ -41,6 +41,10 @@
       "result": "pass"
     },
     {
+      "name": "file-resolves:hosts/hermes.md",
+      "result": "pass"
+    },
+    {
       "name": "file-resolves:assets/estimate-schema.json",
       "result": "pass"
     },
@@ -54,6 +58,10 @@
     },
     {
       "name": "file-declared:assets/estimate-schema.json",
+      "result": "pass"
+    },
+    {
+      "name": "file-declared:hosts/hermes.md",
       "result": "pass"
     },
     {
@@ -106,6 +114,54 @@
     },
     {
       "name": "bootstrap-output:Assumptions",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:routing-desc-third-person",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:routing-desc-trigger",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:routing-desc-length",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:catalog-desc-third-person",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:catalog-desc-length",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:desc-matches-registry",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:body-under-500",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:refs-one-deep",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:refs-toc",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:no-shell-eval-backticks",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:output-contract",
+      "result": "pass"
+    },
+    {
+      "name": "authoring:last-reviewed",
       "result": "pass"
     },
     {

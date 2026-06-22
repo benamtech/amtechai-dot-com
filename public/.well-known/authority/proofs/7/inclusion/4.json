@@ -1,9 +1,10 @@
 {
-  "treeSize": "6",
+  "treeSize": "7",
   "index": "4",
   "leafHash": "c4c3c97f4af482ab6a80c845cb7420327c379cd4498a0a3cd8be730f21eeca42",
   "auditPath": [
     "4dfaee8a685278c71a5a49922ba37b3c1e414f25d78a2db768498fcc9be28b2b",
+    "8aa350746ed0eac8b44a281edc763442739e5cfb0a39f2b074d6920d32e96ad4",
     "cce126ebabd8adf812ab2b07fb1426e23301fbf5ecc0cde156537575b4e7ade5"
   ]
 }

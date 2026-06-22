@@ -79,6 +79,21 @@ export type VerifyOptions = {
   pinnedSth?: { treeSize: string; rootHash: string };
 };
 
+/**
+ * The assurance/autonomy grant (docs/skills/standard/12). Side-effect-free description of what a verdict
+ * WARRANTS — it never gates the right to bootstrap or run; the host sets policy. Never exceeds the signed
+ * `permissions` envelope. (Stub for M0; `deriveCapability` lands in M4b.)
+ */
+export type Capability = {
+  scripts: string[];
+  filesystem: string;
+  network: string;
+  secrets: string;
+  assuranceLevel: 'none' | 'integrity' | 'authorship' | 'effectiveness';
+  autonomyWarranted: boolean;
+  isolationRecommended: boolean;
+};
+
 export type SkillVerdict = {
   verdict: 'verified' | 'invalid' | 'revoked' | 'unverifiable';
   depth: VerificationDepth;
@@ -90,6 +105,8 @@ export type SkillVerdict = {
   /** Authority sequence the verdict is anchored to (docs/skills/standard/03); null until a record resolves. */
   authoritySequence: string | null;
   checkedAt: string;
+  /** Assurance/autonomy grant (docs/skills/standard/12); optional until derived in M4b. */
+  capability?: Capability;
 };
 
 type ManifestShape = {

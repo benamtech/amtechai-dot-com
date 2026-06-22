@@ -12,6 +12,16 @@ GitHub source: https://github.com/benamtech/amtech-skills-registry/tree/main/ski
 
 Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent to turn a job description and your rates into a structured estimate: line items, totals, adjustments, and flagged assumptions.
 
+## Context
+
+Use the data your context already has before asking. Pull each input from your memory, a business brain, the current repo, or earlier in this conversation if it is there; only ask for what is genuinely missing. Never invent a rate to fill a gap.
+
+- **rates** — the labor, material, and unit prices the estimate is priced from. If it is not already in your context: ask the user for the rates.
+- **customer** — who the estimate is for (name, contact, job address). If it is not already in your context: ask the user for the customer.
+- **tax_markup_rules** — standing tax, markup, discount, or minimum-charge rules to apply to the totals. If it is not already in your context: ask the user, or omit if none apply.
+
+Host adapters say where each input lives in a specific environment: `hosts/hermes.md`.
+
 ## Read Order
 
 1. Read this bootstrap.
@@ -21,6 +31,14 @@ Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agen
 5. Verify the Ed25519 certificate and both archive digests.
 6. Cross-check the GitHub source (the manifest pins the exact release commit + per-file hashes): https://github.com/benamtech/amtech-skills-registry/tree/main/skills/estimate
 7. Load only the references or assets needed for the user's task.
+
+## Reference Files (progressive disclosure)
+
+Load a file only when the task needs it. Each link is one level deep, so read the whole file rather than a preview.
+
+- **Estimate schema** — Use when the user asks for JSON or a structured estimate. → Read [`assets/estimate-schema.json`](https://amtechai.com/skills/estimate/files/assets/estimate-schema.json)
+- **Hermes host hint** — Read when running as an AMTECH Hermes employee with a business brain and memory. → Read [`hosts/hermes.md`](https://amtechai.com/skills/estimate/files/hosts/hermes.md)
+- **Estimating discipline** — Read when deciding how to price line items or handle a missing rate. → Read [`references/estimating-discipline.md`](https://amtechai.com/skills/estimate/files/references/estimating-discipline.md)
 
 ## Decision Tree
 

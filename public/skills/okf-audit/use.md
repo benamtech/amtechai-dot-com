@@ -22,6 +22,15 @@ Use this skill in ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agen
 6. Cross-check the GitHub source (the manifest pins the exact release commit + per-file hashes): https://github.com/benamtech/amtech-skills-registry/tree/main/skills/okf-audit
 7. Load only the references or assets needed for the user's task.
 
+## Reference Files (progressive disclosure)
+
+Load a file only when the task needs it. Each link is one level deep, so read the whole file rather than a preview.
+
+- **Audit report schema** — Use when the user asks for JSON or a structured report. → Read [`assets/report-schema.json`](https://amtechai.com/skills/okf-audit/files/assets/report-schema.json)
+- **Agent-readable content checklist** — Read when auditing website rendering, snippets, or machine-readable surfaces. → Read [`references/agent-readable-content-checklist.md`](https://amtechai.com/skills/okf-audit/files/references/agent-readable-content-checklist.md)
+- **AMTECH knowledge graph insights** — Read when recommending AMTECH-style knowledge graph improvements. → Read [`references/amtech-knowledge-graph-insights.md`](https://amtechai.com/skills/okf-audit/files/references/amtech-knowledge-graph-insights.md)
+- **OKF audit rubric** — Read when scoring or explaining audit findings. → Read [`references/okf-audit-rubric.md`](https://amtechai.com/skills/okf-audit/files/references/okf-audit-rubric.md)
+
 ## Decision Tree
 
 - If you only have web or search access: use these linked markdown files in context and perform the audit now.

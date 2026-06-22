@@ -23,6 +23,10 @@ v1 proves *provenance* (who/where/which bytes) and the live Ed25519 chain verifi
 | `07-phase-gates-and-acceptance.md` | Acceptance gates + validator wiring |
 | `08-build-plan.md` | Agentic-dev build plan: M0→M4, exact files, acceptance |
 | `09-verifiability-and-proof-methods.md` | Verifiability ladder, method registry, `graph-replay` recipe, reserved/horizon rungs |
+| `10-behavioral-verification-and-evals.md` | `behavior-verified`: measured uplift over the prompt-only baseline (`deltaPp`/`g`), eval set, harness, gates |
+| `11-trust-federation-and-anchoring.md` | Federation (independent witnesses), broadcast/registry-state cert, external anchoring (the path toward trustless) |
+| `12-verified-execution-and-capability.md` | The assurance/autonomy grant: how a verdict warrants running scripts/workflows (describe-not-gate); host obligations |
+| `13-client-certificates-and-credential-brokering.md` | Client/holder certs + credential brokering: skills using real credentials to reach services, gated by verifiable identity + provenance |
 
 ## Locked decisions (this phase)
 

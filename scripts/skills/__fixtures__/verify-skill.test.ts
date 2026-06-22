@@ -131,7 +131,9 @@ test('signed tree head: the head record inclusion proof verifies (authoritySth p
 
 test('forged STH signature → STH_SIGNATURE_INVALID', async () => {
   const sth = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/sth.json')))!.toString('utf8'));
-  sth.signatures[0].signature = sth.signatures[0].signature.replace(/.$/, (c: string) => (c === 'A' ? 'B' : 'A'));
+  // Flip the FIRST base64 char — its bits always map to real signature bytes, so the forgery is never a no-op
+  // (flipping the trailing char can land in Ed25519's "==" padding bits and decode unchanged).
+  sth.signatures[0].signature = sth.signatures[0].signature.replace(/^./, (c: string) => (c === 'A' ? 'B' : 'A'));
   const verdict = await verifySkill(makeLoader({ authoritySth: Buffer.from(JSON.stringify(sth)) }));
   assert.equal(verdict.verdict, 'invalid');
   assert.ok(verdict.reasonCodes.includes(REASON_CODES.STH_SIGNATURE_INVALID), verdict.reasonCodes.join(', '));
