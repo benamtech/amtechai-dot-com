@@ -17,7 +17,8 @@ import { articleDefinitions } from '../knowledge/articles/index.ts';
 import { buildArticleSchema, AMTECH_ORGANIZATION_SCHEMA } from '../articles.ts';
 import { SITE_ORIGIN, getConcepts } from '../knowledge/concepts.ts';
 import { SKILL_REPOSITORY_URL, skillDefinitions, skillRepositoryRegistryUrl, skillRepositoryTreeUrl, skillUrl, type SkillDefinition } from '../skills/registry.ts';
-import { getSkillContent, skillCatalogRoot, skillsCount } from '../skills/generated/skill-content.ts';
+import { getSkillContent, skillCatalogRoot, skillsCount, skillAuthoritySth, skillCertificates, skillAuthorityLog } from '../skills/generated/skill-content.ts';
+import { certificateSlug } from '../skills/renderRegistryContent.ts';
 
 const HUB_CATALOG_URL = `${SITE_ORIGIN}/skills/catalog.json`;
 const HUB_AUTHORITY_URL = `${SITE_ORIGIN}/.well-known/skill-authority.json`;
@@ -459,6 +460,10 @@ function hubPageMeta(): PageMeta[] {
           authority: HUB_AUTHORITY_URL,
           catalogRoot: skillCatalogRoot,
           catalogRootRecipe: 'sha256(canonicalJson([{slug, cert: sha256(certificate.json bytes)}] sorted by slug)) — recompute and compare → CATALOG_ROOT_MISMATCH on drift.',
+          // Transparency log (docs/skills/standard/03 — Option B): the signed tree head over the authority
+          // record stream. Verify inclusion of the head record + consistency vs a pinned earlier STH.
+          authoritySth: `${SITE_ORIGIN}/.well-known/authority/sth.json`,
+          ...(skillAuthoritySth ? { authorityTreeRoot: skillAuthoritySth.rootHash, authorityTreeSize: skillAuthoritySth.treeSize } : {}),
           verifier: 'npm run skills:verify https://amtechai.com/skills/catalog.json',
         },
       },
@@ -466,6 +471,8 @@ function hubPageMeta(): PageMeta[] {
         { name: 'amtech:catalog', content: HUB_CATALOG_URL },
         { name: 'amtech:skills:count', content: String(skillsCount) },
         { name: 'amtech:catalog:root', content: skillCatalogRoot },
+        { name: 'amtech:authority:sth', content: `${SITE_ORIGIN}/.well-known/authority/sth.json` },
+        ...(skillAuthoritySth ? [{ name: 'amtech:authority:root', content: skillAuthoritySth.rootHash }] : []),
       ],
     },
   ];
@@ -585,11 +592,94 @@ function skillDetailJsonLd(skill: SkillDefinition): JsonLdObject {
 
 // --- Registry assembly ------------------------------------------------------------------------
 
+/** /registry (full materialization) + one /certificates/:id page per signed certificate. */
+function registryPageMeta(): PageMeta[] {
+  const certs = skillCertificates as { slug: string; certificate: { certificateId?: string; version?: string; attestations?: { trustTier?: string } } }[];
+  const registry: PageMeta = {
+    route: '/registry',
+    title: 'AMTECH Skill Registry — every certificate, key, and Merkle proof',
+    description:
+      'The complete, verifiable contents of the AMTECH skill certificate authority: every skill, certificate, signature, key, manifest, file, and the RFC-6962 transparency log — recompute any of it yourself.',
+    ogType: 'website',
+    image: DEFAULT_OG_IMAGE,
+    jsonLd: [],
+    alternates: [
+      { type: 'application/json', href: HUB_CATALOG_URL, title: 'Machine catalog' },
+      { type: 'application/json', href: `${SITE_ORIGIN}/.well-known/authority/sth.json`, title: 'Signed tree head' },
+    ],
+    sections: [
+      {
+        heading: 'AMTECH Skill Registry',
+        paragraphs: [
+          `The complete materialization of the AMTECH skill certificate authority: ${skillsCount} certified skill(s), every certificate and signature, the signing keys, and the RFC-6962 transparency log of ${skillAuthorityLog.leaves.length} signed authority records.`,
+          'Nothing here asks you to trust a badge — recompute any skill, certificate, or the whole Merkle tree in your browser or with the CLI verifier.',
+        ],
+        bullets: [
+          `Catalog root: ${skillCatalogRoot}`,
+          ...(skillAuthoritySth ? [`Transparency-log root: ${skillAuthoritySth.rootHash} (tree size ${skillAuthoritySth.treeSize})`] : []),
+          ...certs.map((c) => `${c.slug} v${c.certificate.version ?? ''} — ${c.certificate.attestations?.trustTier ?? 'signed'} — ${c.certificate.certificateId ?? ''}`),
+        ],
+      },
+    ],
+    agentMap: {
+      summary: 'Full AMTECH skill registry: catalog, trust root, RFC-6962 transparency log, and every per-skill artifact.',
+      actions: ['Enumerate every certificate, key, record, and proof from one page.', 'Recompute any subject and confirm its place in the catalog root and Merkle tree.'],
+      alternates: [{ type: 'application/json', href: HUB_CATALOG_URL }, { type: 'application/json', href: `${SITE_ORIGIN}/.well-known/authority/sth.json` }],
+      seeAlso: [{ title: 'Skills hub', href: `${SITE_ORIGIN}/skills` }, ...certs.map((c) => ({ title: `Certificate ${c.slug}`, href: `${SITE_ORIGIN}/certificates/${certificateSlug(c.certificate.certificateId ?? c.slug)}` }))],
+      verify: {
+        catalog: HUB_CATALOG_URL,
+        authority: HUB_AUTHORITY_URL,
+        catalogRoot: skillCatalogRoot,
+        authoritySth: `${SITE_ORIGIN}/.well-known/authority/sth.json`,
+        ...(skillAuthoritySth ? { authorityTreeRoot: skillAuthoritySth.rootHash, authorityTreeSize: skillAuthoritySth.treeSize } : {}),
+      },
+    },
+    extraMeta: [
+      { name: 'amtech:catalog:root', content: skillCatalogRoot },
+      ...(skillAuthoritySth ? [{ name: 'amtech:authority:root', content: skillAuthoritySth.rootHash }] : []),
+    ],
+  };
+
+  const certPages: PageMeta[] = certs.map((c) => {
+    const id = certificateSlug(c.certificate.certificateId ?? c.slug);
+    const tier = c.certificate.attestations?.trustTier ?? 'signed';
+    return {
+      route: `/certificates/${id}`,
+      title: `Certificate ${c.slug} v${c.certificate.version ?? ''} — AMTECH Signed Artifact`,
+      description: `The signed AMTECH certificate for the ${c.slug} skill (${tier}): bound subject, source-package + bootstrap digests, attestations, Ed25519 signature, and transparency-log inclusion — recompute it yourself.`,
+      ogType: 'website',
+      image: DEFAULT_OG_IMAGE,
+      jsonLd: [],
+      alternates: [{ type: 'application/json', href: `${SITE_ORIGIN}/skills/${c.slug}/certificate.json`, title: 'certificate.json' }],
+      sections: [
+        {
+          heading: `Certificate ${c.certificate.certificateId ?? c.slug}`,
+          paragraphs: [
+            `An AMTECH Signed Artifact certificate for the ${c.slug} skill — an Ed25519 signature over a deterministic canonical payload binding identity, source bytes, agent-entry surfaces, and attestations.`,
+            `Trust tier ${tier}. Recompute the signature, source package, manifest SRI, catalog root, authority record, and the RFC-6962 transparency-log inclusion in your browser.`,
+          ],
+          bullets: [`Subject: ${c.slug} v${c.certificate.version ?? ''}`, `Certificate id: ${c.certificate.certificateId ?? ''}`],
+        },
+      ],
+      agentMap: {
+        summary: `AMTECH signed certificate for ${c.slug}.`,
+        alternates: [{ type: 'application/json', href: `${SITE_ORIGIN}/skills/${c.slug}/certificate.json` }],
+        seeAlso: [
+          { title: `${c.slug} skill page`, href: `${SITE_ORIGIN}/skills/${c.slug}` },
+          { title: 'Full registry', href: `${SITE_ORIGIN}/registry` },
+        ],
+      },
+    };
+  });
+
+  return [registry, ...certPages];
+}
+
 let cachedIndex: Map<string, PageMeta> | null = null;
 
 export function getPageMetaIndex(): Map<string, PageMeta> {
   if (cachedIndex) return cachedIndex;
-  const all = [...AUTHORED.map(authoredToPageMeta), ...articlePageMeta(), ...hubPageMeta(), ...skillPageMeta()];
+  const all = [...AUTHORED.map(authoredToPageMeta), ...articlePageMeta(), ...hubPageMeta(), ...skillPageMeta(), ...registryPageMeta()];
   cachedIndex = new Map(all.map((m) => [m.route, m]));
   return cachedIndex;
 }

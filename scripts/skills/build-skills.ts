@@ -25,6 +25,7 @@ import {
 } from '../signing/amtech-signing.ts';
 import { verifySkill, type SkillVerdict } from '../../src/lib/skills/verification/verifySkill.ts';
 import { localPublicLoader } from './verifier-loaders.ts';
+import { leafHash } from '../../src/lib/skills/merkle.ts';
 
 const repoRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
 const publicSkillsDir = resolve(repoRoot, 'public', 'skills');
@@ -695,6 +696,22 @@ async function writeBuffer(relPath: string, content: Buffer) {
   await writeFile(abs, content);
 }
 
+/** Recursively copy a regenerable JSON tree (the STH archive + Merkle proofs) from src into a public path. */
+async function copyTree(srcAbs: string, destRel: string): Promise<number> {
+  let copied = 0;
+  for (const entry of await readdir(srcAbs, { withFileTypes: true }).catch(() => [])) {
+    const childSrc = resolve(srcAbs, entry.name);
+    const childDest = `${destRel}/${entry.name}`;
+    if (entry.isDirectory()) copied += await copyTree(childSrc, childDest);
+    else {
+      const raw = await readFile(childSrc, 'utf8');
+      await writeText(childDest, raw.endsWith('\n') ? raw : `${raw}\n`);
+      copied += 1;
+    }
+  }
+  return copied;
+}
+
 async function buildSkill(skill: SkillDefinition) {
   const files = await sourceFiles(skill);
   const archiveName = `${skill.slug}-${skill.version}.zip`;
@@ -835,6 +852,8 @@ function recipeDoc(skill: SkillDefinition, v: SkillVerdict) {
       catalog: HUB_CATALOG_URL,
       authority: SKILL_AUTHORITY_URL,
       authorityRecord: recordsBase,
+      authoritySth: `${SKILL_SITE_ORIGIN}/.well-known/authority/sth.json`,
+      inclusionProof: `${SKILL_SITE_ORIGIN}/.well-known/authority/proofs/{treeSize}/inclusion/{index}.json`,
     },
     steps: [
       'Ed25519-verify certificate.json over canonical JSON (RFC 8785) against the signing key → INVALID_SIGNATURE / IDENTITY_MISMATCH.',
@@ -843,6 +862,8 @@ function recipeDoc(skill: SkillDefinition, v: SkillVerdict) {
       'Recompute each manifest file SHA-256 and compare to its integrity (SRI) → MANIFEST_DIGEST_MISMATCH.',
       'Recompute the catalog root over the per-skill certificate digests and compare to catalog.json → CATALOG_ROOT_MISMATCH.',
       'Confirm the authority record digest equals skill-authority.latestRecordHash and the record lists this certificate → AUTHORITY_MISMATCH.',
+      'Verify the signed tree head (sth.json) under the signing key and recompute the RFC-6962 Merkle root over the records → STH_SIGNATURE_INVALID / MERKLE_ROOT_MISMATCH.',
+      'Verify the head record’s Merkle inclusion proof against the STH root → INCLUSION_PROOF_INVALID; (optional) verify a consistency proof from a previously-pinned STH → CONSISTENCY_PROOF_INVALID.',
     ],
     verifier: `npm run skills:verify ${skillUrl(skill)}`,
   };
@@ -862,9 +883,12 @@ async function main() {
 
   const index = [];
   const contents = [];
+  // Full certificates for the /certificates/:id detail pages (keyed by the cert's URL-safe id).
+  const certificates: { slug: string; certificateBytesSha256?: string; certificate: unknown }[] = [];
   for (const skill of skillDefinitions) {
     const built = await buildSkill(skill);
     contents.push(built.content);
+    if (built.certificate) certificates.push({ slug: skill.slug, certificateBytesSha256: built.certificateBytesSha256, certificate: built.certificate });
     index.push({
       slug: skill.slug,
       name: skill.name,
@@ -919,6 +943,9 @@ async function main() {
     // Digest over the SET of per-skill certificate digests (docs/skills/standard/09 §4). Reserve
     // `amtech:catalog:root` for the hub <head> (M3 surfaces it); the registry recomputes this value.
     catalogRoot,
+    // Pointer to the transparency-log STH that proves this catalog's membership (set after the STH is
+    // published below). The flat catalogRoot stays the set-integrity digest; the STH is the append-only log.
+    authoritySth: undefined as undefined | { treeSize: string; rootHash: string; sthUrl: string },
     skills: index.map((s) => ({
       slug: s.slug,
       name: s.name,
@@ -961,13 +988,23 @@ async function main() {
   const recordsSrcDir = resolve(repoRoot, 'src/lib/skills/authority/records');
   const recordFiles = (await readdir(recordsSrcDir).catch(() => [] as string[])).filter((f) => /^\d{4}\.json$/.test(f)).sort();
   const logEntries: { sequence: string; recordHash: string; recordUrl: string; signatureUrl: string }[] = [];
+  // Transparency-log leaves for the /registry materialization (leaf = SHA-256(0x00 || canonicalJson(record))).
+  const authorityLeaves: { sequence: string; stem: string; recordHash: string; leafHash: string; events: string[]; issuedAt?: string }[] = [];
   for (const file of recordFiles) {
     const stem = file.replace('.json', '');
     const recordSrc = await readFile(resolve(recordsSrcDir, `${stem}.json`), 'utf8');
     const recordSig = await readFile(resolve(recordsSrcDir, `${stem}.sig`), 'utf8').catch(() => null);
     if (!recordSig) continue;
-    const record = JSON.parse(recordSrc) as { sequence?: string; state?: unknown };
+    const record = JSON.parse(recordSrc) as { sequence?: string; state?: unknown; events?: { type?: string }[]; issuedAt?: string };
     const recordHash = sha256(canonicalJson(record)); // hash over canonical form (independent of pretty-printing)
+    authorityLeaves.push({
+      sequence: record.sequence ?? stem,
+      stem,
+      recordHash,
+      leafHash: leafHash(canonicalJson(record)),
+      events: (record.events ?? []).map((e) => e.type ?? 'event'),
+      issuedAt: record.issuedAt,
+    });
     await writeText(`public/.well-known/authority/records/${stem}.json`, recordSrc.endsWith('\n') ? recordSrc : `${recordSrc}\n`);
     await writeText(`public/.well-known/authority/records/${stem}.sig`, recordSig.endsWith('\n') ? recordSig : `${recordSig}\n`);
     logEntries.push({
@@ -985,6 +1022,26 @@ async function main() {
       'public/.well-known/authority/log.json',
       `${escJson({ schemaVersion: 'amtech-authority-log/v1', authorityUrl: SKILL_AUTHORITY_URL, latestSequence, latestRecordHash, records: logEntries })}\n`,
     );
+  }
+
+  // Transparency log (docs/skills/standard/03 — Option B): publish the signed tree head + the immutable
+  // per-size STH archive + the precomputed inclusion/consistency proofs emitted by sign-authority.ts. The
+  // tree folds the SAME record bytes (leaf = SHA-256(0x00 || canonicalJson(record))); no record changes.
+  // Absent on a pre-sign build (AMTECH_ALLOW_UNSIGNED_BUILD) → `merklePointer` stays null.
+  let merklePointer: { treeSize: string; rootHash: string; sthUrl: string } | null = null;
+  const authoritySrcDir = resolve(repoRoot, 'src/lib/skills/authority');
+  const sthSrc = await readFile(resolve(authoritySrcDir, 'sth.json'), 'utf8').catch(() => null);
+  if (sthSrc) {
+    const sthObj = JSON.parse(sthSrc) as { treeSize: string; rootHash: string; latestRecordHash?: string };
+    // Guard: the STH must commit to the SAME head as the published latest pointer (no split between the
+    // Option-A chain and the Merkle log). A mismatch means sign-authority did not run after a record append.
+    if (latestRecordHash && sthObj.latestRecordHash && sthObj.latestRecordHash !== latestRecordHash) {
+      throw new Error(`STH latestRecordHash ${sthObj.latestRecordHash} ≠ authority head ${latestRecordHash}; re-run sign-authority.`);
+    }
+    await writeText('public/.well-known/authority/sth.json', sthSrc.endsWith('\n') ? sthSrc : `${sthSrc}\n`);
+    await copyTree(resolve(authoritySrcDir, 'sth'), 'public/.well-known/authority/sth');
+    await copyTree(resolve(authoritySrcDir, 'proofs'), 'public/.well-known/authority/proofs');
+    merklePointer = { treeSize: sthObj.treeSize, rootHash: sthObj.rootHash, sthUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/sth.json` };
   }
 
   // Revoked-skill set from the materialized authority state — the link-only fast-path revocation hint; the
@@ -1006,6 +1063,12 @@ async function main() {
     latestSequence,
     latestRecordHash,
     authorityLogUrl: `${SKILL_SITE_ORIGIN}/.well-known/authority/log.json`,
+    // Transparency log (docs/skills/standard/03 — Option B): the latest signed tree head over the record
+    // stream. `rootHash` is the RFC-6962 Merkle root; agents verify inclusion of the head record + consistency
+    // vs a pinned earlier STH. Null until sign-authority emits an STH.
+    merkle: merklePointer
+      ? { treeSize: merklePointer.treeSize, rootHash: merklePointer.rootHash, sthUrl: merklePointer.sthUrl, algorithm: 'rfc6962-sha256' }
+      : undefined,
     state: latestState,
     repository: {
       url: SKILL_REPOSITORY_URL,
@@ -1077,6 +1140,8 @@ async function main() {
     const v = verdicts.get(entry.slug as string);
     if (v) entry.verification = verdictSurface(v);
   }
+  // Bind the catalog to the transparency log it lives in (no second tree — the head record IS the snapshot).
+  if (merklePointer) catalogDoc.authoritySth = merklePointer;
   await writeText('public/skills/catalog.json', `${escJson(catalogDoc)}\n`);
 
   // Per-skill: manifest verification block + recipe.json + a response-header line; thread the verdict into
@@ -1116,6 +1181,9 @@ async function main() {
     `export const skillContent: Record<string, GeneratedSkillContent> = ${escJson(contentMap)};`,
     `export const skillCatalogRoot = ${JSON.stringify(catalogRoot)};`,
     `export const skillsCount = ${JSON.stringify(skillDefinitions.length)};`,
+    `export const skillAuthoritySth = ${JSON.stringify(merklePointer ? { treeSize: merklePointer.treeSize, rootHash: merklePointer.rootHash } : null)};`,
+    `export const skillAuthorityLog = ${JSON.stringify({ latestSequence, latestRecordHash, leaves: authorityLeaves })};`,
+    `export const skillCertificates = ${JSON.stringify(certificates)};`,
     'export function getSkillContent(slug: string): GeneratedSkillContent | undefined {',
     '  return skillContent[slug];',
     '}',

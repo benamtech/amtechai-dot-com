@@ -31,6 +31,9 @@ function makeLoader(overrides: Record<string, Buffer | null> = {}): ResourceLoad
     authorityLog: async () => ('authorityLog' in overrides ? overrides.authorityLog : read(resolve(repoRoot, 'public/.well-known/authority/log.json'))),
     authorityRecordStem: async (stem) => (`record:${stem}` in overrides ? overrides[`record:${stem}`] : read(resolve(repoRoot, 'public/.well-known/authority/records', `${stem}.json`))),
     authorityRecordStemSig: async (stem) => read(resolve(repoRoot, 'public/.well-known/authority/records', `${stem}.sig`)),
+    authoritySth: async () => ('authoritySth' in overrides ? overrides.authoritySth : read(resolve(repoRoot, 'public/.well-known/authority/sth.json'))),
+    authorityInclusionProof: async (treeSize, index) => read(resolve(repoRoot, 'public/.well-known/authority/proofs', treeSize, 'inclusion', `${index}.json`)),
+    authorityConsistencyProof: async (treeSize, fromSize) => read(resolve(repoRoot, 'public/.well-known/authority/proofs', treeSize, `consistency-from-${fromSize}.json`)),
   };
 }
 
@@ -114,4 +117,51 @@ test('link-only depth verifies the signature without recomputing the graph', asy
   assert.equal(verdict.verdict, 'verified');
   assert.equal(verdict.depth, 'link-only');
   assert.equal(verdict.trustTier, 'amtech-reviewed');
+});
+
+// ---- Transparency log (Option B — docs/skills/standard/03 §Merkle): STH inclusion + policy + pinning ----
+
+test('signed tree head: the head record inclusion proof verifies (authoritySth pass)', async () => {
+  const verdict = await verifySkill(makeLoader());
+  assert.equal(verdict.verdict, 'verified', JSON.stringify(verdict.reasonCodes));
+  assert.equal(verdict.evidence.authoritySth, 'pass');
+});
+
+test('forged STH signature → STH_SIGNATURE_INVALID', async () => {
+  const sth = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/sth.json')))!.toString('utf8'));
+  sth.signatures[0].signature = sth.signatures[0].signature.replace(/.$/, (c: string) => (c === 'A' ? 'B' : 'A'));
+  const verdict = await verifySkill(makeLoader({ authoritySth: Buffer.from(JSON.stringify(sth)) }));
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.STH_SIGNATURE_INVALID), verdict.reasonCodes.join(', '));
+});
+
+test('tampered STH rootHash → INCLUSION_PROOF_INVALID (signature also breaks, both fail closed)', async () => {
+  const sth = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/sth.json')))!.toString('utf8'));
+  sth.rootHash = '0'.repeat(64);
+  const verdict = await verifySkill(makeLoader({ authoritySth: Buffer.from(JSON.stringify(sth)) }));
+  assert.equal(verdict.verdict, 'invalid');
+  // The forged root no longer matches the signed core, so the policy gate fires first; either code proves fail-closed.
+  assert.ok(
+    verdict.reasonCodes.includes(REASON_CODES.STH_SIGNATURE_INVALID) || verdict.reasonCodes.includes(REASON_CODES.INCLUSION_PROOF_INVALID),
+    verdict.reasonCodes.join(', '),
+  );
+});
+
+test('STH pinning: pinning the current STH proves trivial consistency (pass)', async () => {
+  const sth = JSON.parse((await read(resolve(repoRoot, 'public/.well-known/authority/sth.json')))!.toString('utf8'));
+  const verdict = await verifySkill(makeLoader(), { pinnedSth: { treeSize: sth.treeSize, rootHash: sth.rootHash } });
+  assert.equal(verdict.verdict, 'verified');
+  assert.equal(verdict.evidence.authorityConsistency, 'pass');
+});
+
+test('STH pinning rollback: a bogus pinned root fails closed → CONSISTENCY_PROOF_INVALID', async () => {
+  const verdict = await verifySkill(makeLoader(), { pinnedSth: { treeSize: '3', rootHash: 'deadbeef'.repeat(8) } });
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.CONSISTENCY_PROOF_INVALID), verdict.reasonCodes.join(', '));
+});
+
+test('trust policy: requiring an unmet witness signature fails closed → STH_SIGNATURE_INVALID', async () => {
+  const verdict = await verifySkill(makeLoader(), { trustPolicy: { minWitnessSigs: 1 } });
+  assert.equal(verdict.verdict, 'invalid');
+  assert.ok(verdict.reasonCodes.includes(REASON_CODES.STH_SIGNATURE_INVALID), verdict.reasonCodes.join(', '));
 });

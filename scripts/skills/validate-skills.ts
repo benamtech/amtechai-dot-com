@@ -4,6 +4,7 @@ import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { skillDefinitions, skillPath, skillUrl, SKILL_AUTHORITY_URL, SKILL_SITE_ORIGIN, type SkillDefinition } from '../../src/lib/skills/registry.ts';
 import { canonicalJson, digest, verifyCanonical, verifyCertificate, type ArtifactCertificate, type SigningKeyDocument } from '../signing/amtech-signing.ts';
+import { leafHash, merkleRoot, verifyInclusion, verifyConsistency } from '../../src/lib/skills/merkle.ts';
 import { REASON_CODES, type ReasonCode } from '../../src/lib/skills/verification/reasonCodes.ts';
 import { computeConformanceEvidence, serializeEvidence } from './run-conformance.ts';
 import { checkAttestationGates } from './attestation-gates.ts';
@@ -360,6 +361,104 @@ async function validateAuthorityRecord() {
 }
 
 /**
+ * Transparency log (Option B — docs/skills/standard/03 §Merkle). The signed tree head + precomputed proofs
+ * must recompute from the published record bytes WITHOUT any record changing: tree size = record count, the
+ * RFC-6962 root recomputes, the authority signature verifies over the signed core, every record's inclusion
+ * proof verifies against the root, each archived consistency proof verifies, and the catalog/authority
+ * pointers agree with the STH. Absent STH (pre-sign build) is skipped — it is gated by skills:sign.
+ */
+async function validateTransparencyLog() {
+  const sthRaw = await read('public/.well-known/authority/sth.json');
+  if (typeof sthRaw !== 'string') return; // no STH yet (unsigned build) — sign step emits it
+  let sth: {
+    schemaVersion?: string;
+    treeSize?: string;
+    rootHash?: string;
+    latestRecordHash?: string;
+    signatures?: { role?: string; signingKeyId?: string; signature?: string }[];
+    anchors?: unknown[];
+  };
+  try {
+    sth = JSON.parse(sthRaw);
+  } catch {
+    failCode('authority', REASON_CODES.INVALID_SCHEMA, 'sth.json is not valid JSON.');
+    return;
+  }
+  if (sth.schemaVersion !== 'amtech-authority-sth/v1') fail('sth.json: schemaVersion must be amtech-authority-sth/v1.');
+
+  // Recompute the RFC-6962 root over the published record stream (leaf = SHA-256(0x00 || canonicalJson(record))).
+  const recordsDir = 'public/.well-known/authority/records';
+  const recordFiles = (await readdir(resolve(repoRoot, recordsDir)).catch(() => [] as string[])).filter((f) => /^\d{4}\.json$/.test(f)).sort();
+  const canon: string[] = [];
+  for (const f of recordFiles) {
+    const raw = await read(`${recordsDir}/${f}`);
+    if (typeof raw === 'string') canon.push(canonicalJson(JSON.parse(raw)));
+  }
+  const leaves = canon.map((c) => leafHash(c));
+  if (sth.treeSize !== String(leaves.length)) fail(`sth.json: treeSize ${sth.treeSize} != ${leaves.length} published records.`);
+  const root = merkleRoot(leaves);
+  if (sth.rootHash !== root) failCode('authority', REASON_CODES.MERKLE_ROOT_MISMATCH, `sth.json rootHash != recomputed RFC-6962 root (${root}).`);
+  if (canon.length && sth.latestRecordHash !== digest('sha256', canon[canon.length - 1])) {
+    failCode('authority', REASON_CODES.AUTHORITY_MISMATCH, 'sth.json latestRecordHash != head record digest.');
+  }
+
+  // Authority signature over the signed core (STH minus `signatures` + `anchors`).
+  const keyRaw = await read('public/.well-known/amtech-signing-key.json');
+  const authSig = (sth.signatures ?? []).find((s) => s.role === 'authority');
+  if (!authSig?.signature) failCode('authority', REASON_CODES.STH_SIGNATURE_INVALID, 'sth.json missing an authority signature.');
+  else if (typeof keyRaw === 'string') {
+    const { signatures: _s, anchors: _a, ...core } = sth;
+    if (!verifyCanonical(core, authSig.signature, JSON.parse(keyRaw) as SigningKeyDocument)) {
+      failCode('authority', REASON_CODES.STH_SIGNATURE_INVALID, 'sth.json authority signature does not verify over the signed core.');
+    }
+  }
+
+  // Every published inclusion proof verifies against the root, and its leaf matches the record.
+  for (let i = 0; i < leaves.length; i++) {
+    const pRaw = await read(`public/.well-known/authority/proofs/${sth.treeSize}/inclusion/${i}.json`);
+    if (typeof pRaw !== 'string') {
+      failCode('authority', REASON_CODES.INCLUSION_PROOF_INVALID, `missing inclusion proof for record ${i}.`);
+      continue;
+    }
+    const p = JSON.parse(pRaw) as { index?: string; treeSize?: string; leafHash?: string; auditPath?: string[] };
+    if (p.leafHash !== leaves[i] || !verifyInclusion(leaves[i], i, leaves.length, p.auditPath ?? [], root)) {
+      failCode('authority', REASON_CODES.INCLUSION_PROOF_INVALID, `inclusion proof for record ${i} did not verify.`);
+    }
+  }
+
+  // Each archived consistency proof (prior size → current) verifies against the archived prior STH root.
+  for (const f of (await readdir(resolve(repoRoot, `public/.well-known/authority/proofs/${sth.treeSize}`)).catch(() => [] as string[]))) {
+    const m = /^consistency-from-(\d+)\.json$/.exec(f);
+    if (!m) continue;
+    const firstSize = Number(m[1]);
+    const [cRaw, priorSthRaw] = await Promise.all([
+      read(`public/.well-known/authority/proofs/${sth.treeSize}/${f}`),
+      read(`public/.well-known/authority/sth/${firstSize}.json`),
+    ]);
+    if (typeof cRaw !== 'string' || typeof priorSthRaw !== 'string') {
+      failCode('authority', REASON_CODES.CONSISTENCY_PROOF_INVALID, `consistency proof or prior STH missing for size ${firstSize}.`);
+      continue;
+    }
+    const c = JSON.parse(cRaw) as { proof?: string[] };
+    const priorRoot = (JSON.parse(priorSthRaw) as { rootHash?: string }).rootHash ?? '';
+    if (!verifyConsistency(firstSize, leaves.length, priorRoot, root, c.proof ?? [])) {
+      failCode('authority', REASON_CODES.CONSISTENCY_PROOF_INVALID, `consistency proof ${firstSize}→${leaves.length} did not verify.`);
+    }
+  }
+
+  // The catalog + authority pointers must agree with the STH (one head, no split between chain + log).
+  const [authRaw, catalogRaw] = await Promise.all([read('public/.well-known/skill-authority.json'), read('public/skills/catalog.json')]);
+  if (typeof authRaw === 'string') {
+    const mk = (JSON.parse(authRaw) as { merkle?: { rootHash?: string; treeSize?: string } }).merkle;
+    if (mk?.rootHash !== sth.rootHash || mk?.treeSize !== sth.treeSize) fail('skill-authority.json merkle pointer != sth.json.');
+  }
+  if (typeof catalogRaw === 'string') {
+    const a = (JSON.parse(catalogRaw) as { authoritySth?: { rootHash?: string } }).authoritySth;
+    if (a?.rootHash !== sth.rootHash) fail('catalog.json authoritySth.rootHash != sth.json rootHash.');
+  }
+}
+
+/**
  * G-M0 — catalog/hub bootstrap gates (docs/skills/standard/07). The hub (/skills) must be
  * self-bootstrapping: a machine catalog that matches the registry, hub agent-bootstrap files that
  * point at the catalog + authority, and prerendered HTML carrying the instruction block + decision
@@ -432,6 +531,7 @@ async function main() {
   for (const skill of skillDefinitions) await validateVerifier(skill.slug);
   for (const skill of skillDefinitions) await validateSurfaces(skill.slug);
   await validateAuthorityRecord();
+  await validateTransparencyLog();
   await validateCatalogBootstrap();
 
   const rootLlms = await read('public/llms.txt');

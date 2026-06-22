@@ -19,6 +19,8 @@ import { articleDefinitions } from '../../src/lib/knowledge/articles/index.ts';
 import type { ArticleContentBlock, ArticleDefinition } from '../../src/lib/articles.ts';
 import { renderSkillContentHtml } from '../../src/lib/skills/renderSkillContent.ts';
 import { renderHubContentHtml } from '../../src/lib/skills/renderHubContent.ts';
+import { renderRegistryContentHtml } from '../../src/lib/skills/renderRegistryContent.ts';
+import { renderCertificateContentHtml } from '../../src/lib/skills/renderCertificateContent.ts';
 import { listPageMeta, type PageMeta } from '../../src/lib/seo/pageMeta.ts';
 import { esc, renderHeadTags, renderSectionsHtml } from '../../src/lib/seo/renderHead.ts';
 
@@ -70,6 +72,9 @@ function bodyFor(meta: PageMeta): string {
   if (meta.route === '/skills') return renderHubContentHtml();
   const skillMatch = meta.route.match(/^\/skills\/([^/]+)$/);
   if (skillMatch) return renderSkillContentHtml(skillMatch[1]);
+  if (meta.route === '/registry') return renderRegistryContentHtml();
+  const certMatch = meta.route.match(/^\/certificates\/(.+)$/);
+  if (certMatch) return renderCertificateContentHtml(certMatch[1]);
   const sections = renderSectionsHtml(meta);
   if (sections) return sections;
   // Minimal but non-empty fallback so view-source is never bare.

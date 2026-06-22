@@ -27,6 +27,7 @@ import {
 import { REASON_CODES, type ReasonCode } from './reasonCodes.ts';
 import { depthForMethod, maxTierForMethod, tierRank, type VerificationDepth, type VerificationMethod } from './methodRegistry.ts';
 import type { TrustTier } from '../../../../scripts/signing/amtech-signing.ts';
+import { leafHash, verifyInclusion, verifyConsistency } from '../merkle.ts';
 
 /** Loads published bytes for one skill. Every getter returns null when the resource is unreachable. */
 export type ResourceLoader = {
@@ -48,12 +49,31 @@ export type ResourceLoader = {
   authorityRecordStem?: (stem: string) => Promise<Buffer | null>;
   /** The detached signature for an authority record by stem. */
   authorityRecordStemSig?: (stem: string) => Promise<Buffer | null>;
+  /** The latest signed tree head (/.well-known/authority/sth.json) — transparency log (docs/skills/standard/03). */
+  authoritySth?: () => Promise<Buffer | null>;
+  /** A precomputed Merkle inclusion proof for a record index at a tree size. */
+  authorityInclusionProof?: (treeSize: string, index: number) => Promise<Buffer | null>;
+  /** A precomputed consistency proof from `fromSize` to the current `treeSize` (for STH pinning). */
+  authorityConsistencyProof?: (treeSize: string, fromSize: number) => Promise<Buffer | null>;
 };
+
+/**
+ * Trust-minimization policy for the signed tree head (docs/skills/standard/03 §Merkle, scaffolding #2).
+ * Defaults reproduce today's behavior (one authority signature, no witnesses, no external anchor). Raising
+ * `minWitnessSigs` or `requireAnchor` is how "independently witnessed / externally anchored" becomes a
+ * default flip, not a format change — once real witnesses/anchors exist.
+ */
+export type SthTrustPolicy = { minAuthoritySigs?: number; minWitnessSigs?: number; requireAnchor?: boolean };
 
 export type VerifyOptions = {
   depth?: VerificationDepth;
   /** Deterministic build-time stamp; the live CLI omits it and uses now(). Keeps artifacts byte-stable (G-X.7). */
   checkedAt?: string;
+  /** STH trust policy (scaffolding #2). Omitted → { minAuthoritySigs: 1, minWitnessSigs: 0, requireAnchor: false }. */
+  trustPolicy?: SthTrustPolicy;
+  /** A previously-seen STH the caller pins (scaffolding #3). The verifier proves the current STH append-only
+   *  EXTENDS it via a consistency proof and fails closed on rollback/equivocation. Stateful agents (Hermes). */
+  pinnedSth?: { treeSize: string; rootHash: string };
 };
 
 export type SkillVerdict = {
@@ -78,6 +98,17 @@ const sha256 = (b: Buffer) => digest('sha256', b);
 const sriOf = (b: Buffer) => `sha256-${createDigestBase64(b)}`;
 function createDigestBase64(b: Buffer): string {
   return Buffer.from(sha256(b), 'hex').toString('base64');
+}
+
+/**
+ * External-anchor verification for an STH (docs/skills/standard/03 §Merkle, trust-minimization scaffolding #4)
+ * — RESERVED. When OpenTimestamps→Bitcoin / Sigstore-Rekor / signed-git-tag anchoring of the Merkle root
+ * ships, this confirms an anchor proves the root existed independently of AMTECH. Until then it is a no-op
+ * returning false, so a policy with `requireAnchor: true` fails CLOSED — you cannot require what no verifier
+ * can yet check. Default policy leaves `requireAnchor: false`, so this does not affect today's verdicts.
+ */
+function verifyAnchor(_anchors: unknown[]): boolean {
+  return false;
 }
 
 /** The effective verification method a certificate's attestations declare (docs/skills/standard/09). */
@@ -353,6 +384,86 @@ export async function verifySkill(loader: ResourceLoader, options: VerifyOptions
           } else {
             pass('authorityRecord');
             authoritySequence = headRecord.sequence ?? null;
+
+            // ---- Transparency log (docs/skills/standard/03 — Option B): verify the signed tree head, the
+            //      head record's Merkle inclusion, the STH trust policy, and (if pinned) the consistency proof.
+            //      Additive: if no STH is served, the chain walk above already established the verdict. ----
+            if (loader.authoritySth) {
+              const sthBytes = await loader.authoritySth();
+              if (!sthBytes) {
+                evidence.authoritySth = 'skipped';
+              } else {
+                try {
+                  const sth = JSON.parse(sthBytes.toString('utf8')) as {
+                    treeSize?: string;
+                    rootHash?: string;
+                    latestRecordHash?: string;
+                    signatures?: { role?: string; signingKeyId?: string; signature?: string }[];
+                    anchors?: unknown[];
+                  };
+                  const policy = {
+                    minAuthoritySigs: options.trustPolicy?.minAuthoritySigs ?? 1,
+                    minWitnessSigs: options.trustPolicy?.minWitnessSigs ?? 0,
+                    requireAnchor: options.trustPolicy?.requireAnchor ?? false,
+                  };
+                  // Signed core = STH minus `signatures` + `anchors` (so witnesses/anchors append without re-signing).
+                  const core: Record<string, unknown> = { ...sth };
+                  delete core.signatures;
+                  delete core.anchors;
+                  let authValid = 0;
+                  let witnessValid = 0;
+                  for (const s of sth.signatures ?? []) {
+                    if (!s.signature) continue;
+                    let sKey = key;
+                    if (s.signingKeyId && s.signingKeyId !== key.keyId && loader.signingKeyById) {
+                      const kb = await loader.signingKeyById(s.signingKeyId);
+                      if (kb) sKey = JSON.parse(kb.toString('utf8')) as SigningKeyDocument;
+                    }
+                    if (verifyCanonical(core, s.signature, sKey)) {
+                      if (s.role === 'witness') witnessValid += 1;
+                      else if (s.role === 'authority') authValid += 1;
+                    }
+                  }
+                  const anchorOk = !policy.requireAnchor || verifyAnchor(sth.anchors ?? []);
+                  const headBound = sth.treeSize === String(entries.length) && sth.latestRecordHash === prevHash;
+                  let inclusionOk = false;
+                  if (loader.authorityInclusionProof && sth.treeSize && sth.rootHash) {
+                    const headIndex = entries.length - 1;
+                    const pb = await loader.authorityInclusionProof(sth.treeSize, headIndex);
+                    if (pb) {
+                      const proof = JSON.parse(pb.toString('utf8')) as { auditPath?: string[] };
+                      inclusionOk = verifyInclusion(leafHash(canonicalJson(headRecord)), headIndex, entries.length, proof.auditPath ?? [], sth.rootHash);
+                    }
+                  }
+                  if (authValid < policy.minAuthoritySigs || witnessValid < policy.minWitnessSigs || !anchorOk) {
+                    fail(REASON_CODES.STH_SIGNATURE_INVALID, 'authoritySth');
+                  } else if (!headBound) {
+                    fail(REASON_CODES.AUTHORITY_MISMATCH, 'authoritySth');
+                  } else if (!inclusionOk) {
+                    fail(REASON_CODES.INCLUSION_PROOF_INVALID, 'authoritySth');
+                  } else {
+                    pass('authoritySth');
+                  }
+
+                  // STH pinning (scaffolding #3): prove the current STH append-only EXTENDS the pinned one.
+                  if (options.pinnedSth && sth.rootHash && sth.treeSize) {
+                    const fromSize = Number(options.pinnedSth.treeSize);
+                    let consistencyOk = fromSize === entries.length && options.pinnedSth.rootHash === sth.rootHash;
+                    if (!consistencyOk && loader.authorityConsistencyProof) {
+                      const cb = await loader.authorityConsistencyProof(sth.treeSize, fromSize);
+                      if (cb) {
+                        const cp = JSON.parse(cb.toString('utf8')) as { proof?: string[] };
+                        consistencyOk = verifyConsistency(fromSize, entries.length, options.pinnedSth.rootHash, sth.rootHash, cp.proof ?? []);
+                      }
+                    }
+                    if (consistencyOk) pass('authorityConsistency');
+                    else fail(REASON_CODES.CONSISTENCY_PROOF_INVALID, 'authorityConsistency');
+                  }
+                } catch {
+                  fail(REASON_CODES.INVALID_SCHEMA, 'authoritySth');
+                }
+              }
+            }
           }
         }
       } catch {

@@ -53,7 +53,7 @@ export const SKILL_BASE_PATH = '/skills';
 export const SKILL_SITE_ORIGIN = 'https://amtechai.com';
 export const SKILL_AUTHORITY_URL = `${SKILL_SITE_ORIGIN}/.well-known/skill-authority.json`;
 export const SKILL_REPOSITORY_URL = 'https://github.com/benamtech/amtech-skills-registry';
-export const SKILL_REPOSITORY_COMMIT = '048c371ce966b328eaef29788dc7b29bf27fe166';
+export const SKILL_REPOSITORY_COMMIT = 'a90753e4431acbe17a0a862f981607643282595b';
 
 function registryRepository(slug: string): SkillRepository {
   return {

@@ -1,0 +1,46 @@
+# Status — Authority Merkle Transparency Log (Option B) + trust-minimization scaffolding — 2026-06-21
+
+Branch: `skill-ca-merkle-transparency` (stacked on `main` @ `4a59c16`). Plan: `/home/computer/.claude/plans/moonlit-roaming-duckling.md`.
+
+## What shipped (in repo, not yet released)
+
+The designed-in **Option B** upgrade (`docs/skills/standard/03`) is implemented: a single **RFC 6962 / RFC 9162 Merkle transparency log** over the EXISTING authority record stream. **No record changed** — the tree folds the same bytes (`leaf = SHA-256(0x00 || canonicalJson(record))`). Decision (with Ben): **one tree**, not two — every record already materializes the full catalog `state`, so a record IS a catalog snapshot. The flat `catalogRoot` is untouched (still the set-integrity digest; LOCKED preimage respected).
+
+An agent now verifies a skill by: verify the **signed tree head (STH)** → verify the **head record's Merkle inclusion** → confirm the skill `{slug, certificateSha256}` (status ≠ revoked) is in that record's `state` → (optional) verify a **consistency proof** from a pinned earlier STH (append-only / anti-rollback).
+
+### Files
+- **New `src/lib/skills/merkle.ts`** — pure RFC-6962 primitives: `leafHash`/`nodeHash`/`merkleRoot`/`inclusionProof`/`consistencyProof` + RFC-9162 iterative `verifyInclusion`/`verifyConsistency`. Static-host friendly; same code in build, validator, verifier.
+- **New `scripts/skills/__fixtures__/merkle.test.ts`** — the validation gate: domain-separation anchors (raw SHA-256 + 0x00/0x01), an **independent naive oracle** (roots match for sizes 0..40), and full inclusion/consistency round-trip + tamper/rollback rejection. 7 tests.
+- **`scripts/signing/sign-authority.ts`** — after the (unchanged) record append, builds the tree and emits a signed STH `amtech-authority-sth/v1` + per-size archive + precomputed inclusion proofs (all indices) + consistency proofs (from every prior archived size). Idempotent: unchanged tree → no re-sign. Signed payload = STH **minus `signatures` and `anchors`** (so witnesses/anchors append without re-signing).
+- **`scripts/skills/build-skills.ts`** — publishes `sth.json` + `sth/<size>.json` + `proofs/**` to `public/.well-known/authority/`; adds `merkle{treeSize,rootHash,sthUrl,algorithm}` to `skill-authority.json` and `authoritySth` to `catalog.json`; guards STH head == authority head; `recipeDoc` gained two STH steps; generated module exports `skillAuthoritySth`.
+- **`scripts/skills/validate-skills.ts`** — `validateTransparencyLog()`: recomputes root, verifies authority signature over the core, every inclusion proof, every archived consistency proof, and that catalog/authority pointers agree. Gated in `skills:check`. (Tamper-tested: corrupting the published root fires `MERKLE_ROOT_MISMATCH` + `STH_SIGNATURE_INVALID`.)
+- **`src/lib/skills/verification/verifySkill.ts`** + `verifier-loaders.ts` — new loaders (`authoritySth`/`authorityInclusionProof`/`authorityConsistencyProof`); STH verified under a **trust policy** `{minAuthoritySigs:1, minWitnessSigs:0, requireAnchor:false, pinnedSth?}`; head-record inclusion checked; STH **pinning** consistency check (fail-closed); `verifyAnchor()` reserved no-op. **Additive**: no STH served → falls back to the Option-A chain walk.
+- **`reasonCodes.ts`** — `MERKLE_ROOT_MISMATCH`, `STH_SIGNATURE_INVALID`, `INCLUSION_PROOF_INVALID`, `CONSISTENCY_PROOF_INVALID`.
+- **`pageMeta.ts`** — hub head meta `amtech:authority:sth` + `amtech:authority:root`; verify block gained `authoritySth`/`authorityTreeRoot`/`authorityTreeSize`.
+- **Docs** — `docs/skills/standard/03` §"Transparency log — Option B" (hashing, STH schema, surfaces, verifier obligations, trust trajectory, **independent witness/monitor recipe**); `README.md`; `docs/codegraph.md`.
+
+## Trust-minimization scaffolding (the "toward trustless" step, mostly deferred)
+Wired so the expensive parts drop in without a format migration; **claims discipline: trust-minimized, NOT trustless.**
+1. STH `signatures[]` is a **role-tagged set** (only `authority` populated; `witness` entries append later).
+2. Verifier uses a **pluggable trust policy** (raise `minWitnessSigs`/`requireAnchor` = a default flip).
+3. **STH pinning** is first-class (Hermes pins last-seen STH; rollback → `CONSISTENCY_PROOF_INVALID`).
+4. `anchors[]` + `verifyAnchor()` reserved for OpenTimestamps/Rekor/signed-git-tag (no-op, fails closed if required).
+5. Normative **witness/monitor recipe** in `03` (permissionless replay + optional co-sign).
+
+Do NOT claim "trustless," "witnessed," or "quorum-verified" until a real second witness/anchor exists and the defaults are flipped. Today: root of trust = domain + self-served key + same-owner GitHub mirror.
+
+## Verification done
+`npm run skills:check` green (build + okf + validate + **51 tests**). `npm run typecheck` green. STH treeSize 6, root `ed0e2db1…`. All 4 skills verify locally `verified · sth: pass · amtech-reviewed · seq 5`. Negative paths confirmed: tampered root, forged STH sig, pin-rollback, unmet witness/anchor policy all fail closed. Idempotent re-sign = no churn.
+
+## Follow-ups DONE (same session, after the core log)
+- **Registry cross-witness (lockstep):** `~/Desktop/amtech-skills-registry/registry/validate.mjs` now mirrors `merkle.ts` (RFC-6962 leaf/node/root) and cross-witnesses the STH — recomputes the root over the mirrored records, verifies the authority signature over the signed core, and confirms every archived prior STH equals the root over the first *m* records (an independent append-only proof). `publish-skill.ts` mirrors `sth.json` + `sth/` into the registry at release. Tested: `validate.mjs --check` passes; tampered root → fail. Registry branch `skill-ca-v2-reconcile`.
+- **In-browser Merkle recompute:** `recomputeWeb.ts` gained a WebCrypto RFC-6962/9162 twin (`leafHashW`/`merkleRootW`/`verifyInclusionW`) + Step 6 (recompute root over records, verify STH signature, verify head inclusion) and an exported `recomputeAuthorityLog()`. Verified end-to-end against a served `public/` (8/8 steps pass).
+- **`/registry` page** (`src/pages/Registry.tsx` + `renderRegistryContent.ts` + `RegistryVerifyWidget.tsx`): mobile-first vertical materialization of EVERYTHING — trust root + keys, the transparency log (STH + every record/leaf linked), and every per-skill artifact (cert/sig/manifest/files+SHA-256/recipe/evidence). Live widget recomputes any skill or the whole tree in-browser and shows where it connects (catalog root, Merkle tree). React-free renderer shared with the prerenderer.
+- **`/certificates/:id` pages** (`src/pages/Certificate.tsx` + `renderCertificateContent.ts`): one detail page per signed certificate (id = certificateId, colons→hyphens) showing every bound field + attestations + linked artifacts + STH inclusion; portals the recompute widget. Generalizes to document/page certs.
+- Build-skills exports `skillAuthorityLog` (records + leaf hashes) + `skillCertificates` (full certs) into the generated module; `pageMeta.registryPageMeta()` registers `/registry` + per-cert routes; `prerender.ts` renders both. Full prod build green: **41 routes prerendered, seo:validate 0 errors** (2 pre-existing thin-body warnings on /pay,/payment-success). typecheck + lint + 51 tests green.
+
+## Open / next
+- [x] **Cross-repo lockstep** + **in-browser widget** — both DONE this session (see "Follow-ups DONE" above).
+- [ ] **Release**: run `skills:sign` (re-sign with the real flow) → `skills:publish --execute --push` for the atomic cross-repo release. The STH is currently signed over the existing 6 records (treeSize 6); a real release that appends a record will grow the tree and emit the first consistency proof. Both branches are committed for review but NOT a live deploy.
+- [ ] **Toward trustless (when pursued)**: stand up one independent witness (co-sign STH → `witness` entry, bump `minWitnessSigs`) and/or anchor the root externally (implement `verifyAnchor`). That is the real next trust step.
+- Prior handoff: `docs/memory/handoff-2026-06-21--skills-ca-operate-extend.md`. Bootstrap-binding: `status-2026-06-21--bootstrap-binding.md`.

@@ -10,12 +10,12 @@
     "canonicalUrl": "https://amtechai.com/skills/estimate",
     "sourceDirectory": "src/lib/skills/source/estimate",
     "repository": "https://github.com/benamtech/amtech-skills-registry",
-    "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
+    "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
     "repositoryCommitSignature": "unsigned",
     "repositoryPath": "skills/estimate",
-    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/estimate",
-    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json",
-    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/estimate"
+    "repositoryTree": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/estimate",
+    "repositoryRegistry": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json",
+    "codexSkillInstaller": "$skill-installer install https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/estimate"
   },
   "entrypoints": {
     "human": "https://amtechai.com/skills/estimate",
@@ -149,7 +149,7 @@
       "SHA3-512"
     ],
     "signed": true,
-    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json",
+    "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json",
     "verify": "Verify certificate.json against certificate.sig using the Ed25519 public key at https://amtechai.com/.well-known/amtech-signing-key.json. Then confirm the signed SHA-256 and SHA3-512 archive digests, version, repository path, and the sourcePackage digest match this manifest and https://amtechai.com/.well-known/skill-authority.json. The cross-repo anchor is sourcePackage (the source byte digest), not a git commit."
   },
   "safety": {

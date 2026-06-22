@@ -9,6 +9,12 @@
   "latestSequence": "5",
   "latestRecordHash": "d540bd4b1524837b64f064ee4958554efabce0deba58d3615d922cf9655e9055",
   "authorityLogUrl": "https://amtechai.com/.well-known/authority/log.json",
+  "merkle": {
+    "treeSize": "6",
+    "rootHash": "ed0e2db175dcb94d2172ae79d2612562714219ea071f267e48dcea3d85da7a4e",
+    "sthUrl": "https://amtechai.com/.well-known/authority/sth.json",
+    "algorithm": "rfc6962-sha256"
+  },
   "state": {
     "catalogRoot": "c829571e1f16dde556ad64ad53f6b8ba83873bc73843b5e72b2efe586e30f87e",
     "skills": [
@@ -55,9 +61,9 @@
   },
   "repository": {
     "url": "https://github.com/benamtech/amtech-skills-registry",
-    "commit": "048c371ce966b328eaef29788dc7b29bf27fe166",
+    "commit": "a90753e4431acbe17a0a862f981607643282595b",
     "commitSignature": "ssh:SHA256:8DKLJqHsNPm/AKQW/LRzSQh5tfK6TkyfcZdAq+TaBtA",
-    "registryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json"
+    "registryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json"
   },
   "verification": {
     "method": "ed25519-canonical-json-v1",
@@ -91,11 +97,11 @@
       "reviewEvidenceUrl": "https://amtechai.com/skills/okf-audit/evidence/review.json",
       "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
       "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
+      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
       "repositoryCommitSignature": "unsigned",
       "repositoryPath": "skills/okf-audit",
-      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/okf-audit",
-      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json"
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/okf-audit",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json"
     },
     {
       "slug": "knowledge-graph-builder",
@@ -118,11 +124,11 @@
       "reviewEvidenceUrl": "https://amtechai.com/skills/knowledge-graph-builder/evidence/review.json",
       "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
       "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
+      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
       "repositoryCommitSignature": "unsigned",
       "repositoryPath": "skills/knowledge-graph-builder",
-      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/knowledge-graph-builder",
-      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json"
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/knowledge-graph-builder",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json"
     },
     {
       "slug": "estimate",
@@ -145,11 +151,11 @@
       "reviewEvidenceUrl": "https://amtechai.com/skills/estimate/evidence/review.json",
       "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
       "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
+      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
       "repositoryCommitSignature": "unsigned",
       "repositoryPath": "skills/estimate",
-      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/estimate",
-      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json"
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/estimate",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json"
     },
     {
       "slug": "amtech-article-research-writer",
@@ -172,11 +178,11 @@
       "reviewEvidenceUrl": "https://amtechai.com/skills/amtech-article-research-writer/evidence/review.json",
       "authorityUrl": "https://amtechai.com/.well-known/skill-authority.json",
       "repositoryUrl": "https://github.com/benamtech/amtech-skills-registry",
-      "repositoryCommit": "048c371ce966b328eaef29788dc7b29bf27fe166",
+      "repositoryCommit": "a90753e4431acbe17a0a862f981607643282595b",
       "repositoryCommitSignature": "unsigned",
       "repositoryPath": "skills/amtech-article-research-writer",
-      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/048c371ce966b328eaef29788dc7b29bf27fe166/skills/amtech-article-research-writer",
-      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/048c371ce966b328eaef29788dc7b29bf27fe166/index.json"
+      "repositoryTreeUrl": "https://github.com/benamtech/amtech-skills-registry/tree/a90753e4431acbe17a0a862f981607643282595b/skills/amtech-article-research-writer",
+      "repositoryRegistryUrl": "https://github.com/benamtech/amtech-skills-registry/blob/a90753e4431acbe17a0a862f981607643282595b/index.json"
     }
   ]
 }

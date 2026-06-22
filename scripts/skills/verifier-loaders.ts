@@ -22,6 +22,9 @@ export function localPublicLoader(publicDir: string, slug: string): ResourceLoad
     authorityLog: () => read(resolve(publicDir, '.well-known/authority/log.json')),
     authorityRecordStem: (stem) => read(resolve(publicDir, '.well-known/authority/records', `${stem}.json`)),
     authorityRecordStemSig: (stem) => read(resolve(publicDir, '.well-known/authority/records', `${stem}.sig`)),
+    authoritySth: () => read(resolve(publicDir, '.well-known/authority/sth.json')),
+    authorityInclusionProof: (treeSize, index) => read(resolve(publicDir, '.well-known/authority/proofs', treeSize, 'inclusion', `${index}.json`)),
+    authorityConsistencyProof: (treeSize, fromSize) => read(resolve(publicDir, '.well-known/authority/proofs', treeSize, `consistency-from-${fromSize}.json`)),
   };
 }
 
@@ -39,6 +42,9 @@ export function httpLoader(baseUrl: string): ResourceLoader {
     authorityLog: () => fetchBytes(`${origin}/.well-known/authority/log.json`),
     authorityRecordStem: (stem) => fetchBytes(`${origin}/.well-known/authority/records/${stem}.json`),
     authorityRecordStemSig: (stem) => fetchBytes(`${origin}/.well-known/authority/records/${stem}.sig`),
+    authoritySth: () => fetchBytes(`${origin}/.well-known/authority/sth.json`),
+    authorityInclusionProof: (treeSize, index) => fetchBytes(`${origin}/.well-known/authority/proofs/${treeSize}/inclusion/${index}.json`),
+    authorityConsistencyProof: (treeSize, fromSize) => fetchBytes(`${origin}/.well-known/authority/proofs/${treeSize}/consistency-from-${fromSize}.json`),
   };
 }
 

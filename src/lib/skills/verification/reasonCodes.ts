@@ -36,6 +36,12 @@ export const REASON_CODES = {
   // Authority (reserved for M4)
   REVOKED: 'REVOKED',
   AUTHORITY_MISMATCH: 'AUTHORITY_MISMATCH',
+  // Transparency log (Option B — docs/skills/standard/03 §Merkle). The Merkle tree folds the existing
+  // record bytes; these fire when the signed tree head or a published proof fails to recompute/verify.
+  MERKLE_ROOT_MISMATCH: 'MERKLE_ROOT_MISMATCH',           // recomputed RFC-6962 root over records ≠ the STH rootHash
+  STH_SIGNATURE_INVALID: 'STH_SIGNATURE_INVALID',         // signed tree head fails the trust policy (no valid authority sig)
+  INCLUSION_PROOF_INVALID: 'INCLUSION_PROOF_INVALID',     // the head record's Merkle inclusion proof did not verify
+  CONSISTENCY_PROOF_INVALID: 'CONSISTENCY_PROOF_INVALID', // STH is not an append-only extension of a pinned earlier STH
 } as const;
 
 export type ReasonCode = (typeof REASON_CODES)[keyof typeof REASON_CODES];

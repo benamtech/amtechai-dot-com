@@ -35,6 +35,51 @@ const utf8 = (s: string) => new TextEncoder().encode(s);
 const sha256Hex = async (bytes: Uint8Array) => toHex(await crypto.subtle.digest('SHA-256', bytes));
 const sha256B64 = async (bytes: Uint8Array) => toB64(new Uint8Array(await crypto.subtle.digest('SHA-256', bytes)));
 
+// RFC 6962 / RFC 9162 Merkle primitives in WebCrypto — the in-browser twin of src/lib/skills/merkle.ts.
+const concatBytes = (...arrs: Uint8Array[]) => {
+  const out = new Uint8Array(arrs.reduce((n, a) => n + a.length, 0));
+  let o = 0;
+  for (const a of arrs) {
+    out.set(a, o);
+    o += a.length;
+  }
+  return out;
+};
+const hexToBytes = (hex: string) => Uint8Array.from(hex.match(/.{1,2}/g)?.map((b) => parseInt(b, 16)) ?? []);
+const leafHashW = (entry: Uint8Array) => sha256Hex(concatBytes(Uint8Array.of(0x00), entry));
+const nodeHashW = (l: string, r: string) => sha256Hex(concatBytes(Uint8Array.of(0x01), hexToBytes(l), hexToBytes(r)));
+async function merkleRootW(leaves: string[]): Promise<string> {
+  if (leaves.length === 0) return sha256Hex(new Uint8Array(0));
+  if (leaves.length === 1) return leaves[0];
+  let k = 1;
+  while (k * 2 < leaves.length) k *= 2;
+  return nodeHashW(await merkleRootW(leaves.slice(0, k)), await merkleRootW(leaves.slice(k)));
+}
+/** RFC 9162 §2.1.3.2 iterative inclusion-proof verification (async node hashing). */
+async function verifyInclusionW(leafHex: string, index: number, treeSize: number, proof: string[], rootHex: string): Promise<boolean> {
+  if (index >= treeSize || index < 0) return false;
+  let fn = index;
+  let sn = treeSize - 1;
+  let r = leafHex;
+  for (const p of proof) {
+    if (sn === 0) return false;
+    if ((fn & 1) === 1 || fn === sn) {
+      r = await nodeHashW(p, r);
+      if ((fn & 1) === 0) {
+        do {
+          fn >>= 1;
+          sn >>= 1;
+        } while ((fn & 1) === 0 && fn !== 0);
+      }
+    } else {
+      r = await nodeHashW(r, p);
+    }
+    fn >>= 1;
+    sn >>= 1;
+  }
+  return sn === 0 && r === rootHex;
+}
+
 function b64urlToBytes(b64url: string): Uint8Array {
   const t = b64url.trim();
   const b64 = t.replace(/-/g, '+').replace(/_/g, '/').padEnd(Math.ceil(t.length / 4) * 4, '=');
@@ -145,5 +190,76 @@ export async function recomputeVerdict(slug: string, onStep?: (i: number, step: 
     return stop('Authority record', e instanceof Error ? e.message : String(e));
   }
 
+  // ---- Step 6 — transparency log: recompute the RFC-6962 Merkle root over the records, verify the signed
+  //      tree head's Ed25519 signature, and verify the head record's inclusion proof (03 §"Option B") -------
+  try {
+    const log = await getJson<{ records?: { sequence: string }[] }>(`/.well-known/authority/log.json`);
+    const sthDoc = await getJson<Sth>(`/.well-known/authority/sth.json`).catch(() => null);
+    if (!sthDoc) {
+      emit({ label: 'Transparency-log signed tree head', status: 'skipped', detail: 'no STH served (record-only deploy)' });
+    } else {
+      const seqs = (log.records ?? []).map((r) => r.sequence).sort((a, b) => Number(a) - Number(b));
+      const leaves: string[] = [];
+      for (const seq of seqs) leaves.push(await leafHashW(utf8(canonicalJson(JSON.parse(await getText(`/.well-known/authority/records/${String(seq).padStart(4, '0')}.json`))))));
+      const root = await merkleRootW(leaves);
+      const rootOk = root === sthDoc.rootHash && sthDoc.treeSize === String(leaves.length);
+      emit({ label: `Transparency-log Merkle root over ${leaves.length} records`, status: rootOk ? 'pass' : 'fail', detail: `${root.slice(0, 16)}…` });
+      if (!rootOk) return { verdict: 'invalid', steps };
+      const sigOk = await verifySthSignature(sthDoc);
+      emit({ label: 'Signed tree head Ed25519 signature', status: sigOk ? 'pass' : 'fail' });
+      if (!sigOk) return { verdict: 'invalid', steps };
+      const headIndex = leaves.length - 1;
+      const proof = await getJson<{ auditPath?: string[] }>(`/.well-known/authority/proofs/${sthDoc.treeSize}/inclusion/${headIndex}.json`);
+      const inclOk = await verifyInclusionW(leaves[headIndex], headIndex, leaves.length, proof.auditPath ?? [], sthDoc.rootHash);
+      emit({ label: `Head record Merkle inclusion proof (index ${headIndex})`, status: inclOk ? 'pass' : 'fail' });
+      if (!inclOk) return { verdict: 'invalid', steps };
+    }
+  } catch (e) {
+    return stop('Transparency log', e instanceof Error ? e.message : String(e));
+  }
+
   return { verdict: 'verified', steps };
+}
+
+type Sth = {
+  treeSize: string;
+  rootHash: string;
+  latestRecordHash?: string;
+  signatures?: { role?: string; signingKeyId?: string; signature: string }[];
+  anchors?: unknown[];
+};
+
+/** Verify a signed tree head's authority signature over its signed core (STH minus `signatures` + `anchors`). */
+async function verifySthSignature(sth: Sth): Promise<boolean> {
+  const sig = (sth.signatures ?? []).find((s) => s.role === 'authority');
+  if (!sig) return false;
+  const core: Record<string, unknown> = { ...sth };
+  delete core.signatures;
+  delete core.anchors;
+  const key =
+    (await getJson<KeyDoc>(`/.well-known/keys/${sig.signingKeyId?.replace(/[:/]/g, '_')}.json`).catch(() => null)) ??
+    (await getJson<KeyDoc>(`/.well-known/amtech-signing-key.json`));
+  if (key.status === 'revoked') return false;
+  return ed25519Verify(key.publicKeyPem, sig.signature, utf8(canonicalJson(core)));
+}
+
+/**
+ * Standalone transparency-log recompute for the /registry widget: fetch the full record stream, recompute the
+ * RFC-6962 root, verify the STH signature, and report the tree. Independent of any single skill.
+ */
+export async function recomputeAuthorityLog(): Promise<{ ok: boolean; treeSize: number; root: string; leaves: string[]; sthRoot: string; signatureOk: boolean; detail?: string }> {
+  try {
+    const [log, sth] = await Promise.all([
+      getJson<{ records?: { sequence: string }[] }>(`/.well-known/authority/log.json`),
+      getJson<Sth>(`/.well-known/authority/sth.json`),
+    ]);
+    const seqs = (log.records ?? []).map((r) => r.sequence).sort((a, b) => Number(a) - Number(b));
+    const leaves: string[] = [];
+    for (const seq of seqs) leaves.push(await leafHashW(utf8(canonicalJson(JSON.parse(await getText(`/.well-known/authority/records/${String(seq).padStart(4, '0')}.json`))))));
+    const root = await merkleRootW(leaves);
+    const signatureOk = await verifySthSignature(sth);
+    return { ok: root === sth.rootHash && signatureOk, treeSize: leaves.length, root, leaves, sthRoot: sth.rootHash, signatureOk };
+  } catch (e) {
+    return { ok: false, treeSize: 0, root: '', leaves: [], sthRoot: '', signatureOk: false, detail: e instanceof Error ? e.message : String(e) };
+  }
 }
