@@ -8,9 +8,8 @@ Always use the fastest, lowest-token navigation path before broad repo explorati
 2. Read `wiki/db-forms-endpoints.md` for Supabase tables, storage buckets, form handlers, Edge Functions, and environment variables.
 3. Read `codegraph.json` when a machine-readable route/data-flow map is useful.
 4. For article/SEO work, check `docs/skills/amtech-article-research-writer/`, `docs/skills/amtech-article-publisher/`, `docs/ARTICLE_SYSTEM.md`, `docs/article-drafts/`, `docs/seo/AMTECH_MASTER_KNOWLEDGE_GRAPH.md`, and `docs/seo/KNOWLEDGE_GRAPH_SEO_RESEARCH.md`; for live copy decisions, treat current site copy in `src/pages` and `src/components` as authoritative. For Open Knowledge Format (OKF) conformance and the article-system adaptation plan, read `docs/okf/` (start at `docs/okf/README.md`).
-5. For AI Employee MVP work, read `docs/AI_EMPLOYEE_MVP.md`, `AI_EMPLOYEE_MVP/BUILD-PLAN.md`, `AI_EMPLOYEE_MVP/SUB_AGENTS.md`, and `AI_EMPLOYEE_MVP/ai-employee-all-files/README.md` before touching code.
-6. Inspect only the route page, feature folder, migration, service file, Edge Function, article-system file, or AI Employee bundle file identified by those references.
-7. Use targeted `rg` searches only after the codegraph/reference docs do not answer the question.
+5. Inspect only the route page, feature folder, migration, service file, Edge Function, or article-system file identified by those references.
+6. Use targeted `rg` searches only after the codegraph/reference docs do not answer the question.
 
 ## Required update rule
 
@@ -25,7 +24,7 @@ When codebase changes affect any of the following, update all relevant reference
 - Repo-local reusable agent skills under `docs/skills/*`.
 - Public skill registry source URLs, Git commit pins, reciprocal website/repository links, manifest fields, authority/checksum behavior, or signature status. Keep `src/lib/skills/registry.ts`, generated public skill surfaces, `docs/agent-skills/`, `docs/UNIVERSAL_SKILL_LINK_CONTRACT.md`, and `docs/SKILL_MATERIALIZATION_PIPELINE.md` synchronized.
 - The article knowledge graph (`src/lib/articleKnowledgeGraph.ts`), the entity registry (`src/lib/knowledge/entities.ts`), or any article data (`src/lib/knowledge/articles/*`): also run `npm run okf:check` and commit the regenerated `public/okf/**` + `public/{sitemap.xml,robots.txt,llms.txt}` (the OKF freshness gate fails on a stale bundle). To keep the Supabase projection current, re-run `npm run okf:db:seed-sql` (apply via service role / MCP) and `npm run okf:db:verify`. Article routes prerender automatically via `postbuild`.
-- AI Employee MVP provisioning contract, Twilio/Hermes integration behavior, claim form fields, consent capture, or provisioning deployment assumptions.
+- AI Employee claim flow, Twilio/Hermes integration behavior, claim form fields, consent capture, or provisioning deployment assumptions.
 
 ## Reference files to keep synchronized
 
@@ -37,7 +36,6 @@ When codebase changes affect any of the following, update all relevant reference
 - `wiki/design-notes.md`, `wiki/product-internal-research.md`, and `wiki/research/*` for durable design, product, market, and internal research.
 - `docs/article-drafts/*` for unpublished article drafts, research references, proposed graph metadata, and candidate article metadata.
 - `docs/skills/*` for repo-local reusable agent skills.
-- `docs/AI_EMPLOYEE_MVP.md` for the AI Employee product bundle and planned website claim flow.
 
 ## Goal
 
