@@ -173,6 +173,7 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 # Referenced by
 
 - [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) — Published OKF audit walkthrough and content infrastructure explainer.
+- [What Japan's Sovereign AI Push Means for American Small Business AI Agents](/articles/what-japan-sovereign-ai-means-for-american-small-business.md) — Published AI-news-to-operator explainer.
 - [How Independent Stores Use AI to Turn Three Seasons of Sales Data Into Better Owner Decisions](/articles/garden-center-spring-buy-plan-ai.md) — Published local operations guide.
 - [What Is OKF? Google's New Format For AI-Readable Knowledge](/articles/what-is-okf-ai-readable-knowledge.md) — Published OKF and agentic-search explainer.
 

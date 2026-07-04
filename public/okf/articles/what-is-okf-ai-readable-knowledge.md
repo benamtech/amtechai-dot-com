@@ -229,6 +229,7 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 # Referenced by
 
 - [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) — Published OKF audit walkthrough and content infrastructure explainer.
+- [What Japan's Sovereign AI Push Means for American Small Business AI Agents](/articles/what-japan-sovereign-ai-means-for-american-small-business.md) — Published AI-news-to-operator explainer.
 
 # Citations
 

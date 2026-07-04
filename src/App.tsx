@@ -34,6 +34,7 @@ import BusinessBrainFree from './pages/articles/BusinessBrainFree';
 import SalisburyRetailSalesDataAI from './pages/articles/SalisburyRetailSalesDataAI';
 import OkfAiReadableKnowledge from './pages/articles/OkfAiReadableKnowledge';
 import WhatAgentsSeeWebsite from './pages/articles/WhatAgentsSeeWebsite';
+import JapanSovereignAiSmallBusiness from './pages/articles/JapanSovereignAiSmallBusiness';
 
 export default function App() {
   return (
@@ -77,6 +78,7 @@ export default function App() {
           <Route path="/articles/garden-center-spring-buy-plan-ai" element={<SalisburyRetailSalesDataAI />} />
           <Route path="/articles/what-is-okf-ai-readable-knowledge" element={<OkfAiReadableKnowledge />} />
           <Route path="/articles/what-ai-agents-see-when-they-read-your-website" element={<WhatAgentsSeeWebsite />} />
+          <Route path="/articles/what-japan-sovereign-ai-means-for-american-small-business" element={<JapanSovereignAiSmallBusiness />} />
         </Route>
       </Routes>
     </BrowserRouter>

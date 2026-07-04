@@ -177,6 +177,7 @@ This concept connects to related parts of the AMTECH operations knowledge graph;
 
 # Referenced by
 
+- [What Japan's Sovereign AI Push Means for American Small Business AI Agents](/articles/what-japan-sovereign-ai-means-for-american-small-business.md) — Published AI-news-to-operator explainer.
 - [What Is OKF? Google's New Format For AI-Readable Knowledge](/articles/what-is-okf-ai-readable-knowledge.md) — Published OKF and agentic-search explainer.
 
 # Citations

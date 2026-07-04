@@ -11,6 +11,7 @@ The AMTECH operations-AI knowledge graph: published articles, planned operationa
 
 * [How to Build a Business Brain for Free Before You Hire an AI Consultant](/articles/business-brain-free.md) - A practical owner guide for organizing business knowledge, records, examples, rules, and approvals before building an AI employee or custom automation system.
 * [What AI Agents See When They Read Your Website](/articles/what-ai-agents-see-when-they-read-your-website.md) - Most web content scores around 12/30 when audited for agent-readability. This walkthrough explains all six OKF rubric dimensions, scores a real AMTECH article, and names the five infrastructure gaps most publishers need to fix.
+* [What Japan's Sovereign AI Push Means for American Small Business AI Agents](/articles/what-japan-sovereign-ai-means-for-american-small-business.md) - Japan is spending billions to control its own AI. The lesson for a small business is not to build a national model — it is that the same control fight is coming to Main Street, and at your scale the winning move flips: rent the model, own the layer.
 * [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](/articles/build-local-seo-plan-with-chatgpt.md) - Give ChatGPT or Claude your services, local conditions, and buyer questions. Turn the output into a knowledge graph, publish answer-first pages, and become the source AI search wants to cite.
 * [Build a Claude Skill That Helps You Price Jobs Like a Pro](/articles/build-claude-skill-job-pricing.md) - A plain-English guide for Claude users who want to create a reusable job profitability skill for pricing local service work.
 * [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) - A practical comparison for small-business owners deciding whether they need a general AI chat tool or a custom AI employee built around their business.
@@ -79,13 +80,18 @@ The AMTECH operations-AI knowledge graph: published articles, planned operationa
 
 * [Agent-readable knowledge](/entities/concept-agent-readable-knowledge.md) - The end state where an agent that fetches a URL gets enough structure, metadata, entities, and citations to use the content as trusted context without scraping or guessing.
 * [AI Overviews](/entities/concept-ai-overviews.md) - Google's generative search surface that may use query fan-out across related subtopics, rewarding clear entity relationships and cited claims.
+* [Approval gate](/entities/concept-approval-gate.md) - The trust boundary where anything that leaves the business or moves money waits for the owner's explicit yes. Enforced structurally by the kind of work, so a money-touching action cannot skip the confirmation.
+* [Business sovereignty](/entities/concept-business-sovereignty.md) - The small-business analog of sovereign AI: instead of owning a model, the owner owns the layer around a rented model — a business brain, connectors on their own accounts, an approval gate, and an audit trail.
+* [Connector](/entities/concept-connector.md) - A live integration — Gmail, Stripe, calendar, files — wired on the owner's own accounts so the AI Employee has operating context and action rights the owner controls, added one at a time as trust grows.
 * [JSON-LD](/entities/concept-json-ld.md) - The JSON syntax for embedding schema.org structured data in a page so its meaning is explicit in the first-fetch surface.
 * [Knowledge graph](/entities/concept-knowledge-graph.md) - Named entities connected by typed relationships, so agents and search systems build context by traversing links between things rather than re-reading prose.
 * [llms.txt](/entities/concept-llms-txt.md) - A discovery file that gives AI tools a direct orientation to a site’s most important content, complementing sitemap.xml and robots.txt.
 * [Materialized views](/entities/concept-materialized-views.md) - One source of truth projected into many consumer surfaces — HTML, prerendered static pages, JSON-LD, markdown bundle, sitemap — so every reader gets a fit-for-purpose representation.
 * [Open Knowledge Format](/entities/concept-open-knowledge-format.md) - Google's lightweight format for AI-readable knowledge: a directory of markdown concept files with YAML frontmatter whose links form a portable knowledge graph.
 * [OKF content audit](/entities/concept-okf-content-audit.md) - A six-dimension scoring method (0–30) for how readable a page or bundle is to AI agents: first-fetch clarity, concept packaging, entity coverage, citations, materialized views, and execution readiness.
+* [Physical AI](/entities/concept-physical-ai.md) - AI that acts in the physical world — multimodal models built to run robots, vehicles, and equipment from images, video, audio, and sensor data rather than text alone. The layer of the control stack where AI takes real-world action.
 * [AMTECH Knowledge Publishing Standard](/entities/concept-amtech-knowledge-publishing-standard.md) - The AMTECH discipline of authoring knowledge once and projecting it into every surface humans, crawlers, agents, and databases need, with validation before publish.
+* [Sovereign AI](/entities/concept-sovereign-ai.md) - National control over the AI operating layer — the model, compute, data, physical machines, and permissions — so a country is not dependent on foreign models. The country-scale version of the control problem a business faces.
 * [Structured data](/entities/concept-structured-data.md) - Machine-readable clues about page meaning (author, date, type, FAQ, breadcrumbs) that agents and search systems use when prose alone is ambiguous.
 * [Bike shop](/entities/industry-bike-shop.md) - Retail sales plus a repair pipeline that drives parts ordering.
 * [Building supply and trades](/entities/industry-building-supply.md) - Contractor accounts, material takeoffs, and demand-driven reorder cadence.
@@ -130,6 +136,14 @@ Entity SEO, OKF, Business Brain context, and agent-readable publishing surfaces.
 * [How to Build a Business Brain for Free Before You Hire an AI Consultant](/articles/business-brain-free.md) - A practical owner guide for organizing business knowledge, records, examples, rules, and approvals before building an AI employee or custom automation system.
 * [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) - A practical comparison for small-business owners deciding whether they need a general AI chat tool or a custom AI employee built around their business.
 * [AI learned to trade stocks before it could flip a burger: automate the operations brain, not the front desk](/playbooks/ai-learned-to-trade-stocks-before-it-could-flip-a-burger-automate-the-operations-brain-not-the-front-desk.md) - Thesis and worked examples across inventory, finance, purchasing, forecasting, and planning.
+
+### AI news, translated for operators
+
+Fast-moving AI policy and infrastructure news turned into durable operating principles for small businesses — own the layer, not the hype.
+
+* [What Japan's Sovereign AI Push Means for American Small Business AI Agents](/articles/what-japan-sovereign-ai-means-for-american-small-business.md) - Japan is spending billions to control its own AI. The lesson for a small business is not to build a national model — it is that the same control fight is coming to Main Street, and at your scale the winning move flips: rent the model, own the layer.
+* [AMTECH vs. ChatGPT or Claude: What’s the Difference?](/articles/amtech-vs-chatgpt-claude.md) - A practical comparison for small-business owners deciding whether they need a general AI chat tool or a custom AI employee built around their business.
+* [How to Build a Business Brain for Free Before You Hire an AI Consultant](/articles/business-brain-free.md) - A practical owner guide for organizing business knowledge, records, examples, rules, and approvals before building an AI employee or custom automation system.
 
 ### Purchasing, inventory, and forecasting
 

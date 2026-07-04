@@ -7,6 +7,7 @@ import { article as claudeSkillPricing } from './build-claude-skill-job-pricing.
 import { article as okfAiReadableKnowledge } from './what-is-okf-ai-readable-knowledge.ts';
 import { articles as estimatePrompts } from './estimate-prompts.ts';
 import { article as whatAgentsSee } from './what-ai-agents-see-when-they-read-your-website.ts';
+import { article as japanSovereignAi } from './what-japan-sovereign-ai-means-for-american-small-business.ts';
 
 /**
  * Every published article's full ArticleDefinition, keyed by slug. React-free so build
@@ -21,6 +22,7 @@ export const articleDefinitions: Record<string, ArticleDefinition> = {
   [claudeSkillPricing.slug]: claudeSkillPricing,
   [okfAiReadableKnowledge.slug]: okfAiReadableKnowledge,
   [whatAgentsSee.slug]: whatAgentsSee,
+  [japanSovereignAi.slug]: japanSovereignAi,
   ...estimatePrompts,
 };
 
