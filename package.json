@@ -31,6 +31,7 @@
     "artifact:sign": "node scripts/signing/sign-artifact.ts",
     "artifact:verify": "node scripts/signing/verify-artifact.ts",
     "skills:broadcast": "node scripts/signing/broadcast-anchor.ts",
+    "article-system:validate": "node scripts/seo/validate-article-system.ts",
     "seo:validate": "node scripts/seo/validate-seo.ts",
     "seo:check": "npm run build && npm run seo:validate"
   },
