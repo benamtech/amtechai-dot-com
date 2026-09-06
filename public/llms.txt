@@ -8,6 +8,13 @@
 
 ## Key pages
 
+- [AMTECH](https://amtechai.com/): what AMTECH builds - one AI employee per business, trained on that business's own trade, rates and customers.
+- [What it costs](https://amtechai.com/pricing): AMTECH's published prices for an AI employee, a website, and hourly build and advisory work.
+- [How it works](https://amtechai.com/how-it-works): what happens between the first call and a working AI employee, step by step.
+- [Cost calculator](https://amtechai.com/cost-calculator): compare the cost of an AI employee against the staff and agencies it replaces.
+- [Our work](https://amtechai.com/our-work): the client sites AMTECH has built and manages.
+- [About](https://amtechai.com/about): who AMTECH is and how it operates.
+- [Contact](https://amtechai.com/contact): how to reach Ben Palaskas directly, and how to book a call.
 - [Articles hub](https://amtechai.com/articles): the AMTECH operations-AI learning library.
 - [All articles & knowledge map](https://amtechai.com/articles/all): full index of published articles and planned operational nodes.
 

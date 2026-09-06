@@ -188,7 +188,26 @@ function llms(concepts: OkfConcept[]): string {
     `- [OKF bundle index](${SITE_ORIGIN}/okf/index.md): machine-readable knowledge graph of AMTECH articles and operational playbooks, with the relationships between them.`,
     '',
   );
+  // The commercial pages come first, and they used to be missing entirely.
+  //
+  // Measured 2026-09-06: llms.txt published 31 URLs - every article, every
+  // skill - and not one page that says what AMTECH costs, what it does, or how
+  // to get in touch. sitemap.xml carried all seven; llms.txt carried none. So
+  // an agent that starts where we TELL agents to start found the library and
+  // could not find the price, and llms.txt is the file the whole
+  // agent-readability position rests on.
+  //
+  // The description after each colon is what an agent reads to decide whether
+  // to fetch the page, so it says what is on the page rather than naming it
+  // again.
   lines.push('## Key pages', '');
+  lines.push(`- [AMTECH](${SITE_ORIGIN}/): what AMTECH builds - one AI employee per business, trained on that business's own trade, rates and customers.`);
+  lines.push(`- [What it costs](${SITE_ORIGIN}/pricing): AMTECH's published prices for an AI employee, a website, and hourly build and advisory work.`);
+  lines.push(`- [How it works](${SITE_ORIGIN}/how-it-works): what happens between the first call and a working AI employee, step by step.`);
+  lines.push(`- [Cost calculator](${SITE_ORIGIN}/cost-calculator): compare the cost of an AI employee against the staff and agencies it replaces.`);
+  lines.push(`- [Our work](${SITE_ORIGIN}/our-work): the client sites AMTECH has built and manages.`);
+  lines.push(`- [About](${SITE_ORIGIN}/about): who AMTECH is and how it operates.`);
+  lines.push(`- [Contact](${SITE_ORIGIN}/contact): how to reach Ben Palaskas directly, and how to book a call.`);
   lines.push(`- [Articles hub](${SITE_ORIGIN}/articles): the AMTECH operations-AI learning library.`);
   lines.push(`- [All articles & knowledge map](${SITE_ORIGIN}/articles/all): full index of published articles and planned operational nodes.`);
   lines.push('');
