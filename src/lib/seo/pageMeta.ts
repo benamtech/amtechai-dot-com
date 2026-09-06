@@ -189,27 +189,30 @@ const AUTHORED: AuthoredEntry[] = [
   },
   {
     route: '/pricing',
-    title: 'AMTECH AI Pricing — Simple Plans for an AI Employee',
+    title: 'AMTECH AI Pricing — $1,500 a month for an AI employee',
     description:
-      'Straightforward pricing for an AI employee that handles calls, texts, scheduling, and back-office work. Start free and scale as the work grows.',
+      'An AI employee costs $1,500 a month, and most cost more. A website is $1,000 or more. Build work is $80 an hour and advice is $60 an hour.',
     ogType: 'website',
     sections: [
       {
         heading: 'Pricing',
         paragraphs: [
-          'AMTECH pricing is built around one idea: an AI employee should pay for itself in saved time and captured work.',
-          'Start free, then scale as the employee takes on more of the day-to-day.',
+          'An AI employee costs $1,500 a month. That is the minimum, and most businesses pay more than $2,000 because they hand it more of the work.',
+          'Setup is one to two hours of calls. In those calls AMTECH learns your trade, your rates, your customers and how you write, and builds that into a business brain the employee works from.',
+          'Compare that to what the same jobs cost separately. A full-time office assistant is $2,000 to $3,000 a month. A web developer is $3,500 to $7,000. An agency for design and ads is $2,500 to $6,000. Most owners are not paying for all of them, which is the point.',
+          'A website on its own is $1,000 or more. Build work is $80 an hour. Advice, training and sitting with you while you do it is $60 an hour.',
+          'AI employees are early access for a small number of businesses. Ben sets every price himself.',
         ],
       },
     ],
   },
   {
     route: '/contact',
-    title: 'Contact AMTECH AI',
+    title: 'Contact AMTECH AI — talk to Ben',
     description:
-      'Get in touch with AMTECH about an AI employee for your business. Ask a question, book a demo, or start your free setup.',
+      'Reach Ben Palaskas about an AI employee for your business. Send a job you need priced and he will draft the estimate on a call, in about two minutes.',
     ogType: 'website',
-    sections: [{ heading: 'Contact AMTECH', paragraphs: ['Reach the AMTECH team to ask a question, book a demo, or start your free AI employee setup.'] }],
+    sections: [{ heading: 'Contact AMTECH', paragraphs: ['AMTECH is Ben Palaskas. Ask a question, book a call, or send a real job you need priced and he will draft the whole estimate with you on the call, in about two minutes.'] }],
   },
   {
     route: '/our-work',
@@ -240,7 +243,7 @@ const AUTHORED: AuthoredEntry[] = [
     title: 'Schedule a Call with AMTECH AI',
     description: 'Book a call to see how an AMTECH AI employee fits your business.',
     ogType: 'website',
-    sections: [{ heading: 'Schedule a call', paragraphs: ['Book a quick call with the AMTECH team to see how an AI employee handles your calls, texts, scheduling, and the back-office work that eats your day.'] }],
+    sections: [{ heading: 'Schedule a call', paragraphs: ['Book a call with Ben Palaskas. Bring a real job you need priced and he will draft the estimate with you on the call, so you can judge the work rather than a description of it.'] }],
   },
   {
     route: '/apply',
