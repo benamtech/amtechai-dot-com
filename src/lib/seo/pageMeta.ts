@@ -189,27 +189,79 @@ const AUTHORED: AuthoredEntry[] = [
   },
   {
     route: '/pricing',
-    title: 'AMTECH AI Pricing — Simple Plans for an AI Employee',
+    title: 'AMTECH AI Pricing — $1,500 a month for an AI employee',
     description:
-      'Straightforward pricing for an AI employee that handles calls, texts, scheduling, and back-office work. Start free and scale as the work grows.',
+      'An AI employee costs $1,500 a month, and most cost more. A website is $1,000 or more. Build work is $80 an hour and advice is $60 an hour.',
     ogType: 'website',
     sections: [
       {
         heading: 'Pricing',
         paragraphs: [
-          'AMTECH pricing is built around one idea: an AI employee should pay for itself in saved time and captured work.',
-          'Start free, then scale as the employee takes on more of the day-to-day.',
+          'An AI employee costs $1,500 a month. That is the minimum, and most businesses pay more than $2,000 because they hand it more of the work.',
+          'Setup is one to two hours of calls. In those calls AMTECH learns your trade, your rates, your customers and how you write, and builds that into a business brain the employee works from.',
+          'Compare that to what the same jobs cost separately. A full-time office assistant is $2,000 to $3,000 a month. A web developer is $3,500 to $7,000. An agency for design and ads is $2,500 to $6,000. Most owners are not paying for all of them, which is the point.',
+          'A website on its own is $1,000 or more. Build work is $80 an hour. Advice, training and sitting with you while you do it is $60 an hour.',
+          'AI employees are early access for a small number of businesses. Ben sets every price himself.',
+        ],
+      },
+    ],
+  },
+  {
+    route: '/painters',
+    title: 'For Painting Contractors — AMTECH AI',
+    description:
+      'One AMTECH employee for your painting business: it writes the estimate, sends the invoice, keeps and follows up your clients, and makes you readable to AI search. From $1,500 a month.',
+    ogType: 'website',
+    sections: [
+      {
+        heading: 'You run the crew. AMTECH runs the office.',
+        paragraphs: [
+          'AMTECH is an AI employee for your painting business. You talk or type what needs doing, and it gets done: the estimate, the invoice, the follow-up, the marketing. You stay in charge, and the paperwork stops piling up on you.',
+        ],
+      },
+      {
+        heading: 'If you already talk to AI, you already know half of this.',
+        paragraphs: [
+          'You use ChatGPT or Claude for a caption, a second opinion, or turning rough notes into something that reads more official. That is what it feels like to hand a computer a piece of writing and get a finished result back. AMTECH takes that feeling and runs it all the way to the end: the employee already knows your rates, your customers, your scope, and how you write, so it writes the estimate for every job, sends the invoice, and follows up the leads you would have forgotten. You are not driving each step. It runs the process and hands you the result to approve.',
+          'If you have never opened any of it, put it even simpler: it is an extra pair of hands for everything that happens on a computer. You talk to it like a person, approve the parts that matter, and it does the typing, the remembering, and the following up.',
+        ],
+      },
+      {
+        heading: 'Four jobs. One hire.',
+        bullets: [
+          'Estimates and proposals — you describe the job, it drafts the estimate in your rates and format, in about two minutes while you watch.',
+          'Invoicing and getting paid — it sends the invoice and follows up when a customer has not paid.',
+          'Clients and follow-up — every lead and client in one place, connected to the software you use or kept for you, followed up in your voice.',
+          'Local SEO and marketing — real pages for the work you actually do, so you are found on Google and in the AI assistants people ask.',
+        ],
+      },
+      {
+        heading: 'Not another screen to drive',
+        paragraphs: [
+          'Estimating apps and customer-list tools are things you fill in yourself; the work stays yours. AMTECH works the other way: you describe what you want and it does the steps. You approve money and customer contact, and it shows you what it did. It learns your business once and stops needing to be told, and it improves on its own as the technology underneath gets better.',
+        ],
+      },
+      {
+        heading: 'One line instead of four',
+        paragraphs: [
+          'A painter pays an SEO company, a customer-list tool, and an estimating app, or does all of it himself at night. AMTECH replaces it with one employee and one bill, from $1,500 a month.',
+        ],
+      },
+      {
+        heading: 'Proof, not pitch',
+        paragraphs: [
+          'AMTECH runs its own business on an AI employee, and has since August 2026. Book a call, bring a painting job you need priced, and watch it become a full estimate in about two minutes. AI employees are early access for a small number of businesses.',
         ],
       },
     ],
   },
   {
     route: '/contact',
-    title: 'Contact AMTECH AI',
+    title: 'Contact AMTECH AI — talk to Ben',
     description:
-      'Get in touch with AMTECH about an AI employee for your business. Ask a question, book a demo, or start your free setup.',
+      'Reach Ben Palaskas about an AI employee for your business. Send a job you need priced and he will draft the estimate on a call, in about two minutes.',
     ogType: 'website',
-    sections: [{ heading: 'Contact AMTECH', paragraphs: ['Reach the AMTECH team to ask a question, book a demo, or start your free AI employee setup.'] }],
+    sections: [{ heading: 'Contact AMTECH', paragraphs: ['AMTECH is Ben Palaskas. Ask a question, book a call, or send a real job you need priced and he will draft the whole estimate with you on the call, in about two minutes.'] }],
   },
   {
     route: '/our-work',
@@ -240,7 +292,7 @@ const AUTHORED: AuthoredEntry[] = [
     title: 'Schedule a Call with AMTECH AI',
     description: 'Book a call to see how an AMTECH AI employee fits your business.',
     ogType: 'website',
-    sections: [{ heading: 'Schedule a call', paragraphs: ['Book a quick call with the AMTECH team to see how an AI employee handles your calls, texts, scheduling, and the back-office work that eats your day.'] }],
+    sections: [{ heading: 'Schedule a call', paragraphs: ['Book a call with Ben Palaskas. Bring a real job you need priced and he will draft the estimate with you on the call, so you can judge the work rather than a description of it.'] }],
   },
   {
     route: '/apply',
