@@ -2,8 +2,6 @@ import { Link } from 'react-router-dom';
 import { ArrowRight, FileText, Receipt, Users, Search } from 'lucide-react';
 import AnimatedSection from '../components/ui/AnimatedSection';
 
-const PX = 'https://images.pexels.com/photos';
-
 const jobs = [
   {
     icon: FileText,
@@ -62,9 +60,9 @@ export default function Painters() {
             </AnimatedSection>
             <AnimatedSection direction="left" delay={0.1}>
               <img
-                src={`${PX}/7218578/pexels-photo-7218578.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                alt="A painter rolling white paint onto an interior wall"
-                className="w-full rounded-3xl object-cover shadow-glass-lg"
+                src="/painters-hero.jpg"
+                alt="A paint-splattered ladder in an empty room — the work left behind, no worker"
+                className="w-full rounded-3xl shadow-glass-lg"
                 loading="eager"
               />
             </AnimatedSection>
@@ -98,9 +96,9 @@ export default function Painters() {
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <AnimatedSection>
               <img
-                src={`${PX}/34046208/pexels-photo-34046208.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                alt="A paint roller applying white paint to a wall"
-                className="w-full rounded-3xl object-cover shadow-glass-lg"
+                src="/painters-bridge.jpg"
+                alt="A paint roller resting against a freshly painted wall — the tool left, the painter gone"
+                className="w-full rounded-3xl shadow-glass-lg"
                 loading="lazy"
               />
             </AnimatedSection>
@@ -126,7 +124,7 @@ export default function Painters() {
       {/* NOT ANOTHER SCREEN */}
       <section className="bg-[#FAFAFA]">
         <div className="container-wide py-16 md:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="mx-auto max-w-3xl">
             <AnimatedSection>
               <h2 className="font-display text-display-md text-black">
                 Other tools make you type more. This does the work.
@@ -138,14 +136,6 @@ export default function Painters() {
                 it did.
               </p>
             </AnimatedSection>
-            <AnimatedSection direction="left" delay={0.1}>
-              <img
-                src={`${PX}/5071177/pexels-photo-5071177.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                alt="A freshly painted house exterior"
-                className="w-full rounded-3xl object-cover shadow-glass-lg"
-                loading="lazy"
-              />
-            </AnimatedSection>
           </div>
         </div>
       </section>
@@ -153,16 +143,8 @@ export default function Painters() {
       {/* ONE LINE INSTEAD OF FOUR */}
       <section className="bg-white">
         <div className="container-wide py-16 md:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="mx-auto max-w-3xl">
             <AnimatedSection>
-              <img
-                src={`${PX}/37556460/pexels-photo-37556460.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                alt="A painter working on a construction site"
-                className="w-full rounded-3xl object-cover shadow-glass-lg"
-                loading="lazy"
-              />
-            </AnimatedSection>
-            <AnimatedSection direction="left" delay={0.1}>
               <h2 className="font-display text-display-md text-black">
                 You already pay for this. Just in four places.
               </h2>
@@ -185,7 +167,7 @@ export default function Painters() {
       {/* PROOF */}
       <section className="bg-[#FAFAFA]">
         <div className="container-wide py-16 md:py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="mx-auto max-w-3xl">
             <AnimatedSection>
               <h2 className="font-display text-display-md text-black">
                 We run our own business on it.
@@ -196,14 +178,6 @@ export default function Painters() {
                 setup we would build for you. We would not ask you to try something we do not use
                 every day.
               </p>
-            </AnimatedSection>
-            <AnimatedSection direction="left" delay={0.1}>
-              <img
-                src={`${PX}/994164/pexels-photo-994164.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1`}
-                alt="A painter holding a roller while painting a wall"
-                className="w-full rounded-3xl object-cover shadow-glass-lg"
-                loading="lazy"
-              />
             </AnimatedSection>
           </div>
         </div>
