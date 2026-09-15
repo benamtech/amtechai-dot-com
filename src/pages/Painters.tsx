@@ -7,23 +7,23 @@ const PX = 'https://images.pexels.com/photos';
 const jobs = [
   {
     icon: FileText,
-    title: 'Estimates',
-    body: 'Describe the job. It writes the estimate in your rates, in about two minutes.',
+    title: 'Estimates and proposals',
+    body: 'You describe the job in your own words. The employee turns it into an estimate in your rates and your format, in about two minutes, while you watch. No more nights writing numbers out by hand.',
   },
   {
     icon: Receipt,
-    title: 'Invoicing',
-    body: 'It sends the invoice and reminds the customer who has not paid.',
+    title: 'Invoicing and getting paid',
+    body: 'When a job is done, it sends the invoice. When a customer has not paid, it sends a reminder and you decide how firm to be. Your money stops depending on your memory.',
   },
   {
     icon: Users,
     title: 'Clients and follow-up',
-    body: 'It keeps every lead and client, and follows up the way you would.',
+    body: 'Every lead and every client in one place, so nothing falls through a crack. It can connect to the software you already use, or keep the list for you. It follows up the way you would, because it learns your voice.',
   },
   {
     icon: Search,
     title: 'Local SEO and marketing',
-    body: 'Real pages for the work you do, so people find you on Google and in AI search.',
+    body: 'It makes your business easy to find online for Google and for the new AI assistants people ask when they say "find me a painter near me." Real pages about the work you actually do, not a blog full of filler.',
   },
 ];
 
@@ -40,7 +40,6 @@ export default function Painters() {
         <div className="container-wide relative z-10">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <AnimatedSection>
-              <p className="mono-label mb-5 text-red">For painting contractors</p>
               <h1 className="font-display text-display-hero text-black">
                 You run the crew.
                 <br />
@@ -77,7 +76,6 @@ export default function Painters() {
       <section id="what-it-does" className="bg-[#FAFAFA]">
         <div className="container-wide py-20 md:py-24">
           <AnimatedSection>
-            <p className="mono-label mb-4 text-red">What it handles</p>
             <h2 className="font-display text-display-lg text-black">Four jobs. One hire.</h2>
           </AnimatedSection>
           <div className="mt-12 grid gap-6 md:grid-cols-2">
@@ -107,7 +105,6 @@ export default function Painters() {
               />
             </AnimatedSection>
             <AnimatedSection direction="left" delay={0.1}>
-              <p className="mono-label mb-4 text-red">What an AI employee is</p>
               <h2 className="font-display text-display-md text-black">
                 If you use ChatGPT, you already know the feeling.
               </h2>
@@ -131,7 +128,6 @@ export default function Painters() {
         <div className="container-wide py-16 md:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <AnimatedSection>
-              <p className="mono-label mb-4 text-red">Not another screen to drive</p>
               <h2 className="font-display text-display-md text-black">
                 Other tools make you type more. This does the work.
               </h2>
@@ -167,7 +163,6 @@ export default function Painters() {
               />
             </AnimatedSection>
             <AnimatedSection direction="left" delay={0.1}>
-              <p className="mono-label mb-4 text-red">One line instead of four</p>
               <h2 className="font-display text-display-md text-black">
                 You already pay for this. Just in four places.
               </h2>
@@ -192,7 +187,6 @@ export default function Painters() {
         <div className="container-wide py-16 md:py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <AnimatedSection>
-              <p className="mono-label mb-4 text-red">Proof, not pitch</p>
               <h2 className="font-display text-display-md text-black">
                 We run our own business on it.
               </h2>
@@ -220,7 +214,6 @@ export default function Painters() {
         <div className="container-wide relative z-10">
           <AnimatedSection>
             <div className="rounded-3xl bg-black p-10 md:p-16">
-              <p className="mono-label mb-5 text-red-bright">Bring a real job</p>
               <h2 className="max-w-3xl font-display text-display-xl text-white">
                 Watch it become an estimate.
               </h2>
