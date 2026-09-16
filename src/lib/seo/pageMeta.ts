@@ -216,14 +216,18 @@ const AUTHORED: AuthoredEntry[] = [
       {
         heading: 'You run the crew. AMTECH runs the office.',
         paragraphs: [
-          'AMTECH is an AI employee for your painting business. You talk or type what needs doing, and it gets done: the estimate, the invoice, the follow-up, the marketing. You stay in charge, and the paperwork stops piling up on you.',
+          'AMTECH is an AI employee for your painting company. It writes your estimates, sends your invoices, and follows up with your clients — while you are on the ladder. You approve everything before it goes out.',
+        ],
+        bullets: [
+          'Estimates in your rates and your format, drafted while you watch.',
+          'Invoices and reminders that go out on time, without you remembering.',
+          'Follow-up on every lead, in your voice, so no job slips.',
         ],
       },
       {
-        heading: 'If you already talk to AI, you already know half of this.',
+        heading: 'Half your market is already asking AI for a painter.',
         paragraphs: [
-          'You use ChatGPT or Claude for a caption, a second opinion, or turning rough notes into something that reads more official. That is what it feels like to hand a computer a piece of writing and get a finished result back. AMTECH takes that feeling and runs it all the way to the end: the employee already knows your rates, your customers, your scope, and how you write, so it writes the estimate for every job, sends the invoice, and follows up the leads you would have forgotten. You are not driving each step. It runs the process and hands you the result to approve.',
-          'If you have never opened any of it, put it even simpler: it is an extra pair of hands for everything that happens on a computer. You talk to it like a person, approve the parts that matter, and it does the typing, the remembering, and the following up.',
+          '45% of consumers now use AI tools to find local businesses, up from 6% a year earlier (BrightLocal, 2026). When someone asks an AI assistant to find them a painter, the businesses that come back are the ones the AI can read. Paid leads do not close the gap: contractors pay about $54 per lead for Google Local Services Ads (SearchLight Digital, 2026). AMTECH makes your business readable where the new customers are looking.',
         ],
       },
       {
@@ -236,21 +240,43 @@ const AUTHORED: AuthoredEntry[] = [
         ],
       },
       {
-        heading: 'Not another screen to drive',
+        heading: 'You stay in charge. That is the point.',
         paragraphs: [
-          'Estimating apps and customer-list tools are things you fill in yourself; the work stays yours. AMTECH works the other way: you describe what you want and it does the steps. You approve money and customer contact, and it shows you what it did. It learns your business once and stops needing to be told, and it improves on its own as the technology underneath gets better.',
+          'The employee drafts. You approve. Every estimate, every invoice, every message waits for your yes before it goes out. 78% of small-business owners do not fully trust AI to work without oversight (Business.com, 2026) — so AMTECH is built around your approval, not around replacing you. It drafts the estimate; you check the numbers. That is ten minutes, not an evening.',
         ],
       },
       {
-        heading: 'One line instead of four',
+        heading: 'If you use ChatGPT, you already know the feeling.',
         paragraphs: [
-          'A painter pays an SEO company, a customer-list tool, and an estimating app, or does all of it himself at night. AMTECH replaces it with one employee and one bill, from $1,500 a month.',
+          'You already have a computer write a caption or tidy up your notes. That is what it feels like to hand it a piece of writing and get a finished result back. AMTECH does that for your whole office, because the employee already knows your rates, your customers, and the way you write.',
+          'Never used any of it? Simpler still: it is an extra pair of hands for everything that happens on a computer. You talk to it, approve what matters, and it types.',
         ],
       },
       {
-        heading: 'Proof, not pitch',
+        heading: 'Other tools make you type more. This does the work.',
         paragraphs: [
-          'AMTECH runs its own business on an AI employee, and has since August 2026. Book a call, bring a painting job you need priced, and watch it become a full estimate in about two minutes. AI employees are early access for a small number of businesses.',
+          'Estimating apps and customer lists are screens you fill in yourself, so the work is still yours. AMTECH works the other way round: you say what you want, and it does the steps. You approve the money and what goes out to a customer. It shows you what it did.',
+        ],
+      },
+      {
+        heading: 'You already pay for this. Just in four places.',
+        paragraphs: [
+          'An SEO company. A customer list. An estimating app. Add them up and you are already past $1,500 a month — before any of it actually gets done. AMTECH is one employee and one bill, from $1,500 a month.',
+        ],
+      },
+      {
+        heading: 'Fair questions, straight answers.',
+        bullets: [
+          'Will my clients know it is AI? Only if you want them to — you approve every message before it goes out, so it reads like you.',
+          'What if it gets a number wrong? You check every estimate before it is sent. It drafts; you approve.',
+          'How long does setup take? A couple of hours of calls, then it works in your phone and email.',
+          'Do I need to know AI? No. If you can text, you can run it.',
+        ],
+      },
+      {
+        heading: 'We run our own business on it.',
+        paragraphs: [
+          'AMTECH runs its own company on an AI employee, and has since August 2026. We write our own estimates, answer our own email, and keep our own records with the same setup we would build for you. Book a call, bring a painting job you need priced, and watch it become a full estimate in about two minutes. AI employees are early access for a small number of businesses.',
         ],
       },
     ],
