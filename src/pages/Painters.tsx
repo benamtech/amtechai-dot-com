@@ -61,7 +61,7 @@ export default function Painters() {
             <AnimatedSection direction="left" delay={0.1}>
               <img
                 src="/painters-hero.jpg"
-                alt="A paint-splattered ladder in an empty room — the work left behind, no worker"
+                alt="A marble statue — the body of labor, rendered in grayscale and red"
                 className="w-full rounded-3xl shadow-glass-lg"
                 loading="eager"
               />
@@ -97,7 +97,7 @@ export default function Painters() {
             <AnimatedSection>
               <img
                 src="/painters-bridge.jpg"
-                alt="A paint roller resting against a freshly painted wall — the tool left, the painter gone"
+                alt="A typewriter — the old office instrument, rendered in grayscale and red"
                 className="w-full rounded-3xl shadow-glass-lg"
                 loading="lazy"
               />
