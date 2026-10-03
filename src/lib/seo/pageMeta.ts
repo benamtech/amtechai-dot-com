@@ -188,6 +188,54 @@ const AUTHORED: AuthoredEntry[] = [
     ],
   },
   {
+    route: '/privacy',
+    title: 'Privacy Policy — AMTECH AI',
+    description: 'What AMTECH collects, why, and what it will never do with it, including text messages from your AI employee.',
+    ogType: 'website',
+    sections: [
+      {
+        heading: 'Privacy Policy',
+        paragraphs: [
+          'AMTECH collects only what the Service needs to do the work you hired it to do, and does not sell personal information.',
+          'Text messages: when you give your mobile number and tick the text-message box, your AI employee texts you about your own business. Message frequency varies. Message and data rates may apply. Reply HELP for help and STOP to stop.',
+          'No mobile information will be shared with third parties or affiliates for marketing or promotional purposes. Text-messaging originator opt-in data and consent will not be shared with any third parties.',
+        ],
+      },
+    ],
+  },
+  {
+    route: '/terms',
+    title: 'Terms of Service — AMTECH AI',
+    description: 'The terms for using AMTECH AI employees, including the text-message program.',
+    ogType: 'website',
+    sections: [
+      {
+        heading: 'Terms of Service',
+        paragraphs: [
+          'These terms govern your use of AMTECH AI employees and amtechai.com.',
+          'Text messages from your AI employee: you opt in by entering your mobile number and ticking the text-message box. Message frequency varies. Message and data rates may apply. Reply HELP for help, STOP to stop, START to begin again. Carriers are not liable for delayed or undelivered messages.',
+        ],
+      },
+    ],
+  },
+  {
+    route: '/sms',
+    title: 'Text messages from your AI employee — AMTECH AI',
+    description: 'Who receives texts from an AMTECH AI employee, how you opt in, what you will receive, and how to stop.',
+    ogType: 'website',
+    sections: [
+      {
+        heading: 'Text messages from your AI employee',
+        paragraphs: [
+          'Only the owner of an AMTECH AI employee receives texts, at the mobile number they gave when they set the employee up or claimed it.',
+          'Opt-in: beneath the number is a box the owner ticks. It reads: "Text me from my AI employee about my business. Message frequency varies. Message and data rates may apply. Reply HELP for help, STOP to stop. See amtechai.com/sms."',
+          'Example: "Rita (Ridgeline Roofing): The Henderson estimate is done, $14,820. Want me to send it? Reply STOP to stop texts."',
+          'Reply HELP for help or email ben@amtechai.com. Reply STOP to stop; START to begin again. No mobile information is shared with third parties or affiliates for marketing or promotional purposes.',
+        ],
+      },
+    ],
+  },
+  {
     route: '/pricing',
     title: 'AMTECH AI Pricing — $1,500 a month for an AI employee',
     description:

@@ -56,6 +56,18 @@ export default function Footer() {
             >
               ben@amtechai.com
             </a>
+            <Link
+              to="/privacy"
+              className={`font-body text-sm transition-colors ${isDark ? 'text-white/20 hover:text-white/40' : 'text-black/30 hover:text-black/50'}`}
+            >
+              Privacy
+            </Link>
+            <Link
+              to="/terms"
+              className={`font-body text-sm transition-colors ${isDark ? 'text-white/20 hover:text-white/40' : 'text-black/30 hover:text-black/50'}`}
+            >
+              Terms
+            </Link>
           </div>
 
           <p className={`font-body text-sm ${isDark ? 'text-white/15' : 'text-black/25'}`}>
