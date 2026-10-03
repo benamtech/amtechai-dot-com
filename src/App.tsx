@@ -26,6 +26,9 @@ import AllArticles from './pages/AllArticles';
 import Skills from './pages/Skills';
 import SkillDetail from './pages/SkillDetail';
 import Registry from './pages/Registry';
+import Privacy from './pages/Privacy';
+import Terms from './pages/Terms';
+import SmsProgram from './pages/SmsProgram';
 import Certificate from './pages/Certificate';
 import { ChatGPTEstimateArticle, PaintingCostAIArticle, PressureWashingEstimateArticle } from './pages/AIEstimateArticles';
 import AmtechVsChatgptClaude from './pages/articles/AmtechVsChatgptClaude';
@@ -69,6 +72,9 @@ export default function App() {
           <Route path="/skills" element={<Skills />} />
           <Route path="/skills/:slug" element={<SkillDetail />} />
           <Route path="/registry" element={<Registry />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/sms" element={<SmsProgram />} />
           <Route path="/certificates/:id" element={<Certificate />} />
           <Route path="/articles/write-pressure-washing-estimate-with-ai" element={<PressureWashingEstimateArticle />} />
           <Route path="/articles/estimate-painting-cost-ai" element={<PaintingCostAIArticle />} />
