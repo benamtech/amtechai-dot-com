@@ -28,7 +28,7 @@ export default function SmsProgram() {
         </P>
         <div
           id="sms-consent"
-          className="my-4 border border-black/20 p-4 font-body text-sm"
+          className="my-4 border border-black/20 p-4 font-body text-sm text-black/80"
           style={{ borderRadius: 0 }}
         >
           <label className="flex items-start gap-3">
