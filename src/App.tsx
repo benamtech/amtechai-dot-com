@@ -7,6 +7,7 @@ import HowItWorks from './pages/HowItWorks';
 import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Painters from './pages/Painters';
+import Contractors from './pages/Contractors';
 import Contact from './pages/Contact';
 import OurWork from './pages/OurWork';
 import ScheduleDemo from './pages/ScheduleDemo';
@@ -64,6 +65,7 @@ export default function App() {
           <Route path="/about" element={<About />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/painters" element={<Painters />} />
+          <Route path="/contractors" element={<Contractors />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/our-work" element={<OurWork />} />
           <Route path="/cost-calculator" element={<CostCalculator />} />

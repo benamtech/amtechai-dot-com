@@ -330,6 +330,89 @@ const AUTHORED: AuthoredEntry[] = [
     ],
   },
   {
+    route: '/contractors',
+    title: 'AI Estimates for Contractors, Live — AMTECH AI',
+    description:
+      'Give the AMTECH employee a real job and watch it draft the estimate and make a page your customer can open. Free to try, no sign-up to start.',
+    ogType: 'website',
+    jsonLd: [
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is it free to try?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. There is no card and no sign-up to start. You only sign in if you want to keep what it made."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "What does it cost if I keep it?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "There is no monthly fee. You pay for the work it does as it does it, and AMTECH takes 8% of payments your customers make through it. Stripe's card fee comes out of your side, as it does on any Stripe account."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does it send anything to my customer on its own?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It drafts, and you send. Every page and every payment request waits for your tap."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will it ask for my passwords or bank details?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It never asks for a password, a card number or a Social Security number in the chat. Stripe collects payout details on its own secure form."
+            }
+          }
+        ]
+      },
+    ],
+    agentMap: {
+      summary: 'A working AI employee for contractors. A visitor presses Start, describes a job, and gets an estimate and a page to share with their customer. Free to try; keeping it costs usage plus 8% of payments taken through it.',
+      actions: ['Read the sections below for what it does and what it costs.', 'A person starts the live agent with the Start button; it opens on app.amtechai.com.'],
+      seeAlso: [{ title: 'For painting contractors', href: '/painters' }, { title: 'Pricing', href: '/pricing' }],
+    },
+    sections: [
+      {
+        heading: 'Give it a real job. Watch it do the office work.',
+        paragraphs: [
+          'This is the AMTECH employee for contractors, working live on this page. Tell it about a job and it drafts the estimate and makes a page your customer can open. You send everything yourself. Free to try, with no card and no sign-up to start.',
+        ],
+      },
+      {
+        heading: 'What it does in one sitting',
+        bullets: [
+          'The estimate: describe the job in your own words, or give it plans, photos, a customer\'s email, an old estimate or your price sheet. It drafts the estimate in front of you and asks about anything it cannot work out.',
+          'A page your customer can open, with your business name on it. Nothing is sent to a customer until you send it yourself.',
+          'Yours when you keep it: sign in with your email or phone and the workspace becomes your AMTECH employee, with the conversation, the files and what it learned about your business.',
+        ],
+      },
+      {
+        heading: 'Your next customer may ask an AI before they call anyone',
+        paragraphs: [
+          '45% of consumers now use AI tools to find local businesses, up from 6% a year earlier (BrightLocal, 2026). Contractors pay about $54 per lead for Google Local Services Ads (SearchLight Digital, 2026). The contractor who answers with a real estimate first is the one who gets the job.',
+        ],
+      },
+      {
+        heading: 'Fair questions, straight answers',
+        bullets: [
+          "Is it free to try? Yes. There is no card and no sign-up to start. You only sign in if you want to keep what it made.",
+          "What does it cost if I keep it? There is no monthly fee. You pay for the work it does as it does it, and AMTECH takes 8% of payments your customers make through it. Stripe's card fee comes out of your side, as it does on any Stripe account.",
+          "Does it send anything to my customer on its own? No. It drafts, and you send. Every page and every payment request waits for your tap.",
+          "Will it ask for my passwords or bank details? No. It never asks for a password, a card number or a Social Security number in the chat. Stripe collects payout details on its own secure form.",
+        ],
+      },
+    ],
+  },
+  {
     route: '/contact',
     title: 'Contact AMTECH AI — talk to Ben',
     description:

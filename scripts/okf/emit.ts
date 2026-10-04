@@ -27,6 +27,8 @@ const MAIN_ROUTES = [
   '/how-it-works',
   '/about',
   '/pricing',
+  '/contractors',
+  '/painters',
   '/contact',
   '/our-work',
   '/cost-calculator',
