@@ -19,7 +19,8 @@
     "okf:check": "npm run okf:build && npm run okf:validate",
     "article-system:validate": "node scripts/seo/validate-article-system.ts",
     "seo:validate": "node scripts/seo/validate-seo.ts",
-    "seo:check": "npm run build && npm run seo:validate"
+    "seo:check": "npm run build && npm run seo:validate",
+    "seo:indexnow": "node scripts/seo/indexnow.mjs"
   },
   "dependencies": {
     "@stripe/react-stripe-js": "^6.1.0",
