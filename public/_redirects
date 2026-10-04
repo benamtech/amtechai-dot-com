@@ -1,1 +1,25 @@
-/* /index.html 200
+# Read before netlify.toml, top to bottom; the first match wins. Removed routes keep their links and search
+# standing with a 301 to their nearest live page (SITE-BEFORE-LAUNCH, 2026-10-04). The SPA catch-all stays LAST.
+/claim  https://app.amtechai.com/  301!
+/claim/*  https://app.amtechai.com/  301!
+/contact  /schedule-demo  301!
+/schedule-call  /schedule-demo  301!
+/shedule-demo  /schedule-demo  301!
+/cost-calculator  /contractors  301!
+/our-work  /about  301!
+/pay  /  301!
+/payment-success  /  301!
+/wholesale  /  301!
+/wholesale-2  /  301!
+/sell-ai-employees  /  301!
+/sales-bootcamp  /  301!
+/apply  /  301!
+/apply/*  /  301!
+/skills  /  301!
+/skills/*  /  301!
+/registry  /  301!
+/certificates/*  /  301!
+/.well-known/skill-authority.json  /  301!
+/.well-known/skill-authority-v0.json  /  301!
+/sms-entry  /.netlify/functions/sms-entry  200
+/*  /index.html  200
