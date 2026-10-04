@@ -54,5 +54,17 @@ export async function createBooking(booking: BookingData): Promise<boolean> {
     console.error('Failed to send booking email:', e);
   }
 
+  // The operator is also told through the platform's own mail (app.amtechai.com), so a booking reaches a
+  // person even when the function above cannot send.
+  try {
+    await fetch('https://app.amtechai.com/site/booking', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(booking),
+    });
+  } catch (e) {
+    console.error('Failed to notify the operator:', e);
+  }
+
   return true;
 }
