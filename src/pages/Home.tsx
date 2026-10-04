@@ -1,5 +1,5 @@
 import { FormEvent, useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowRight, BookOpen, Phone, Quote } from 'lucide-react';
 import { getNodesByIds } from '../lib/articleKnowledgeGraph';
 
@@ -105,13 +105,13 @@ const additionalArticles = getNodesByIds(['E1', 'E4', 'E5', 'E3']).map((node) =>
 }));
 
 export default function Home() {
-  const navigate = useNavigate();
   const [claimPhone, setClaimPhone] = useState('');
 
   function submitPhoneClaim(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const trimmed = claimPhone.trim();
-    navigate(trimmed ? `/claim?phone=${encodeURIComponent(trimmed)}` : '/claim');
+    // The sign-up chat on the front door; the number rides along and prefills its secure step.
+    window.location.href = `https://app.amtechai.com/start${trimmed ? `?who=${encodeURIComponent(trimmed)}` : ''}`;
   }
 
   return (

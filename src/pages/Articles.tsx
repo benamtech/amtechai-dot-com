@@ -132,7 +132,7 @@ const rolePaths = [
     summary: 'Study buyer problems before trying to sell AI services into owner-led companies.',
     links: [
       ['Read the AI employee comparison', '/articles/amtech-vs-chatgpt-claude'],
-      ['Join sales bootcamp', '/sales-bootcamp'],
+      ['Try the working agent on a real job', '/contractors'],
     ],
   },
 ];
@@ -162,7 +162,7 @@ const sitemapGroups = [
   {
     title: 'Apply',
     links: [
-      ['Our work', '/our-work'],
+      ['Try the working agent', '/contractors'],
       ['How it works', '/how-it-works'],
       ['Schedule a demo', '/schedule-demo'],
     ],
@@ -170,9 +170,8 @@ const sitemapGroups = [
   {
     title: 'Train',
     links: [
-      ['Sales bootcamp', '/sales-bootcamp'],
-      ['Apply', '/apply'],
-      ['Contact', '/contact'],
+      ['Pricing', '/pricing'],
+      ['Talk to Ben', '/schedule-demo'],
     ],
   },
 ];

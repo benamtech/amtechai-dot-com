@@ -1,7 +1,7 @@
 import type { ArticleDefinition } from '../../articles';
 
 const baseLinks = [
-  { label: 'Talk through an estimating workflow', href: '/schedule-call', reason: 'Map the exact estimate, follow-up, and admin steps AMTECH can automate for your business.' },
+  { label: 'Talk through an estimating workflow', href: '/schedule-demo', reason: 'Map the exact estimate, follow-up, and admin steps AMTECH can automate for your business.' },
   { label: 'See how AMTECH works', href: '/how-it-works', reason: 'Understand how AI employees turn one-off prompts into repeatable operating systems.' },
   { label: 'Compare investment levels', href: '/pricing', reason: 'Use this after you know whether you need a prompt, a workflow, or a complete AI employee.' },
 ];

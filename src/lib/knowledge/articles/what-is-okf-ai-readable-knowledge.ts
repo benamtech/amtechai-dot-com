@@ -81,11 +81,6 @@ export const article: ArticleDefinition = {
       reason: "Connects agent-readable knowledge to AMTECH's distinction between one-off chat tools and managed AI Employees.",
     },
     {
-      label: 'Run the OKF Audit Skill on your own content',
-      href: '/skills/okf-audit',
-      reason: 'The consumable AMTECH skill that scores any page or bundle against the agent-readability rubric this article describes — fetch it from one URL and run it in any agent.',
-    },
-    {
       label: 'See a live OKF audit score a real article 12/30',
       href: '/articles/what-ai-agents-see-when-they-read-your-website',
       reason: 'Shows the same audit skill applied dimension by dimension, with the five infrastructure gaps that keep good writing invisible to agents.',

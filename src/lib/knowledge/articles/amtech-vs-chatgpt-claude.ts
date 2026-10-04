@@ -30,12 +30,12 @@ export const article: ArticleDefinition = {
     },
     {
       label: 'Schedule a call',
-      href: '/schedule-call',
+      href: '/schedule-demo',
       reason: 'Use this when you know the problem is not prompting, but turning office work into a working business system.',
     },
     {
       label: 'Our work',
-      href: '/our-work',
+      href: '/about',
       reason: 'See how AMTECH thinks about websites, AI employees, automations, local authority, and operator systems together.',
     },
   ],

@@ -218,7 +218,7 @@ export const article: ArticleDefinition = {
     },
     {
       label: 'Schedule a call',
-      href: '/schedule-call',
+      href: '/schedule-demo',
       reason: 'Talk through which pricing, estimating, follow-up, or office workflows should become an AI employee in your business.',
     },
   ],

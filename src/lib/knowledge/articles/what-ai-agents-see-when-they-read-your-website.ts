@@ -60,12 +60,6 @@ export const article: ArticleDefinition = {
       reason:
         'A business without a documented knowledge layer — services, rules, examples, approval boundaries — cannot pass Concept Packaging or Source And Citation Quality.',
     },
-    {
-      label: 'Run the OKF audit skill',
-      href: '/skills/okf-audit',
-      reason:
-        'The audit used in the live audit below. The prompt further down runs the same audit on any page.',
-    },
   ],
   citations: [
     {
