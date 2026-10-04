@@ -125,13 +125,13 @@ export default function Home() {
             <p className="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">
               AMTECH sets up a textable AI Employee for serious local businesses. It learns your pricing, services, documents, customers, tools, and operating rules, then helps get estimates, invoices, follow-up, job notes, reports, and other office work done without making you learn another AI tool.
             </p>
-            <Link
-              to="/claim"
+            <a
+              href="https://app.amtechai.com/"
               className="mt-10 inline-flex min-h-12 items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright"
             >
               Claim my AI Employee
               <ArrowRight size={16} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>
@@ -139,7 +139,7 @@ export default function Home() {
       <section aria-label="agent-entry" className="border-b border-black/15 bg-white py-3">
         <div className="container-wide flex flex-wrap items-center gap-x-4 gap-y-1">
           <span className="text-xs text-black/45">This site is agent-readable.</span>
-          <a href="/skills" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">Skills</a>
+          <a href="/contractors" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">Working agent</a>
           <a href="/okf/index.md" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">Knowledge graph</a>
           <a href="/llms.txt" className="text-xs text-black/55 underline underline-offset-2 hover:text-black">llms.txt</a>
         </div>

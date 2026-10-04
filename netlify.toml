@@ -17,25 +17,134 @@
 [build.processing.html]
   pretty_urls = false
 
+
+# Removed routes (SITE-BEFORE-LAUNCH, 2026-10-04): each keeps its links and search standing with a 301 to the
+# nearest live page. /claim was v1's sign-up, now app.amtechai.com.
 [[redirects]]
-  from = "/claim/start-from-sms"
-  to = "/.netlify/functions/claim/start-from-sms"
-  status = 200
+  from = "/claim"
+  to = "https://app.amtechai.com/"
+  status = 301
+  force = true
 
 [[redirects]]
-  from = "/claim/send-code"
-  to = "/.netlify/functions/claim/send-code"
-  status = 200
+  from = "/claim/*"
+  to = "https://app.amtechai.com/"
+  status = 301
+  force = true
 
 [[redirects]]
-  from = "/claim/verify-code"
-  to = "/.netlify/functions/claim/verify-code"
-  status = 200
+  from = "/contact"
+  to = "/schedule-demo"
+  status = 301
+  force = true
 
 [[redirects]]
-  from = "/claim/verify-and-claim"
-  to = "/.netlify/functions/claim/verify-and-claim"
-  status = 200
+  from = "/schedule-call"
+  to = "/schedule-demo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/shedule-demo"
+  to = "/schedule-demo"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/cost-calculator"
+  to = "/contractors"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/our-work"
+  to = "/about"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/pay"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/payment-success"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wholesale"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/wholesale-2"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sell-ai-employees"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/sales-bootcamp"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/apply"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/apply/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/skills"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/skills/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/registry"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/certificates/*"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/.well-known/skill-authority.json"
+  to = "/"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "/.well-known/skill-authority-v0.json"
+  to = "/"
+  status = 301
+  force = true
 
 [[redirects]]
   from = "/sms-entry"

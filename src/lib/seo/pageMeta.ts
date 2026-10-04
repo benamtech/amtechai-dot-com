@@ -6,22 +6,16 @@
  * imported by BOTH the Node build scripts (scripts/okf/prerender.ts, scripts/seo/validate-seo.ts)
  * and the runtime React app (src/components/seo/SeoManager.tsx).
  *
- * Three input families feed the registry:
+ * Two input families feed the registry:
  *   1. Authored marketing/conversion routes (copy lives in React; meta + a real body summary live here).
  *   2. Article routes — derived from the knowledge façade (src/lib/knowledge).
- *   3. Skill routes — derived from the skills registry (src/lib/skills/registry.ts).
  *
  * Renderers (renderHead.ts) and the runtime hook consume PageMeta; they never re-author it.
  */
 import { articleDefinitions } from '../knowledge/articles/index.ts';
 import { buildArticleSchema, AMTECH_ORGANIZATION_SCHEMA } from '../articles.ts';
 import { SITE_ORIGIN, getConcepts } from '../knowledge/concepts.ts';
-import { SKILL_REPOSITORY_URL, skillDefinitions, skillRepositoryRegistryUrl, skillRepositoryTreeUrl, skillUrl, type SkillDefinition } from '../skills/registry.ts';
-import { getSkillContent, skillCatalogRoot, skillsCount, skillAuthoritySth, skillCertificates, skillAuthorityLog } from '../skills/generated/skill-content.ts';
-import { certificateSlug } from '../skills/renderRegistryContent.ts';
 
-const HUB_CATALOG_URL = `${SITE_ORIGIN}/skills/catalog.json`;
-const HUB_AUTHORITY_URL = `${SITE_ORIGIN}/.well-known/skill-authority.json`;
 
 export const SITE_NAME = 'AMTECH AI';
 export const DEFAULT_TITLE = 'AMTECH. — Your Next Employee Is a Computer';
@@ -133,7 +127,7 @@ const AUTHORED: AuthoredEntry[] = [
         heading: 'This site is agent-readable.',
         paragraphs: ['Structured content is available at these surfaces:'],
         bullets: [
-          'Free agent skills — https://amtechai.com/skills',
+          'The working agent for contractors — https://amtechai.com/contractors',
           'Knowledge graph (OKF bundle) — https://amtechai.com/okf/index.md',
           'Agent orientation — https://amtechai.com/llms.txt',
           'Published articles — https://amtechai.com/articles',
@@ -143,12 +137,12 @@ const AUTHORED: AuthoredEntry[] = [
     agentMap: {
       summary: 'AMTECH AI sets up AI employees for local service businesses — purchasing, quoting, scheduling, and admin.',
       actions: [
-        'Start at /skills for free agent skills usable from one link.',
+        'Start at /contractors to give the working agent a real job.',
         'Read /llms.txt for a structured orientation to this site.',
         'Browse /okf/index.md for the full knowledge graph.',
       ],
       seeAlso: [
-        { title: 'Free agent skills', href: '/skills' },
+        { title: 'The working agent for contractors', href: '/contractors' },
         { title: 'Knowledge graph (OKF bundle)', href: '/okf/index.md' },
         { title: 'Agent orientation (llms.txt)', href: '/llms.txt' },
         { title: 'Articles hub', href: '/articles' },
@@ -157,32 +151,35 @@ const AUTHORED: AuthoredEntry[] = [
   },
   {
     route: '/how-it-works',
-    title: 'How AMTECH Works — From Claim to a Working AI Employee',
+    title: 'How AMTECH Works — an AI employee set up in a conversation',
     description:
-      'See how an AMTECH AI employee gets set up: claim your number, share your business details, and get a textable employee that knows your pricing, brand, and customers.',
+      'Give the working agent a real job on amtechai.com/contractors, or start a short chat at app.amtechai.com. Keep it with your email or phone, and your employee lives at your own address. It drafts; you send.',
     ogType: 'website',
     sections: [
       {
-        heading: 'How it works',
-        paragraphs: [
-          'Claim a number, tell the AI employee about your business, and start texting it like any teammate.',
-          'It learns your services, pricing, brand voice, and customers, then helps with admin and growth work right away.',
+        heading: 'An AI employee that knows your business, set up in a conversation',
+        bullets: [
+          'Start one of two ways: give the working agent a real job on amtechai.com/contractors, or start a short chat at app.amtechai.com.',
+          'Keep it with a code sent to your email or phone. The work, the files and what it learned about your business come with you.',
+          'Your employee lives at your-business.amtechai.com. Talk to it like a person; it shows you what it is doing and what needs you.',
+          'It drafts and you send. It never asks for a password or a card number in the chat.',
         ],
       },
     ],
   },
   {
     route: '/about',
-    title: 'About AMTECH AI — Operations AI for Real Businesses',
+    title: 'About AMTECH AI — we run our own business on it',
     description:
-      'AMTECH builds practical AI employees for service businesses and local operators — an AI teammate that understands how a business actually runs, not just another chatbot.',
+      'AMTECH is Ben Palaskas. It builds AI employees for contractors, service companies and local operators, and has run its own business on one since August 2026.',
     ogType: 'website',
     sections: [
       {
-        heading: 'About AMTECH',
+        heading: 'We run our own business on it',
         paragraphs: [
-          'AMTECH builds AI employees for the businesses that keep neighborhoods running: contractors, service companies, retailers, and local operators.',
-          'Our thesis is simple — every business should have an AI teammate that understands its work, not a generic assistant the owner has to manage.',
+          'AMTECH is Ben Palaskas. It builds AI employees for the businesses that keep neighbourhoods running: contractors, service companies and local operators.',
+          'AMTECH runs its own company on an AI employee, and has since August 2026. It writes our estimates, answers our email and keeps our records.',
+          '78% of small-business owners do not fully trust AI to work without oversight (Business.com, 2026). The employee drafts, and you approve what goes out.',
         ],
       },
     ],
@@ -237,19 +234,19 @@ const AUTHORED: AuthoredEntry[] = [
   },
   {
     route: '/pricing',
-    title: 'AMTECH AI Pricing — $1,500 a month for an AI employee',
+    title: 'AMTECH AI Pricing — an AI employee from no monthly fee to $1,500 a month managed',
     description:
-      'An AI employee costs $1,500 a month, and most cost more. A website is $1,000 or more. Build work is $80 an hour and advice is $60 an hour.',
+      'Self-serve: no monthly fee, pay for the work as it is done, and 8% of payments made through it. Managed AI employee from $1,500 a month. Websites $1,000 or more. Hourly work $75 an hour.',
     ogType: 'website',
     sections: [
       {
-        heading: 'Pricing',
-        paragraphs: [
-          'An AI employee costs $1,500 a month. That is the minimum, and most businesses pay more than $2,000 because they hand it more of the work.',
-          'Setup is one to two hours of calls. In those calls AMTECH learns your trade, your rates, your customers and how you write, and builds that into a business brain the employee works from.',
-          'Compare that to what the same jobs cost separately. A full-time office assistant is $2,000 to $3,000 a month. A web developer is $3,500 to $7,000. An agency for design and ads is $2,500 to $6,000. Most owners are not paying for all of them, which is the point.',
-          'A website on its own is $1,000 or more. Build work is $80 an hour. Advice, training and sitting with you while you do it is $60 an hour.',
-          'AI employees are early access for a small number of businesses. Ben sets every price himself.',
+        heading: 'What it costs',
+        bullets: [
+          'Your own AI employee, self-serve: no monthly fee. Start free on a real job; if you keep it, you pay for the work it does as it does it, and AMTECH takes 8% of payments your customers make through it.',
+          'A managed AI employee: from $1,500 a month. Most businesses land above $2,000 a month.',
+          'A website: $1,000 or more.',
+          'Hourly work, built or advised: $75 an hour.',
+          'Payments through a site AMTECH runs: 8% of each payment, taken by Stripe; you are the merchant and Stripe’s card fee comes on top.',
         ],
       },
     ],
@@ -413,103 +410,13 @@ const AUTHORED: AuthoredEntry[] = [
       },
     ],
   },
-  {
-    route: '/contact',
-    title: 'Contact AMTECH AI — talk to Ben',
-    description:
-      'Reach Ben Palaskas about an AI employee for your business. Send a job you need priced and he will draft the estimate on a call, in about two minutes.',
-    ogType: 'website',
-    sections: [{ heading: 'Contact AMTECH', paragraphs: ['AMTECH is Ben Palaskas. Ask a question, book a call, or send a real job you need priced and he will draft the whole estimate with you on the call, in about two minutes.'] }],
-  },
-  {
-    route: '/our-work',
-    title: 'Our Work — AMTECH AI in the Field',
-    description:
-      'How AMTECH AI employees handle real work for real businesses: estimates, scheduling, follow-up, and the daily admin that slows owners down.',
-    ogType: 'website',
-    sections: [{ heading: 'Our work', paragraphs: ['Examples of AMTECH AI employees handling real operations — estimates, scheduling, follow-up, and back-office admin — for working businesses.'] }],
-  },
-  {
-    route: '/cost-calculator',
-    title: 'Outbound Cost Calculator — AMTECH AI',
-    description:
-      'Estimate what your current outbound, admin, and follow-up work costs, and compare it to an always-on AI employee.',
-    ogType: 'website',
-    sections: [{ heading: 'Cost calculator', paragraphs: ['Estimate what your current outbound and admin work costs today, then compare it to an always-on AMTECH AI employee.'] }],
-  },
   // Conversion / standalone routes
-  {
-    route: '/claim',
-    title: 'Claim Your AI Employee',
-    description:
-      'Claim your AI employee: verify your phone, tell us about your business, and get a textable teammate that knows your pricing, brand, and customers.',
-    ogType: 'website',
-  },
-  {
-    route: '/schedule-call',
-    title: 'Schedule a Call with AMTECH AI',
-    description: 'Book a call to see how an AMTECH AI employee fits your business.',
-    ogType: 'website',
-    sections: [{ heading: 'Schedule a call', paragraphs: ['Book a call with Ben Palaskas. Bring a real job you need priced and he will draft the estimate with you on the call, so you can judge the work rather than a description of it.'] }],
-  },
-  {
-    route: '/apply',
-    title: 'Apply to Work with AMTECH AI',
-    description: 'Apply to bring an AMTECH AI employee into your business operations.',
-    ogType: 'website',
-    sections: [{ heading: 'Apply', paragraphs: ['Tell us about your business and how you work. We set up an AI employee that fits your operations and starts handling the repetitive admin and follow-up work.'] }],
-  },
-  {
-    route: '/apply/info-sales-rep',
-    title: 'Sales Rep Application — AMTECH AI',
-    description: 'Apply to represent AMTECH AI and sell AI employees to local businesses.',
-    ogType: 'website',
-    sections: [{ heading: 'Sales rep application', paragraphs: ['Apply to represent AMTECH and sell AI employees to local businesses. A strong fit for operators who already talk with small-business owners every day.'] }],
-  },
   {
     route: '/schedule-demo',
     title: 'Schedule a Demo — AMTECH AI',
     description: 'Book a live demo of an AMTECH AI employee for your business.',
     ogType: 'website',
     sections: [{ heading: 'Schedule a demo', paragraphs: ['Book a live demo and watch an AMTECH AI employee answer questions, draft estimates, and handle real admin work for a business like yours.'] }],
-  },
-  {
-    route: '/shedule-demo',
-    title: 'Schedule a Demo — AMTECH AI',
-    description: 'Book a live demo of an AMTECH AI employee for your business.',
-    ogType: 'website',
-    canonicalRoute: '/schedule-demo',
-    sections: [{ heading: 'Schedule a demo', paragraphs: ['Book a live demo and watch an AMTECH AI employee answer questions, draft estimates, and handle real admin work for a business like yours.'] }],
-  },
-  { route: '/pay', title: 'Secure Payment — AMTECH AI', description: 'Complete your AMTECH AI payment securely.', ogType: 'website', noindex: true },
-  { route: '/payment-success', title: 'Payment Confirmed — AMTECH AI', description: 'Your AMTECH AI payment is confirmed.', ogType: 'website', noindex: true },
-  {
-    route: '/wholesale',
-    title: 'Wholesale AI Employees — AMTECH AI',
-    description: 'Offer AMTECH AI employees to your clients at wholesale.',
-    ogType: 'website',
-    sections: [{ heading: 'Wholesale AI employees', paragraphs: ['Offer AMTECH AI employees to your own clients at wholesale pricing and add a recurring revenue line to your agency or service business.'] }],
-  },
-  {
-    route: '/wholesale-2',
-    title: 'Wholesale AI Employees — AMTECH AI',
-    description: 'Offer AMTECH AI employees to your clients at wholesale.',
-    ogType: 'website',
-    sections: [{ heading: 'Wholesale AI employees', paragraphs: ['Offer AMTECH AI employees to your own clients at wholesale pricing and add a recurring revenue line to your agency or service business.'] }],
-  },
-  {
-    route: '/sell-ai-employees',
-    title: 'Sell AI Employees with AMTECH',
-    description: 'Partner with AMTECH to sell AI employees to local businesses.',
-    ogType: 'website',
-    sections: [{ heading: 'Sell AI employees', paragraphs: ['Partner with AMTECH to sell AI employees to local businesses, with the product, onboarding, and support handled for you.'] }],
-  },
-  {
-    route: '/sales-bootcamp',
-    title: 'AMTECH Sales Bootcamp',
-    description: 'Learn to sell AI employees with the AMTECH sales bootcamp.',
-    ogType: 'website',
-    sections: [{ heading: 'Sales bootcamp', paragraphs: ['Learn the AMTECH process for selling AI employees to local businesses — positioning, demos, handling objections, and closing the deal.'] }],
   },
 ];
 
@@ -570,7 +477,7 @@ function articlePageMeta(): PageMeta[] {
   });
 }
 
-// --- 3. Hub + skill routes --------------------------------------------------------------------
+// --- 3. Hub routes --------------------------------------------------------------------------
 
 function hubPageMeta(): PageMeta[] {
   const concepts = getConcepts();
@@ -622,274 +529,20 @@ function hubPageMeta(): PageMeta[] {
         alternates: [{ type: 'text/markdown', href: '/okf/index.md' }],
       },
     },
-    {
-      route: '/skills',
-      title: 'AMTECH Agent Skills — use AI skills from one link',
-      description:
-        'Free AMTECH skills with commit-pinned GitHub source, signed certificates, and one-link agent bootstrap.',
-      ogType: 'website',
-      image: DEFAULT_OG_IMAGE,
-      jsonLd: [],
-      alternates: [],
-      sections: [
-        {
-          heading: 'AMTECH Agent Skills',
-          paragraphs: [
-            'AMTECH treats skills as signed, git-backed artifacts. The registry is authored in source code, materialized into public skill pages and raw files, and linked back to a commit-pinned GitHub tree so humans and agents can verify provenance.',
-          ],
-          bullets: [
-            'The page, manifest, raw files, archive, checksums, and certificate are all published from the same registry source.',
-            'Each skill page links to the pinned GitHub tree, the raw bootstrap, the manifest, and the signed certificate.',
-            'The GitHub repo should link back to the public skill page so the registry works in both directions.',
-          ],
-        },
-        {
-          heading: 'How this compares',
-          paragraphs: [
-            'Anthropic skills are filesystem-first and load on demand across Claude products. OpenAI GPTs are community-built and review-gated. AMTECH sits closer to a signed source registry with agent-friendly materialized views than a pure storefront.',
-          ],
-          bullets: [
-            'Discovery is important, but provenance and reciprocal links are the default.',
-            'Signed certificates do more than a checksum stamp: they bind content, commit, and identity.',
-            'The registry is designed for both agent fetches and human review, not just browsing.',
-          ],
-        },
-      ],
-      agentMap: {
-        summary: 'AMTECH free agent-skill hub. Git-backed, signed, reciprocal, and usable from one link.',
-        seeAlso: [{ title: 'AMTECH skills registry on GitHub', href: SKILL_REPOSITORY_URL }, ...skillDefinitions.map((s) => ({ title: s.title, href: skillUrl(s) }))],
-        actions: [
-          'Treat the skills page as a registry, not just a catalog.',
-          'Verify the pinned source and the signed certificate before trusting a skill artifact.',
-          'When editing the external skills repo, link it back to the public skill page.',
-        ],
-        // The hub is a 04 entry point (docs/skills/standard/06): the verify block carries the set-integrity
-        // recipe (catalog root over the per-skill certificate digests) + the reason-code contract.
-        verify: {
-          catalog: HUB_CATALOG_URL,
-          authority: HUB_AUTHORITY_URL,
-          catalogRoot: skillCatalogRoot,
-          catalogRootRecipe: 'sha256(canonicalJson([{slug, cert: sha256(certificate.json bytes)}] sorted by slug)) — recompute and compare → CATALOG_ROOT_MISMATCH on drift.',
-          // Transparency log (docs/skills/standard/03 — Option B): the signed tree head over the authority
-          // record stream. Verify inclusion of the head record + consistency vs a pinned earlier STH.
-          authoritySth: `${SITE_ORIGIN}/.well-known/authority/sth.json`,
-          ...(skillAuthoritySth ? { authorityTreeRoot: skillAuthoritySth.rootHash, authorityTreeSize: skillAuthoritySth.treeSize } : {}),
-          verifier: 'npm run skills:verify https://amtechai.com/skills/catalog.json',
-        },
-      },
-      extraMeta: [
-        { name: 'amtech:catalog', content: HUB_CATALOG_URL },
-        { name: 'amtech:skills:count', content: String(skillsCount) },
-        { name: 'amtech:catalog:root', content: skillCatalogRoot },
-        { name: 'amtech:authority:sth', content: `${SITE_ORIGIN}/.well-known/authority/sth.json` },
-        ...(skillAuthoritySth ? [{ name: 'amtech:authority:root', content: skillAuthoritySth.rootHash }] : []),
-      ],
-    },
   ];
 }
 
-function skillPageMeta(): PageMeta[] {
-  return skillDefinitions.map((skill: SkillDefinition) => {
-    const route = `/skills/${skill.slug}`;
-    const content = getSkillContent(skill.slug);
-    const extraMeta: { name: string; content: string }[] = [
-      { name: 'amtech:skill', content: skill.slug },
-      { name: 'amtech:skill-version', content: skill.version },
-      { name: 'amtech:skill-source', content: skillRepositoryTreeUrl(skill) },
-      { name: 'amtech:skill-source-commit', content: skill.repository.commit },
-      { name: 'amtech:skill-authority', content: 'https://amtechai.com/.well-known/skill-authority.json' },
-    ];
-    if (content?.archiveSha256) {
-      extraMeta.splice(2, 0, { name: 'amtech:skill-sha256', content: content.archiveSha256 });
-    }
-    if (content?.archiveSha3_512) extraMeta.push({ name: 'amtech:skill-sha3-512', content: content.archiveSha3_512 });
-    if (content?.certificateId) extraMeta.push({ name: 'amtech:skill-certificate', content: content.certificateId });
 
-    // Tier-1 verdict meta (docs/skills/standard/05) — projected from the ONE build-time verifier run; the
-    // head transports the verdict + recipe POINTER, never the proof (the consistency gate forbids over-claim).
-    const v = content?.verification;
-    const verifyBlock: Record<string, unknown> | undefined = v
-      ? {
-          verdict: v.verdict,
-          trustTier: v.trustTier,
-          method: v.method,
-          depth: v.depth,
-          authoritySequence: v.authoritySequence,
-          checkedAt: v.checkedAt,
-          buildTime: true,
-          recipe: content?.recipeUrl,
-          verifier: `npm run skills:verify ${skillUrl(skill)}`,
-          reasonCodesNote: 'Canonical reason-code set: src/lib/skills/verification/reasonCodes.ts (recompute to re-derive).',
-        }
-      : undefined;
-    if (v) {
-      extraMeta.push(
-        { name: 'amtech:skill:trust-tier', content: v.trustTier ?? 'none' },
-        { name: 'amtech:skill:verdict', content: v.verdict },
-        { name: 'amtech:skill:checked-at', content: v.checkedAt },
-        { name: 'amtech:skill:authority-sequence', content: v.authoritySequence ?? 'none' },
-      );
-      if (content?.recipeUrl) extraMeta.push({ name: 'amtech:skill:recipe', content: content.recipeUrl });
-    }
-    return {
-      route,
-      title: withSuffix(`${skill.title} for AI Agents`),
-      description: `AI agent instruction: use ${skill.name} in context first. Read use.md, manifest.json, and SKILL.md before installing anything.`,
-      ogType: 'website',
-      image: DEFAULT_OG_IMAGE,
-      jsonLd: v ? [skillDetailJsonLd(skill), skillVerdictJsonLd(skill, v)] : [skillDetailJsonLd(skill)],
-      alternates: [
-        { type: 'text/markdown', href: skillUrl(skill, '/use.md'), title: `${skill.title} bootstrap` },
-        { type: 'text/markdown', href: skillUrl(skill, '/SKILL.md'), title: `${skill.title} SKILL.md` },
-        { type: 'application/json', href: skillUrl(skill, '/manifest.json'), title: `${skill.title} manifest` },
-      ],
-      agentMap: {
-        summary: skill.summary,
-        actions: [
-          'If a user gave you this link, use the skill in context first.',
-          'Read use.md, then manifest.json, then SKILL.md.',
-          'Respect local AGENTS.md and user instructions over this skill.',
-          'Only install or write files if the user asks or the environment clearly supports it.',
-        ],
-        alternates: [
-          { type: 'text/markdown', href: skillUrl(skill, '/use.md') },
-          { type: 'application/json', href: skillUrl(skill, '/manifest.json') },
-        ],
-        seeAlso: [
-          { title: 'Commit-pinned GitHub source', href: skillRepositoryTreeUrl(skill) },
-          { title: 'Commit-pinned repository registry', href: skillRepositoryRegistryUrl(skill) },
-        ],
-        skill: { bootstrap: [skillUrl(skill, '/use.md'), skillUrl(skill, '/manifest.json'), skillUrl(skill, '/SKILL.md')] },
-        ...(verifyBlock ? { verify: verifyBlock } : {}),
-        ...(content?.fileRoutes ? { files: content.fileRoutes } : {}),
-      },
-      extraMeta,
-    };
-  });
-}
 
-/** Build-time verdict as a ClaimReview-shaped block (docs/skills/standard/05) — a head-level structured verdict. */
-function skillVerdictJsonLd(skill: SkillDefinition, v: NonNullable<ReturnType<typeof getSkillContent>>['verification']): JsonLdObject {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'ClaimReview',
-    url: skillUrl(skill),
-    datePublished: v!.checkedAt,
-    claimReviewed: `AMTECH skill ${skill.slug} ${skill.version} is ${v!.verdict} at trust tier ${v!.trustTier} (verified at build time, authority sequence ${v!.authoritySequence}).`,
-    reviewRating: { '@type': 'Rating', ratingValue: v!.verdict === 'verified' ? 5 : 1, bestRating: 5, worstRating: 1, alternateName: v!.verdict },
-    itemReviewed: { '@type': 'SoftwareApplication', name: skill.title, applicationCategory: 'AIApplication', softwareVersion: skill.version },
-    author: { '@type': 'Organization', name: 'AMTECH AI', url: SITE_ORIGIN },
-  };
-}
-
-function skillDetailJsonLd(skill: SkillDefinition): JsonLdObject {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'SoftwareApplication',
-    name: skill.title,
-    applicationCategory: 'AIApplication',
-    operatingSystem: 'Web, ChatGPT, Claude, Codex, Claude Code, agentic environments',
-    description: skill.description,
-    url: skillUrl(skill),
-    softwareVersion: skill.version,
-    downloadUrl: skillUrl(skill, `/${skill.slug}-${skill.version}.zip`),
-    softwareHelp: skillUrl(skill, '/use.md'),
-    sameAs: [skillUrl(skill, '/SKILL.md'), skillUrl(skill, '/manifest.json'), skillUrl(skill, '/files.md'), skillRepositoryTreeUrl(skill)],
-    codeRepository: skillRepositoryTreeUrl(skill),
-    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
-  };
-}
 
 // --- Registry assembly ------------------------------------------------------------------------
 
-/** /registry (full materialization) + one /certificates/:id page per signed certificate. */
-function registryPageMeta(): PageMeta[] {
-  const certs = skillCertificates as { slug: string; certificate: { certificateId?: string; version?: string; attestations?: { trustTier?: string } } }[];
-  const registry: PageMeta = {
-    route: '/registry',
-    title: 'AMTECH Skill Registry — every certificate, key, and Merkle proof',
-    description:
-      'The complete, verifiable contents of the AMTECH skill certificate authority: every skill, certificate, signature, key, manifest, file, and the RFC-6962 transparency log — recompute any of it yourself.',
-    ogType: 'website',
-    image: DEFAULT_OG_IMAGE,
-    jsonLd: [],
-    alternates: [
-      { type: 'application/json', href: HUB_CATALOG_URL, title: 'Machine catalog' },
-      { type: 'application/json', href: `${SITE_ORIGIN}/.well-known/authority/sth.json`, title: 'Signed tree head' },
-    ],
-    sections: [
-      {
-        heading: 'AMTECH Skill Registry',
-        paragraphs: [
-          `The complete materialization of the AMTECH skill certificate authority: ${skillsCount} certified skill(s), every certificate and signature, the signing keys, and the RFC-6962 transparency log of ${skillAuthorityLog.leaves.length} signed authority records.`,
-          'Nothing here asks you to trust a badge — recompute any skill, certificate, or the whole Merkle tree in your browser or with the CLI verifier.',
-        ],
-        bullets: [
-          `Catalog root: ${skillCatalogRoot}`,
-          ...(skillAuthoritySth ? [`Transparency-log root: ${skillAuthoritySth.rootHash} (tree size ${skillAuthoritySth.treeSize})`] : []),
-          ...certs.map((c) => `${c.slug} v${c.certificate.version ?? ''} — ${c.certificate.attestations?.trustTier ?? 'signed'} — ${c.certificate.certificateId ?? ''}`),
-        ],
-      },
-    ],
-    agentMap: {
-      summary: 'Full AMTECH skill registry: catalog, trust root, RFC-6962 transparency log, and every per-skill artifact.',
-      actions: ['Enumerate every certificate, key, record, and proof from one page.', 'Recompute any subject and confirm its place in the catalog root and Merkle tree.'],
-      alternates: [{ type: 'application/json', href: HUB_CATALOG_URL }, { type: 'application/json', href: `${SITE_ORIGIN}/.well-known/authority/sth.json` }],
-      seeAlso: [{ title: 'Skills hub', href: `${SITE_ORIGIN}/skills` }, ...certs.map((c) => ({ title: `Certificate ${c.slug}`, href: `${SITE_ORIGIN}/certificates/${certificateSlug(c.certificate.certificateId ?? c.slug)}` }))],
-      verify: {
-        catalog: HUB_CATALOG_URL,
-        authority: HUB_AUTHORITY_URL,
-        catalogRoot: skillCatalogRoot,
-        authoritySth: `${SITE_ORIGIN}/.well-known/authority/sth.json`,
-        ...(skillAuthoritySth ? { authorityTreeRoot: skillAuthoritySth.rootHash, authorityTreeSize: skillAuthoritySth.treeSize } : {}),
-      },
-    },
-    extraMeta: [
-      { name: 'amtech:catalog:root', content: skillCatalogRoot },
-      ...(skillAuthoritySth ? [{ name: 'amtech:authority:root', content: skillAuthoritySth.rootHash }] : []),
-    ],
-  };
-
-  const certPages: PageMeta[] = certs.map((c) => {
-    const id = certificateSlug(c.certificate.certificateId ?? c.slug);
-    const tier = c.certificate.attestations?.trustTier ?? 'signed';
-    return {
-      route: `/certificates/${id}`,
-      title: `Certificate ${c.slug} v${c.certificate.version ?? ''} — AMTECH Signed Artifact`,
-      description: `The signed AMTECH certificate for the ${c.slug} skill (${tier}): bound subject, source-package + bootstrap digests, attestations, Ed25519 signature, and transparency-log inclusion — recompute it yourself.`,
-      ogType: 'website',
-      image: DEFAULT_OG_IMAGE,
-      jsonLd: [],
-      alternates: [{ type: 'application/json', href: `${SITE_ORIGIN}/skills/${c.slug}/certificate.json`, title: 'certificate.json' }],
-      sections: [
-        {
-          heading: `Certificate ${c.certificate.certificateId ?? c.slug}`,
-          paragraphs: [
-            `An AMTECH Signed Artifact certificate for the ${c.slug} skill — an Ed25519 signature over a deterministic canonical payload binding identity, source bytes, agent-entry surfaces, and attestations.`,
-            `Trust tier ${tier}. Recompute the signature, source package, manifest SRI, catalog root, authority record, and the RFC-6962 transparency-log inclusion in your browser.`,
-          ],
-          bullets: [`Subject: ${c.slug} v${c.certificate.version ?? ''}`, `Certificate id: ${c.certificate.certificateId ?? ''}`],
-        },
-      ],
-      agentMap: {
-        summary: `AMTECH signed certificate for ${c.slug}.`,
-        alternates: [{ type: 'application/json', href: `${SITE_ORIGIN}/skills/${c.slug}/certificate.json` }],
-        seeAlso: [
-          { title: `${c.slug} skill page`, href: `${SITE_ORIGIN}/skills/${c.slug}` },
-          { title: 'Full registry', href: `${SITE_ORIGIN}/registry` },
-        ],
-      },
-    };
-  });
-
-  return [registry, ...certPages];
-}
 
 let cachedIndex: Map<string, PageMeta> | null = null;
 
 export function getPageMetaIndex(): Map<string, PageMeta> {
   if (cachedIndex) return cachedIndex;
-  const all = [...AUTHORED.map(authoredToPageMeta), ...articlePageMeta(), ...hubPageMeta(), ...skillPageMeta(), ...registryPageMeta()];
+  const all = [...AUTHORED.map(authoredToPageMeta), ...articlePageMeta(), ...hubPageMeta()];
   cachedIndex = new Map(all.map((m) => [m.route, m]));
   return cachedIndex;
 }
@@ -898,7 +551,7 @@ export function listPageMeta(): PageMeta[] {
   return [...getPageMetaIndex().values()];
 }
 
-/** Resolve a route to its metadata. Supports the dynamic /skills/:slug shape. */
+/** Resolve a route to its metadata. */
 export function getPageMeta(route: string): PageMeta | undefined {
   const normalized = route !== '/' && route.endsWith('/') ? route.slice(0, -1) : route;
   return getPageMetaIndex().get(normalized);
