@@ -33,7 +33,7 @@ const owns = [
   {
     icon: HomeIcon,
     title: 'It is yours when you keep it',
-    body: 'Give it your email or mobile number and the code it sends. The same employee, with the same work and its history, opens at your own address on amtechai.com. Nothing is copied and nothing starts over.',
+    body: 'Give it your email and the code it sends. The same employee, with the same work and its history, opens at your own address on amtechai.com. Nothing is copied and nothing starts over.',
   },
   {
     icon: ShieldCheck,
@@ -55,7 +55,7 @@ const owns = [
 const faqs = [
   {
     q: 'Is it free to try?',
-    a: 'Yes. There is no card and no sign-up to start. You only give an email or a mobile number if you want to keep it.',
+    a: 'Yes. There is no card and no sign-up to start. You only give an email if you want to keep it.',
   },
   {
     q: 'What does it cost if I keep it?',
@@ -140,7 +140,7 @@ export default function Contractors() {
               </h1>
               <p className="mx-auto mt-7 max-w-2xl text-center font-body text-body-lg leading-relaxed text-black/60">
                 A real AMTECH employee for your trade, working live on this page. Tell it the job in your own
-                words, or drop in what you have. It does the first real piece now, and you keep it if it is useful.
+                words, or drop in what you have. It does the first real piece now, you can keep talking to it while it works, and you keep it if it is useful.
               </p>
             </AnimatedSection>
             <form
