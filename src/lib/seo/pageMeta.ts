@@ -376,8 +376,8 @@ const AUTHORED: AuthoredEntry[] = [
       },
     ],
     agentMap: {
-      summary: 'A working AI employee for contractors. A visitor presses Start, describes a job, and gets an estimate and a page to share with their customer. Free to try; keeping it costs usage plus 8% of payments taken through it.',
-      actions: ['Read the sections below for what it does and what it costs.', 'A person starts the live agent with the Start button; it opens on app.amtechai.com.'],
+      summary: 'A working AI employee for contractors, in the page. A visitor describes a job or drops in plans and photos; the employee answers at once, does the work while they keep talking, and shows each piece of work as it happens. Free to try; keeping it costs usage plus 8% of payments taken through it.',
+      actions: ['Read the sections below for what it does and what it costs.', 'A person types the job and presses Start; the employee opens in place on this page.'],
       seeAlso: [{ title: 'For painting contractors', href: '/painters' }, { title: 'Pricing', href: '/pricing' }],
     },
     sections: [
@@ -392,7 +392,8 @@ const AUTHORED: AuthoredEntry[] = [
         bullets: [
           'The estimate: describe the job in your own words, or give it plans, photos, a customer\'s email, an old estimate or your price sheet. It drafts the estimate in front of you and asks about anything it cannot work out.',
           'A page your customer can open, with your business name on it. Nothing is sent to a customer until you send it yourself.',
-          'Yours when you keep it: sign in with your email or phone and the workspace becomes your AMTECH employee, with the conversation, the files and what it learned about your business.',
+          'You can keep talking to it while it works. Each piece of work shows as its own card you can open, with its steps and its document.',
+          'Yours when you keep it: give your email and the code it sends, and the same employee opens at your own address with the conversation, the files and what it learned about your business.',
         ],
       },
       {

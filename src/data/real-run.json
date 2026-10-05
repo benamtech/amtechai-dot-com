@@ -1,0 +1,17 @@
+{
+ "note": "A real run on this page, on 5 October 2026: what the visitor typed, two of the employee's working lines, and its last message, word for word. It took about four minutes, and it says what it could not find.",
+ "turns": [
+  {
+   "who": "you",
+   "text": "Price this job: replace the gutters and downspouts on a two-storey house at 41 Oak St, Scranton, PA. 6-inch K-style aluminium. My rate is $14 a foot installed."
+  },
+  {
+   "who": "employee",
+   "text": "Public parcel records have no address match for 41 Oak St, so I'll measure the roof from satellite imagery next.\n\nEstimate's built — $2,912. Filing the receipts and the job state now."
+  },
+  {
+   "who": "employee",
+   "text": "Priced it: $2,912.00 installed at your $14 a foot — 120 ft of gutter and 88 ft of downspouts. The estimate card is on the job.\n\nTwo things it rests on, and both are assumptions, because I couldn't get onto the roof. The gutter run is 120 ft, worked out from the footprint of comparable Oak St houses, not measured. The downspouts are four runs of 22 ft, nobody counted them. Your $14/ft is applied to both lines; if you price downspouts separately, say so and I'll move it.\n\nOne thing to sort before this is solid: 41 Oak St doesn't come up as a Scranton address — Oak St there starts in the 400 block. Which house is it? Send me a photo of the house, or the town if it isn't Scranton, and I'll measure the actual run and re-price.\n\nNothing has gone to the customer; your word sends it."
+  }
+ ]
+}
