@@ -43,7 +43,7 @@ const owns = [
   {
     icon: Receipt,
     title: 'Money goes to your Stripe account',
-    body: 'When it asks your customer for a deposit, the payment goes to your own Stripe account. Nothing is sent and no money is asked of anyone until you say so in the conversation.',
+    body: 'When the work is under way and you say so, it asks your customer for payment, and the money goes to your own Stripe account. Nothing is sent and no money is asked of anyone until you say so in the conversation.',
   },
   {
     icon: MessageSquare,
