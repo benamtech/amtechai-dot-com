@@ -43,7 +43,7 @@ const owns = [
   {
     icon: Receipt,
     title: 'Invoice the work, stop chasing it',
-    body: 'When you say so, it invoices your customer for work done or under way. They pay online by card or bank, the money goes to your own Stripe account, and an unpaid invoice is sent again on its due date. Nothing goes to your customer until you tap Send.',
+    body: 'When you say so, it invoices your customer for work done or under way. They pay online by card, the money goes to your own Stripe account, and an unpaid invoice is sent again on its due date. Nothing goes to your customer until you tap Send.',
   },
   {
     icon: MessageSquare,

@@ -20,7 +20,7 @@
    "starter": true,
    "label": "Invoice a job and get paid",
    "say": "Invoice a job I've done: ",
-   "card": "An invoice your customer pays online by card or bank, with a reminder when it is due, so you stop chasing. Or a pay application in the GC's format, or the dates that protect your payment.",
+   "card": "An invoice your customer pays online, with a reminder when it is due, so you stop chasing. Or a pay application in the GC's format, or the dates that protect your payment.",
    "description": "Use when a tradesperson wants to get paid: an invoice for work they have done, a progress or final bill on a job under way, any payment they ask for (materials, a deposit, a balance), a pay application (AIA G702/G703 or a GC's own form, with retainage), a list of who owes what and the follow-ups, or the deadlines that protect their payment (preliminary notices, notices of furnishing, lien dates, prompt-payment interest). Invoices their customer pays online on the owner's own Stripe, with AMTECH's 8% said plainly."
   },
   {
