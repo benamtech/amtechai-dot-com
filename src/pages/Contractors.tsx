@@ -42,8 +42,8 @@ const owns = [
   },
   {
     icon: Receipt,
-    title: 'Money goes to your Stripe account',
-    body: 'When you say so, it invoices your customer for work done or under way, and the payment goes to your own Stripe account. Nothing is sent and no money is asked of anyone until you say so in the conversation.',
+    title: 'Invoice the work, stop chasing it',
+    body: 'When you say so, it invoices your customer for work done or under way. They pay online by card or bank, the money goes to your own Stripe account, and an unpaid invoice is sent again on its due date. Nothing goes to your customer until you tap Send.',
   },
   {
     icon: MessageSquare,

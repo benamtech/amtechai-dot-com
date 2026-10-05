@@ -9,8 +9,8 @@
    "starter": true,
    "label": "Price a job",
    "say": "Price this job: ",
-   "card": "An estimate with every quantity measured and sourced, and a page your customer can accept and pay.",
-   "description": "Use when a tradesperson wants a job priced: an estimate, a quote, a bid or a takeoff from anything they have (a plan set of any size, phone photos, a customer's email, a voice note, the job in words, a home-inspection report). Covers reading and measuring, building sourced lines, marking assumptions, what to ask, and saving it as a card and a page their customer can open and pay."
+   "card": "An estimate with every quantity measured and sourced, as a page or a PDF you can send your customer.",
+   "description": "Use when a tradesperson wants a job priced: an estimate, a quote, a bid or a takeoff from anything they have (a plan set of any size, phone photos, a customer's email, a voice note, the job in words, a home-inspection report). Covers reading and measuring, building sourced lines, marking assumptions, what to ask, and saving it as a card, a page their customer can open, and a PDF."
   },
   {
    "family": "get-paid",
@@ -18,10 +18,10 @@
    "order": 2,
    "lead": true,
    "starter": true,
-   "label": "Get paid on a job",
-   "say": "Get a deposit on this job: ",
-   "card": "A deposit or invoice your customer pays by card, a pay application in the GC's format, or the dates that protect your payment.",
-   "description": "Use when a tradesperson wants to get paid on a job: a deposit, an invoice, a progress bill, a pay application (AIA G702/G703 or a GC's own form, with retainage), a list of who owes what, or the deadlines that protect their payment (preliminary notices, notices of furnishing, lien dates, prompt-payment interest). Creates payment requests their customer pays by card on the owner's own Stripe, with AMTECH's 8% said plainly."
+   "label": "Invoice a job and get paid",
+   "say": "Invoice a job I've done: ",
+   "card": "An invoice your customer pays online by card or bank, with a reminder when it is due, so you stop chasing. Or a pay application in the GC's format, or the dates that protect your payment.",
+   "description": "Use when a tradesperson wants to get paid: an invoice for work they have done, a progress or final bill on a job under way, any payment they ask for (materials, a deposit, a balance), a pay application (AIA G702/G703 or a GC's own form, with retainage), a list of who owes what and the follow-ups, or the deadlines that protect their payment (preliminary notices, notices of furnishing, lien dates, prompt-payment interest). Invoices their customer pays online on the owner's own Stripe, with AMTECH's 8% said plainly."
   },
   {
    "family": "property-managers",
