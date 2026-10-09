@@ -153,14 +153,14 @@ const AUTHORED: AuthoredEntry[] = [
     route: '/how-it-works',
     title: 'How AMTECH Works — an AI employee set up in a conversation',
     description:
-      'Give the working agent a real job on amtechai.com/contractors, or start a short chat at app.amtechai.com. Keep it with your email or phone, and your employee lives at your own address. It drafts; you send.',
+      'Give the working agent a real job on amtechai.com/contractors, or start a short chat at app.amtechai.com. Keep it with your email, and your employee lives at your own address. It drafts; you send.',
     ogType: 'website',
     sections: [
       {
         heading: 'An AI employee that knows your business, set up in a conversation',
         bullets: [
           'Start one of two ways: give the working agent a real job on amtechai.com/contractors, or start a short chat at app.amtechai.com.',
-          'Keep it with a code sent to your email or phone. The work, the files and what it learned about your business come with you.',
+          'Keep it with a code sent to your email. The work, the files and what it learned about your business come with you.',
           'Your employee lives at your-business.amtechai.com. Talk to it like a person; it shows you what it is doing and what needs you.',
           'It drafts and you send. It never asks for a password or a card number in the chat.',
         ],

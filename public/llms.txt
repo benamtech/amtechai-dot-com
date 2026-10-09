@@ -11,7 +11,7 @@
 - [AMTECH](https://amtechai.com/): what AMTECH builds - one AI employee per business, trained on that business's own trade, rates and customers.
 - [The working agent for contractors](https://amtechai.com/contractors): give it a real job and watch it draft the estimate and a page your customer can open. Free to try, no sign-up to start.
 - [What it costs](https://amtechai.com/pricing): self-serve with no monthly fee, a managed AI employee from $1,500 a month, websites, hourly work, and the 8% on payments through a site AMTECH runs.
-- [How it works](https://amtechai.com/how-it-works): the two ways in, keeping it with your email or phone, and the employee at your own address.
+- [How it works](https://amtechai.com/how-it-works): the two ways in, keeping it with your email, and the employee at your own address.
 - [For painting contractors](https://amtechai.com/painters): what the employee does for a painting company.
 - [About](https://amtechai.com/about): who AMTECH is, and that it runs its own business on the same employee.
 - [Talk to Ben](https://amtechai.com/schedule-demo): book a call with Ben Palaskas.

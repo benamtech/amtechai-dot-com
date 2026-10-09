@@ -10,7 +10,7 @@ const steps = [
   },
   {
     n: '02',
-    title: 'Keep it with your email or phone',
+    title: 'Keep it with your email',
     body: 'Sign in with a code sent to you. Whatever you made in the first conversation comes with you: the work, the files and what it learned about your business.',
   },
   {
