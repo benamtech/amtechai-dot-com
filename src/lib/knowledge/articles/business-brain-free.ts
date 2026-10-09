@@ -65,7 +65,7 @@ export const article: ArticleDefinition = {
     },
     {
       label: 'Schedule a call',
-      href: '/schedule-call',
+      href: '/schedule-demo',
       reason: 'Talk through what parts of your business knowledge are ready to become an AI employee.',
     },
   ],

@@ -110,7 +110,7 @@ Citation infrastructure: claims with sources outperform unsupported assertions i
 
 ### Run an OKF audit on any page
 
-Use this with Claude, ChatGPT, or the AMTECH OKF audit skill at amtechai.com/skills/okf-audit. Replace the URL with your own page or a competitor's.
+Use this with Claude or ChatGPT. Replace the URL with your own page or a competitor's.
 
 ```text
 I want to audit a page for agent-readability using the OKF rubric.

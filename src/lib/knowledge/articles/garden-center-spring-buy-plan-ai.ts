@@ -61,7 +61,7 @@ export const article: ArticleDefinition = {
     },
     {
       label: 'Schedule a call',
-      href: '/schedule-call',
+      href: '/schedule-demo',
       reason: 'Talk through how AMTECH could connect sales, inventory, supplier, booking, and finance data into owner-ready decisions.',
     },
   ],

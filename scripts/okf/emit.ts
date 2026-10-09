@@ -16,7 +16,6 @@ import {
   getTopicGroups,
   type OkfConcept,
 } from '../../src/lib/knowledge/concepts.ts';
-import { skillDefinitions, skillRepositoryTreeUrl, skillUrl } from '../../src/lib/skills/registry.ts';
 
 export const OKF_DIR = 'public/okf';
 
@@ -24,17 +23,14 @@ export const OKF_DIR = 'public/okf';
 // (gate D1). Published article routes are appended automatically from the concept set.
 const MAIN_ROUTES = [
   '/',
-  '/how-it-works',
-  '/about',
-  '/pricing',
   '/contractors',
   '/painters',
-  '/contact',
-  '/our-work',
-  '/cost-calculator',
+  '/how-it-works',
+  '/pricing',
+  '/about',
+  '/schedule-demo',
   '/articles',
   '/articles/all',
-  '/skills',
 ];
 
 function yamlString(value: string): string {
@@ -161,8 +157,7 @@ function sitemap(concepts: OkfConcept[]): string {
   const published = concepts.filter((c) => c.dir === 'articles' && c.resource);
   const articleRoutes = published.map((c) => c.resource as string);
   const mainUrls = MAIN_ROUTES.map((route) => `${SITE_ORIGIN}${route === '/' ? '/' : route}`);
-  const skillRoutes = skillDefinitions.map((skill) => skillUrl(skill));
-  const urls = [...mainUrls, ...articleRoutes, ...skillRoutes];
+  const urls = [...mainUrls, ...articleRoutes];
   const lines = [
     '<?xml version="1.0" encoding="UTF-8"?>',
     '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">',
@@ -182,7 +177,7 @@ function llms(concepts: OkfConcept[]): string {
   const lines: string[] = [];
   lines.push('# AMTECH AI', '');
   lines.push(
-    '> AMTECH builds AI "employees" that automate the operations brain of inventory-, repair-, and transaction-rich small businesses — purchasing, forecasting, quoting, margin review, and owner briefings.',
+    '> AMTECH builds AI employees for contractors, service companies and local operators: an employee that knows the business, drafts the estimates, pages and follow-ups, and waits for the owner\'s yes before anything goes out.',
     '',
   );
   lines.push('## Knowledge graph (Open Knowledge Format)', '');
@@ -204,23 +199,14 @@ function llms(concepts: OkfConcept[]): string {
   // again.
   lines.push('## Key pages', '');
   lines.push(`- [AMTECH](${SITE_ORIGIN}/): what AMTECH builds - one AI employee per business, trained on that business's own trade, rates and customers.`);
-  lines.push(`- [What it costs](${SITE_ORIGIN}/pricing): AMTECH's published prices for an AI employee, a website, and hourly build and advisory work.`);
-  lines.push(`- [How it works](${SITE_ORIGIN}/how-it-works): what happens between the first call and a working AI employee, step by step.`);
-  lines.push(`- [Cost calculator](${SITE_ORIGIN}/cost-calculator): compare the cost of an AI employee against the staff and agencies it replaces.`);
-  lines.push(`- [Our work](${SITE_ORIGIN}/our-work): the client sites AMTECH has built and manages.`);
-  lines.push(`- [About](${SITE_ORIGIN}/about): who AMTECH is and how it operates.`);
-  lines.push(`- [Contact](${SITE_ORIGIN}/contact): how to reach Ben Palaskas directly, and how to book a call.`);
+  lines.push(`- [The working agent for contractors](${SITE_ORIGIN}/contractors): give it a real job and watch it draft the estimate and a page your customer can open. Free to try, no sign-up to start.`);
+  lines.push(`- [What it costs](${SITE_ORIGIN}/pricing): self-serve with no monthly fee, a managed AI employee from $1,500 a month, websites, hourly work, and the 8% on payments through a site AMTECH runs.`);
+  lines.push(`- [How it works](${SITE_ORIGIN}/how-it-works): the two ways in, keeping it with your email or phone, and the employee at your own address.`);
+  lines.push(`- [For painting contractors](${SITE_ORIGIN}/painters): what the employee does for a painting company.`);
+  lines.push(`- [About](${SITE_ORIGIN}/about): who AMTECH is, and that it runs its own business on the same employee.`);
+  lines.push(`- [Talk to Ben](${SITE_ORIGIN}/schedule-demo): book a call with Ben Palaskas.`);
   lines.push(`- [Articles hub](${SITE_ORIGIN}/articles): the AMTECH operations-AI learning library.`);
   lines.push(`- [All articles & knowledge map](${SITE_ORIGIN}/articles/all): full index of published articles and planned operational nodes.`);
-  lines.push('');
-  lines.push('## Free AMTECH agent skills', '');
-  lines.push(`- [Agent skills hub](${SITE_ORIGIN}/skills): free AMTECH skills that can be used from one link.`);
-  skillDefinitions.forEach((skill) => {
-    lines.push(`- [${skill.title}](${skillUrl(skill)}): ${skill.description}`);
-    lines.push(`  - [Use in any AI](${skillUrl(skill, '/use.md')})`);
-    lines.push(`  - [Manifest](${skillUrl(skill, '/manifest.json')})`);
-    lines.push(`  - [GitHub source](${skillRepositoryTreeUrl(skill)})`);
-  });
   lines.push('');
   lines.push('## Published articles', '');
   published.forEach((c) => lines.push(`- [${c.title}](${c.resource}): ${c.description}`));

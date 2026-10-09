@@ -60,12 +60,6 @@ export const article: ArticleDefinition = {
       reason:
         'A business without a documented knowledge layer — services, rules, examples, approval boundaries — cannot pass Concept Packaging or Source And Citation Quality.',
     },
-    {
-      label: 'Run the OKF audit skill',
-      href: '/skills/okf-audit',
-      reason:
-        'The consumable skill used in the live audit below. Fetch it at amtechai.com/skills/okf-audit to run the same audit on any page.',
-    },
   ],
   citations: [
     {
@@ -258,7 +252,7 @@ export const article: ArticleDefinition = {
       id: 'audit-prompt',
       title: 'Run an OKF audit on any page',
       helper:
-        'Use this with Claude, ChatGPT, or the AMTECH OKF audit skill at amtechai.com/skills/okf-audit. Replace the URL with your own page or a competitor\'s.',
+        'Use this with Claude or ChatGPT. Replace the URL with your own page or a competitor\'s.',
       body: auditPrompt,
     },
     {

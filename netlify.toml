@@ -17,27 +17,6 @@
 [build.processing.html]
   pretty_urls = false
 
-[[redirects]]
-  from = "/claim/start-from-sms"
-  to = "/.netlify/functions/claim/start-from-sms"
-  status = 200
-
-[[redirects]]
-  from = "/claim/send-code"
-  to = "/.netlify/functions/claim/send-code"
-  status = 200
-
-[[redirects]]
-  from = "/claim/verify-code"
-  to = "/.netlify/functions/claim/verify-code"
-  status = 200
-
-[[redirects]]
-  from = "/claim/verify-and-claim"
-  to = "/.netlify/functions/claim/verify-and-claim"
-  status = 200
-
-[[redirects]]
-  from = "/sms-entry"
-  to = "/.netlify/functions/sms-entry"
-  status = 200
+# Redirects live in public/_redirects: Netlify applies that file BEFORE this one, and its SPA catch-all
+# (/* /index.html 200) matched every route first, so rules here never fired (measured on deploy preview 70:
+# /claim answered 200; v1's /claim/* function routes 404'd the same way).

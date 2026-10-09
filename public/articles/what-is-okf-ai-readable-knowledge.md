@@ -7,7 +7,7 @@
 - **Type:** Article
 - **Canonical page:** https://amtechai.com/articles/what-is-okf-ai-readable-knowledge
 - **Format:** Agent-optimized Markdown twin of the HTML article (clean, no page chrome).
-- **Topics:** Local authority, Agentic SEO, Open Knowledge Format, knowledge graph, agent-readable knowledge, AI search, AI Overviews, structured data, JSON-LD, llms.txt, Business Brain, AMTECH Knowledge Publishing Standard, OKF audit, OKF Audit Skill, strategy
+- **Topics:** Local authority, Agentic SEO, Open Knowledge Format, knowledge graph, agent-readable knowledge, AI search, AI Overviews, structured data, JSON-LD, llms.txt, Business Brain, AMTECH Knowledge Publishing Standard, OKF audit, strategy
 - **See also:**
   - [How to Build a Business Brain for Free Before You Hire an AI Consultant](https://amtechai.com/articles/business-brain-free) — Published business-brain anchor
   - [Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors](https://amtechai.com/articles/build-local-seo-plan-with-chatgpt) — Published SEO systems anchor
@@ -22,7 +22,6 @@
   - [JSON-LD](https://amtechai.com/okf/entities/concept-json-ld.md) — Tool
   - [llms.txt](https://amtechai.com/okf/entities/concept-llms-txt.md) — Tool
   - [AI Overviews](https://amtechai.com/okf/entities/concept-ai-overviews.md) — Tool
-  - [OKF Audit Skill](https://amtechai.com/okf/entities/tool-okf-audit-skill.md) — Tool
   - [Agent-readable knowledge](https://amtechai.com/okf/entities/concept-agent-readable-knowledge.md) — Outcome
   - [Business Brain](https://amtechai.com/okf/entities/service-business-brain.md) — Service
 
@@ -171,7 +170,7 @@ Build a larger system when you publish many articles, care about AI search visib
 
 Deciding what deserves to be a concept, how concepts relate, and which claims need citations is judgment work. But you do not have to guess whether the result reads well to an agent. AMTECH publishes a free consumable skill, the OKF Audit Skill, that scores any page, draft, sitemap, or OKF bundle against the same agent-readability rubric this article describes.
 
-It is a skill in the literal sense: a portable instruction package an agent can fetch from one URL and run. There is nothing to install, no SDK, and no plugin. Point ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent at amtechai.com/skills/okf-audit, give it a URL, and it returns a score from 0 to 30 across six dimensions — first-fetch clarity, concept packaging, entity and relationship coverage, source and citation quality, materialized views, and agent execution readiness — plus the highest-priority fixes and a copy-paste remediation prompt.
+It is a skill in the literal sense: a portable instruction package an agent can fetch from one URL and run. There is nothing to install, no SDK, and no plugin. Give ChatGPT, Claude, Codex, Claude Code, Cursor, or an AMTECH agent the audit prompt and a URL, and it returns a score from 0 to 30 across six dimensions — first-fetch clarity, concept packaging, entity and relationship coverage, source and citation quality, materialized views, and agent execution readiness — plus the highest-priority fixes and a copy-paste remediation prompt.
 
 This is the validation step that keeps OKF honest. A bundle can be valid markdown and still be a weak knowledge surface. Running the audit before you publish, and on your competitors after, turns "is this agent-readable?" from an opinion into a score you can act on.
 
@@ -203,7 +202,7 @@ Write the concept your customers, team, or agents need to understand before anyt
 
 ### How do I know if my content is actually agent-readable?
 
-Run the AMTECH OKF Audit Skill at amtechai.com/skills/okf-audit. It is a free consumable skill you can fetch into ChatGPT, Claude, Codex, Claude Code, or Cursor and point at any URL. It scores the page from 0 to 30 across six dimensions and returns the highest-priority fixes plus a copy-paste remediation prompt, so the answer becomes a score instead of a guess.
+Run the OKF audit on the page: give the audit prompt in this article to ChatGPT, Claude, Codex, Claude Code, or Cursor and point it at any URL. It scores the page from 0 to 30 across six dimensions and returns the highest-priority fixes plus a copy-paste remediation prompt, so the answer becomes a score instead of a guess.
 
 ## Citations
 

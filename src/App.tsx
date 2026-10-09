@@ -8,29 +8,12 @@ import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Painters from './pages/Painters';
 import Contractors from './pages/Contractors';
-import Contact from './pages/Contact';
-import OurWork from './pages/OurWork';
 import ScheduleDemo from './pages/ScheduleDemo';
-import CostCalculator from './pages/CostCalculator';
-import Payment from './pages/Payment';
-import PaymentSuccess from './pages/PaymentSuccess';
-import Wholesale from './pages/Wholesale';
-import Wholesale2 from './pages/Wholesale2';
-import SellAIEmployees from './pages/SellAIEmployees';
-import SalesBootcamp from './pages/SalesBootcamp';
-import ScheduleCall from './pages/ScheduleCall';
-import AIEmployeeClaim from './pages/AIEmployeeClaim';
-import Apply from './pages/Apply';
-import SalesRepApply from './pages/SalesRepApply';
 import Articles from './pages/Articles';
 import AllArticles from './pages/AllArticles';
-import Skills from './pages/Skills';
-import SkillDetail from './pages/SkillDetail';
-import Registry from './pages/Registry';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import SmsProgram from './pages/SmsProgram';
-import Certificate from './pages/Certificate';
 import { ChatGPTEstimateArticle, PaintingCostAIArticle, PressureWashingEstimateArticle } from './pages/AIEstimateArticles';
 import AmtechVsChatgptClaude from './pages/articles/AmtechVsChatgptClaude';
 import ClaudeSkillJobPricing from './pages/articles/ClaudeSkillJobPricing';
@@ -47,18 +30,7 @@ export default function App() {
       <ScrollToTop />
       <SeoManager />
       <Routes>
-        <Route path="/wholesale" element={<Wholesale />} />
-        <Route path="/wholesale-2" element={<Wholesale2 />} />
-        <Route path="/sell-ai-employees" element={<SellAIEmployees />} />
-        <Route path="/sales-bootcamp" element={<SalesBootcamp />} />
-        <Route path="/claim" element={<AIEmployeeClaim />} />
-        <Route path="/schedule-call" element={<ScheduleCall />} />
-        <Route path="/apply" element={<Apply />} />
-        <Route path="/apply/info-sales-rep" element={<SalesRepApply />} />
         <Route path="/schedule-demo" element={<ScheduleDemo />} />
-        <Route path="/shedule-demo" element={<ScheduleDemo />} />
-        <Route path="/pay" element={<Payment />} />
-        <Route path="/payment-success" element={<PaymentSuccess />} />
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
@@ -66,18 +38,11 @@ export default function App() {
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/painters" element={<Painters />} />
           <Route path="/contractors" element={<Contractors />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/our-work" element={<OurWork />} />
-          <Route path="/cost-calculator" element={<CostCalculator />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/all" element={<AllArticles />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/skills/:slug" element={<SkillDetail />} />
-          <Route path="/registry" element={<Registry />} />
           <Route path="/privacy" element={<Privacy />} />
           <Route path="/terms" element={<Terms />} />
           <Route path="/sms" element={<SmsProgram />} />
-          <Route path="/certificates/:id" element={<Certificate />} />
           <Route path="/articles/write-pressure-washing-estimate-with-ai" element={<PressureWashingEstimateArticle />} />
           <Route path="/articles/estimate-painting-cost-ai" element={<PaintingCostAIArticle />} />
           <Route path="/articles/create-estimate-with-chatgpt" element={<ChatGPTEstimateArticle />} />

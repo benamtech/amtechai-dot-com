@@ -5,9 +5,9 @@ import { Menu, X, ArrowRight } from 'lucide-react';
 
 const navLinks = [
   { label: 'Learn AI', to: '/articles' },
-  { label: 'Agent Skills', to: '/skills' },
-  { label: 'Our Work', to: '/our-work' },
-  { label: 'Sales Bootcamp', to: '/sales-bootcamp' },
+  { label: 'For Contractors', to: '/contractors' },
+  { label: 'How It Works', to: '/how-it-works' },
+  { label: 'Pricing', to: '/pricing' },
 ];
 
 export default function Navbar() {

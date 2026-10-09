@@ -67,7 +67,7 @@ export const article: ArticleDefinition = {
   internalLinks: [
     { label: 'AMTECH vs. ChatGPT or Claude', href: '/articles/amtech-vs-chatgpt-claude', reason: 'Decide when a chat tool is enough and when you need an operating system behind it.' },
     { label: 'Create an estimate with ChatGPT', href: '/articles/create-estimate-with-chatgpt', reason: 'See the same answer-first prompt discipline applied to contractor estimating.' },
-    { label: 'Schedule a call', href: '/schedule-call', reason: 'If you want AMTECH to build the graph, editorial system, and publishing engine for your business.' },
+    { label: 'Schedule a call', href: '/schedule-demo', reason: 'If you want AMTECH to build the graph, editorial system, and publishing engine for your business.' },
   ],
   citations: [
     { label: 'AI features and query fan-out in Search', url: 'https://developers.google.com/search/docs/appearance/ai-features', publisher: 'Google Search Central' },
