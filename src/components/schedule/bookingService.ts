@@ -40,22 +40,8 @@ export async function createBooking(booking: BookingData): Promise<boolean> {
     return false;
   }
 
-  try {
-    const apiUrl = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/send-booking-email`;
-    await fetch(apiUrl, {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(booking),
-    });
-  } catch (e) {
-    console.error('Failed to send booking email:', e);
-  }
-
-  // The operator is also told through the platform's own mail (app.amtechai.com), so a booking reaches a
-  // person even when the function above cannot send.
+  // The operator is told through the platform's own mail (app.amtechai.com). It mails only the operator, never the
+  // address typed, so the form cannot be used to send mail to anyone. The site's database holds no mail key.
   try {
     await fetch('https://app.amtechai.com/site/booking', {
       method: 'POST',
