@@ -1,0 +1,43 @@
+{{- /* Google Analytics (GA4). When the tag loads is site.Params.ga_load (hugo.toml):
+     head         as Google's snippet: loads with the page; counts every visit; costs the most speed.
+     load         after the page has finished loading; misses a visitor who leaves before that.
+     interaction  on the first scroll, tap, click or key; misses a visitor who never touches the page.
+     settled      on the first scroll, tap, click or key, or 5 seconds after the page has loaded, whichever is first;
+                  misses only a visitor who leaves within those 5 seconds without touching the page.
+   Measured 2026-10-13: site/README.md, "Speed". */ -}}
+{{- $mode := site.Params.ga_load | default "head" -}}
+{{- if eq $mode "head" }}
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.ga }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.Params.ga }}');
+    </script>
+{{- else }}
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.Params.ga }}');
+      (function () {
+        var done = false;
+        function ga() {
+          if (done) return; done = true;
+          var s = document.createElement('script'); s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id={{ site.Params.ga }}';
+          document.head.appendChild(s);
+        }
+        {{- if eq $mode "load" }}
+        if (document.readyState === 'complete') ga(); else window.addEventListener('load', ga, { once: true });
+        {{- else }}
+        ['scroll', 'pointerdown', 'keydown', 'touchstart'].forEach(function (e) { window.addEventListener(e, ga, { once: true, passive: true }); });
+        {{- if eq $mode "settled" }}
+        var later = function () { setTimeout(ga, 5000); };
+        if (document.readyState === 'complete') later(); else window.addEventListener('load', later, { once: true });
+        {{- end }}
+        {{- end }}
+      })();
+    </script>
+{{- end }}
