@@ -1,9 +1,8 @@
 {{ define "main" }}
-{{- /* New 2026-10-13 (was a redirect to Home). Where an AMTECH customer pays AMTECH. Every bill is a Stripe invoice
-   with Stripe's own pay page, so this page carries no checkout code and touches no money. */ -}}
+{{- /* New 2026-10-13 (was a redirect to Home). Where an AMTECH customer pays AMTECH. The pay button is on the invoice
+   itself, so this page carries no checkout code and touches no money. */ -}}
 {{- $ways := slice
-  (dict "icon" "receipt" "title" "Pay an invoice" "body" "Open the email from AMTECH and press the pay button. Stripe's own page takes the payment." "label" "" "to" "")
-  (dict "icon" "file-text" "title" "Lost the email" "body" "Write to ben@amtechai.com with your business name. Ben sends the invoice again." "label" "Write to Ben" "to" "mailto:ben@amtechai.com")
+  (dict "icon" "file-text" "title" "Can't find your invoice" "body" "Email ben@amtechai.com with your business name, and we send it again." "label" "Write to Ben" "to" "mailto:ben@amtechai.com")
   (dict "icon" "message-square" "title" "A question about a bill" "body" "Call (805) 886-9173 or email ben@amtechai.com." "label" "Call (805) 886-9173" "to" "tel:+18058869173")
 -}}
 <section class="relative overflow-hidden bg-[#FAFAFA] pt-32 pb-16 md:pt-44 md:pb-20">
@@ -11,28 +10,22 @@
     <div class="max-w-3xl" data-fade>
       <p class="mono-label mb-4 text-red">Pay</p>
       <h1 class="font-display text-display-xl text-black">Pay AMTECH.</h1>
-      <p class="mt-6 max-w-xl font-body text-body-lg leading-relaxed text-black/60">Every AMTECH bill is an invoice sent by email through Stripe. Pay it from the link in that email.</p>
+      <p class="mt-6 max-w-xl font-body text-body-lg leading-relaxed text-black/60">Press Pay on your invoice.</p>
     </div>
   </div>
 </section>
 
 <section class="bg-[#FAFAFA] pb-28 md:pb-36">
   <div class="container-wide">
-    <div class="grid gap-6 md:grid-cols-3">
+    <div class="grid gap-6 md:grid-cols-2">
       {{- range $i, $w := $ways }}
       <div data-fade style="--d: {{ mul $i 0.07 }}s">
-        {{- if $w.to }}
         <a class="glass-card group flex h-full flex-col p-8" href="{{ $w.to }}">
-        {{- else }}
-        <div class="glass-card flex h-full flex-col p-8">
-        {{- end }}
           {{ partial "icon.html" (dict "name" $w.icon "size" 24 "class" "text-red" "stroke" 1.75) }}
           <h2 class="mt-5 font-display text-display-sm text-black">{{ $w.title }}</h2>
           <p class="mt-3 font-body text-body-md leading-relaxed text-black/60">{{ $w.body }}</p>
-          {{- with $w.label }}
-          <span class="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-black">{{ . }}{{ partial "icon.html" (dict "name" "arrow-right" "size" 15 "class" "transition group-hover:translate-x-1") }}</span>
-          {{- end }}
-        {{- if $w.to }}</a>{{ else }}</div>{{ end }}
+          <span class="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-black">{{ $w.label }}{{ partial "icon.html" (dict "name" "arrow-right" "size" 15 "class" "transition group-hover:translate-x-1") }}</span>
+        </a>
       </div>
       {{- end }}
     </div>

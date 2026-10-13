@@ -18,7 +18,7 @@ import { SITE_ORIGIN, getConcepts } from '../knowledge/concepts.ts';
 
 
 export const SITE_NAME = 'AMTECH AI';
-export const DEFAULT_TITLE = 'AMTECH. — Your Next Employee Is a Computer';
+export const DEFAULT_TITLE = 'AMTECH. — Your Next Employee Is an AI Agent';
 /** Optional branded share image. Set to a real 1200x630 raster once public/og-default.png exists. */
 export const DEFAULT_OG_IMAGE: string | undefined = undefined;
 
@@ -109,7 +109,7 @@ const AUTHORED: AuthoredEntry[] = [
     jsonLd: siteJsonLd(),
     sections: [
       {
-        heading: 'Your next employee is a computer',
+        heading: 'Your next employee is an AI agent',
         paragraphs: [
           'AMTECH gives a business a textable AI employee that understands how it actually runs — its pricing, brand, documents, customers, and the way the owner likes work done.',
           'Instead of learning AI tools, owners and office staff just text the employee and get admin and growth work handled.',
