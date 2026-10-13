@@ -1,6 +1,6 @@
 import { useLocation } from 'react-router-dom';
 
-// Home, /contractors, /painters and /schedule-demo are Hugo pages now (site/), served as files. A client-side link from a React
+// Home, /contractors, /painters, /schedule-demo and /about are Hugo pages now (site/), served as files. A client-side link from a React
 // page to one of them must load the file, not render a React copy. The path the document first loaded at is
 // kept, so if the React shell is ever served at one of these paths it renders nothing rather than reloading forever.
 const firstPath = window.location.pathname;

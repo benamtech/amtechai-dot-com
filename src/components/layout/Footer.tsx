@@ -5,7 +5,7 @@ const links = [
   { label: 'About', to: '/about' },
   { label: 'Pricing', to: '/pricing' },
   { label: 'For Contractors', to: '/contractors' },
-  { label: 'Contact', to: '/schedule-demo' },
+  { label: 'Contact', to: '/contact' },
 ];
 
 const darkPages = ['/', '/wholesale', '/wholesale-2', '/our-work'];

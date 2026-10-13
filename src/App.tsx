@@ -4,7 +4,6 @@ import ScrollToTop from './components/ScrollToTop';
 import ServerPage from './components/ServerPage';
 import SeoManager from './components/seo/SeoManager';
 import HowItWorks from './pages/HowItWorks';
-import About from './pages/About';
 import Pricing from './pages/Pricing';
 import Articles from './pages/Articles';
 import AllArticles from './pages/AllArticles';
@@ -31,7 +30,7 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<ServerPage />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about" element={<ServerPage />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/painters" element={<ServerPage />} />
           <Route path="/contractors" element={<ServerPage />} />

@@ -2,12 +2,10 @@
 # standing with a 301 to their nearest live page (SITE-BEFORE-LAUNCH, 2026-10-04). The SPA catch-all stays LAST.
 /claim  https://app.amtechai.com/  301!
 /claim/*  https://app.amtechai.com/  301!
-/contact  /schedule-demo  301!
 /schedule-call  /schedule-demo  301!
 /shedule-demo  /schedule-demo  301!
 /cost-calculator  /contractors  301!
 /our-work  /about  301!
-/pay  /  301!
 /payment-success  /  301!
 /wholesale  /  301!
 /wholesale-2  /  301!
