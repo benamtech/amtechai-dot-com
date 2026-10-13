@@ -3,7 +3,11 @@
 baseURL = "https://amtechai.com/"
 locale = "en-US"
 title = "AMTECH AI"
-disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT", "section"]
+disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
+
+# An article is content/articles/<slug>.md and is served at /articles/<slug>.
+[permalinks.page]
+  articles = "/articles/:contentbasename/"
 
 # Declaring any mount drops Hugo's defaults, so each of the site's own folders is listed too.
 # One source while the React app still serves the other routes: the starter list and the real run are read
@@ -32,6 +36,9 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT", "section"]
 
 [markup.goldmark.renderer]
   unsafe = true
+# "{.kicker}" on the line under a paragraph gives it a class (an article's small label above a heading).
+[markup.goldmark.parser.attribute]
+  block = true
 
 [params]
   app = "https://app.amtechai.com"

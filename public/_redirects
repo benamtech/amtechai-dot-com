@@ -19,5 +19,12 @@
 /certificates/*  /  301!
 /.well-known/skill-authority.json  /  301!
 /.well-known/skill-authority-v0.json  /  301!
+# The articles index lists every article; the old "all articles and planned nodes" page listed pages never written.
+/articles/all  /articles  301!
+# Dropped (Ben, 2026-10-13) and no visitor from search, an AI assistant or a link in GA since May 2026.
+/articles/garden-center-spring-buy-plan-ai  /articles  301!
+/articles/garden-center-spring-buy-plan-ai.md  /articles  301!
+/articles/what-japan-sovereign-ai-means-for-american-small-business  /articles  301!
+/articles/what-japan-sovereign-ai-means-for-american-small-business.md  /articles  301!
 /sms-entry  /.netlify/functions/sms-entry  200
 /*  /index.html  200

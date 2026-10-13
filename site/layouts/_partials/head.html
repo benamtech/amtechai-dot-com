@@ -1,0 +1,21 @@
+{{- /* The head tags a page gets from its front matter: what search engines, link previews and AI readers see.
+       One source: the same title and description the page shows. */ -}}
+{{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
+{{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
+{{- $title := .Params.seo_title | default .Title -}}
+{{- $article := and .IsPage (eq .Section "articles") -}}
+<meta name="robots" content="index, follow" />
+    <meta property="og:site_name" content="AMTECH AI" />
+    <meta property="og:title" content="{{ $title }}" />
+    <meta property="og:description" content="{{ .Description }}" />
+    <meta property="og:url" content="{{ $url }}" />
+    <meta property="og:type" content="{{ if $article }}article{{ else }}website{{ end }}" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="{{ $title }}" />
+    <meta name="twitter:description" content="{{ .Description }}" />
+    {{- with .OutputFormats.Get "markdown" }}
+    <link rel="alternate" type="text/markdown" href="{{ .Permalink | strings.TrimSuffix "/index.md" }}.md" title="{{ $.Title }} (Markdown)" />
+    {{- end }}
+    {{- if $article }}
+    {{ partial "article-schema.html" (dict "page" . "url" $url) }}
+    {{- end }}

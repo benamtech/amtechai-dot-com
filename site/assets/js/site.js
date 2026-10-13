@@ -35,6 +35,17 @@
     });
   }
 
+  // An article's Copy prompt button: copies the prompt as written.
+  document.querySelectorAll('[data-copy]').forEach((btn) => {
+    const text = btn.closest('section')?.querySelector('[data-copy-text]');
+    if (!text || !navigator.clipboard) return;
+    btn.addEventListener('click', async () => {
+      await navigator.clipboard.writeText(text.textContent);
+      btn.textContent = 'Copied';
+      setTimeout(() => { btn.textContent = 'Copy prompt'; }, 1600);
+    });
+  });
+
   const fades = document.querySelectorAll('[data-fade]');
   if (!('IntersectionObserver' in window)) { fades.forEach((el) => el.classList.add('in')); return; }
   const seen = new IntersectionObserver((entries) => {

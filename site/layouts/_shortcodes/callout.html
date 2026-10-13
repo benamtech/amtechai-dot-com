@@ -1,0 +1,6 @@
+{{- /* A note set apart from the text: {{< callout title="..." tone="warning" >}} one paragraph {{< /callout >}}.
+       tone="warning" is red-ruled; anything else is black-ruled. */ -}}
+<aside class="not-prose my-12 border-l-4 {{ if eq (.Get "tone") "warning" }}border-red{{ else }}border-black{{ end }} bg-[#f4f4f4] p-6 md:p-8">
+  <h3 class="font-display text-display-sm text-black">{{ .Get "title" }}</h3>
+  <p class="mt-3 font-body text-body-md leading-relaxed text-black/70">{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
+</aside>

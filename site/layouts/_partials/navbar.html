@@ -1,5 +1,5 @@
 {{- $links := slice (dict "label" "Learn AI" "to" "/articles") (dict "label" "For Contractors" "to" "/contractors") (dict "label" "How It Works" "to" "/how-it-works") (dict "label" "Pricing" "to" "/pricing") -}}
-{{- $route := .Params.route -}}
+{{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 <nav class="fixed top-0 left-0 z-50 w-full overflow-x-clip" data-nav>
   <div data-nav-bar class="relative mx-auto w-[75dvw] max-w-[calc(100vw-16px)] overflow-hidden border-x-2 border-b-2 border-black backdrop-blur-2xl transition-all duration-300 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.82),transparent_30%),radial-gradient(circle_at_82%_100%,rgba(225,29,42,0.1),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.9),rgba(255,255,255,0.66),rgba(255,255,255,0.84))] before:opacity-95 bg-white/72">
     <div class="relative z-10 flex h-14 items-center justify-between px-4 sm:px-6 lg:h-16 lg:px-8">

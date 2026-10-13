@@ -1,0 +1,35 @@
+/* An article's body: the Markdown in content/articles/*.md, in the live pages' type (Inter, the display sizes,
+   black at 60-70%). Blocks drawn by shortcodes carry .not-prose and style themselves. */
+@layer components {
+  .article-body > p { @apply mt-6 font-body text-body-lg leading-relaxed text-black/70; }
+  .article-body > p:first-child { @apply mt-0; }
+  .article-body > h2 { @apply mt-20 scroll-mt-28 font-display text-display-md text-black; }
+  .article-body > h2 + p, .article-body > h2 + ul, .article-body > h2 + ol { @apply mt-6; }
+  .article-body > h3 { @apply mt-12 scroll-mt-28 font-display text-display-sm text-black; }
+  .article-body > .kicker { @apply mt-20 font-mono text-xs uppercase tracking-wider text-red; }
+  .article-body > .kicker + h2 { @apply mt-3; }
+  .article-body > ul, .article-body > ol { @apply mt-6 space-y-3 font-body text-body-lg leading-relaxed text-black/70; }
+  .article-body > ul > li { @apply relative pl-8; }
+  .article-body > ul > li::before { content: '—'; @apply absolute left-0 text-red; }
+  .article-body > ol { @apply list-decimal pl-6; }
+  .article-body > ol > li { @apply pl-2 marker:font-mono marker:text-sm marker:text-red; }
+  .article-body a:not(.btn-primary) { @apply font-semibold text-black underline decoration-red/40 underline-offset-4 hover:decoration-red; }
+  .article-body strong { @apply font-semibold text-black; }
+  .article-body code { @apply font-mono text-[0.9em] text-black; }
+  .article-body > blockquote { @apply mt-8 border-l-4 border-black pl-6 font-body text-xl leading-relaxed text-black; }
+
+  .article-table { @apply mt-8; }
+  .article-table table { @apply w-full border-collapse text-left font-body; }
+  .article-table th { @apply border-b-2 border-black px-4 py-3 align-bottom font-mono text-xs font-medium uppercase tracking-wider text-black/55; }
+  .article-table td { @apply border-b border-black/10 px-4 py-4 align-top text-body-sm leading-relaxed text-black/70; }
+  .article-table td:first-child { @apply font-semibold text-black; }
+  .article-table th:first-child, .article-table td:first-child { @apply pl-0; }
+  @media (max-width: 767px) {
+    .article-table thead { @apply sr-only; }
+    .article-table tr { @apply block border-t-2 border-black py-4; }
+    .article-table td { @apply block border-0 px-0 py-1.5; }
+    .article-table td::before { content: attr(data-label); @apply block font-mono text-[0.7rem] font-medium uppercase tracking-wider text-black/45; }
+    .article-table td:first-child { @apply text-body-md; }
+    .article-table td:first-child::before { @apply hidden; }
+  }
+}
