@@ -1,23 +1,16 @@
+# amtechai.com is one Hugo project, site/ (read site/README.md). `npm run build` builds the CSS and the pages, then
+# checks them; Netlify publishes site/public. Redirects and headers are site/static/_redirects and _headers.
 [build]
-  # The React app and its pre-rendered routes, then Hugo's pages (site/) laid over them: site/tools/overlay.sh.
-  command = "npm run build && bash site/tools/overlay.sh"
-  publish = "dist"
+  command = "npm run build"
+  publish = "site/public"
   functions = "netlify/functions"
 
-# Node 24 is required so the OKF/prerender build scripts (.ts run directly via type stripping)
-# work in CI. The `postbuild` step prerenders article + hub routes into dist/ for crawlers/agents.
 [build.environment]
   NODE_VERSION = "24"
 
-# Serve prerendered <route>/index.html directly at the clean, no-trailing-slash URL.
-# Without this, Netlify 301-redirects /skills/okf-audit -> /skills/okf-audit/ before serving,
-# which (a) gives redirect-averse agents/crawlers an empty 301 body and (b) fights our
-# no-slash <link rel="canonical">. pretty_urls=false removes the hop; the page serves 200 directly.
+# Serve <route>/index.html at the clean, no-trailing-slash URL with no redirect hop: a redirect gives redirect-averse
+# agents and crawlers an empty 301 body and fights the no-slash canonical.
 [build.processing]
   skip_processing = false
 [build.processing.html]
   pretty_urls = false
-
-# Redirects live in public/_redirects: Netlify applies that file BEFORE this one, and its SPA catch-all
-# (/* /index.html 200) matched every route first, so rules here never fired (measured on deploy preview 70:
-# /claim answered 200; v1's /claim/* function routes 404'd the same way).

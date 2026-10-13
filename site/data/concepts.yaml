@@ -1,0 +1,192 @@
+# The reference concepts in the knowledge bundle (/okf/entities/<key>.md). An article names the ones it is
+# about in its front matter (related:); each concept's "Referenced by" list is worked out from those.
+
+concept-agent-readable-knowledge:
+  type: "Outcome"
+  title: "Agent-readable knowledge"
+  description: "The end state where an agent that fetches a URL gets enough structure, metadata, entities, and citations to use the content as trusted context without scraping or guessing."
+  tags: ["Outcome", "agent-readable knowledge"]
+  status: "reference"
+  related:
+    - { key: concept-open-knowledge-format, reason: "Method." }
+    - { key: concept-materialized-views, reason: "Method." }
+
+concept-ai-overviews:
+  type: "Tool"
+  title: "AI Overviews"
+  description: "Google's generative search surface that may use query fan-out across related subtopics, rewarding clear entity relationships and cited claims."
+  tags: ["Tool", "AI Overviews"]
+  status: "reference"
+  related:
+    - { key: concept-knowledge-graph, reason: "Method." }
+
+concept-amtech-knowledge-publishing-standard:
+  type: "Method"
+  title: "AMTECH Knowledge Publishing Standard"
+  description: "The AMTECH discipline of authoring knowledge once and projecting it into every surface humans, crawlers, agents, and databases need, with validation before publish."
+  tags: ["Method", "AMTECH Knowledge Publishing Standard"]
+  status: "reference"
+  related:
+    - { key: concept-open-knowledge-format, reason: "Method." }
+    - { key: concept-materialized-views, reason: "Method." }
+
+concept-approval-gate:
+  type: "Method"
+  title: "Approval gate"
+  description: "The trust boundary where anything that leaves the business or moves money waits for the owner's explicit yes. Enforced structurally by the kind of work, so a money-touching action cannot skip the confirmation."
+  tags: ["Method", "approval gate", "confirmation gate"]
+  status: "reference"
+  related:
+    - { key: service-ai-employee, reason: "Service." }
+    - { key: concept-business-sovereignty, reason: "Outcome." }
+
+concept-business-sovereignty:
+  type: "Outcome"
+  title: "Business sovereignty"
+  description: "The small-business analog of sovereign AI: instead of owning a model, the owner owns the layer around a rented model — a business brain, connectors on their own accounts, an approval gate, and an audit trail."
+  tags: ["Outcome", "business sovereignty"]
+  status: "reference"
+  related:
+    - { key: concept-sovereign-ai, reason: "Method." }
+    - { key: service-ai-employee, reason: "Service." }
+    - { key: service-business-brain, reason: "Service." }
+    - { key: concept-approval-gate, reason: "Method." }
+    - { key: concept-connector, reason: "Tool." }
+
+concept-connector:
+  type: "Tool"
+  title: "Connector"
+  description: "A live integration — Gmail, Stripe, calendar, files — wired on the owner's own accounts so the AI Employee has operating context and action rights the owner controls, added one at a time as trust grows."
+  tags: ["Tool", "connector", "connectors"]
+  status: "reference"
+  related:
+    - { key: service-ai-employee, reason: "Service." }
+    - { key: concept-approval-gate, reason: "Method." }
+    - { key: concept-business-sovereignty, reason: "Outcome." }
+
+concept-json-ld:
+  type: "Tool"
+  title: "JSON-LD"
+  description: "The JSON syntax for embedding schema.org structured data in a page so its meaning is explicit in the first-fetch surface."
+  tags: ["Tool", "JSON-LD"]
+  status: "reference"
+  related:
+    - { key: concept-structured-data, reason: "Method." }
+
+concept-knowledge-graph:
+  type: "Method"
+  title: "Knowledge graph"
+  description: "Named entities connected by typed relationships, so agents and search systems build context by traversing links between things rather than re-reading prose."
+  tags: ["Method", "knowledge graph", "entity graph"]
+  status: "reference"
+  related:
+    - { key: concept-open-knowledge-format, reason: "Method." }
+    - { key: concept-ai-overviews, reason: "Tool." }
+
+concept-llms-txt:
+  type: "Tool"
+  title: "llms.txt"
+  description: "A discovery file that gives AI tools a direct orientation to a site’s most important content, complementing sitemap.xml and robots.txt."
+  tags: ["Tool", "llms.txt"]
+  status: "reference"
+  related:
+    - { key: concept-open-knowledge-format, reason: "Method." }
+
+concept-materialized-views:
+  type: "Method"
+  title: "Materialized views"
+  description: "One source of truth projected into many consumer surfaces — HTML, prerendered static pages, JSON-LD, markdown bundle, sitemap — so every reader gets a fit-for-purpose representation."
+  tags: ["Method", "materialized views"]
+  status: "reference"
+  related:
+    - { key: concept-open-knowledge-format, reason: "Method." }
+    - { key: concept-amtech-knowledge-publishing-standard, reason: "Method." }
+
+concept-okf-content-audit:
+  type: "Method"
+  title: "OKF content audit"
+  description: "A six-dimension scoring method (0–30) for how readable a page or bundle is to AI agents: first-fetch clarity, concept packaging, entity coverage, citations, materialized views, and execution readiness."
+  tags: ["Method", "OKF content audit", "OKF audit"]
+  status: "reference"
+  related:
+    - { key: concept-open-knowledge-format, reason: "Method." }
+    - { key: tool-okf-audit-skill, reason: "Tool." }
+
+concept-open-knowledge-format:
+  type: "Method"
+  title: "Open Knowledge Format"
+  description: "Google's lightweight format for AI-readable knowledge: a directory of markdown concept files with YAML frontmatter whose links form a portable knowledge graph."
+  tags: ["Method", "Open Knowledge Format", "OKF"]
+  status: "reference"
+  related:
+    - { key: concept-knowledge-graph, reason: "Method." }
+    - { key: concept-materialized-views, reason: "Method." }
+    - { key: concept-agent-readable-knowledge, reason: "Outcome." }
+
+concept-physical-ai:
+  type: "Method"
+  title: "Physical AI"
+  description: "AI that acts in the physical world — multimodal models built to run robots, vehicles, and equipment from images, video, audio, and sensor data rather than text alone. The layer of the control stack where AI takes real-world action."
+  tags: ["Method", "physical AI"]
+  status: "reference"
+  related:
+    - { key: concept-sovereign-ai, reason: "Method." }
+
+concept-sovereign-ai:
+  type: "Method"
+  title: "Sovereign AI"
+  description: "National control over the AI operating layer — the model, compute, data, physical machines, and permissions — so a country is not dependent on foreign models. The country-scale version of the control problem a business faces."
+  tags: ["Method", "sovereign AI"]
+  status: "reference"
+  related:
+    - { key: concept-physical-ai, reason: "Method." }
+    - { key: concept-business-sovereignty, reason: "Outcome." }
+    - { key: service-ai-employee, reason: "Service." }
+
+concept-structured-data:
+  type: "Method"
+  title: "Structured data"
+  description: "Machine-readable clues about page meaning (author, date, type, FAQ, breadcrumbs) that agents and search systems use when prose alone is ambiguous."
+  tags: ["Method", "structured data"]
+  status: "reference"
+  related:
+    - { key: concept-json-ld, reason: "Tool." }
+
+problem-owner-bottleneck:
+  type: "Problem"
+  title: "Owner bottleneck"
+  description: "The constraint where a business cannot scale because key decisions, knowledge, and approvals all route through the owner; the problem AI Employees and a Business Brain are built to relieve."
+  tags: ["Problem", "owner bottleneck"]
+  status: "reference"
+  related:
+    - { key: service-ai-employee, reason: "Service." }
+    - { key: service-business-brain, reason: "Service." }
+
+service-ai-employee:
+  type: "Service"
+  title: "AI Employee"
+  description: "A managed, connected operating assistant that reads business context, follows workflows, and reports to a human supervisor — not a one-off chatbot."
+  tags: ["Service", "AI Employee", "AI employees"]
+  status: "reference"
+  related:
+    - { key: service-business-brain, reason: "Service." }
+    - { key: problem-owner-bottleneck, reason: "Problem." }
+
+service-business-brain:
+  type: "Service"
+  title: "Business Brain"
+  description: "The durable operating-context layer — records, rules, examples, and approval boundaries — a business documents before agents or automation can use its knowledge reliably."
+  tags: ["Service", "Business Brain"]
+  status: "reference"
+  related:
+    - { key: service-ai-employee, reason: "Service." }
+
+tool-okf-audit-skill:
+  type: "Tool"
+  title: "OKF Audit Skill"
+  description: "The consumable AMTECH skill that runs the OKF content audit from a single URL in any agent, returning a score, priority fixes, and a remediation prompt."
+  tags: ["Tool", "OKF Audit Skill", "skill"]
+  status: "reference"
+  related:
+    - { key: concept-okf-content-audit, reason: "Method." }
+    - { key: concept-open-knowledge-format, reason: "Method." }

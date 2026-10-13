@@ -1,4 +1,6 @@
 ---
+# Its line in /llms.txt (the list AI assistants read first), and where in that list.
+llms: { order: 2, label: "The working agent for contractors", text: "give it a real job and watch it draft the estimate and a page your customer can open. Free to try, no sign-up to start." }
 title: "AI Estimates for Contractors, Live — AMTECH AI"
 description: "Give the AMTECH employee a real job and watch it draft the estimate and make a page your customer can open. Free to try, no sign-up to start."
 route: "/contractors"

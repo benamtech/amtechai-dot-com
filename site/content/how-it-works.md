@@ -1,4 +1,6 @@
 ---
+# Its line in /llms.txt (the list AI assistants read first), and where in that list.
+llms: { order: 4, label: "How it works", text: "the two ways in, keeping it with your email, and the employee at your own address." }
 title: "How AMTECH Works — an AI employee set up in a conversation | AMTECH AI"
 description: "Give the working agent a real job on amtechai.com/contractors, or start a short chat at app.amtechai.com. Keep it with your email, and your employee lives at your own address. It drafts; you send."
 route: "/how-it-works"

@@ -5,13 +5,46 @@ locale = "en-US"
 title = "AMTECH AI"
 disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 
+# What one build writes besides the pages, for search engines and AI readers (site/README.md, "What visitors and
+# crawlers get"): /sitemap.xml, /llms.txt, every article's Markdown twin /articles/<slug>.md, and the knowledge bundle
+# /okf/ (index, one file per article, one per concept in data/concepts.yaml).
+[outputs]
+  home = ["html", "llms", "sitemapxml", "okfindex"]
+  section = ["html", "okfindex"]
+[outputFormats.llms]
+  mediaType = "text/plain"
+  baseName = "llms"
+  isPlainText = true
+  notAlternative = true
+[outputFormats.sitemapxml]
+  mediaType = "application/xml"
+  baseName = "sitemap"
+  isPlainText = true
+  notAlternative = true
+[outputFormats.markdown]
+  mediaType = "text/markdown"
+  baseName = "index"
+  isPlainText = true
+  ugly = true
+[outputFormats.okf]
+  mediaType = "text/markdown"
+  baseName = "index"
+  isPlainText = true
+  ugly = true
+  path = "okf"
+  notAlternative = true
+[outputFormats.okfindex]
+  mediaType = "text/markdown"
+  baseName = "index"
+  isPlainText = true
+  path = "okf"
+  notAlternative = true
+
 # An article is content/articles/<slug>.md and is served at /articles/<slug>.
 [permalinks.page]
   articles = "/articles/:contentbasename/"
 
-# Declaring any mount drops Hugo's defaults, so each of the site's own folders is listed too.
-# One source while the React app still serves the other routes: the starter list and the real run are read
-# from the app's own data, and the two photographs from its public folder.
+# Declaring any mount drops Hugo's defaults, so each of the site's folders is listed.
 [module]
   [[module.mounts]]
     source = "content"
@@ -26,13 +59,8 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
     source = "data"
     target = "data"
   [[module.mounts]]
-    source = "../src/data"
-    target = "data"
-    files = ["catalogue.json", "real-run.json"]
-  [[module.mounts]]
-    source = "../public"
+    source = "static"
     target = "static"
-    files = ["favicon.svg", "painters-hero.jpg", "painters-bridge.jpg"]
 
 [markup.goldmark.renderer]
   unsafe = true

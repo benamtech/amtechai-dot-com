@@ -25,7 +25,9 @@
     <script defer src="{{ .RelPermalink }}"></script>
     {{- end }}
     {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}
+    {{- if ne .Kind "404" }}
     <link rel="canonical" href="{{ site.BaseURL | strings.TrimSuffix "/" }}{{ $route }}" />
+    {{- end }}
     {{- with .Params.head }}
     {{ . | safeHTML }}
     {{- else }}

@@ -4,7 +4,7 @@
 {{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
 {{- $title := .Params.seo_title | default .Title -}}
 {{- $article := and .IsPage (eq .Section "articles") -}}
-<meta name="robots" content="index, follow" />
+<meta name="robots" content="{{ if eq .Kind "404" }}noindex{{ else }}index, follow{{ end }}" />
     <meta property="og:site_name" content="AMTECH AI" />
     <meta property="og:title" content="{{ $title }}" />
     <meta property="og:description" content="{{ .Description }}" />
@@ -13,8 +13,9 @@
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="{{ $title }}" />
     <meta name="twitter:description" content="{{ .Description }}" />
-    {{- with .OutputFormats.Get "markdown" }}
-    <link rel="alternate" type="text/markdown" href="{{ .Permalink | strings.TrimSuffix "/index.md" }}.md" title="{{ $.Title }} (Markdown)" />
+    {{- if .OutputFormats.Get "markdown" }}
+    {{- /* Built by hand: Hugo names an ugly-URL output's address with its suffix twice. */}}
+    <link rel="alternate" type="text/markdown" href="{{ $url }}.md" title="{{ .Title }} (Markdown)" />
     {{- end }}
     {{- if $article }}
     {{ partial "article-schema.html" (dict "page" . "url" $url) }}

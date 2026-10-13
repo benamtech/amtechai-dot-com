@@ -1,42 +1,106 @@
-# site/: amtechai.com on Hugo
+# site/: amtechai.com
 
-Home (`/`), `/contractors` and `/painters` are Hugo pages, ported from the React app to look and behave exactly
-as they did on production `4d1ad0c` (2026-10-13). The React app still serves every other route. Nothing on these
-pages was redesigned or rewritten on the way.
+Every page amtechai.com serves is built here, by Hugo, from Markdown and data files. There is no JavaScript
+framework: the pages are HTML with one small script (`assets/js/site.js`: the menu, the fade-in, the Copy button).
+Node is in the repo only to run Tailwind.
 
-## How it is built
+## Build it, look at it, check it
 
-- `tools/build.sh` builds the CSS with the app's own Tailwind 3 theme (`../tailwind.config.js`) and `../src/index.css`
-  over these templates, then runs Hugo 0.167.0 (pinned and checksummed in `tools/hugo.sh`) into `public/`.
-  `tools/build.sh server --port 1314` serves it while editing.
-- `tools/overlay.sh` is Netlify's second build step (`netlify.toml`): after `npm run build` has made the React app
-  and pre-rendered its routes into `dist/`, it keeps the React shell as `dist/spa.html`, points the SPA catch-all at
-  it, and copies Hugo's pages over `dist/`. An unknown URL still gets the React app, never a 200 copy of Home.
-- `src/components/ServerPage.tsx`: a React link to one of these three paths loads the file from the server instead
-  of rendering a React copy.
+```
+npm install                 # once: Tailwind
+npm run dev                 # http://localhost:1314, rebuilds as you save (Tailwind is built once at start)
+npm run build               # what Netlify runs: Tailwind, Hugo into site/public/, then the checks
+npm run check               # the checks alone, on the last build
+```
+
+Hugo is pinned (0.167.0) and fetched and checksummed on first use by `tools/hugo.sh`. Netlify publishes
+`site/public/`; `netlify.toml` at the repo root says so. One Netlify function lives outside `site/`:
+`netlify/functions/sms-entry.mjs` (`/sms-entry`).
+
+`tools/check.mjs` fails the build when a page has no title, description, canonical or single `<h1>`; when a link or
+image inside the site goes nowhere; when the sitemap and the pages disagree; when structured data does not parse;
+when an article lacks its Markdown twin or its knowledge-bundle entry; or when a redirect lands nowhere.
+
+## Adding a page
+
+**An article** (most new pages) is one file: `content/articles/<slug>.md`. It is served at `/articles/<slug>`,
+listed on `/articles`, in `/llms.txt`, in `/sitemap.xml` and in the knowledge bundle, and gets its Markdown twin at
+`/articles/<slug>.md`. Nothing else is edited. Copy an existing article's front matter and keep its fields:
+
+```yaml
+---
+title: "Create an Estimate With ChatGPT"          # the page's <h1> and its title
+description: "One sentence for search results."   # meta description, llms.txt, the bundle
+dek: "The paragraph under the title."
+date: 2026-06-17
+lastmod: 2026-06-17                               # change it when the words change; the sitemap reads it
+author: "AMTECH AI"
+audience: "owners and office managers at local service businesses"
+related: [service-ai-employee]                    # optional: concepts in data/concepts.yaml it explains
+about:                                            # structured data only, not shown
+  - { name: "ChatGPT estimates", type: tool }     # type: business service problem industry place method customer tool outcome
+faqs:                                             # optional; shown as Questions, and as FAQ structured data
+  - q: "Can ChatGPT make a PDF estimate?"
+    a: "It can draft the estimate ..."
+citations:                                        # optional; shown as Sources
+  - { label: "Title of the source", url: "https://...", publisher: "Who published it" }
+next:                                             # the three links in the closing panel
+  - { label: "Talk through an estimating workflow", href: "/schedule-demo", reason: "One sentence." }
+---
+```
+
+The body is Markdown: `## Headings`, paragraphs, lists, tables (they stack on a phone by themselves). Four extras:
+
+| Write | You get |
+|---|---|
+| `{{< answer >}} One paragraph. {{< /answer >}}` | the short answer, set large under a red rule |
+| `{{< prompt title="Copy this prompt" helper="One line on how to use it." >}}` the prompt `{{< /prompt >}}` | a dark panel with a Copy button; `[anything in brackets]` shows as a blank to fill in |
+| `{{< callout title="..." tone="warning" >}} One paragraph. {{< /callout >}}` | a note set apart (red rule for `warning`, black otherwise) |
+| `Pricing logic` then `{.kicker}` on the next line, above a `## Heading` | a small red label over the heading |
+
+**Any other page** is `content/<name>.md` with `route: "/<name>"`, `title`, `description`, its words in front matter
+or in the body, and `layout: "<name>"` pointing at `layouts/<name>.html`. Start from the closest page:
+`how-it-works.md` + `how-it-works.html` (words in front matter, a template that lays them out) or `privacy.md` +
+`legal.html` (words in the Markdown body). Give it an `llms:` line if AI assistants should see it in `/llms.txt`.
+
+Then `npm run build`. If the checks pass, look at the page at 390 px and 1280 px wide before you commit it.
+
+**Removing or renaming a page**: add a line to `static/_redirects` (`/old-url  /new-url  301!`) so its links and
+search standing carry over. The checks fail if the target does not exist.
 
 ## Where things are
 
 | | |
 |---|---|
-| `layouts/baseof.html` | the head every page shares (GA and Google Fonts as before) and the page shell |
-| `layouts/_partials/` | `navbar`, `footer`, `icon` (lucide-react 0.344's icons, drawn the same way) |
-| `layouts/home.html`, `contractors.html`, `painters.html` | one per page, classes copied from the React source |
-| `content/*.md` | each page's title, description, path and its head tags as production served them |
-| `data/home.yaml` | Home's words; `/contractors` reads `../src/data/catalogue.json` and `real-run.json` (mounted) |
-| `assets/js/site.js` | the navbar and the fade-up, as framer-motion did them; `assets/css/port.css` the fade's CSS |
+| `content/` | every page's words. `articles/` one file per article; `_index.md` is Home |
+| `data/` | `home.yaml` (Home's words), `catalogue.json` and `real-run.json` (`/contractors`; the catalogue is generated by the brain's `programs/trade-office/bin/catalogue.py`), `concepts.yaml` (the bundle's concepts) |
+| `layouts/baseof.html` | the head every page shares (GA, fonts, CSS) and the page shell |
+| `layouts/_partials/` | `navbar`, `footer`, `icon` (lucide 0.344 icons), `head` (search and link-preview tags, from front matter), `article-schema` (an article's structured data), `md/` (the Markdown twin and bundle pieces) |
+| `layouts/<name>.html` | one per page that has its own design; `articles/page.html` is every article, `articles/section.html` is `/articles`, `legal.html` is `/privacy`, `/terms`, `/sms` |
+| `layouts/_shortcodes/` | `answer`, `prompt`, `callout`, `highlight` (legal), each with `.markdown.md` / `.okf.md` twins for the Markdown outputs |
+| `layouts/home.llms.txt`, `home.sitemapxml.xml`, `home.okfindex.md` | `/llms.txt`, `/sitemap.xml`, `/okf/index.md` and the concept files |
+| `assets/css/` | `base.css` (fonts, the shared component classes), `port.css` (the fade), `article.css` (article and legal bodies) |
+| `static/` | files served as they are: `_redirects`, `_headers`, `robots.txt`, the IndexNow key, images |
+| `tailwind.config.js` | the theme (colours, type scale, shadows) |
+| `tools/` | `build.sh`, `hugo.sh`, `check.mjs`, `indexnow.mjs` (after a deploy: ping Bing and others with the sitemap), `node/` (screenshot and behaviour checks) |
 
-A Tailwind class must appear whole in a template or in `assets/js/`, with a space on both sides when it sits next
-to a template tag, or Tailwind will not generate it (it missed `lg:[&>*:first-child]:order-2` that way once).
+A Tailwind class must appear whole in a template, a content file or `assets/js/`, with a space on both sides when
+it sits next to a template tag, or Tailwind will not generate it.
 
-## How it was proved the same
+## What visitors and crawlers get
 
-- `tools/node/capture.mjs <base> <out> / /contractors /painters` (`ENGINE=firefox|webkit`): full-page shots at 390
-  and 1280 px after every fade has run. Compared against production pixel by pixel in Chromium and Firefox: 0
-  differing pixels on all three pages at both widths. Home's Unsplash photographs come in two encodings from
-  Unsplash's own CDN, so two captures of the same page can differ there by up to 21/255. Production does this too.
-- WebKit (Playwright's Docker image) cannot be compared full-page on these pages: its headless full-page shot and
-  its scroll-in fades disagree, and production fails it worse than the port (its hero heading stays invisible). Looked
-  at in the viewport after scrolling to each section instead, the port shows what production shows.
+One markup for people and crawlers: the HTML a browser renders is the HTML a crawler reads. From the same files, one
+build also writes `/sitemap.xml` (every page; articles with their `lastmod`), `/llms.txt` (the pages with an `llms:`
+line, then every article), each article's Markdown twin `/articles/<slug>.md` (named in the page's head), and the
+knowledge bundle `/okf/` in the Open Knowledge Format: `index.md`, one entry per article, and one file per concept
+in `data/concepts.yaml`, each listing what links to it.
+
+## How the pages were proved the same as the React site (2026-10-13)
+
+- `tools/node/capture.mjs <base> <out> <path...>` (`ENGINE=firefox|webkit`): full-page shots at 390 and 1280 px
+  after every fade. Against production: 0 differing pixels in Chromium on every page at both widths (Home differs
+  only inside its Unsplash photographs, by up to 21/255: Unsplash serves two encodings, and production differs from
+  itself the same way), and 0 in Firefox on the pages checked there.
 - `tools/node/behaviour.mjs <base>`: the menu, the fade, Home's phone form, and the employee on `/contractors` (with
-  app.amtechai.com stubbed). The output is identical on production and on the port.
+  app.amtechai.com stubbed). Identical output on production and on this build.
+- Articles are the one deliberate change of look: a new template (`layouts/articles/page.html`), every word kept.

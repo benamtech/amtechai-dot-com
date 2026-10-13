@@ -1,4 +1,6 @@
 ---
+# Its line in /llms.txt (the list AI assistants read first), and where in that list.
+llms: { order: 7, label: "Talk to Ben", text: "book a call with Ben Palaskas." }
 title: "Schedule a Demo — AMTECH AI"
 description: "Book a live demo of an AMTECH AI employee for your business."
 route: "/schedule-demo"

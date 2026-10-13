@@ -1,4 +1,6 @@
 ---
+# Its line in /llms.txt (the list AI assistants read first), and where in that list.
+llms: { order: 3, label: "What it costs", text: "self-serve with no monthly fee, a managed AI employee from $1,500 a month, websites, hourly work, and the 8% on payments through a site AMTECH runs." }
 title: "AMTECH AI Pricing — an AI employee from no monthly fee to $1,500 a month managed"
 description: "Self-serve: no monthly fee, pay for the work as it is done, and 8% of payments made through it. Managed AI employee from $1,500 a month. Websites $1,000 or more. Hourly work $75 an hour."
 route: "/pricing"
