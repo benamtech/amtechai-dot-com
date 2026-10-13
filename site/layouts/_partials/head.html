@@ -2,7 +2,7 @@
        One source: the same title and description the page shows. */ -}}
 {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 {{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
-{{- $title := .Params.seo_title | default .Title -}}
+{{- $title := partial "title.html" . -}}
 {{- $article := and .IsPage (eq .Section "articles") -}}
 <meta name="robots" content="{{ if eq .Kind "404" }}noindex{{ else }}index, follow{{ end }}" />
     <meta property="og:site_name" content="AMTECH AI" />
@@ -17,6 +17,9 @@
     {{- /* Built by hand: Hugo names an ugly-URL output's address with its suffix twice. */}}
     <link rel="alternate" type="text/markdown" href="{{ $url }}.md" title="{{ .Title }} (Markdown)" />
     {{- end }}
+    {{- if .OutputFormats.Get "okfindex" }}{{ if eq .Kind "section" }}
+    <link rel="alternate" type="text/markdown" href="https://amtechai.com/okf/{{ .Section }}/index.md" title="{{ .Title }} (Markdown)" />
+    {{- end }}{{ end }}
     {{- if $article }}
     {{ partial "article-schema.html" (dict "page" . "url" $url) }}
     {{- end }}
