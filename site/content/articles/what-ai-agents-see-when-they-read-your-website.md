@@ -7,8 +7,6 @@ lastmod: 2026-06-19
 author: "AMTECH AI"
 audience: "Founders, content operators, SEO strategists, and technical marketers publishing educational content who want it to reach AI agents and AI search systems"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
-# Concepts in the knowledge bundle (data/concepts.yaml) this article explains or relies on.
-related: [concept-open-knowledge-format, concept-knowledge-graph, concept-materialized-views, concept-okf-content-audit, concept-amtech-knowledge-publishing-standard, concept-json-ld, concept-agent-readable-knowledge]
 about:
   - { name: "OKF content audit", type: method }
   - { name: "Open Knowledge Format", type: method }

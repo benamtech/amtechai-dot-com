@@ -7,8 +7,6 @@ lastmod: 2026-06-18
 author: "AMTECH AI"
 audience: "Claude users, local service business owners and contractors learning how to turn AI prompts into repeatable workflows"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
-# Concepts in the knowledge bundle (data/concepts.yaml) this article explains or relies on.
-related: [service-ai-employee, problem-owner-bottleneck]
 about:
   - { name: "Claude Skills", type: tool, sameAs: ["https://claude.ai"] }
   - { name: "job profitability check", type: method }

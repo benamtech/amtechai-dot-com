@@ -7,8 +7,6 @@ lastmod: 2026-06-19
 author: "AMTECH AI"
 audience: "founders, technical marketers, SEO strategists, content operators, and AI builders"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
-# Concepts in the knowledge bundle (data/concepts.yaml) this article explains or relies on.
-related: [concept-open-knowledge-format, concept-knowledge-graph, concept-okf-content-audit, concept-amtech-knowledge-publishing-standard, concept-structured-data, concept-json-ld, concept-llms-txt, concept-ai-overviews, concept-agent-readable-knowledge, service-business-brain]
 about:
   - { name: "Open Knowledge Format", type: method, sameAs: ["https://cloud.google.com/blog/products/data-analytics/how-the-open-knowledge-format-can-improve-data-sharing"] }
   - { name: "knowledge graph", type: method, sameAs: ["https://arxiv.org/abs/2003.02320"] }

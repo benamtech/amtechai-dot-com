@@ -36,7 +36,7 @@ date: 2026-06-17
 lastmod: 2026-06-17                               # change it when the words change; the sitemap reads it
 author: "AMTECH AI"
 audience: "owners and office managers at local service businesses"
-related: [service-ai-employee]                    # optional: concepts in data/concepts.yaml it explains
+related: [service-ai-employee]                    # optional: concepts in data/concepts.yaml it explains (none yet)
 about:                                            # structured data only, not shown
   - { name: "ChatGPT estimates", type: tool }     # type: business service problem industry place method customer tool outcome
 faqs:                                             # optional; shown as Questions, and as FAQ structured data
@@ -96,7 +96,7 @@ One markup for people and crawlers: the HTML a browser renders is the HTML a cra
 build also writes `/sitemap.xml` (every page; articles with their `lastmod`), `/llms.txt` (the pages with an `llms:`
 line, then every article), each article's Markdown twin `/articles/<slug>.md` (named in the page's head), and the
 knowledge bundle `/okf/` in the Open Knowledge Format: `index.md`, one entry per article, and one file per concept
-in `data/concepts.yaml`, each listing what links to it.
+in `data/concepts.yaml` (empty until the buildout writes some; the format is in that file), each listing what links to it.
 
 ## How the pages were proved the same as the React site (2026-10-13)
 

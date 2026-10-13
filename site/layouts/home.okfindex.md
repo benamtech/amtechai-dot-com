@@ -12,18 +12,21 @@
 ---
 okf_version: "0.1"
 title: "AMTECH AI Knowledge Bundle"
-description: "AMTECH's published articles and the concepts they explain, as an Open Knowledge Format bundle."
+description: "AMTECH's published articles, as an Open Knowledge Format bundle."
 ---
 # AMTECH AI Knowledge Bundle
 
-AMTECH's published articles and the concepts they explain, as an Open Knowledge Format bundle. Each article's page is at https://amtechai.com/articles/<slug>; its plain Markdown twin is at https://amtechai.com/articles/<slug>.md.
+AMTECH's published articles, as an Open Knowledge Format bundle. Each article's page is at https://amtechai.com/articles/<slug>; its plain Markdown twin is at https://amtechai.com/articles/<slug>.md.
 
 ## Articles
 {{ range $articles }}
 * [{{ .Title }}](/articles/{{ .File.ContentBaseName }}.md) - {{ .Description }}
 {{- end }}
 
+{{- with $concepts }}
+
 ## Concepts
-{{ range $key, $c := $concepts }}
+{{ range $key, $c := . }}
 * [{{ $c.title }}](/entities/{{ $key }}.md) - {{ $c.description }}
+{{- end }}
 {{- end }}

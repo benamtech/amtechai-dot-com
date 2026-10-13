@@ -7,8 +7,6 @@ lastmod: 2026-06-17
 author: "AMTECH AI"
 audience: "Business owners comparing DIY AI tools with a custom AI employee"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
-# Concepts in the knowledge bundle (data/concepts.yaml) this article explains or relies on.
-related: [service-ai-employee, service-business-brain, problem-owner-bottleneck]
 about:
   - { name: "AI employee", type: service }
   - { name: "custom AI agents", type: service }

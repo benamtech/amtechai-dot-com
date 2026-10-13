@@ -7,8 +7,6 @@ lastmod: 2026-06-18
 author: "AMTECH staff"
 audience: "local service business owners, contractors, operators, and founders who want AI-assisted SEO that compounds instead of generic blog volume"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
-# Concepts in the knowledge bundle (data/concepts.yaml) this article explains or relies on.
-related: [concept-ai-overviews]
 about:
   - { name: "Knowledge graph SEO", type: method }
   - { name: "Local SEO", type: method }

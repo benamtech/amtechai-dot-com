@@ -7,8 +7,6 @@ lastmod: 2026-06-18
 author: "AMTECH AI"
 audience: "small-business owners, operators, and office managers who want to prepare for AI without wasting money on tools too early"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
-# Concepts in the knowledge bundle (data/concepts.yaml) this article explains or relies on.
-related: [service-ai-employee, service-business-brain, problem-owner-bottleneck]
 about:
   - { name: "business brain", type: method }
   - { name: "AI employees", type: service }

@@ -47,11 +47,30 @@
 /solutions/*  /  301!
 /ai-employee-bootcamp  /  301!
 /wholesaler-2  /  301!
-# The knowledge bundle keeps the live articles and the concepts they explain; the planned playbooks, use cases,
-# places and industries described pages that were never written (2026-10-13).
+# The knowledge bundle keeps the live articles. The planned playbooks, use cases, places and industries described
+# pages never written, and the concepts went with the rest of the old knowledge (Ben, 2026-10-13: start over).
 /okf/playbooks/*  /okf/index.md  301!
 /okf/use-cases/*  /okf/index.md  301!
 /okf/entities/index.md  /okf/index.md  301!
+/okf/entities/concept-agent-readable-knowledge.md  /okf/index.md  301!
+/okf/entities/concept-ai-overviews.md  /okf/index.md  301!
+/okf/entities/concept-amtech-knowledge-publishing-standard.md  /okf/index.md  301!
+/okf/entities/concept-approval-gate.md  /okf/index.md  301!
+/okf/entities/concept-business-sovereignty.md  /okf/index.md  301!
+/okf/entities/concept-connector.md  /okf/index.md  301!
+/okf/entities/concept-json-ld.md  /okf/index.md  301!
+/okf/entities/concept-knowledge-graph.md  /okf/index.md  301!
+/okf/entities/concept-llms-txt.md  /okf/index.md  301!
+/okf/entities/concept-materialized-views.md  /okf/index.md  301!
+/okf/entities/concept-okf-content-audit.md  /okf/index.md  301!
+/okf/entities/concept-open-knowledge-format.md  /okf/index.md  301!
+/okf/entities/concept-physical-ai.md  /okf/index.md  301!
+/okf/entities/concept-sovereign-ai.md  /okf/index.md  301!
+/okf/entities/concept-structured-data.md  /okf/index.md  301!
+/okf/entities/problem-owner-bottleneck.md  /okf/index.md  301!
+/okf/entities/service-ai-employee.md  /okf/index.md  301!
+/okf/entities/service-business-brain.md  /okf/index.md  301!
+/okf/entities/tool-okf-audit-skill.md  /okf/index.md  301!
 /okf/articles/garden-center-spring-buy-plan-ai.md  /okf/index.md  301!
 /okf/articles/what-japan-sovereign-ai-means-for-american-small-business.md  /okf/index.md  301!
 /okf/entities/industry-bike-shop.md  /okf/index.md  301!
