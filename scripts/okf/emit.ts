@@ -201,7 +201,7 @@ function llms(concepts: OkfConcept[]): string {
   lines.push(`- [AMTECH](${SITE_ORIGIN}/): what AMTECH builds - one AI employee per business, trained on that business's own trade, rates and customers.`);
   lines.push(`- [The working agent for contractors](${SITE_ORIGIN}/contractors): give it a real job and watch it draft the estimate and a page your customer can open. Free to try, no sign-up to start.`);
   lines.push(`- [What it costs](${SITE_ORIGIN}/pricing): self-serve with no monthly fee, a managed AI employee from $1,500 a month, websites, hourly work, and the 8% on payments through a site AMTECH runs.`);
-  lines.push(`- [How it works](${SITE_ORIGIN}/how-it-works): the two ways in, keeping it with your email or phone, and the employee at your own address.`);
+  lines.push(`- [How it works](${SITE_ORIGIN}/how-it-works): the two ways in, keeping it with your email, and the employee at your own address.`);
   lines.push(`- [For painting contractors](${SITE_ORIGIN}/painters): what the employee does for a painting company.`);
   lines.push(`- [About](${SITE_ORIGIN}/about): who AMTECH is, and that it runs its own business on the same employee.`);
   lines.push(`- [Talk to Ben](${SITE_ORIGIN}/schedule-demo): book a call with Ben Palaskas.`);
