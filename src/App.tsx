@@ -1,13 +1,11 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Layout from './components/layout/Layout';
 import ScrollToTop from './components/ScrollToTop';
+import ServerPage from './components/ServerPage';
 import SeoManager from './components/seo/SeoManager';
-import Home from './pages/Home';
 import HowItWorks from './pages/HowItWorks';
 import About from './pages/About';
 import Pricing from './pages/Pricing';
-import Painters from './pages/Painters';
-import Contractors from './pages/Contractors';
 import ScheduleDemo from './pages/ScheduleDemo';
 import Articles from './pages/Articles';
 import AllArticles from './pages/AllArticles';
@@ -32,12 +30,12 @@ export default function App() {
       <Routes>
         <Route path="/schedule-demo" element={<ScheduleDemo />} />
         <Route element={<Layout />}>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<ServerPage />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
           <Route path="/about" element={<About />} />
           <Route path="/pricing" element={<Pricing />} />
-          <Route path="/painters" element={<Painters />} />
-          <Route path="/contractors" element={<Contractors />} />
+          <Route path="/painters" element={<ServerPage />} />
+          <Route path="/contractors" element={<ServerPage />} />
           <Route path="/articles" element={<Articles />} />
           <Route path="/articles/all" element={<AllArticles />} />
           <Route path="/privacy" element={<Privacy />} />

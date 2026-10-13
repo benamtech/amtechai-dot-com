@@ -1,5 +1,6 @@
 [build]
-  command = "npm run build"
+  # The React app and its pre-rendered routes, then Hugo's pages (site/) laid over them: site/tools/overlay.sh.
+  command = "npm run build && bash site/tools/overlay.sh"
   publish = "dist"
   functions = "netlify/functions"
 

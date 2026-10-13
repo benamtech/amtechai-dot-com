@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ .Title }}</title>
+    <meta name="description" content="{{ .Description }}" />
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.Params.ga }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ site.Params.ga }}');
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    {{- with resources.Get "css/site.css" | minify | fingerprint }}
+    <link rel="stylesheet" href="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" />
+    {{- end }}
+    <script>document.documentElement.classList.add('js')</script>
+    {{- with resources.Get "js/site.js" | minify | fingerprint }}
+    <script defer src="{{ .RelPermalink }}"></script>
+    {{- end }}
+    <link rel="canonical" href="{{ site.BaseURL | strings.TrimSuffix "/" }}{{ .Params.route }}" />
+    {{ .Params.head | safeHTML }}
+  </head>
+  <body class="bg-black text-white antialiased">
+    <div id="root">
+      {{- block "root" . }}
+      <div class="flex min-h-screen flex-col">
+        {{- partial "navbar.html" . }}
+        <main class="flex-1">{{ block "main" . }}{{ end }}</main>
+        {{- partial "footer.html" . }}
+      </div>
+      {{- end }}
+    </div>
+  </body>
+</html>

@@ -1,0 +1,38 @@
+# amtechai.com on Hugo: the live pages ported exactly (2026-10-13). Hugo 0.167.0, pinned in tools/hugo.sh.
+# Read site/README.md first.
+baseURL = "https://amtechai.com/"
+locale = "en-US"
+title = "AMTECH AI"
+disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT", "section"]
+
+# Declaring any mount drops Hugo's defaults, so each of the site's own folders is listed too.
+# One source while the React app still serves the other routes: the starter list and the real run are read
+# from the app's own data, and the two photographs from its public folder.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "../src/data"
+    target = "data"
+    files = ["catalogue.json", "real-run.json"]
+  [[module.mounts]]
+    source = "../public"
+    target = "static"
+    files = ["favicon.svg", "painters-hero.jpg", "painters-bridge.jpg"]
+
+[markup.goldmark.renderer]
+  unsafe = true
+
+[params]
+  app = "https://app.amtechai.com"
+  ga = "G-HZ9HL72L7Q"
