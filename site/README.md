@@ -62,6 +62,9 @@ The body is Markdown: `## Headings`, paragraphs, lists, tables (they stack on a 
 or in the body, and `layout: "<name>"` pointing at `layouts/<name>.html`. Start from the closest page:
 `how-it-works.md` + `how-it-works.html` (words in front matter, a template that lays them out) or `privacy.md` +
 `legal.html` (words in the Markdown body). Give it an `llms:` line if AI assistants should see it in `/llms.txt`.
+Any page can carry `faqs:` (shown by its template, and written as FAQ structured data from the same list) and
+`noindex: true` (kept out of search results and the sitemap, as `/pay` is). Head tags are never written by hand:
+`layouts/_partials/head.html` makes them from the title, description and route.
 
 Then `npm run build`. If the checks pass, look at the page at 390 px and 1280 px wide before you commit it.
 

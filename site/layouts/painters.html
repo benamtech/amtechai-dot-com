@@ -6,12 +6,6 @@
   (dict "icon" "users" "title" "Clients and follow-up" "body" "Every lead and every client in one place, so nothing falls through a crack. It can connect to the software you already use, or keep the list for you. It follows up the way you would, because it learns your voice.")
   (dict "icon" "search" "title" "Local SEO and marketing" "body" "It makes your business easy to find online for Google and for the new AI assistants people ask when they say \"find me a painter near me.\" Real pages about the work you actually do, not a blog full of filler.")
 -}}
-{{- $faqs := slice
-  (dict "q" "Will my clients know it is AI?" "a" "Only if you want them to. You approve every message before it goes out, so it reads like you — because it learns your voice.")
-  (dict "q" "What if it gets a number wrong?" "a" "You check every estimate before it is sent. It drafts, you approve. And it gets sharper on your rates and your customers every week.")
-  (dict "q" "How long does setup take?" "a" "A couple of hours of calls. We learn your rates, your services, your customers, and your rules. Then it works in your phone and your email — nothing new to learn.")
-  (dict "q" "Do I need to know AI?" "a" "No. If you can text, you can run it. You describe the job in your own words; it does the office work.")
--}}
 <section class="relative overflow-hidden bg-[#FAFAFA] pt-32 pb-20 md:pt-44 md:pb-28">
   <div class="pointer-events-none absolute left-1/2 top-1/4 h-[700px] w-[900px] -translate-x-1/2 -translate-y-1/2" style="background: radial-gradient(ellipse at center, rgba(228, 37, 28, 0.22) 0%, rgba(228, 37, 28, 0.06) 45%, transparent 70%)" aria-hidden="true"></div>
   <div class="container-wide relative z-10">
@@ -127,7 +121,7 @@
         <h2 class="font-display text-display-md text-black">Fair questions, straight answers.</h2>
       </div>
       <div class="mt-10 space-y-6">
-        {{- range $i, $f := $faqs }}
+        {{- range $i, $f := .Params.faqs }}
         <div data-fade style="--d: {{ mul $i 0.05 }}s">
           <div class="glass-card p-6">
             <h3 class="font-display text-display-sm text-black">{{ $f.q }}</h3>

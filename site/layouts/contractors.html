@@ -11,14 +11,6 @@
   (dict "icon" "receipt" "title" "Invoice the work, stop chasing it" "body" "When you say so, it invoices your customer for work done or under way. They pay online by card, the money goes to your own Stripe account, and an unpaid invoice is sent again on its due date. Nothing goes to your customer until you tap Send.")
   (dict "icon" "message-square" "title" "It says it is AI" "body" "It is an AI employee and says so. It shows its work: where each number came from, what it assumed, and what it could not find.")
 -}}
-{{- $faqs := slice
-  (dict "q" "Is it free to try?" "a" "Yes. There is no card and no sign-up to start. You only give an email if you want to keep it.")
-  (dict "q" "What does it cost if I keep it?" "a" "There is no monthly fee. You pay for the work it does as it does it, and AMTECH takes 8% of payments your customers make through it. Stripe’s card fee comes out of your side, as it does on any Stripe account. It asks for a card when your use reaches $1.")
-  (dict "q" "What can I give it?" "a" "Anything your office handles: a job to price, plans, photos, a customer’s email, a rejected vendor file, a pay application, your website. The list above is where it is deepest, not where it stops.")
-  (dict "q" "Does it send anything to my customer on its own?" "a" "No. It drafts, and you send. Every page, message and payment request waits for your say-so.")
-  (dict "q" "Will it ask for my passwords or bank details?" "a" "No. It never asks for a password, a card number or a Social Security number in the chat. Stripe collects payout details on its own secure form.")
-  (dict "q" "Can I talk to a person?" "a" "Yes. AMTECH is Benjamin Palaskas, and you can book a call with him from this page.")
--}}
 <section class="relative overflow-hidden bg-[#FAFAFA] pt-32 pb-12 md:pt-44 md:pb-16">
   <div class="pointer-events-none absolute left-1/2 top-1/4 h-[700px] w-[900px] -translate-x-1/2 -translate-y-1/2" style="background: radial-gradient(ellipse at center, rgba(228, 37, 28, 0.22) 0%, rgba(228, 37, 28, 0.06) 45%, transparent 70%)" aria-hidden="true"></div>
   <div class="container-wide relative z-10">
@@ -143,7 +135,7 @@
         <h2 class="font-display text-display-md text-black">Fair questions, straight answers.</h2>
       </div>
       <div class="mt-10 space-y-6">
-        {{- range $i, $f := $faqs }}
+        {{- range $i, $f := .Params.faqs }}
         <div data-fade style="--d: {{ mul $i 0.05 }}s">
           <div class="glass-card p-6">
             <h3 class="font-display text-display-sm text-black">{{ $f.q }}</h3>

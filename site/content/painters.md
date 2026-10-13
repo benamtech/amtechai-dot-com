@@ -5,15 +5,14 @@ title: "For Painting Contractors — AMTECH AI"
 description: "One AMTECH employee for your painting business: it writes the estimate, sends the invoice, keeps and follows up your clients, and makes you readable to AI search. From $1,500 a month."
 route: "/painters"
 layout: "painters"
-# Copied from the live head on 2026-10-13 (what the old prerender served). Canonical is written by the layout.
-head: |
-  <meta name="robots" content="index, follow" />
-  <meta property="og:site_name" content="AMTECH AI" />
-  <meta property="og:title" content="For Painting Contractors — AMTECH AI" />
-  <meta property="og:description" content="One AMTECH employee for your painting business: it writes the estimate, sends the invoice, keeps and follows up your clients, and makes you readable to AI search. From $1,500 a month." />
-  <meta property="og:url" content="https://amtechai.com/painters" />
-  <meta property="og:type" content="website" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="For Painting Contractors — AMTECH AI" />
-  <meta name="twitter:description" content="One AMTECH employee for your painting business: it writes the estimate, sends the invoice, keeps and follows up your clients, and makes you readable to AI search. From $1,500 a month." />
+# The questions on the page, and the FAQ structured data search engines read: one list.
+faqs:
+  - q: "Will my clients know it is AI?"
+    a: "Only if you want them to. You approve every message before it goes out, so it reads like you — because it learns your voice."
+  - q: "What if it gets a number wrong?"
+    a: "You check every estimate before it is sent. It drafts, you approve. And it gets sharper on your rates and your customers every week."
+  - q: "How long does setup take?"
+    a: "A couple of hours of calls. We learn your rates, your services, your customers, and your rules. Then it works in your phone and your email — nothing new to learn."
+  - q: "Do I need to know AI?"
+    a: "No. If you can text, you can run it. You describe the job in your own words; it does the office work."
 ---

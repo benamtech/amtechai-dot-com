@@ -43,11 +43,15 @@ for (const p of pages) {
 }
 if (!fileSet.has('/404.html')) bad('/404.html', 'missing: an unknown URL would get Netlify\'s own page');
 
-// 3. The sitemap lists every page and nothing else.
+// 3. The sitemap lists every page search engines may index, and nothing else.
 const sitemap = fs.readFileSync(path.join(PUB, 'sitemap.xml'), 'utf8');
 const locs = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1].replace(ORIGIN, '') || '/');
 for (const l of locs) if (!pages.some((p) => p.route === l)) bad('sitemap.xml', `lists ${l}, which is not a page`);
-for (const p of pages) if (!locs.includes(p.route)) bad('sitemap.xml', `misses ${p.route}`);
+for (const p of pages) {
+  const noindex = /<meta name="robots" content="noindex/.test(p.html);
+  if (noindex && locs.includes(p.route)) bad('sitemap.xml', `lists ${p.route}, which asks search engines not to index it`);
+  if (!noindex && !locs.includes(p.route)) bad('sitemap.xml', `misses ${p.route}`);
+}
 
 // 4. Every article has its Markdown twin and its knowledge-bundle entry, and llms.txt and the bundle index name it.
 const llms = fs.readFileSync(path.join(PUB, 'llms.txt'), 'utf8');

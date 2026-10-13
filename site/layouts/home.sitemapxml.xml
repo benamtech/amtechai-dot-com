@@ -1,7 +1,7 @@
 {{- /* /sitemap.xml: every page the site serves (Hugo's own sitemap lists only the home page's direct children). */ -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{{- range site.Pages }}{{ if and (.OutputFormats.Get "html") (not .Params.sitemap_exclude) }}
+{{- range site.Pages }}{{ if and (.OutputFormats.Get "html") (not .Params.noindex) (ne .Kind "404") }}
   <url><loc>https://amtechai.com{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}</loc>{{ if eq .Section "articles" }}{{ if .IsPage }}<lastmod>{{ .Lastmod.Format "2006-01-02" }}</lastmod>{{ end }}{{ end }}</url>
 {{- end }}{{ end }}
 </urlset>

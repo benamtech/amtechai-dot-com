@@ -73,6 +73,8 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 
 [params]
   app = "https://app.amtechai.com"
+  # The Organization structured data on Home.
+  organization = "AMTECH builds AI employees that work inside a business — answering, selling, scheduling, and handling admin work."
   ga = "G-HZ9HL72L7Q"
   ga_load = "head"   # head | load | interaction: see layouts/_partials/analytics.html
 
