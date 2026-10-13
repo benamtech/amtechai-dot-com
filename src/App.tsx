@@ -6,7 +6,6 @@ import SeoManager from './components/seo/SeoManager';
 import HowItWorks from './pages/HowItWorks';
 import About from './pages/About';
 import Pricing from './pages/Pricing';
-import ScheduleDemo from './pages/ScheduleDemo';
 import Articles from './pages/Articles';
 import AllArticles from './pages/AllArticles';
 import Privacy from './pages/Privacy';
@@ -28,7 +27,7 @@ export default function App() {
       <ScrollToTop />
       <SeoManager />
       <Routes>
-        <Route path="/schedule-demo" element={<ScheduleDemo />} />
+        <Route path="/schedule-demo" element={<ServerPage />} />
         <Route element={<Layout />}>
           <Route path="/" element={<ServerPage />} />
           <Route path="/how-it-works" element={<HowItWorks />} />
