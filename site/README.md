@@ -104,3 +104,21 @@ in `data/concepts.yaml`, each listing what links to it.
 - `tools/node/behaviour.mjs <base>`: the menu, the fade, Home's phone form, and the employee on `/contractors` (with
   app.amtechai.com stubbed). Identical output on production and on this build.
 - Articles are the one deliberate change of look: a new template (`layouts/articles/page.html`), every word kept.
+
+## Speed (measured 2026-10-13)
+
+Lighthouse, phone profile, GA on, both builds served from one local server the way Netlify serves them (brotli),
+interleaved, median of 3. Never time on a Netlify deploy preview: it injects about 1 MB that production does not have.
+
+| | React (production) | Hugo, Google fonts | Hugo, fonts served here (now) | + GA `settled` |
+|---|---|---|---|---|
+| score | 39-47 | 60-63 | 71-95 | 100 |
+| first paint | 3.1-4.0 s | 2.6 s | 1.1-1.2 s | 1.1-1.3 s |
+| largest paint | 5.7-6.3 s | 4.8-5.5 s | 1.4-4.2 s | 1.4-1.5 s |
+| blocking time | 1.4-2.1 s | 0.5-0.6 s | 0.26-0.58 s | 0 |
+| the site's own bytes | 226-463 KB | 11-18 KB (+250 KB photos on /painters) | 78-93 KB (fonts now count as the site's) | same |
+
+What is left is Google Analytics (about 176 KB of script). `ga_load` in `config/_default/hugo.toml` decides when it
+loads (`layouts/_partials/analytics.html`): `head` counts every visit; `settled` loads it on the first scroll, tap
+or key, or 5 seconds after the page has loaded, and misses only a visitor who leaves inside those 5 seconds without
+touching the page. Loading it after the page's load event (`load`) measured no faster than `head`.
