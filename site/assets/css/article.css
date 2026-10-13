@@ -33,3 +33,22 @@
     .article-table td:first-child::before { @apply hidden; }
   }
 }
+
+/* The legal pages' body (/privacy, /terms, /sms): Markdown laid out exactly as LegalLayout.tsx's Section, P, UL and
+   A did: sections 48/56 px apart, 16 px between blocks, 10 px between list items, a small red dot per item. */
+@layer components {
+  .legal-body > h2, .legal-hl > h2 { @apply font-display text-xl font-bold tracking-[-0.01em] text-black md:text-2xl; }
+  .legal-body > h2:not(:first-child), .legal-body > .legal-hl:not(:first-child) { @apply mt-12 md:mt-14; }
+  .legal-body > :last-child { @apply mb-12 md:mb-14; }
+  .legal-body > h2 + *, .legal-hl > h2 + * { @apply mt-4; }
+  .legal-body > :not(h2) + :not(h2):not(.legal-hl), .legal-hl > :not(h2) + :not(h2) { @apply mt-4; }
+  .legal-body p, .legal-body li { @apply font-body text-body-md leading-relaxed text-black/60; }
+  .legal-body ul { @apply space-y-2.5; }
+  .legal-body li { @apply relative pl-4; }
+  .legal-body li::before { content: ''; @apply absolute left-0 top-[0.6em] h-1 w-1 rounded-full bg-red; }
+  .legal-body strong { @apply font-semibold text-black/80; }
+  .legal-body code { @apply font-mono text-sm text-black/70; }
+  .legal-body b { @apply font-bold; }  /* a plain bold label, in the text's own grey (Terms, text messages) */
+  .legal-body a { @apply text-black underline decoration-red/40 underline-offset-2 transition-colors hover:decoration-red; }
+  .legal-hl { @apply rounded-2xl border border-red/20 bg-red-50/40 p-6 md:p-8; }
+}
