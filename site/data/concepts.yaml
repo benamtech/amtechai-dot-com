@@ -1,0 +1,14 @@
+# The concepts in the knowledge bundle, one file each at /okf/entities/<key>.md, e.g.:
+#
+# service-ai-employee:
+#   type: "Service"                 # Service, Method, Tool, Outcome, Problem
+#   title: "AI Employee"
+#   description: "One sentence."
+#   tags: ["Service", "AI Employee"]
+#   status: "reference"
+#   related:
+#     - { key: service-business-brain, reason: "Service." }
+#
+# An article names the concepts it explains in its front matter (related: [key, ...]); each concept's
+# "Referenced by" list is worked out from those. Empty since 2026-10-13: the old concept files were dropped with
+# the rest of the old knowledge (Ben: start over, do not rewrite); the buildout writes new ones from real queries.

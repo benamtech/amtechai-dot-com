@@ -1,0 +1,31 @@
+{{- $links := slice (dict "label" "Learn AI" "to" "/articles") (dict "label" "For Contractors" "to" "/contractors") (dict "label" "How It Works" "to" "/how-it-works") (dict "label" "Pricing" "to" "/pricing") -}}
+{{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
+<nav class="fixed top-0 left-0 z-50 w-full overflow-x-clip" data-nav>
+  <div data-nav-bar class="relative mx-auto w-[75dvw] max-w-[calc(100vw-16px)] overflow-hidden border-x-2 border-b-2 border-black backdrop-blur-2xl transition-all duration-300 before:pointer-events-none before:absolute before:inset-0 before:bg-[radial-gradient(circle_at_18%_0%,rgba(255,255,255,0.82),transparent_30%),radial-gradient(circle_at_82%_100%,rgba(225,29,42,0.1),transparent_34%),linear-gradient(135deg,rgba(255,255,255,0.9),rgba(255,255,255,0.66),rgba(255,255,255,0.84))] before:opacity-95 bg-white/72">
+    <div class="relative z-10 flex h-14 items-center justify-between px-4 sm:px-6 lg:h-16 lg:px-8">
+      <a class="inline-flex items-baseline text-black transition-opacity hover:opacity-80" href="/"><span class="font-display text-base font-black tracking-[0.06em] lg:text-lg">AMTECH</span><span class="text-base font-black text-red lg:text-lg">.</span></a>
+      <div class="hidden items-center gap-8 md:flex">
+        {{- range $links }}
+        <a class="relative font-body text-[13px] font-semibold transition-colors duration-300 {{ if eq .to $route }}text-black opacity-100{{ else }}text-black/70 hover:text-black{{ end }}" href="{{ .to }}">{{ .label }}</a>
+        {{- end }}
+      </div>
+      <div class="hidden items-center md:flex">
+        <a class="inline-flex items-center gap-2 rounded-none bg-black px-5 py-2 text-[13px] font-semibold text-white transition-all duration-300 hover:bg-black/80 active:scale-[0.98]" href="/schedule-demo">Book a Call{{ partial "icon.html" (dict "name" "arrow-right" "size" 14) }}</a>
+      </div>
+      <button data-nav-toggle aria-expanded="false" class="flex h-10 w-10 items-center justify-center text-black transition-opacity hover:opacity-80 md:hidden" aria-label="Toggle menu">
+        {{ partial "icon.html" (dict "name" "menu" "size" 22 "attrs" "data-when-closed") }}
+        {{ partial "icon.html" (dict "name" "x" "size" 22 "attrs" "data-when-open hidden") }}
+      </button>
+    </div>
+  </div>
+  <div data-nav-menu hidden class="relative mx-auto w-[75dvw] max-w-[calc(100vw-16px)] overflow-hidden border-x-2 border-b-2 border-black bg-white/86 backdrop-blur-2xl md:hidden">
+    <div class="relative z-10 flex flex-col gap-1 px-6 py-6">
+      {{- range $links }}
+      <a class="px-4 py-3 font-body text-base font-medium transition-colors {{ if eq .to $route }}text-black opacity-100{{ else }}text-black/70 hover:text-black{{ end }}" href="{{ .to }}">{{ .label }}</a>
+      {{- end }}
+      <div class="mt-4 border-t border-black/[0.06] pt-4">
+        <a class="btn-primary w-full" href="/schedule-demo">Book a Call{{ partial "icon.html" (dict "name" "arrow-right" "size" 14) }}</a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,13 @@
+{{- /* A Markdown table. On a phone each row becomes a block with its column names beside the values (CSS in
+       assets/css/article.css reads data-label), so nothing scrolls sideways. */ -}}
+{{- $head := slice }}{{ range .THead }}{{ range . }}{{ $head = $head | append (.Text | plainify) }}{{ end }}{{ end -}}
+<div class="article-table">
+<table>
+  <thead>{{ range .THead }}<tr>{{ range . }}<th>{{ .Text }}</th>{{ end }}</tr>{{ end }}</thead>
+  <tbody>
+    {{- range .TBody }}
+    <tr>{{ range $i, $c := . }}<td data-label="{{ index $head $i }}">{{ $c.Text }}</td>{{ end }}</tr>
+    {{- end }}
+  </tbody>
+</table>
+</div>

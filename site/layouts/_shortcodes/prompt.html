@@ -1,0 +1,16 @@
+{{- /* A prompt the reader copies: {{< prompt title="..." helper="..." >}} the prompt text {{< /prompt >}}.
+       Anything in [square brackets] is shown as a blank to fill in; the Copy button copies the text as written. */ -}}
+{{- $text := .Inner | strings.TrimSpace -}}
+<section{{ with .Get "id" }} id="{{ . }}"{{ end }} class="not-prose my-12 scroll-mt-28 rounded-3xl bg-[#0a0a0a] p-6 text-white md:p-9">
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div class="max-w-xl">
+      <p class="font-mono text-xs uppercase tracking-wider text-red">Prompt</p>
+      <h2 class="mt-2 font-display text-display-sm text-white">{{ .Get "title" }}</h2>
+    </div>
+    <button type="button" data-copy class="inline-flex items-center gap-2 rounded-full bg-red px-5 py-2.5 font-body text-sm font-semibold text-white transition hover:bg-red-bright">Copy prompt</button>
+  </div>
+  {{- with .Get "helper" }}
+  <p class="mt-4 max-w-2xl font-body text-body-md leading-relaxed text-white/60">{{ . }}</p>
+  {{- end }}
+  <pre data-copy-text class="mt-6 overflow-x-auto whitespace-pre-wrap break-words border-l-2 border-red pl-5 font-mono text-[0.84rem] leading-7 text-white/85">{{ replaceRE `(\[[^\]\n]+\])` `<span class="text-red-300">$1</span>` (htmlEscape $text) | safeHTML }}</pre>
+</section>

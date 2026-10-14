@@ -1,0 +1,84 @@
+# amtechai.com on Hugo: the live pages ported exactly (2026-10-13). Hugo 0.167.0, pinned in tools/hugo.sh.
+# Read site/README.md first.
+baseURL = "https://amtechai.com/"
+locale = "en-US"
+title = "AMTECH AI"
+disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
+
+# What one build writes besides the pages, for search engines and AI readers (site/README.md, "What visitors and
+# crawlers get"): /sitemap.xml, /llms.txt, every article's Markdown twin /articles/<slug>.md, and the knowledge bundle
+# /okf/ (index, one file per article, one per concept in data/concepts.yaml).
+[outputs]
+  home = ["html", "llms", "sitemapxml", "okfindex"]
+  section = ["html", "okfindex"]
+[outputFormats.llms]
+  mediaType = "text/plain"
+  baseName = "llms"
+  isPlainText = true
+  notAlternative = true
+[outputFormats.sitemapxml]
+  mediaType = "application/xml"
+  baseName = "sitemap"
+  isPlainText = true
+  notAlternative = true
+[outputFormats.markdown]
+  mediaType = "text/markdown"
+  baseName = "index"
+  isPlainText = true
+  ugly = true
+[outputFormats.okf]
+  mediaType = "text/markdown"
+  baseName = "index"
+  isPlainText = true
+  ugly = true
+  path = "okf"
+  notAlternative = true
+[outputFormats.okfindex]
+  mediaType = "text/markdown"
+  baseName = "index"
+  isPlainText = true
+  path = "okf"
+  notAlternative = true
+
+# An article is content/articles/<slug>.md and is served at /articles/<slug>.
+[permalinks.page]
+  articles = "/articles/:contentbasename/"
+
+# Declaring any mount drops Hugo's defaults, so each of the site's folders is listed.
+[module]
+  [[module.mounts]]
+    source = "content"
+    target = "content"
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "data"
+    target = "data"
+  [[module.mounts]]
+    source = "static"
+    target = "static"
+
+[markup.goldmark.renderer]
+  unsafe = true
+# "{.kicker}" on the line under a paragraph gives it a class (an article's small label above a heading).
+# A bare address in the text stays text, as it was on the React pages; write a Markdown link to make a link.
+[markup.goldmark.extensions]
+  linkify = false
+[markup.goldmark.parser.attribute]
+  block = true
+
+[params]
+  app = "https://app.amtechai.com"
+  # The Organization structured data on Home.
+  organization = "AMTECH builds AI employees that work inside a business — answering, selling, scheduling, and handling admin work."
+  ga = "G-HZ9HL72L7Q"
+  ga_load = "head"   # head | load | interaction: see layouts/_partials/analytics.html
+
+# The booking page reaches its table (demo_bookings) through Supabase's REST endpoint with the public anon key, the
+# same two values the React app is built with. Read from Netlify's build environment; never written into the repo.
+[security.funcs]
+  getenv = ["^HUGO_", "^CI$", "^VITE_SUPABASE_URL$", "^VITE_SUPABASE_ANON_KEY$"]

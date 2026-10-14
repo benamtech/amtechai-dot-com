@@ -1,0 +1,10 @@
+{
+  "name": "amtech-site-port-tools",
+  "private": true,
+  "description": "Measuring tools for site/ (capture a page in three engines, check behaviour). Not shipped to visitors.",
+  "type": "module",
+  "devDependencies": {
+    "lighthouse": "^13.5.0",
+    "playwright": "1.64.0"
+  }
+}

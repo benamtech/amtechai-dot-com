@@ -1,0 +1,20 @@
+{{- /* /llms.txt: what an AI assistant reads first. Pages with an `llms` line in their front matter, in its order, then
+       every article. */ -}}
+# AMTECH AI
+
+> AMTECH builds AI employees for contractors, service companies and local operators: an employee that knows the business, drafts the estimates, pages and follow-ups, and waits for the owner's yes before anything goes out.
+
+## Knowledge bundle (Open Knowledge Format)
+
+- [Knowledge bundle index](https://amtechai.com/okf/index.md): AMTECH's published articles as Markdown files, in the Open Knowledge Format.
+
+## Key pages
+{{ $key := slice }}{{ range site.Pages }}{{ if .Params.llms }}{{ $key = $key | append . }}{{ end }}{{ end }}
+{{- range sort $key "Params.llms.order" }}
+- [{{ .Params.llms.label }}](https://amtechai.com{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}): {{ .Params.llms.text }}
+{{- end }}
+
+## Published articles
+{{ range (where site.RegularPages "Section" "articles").ByDate.Reverse }}
+- [{{ .Title }}](https://amtechai.com/articles/{{ .File.ContentBaseName }}): {{ .Description }} Markdown: https://amtechai.com/articles/{{ .File.ContentBaseName }}.md
+{{- end }}
