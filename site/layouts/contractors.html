@@ -4,7 +4,6 @@
 {{- $starters := where hugo.Data.catalogue.families "starter" true -}}
 {{- $lead := where $starters "lead" true -}}
 {{- $more := where $starters "lead" "!=" true -}}
-{{- $run := index hugo.Data "real-run" -}}
 {{- $owns := slice
   (dict "icon" "home" "title" "It is yours when you keep it" "body" "Give it your email and the code it sends. The same employee, with the same work and its history, opens at your own address on amtechai.com. Nothing is copied and nothing starts over.")
   (dict "icon" "shield-check" "title" "Its own sealed computer" "body" "Every visitor gets an employee of their own on its own isolated machine. No password or key lives inside it, so it cannot hand one out, and it cannot see anyone else’s work.")
@@ -73,27 +72,6 @@
         <li><button type="button" data-say="{{ .say }}" class="text-left font-body text-body-md text-black/70 underline-offset-4 hover:text-black hover:underline">{{ .label }}</button></li>
         {{- end }}
       </ul>
-    </div>
-  </div>
-</section>
-
-<section class="bg-[#0a0a0a]">
-  <div class="container-wide py-20 md:py-28">
-    <div class="mx-auto max-w-3xl">
-      <div data-fade>
-        <h2 class="font-display text-display-md text-white">A real run on this page. <span class="text-red">Including what it could not do.</span></h2>
-        <p class="mt-6 font-body text-body-md leading-relaxed text-white/60">{{ $run.note }}</p>
-      </div>
-      <div class="mt-10 space-y-5">
-        {{- range $i, $t := $run.turns }}
-        <div data-fade style="--d: {{ mul $i 0.04 }}s">
-          <div class="{{ if eq $t.who "you" }}border-l-2 border-white/30 pl-5{{ else }}border-l-2 border-red pl-5{{ end }}">
-            <p class="font-mono text-xs uppercase tracking-wider text-white/45">{{ if eq $t.who "you" }}You{{ else }}The employee{{ end }}</p>
-            <p class="mt-2 whitespace-pre-line font-body text-body-md leading-relaxed text-white/80">{{ $t.text }}</p>
-          </div>
-        </div>
-        {{- end }}
-      </div>
     </div>
   </div>
 </section>
