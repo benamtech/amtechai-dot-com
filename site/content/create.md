@@ -20,7 +20,7 @@ faqs:
   - q: "Can I use the pictures for my business?"
     a: "Yes. The pictures are yours to use, including commercially. There is no watermark. They are made by AI, and if you publish one where people would expect a photo, say that it was made with AI."
   - q: "What is different from other AI picture sites?"
-    a: "An AMTECH employee keeps working on what it made: change one thing, try another frame, build on a picture you like. It remembers your pieces. And it can do real work around them, like a set of posts or a poster with your exact wording, with the price said before it starts."
+    a: "This is an AI employee, not a picture tool. It keeps working on what it made and remembers your pieces, and the same employee does the rest of the office: posts, pricing, invoices, follow-ups, your website. It is always on, AMTECH runs it for you, and nothing goes out without your yes."
   - q: "What will it not make?"
     a: "Sexual content, anything sexualising a child, graphic gore, real public figures, and other people's characters or trademarks. Your own business name and logo are fine. Every picture is checked before you see it."
   - q: "Do I need an account?"
