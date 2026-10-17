@@ -64,10 +64,10 @@
   function indicator() {
     $$('[data-dot]').forEach((dot, i) => {
       const done = i < state.step, active = i === state.step;
-      dot.className = `w-6 h-6 flex items-center justify-center text-[10px] font-bold rounded-md transition-all duration-300 ${done ? 'bg-red text-white' : active ? 'border border-black/30 text-black' : 'border border-black/10 text-black/25'}`;
+      dot.className = `w-6 h-6 flex items-center justify-center text-[10px] font-bold rounded-md transition-all duration-300 ${done ? 'bg-red text-white' : active ? 'border border-black/30 text-black' : 'border border-black/20 text-black/50'}`;
       dot.innerHTML = done ? CHECK : String(i + 1);
       const label = dot.nextElementSibling;
-      label.className = `hidden sm:inline text-[10px] tracking-[0.12em] uppercase font-semibold transition-colors duration-300 ${active ? 'text-black' : done ? 'text-black/50' : 'text-black/20'}`;
+      label.className = `hidden sm:inline text-[10px] tracking-[0.12em] uppercase font-semibold transition-colors duration-300 ${active ? 'text-black' : done ? 'text-black/60' : 'text-black/50'}`;
     });
     $$('[data-line]').forEach((line, k) => {
       line.className = `w-4 sm:w-8 lg:w-12 h-px transition-colors duration-300 ${k + 1 < state.step ? 'bg-black' : 'bg-black/10'}`;
@@ -151,18 +151,18 @@
   function times() {
     const box = $('[data-times]');
     confirm.disabled = !state.date || !state.time || state.submitting;
-    if (!state.date) { box.innerHTML = '<div class="flex items-center justify-center h-full min-h-[200px]"><p class="mono-label text-black/15">Select a date first</p></div>'; return; }
+    if (!state.date) { box.innerHTML = '<div class="flex items-center justify-center h-full min-h-[200px]"><p class="mono-label text-black/50">Select a date first</p></div>'; return; }
     box.innerHTML = '';
-    box.insertAdjacentHTML('beforeend', '<div class="text-[11px] text-black/40 mb-4"></div>');
+    box.insertAdjacentHTML('beforeend', '<div class="text-[11px] text-black/55 mb-4"></div>');
     box.lastElementChild.textContent = display(state.date);
-    if (sameDay(state.date, today)) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center h-full min-h-[160px]"><p class="mono-label text-black/20">Sorry — All booked up!</p></div>'); return; }
-    if (state.loading) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center py-8"><div class="mono-label text-black/20">Loading availability...</div></div>'); return; }
+    if (sameDay(state.date, today)) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center h-full min-h-[160px]"><p class="mono-label text-black/55">Sorry — All booked up!</p></div>'); return; }
+    if (state.loading) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center py-8"><div class="mono-label text-black/50">Loading availability...</div></div>'); return; }
     const slots = slotsFor(state.date);
     const wrap = document.createElement('div'); wrap.className = 'space-y-4'; box.appendChild(wrap);
     for (const [label, part] of [['Morning', slots.filter((t) => t.includes('AM'))], ['Afternoon', slots.filter((t) => t.includes('PM'))]]) {
       if (!part.length) continue;
       const sec = document.createElement('div');
-      sec.innerHTML = `<div class="mono-label text-black/25 mb-2">${label}</div><div class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>`;
+      sec.innerHTML = `<div class="mono-label text-black/50 mb-2">${label}</div><div class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>`;
       for (const t of part) {
         const isBooked = state.booked.includes(t), on = state.time === t;
         const b = document.createElement('button');
