@@ -1,132 +1,100 @@
 {{ define "main" }}
-{{- /* /investors (funding session 8, 2026-10-18). Words in content/investors.md; the plates (data/investors.json),
-   the documents (assets/investors/*.md) and the PDFs (static/investors/) are written by the brain's
-   output/2026-10-17-funding/site/publish.py from the same sources the PDFs are rendered from.
-   Without JavaScript the deck is every plate in order with its words, and each document link opens its PDF;
-   assets/js/investors.js turns the deck into a viewer and the documents into reading panels on this page. */ -}}
+{{- /* /investors (funding session 8, 2026-10-18; simplified the same day at Ben's word: "simpler with less fluff and
+   have full screen view options for the deck and just better more straightforward ux"). Words in
+   content/investors.md; plates (data/investors.json), documents (assets/investors/*.md) and PDFs (static/investors/)
+   are written by the brain's output/2026-10-17-funding/site/publish.py.
+   Without JavaScript: every plate in order, and each document link opens its PDF. assets/js/investors.js makes the
+   deck one plate at a time with a full-screen view, and opens the documents on the page. */ -}}
 {{- $p := .Params -}}
 {{- $plates := hugo.Data.investors.plates -}}
-{{- $btn := "inline-flex items-center justify-center gap-2 rounded-none bg-black px-6 py-3 font-body text-sm font-semibold text-white transition-colors duration-300 hover:bg-black/80" -}}
-{{- $btn2 := "inline-flex items-center justify-center gap-2 rounded-none border-2 border-black px-6 py-3 font-body text-sm font-semibold text-black transition-colors duration-300 hover:bg-black hover:text-white" -}}
+{{- $btn := "inline-flex items-center justify-center gap-2 rounded-none bg-black px-5 py-3 font-body text-sm font-semibold text-white transition-colors duration-200 hover:bg-black/80 disabled:opacity-30" -}}
+{{- $btn2 := "inline-flex items-center justify-center gap-2 rounded-none border-2 border-black px-5 py-3 font-body text-sm font-semibold text-black transition-colors duration-200 hover:bg-black hover:text-white disabled:opacity-30" -}}
 
-<section class="relative overflow-hidden bg-[#FAFAFA] pt-32 pb-16 md:pt-40 md:pb-20">
-  <div class="container-wide relative z-10">
-    <div data-fade>
-      <p class="mono-label mb-4 text-red">{{ $p.label }}</p>
-      <h1 class="max-w-5xl font-display text-display-xl text-black">{{ $p.heading }}</h1>
-      <p class="mt-6 max-w-3xl font-body text-body-lg leading-relaxed text-black/60">{{ $p.intro }}</p>
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a class="{{ $btn }}" href="#deck">View the deck{{ partial "icon.html" (dict "name" "arrow-right" "size" 16) }}</a>
-        <a class="{{ $btn2 }}" href="/contractors">Give an employee a job</a>
-        <a class="{{ $btn2 }}" href="mailto:{{ $p.close.email }}">Email Ben</a>
-      </div>
-    </div>
-    <dl class="mt-14 grid grid-cols-2 border-l-2 border-t-2 border-black md:grid-cols-4" data-fade style="--d: 0.08s">
-      {{- range $p.facts }}
-      <div class="border-b-2 border-r-2 border-black bg-white p-5 md:p-6">
-        <dt class="sr-only">{{ .label }}</dt>
-        <dd class="font-display text-display-lg text-black">{{ .figure }}</dd>
-        <dd class="mt-2 font-body text-body-sm leading-snug text-black/60">{{ .label }}</dd>
-      </div>
-      {{- end }}
-    </dl>
+<section class="bg-white pt-28 md:pt-36">
+  <div class="container-wide">
+    <p class="mono-label mb-4 text-red">Investors</p>
+    <h1 class="max-w-4xl font-display text-display-lg text-black">{{ $p.heading }}</h1>
+    <p class="mt-5 max-w-3xl font-body text-body-lg leading-relaxed text-black/60">{{ $p.intro }}</p>
+    <p class="mt-4 font-body text-body-md text-black/60">Benjamin Palaskas, founder ·
+      <a class="font-semibold text-black underline decoration-red/40 underline-offset-4 hover:decoration-red" href="mailto:{{ $p.email }}">{{ $p.email }}</a> ·
+      <a class="font-semibold text-black underline decoration-red/40 underline-offset-4 hover:decoration-red" href="tel:+18058869173">{{ $p.phone }}</a></p>
   </div>
 </section>
 
 <section id="deck" class="scroll-mt-20 bg-white">
-  <div class="container-wide py-16 md:py-24">
-    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between" data-fade>
-      <div>
-        <p class="mono-label mb-3 text-red">{{ len $plates }} plates</p>
-        <h2 class="font-display text-display-lg text-black">{{ $p.deck.heading }}</h2>
-        <p class="mt-4 max-w-2xl font-body text-body-md leading-relaxed text-black/60">{{ $p.deck.intro }}</p>
-      </div>
-      <a class="{{ $btn2 }} shrink-0" href="{{ $p.deck.pdf }}" download>{{ partial "icon.html" (dict "name" "download" "size" 16) }}Download the PDF</a>
-    </div>
-
-    <div class="mt-10" data-deck>
-      <ol class="space-y-16" data-deck-list>
-        {{- range $i, $pl := $plates }}
-        <li id="plate-{{ printf "%02d" (int $pl.n) }}" class="scroll-mt-24" data-plate>
-          <figure class="border-2 border-black bg-[#F3F1EC]">
-            <img class="block h-auto w-full" src="{{ $pl.img_sm }}" srcset="{{ $pl.img_sm }} 800w, {{ $pl.img }} 1600w"
-                 sizes="(min-width: 1280px) 1184px, 100vw" width="{{ $pl.w }}" height="{{ $pl.h }}"
-                 alt="Plate {{ $pl.n }}: {{ $pl.head }}" {{ if gt $i 0 }}loading="lazy" {{ end }}decoding="async" />
-          </figure>
-          <div class="mt-6 grid gap-4 md:grid-cols-[10rem_1fr]">
-            <p class="mono-label pt-1 text-black/50">Plate {{ $pl.n }} of {{ len $plates }}</p>
-            <div class="max-w-3xl">
-              <h3 class="font-display text-display-sm text-black">{{ $pl.head }}</h3>
-              {{- range $pl.lines }}
-              <p class="mt-3 font-body text-body-md leading-relaxed text-black/60">{{ . }}</p>
-              {{- end }}
-            </div>
-          </div>
-        </li>
-        {{- end }}
-      </ol>
-
-      <div hidden data-deck-ui>
-        <div class="mt-6 flex items-center justify-between gap-4 border-t-2 border-black pt-5">
-          <button type="button" class="{{ $btn2 }} px-4" data-deck-prev aria-label="Previous plate">{{ partial "icon.html" (dict "name" "arrow-left" "size" 18) }}<span class="hidden sm:inline">Previous</span></button>
-          <p class="font-mono text-mono-sm text-black/60" aria-live="polite" data-deck-count></p>
-          <button type="button" class="{{ $btn }} px-4" data-deck-next aria-label="Next plate"><span class="hidden sm:inline">Next</span>{{ partial "icon.html" (dict "name" "arrow-right" "size" 18) }}</button>
-        </div>
-        <div class="mt-6 grid grid-cols-5 gap-2 md:grid-cols-8 lg:grid-cols-[repeat(15,minmax(0,1fr))]" role="tablist" aria-label="Plates" data-deck-thumbs>
-          {{- range $plates }}
-          <button type="button" role="tab" class="border-2 border-transparent opacity-60 transition-opacity duration-200 hover:opacity-100" aria-label="Plate {{ .n }}" data-deck-thumb="{{ .n }}">
-            <img class="block h-auto w-full" src="{{ .img_sm }}" width="800" height="{{ div (mul .h 800) .w }}" alt="" loading="lazy" decoding="async" />
-          </button>
+  <div class="container-wide pt-12 md:pt-16" data-deck>
+    <ol data-deck-list class="space-y-10">
+      {{- range $i, $pl := $plates }}
+      <li id="plate-{{ printf "%02d" (int $pl.n) }}" class="scroll-mt-24" data-plate>
+        <button type="button" class="block w-full cursor-zoom-in border-2 border-black bg-[#F3F1EC]" data-deck-open aria-label="Plate {{ $pl.n }}, full screen">
+          <img class="block h-auto w-full" src="{{ $pl.img_sm }}" srcset="{{ $pl.img_sm }} 800w, {{ $pl.img }} 1600w"
+               sizes="(min-width: 1280px) 1184px, 100vw" width="{{ $pl.w }}" height="{{ $pl.h }}"
+               alt="Plate {{ $pl.n }}: {{ $pl.head }}" data-full="{{ $pl.img }}" {{ if gt $i 0 }}loading="lazy" {{ end }}decoding="async" />
+        </button>
+        <div class="mt-4 md:sr-only">
+          <p class="font-display text-display-sm text-black">{{ $pl.head }}</p>
+          {{- range $pl.lines }}
+          <p class="mt-2 font-body text-body-md leading-relaxed text-black/60">{{ . }}</p>
           {{- end }}
         </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section class="bg-black text-white">
-  <div class="container-wide py-16 md:py-24">
-    <div data-fade>
-      <p class="mono-label mb-3 text-red">The plan</p>
-      <h2 class="font-display text-display-lg text-white">{{ $p.ladder.heading }}</h2>
-      <p class="mt-4 max-w-2xl font-body text-body-md leading-relaxed text-white/60">{{ $p.ladder.intro }}</p>
-    </div>
-    <ol class="mt-12 grid gap-px bg-white/15 md:grid-cols-4">
-      {{- range $i, $s := $p.ladder.steps }}
-      <li class="bg-black p-6 md:p-8" data-fade style="--d: {{ mul $i 0.08 }}s">
-        <p class="font-mono text-mono-sm {{ if eq $i 0 }}text-red{{ else }}text-white/50{{ end }}">{{ printf "%02d" (add $i 1) }} · {{ $s.step }}</p>
-        <h3 class="mt-4 font-display text-display-sm text-white">{{ $s.title }}</h3>
-        <p class="mt-3 font-body text-body-md leading-relaxed text-white/60">{{ $s.body }}</p>
       </li>
       {{- end }}
     </ol>
-  </div>
-</section>
 
-<section id="documents" class="scroll-mt-20 bg-[#FAFAFA]">
-  <div class="container-wide py-16 md:py-24">
-    <div data-fade>
-      <p class="mono-label mb-3 text-red">Documents</p>
-      <h2 class="font-display text-display-lg text-black">{{ $p.documents.heading }}</h2>
-      <p class="mt-4 max-w-2xl font-body text-body-md leading-relaxed text-black/60">{{ $p.documents.intro }}</p>
+    <div hidden data-deck-ui>
+    <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <button type="button" class="{{ $btn2 }} px-4" data-deck-prev aria-label="Previous plate">{{ partial "icon.html" (dict "name" "arrow-left" "size" 18) }}</button>
+        <p class="min-w-[4.5rem] text-center font-mono text-mono-sm text-black/60" aria-live="polite" data-deck-count></p>
+        <button type="button" class="{{ $btn }} px-4" data-deck-next aria-label="Next plate">{{ partial "icon.html" (dict "name" "arrow-right" "size" 18) }}</button>
+      </div>
+      <div class="flex items-center gap-3">
+        <button type="button" class="{{ $btn }}" data-deck-open>{{ partial "icon.html" (dict "name" "maximize" "size" 16) }}Full screen</button>
+        <a class="{{ $btn2 }}" href="{{ $p.deck_pdf }}" download>{{ partial "icon.html" (dict "name" "download" "size" 16) }}PDF</a>
+      </div>
     </div>
-    <div class="mt-10 grid gap-6 md:grid-cols-3">
-      {{- range $i, $d := $p.documents.items }}
-      <article class="flex flex-col border-2 border-black bg-white p-7" data-fade style="--d: {{ mul $i 0.06 }}s">
-        <p class="mono-label text-red">{{ printf "%02d" (add $i 1) }}</p>
-        <h3 class="mt-4 font-display text-display-sm text-black">{{ $d.title }}</h3>
-        <p class="mt-3 flex-1 font-body text-body-md leading-relaxed text-black/60">{{ $d.body }}</p>
-        <div class="mt-6 flex flex-wrap gap-3">
-          <a class="{{ $btn }}" href="{{ $d.pdf }}" data-doc-open="doc-{{ $d.id }}">Read it here{{ partial "icon.html" (dict "name" "arrow-right" "size" 16) }}</a>
-          <a class="{{ $btn2 }}" href="{{ $d.pdf }}" download>PDF</a>
+    </div>
+    <noscript><p class="mt-6"><a class="{{ $btn2 }}" href="{{ $p.deck_pdf }}" download>Download the deck (PDF)</a></p></noscript>
+
+    <div hidden data-deck-full role="dialog" aria-modal="true" aria-label="The deck, full screen">
+    <div class="fixed inset-0 z-[70] flex flex-col bg-black">
+      <div class="relative flex min-h-0 flex-1 items-center justify-center p-2 md:p-6" data-deck-full-stage>
+        <img class="max-h-full max-w-full object-contain" alt="" data-deck-full-img />
+      </div>
+      <div class="flex items-center justify-between gap-3 px-4 pb-4 md:px-6 md:pb-6">
+        <p class="font-mono text-mono-sm text-white/60" data-deck-full-count></p>
+        <div class="flex items-center gap-2">
+          <button type="button" class="inline-flex h-11 w-11 items-center justify-center border-2 border-white/40 text-white transition-colors hover:border-white disabled:opacity-30" data-deck-full-prev aria-label="Previous plate">{{ partial "icon.html" (dict "name" "arrow-left" "size" 18) }}</button>
+          <button type="button" class="inline-flex h-11 w-11 items-center justify-center border-2 border-white/40 text-white transition-colors hover:border-white disabled:opacity-30" data-deck-full-next aria-label="Next plate">{{ partial "icon.html" (dict "name" "arrow-right" "size" 18) }}</button>
+          <button type="button" class="ml-2 inline-flex h-11 items-center justify-center gap-2 border-2 border-white px-4 text-sm font-semibold text-white transition-colors hover:bg-white hover:text-black" data-deck-full-close aria-label="Close full screen">{{ partial "icon.html" (dict "name" "x" "size" 18) }}<span class="hidden sm:inline">Close</span></button>
         </div>
-      </article>
-      {{- end }}
+      </div>
+    </div>
     </div>
   </div>
 </section>
 
-{{- range $p.documents.items }}
+<section id="documents" class="scroll-mt-20 bg-white pb-24 md:pb-32">
+  <div class="container-wide pt-16 md:pt-24">
+    <h2 class="font-display text-display-md text-black">Documents</h2>
+    <ul class="mt-6 border-t-2 border-black">
+      {{- range $p.documents }}
+      <li class="flex flex-col gap-4 border-b border-black/15 py-5 md:flex-row md:items-center md:justify-between">
+        <div>
+          <p class="font-display text-display-sm text-black">{{ .title }}</p>
+          <p class="mt-1 font-body text-body-md text-black/60">{{ .body }}</p>
+        </div>
+        <div class="flex shrink-0 gap-3">
+          <a class="{{ $btn }}" href="{{ .pdf }}" data-doc-open="doc-{{ .id }}">Read</a>
+          <a class="{{ $btn2 }}" href="{{ .pdf }}" download>PDF</a>
+        </div>
+      </li>
+      {{- end }}
+    </ul>
+  </div>
+</section>
+
+{{- range $p.documents }}
 {{- $md := resources.Get (printf "investors/%s.md" .id) }}
 <dialog id="doc-{{ .id }}" aria-labelledby="doc-{{ .id }}-title" class="m-0 h-[100dvh] max-h-none w-full max-w-none bg-white p-0 text-black backdrop:bg-black/60 md:m-auto md:h-[88dvh] md:max-w-4xl md:border-2 md:border-black">
   <div class="flex h-full flex-col">
@@ -143,20 +111,6 @@
   </div>
 </dialog>
 {{- end }}
-
-<section class="bg-white pb-28 md:pb-36">
-  <div class="container-narrow pt-16 text-center md:pt-24">
-    <div data-fade>
-      <h2 class="font-display text-display-lg text-black">{{ $p.close.heading }}</h2>
-      <p class="mx-auto mt-6 max-w-xl font-body text-body-lg leading-relaxed text-black/60">{{ $p.close.body }}</p>
-      <div class="mt-10 flex flex-wrap justify-center gap-3">
-        <a class="{{ $btn }}" href="mailto:{{ $p.close.email }}">{{ $p.close.email }}</a>
-        <a class="{{ $btn2 }}" href="tel:+18058869173">{{ $p.close.phone }}</a>
-        <a class="{{ $btn2 }}" href="/contractors">Give an employee a job</a>
-      </div>
-    </div>
-  </div>
-</section>
 
 {{- with resources.Get "js/investors.js" | minify | fingerprint }}
 <script defer src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}"></script>
