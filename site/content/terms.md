@@ -40,9 +40,9 @@ The Service generates drafts. Estimates, prices, messages, scopes of work, contr
 
 AMTECH provides software. We do not provide legal, financial, tax, accounting, insurance, real estate, or engineering advice, and nothing the Service produces is a substitute for a licensed professional. You are responsible for what you send to your customers and for what you sign. Pricing, margins, scope, exclusions, warranty language, and compliance obligations remain yours to verify.
 
-## AMTECH Create {#create}
+## Pictures and video {#create}
 
-amtechai.com/create (“Create”) lets you make pictures by describing them to an AMTECH AI employee. These terms apply to it with the rest of these Terms.
+An AMTECH AI employee can make pictures and video when you describe them, on amtechai.com/create or anywhere else you work with it (“Create”). These terms apply to them with the rest of these Terms.
 
 **What makes the pictures.** Pictures are made by AI models, including FLUX 3 Image (Klein) from Black Forest Labs, run by AMTECH. Every picture is made by AI, and its file says so.
 
@@ -52,7 +52,7 @@ amtechai.com/create (“Create”) lets you make pictures by describing them to 
 
 **Your pictures.** As between you and AMTECH, the pictures you make are yours to use, including commercially, with no watermark. AI models can make pictures that resemble existing works, and we do not promise that a picture is unique or free of others’ rights; check before you rely on one for a trademark or a large campaign. Where people would expect a real photograph, say that a picture was made with AI.
 
-**Credits.** Create is paid with credits: 1 credit is 1 US cent of work, at the prices shown on the page before each piece is made. You start with free credits; you can buy more in packs. Purchased credits do not expire and are not cash; ask us and we refund purchased credit you have not used. Pennsylvania sales tax is added at checkout for buyers in Pennsylvania. A piece that fails or is refused is not charged.
+**Credits.** Pictures and video are paid from your organisation's prepaid credits: 1 credit is 1 US cent of work, at the prices shown before each piece is made. Purchased credits do not expire and are not cash; ask us and we refund purchased credit you have not used. Pennsylvania sales tax is added at checkout for buyers in Pennsylvania. A piece that fails or is refused is not charged.
 
 **How long we keep them.** Pieces made without keeping your employee are kept for 7 days and then deleted. When you keep your employee (with your email), your pieces stay with it for as long as you keep it.
 

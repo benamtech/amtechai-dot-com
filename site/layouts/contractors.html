@@ -16,7 +16,7 @@
     <div class="mx-auto max-w-3xl">
       <div data-fade>
         <h1 class="text-center font-display text-display-hero text-black">Give it the office work.<br><span class="text-red">It does it in front of you.</span></h1>
-        <p class="mx-auto mt-7 max-w-2xl text-center font-body text-body-lg leading-relaxed text-black/60">A real AMTECH employee for your trade, working live on this page. Tell it the job in your own words, or drop in what you have. It does the first real piece now, you can keep talking to it while it works, and you keep it if it is useful.</p>
+        <p class="mx-auto mt-7 max-w-2xl text-center font-body text-body-lg leading-relaxed text-black/60">A real AMTECH employee for your trade, working live on this page. Tell it the job in your own words, or drop in what you have. It does the first real piece now, and you can keep talking to it while it works.</p>
       </div>
       <form data-composer class="mt-9 border border-black/15 bg-white p-3">
         <label for="job" class="sr-only">The work</label>
@@ -37,16 +37,16 @@
         {{- end }}
         <button type="button" data-focus class="px-3 py-2 font-body text-sm text-black/50 underline underline-offset-4 hover:text-black">or anything else your office needs</button>
       </div>
-      <p class="mt-4 text-center font-body text-sm leading-relaxed text-black/45">Free to try. No card and no sign-up to start.</p>
+      <p class="mt-4 text-center font-body text-sm leading-relaxed text-black/45">Free to try. No card and no sign-up to start. Keeping it is set up once, with a call with Ben.</p>
     </div>
   </div>
 </section>
 
 <section class="bg-[#FAFAFA]" aria-label="The AMTECH employee, working">
-  <div data-holder class="container-wide pb-16">
-    <div data-waiting class="mx-auto max-w-5xl border border-dashed border-black/15 p-10 text-center">
-      <p class="font-body text-body-md text-black/50">The employee opens here when you start.</p>
-    </div>
+  <div data-holder class="pb-16">
+    <div data-waiting class="container-wide"><div class="mx-auto max-w-5xl border border-dashed border-black/15 p-10 text-center">
+      <p class="font-body text-body-md text-black/50">The employee opens here, on the whole screen, when you start.</p>
+    </div></div>
   </div>
 </section>
 
@@ -177,6 +177,7 @@
       el.setAttribute('app', APP);
       el.setAttribute('fonts', 'none');            // this page already loads Inter and IBM Plex Mono
       el.setAttribute('intent', 'contractors');
+      el.setAttribute('expand', 'auto');           // the employee takes the whole screen when the visitor starts (D75)
       el.starters = starters;
       holder.querySelector('[data-waiting]')?.remove();
       holder.appendChild(el);
@@ -186,7 +187,6 @@
     files = [];
     input.value = '';
     showFiles();
-    requestAnimationFrame(() => holder.scrollIntoView({ behavior: 'smooth', block: 'start' }));
   };
   const pick = (say) => {
     box.value = say;

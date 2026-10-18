@@ -1,29 +1,27 @@
 ---
 # Its line in /llms.txt (the list AI assistants read first), and where in that list.
-llms: { order: 3, label: "Pictures and videos from an AMTECH AI employee", text: "describe a picture or a short video and an always-on, fully managed AMTECH AI employee makes it, checks it and keeps working on it with you, then on the rest of the business. 2 cents a picture, video by the second, free to start, no sign-up." }
-title: "Pictures and Videos From an AI Employee — AMTECH Create"
-description: "Describe a picture or a short video and an always-on, fully managed AMTECH AI employee makes it, checks it and keeps improving it. 2 cents a picture, video by the second. Free to start, no sign-up, no subscription."
+llms: { order: 3, label: "Your marketing, made by an AMTECH AI employee", text: "an always-on, fully managed AMTECH AI employee makes a business's posts and pictures, works on getting its website found on Google, prices jobs and finds more work, and does the rest of the office. Free to try, no sign-up; keeping it is set up once, with a call." }
+title: "Your Marketing, Made by an AI Employee — AMTECH"
+description: "An always-on, fully managed AMTECH AI employee makes your posts and pictures, works on getting your website found on Google, prices jobs and finds more work. Free to try, no sign-up."
 route: "/create"
 layout: "create"
+# The same starters as the door's row (ai-employee-v2 standard/platform/intents.json, intent "create").
 starters:
-  - { label: "A product photo", say: "A clean product photo of a ceramic coffee mug on a sunlit wooden table, a small fern behind it", frame: "4:5" }
-  - { label: "A post for my business", say: "A bright Instagram post for a family-run bakery: a tray of fresh croissants by a window in the morning", frame: "4:5" }
-  - { label: "A poster", say: "A bold poster for a summer street-food night: neon signs, a crowd under string lights, the words FRIDAY NIGHT MARKET", frame: "2:3" }
-  - { label: "A phone wallpaper", say: "A quiet mountain lake at dawn, mist on the water, one red canoe", frame: "9:16" }
-  - { label: "A website banner", say: "A wide banner for a plumbing company: a clean modern bathroom, warm light, no people", frame: "16:9" }
-  - { label: "A short video", say: "A 6-second video with sound: steam rising from a fresh cup of coffee on a café counter, morning light, the camera slowly pushing in", frame: "16:9" }
+  - { label: "Make this month's posts for your business", say: "Make this month's social media posts for my business. What we do and what we're promoting: " }
+  - { label: "Make a picture for an ad or a flyer", say: "Make a picture for my business: " }
+  - { label: "Get your business found on Google", say: "Look at my website and tell me what would get it found on Google first. My website: " }
 # The questions on the page, and the FAQ structured data search engines read: one list.
 faqs:
   - q: "What does it cost?"
-    a: "2 cents a picture, 4 cents for a large one. Video is charged by the second it delivers: 5 cents a second when AMTECH's own video machines make it, 16 cents when they are not running, and the employee says which. You start with 40 free credits (20 pictures) and no card. After that you add credit in packs of $5, $10 or $20. There is no subscription and credits never expire. A piece that fails is not charged."
-  - q: "What makes the pictures and videos?"
-    a: "Pictures: FLUX 3 Image (Klein), Black Forest Labs' picture model. Video, with sound: LTX-2.5 on AMTECH's own machines, or Google's Veo 3.1 Lite when those are not running. The employee writes the detailed description each model needs from your plain words and checks what comes back before you see it, so you never have to learn to prompt."
+    a: "Trying it is free, with no card and no sign-up. Keeping it is set up once: $1,200, which includes a call with Ben, who runs AMTECH. He sets the employee up for your business, loads the work you want done, and shows you how to run it. After that it runs on prepaid credits for what it uses: a picture is 2 cents, and you see the price of real work before it starts."
+  - q: "What does it do each month?"
+    a: "The work you would pay an agency or a freelancer for: your posts and the pictures for them, the work on your website and Google that gets you found, estimates for jobs, and a list of new work near you that stays yours. It also answers customers, books them, and invoices finished work."
   - q: "Can I use the pictures for my business?"
-    a: "Yes. The pictures and videos are yours to use, including commercially. There is no visible watermark (videos made by Veo carry Google's invisible SynthID mark). They are made by AI, and if you publish one where people would expect a photo or real footage, say that it was made with AI."
-  - q: "What is different from other AI picture sites?"
-    a: "This is an AI employee, not a picture tool. It keeps working on what it made and remembers your pieces, and the same employee does the rest of the office: posts, pricing, invoices, follow-ups, your website. It is always on and fully managed: there are no models, keys or servers for you to deal with. Nothing goes out without your yes."
+    a: "Yes. The pictures and videos are yours to use, including commercially, with no visible watermark. They are made by AI, and if you publish one where people would expect a photo or real footage, say that it was made with AI."
+  - q: "Is it a picture tool?"
+    a: "No. It is an AI employee. It keeps working on what it made and remembers your business, and the same employee does the rest of the office. It is always on and fully managed: there are no models, keys or servers for you to deal with. Nothing goes out without your yes."
   - q: "What will it not make?"
     a: "Sexual content, anything sexualising a child, graphic gore, real public figures, and other people's characters or trademarks. Your own business name and logo are fine. Every picture, and frames from every video, is checked before you see it."
   - q: "Do I need an account?"
-    a: "No. Start typing. Give an email only if you want to keep your employee and everything it made; that also adds 60 free credits."
+    a: "Not to try it. Start typing. Give your email when you want to keep your employee and everything it made."
 ---
