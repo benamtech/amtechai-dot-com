@@ -1,6 +1,6 @@
 {{ define "main" }}
-{{- /* amtechai.com/create (ai-employee-v2/graphics-employee/create/03-UX). The studio is <amtech-create>, served by the
-   platform host (standard/projection/web/src/create.tsx) and loaded on the first act only: nothing is asked of the
+{{- /* amtechai.com/create (ai-employee-v2/graphics-employee/create/03-UX). The employee is <amtech-workspace intent="create">,
+   the one client every door mounts (D70; standard/projection/web/src/public.tsx), loaded on the first act only: nothing is asked of the
    server until the visitor makes something. The composer is plain HTML, so words typed before the script runs are kept.
    Sharp edges and one red: brand.json, not /contractors. */ -}}
 {{- $examples := hugo.Data.create_examples -}}
@@ -116,7 +116,7 @@
   };
   const load = () => loading ??= new Promise((ok, no) => {
     const s = document.createElement('script');
-    s.src = `${APP}/w/create.js`;
+    s.src = `${APP}/w/workspace.js`;
     s.onload = () => ok();
     s.onerror = () => { loading = null; no(new Error('The studio did not load. Try again.')); };
     document.head.appendChild(s);
@@ -127,8 +127,9 @@
     why.hidden = true;
     try { await load(); } catch (e) { why.textContent = String(e.message ?? e); why.hidden = false; return; }
     if (!el) {
-      el = document.createElement('amtech-create');
+      el = document.createElement('amtech-workspace');
       el.setAttribute('app', APP);
+      el.setAttribute('intent', 'create');
       el.setAttribute('fonts', 'none');
       holder.querySelector('[data-waiting]')?.remove();
       holder.appendChild(el);
