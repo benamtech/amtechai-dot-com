@@ -1,0 +1,191 @@
+{
+ "plates": [
+  {
+   "n": 1,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-01-1600.webp",
+   "img_sm": "/investors/deck/plate-01-800.webp",
+   "head": "A platform for creating, running and managing AI employees.",
+   "lines": [
+    "Ben Palaskas, founder · Dalton, Pennsylvania · Pre-seed, 2026"
+   ]
+  },
+  {
+   "n": 2,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-02-1600.webp",
+   "img_sm": "/investors/deck/plate-02-800.webp",
+   "head": "Each AI employee is a team of AI agents with a computer of its own.",
+   "lines": [
+    "The owner talks to one agent, which starts each job on its own and runs several at once. Between them they browse, research, write code, make documents, pictures and video, and keep working after the owner closes the app."
+   ]
+  },
+  {
+   "n": 3,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-03-1600.webp",
+   "img_sm": "/investors/deck/plate-03-800.webp",
+   "head": "The agents work freely inside their computer. What leaves it waits for a person the business has authorized.",
+   "lines": [
+    "Messages to customers, published pages and payments all wait. Code the agents cannot argue with decides who may approve and who may spend."
+   ]
+  },
+  {
+   "n": 4,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-04-1600.webp",
+   "img_sm": "/investors/deck/plate-04-800.webp",
+   "head": "In a service business of $1 million to $10 million a year, a team of agents can run everything but the physical work.",
+   "lines": [
+    "$1-10M",
+    "Those are the businesses I have been building for, and the ones a lab's engineers will never visit."
+   ]
+  },
+  {
+   "n": 5,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-05-1600.webp",
+   "img_sm": "/investors/deck/plate-05-800.webp",
+   "head": "Four businesses signed for AI employees in October.",
+   "lines": [
+    "8%",
+    "A Ventura County service company signed for 8% of all its revenue. Its employee does everything in the business except the physical work.",
+    "Houston moving company: $1,200 setup, then usage. Being set up to run the whole business.",
+    "Pennsylvania festival: $1,200 plus 10% of all the money the festival raises.",
+    "Crypto trading desk: $1,200 setup, then usage, for an employee built for trading."
+   ]
+  },
+  {
+   "n": 6,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-06-1600.webp",
+   "img_sm": "/investors/deck/plate-06-800.webp",
+   "head": "What AMTECH sells is a growing share of the work businesses pay people and agencies to do.",
+   "lines": [
+    "85%",
+    "Two deals are $1,200 then usage, billed at about an 85% margin. Two take a share of what the business earns. Results-based pricing and monthly plans are in test, and AMTECH's own meter will show which ones owners keep."
+   ]
+  },
+  {
+   "n": 7,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-07-1600.webp",
+   "img_sm": "/investors/deck/plate-07-800.webp",
+   "head": "Under every employee is a platform I built for this.",
+   "lines": [
+    "The business's own records. Prices, customers, rules and decisions as plain files the business owns. They grow with every job, and no competitor can buy them.",
+    "Authority in code. Who may approve work and who may spend money, decided by code the agents cannot argue with.",
+    "A gateway. Every request is metered, priced and sent to the best model from any lab.",
+    "A factory. Employees built from one standard and handed to anyone at the first word, on Hermes, the open-source agent runtime."
+   ]
+  },
+  {
+   "n": 8,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-08-1600.webp",
+   "img_sm": "/investors/deck/plate-08-800.webp",
+   "head": "Scan this and give an AI employee a job.",
+   "lines": [
+    "Describe a job and it starts on it.",
+    "amtechai.com/contractors"
+   ]
+  },
+  {
+   "n": 9,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-09-1600.webp",
+   "img_sm": "/investors/deck/plate-09-800.webp",
+   "head": "A new kind of American business is starting.",
+   "lines": [
+    "Since early 2025, applications for one-person companies are up more than 20% while companies that plan to hire are nearly flat (Nasdaq, from Census data). The tools those founders will rely on in 2027 and 2028 do not exist yet. I am building them."
+   ]
+  },
+  {
+   "n": 10,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-10-1600.webp",
+   "img_sm": "/investors/deck/plate-10-800.webp",
+   "head": "This fall investors and the largest AI companies bet on agents that do real work.",
+   "lines": [
+    "$1B: The valuation of Avoca, AI for home-service trades, in April.",
+    "$285M: The valuation of Hone's seed, AI with goals inside companies, in October.",
+    "Meta launched Muse for Small Business and xAI launched Grok Team Bots. AMTECH runs the agents for the business, on the best model from any lab, and can take its pay from what the business earns."
+   ]
+  },
+  {
+   "n": 11,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-11-1600.webp",
+   "img_sm": "/investors/deck/plate-11-800.webp",
+   "head": "The labs send engineers into companies. AMTECH turns that work into a product.",
+   "lines": [
+    "36.2M: US small businesses, with almost half of America's private-sector jobs (SBA, 2025).",
+    "Anthropic's new services firm says mid-sized companies \"lack the in-house resources to build and run frontier deployments\", and OpenAI built a Deployment Company on the same model. An engineer per company cannot pay for itself at a small business."
+   ]
+  },
+  {
+   "n": 12,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-12-1600.webp",
+   "img_sm": "/investors/deck/plate-12-800.webp",
+   "head": "I built the platform alone in 54 days, and I run AMTECH with AI agents.",
+   "lines": [
+    "54",
+    "AMTECH runs its own business on one of its employees. I already work full time on AMTECH, about 40 hours a week beside a part-time job, and when we raise I will commit every second of my life to it."
+   ]
+  },
+  {
+   "n": 13,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-13-1600.webp",
+   "img_sm": "/investors/deck/plate-13-800.webp",
+   "head": "Post-money SAFE at a $6M cap.",
+   "lines": [
+    "$600k",
+    "It pays for the computers and the AI the employees run on, free trials, and getting owners to the page, with a reserve. I run the meetings and the go-to-market myself with AI agents, so the money goes to the work. At the end of eighteen months any owner who finds a page can sign up without me."
+   ]
+  },
+  {
+   "n": 14,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-14-1600.webp",
+   "img_sm": "/investors/deck/plate-14-800.webp",
+   "head": "Fifty years after Gutenberg, there were presses in 250 to 280 European cities.",
+   "lines": [
+    "AI will reach every business the same way. Next come several employees working together, then employees trusted with money, then anyone starting a business with a team of agents."
+   ]
+  },
+  {
+   "n": 15,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/plate-15-1600.webp",
+   "img_sm": "/investors/deck/plate-15-800.webp",
+   "head": "Pictures and sources",
+   "lines": [
+    "Deals, prices, the raise: AMTECH records, October 2026",
+    "One-person companies: Nasdaq Economic Institute (Census data), 2026",
+    "Avoca, $1B: Avoca, 27 April 2026",
+    "Hone: Hone, 8 October 2026; $285M: Bloomberg",
+    "Muse: Meta, 29 Sept 2026; Grok Team Bots: xAI, 28 Sept 2026",
+    "36.2 million small businesses: SBA Office of Advocacy, 2025",
+    "Anthropic, 4 May 2026; OpenAI Deployment Company, May 2026",
+    "Presses by 1500: History of Information; Swiss National Museum"
+   ]
+  }
+ ]
+}
