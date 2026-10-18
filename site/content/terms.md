@@ -40,6 +40,22 @@ The Service generates drafts. Estimates, prices, messages, scopes of work, contr
 
 AMTECH provides software. We do not provide legal, financial, tax, accounting, insurance, real estate, or engineering advice, and nothing the Service produces is a substitute for a licensed professional. You are responsible for what you send to your customers and for what you sign. Pricing, margins, scope, exclusions, warranty language, and compliance obligations remain yours to verify.
 
+## Pictures and video {#create}
+
+An AMTECH AI employee can make pictures and video when you describe them, on amtechai.com/create or anywhere else you work with it (“Create”). These terms apply to them with the rest of these Terms.
+
+**What makes the pictures.** Pictures are made by AI models, including FLUX 3 Image (Klein) from Black Forest Labs, run by AMTECH. Every picture is made by AI, and its file says so.
+
+**What you may not make.** You may not use Create to make, or to try to make: sexual or nude content of anyone; any depiction of a minor in a sexual or sexualised way; graphic violence or gore; content depicting a real, identifiable person without their consent, including public figures; content that infringes someone else’s copyright, trademark or other rights, including their characters and logos; content meant to deceive, defraud, harass, or impersonate; or anything unlawful. We check requests and pictures automatically and may refuse either. A refused picture is not charged. We report apparent child sexual abuse material to the National Center for Missing & Exploited Children as the law requires, and we end access for anyone who tries to make it.
+
+**What you upload.** You may give the employee pictures to build on. You must have the right to use them, and the consent of any person shown in them. Your business’s own name, logo and products are yours to use.
+
+**Your pictures.** As between you and AMTECH, the pictures you make are yours to use, including commercially, with no watermark. AI models can make pictures that resemble existing works, and we do not promise that a picture is unique or free of others’ rights; check before you rely on one for a trademark or a large campaign. Where people would expect a real photograph, say that a picture was made with AI.
+
+**Credits.** Pictures and video are paid from your organisation's prepaid credits: 1 credit is 1 US cent of work, at the prices shown before each piece is made. Purchased credits do not expire and are not cash; ask us and we refund purchased credit you have not used. Pennsylvania sales tax is added at checkout for buyers in Pennsylvania. A piece that fails or is refused is not charged.
+
+**How long we keep them.** Pieces made without keeping your employee are kept for 7 days and then deleted. When you keep your employee (with your email), your pieces stay with it for as long as you keep it.
+
 ## Your data and content
 
 You keep ownership of the business content, customer records, and materials you put into the Service (“Your Data”). You grant AMTECH a non-exclusive license to host, process, transmit, and display Your Data solely to operate and support the Service for you. You are responsible for having the rights and consents needed to give us Your Data, including any personal information about your customers.

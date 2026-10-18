@@ -3,7 +3,7 @@
    look and motion. Changed on purpose: the industry and topic lists (front matter), and the confirmation no longer
    says a confirmation was sent, because none is: app.amtechai.com/site/booking mails the operator only. */ -}}
 {{- $steps := slice "Your Info" "Industry" "Topic" "Date & Time" -}}
-{{- $input := "w-full border border-black/10 bg-white/70 px-4 py-3 text-[13px] text-black rounded-lg outline-none transition-colors focus:border-black/25 placeholder:text-black/25" -}}
+{{- $input := "w-full border border-black/10 bg-white/70 px-4 py-3 text-[13px] text-black rounded-lg outline-none transition-colors focus:border-black/25 placeholder:text-black/45" -}}
 <div class="min-h-screen bg-[#FAFAFA] flex flex-col">
   <header class="border-b border-black/[0.06] bg-white/80 backdrop-blur-xl px-4 sm:px-7 py-3 flex items-center justify-between">
     <a class="inline-flex items-baseline" href="/"><span class="font-display text-base font-black tracking-[0.06em] text-black">AMTECH</span><span class="text-base font-black text-red">.</span></a>
@@ -25,8 +25,8 @@
               <div data-line class="w-4 sm:w-8 lg:w-12 h-px transition-colors duration-300 bg-black/10"></div>
               {{- end }}
               <div class="flex items-center gap-1.5">
-                <div data-dot="{{ add $i 1 }}" class="w-6 h-6 flex items-center justify-center text-[10px] font-bold rounded-md transition-all duration-300 {{ if eq $i 0 }}border border-black/30 text-black{{ else }}border border-black/10 text-black/25{{ end }}">{{ add $i 1 }}</div>
-                <span data-label class="hidden sm:inline text-[10px] tracking-[0.12em] uppercase font-semibold transition-colors duration-300 {{ if eq $i 0 }}text-black{{ else }}text-black/20{{ end }}">{{ $label }}</span>
+                <div data-dot="{{ add $i 1 }}" class="w-6 h-6 flex items-center justify-center text-[10px] font-bold rounded-md transition-all duration-300 {{ if eq $i 0 }}border border-black/30 text-black{{ else }}border border-black/20 text-black/50{{ end }}">{{ add $i 1 }}</div>
+                <span data-label class="hidden sm:inline text-[10px] tracking-[0.12em] uppercase font-semibold transition-colors duration-300 {{ if eq $i 0 }}text-black{{ else }}text-black/50{{ end }}">{{ $label }}</span>
               </div>
             </div>
             {{- end }}
@@ -38,7 +38,7 @@
             <form class="space-y-5" data-info>
               {{- range slice (dict "k" "name" "label" "Full Name" "type" "text" "ph" "John Smith") (dict "k" "email" "label" "Email Address" "type" "email" "ph" "john@company.com") (dict "k" "organization" "label" "Organization" "type" "text" "ph" "Acme Corp") }}
               <div>
-                <label class="block mono-label text-black/40 mb-2">{{ .label }}</label>
+                <label class="block mono-label text-black/60 mb-2">{{ .label }}</label>
                 <input type="{{ .type }}" name="{{ .k }}" placeholder="{{ .ph }}" class="{{ $input }}">
                 <p data-error="{{ .k }}" hidden class="text-[11px] mt-1 text-red"></p>
               </div>
@@ -81,7 +81,7 @@
               </div>
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div class="rounded-xl p-5" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.06)">
-                  <div class="mono-label text-black/25 mb-4">Select a Date</div>
+                  <div class="mono-label text-black/50 mb-4">Select a Date</div>
                   <div>
                     <div class="flex items-center justify-between mb-4">
                       <button type="button" data-prev class="p-1.5 text-black/30 hover:text-black transition-colors disabled:opacity-20 disabled:cursor-not-allowed">{{ partial "icon.html" (dict "name" "chevron-left" "class" "w-4 h-4") }}</button>
@@ -90,13 +90,13 @@
                     </div>
                     <div class="grid grid-cols-7 gap-px" data-days>
                       {{- range slice "Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat" }}
-                      <div class="text-center text-[9px] tracking-[0.15em] uppercase text-black/25 font-semibold py-2">{{ . }}</div>
+                      <div class="text-center text-[9px] tracking-[0.15em] uppercase text-black/50 font-semibold py-2">{{ . }}</div>
                       {{- end }}
                     </div>
                   </div>
                 </div>
                 <div class="rounded-xl p-5 min-h-[280px]" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.06)">
-                  <div class="mono-label text-black/25 mb-4">Select a Time</div>
+                  <div class="mono-label text-black/50 mb-4">Select a Time</div>
                   <div data-times class="contents">
                     <div class="flex items-center justify-center h-full min-h-[200px]"><p class="mono-label text-black/15">Select a date first</p></div>
                   </div>
@@ -110,7 +110,7 @@
           </div>
         </div>
 
-        <p class="text-center mono-label text-black/20 mt-6">AMTECH // American Marketing Technology</p>
+        <p class="text-center mono-label text-black/50 mt-6">AMTECH // American Marketing Technology</p>
       </div>
 
       <div data-confirmed hidden>
@@ -121,12 +121,12 @@
             <p class="text-[12px] text-black/40 mt-1">Booked under <span data-v="email" class="text-black/70 font-medium"></span></p>
           </div>
           <div class="glass-card px-6 py-6 sm:px-8">
-            <div class="mono-label text-black/25 mb-4">Booking Details</div>
+            <div class="mono-label text-black/50 mb-4">Booking Details</div>
             <div class="space-y-0">
               {{- $rows := slice (slice "Date" "bookingDate") (slice "Time" "bookingTime") (slice "Name" "name") (slice "Organization" "organization") (slice "Industry" "industry") (slice "Topic" "topic") }}
               {{- range $i, $r := $rows }}
               <div class="flex items-center justify-between py-3 {{ if lt $i 5 }}border-b border-black/[0.06]{{ end }}">
-                <span class="mono-label text-black/25">{{ index $r 0 }}</span>
+                <span class="mono-label text-black/50">{{ index $r 0 }}</span>
                 <span data-v="{{ index $r 1 }}" class="text-[13px] font-medium text-black/80"></span>
               </div>
               {{- end }}
