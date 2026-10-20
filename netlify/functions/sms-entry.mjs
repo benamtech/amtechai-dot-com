@@ -15,7 +15,6 @@ export async function handler(event) {
   const params = new URLSearchParams(event.body || '');
   const body = (params.get('Body') || '').trim();
   const from = (params.get('From') || '').trim();
-  const messageSid = (params.get('MessageSid') || '').trim();
   const link = process.env.WEB_FORM_URL || 'https://amtechai.com/claim';
 
   // Carrier-required keywords keep their plain behavior and never mint a link.
@@ -32,8 +31,7 @@ export async function handler(event) {
   // a usable phone is missing, fall back to the plain signpost link.
   const secret = process.env.CLAIM_LINK_SECRET;
   if (secret && PHONE_PATTERN.test(from)) {
-    const { token, nonce, exp } = signClaimToken(from, secret);
-    await recordInbound(nonce, from, messageSid, exp);
+    const { token } = signClaimToken(from, secret);
     return reply(`Claim your AMTECH AI Employee here: ${link}?t=${token}`);
   }
 
@@ -69,32 +67,6 @@ function signClaimToken(phone, secret) {
   const bodyPart = base64url(Buffer.from(JSON.stringify(payload), 'utf8'));
   const sig = base64url(createHmac('sha256', secret).update(bodyPart).digest());
   return { token: `${bodyPart}.${sig}`, nonce: payload.nonce, exp: payload.exp };
-}
-
-async function recordInbound(nonce, phone, messageSid, exp) {
-  const url = process.env.SUPABASE_URL || process.env.VITE_SUPABASE_URL;
-  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-  if (!url || !key) return; // stateless fallback: HMAC + expiry still hold
-
-  try {
-    await fetch(`${url.replace(/\/$/, '')}/rest/v1/ai_employee_inbound_tokens?on_conflict=nonce`, {
-      method: 'POST',
-      headers: {
-        apikey: key,
-        Authorization: `Bearer ${key}`,
-        'Content-Type': 'application/json',
-        Prefer: 'resolution=merge-duplicates,return=minimal',
-      },
-      body: JSON.stringify({
-        nonce,
-        phone,
-        message_sid: messageSid || null,
-        expires_at: new Date(exp).toISOString(),
-      }),
-    });
-  } catch (error) {
-    console.error('[sms-entry] recordInbound failed', error instanceof Error ? error.message : error);
-  }
 }
 
 function base64url(buffer) {
