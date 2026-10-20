@@ -47,7 +47,7 @@ function get(url, resolve) {
 function redirectSources() {
   const vj = path.join(ROOT, 'vercel.json');
   const froms = fs.existsSync(vj) && JSON.parse(fs.readFileSync(vj, 'utf8')).redirects
-    ? JSON.parse(fs.readFileSync(vj, 'utf8')).redirects.map((r) => r.source.replace(/\/:path\*$/, '/*'))
+    ? JSON.parse(fs.readFileSync(vj, 'utf8')).redirects.map((r) => r.source.replace(/\(\/\.\*\)\?$/, '/*'))
     : fs.readFileSync(path.join(STATIC, '_redirects'), 'utf8').split('\n').filter((l) => l.trim() && !l.startsWith('#')).map((l) => l.trim().split(/\s+/)[0]);
   return froms.flatMap((f) => (f.endsWith('/*') ? [f.slice(0, -2), f.slice(0, -1), f.slice(0, -1) + 'some/page'] : [f]));
 }

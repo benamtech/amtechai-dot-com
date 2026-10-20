@@ -16,9 +16,9 @@ const pageOf = (f) => (f === '/index.html' ? '/' : f.replace(/\/index\.html$/, '
 const pages = files.filter((f) => f.endsWith('/index.html')).map((f) => ({ file: f, route: pageOf(f), html: fs.readFileSync(PUB + f, 'utf8') }));
 
 // Redirects (vercel.json, the one place they are written): what each source sends where, so a link to a redirected
-// URL counts as live. A splat source, `/old/:path*`, is read as `/old/*`.
+// URL counts as live. A splat source, `/old(/.*)?` (/old, /old/ and everything under it), is read as `/old/*`.
 const redirects = JSON.parse(fs.readFileSync(path.join(PUB, '..', '..', 'vercel.json'), 'utf8')).redirects
-  .map(({ source, destination, statusCode }) => ({ from: source.replace(/\/:path\*$/, '/*'), to: destination, code: statusCode }));
+  .map(({ source, destination, statusCode }) => ({ from: source.replace(/\(\/\.\*\)\?$/, '/*'), to: destination, code: statusCode }));
 const redirected = (p) => redirects.some(({ from }) => (from.endsWith('/*') ? p === from.slice(0, -2) || p.startsWith(from.slice(0, -1)) : p === from));
 const served = (p) => {
   const clean = decodeURI(p.split('#')[0].split('?')[0]).replace(/\/$/, '') || '/';

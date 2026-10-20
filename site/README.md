@@ -75,7 +75,8 @@ Any page can carry `faqs:` (shown by its template, and written as FAQ structured
 Then `npm run build`. If the checks pass, look at the page at 390 px and 1280 px wide before you commit it.
 
 **Removing or renaming a page**: add a rule to `redirects` in `vercel.json`
-(`{"source": "/old-url", "destination": "/new-url", "statusCode": 301}`; `/old/:path*` for everything under a path) so
+(`{"source": "/old-url", "destination": "/new-url", "statusCode": 301}`; `/old(/.*)?` for a path and everything under it, as
+`/old`, `/old/` and `/old/any/page`) so
 its links and search standing carry over. Rules run top to bottom and the first match wins, ahead of any page at that
 URL. Always give `statusCode: 301`: Vercel's `permanent: true` is a 308. The checks fail if the target does not exist
 or the code is not 301. Anything that is neither a page nor a redirect gets `404.html` with a real 404.
