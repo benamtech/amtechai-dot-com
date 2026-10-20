@@ -58,7 +58,9 @@ The Service uses third-party AI model providers to generate drafts and answers. 
 We rely on these categories of service providers, each bound to protect the data they handle:
 
 - AI model providers — generating estimates, replies, and summaries.
-- Supabase — database, authentication, and file storage.
+- Hostinger — the servers AMTECH's platform and its AI employees run on, including the platform's database.
+- Cloudflare — network, DNS, and encrypted backup storage.
+- Resend — email delivery for sign-in codes and notifications.
 - Vercel — hosting for the public site.
 - Stripe — payment processing.
 - Twilio — telephony and SMS.

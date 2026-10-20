@@ -126,7 +126,6 @@ Citation infrastructure: claims with sources outperform unsupported assertions i
 | JSON-LD structured data | Search systems that understand page semantics |
 | OKF markdown bundle | Agents and tools that want portable concept files |
 | Sitemap and llms.txt | Discovery for crawlers and AI tools |
-| Supabase concept tables | Queryable graph for internal agents and future products |
 
 {{< callout title="Good writing is not the same as agent-readable infrastructure" tone="warning" >}}
 A well-written article can score 12 out of 30. The prose is clear. The advice is sound. A human who finds the page can use it. But an agent fetching the URL to answer a downstream question gets a shell, no author, no date, no named tools, no citations, and no links to follow. The content exists. The infrastructure does not. Both matter now.

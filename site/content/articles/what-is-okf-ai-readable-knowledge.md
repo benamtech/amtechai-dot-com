@@ -155,7 +155,6 @@ One source and many surfaces prevents the usual failure mode where the blog says
 | Prerendered HTML | Crawlers, link previews, non-JS readers, and agents. |
 | JSON-LD | Search systems that understand structured page data. |
 | OKF markdown bundle | Agents and tools that want portable concept files. |
-| Supabase concept tables | Queryable graph access and future product/API use. |
 | sitemap.xml | Search discovery. |
 | robots.txt | Crawl guidance. |
 | llms.txt | Agent orientation. |
