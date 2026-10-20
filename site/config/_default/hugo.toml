@@ -78,7 +78,7 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
   ga = "G-HZ9HL72L7Q"
   ga_load = "head"   # head | load | interaction: see layouts/_partials/analytics.html
 
-# The booking page reaches its table (demo_bookings) through Supabase's REST endpoint with the public anon key, the
-# same two values the React app is built with. Read from Netlify's build environment; never written into the repo.
+# The booking page holds no database key: since 2026-10-20 it reads taken times and books through the platform's
+# front door (app.amtechai.com/site/slots and /site/booking), which keeps demo_bookings in the platform's own store.
 [security.funcs]
-  getenv = ["^HUGO_", "^CI$", "^VITE_SUPABASE_URL$", "^VITE_SUPABASE_ANON_KEY$"]
+  getenv = ["^HUGO_", "^CI$"]

@@ -140,7 +140,7 @@
     </div>
   </div>
 </div>
-{{- $sb := dict "url" (os.Getenv "VITE_SUPABASE_URL" | default "https://placeholder.supabase.co") "key" (os.Getenv "VITE_SUPABASE_ANON_KEY" | default "placeholder-anon-key") "notify" (printf "%s/site/booking" site.Params.app) }}
+{{- $sb := dict "slots" (printf "%s/site/slots" site.Params.app) "book" (printf "%s/site/booking" site.Params.app) }}
 {{- with resources.Get "js/booking.js" | minify | fingerprint }}
 <script>window.BOOKING = {{ $sb }};</script>
 <script defer src="{{ .RelPermalink }}"></script>
