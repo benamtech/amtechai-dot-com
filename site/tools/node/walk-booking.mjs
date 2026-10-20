@@ -1,4 +1,4 @@
-// Walk the booking page step by step and screenshot each, with the database and the operator notice stubbed (nothing
+// Walk the booking page step by step and screenshot each, with the platform's two booking routes stubbed (nothing
 // is written). Usage: node walk-booking.mjs <base-url> <out-dir> [width]   Prints what each call carried, as JSON.
 import fs from 'node:fs';
 import path from 'node:path';
@@ -11,14 +11,17 @@ const b = await chromium.launch();
 const page = await b.newPage({ viewport: { width: w, height: w < 600 ? 844 : 900 } });
 await page.route(/googletagmanager|google-analytics/, (r) => r.abort());
 const calls = [];
-await page.route('**/rest/v1/demo_bookings**', (r) => {
+await page.route('https://app.amtechai.com/site/slots**', (r) => {
   const q = r.request();
-  calls.push({ method: q.method(), query: new URL(q.url()).search, body: q.postData() && JSON.parse(q.postData()), prefer: q.headers().prefer || null, hasKey: Boolean(q.headers().apikey) });
-  if (q.method() === 'GET') return r.fulfill({ contentType: 'application/json', body: JSON.stringify([{ booking_time: '11:00 AM PST' }]) });
-  return r.fulfill({ status: 201, body: '' });
+  calls.push({ method: q.method(), query: new URL(q.url()).search, hasKey: Boolean(q.headers().apikey) });
+  return r.fulfill({ contentType: 'application/json', headers: { 'Access-Control-Allow-Origin': '*' }, body: JSON.stringify({ ok: true, taken: ['11:00 AM PST'] }) });
 });
 let notice = null;
-await page.route('https://app.amtechai.com/site/booking', (r) => { notice = r.request().postDataJSON(); r.fulfill({ status: 200, body: '{}' }); });
+await page.route('https://app.amtechai.com/site/booking', (r) => {
+  if (r.request().method() === 'OPTIONS') return r.fulfill({ status: 204, headers: { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Headers': 'Content-Type', 'Access-Control-Allow-Methods': 'GET, POST' } });
+  notice = r.request().postDataJSON();
+  return r.fulfill({ status: 200, headers: { 'Access-Control-Allow-Origin': '*' }, contentType: 'application/json', body: '{"ok":true}' });
+});
 const shot = async (n) => { await page.waitForTimeout(700); await page.screenshot({ path: path.join(out, `${n}-${w}.png`), fullPage: true }); };
 await page.goto(base + '/schedule-demo', { waitUntil: 'networkidle' });
 await page.getByRole('button', { name: 'Continue' }).click();

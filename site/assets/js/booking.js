@@ -16,28 +16,23 @@
   const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
   const today = new Date(); today.setHours(0, 0, 0, 0);
 
-  // ---- Supabase REST, the calls supabase-js made ----
-  const headers = { apikey: C.key, Authorization: `Bearer ${C.key}` };
+  // ---- the platform's front door, the only writer of bookings (2026-10-20). The page holds no database key: it asks
+  // which times are taken (the times only) and sends the booking, which the platform checks, stores and mails to the
+  // operator, never to the address typed. One booking per slot is the platform's rule, so a time can be "just taken".
   async function bookedSlots(date) {
     try {
-      const r = await fetch(`${C.url}/rest/v1/demo_bookings?select=booking_time&booking_date=eq.${date}&status=eq.confirmed`, { headers });
+      const r = await fetch(`${C.slots}?date=${date}`);
       if (!r.ok) throw new Error(String(r.status));
-      return (await r.json()).map((row) => row.booking_time);
+      return (await r.json()).taken || [];
     } catch (e) { console.error('Failed to fetch booked slots:', e); return []; }
   }
   async function createBooking(b) {
     try {
-      const r = await fetch(`${C.url}/rest/v1/demo_bookings`, {
-        method: 'POST',
-        headers: { ...headers, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-        body: JSON.stringify({ name: b.name, email: b.email, organization: b.organization, industry: b.industry, topic: b.topic, booking_date: b.bookingDate, booking_time: b.bookingTime }),
-      });
+      const r = await fetch(C.book, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) });
+      if (r.status === 409) return 'taken';
       if (!r.ok) throw new Error(String(r.status));
-    } catch (e) { console.error('Failed to create booking:', e); return false; }
-    // The operator is told through the platform's own mail, which mails only the operator, never the address typed.
-    try { await fetch(C.notify, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(b) }); }
-    catch (e) { console.error('Failed to notify the operator:', e); }
-    return true;
+      return 'ok';
+    } catch (e) { console.error('Failed to create booking:', e); return 'failed'; }
   }
 
   // ---- motion (framer-motion: enter x 20, exit x -20, 0.2 s; AnimatePresence waits for the exit) ----
@@ -168,7 +163,7 @@
         const b = document.createElement('button');
         b.type = 'button'; b.disabled = isBooked; b.textContent = t.replace(' PST', '');
         b.className = `px-2 py-2.5 text-[11px] tracking-wide rounded-lg transition-all duration-200 ${isBooked ? 'border border-black/5 text-black/15 cursor-not-allowed line-through' : on ? 'bg-red text-white font-semibold' : 'border border-black/10 text-black/60 hover:border-black/20 hover:text-black'}`;
-        b.addEventListener('click', () => { state.time = t; times(); });
+        b.addEventListener('click', () => { state.time = t; confirm.textContent = 'Confirm Booking'; times(); });
         sec.lastElementChild.appendChild(b);
       }
       wrap.appendChild(sec);
@@ -178,10 +173,17 @@
   confirm.addEventListener('click', async () => {
     if (!state.date || !state.time) return;
     state.submitting = true; confirm.textContent = 'Scheduling...'; times();
-    const booking = { name: state.name, email: state.email, organization: state.organization, industry: state.industry, topic: state.topic, bookingDate: display(state.date), bookingTime: state.time };
-    const ok = await createBooking(booking);
-    state.submitting = false; confirm.textContent = 'Confirm Booking'; times();
-    if (!ok) return;
+    const booking = { name: state.name, email: state.email, organization: state.organization, industry: state.industry, topic: state.topic, bookingDate: forDB(state.date), bookingTime: state.time };
+    const res = await createBooking(booking);
+    state.submitting = false;
+    if (res !== 'ok') {
+      if (res === 'taken') { state.time = ''; state.booked = await bookedSlots(forDB(state.date)); }
+      confirm.textContent = res === 'taken' ? 'That time was just taken. Pick another' : 'That did not go through. Try again';
+      times();
+      return;
+    }
+    confirm.textContent = 'Confirm Booking'; times();
+    booking.bookingDate = display(state.date);
     window.gtag?.('event', 'generate_lead', { industry: state.industry, topic: state.topic });
     for (const el of $$('[data-v]')) el.textContent = booking[el.dataset.v];
     $('[data-booking]').hidden = true;
