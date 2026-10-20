@@ -6,7 +6,7 @@
 //   node site/tools/node/contrast.mjs [--min 3] [--route /create]     # after `npm run build`; exits 1 and names each
 //
 // The background is the nearest ancestor's solid colour, alpha-blended up the tree; text over an image or a gradient
-// cannot be measured this way and is listed as unmeasured (never passed silently). Not run on Netlify (no browser
+// cannot be measured this way and is listed as unmeasured (never passed silently). Not run in the hosted build (no browser
 // there): run it before a page is published, as check.mjs runs after every build.
 import fs from 'node:fs';
 import http from 'node:http';

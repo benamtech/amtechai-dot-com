@@ -9,13 +9,19 @@ Node is in the repo only to run Tailwind.
 ```
 npm install                 # once: Tailwind
 npm run dev                 # http://localhost:1314, rebuilds as you save (Tailwind is built once at start)
-npm run build               # what Netlify runs: Tailwind, Hugo into site/public/, then the checks
+npm run build               # what Vercel runs: Tailwind, Hugo into site/public/, then the checks
 npm run check               # the checks alone, on the last build
 ```
 
-Hugo is pinned (0.167.0) and fetched and checksummed on first use by `tools/hugo.sh`. Netlify publishes
-`site/public/`; `netlify.toml` at the repo root says so. One Netlify function lives outside `site/`:
-`netlify/functions/sms-entry.mjs` (`/sms-entry`).
+Hugo is pinned (0.167.0) and fetched and checksummed on first use by `tools/hugo.sh`. Vercel (project
+`amtechai-dot-com`) publishes `site/public/`; `vercel.json` at the repo root says so, and holds the site's redirects and
+its response headers (the Markdown content types and cache rules for `/okf/*`, `/articles/*.md` and `/llms.txt`).
+Production is a merge to `main`; every pull request gets a preview at its own `*.vercel.app` URL.
+
+`tools/baseline.mjs capture <origin>` records what an origin answers for every URL the site has ever promised (status,
+`Location`, content type, cache rules, a hash of each body); `tools/baseline.mjs diff a.json b.json` compares two. It
+proved the move from Netlify to Vercel (2026-10-20) changed nothing a reader sees; run it before and after any change
+to hosting, redirects or headers.
 
 `tools/check.mjs` fails the build when a page has no title, description, canonical or single `<h1>`; when a link or
 image inside the site goes nowhere; when the sitemap and the pages disagree; when structured data does not parse;
@@ -68,8 +74,11 @@ Any page can carry `faqs:` (shown by its template, and written as FAQ structured
 
 Then `npm run build`. If the checks pass, look at the page at 390 px and 1280 px wide before you commit it.
 
-**Removing or renaming a page**: add a line to `static/_redirects` (`/old-url  /new-url  301!`) so its links and
-search standing carry over. The checks fail if the target does not exist.
+**Removing or renaming a page**: add a rule to `redirects` in `vercel.json`
+(`{"source": "/old-url", "destination": "/new-url", "statusCode": 301}`; `/old/:path*` for everything under a path) so
+its links and search standing carry over. Rules run top to bottom and the first match wins, ahead of any page at that
+URL. Always give `statusCode: 301`: Vercel's `permanent: true` is a 308. The checks fail if the target does not exist
+or the code is not 301. Anything that is neither a page nor a redirect gets `404.html` with a real 404.
 
 ## Where things are
 
@@ -83,9 +92,9 @@ search standing carry over. The checks fail if the target does not exist.
 | `layouts/_shortcodes/` | `answer`, `prompt`, `callout`, `highlight` (legal), each with `.markdown.md` / `.okf.md` twins for the Markdown outputs |
 | `layouts/home.llms.txt`, `home.sitemapxml.xml`, `home.okfindex.md` | `/llms.txt`, `/sitemap.xml`, `/okf/index.md` and the concept files |
 | `assets/css/` | `base.css` (fonts, the shared component classes), `port.css` (the fade), `article.css` (article and legal bodies) |
-| `static/` | files served as they are: `_redirects`, `_headers`, `robots.txt`, the IndexNow key, images |
+| `static/` | files served as they are: `robots.txt`, the IndexNow key, images, the investor PDFs |
 | `tailwind.config.js` | the theme (colours, type scale, shadows) |
-| `tools/` | `build.sh`, `hugo.sh`, `check.mjs`, `indexnow.mjs` (after a deploy: ping Bing and others with the sitemap), `node/` (screenshot and behaviour checks) |
+| `tools/` | `build.sh`, `hugo.sh`, `check.mjs`, `baseline.mjs` (what an origin serves, URL by URL), `indexnow.mjs` (after a deploy: ping Bing and others with the sitemap), `node/` (screenshot and behaviour checks) |
 
 A Tailwind class must appear whole in a template, a content file or `assets/js/`, with a space on both sides when
 it sits next to a template tag, or Tailwind will not generate it.
