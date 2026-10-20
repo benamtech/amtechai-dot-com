@@ -15,8 +15,9 @@ npm run build      # what Netlify runs: Tailwind, Hugo, then the checks (must pa
   (`site/tailwind.config.js`).
 - A removed or renamed URL gets a 301 in `site/static/_redirects`.
 - Look at a changed page at 390 px and 1280 px before committing it. Production is a merge to `main` (Netlify).
-- One Netlify function: `netlify/functions/sms-entry.mjs` (`/sms-entry`). The booking page writes to the
-  `demo_bookings` table (migrations in `supabase/`).
+- One Netlify function: `netlify/functions/sms-entry.mjs` (`/sms-entry`). The site has no database of its own (its
+  Supabase project was let go 2026-10-20): the booking page reads taken times from app.amtechai.com/site/slots and
+  books at app.amtechai.com/site/booking, and the platform keeps the row.
 
 `docs/`, `wiki/` and the `*.md` style notes at the root describe the React site this replaced (October 2026) and
 the retired skills registry. They are history, not instructions.
