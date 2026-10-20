@@ -59,7 +59,7 @@ We rely on these categories of service providers, each bound to protect the data
 
 - AI model providers — generating estimates, replies, and summaries.
 - Supabase — database, authentication, and file storage.
-- Netlify — hosting for the public site.
+- Vercel — hosting for the public site.
 - Stripe — payment processing.
 - Twilio — telephony and SMS.
 - Google — Gmail integration and analytics on the marketing site.

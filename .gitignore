@@ -28,5 +28,6 @@ AI_EMPLOYEE_MVP/ai-employee-all-files/state/
 __pycache__/
 *.pyc
 
-# Local Netlify folder
-.netlify
+# The Vercel CLI's link to the project
+.vercel
+.env*

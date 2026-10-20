@@ -1,4 +1,4 @@
-// The site's checks, run after every build (`npm run build`) and on Netlify before a deploy: what a person, a search
+// The site's checks, run after every build (`npm run build`) and on Vercel before a deploy: what a person, a search
 // engine and an AI reader get from site/public/ is complete and true to itself. Exits 1 and names each failure.
 //   node site/tools/check.mjs
 import fs from 'node:fs';
@@ -15,9 +15,10 @@ const fileSet = new Set(files);
 const pageOf = (f) => (f === '/index.html' ? '/' : f.replace(/\/index\.html$/, ''));
 const pages = files.filter((f) => f.endsWith('/index.html')).map((f) => ({ file: f, route: pageOf(f), html: fs.readFileSync(PUB + f, 'utf8') }));
 
-// Redirects: what each source sends where, so a link to a redirected URL counts as live.
-const redirects = fs.readFileSync(path.join(PUB, '_redirects'), 'utf8').split('\n').filter((l) => l.trim() && !l.startsWith('#'))
-  .map((l) => l.trim().split(/\s+/)).map(([from, to, code]) => ({ from, to, code }));
+// Redirects (vercel.json, the one place they are written): what each source sends where, so a link to a redirected
+// URL counts as live. A splat source, `/old(/.*)?` (/old, /old/ and everything under it), is read as `/old/*`.
+const redirects = JSON.parse(fs.readFileSync(path.join(PUB, '..', '..', 'vercel.json'), 'utf8')).redirects
+  .map(({ source, destination, statusCode }) => ({ from: source.replace(/\(\/\.\*\)\?$/, '/*'), to: destination, code: statusCode }));
 const redirected = (p) => redirects.some(({ from }) => (from.endsWith('/*') ? p === from.slice(0, -2) || p.startsWith(from.slice(0, -1)) : p === from));
 const served = (p) => {
   const clean = decodeURI(p.split('#')[0].split('?')[0]).replace(/\/$/, '') || '/';
@@ -41,7 +42,7 @@ for (const p of pages) {
   for (const m of p.html.matchAll(/(?:href|src)="(\/[^"/][^"]*|\/)"/g)) if (!served(m[1])) bad(p.route, `links to ${m[1]}, which the site does not serve`);
   for (const m of p.html.matchAll(/(?:href|src)="https:\/\/amtechai\.com(\/[^"]*)"/g)) if (!served(m[1])) bad(p.route, `links to ${ORIGIN}${m[1]}, which the site does not serve`);
 }
-if (!fileSet.has('/404.html')) bad('/404.html', 'missing: an unknown URL would get Netlify\'s own page');
+if (!fileSet.has('/404.html')) bad('/404.html', 'missing: an unknown URL would get the host\'s own page');
 
 // 3. The sitemap lists every page search engines may index, and nothing else.
 const sitemap = fs.readFileSync(path.join(PUB, 'sitemap.xml'), 'utf8');
@@ -72,9 +73,10 @@ for (const f of files.filter((f) => f.startsWith('/okf/') && f.endsWith('.md')))
 for (const m of llms.matchAll(/https:\/\/amtechai\.com(\/[^)\s]*)/g)) if (!served(m[1])) bad('llms.txt', `links to ${m[1]}, which the site does not serve`);
 
 // 6. Every redirect lands somewhere the site serves, and no live page is shadowed by a forced redirect.
-for (const { from, to } of redirects) {
-  if (to.startsWith('/') && !to.startsWith('/.netlify/') && !served(to)) bad('_redirects', `${from} -> ${to}, which the site does not serve`);
-  if (!from.includes('*') && (fileSet.has(from) || fileSet.has(from + '/index.html'))) bad('_redirects', `${from} is a live page and also redirected`);
+for (const { from, to, code } of redirects) {
+  if (code !== 301) bad('vercel.json', `${from} redirects with ${code}; every redirect here is a 301 (Vercel's \`permanent\` is a 308)`);
+  if (to.startsWith('/') && !served(to)) bad('vercel.json', `${from} -> ${to}, which the site does not serve`);
+  if (!from.includes('*') && (fileSet.has(from) || fileSet.has(from + '/index.html'))) bad('vercel.json', `${from} is a live page and also redirected`);
 }
 
 if (fail.length) { console.error(`check: ${fail.length} problem(s)\n  ` + fail.join('\n  ')); process.exit(1); }
