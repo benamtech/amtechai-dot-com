@@ -1,0 +1,5 @@
+# amtechai.com is hosted on Vercel (vercel.json) since 2026-10-20. This file exists only so that the old Netlify site,
+# still connected to this repository through its GitHub App, builds nothing: Netlify runs `ignore` before a build and
+# cancels it when the command exits 0. Delete this file once the Netlify site is deleted.
+[build]
+  ignore = "exit 0"
