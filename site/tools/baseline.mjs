@@ -5,9 +5,8 @@
 //   node site/tools/baseline.mjs capture <origin> [--resolve <ip>] [--out file.json]
 //   node site/tools/baseline.mjs diff <before.json> <after.json>     # exits 1 on any difference
 //
-// The URLs: every <loc> in the origin's /sitemap.xml; every redirect source in vercel.json (a splat as its bare
-// prefix, prefix/ and a path under it); the Markdown the site serves to AI readers (/llms.txt, /okf/*, article twins);
-// robots.txt, the sitemap, the verification files; a trailing-slash, .html and /index.html variant of three pages;
+// The URLs: every <loc> in the origin's /sitemap.xml; every redirect source in vercel.json; the Markdown the site
+// serves to AI readers (/llms.txt, /okf/*, article twins); robots.txt, the sitemap, the verification files; a trailing-slash, .html and /index.html variant of three pages;
 // a query string through a redirect; a 404. On https://amtechai.com it also fetches www and plain http.
 // --resolve connects to <ip> while still asking for the origin's own name: the host's own answer, without the
 // Cloudflare proxy in front of it. Bodies are fetched uncompressed so the hash is of the bytes a reader gets.
@@ -43,13 +42,11 @@ function get(url, resolve) {
   });
 }
 
-// Redirect sources: vercel.json once it holds them; site/static/_redirects (Netlify's file) before that.
+// Redirect sources, from vercel.json: a splat (`/old(/.*)?`) as /old, /old/ and a path under it.
 function redirectSources() {
-  const vj = path.join(ROOT, 'vercel.json');
-  const froms = fs.existsSync(vj) && JSON.parse(fs.readFileSync(vj, 'utf8')).redirects
-    ? JSON.parse(fs.readFileSync(vj, 'utf8')).redirects.map((r) => r.source.replace(/\(\/\.\*\)\?$/, '/*'))
-    : fs.readFileSync(path.join(STATIC, '_redirects'), 'utf8').split('\n').filter((l) => l.trim() && !l.startsWith('#')).map((l) => l.trim().split(/\s+/)[0]);
-  return froms.flatMap((f) => (f.endsWith('/*') ? [f.slice(0, -2), f.slice(0, -1), f.slice(0, -1) + 'some/page'] : [f]));
+  return JSON.parse(fs.readFileSync(path.join(ROOT, 'vercel.json'), 'utf8')).redirects
+    .map((r) => r.source.replace(/\(\/\.\*\)\?$/, '/*'))
+    .flatMap((f) => (f.endsWith('/*') ? [f.slice(0, -2), f.slice(0, -1), f.slice(0, -1) + 'some/page'] : [f]));
 }
 
 async function capture(origin, resolve, out) {

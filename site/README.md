@@ -121,7 +121,8 @@ in `data/concepts.yaml` (empty until the buildout writes some; the format is in 
 ## Speed (measured 2026-10-13)
 
 Lighthouse, phone profile, GA on, both builds served from one local server the way Netlify serves them (brotli),
-interleaved, median of 3. Never time on a Netlify deploy preview: it injects about 1 MB that production does not have.
+interleaved, median of 3. Netlify's deploy previews injected about 1 MB that production did not have; Vercel's serve
+the same bytes as production (measured 2026-10-20), but time on a local server or production all the same.
 
 | | React (production) | Hugo, Google fonts | Hugo, fonts served here (now) | + GA `settled` |
 |---|---|---|---|---|
