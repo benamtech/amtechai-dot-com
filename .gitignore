@@ -30,3 +30,4 @@ __pycache__/
 
 # The Vercel CLI's link to the project
 .vercel
+.env*
