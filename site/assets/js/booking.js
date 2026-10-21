@@ -8,7 +8,7 @@
 
   // ---- dates and slots (bookingConstants.ts) ----
   const BASELINE = [[9, 30], [11, 0], [12, 30], [13, 0], [15, 0]];
-  const fmtSlot = (h, m) => `${h > 12 ? h - 12 : h === 0 ? 12 : h}:${String(m).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'} PST`;
+  const fmtSlot = (h, m) => `${h > 12 ? h - 12 : h === 0 ? 12 : h}:${String(m).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'} PT`;
   const shift = (off) => BASELINE.map(([h, m]) => { const t = h * 60 + m + off; return fmtSlot(Math.floor(t / 60), t % 60); });
   const slotsFor = (d) => { const w = d.getDay(); if (w === 4 || w === 1) return shift(0); if (w === 5 || w === 2) return shift(30); if (w === 6 || w === 3) return shift(-30); return []; };
   const display = (d) => d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
@@ -161,7 +161,7 @@
       for (const t of part) {
         const isBooked = state.booked.includes(t), on = state.time === t;
         const b = document.createElement('button');
-        b.type = 'button'; b.disabled = isBooked; b.textContent = t.replace(' PST', '');
+        b.type = 'button'; b.disabled = isBooked; b.textContent = t.replace(' PT', '');
         b.className = `px-2 py-2.5 text-[11px] tracking-wide rounded-lg transition-all duration-200 ${isBooked ? 'border border-black/5 text-black/15 cursor-not-allowed line-through' : on ? 'bg-red text-white font-semibold' : 'border border-black/10 text-black/60 hover:border-black/20 hover:text-black'}`;
         b.addEventListener('click', () => { state.time = t; confirm.textContent = 'Confirm Booking'; times(); });
         sec.lastElementChild.appendChild(b);
