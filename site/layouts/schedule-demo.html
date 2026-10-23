@@ -96,7 +96,12 @@
                   </div>
                 </div>
                 <div class="rounded-xl p-5 min-h-[280px]" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.06)">
-                  <div class="mono-label text-black/50 mb-4">Select a Time, Eastern time</div>
+                  <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <div class="mono-label text-black/50">Select a Time</div>
+                    <label class="flex w-full sm:w-auto items-center gap-1.5 text-[11px] text-black/55"><span class="whitespace-nowrap">Times in</span>
+                      <select data-zone aria-label="Time zone" class="min-w-0 flex-1 sm:flex-none sm:max-w-[260px] text-[11px] text-black/70 bg-white/80 border border-black/10 rounded-lg px-2 py-1"></select>
+                    </label>
+                  </div>
                   <div data-times class="contents">
                     <div class="flex items-center justify-center h-full min-h-[200px]"><p class="mono-label text-black/15">Select a date first</p></div>
                   </div>

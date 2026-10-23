@@ -59,7 +59,84 @@
   const display = (d) => d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   const forDB = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
-  const today = new Date(); today.setHours(0, 0, 0, 0);
+
+  // ---- time zones (2026-10-23, Ben: "the calendar shows the times in the person's local time, shows the time zone it
+  // detects, and they can switch"). The calendar's days and slots are Ben's, in Eastern Time, and the label sent to the
+  // platform stays the Eastern one ('12:30 PM ET'), so nothing the platform checks changes. Only what the visitor reads
+  // is translated: each slot is shown in the zone they pick, which starts as the one their browser reports.
+  const ET = 'America/New_York';
+  const ZONE_KEY = 'amtech-booking-zone';
+  const validZone = (tz) => { try { new Intl.DateTimeFormat('en-US', { timeZone: tz }); return true; } catch (e) { return false; } };
+  const detected = (() => { try { const z = Intl.DateTimeFormat().resolvedOptions().timeZone; return z && validZone(z) ? z : ET; } catch (e) { return ET; } })();
+  let zone = (() => { try { const z = localStorage.getItem(ZONE_KEY); return z && validZone(z) ? z : detected; } catch (e) { return detected; } })();
+  const dayKey = (at, tz) => new Intl.DateTimeFormat('en-CA', { timeZone: tz, year: 'numeric', month: '2-digit', day: '2-digit' }).format(at);
+  // How far a zone's wall clock is ahead of UTC at a moment, in ms.
+  const offsetMs = (tz, at) => {
+    const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: tz, hourCycle: 'h23', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' }).formatToParts(at).map((x) => [x.type, x.value]));
+    return Date.UTC(+p.year, +p.month - 1, +p.day, +p.hour % 24, +p.minute, +p.second) - Math.floor(at.getTime() / 1000) * 1000;
+  };
+  // The moment an Eastern slot (minutes after midnight) on calendar day d means: twice round, so a day that changes
+  // its clocks still lands on the right hour.
+  const instant = (d, mins) => {
+    const wall = Date.UTC(d.getFullYear(), d.getMonth(), d.getDate(), 0, mins);
+    let t = wall;
+    for (let i = 0; i < 2; i++) t = wall - offsetMs(ET, new Date(t));
+    return new Date(t);
+  };
+  // "Pacific Time" where the browser can say it (longGeneric), else "Pacific Daylight Time".
+  const zoneName = (tz, at = new Date()) => {
+    for (const style of ['longGeneric', 'long']) {
+      try {
+        const v = new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: style }).formatToParts(at).find((x) => x.type === 'timeZoneName')?.value;
+        if (v) return v;
+      } catch (e) { /* an older browser without that style: try the next */ }
+    }
+    return tz;
+  };
+  const zoneShort = (tz, at) => {
+    try { return new Intl.DateTimeFormat('en-US', { timeZone: tz, timeZoneName: 'short' }).formatToParts(at).find((x) => x.type === 'timeZoneName')?.value || tz; } catch (e) { return tz; }
+  };
+  const city = (tz) => tz.split('/').pop().replace(/_/g, ' ');
+  const localClock = (at) => new Intl.DateTimeFormat('en-US', { timeZone: zone, hour: 'numeric', minute: '2-digit' }).format(at);
+  const localHour = (at) => Number(new Intl.DateTimeFormat('en-US', { timeZone: zone, hourCycle: 'h23', hour: 'numeric' }).format(at)) % 24;
+  const localWeekday = (at) => new Intl.DateTimeFormat('en-US', { timeZone: zone, weekday: 'short' }).format(at);
+  // A slot as the visitor reads it: their clock, and their day when it is not the calendar's day.
+  const shown = (d, mins) => {
+    const at = instant(d, mins);
+    return dayKey(at, zone) === forDB(d) ? localClock(at) : `${localClock(at)} ${localWeekday(at)}`;
+  };
+  // Today, in Eastern Time: the platform takes bookings from tomorrow, Eastern, whatever the visitor's own date is.
+  const today = (() => { const [y, m, d] = dayKey(new Date(), ET).split('-').map(Number); return new Date(y, m - 1, d); })();
+  const COMMON = [ET, 'America/Chicago', 'America/Denver', 'America/Phoenix', 'America/Los_Angeles', 'America/Anchorage', 'Pacific/Honolulu'];
+  function zonePicker() {
+    const sel = $('[data-zone]');
+    if (!sel) return;
+    const now = new Date(), seen = new Set();
+    const add = (tz, text, into) => {
+      if (seen.has(tz) || !validZone(tz)) return;
+      seen.add(tz);
+      const o = document.createElement('option');
+      o.value = tz; o.textContent = text;
+      into.appendChild(o);
+    };
+    add(detected, `${zoneName(detected, now)} (${city(detected)}), yours`, sel);
+    for (const tz of COMMON) add(tz, `${zoneName(tz, now)} (${city(tz)})${tz === ET ? ', our calendar' : ''}`, sel);
+    let all = [];
+    try { all = Intl.supportedValuesOf('timeZone'); } catch (e) { all = []; }
+    if (all.length) {
+      const group = document.createElement('optgroup');
+      group.label = 'Every time zone';
+      for (const tz of all) add(tz, `${city(tz)} (${zoneShort(tz, now)})`, group);
+      sel.appendChild(group);
+    }
+    if (!seen.has(zone)) zone = detected;
+    sel.value = zone;
+    sel.addEventListener('change', () => {
+      zone = sel.value;
+      try { localStorage.setItem(ZONE_KEY, zone); } catch (e) { /* a private window keeps it for this visit only */ }
+      times();
+    });
+  }
 
   // ---- the platform's front door, the only writer of bookings (2026-10-20). The page holds no database key: it asks
   // which times are taken (the times only) and sends the booking, which the platform checks, stores and mails to the
@@ -201,19 +278,38 @@
     const taken = new Set(state.booked.map(storedMinutes).filter((m) => m !== null));
     const held = heldFor(state.date, taken);
     const wrap = document.createElement('div'); wrap.className = 'space-y-4'; box.appendChild(wrap);
-    for (const [label, part] of [['Morning', slots.filter((t) => t < 720)], ['Afternoon', slots.filter((t) => t >= 720)]]) {
+    // Grouped by the visitor's own clock, in time order: Ben's Friday evening is a Pacific visitor's afternoon, and a
+    // Tokyo visitor's Monday night runs on into Tuesday morning, so a group names the day when it is not the calendar's.
+    const groups = [];
+    for (const t of slots) {
+      const at = instant(state.date, t), h = localHour(at);
+      const key = (h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening')
+        + (dayKey(at, zone) === forDB(state.date) ? '' : `, ${localWeekday(at)}`);
+      if (!groups.length || groups[groups.length - 1][0] !== key) groups.push([key, []]);
+      groups[groups.length - 1][1].push(t);
+    }
+    for (const [label, part] of groups) {
       if (!part.length) continue;
       const sec = document.createElement('div');
       sec.innerHTML = `<div class="mono-label text-black/50 mb-2">${label}</div><div class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>`;
       for (const t of part) {
         const time = fmtSlot(t), isBooked = taken.has(t) || held.has(t), on = state.time === time;
         const b = document.createElement('button');
-        b.type = 'button'; b.disabled = isBooked; b.textContent = clock(t);
+        b.type = 'button'; b.disabled = isBooked; b.textContent = localClock(instant(state.date, t));     // the group names the day
+        if (zone !== ET) b.title = `${clock(t)} Eastern`;
         b.className = `px-2 py-2.5 text-[11px] tracking-wide rounded-lg transition-all duration-200 ${isBooked ? 'border border-black/5 text-black/15 cursor-not-allowed line-through' : on ? 'bg-red text-white font-semibold' : 'border border-black/10 text-black/60 hover:border-black/20 hover:text-black'}`;
         b.addEventListener('click', () => { state.time = time; confirm.textContent = 'Confirm Booking'; times(); });
         sec.lastElementChild.appendChild(b);
       }
       wrap.appendChild(sec);
+    }
+    // The chosen time said both ways, so the call is in the visitor's diary at the right hour.
+    if (state.time && zone !== ET) {
+      const t = storedMinutes(state.time);
+      const note = document.createElement('p');
+      note.className = 'text-[11px] text-black/55';
+      note.textContent = `${shown(state.date, t)} ${zoneShort(zone, instant(state.date, t))} is ${clock(t)} Eastern Time, when the call is on our calendar.`;
+      wrap.appendChild(note);
     }
   }
 
@@ -231,6 +327,9 @@
     }
     confirm.textContent = 'Confirm Booking'; times();
     booking.bookingDate = display(state.date);
+    const at = instant(state.date, storedMinutes(state.time));
+    booking.bookingTime = zone === ET ? `${clock(storedMinutes(state.time))} Eastern Time`
+      : `${shown(state.date, storedMinutes(state.time))} ${zoneName(zone, at)} (${clock(storedMinutes(state.time))} Eastern)`;
     window.gtag?.('event', 'generate_lead', { industry: state.industry, topic: state.topic });
     for (const el of $$('[data-v]')) el.textContent = booking[el.dataset.v];
     $('[data-booking]').hidden = true;
@@ -241,6 +340,7 @@
     done.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out'; done.style.opacity = '1'; done.style.transform = 'none';
   });
 
+  zonePicker();
   calendar();
   show($('[data-step="0"]'), 'translateX(20px)');
 })();
