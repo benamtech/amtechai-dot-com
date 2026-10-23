@@ -50,7 +50,7 @@ await page.locator('button:has(svg.lucide-chevron-right)').click();
 const mon = await page.locator('.grid-cols-7 > *').evaluateAll((els) => { const cells = els.slice(7); for (let i = 0; i < cells.length; i++) if (i % 7 === 1 && cells[i].tagName === 'BUTTON' && !cells[i].disabled) return i + 7; return -1; });
 await page.locator('.grid-cols-7 > *').nth(mon).click();
 await page.waitForTimeout(500);
-await page.locator('button', { hasText: /^9:30 AM$/ }).click();
+await page.locator('[data-times] button:not([disabled])').first().click();
 await shot('6-slot-picked');
 await page.getByRole('button', { name: 'Confirm Booking' }).click();
 await page.getByText('Demo Scheduled').waitFor();

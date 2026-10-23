@@ -6,11 +6,56 @@
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const state = { step: 0, name: '', email: '', organization: '', industry: '', topic: '', date: null, time: '', booked: [], loading: false, submitting: false };
 
-  // ---- dates and slots (bookingConstants.ts) ----
-  const BASELINE = [[9, 30], [11, 0], [12, 30], [13, 0], [15, 0]];
-  const fmtSlot = (h, m) => `${h > 12 ? h - 12 : h === 0 ? 12 : h}:${String(m).padStart(2, '0')} ${h >= 12 ? 'PM' : 'AM'} PT`;
-  const shift = (off) => BASELINE.map(([h, m]) => { const t = h * 60 + m + off; return fmtSlot(Math.floor(t / 60), t % 60); });
-  const slotsFor = (d) => { const w = d.getDay(); if (w === 4 || w === 1) return shift(0); if (w === 5 || w === 2) return shift(30); if (w === 6 || w === 3) return shift(-30); return []; };
+  // ---- dates and slots ----
+  // Ben's real availability, in Eastern Time (he works on the East coast; the page quoted Pacific and offered a flat
+  // five slots a day until 2026-10-23). [opens, closes] per weekday, minutes after midnight; Sunday is closed. A slot
+  // lasts SLOT minutes and has to END by closing, so the last one starts half an hour before closing.
+  // THE PLATFORM HOLDS THE SAME SCHEDULE: standard/platform/setup_call.py HOURS in ai-employee-v2 refuses (400) any
+  // time this file does not list. Change the two together, platform first.
+  const HOURS = { 0: null, 1: [630, 1020], 2: [600, 810], 3: [570, 870], 4: [630, 900], 5: [660, 1200], 6: [660, 900] };
+  const SLOT = 30;
+  const clock = (m) => { const h = Math.floor(m / 60), ap = h < 12 ? 'AM' : 'PM'; return `${h % 12 === 0 ? 12 : h % 12}:${String(m % 60).padStart(2, '0')} ${ap}`; };
+  const fmtSlot = (m) => `${clock(m)} ET`;
+  const slotsFor = (d) => {
+    const w = HOURS[d.getDay()];
+    if (!w) return [];
+    const out = [];
+    for (let t = w[0]; t + SLOT <= w[1]; t += SLOT) out.push(t);
+    return out;
+  };
+  // One or two slots on every open day are held back, so a day does not read as wide open. Seeded by the date, so a
+  // day always shows the same holds; a held slot looks exactly like a booked one, and is never held twice in a row.
+  const seeded = (key) => {
+    let h = 2166136261;
+    for (const ch of key) { h ^= ch.charCodeAt(0); h = Math.imul(h, 16777619); }
+    return () => {
+      h = (h + 0x6D2B79F5) | 0;
+      let t = Math.imul(h ^ (h >>> 15), 1 | h);
+      t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+      return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+    };
+  };
+  const heldFor = (d, taken) => {
+    const rnd = seeded(forDB(d));
+    const want = 1 + (rnd() < 0.45 ? 1 : 0);
+    const slots = slotsFor(d);
+    const free = slots.map((_, i) => i).filter((i) => !taken.has(slots[i]));
+    const picks = [];
+    while (picks.length < want) {
+      const open = free.filter((i) => picks.every((p) => Math.abs(p - i) > 1));
+      if (!open.length) break;
+      picks.push(open[Math.floor(rnd() * open.length)]);
+    }
+    return new Set(picks.map((i) => slots[i]));
+  };
+  // The instant a stored label means, in minutes after midnight Eastern. Rows written before 2026-10-23 carry a
+  // Pacific label; +3 h reads them as the Eastern moment they were booked for.
+  const storedMinutes = (label) => {
+    const m = /^(\d{1,2}):(\d{2})\s*(AM|PM)\s*(PST|PDT|PT|EST|EDT|ET)?$/i.exec(String(label).trim());
+    if (!m) return null;
+    const h = (Number(m[1]) % 12) + (/pm/i.test(m[3]) ? 12 : 0);
+    return h * 60 + Number(m[2]) + (/^P[SD]?T$/i.test(m[4] || '') ? 180 : 0);
+  };
   const display = (d) => d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
   const forDB = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
   const sameDay = (a, b) => a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
@@ -121,7 +166,7 @@
     for (let i = 0; i < first; i++) grid.insertAdjacentHTML('beforeend', '<div data-cell class="aspect-square"></div>');
     for (let d = 1; d <= count; d++) {
       const date = new Date(y, m, d);
-      const disabled = date < today || date.getDay() === 0;
+      const disabled = date < today || !HOURS[date.getDay()];
       const selected = state.date ? sameDay(date, state.date) : false;
       const isToday = sameDay(date, today);
       const b = document.createElement('button');
@@ -153,17 +198,19 @@
     if (sameDay(state.date, today)) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center h-full min-h-[160px]"><p class="mono-label text-black/55">Sorry — All booked up!</p></div>'); return; }
     if (state.loading) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center py-8"><div class="mono-label text-black/50">Loading availability...</div></div>'); return; }
     const slots = slotsFor(state.date);
+    const taken = new Set(state.booked.map(storedMinutes).filter((m) => m !== null));
+    const held = heldFor(state.date, taken);
     const wrap = document.createElement('div'); wrap.className = 'space-y-4'; box.appendChild(wrap);
-    for (const [label, part] of [['Morning', slots.filter((t) => t.includes('AM'))], ['Afternoon', slots.filter((t) => t.includes('PM'))]]) {
+    for (const [label, part] of [['Morning', slots.filter((t) => t < 720)], ['Afternoon', slots.filter((t) => t >= 720)]]) {
       if (!part.length) continue;
       const sec = document.createElement('div');
       sec.innerHTML = `<div class="mono-label text-black/50 mb-2">${label}</div><div class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>`;
       for (const t of part) {
-        const isBooked = state.booked.includes(t), on = state.time === t;
+        const time = fmtSlot(t), isBooked = taken.has(t) || held.has(t), on = state.time === time;
         const b = document.createElement('button');
-        b.type = 'button'; b.disabled = isBooked; b.textContent = t.replace(' PT', '');
+        b.type = 'button'; b.disabled = isBooked; b.textContent = clock(t);
         b.className = `px-2 py-2.5 text-[11px] tracking-wide rounded-lg transition-all duration-200 ${isBooked ? 'border border-black/5 text-black/15 cursor-not-allowed line-through' : on ? 'bg-red text-white font-semibold' : 'border border-black/10 text-black/60 hover:border-black/20 hover:text-black'}`;
-        b.addEventListener('click', () => { state.time = t; confirm.textContent = 'Confirm Booking'; times(); });
+        b.addEventListener('click', () => { state.time = time; confirm.textContent = 'Confirm Booking'; times(); });
         sec.lastElementChild.appendChild(b);
       }
       wrap.appendChild(sec);
