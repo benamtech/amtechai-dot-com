@@ -15,8 +15,8 @@ and is read.
 | MARKET | 1 | sonnet | 19:48 | 21:20 | **reported ~20:08 by the clock** (it wrote 20:12; segment, 144 job rows, 48 rate rows, agencies) | `lanes/MARKET.md`, `lanes/MARKET-data/` | 20:09: 2 of 2 checked at source (Census raw `EC2200SIZEREVFIRM.dat`: NAICS 2382 at $500k-1M = 29,367 firms, 133,085 employees; Ahrefs: local SEO $1,557/mo) |
 | INDUSTRY | 1b | sonnet | 20:09 | 21:45 | running: per business type, the recurring data-heavy services (the bids example's equivalents), their public data, what each is worth | `lanes/INDUSTRY.md`, `lanes/INDUSTRY-data/` | |
 | FRONTIER | 1 | sonnet | 19:48 | 21:20 | **reported ~20:26** (7 prior-art notes, 10 ideas ranked, rule-outs, support table, spikes measured) | `lanes/FRONTIER.md`, `sheets/FRONTIER/`, `scripts/FRONTIER/spikes/` | 20:28: 2 of 2 checked at source (Apple TN3156: a downloadable MPEG-4 in Messages 'downloads the video and automatically plays it back'; Heron AI on Awwwards: SOTD). WS-040 written |
-| CRAFT | 2 | **opus** | 20:33 | 21:55 | running: the best-crafted sites measured from computed styles (type, space, colour and line, density, motion, the product's picture) and looked at; 20-30 measurable targets for the design pass | `lanes/CRAFT.md`, `lanes/CRAFT-data/` | |
-| HERO-A | 2 | **opus** (coding) | 20:30 | 21:55 | running: the employee at work on a real record in the first viewport, on a drafted paper ground (worktree `hero-a`, port 8091) | `site/static/lab/hero-a/`, `lab/notes/HERO-A.md`, `shots/r2/hero-a-*` | |
+| CRAFT | 2 | **opus** | 20:33 | 21:55 | **reported ~21:20** (13 sites; 18 measured rules, disagreements, a 20-30 item target list, CTA and proof measured, hover pass); checked: Linear's display 64 px / 510 / -2.2%, 38 px at 390 (CRAFT-data/linear.json) | was: the best-crafted sites measured from computed styles (type, space, colour and line, density, motion, the product's picture) and looked at; 20-30 measurable targets for the design pass | `lanes/CRAFT.md`, `lanes/CRAFT-data/` | |
+| HERO-A | 2 | **opus** (coding) | 20:30 | 21:55 | **stopped 20:58** at the main session's request (Ben: design waits for the research); v1-v3 on `lab/hero-a`; its own verdict: characters as icons, one roofer's roster | was: the employee at work on a real record in the first viewport, on a drafted paper ground (worktree `hero-a`, port 8091) | `site/static/lab/hero-a/`, `lab/notes/HERO-A.md`, `shots/r2/hero-a-*` | |
 
 ## What the main session does while wave 1 runs (no lane's result can overturn it)
 
@@ -33,3 +33,7 @@ and is read.
 - WS-020 waits on RIVALS; WS-030 waits on MARKET; WS-040 waits on FRONTIER.
 - WS-050's hypotheses about the home page wait on all three; the onboarding hypotheses (WS-012) do not.
 - No round-2 lane starts before join 1 is written in WS-001.
+| PACKAGES | 2 | opus | ~20:40 | 21:55 | **reported ~21:20** (Naive's anatomy in full; 22 companies compared; gaps for AMTECH); forked two sub-agents of its own (B1, B2), past Ben's limit; told at 21:18 to start no more; checked: Intercom $0.99 per outcome (its pricing page's JSON-LD); Marblism's money-back guarantee present, its '2x traffic' wording not found (partly checked) | `lanes/PACKAGES.md`, `PACKAGES-data/` | read; into READ-FIRST |
+| INDUSTRY | 1b | sonnet | 20:09 | 21:45 | **reported ~20:41** (65 services, 29 types, 48 sources); checked: SAM.gov file 210,039,054 bytes modified 2026-10-26; NYC 2,175 inspected / 731 pest violations in 30 days (saved query results) | | read |
+
+**21:21. The session closes on Ben's instruction** (*"wait for all other agents to end, then set up a new session"*). POSITION and FUNNELS (briefs written) and SHOTS, SEO, DESIGN, GRAPHICS, MARKET 2 go to the next session: `amtech-ai-platform-mvp/plans/2026-10-27-WEBSITE/KICKOFF.md`.
