@@ -6,6 +6,12 @@ INDUSTRY (and its funnels part) and HERO-A report. This file says how the pass r
 
 ## The bar, stated so it can be checked
 
+- **Ben, 2026-10-26: *"we want a good looking high converting site"*.** Both halves are checked: the look against the
+  best sites and CRAFT's numbers; conversion by five-second tests (blind critics playing owners say what is sold and what
+  to do next), one primary action per screen, proof before the second screen, friction counted to the first piece of
+  real work, and later by GA4 on the live pages.
+- **Ben's notes stand on every page:** no eyebrow text, ever; no customer as a menu item; money in the owner's numbers;
+  many industries through departments, never the AI-receptionist trope.
 - **Ben's eye: 9 or 10 out of 10.** His scores so far: the live site 2, `lab/services` v0 3.
 - **Beside the best, not the rivals**: every screen is shot beside Linear, Stripe, Vercel, teenage engineering and
   Heron AI at 1440 and 390 (the controls), and the blind critics see the controls under letters too. A version that a

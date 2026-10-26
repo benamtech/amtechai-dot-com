@@ -1,4 +1,14 @@
-# WS-030. The market and the price: proposed, with the working (edition 0, 2026-10-26)
+# WS-030. The market and the price: proposed, with the working (edition 1, 2026-10-26; edition 0 withdrawn)
+
+> **Edition 0's prices and hire comparisons are WITHDRAWN (Ben, 2026-10-26, ~20:38 UTC):** *"the monthly numbers on
+> your draft and the service prices are insane. and not really at all what i meant"*; *"9k a month for an estimator and
+> 4.5k a month for a receptionist? thats ridiculous"*. The loaded figures (BLS median x 1.35) are an economist's number,
+> not what an owner pays; narrow services against whole salaries gave absurd discounts and a cheap-tool price. **Ben chose
+> the model: whole-business results**: one monthly price for results, priced against everything the business would
+> otherwise pay across agencies and positions together; the services are what that price covers, not line items. He also
+> said to take an alternative approach to the presentation. Edition 1 replaces §2, §4 and §5 in the owner's own numbers
+> (hourly and monthly pay as small firms in a region pay it; agencies' actual retainers). §1 and §3 (the segment, the
+> market rates) stand as evidence.
 
 **Every price here is a proposal. Ben sets prices (`brain/pricing.md`, rule 4); nothing below is published until he
 confirms each figure.** Sources: lane MARKET (`amtech-biz-brain/research/2026-10-26-the-website/lanes/MARKET.md`,
@@ -18,22 +28,27 @@ reports; this edition prices the services that cross every industry.
   firms under 20 employees); **"higher profit margin with them at first"** is not measurable from public data
   (no expenses by receipts class for most sectors). Treat the second as Ben's judgement, not a finding.
 
-## 2. What a full-time hire costs (BLS OEWS May 2025 medians × 1.35 loaded, ECEC June 2026, 1-49 workers)
+## 2. What a small business pays for a person, in the owner's own numbers (BLS OEWS May 2025, industry medians)
 
-| Job (SOC) | National median | Loaded a year | **Loaded a month** | LA median | Rural IL median |
-|---|---|---|---|---|---|
-| Receptionist (43-4171) | $34-47k by industry | ~$54k | **~$4,500** | $43,280 | $33,920 |
-| Customer service rep (43-4051) | $32-46k | ~$53k | **~$4,400** | $48,840 | $41,760 |
-| Office clerk (43-9061) | $37-48k | ~$59k | **~$4,900** | $48,100 | $39,290 |
-| Bookkeeping clerk (43-3031) | $47-59k | ~$73k | **~$6,100** | $58,590 | $45,760 |
-| Dispatcher (43-5032) | $50,340 | ~$68k | **~$5,700** | $52,170 | n/a |
-| Service sales rep (41-3091) | $31-78k | ~$85k (contractors $78k → $106k) | **~$7,000-8,800** | $79,450 | $48,920 |
-| Marketing specialist (13-1161) | $78k | ~$105k | **~$8,800** | $82,990 | $44,860 |
-| Cost estimator (13-1051) | $65-86k | ~$116k (contractors) | **~$9,600** | $82,260 | $74,730 |
-| Film and video editor (27-4032) | $75k | ~$102k | **~$8,500** | $83,210 | n/a |
+Wages as an owner pays them: hourly, and a full-time month (173 hours), **no benefits multiplier** (edition 0's x1.35
+is withdrawn: an owner prices a hire by the hourly rate). The 25th percentile is the small-firm, entry end; the median the
+middle; rural west-central Illinois and Los Angeles show the spread by region.
 
-Loaded = median × 1.35 (wages $27.88, total compensation $37.64 an hour, establishments of 1-49 workers). It leaves out
-recruiting (15-18.5% of first-year salary through an agency), equipment and the owner's time managing.
+| Job | 25th percentile | Median | Rural IL median | Los Angeles median |
+|---|---|---|---|---|
+| Receptionist | $17/hr, ~$3,000/mo | $19/hr, ~$3,200/mo | $16/hr | $21/hr |
+| Office clerk | $18/hr, ~$3,000/mo | $22/hr, ~$3,700/mo | $19/hr | $23/hr |
+| Admin assistant | $18/hr, ~$3,100/mo | $23/hr, ~$3,900/mo | $20/hr | $26/hr |
+| Bookkeeping clerk | $21/hr, ~$3,600/mo | $25/hr, ~$4,300/mo | $22/hr | $28/hr |
+| Dispatcher | $21/hr, ~$3,600/mo | $24/hr, ~$4,200/mo | n/a | $25/hr |
+| Service sales rep | $23/hr, ~$4,000/mo | $31/hr, ~$5,400/mo | $24/hr | $38/hr |
+| Marketing specialist | $28/hr, ~$4,800/mo | $38/hr, ~$6,500/mo | $22/hr | $40/hr |
+| Cost estimator | $29/hr, ~$5,000/mo | $36/hr, ~$6,300/mo | $36/hr | $40/hr |
+| Video editor | $25/hr, ~$4,400/mo | $36/hr, ~$6,300/mo | n/a | $40/hr |
+
+A $500k-1M business has about six employees and a payroll of 30% of receipts (~$216k a year, §1): it rarely has any
+of these as a full-time role. It buys the work in pieces: an agency's retainer, a few hours of someone's week, the owner's
+own nights. So the honest comparison is with **what it pays for those pieces together**, not with one salary.
 
 ## 3. What the outsourced service costs (surveys with samples, and vendors' own pages, read 2026-10-26)
 
@@ -51,41 +66,35 @@ recruiting (15-18.5% of first-year salary through an agency), equipment and the 
 | Collections | 25% of what is recovered | vendor pages |
 | Video editing | $25-60/hr | Jobbers 2026 index |
 
-## 4. The two offers (Ben: *"the difference from we onboard you and you manage it all yourself vs you pay for results"*)
+## 4. The model Ben chose: whole-business results, sold as packages
 
-**A. You run it** (today's prices, unchanged): the onboarding and the platform, the owner directing the employee.
-$1,200 setup with a setup call with Ben; usage at 8x compute; the first session from a funnel page free.
+**Ben, 2026-10-26:** *"forget listing specific service prices. what i was referring to was more like packages that
+usenaive.ai has on their homepage"*; asked to choose, he chose **whole-business results**: one monthly price for
+results, priced against everything the business would otherwise pay across agencies and positions together; the
+services are what that price covers. So:
 
-**B. Results, guaranteed**: named services, each a monthly price, done by the employee without the owner setting it
-up. Each is priced against **both** comparisons Ben named: the agency or vendor service it replaces, and the loaded cost
-of the job it stands in for. The page shows both.
+- **Packages, not price lines.** The home page shows packages the way Naive shows Company Templates (a card each: a
+  business type or a department, what the employee and its team do on their own, the team as characters, real proof,
+  "Start"). A package carries no price of its own. Lane PACKAGES reads Naive's anatomy and every other company that
+  sells agent teams this way.
+- **One price for results**, on the pricing page, set by Ben (his standing target is $1,500 a month for the services
+  the employee does, `brain/pricing.md`), beside **what the same work costs bought in pieces**, worked per business type
+  from §2 and §3 in the owner's numbers, for example for a $500k-1M contractor: a marketing or SEO agency ($500-1,557 a
+  month), twenty hours a week of office help at $18-22 an hour (~$1,550-1,900 a month), estimating bought by the job
+  ($120-1,000+ a project) or a bid feed ($59-199 a month) plus the hours to price what it finds. Each industry page
+  shows its own pieces from lane INDUSTRY's data; no page shows a loaded salary.
+- **You run it** stays as it is (the $1,200 setup with the call, usage as it runs), for owners who want to direct the
+  employee themselves.
+- **"Guaranteed"** (proposal, unchanged): the employee sets each covered result up itself, the platform measures each
+  delivery, a missed one comes off the next invoice.
 
-**What "guaranteed" commits to (proposal, to be decided by Ben):** (1) the employee sets the service up itself from the
-onboarding and the owner's connected accounts; (2) it runs on its cadence, and the platform measures each delivery
-(the routine's receipt: delivered, when, what); (3) the owner gets a monthly receipt of every delivery; (4) **a missed
-delivery is credited** (each missed day or week of a service takes its share off the next invoice), so the guarantee
-costs AMTECH money when it fails, which is what makes it a guarantee and not a slogan.
+Lane INDUSTRY (65 services across 29 business types, `lanes/INDUSTRY-data/services.json`) is what the packages cover.
+Its sharpest finding for the price: **the data is cheap** (public bid feeds $59-3,299 a year; SAM.gov's whole federal
+file is free and refreshed daily, 210 MB, checked 2026-10-26) **and owners' own software now ships an AI assistant**
+(Housecall Pro, Jobber, AgencyZoom, Follow Up Boss): what is worth paying for is the work done after the list, every
+morning, without the owner, which is exactly the whole-business result.
 
-**The floor under every service price:** its measured compute cost at most a quarter of its price (D71's rule). The
-cost per service per month is **not yet measured**; one data point exists: TEST's permit checklists for four towns,
-seven files, showed $1.31 of work on the owner's screen. Measure each service on the gateway ledger before a price is
-published.
+## 5. What Ben sets
 
-## 5. Proposed prices for the services that cross every industry (edition 0, for Ben to confirm or change)
-
-| Service (what is delivered, on what cadence) | Proposed | Against the agency | Against the hire | The working |
-|---|---|---|---|---|
-| **AI search and local SEO**: the listing, the site, AI answers measured weekly, three actions a month, a monthly receipt (the Scoop Dogg practice) | **$500/mo** | 68% under the $1,557 average | 94% under a marketing specialist's ~$8,800 | Under the 64%-of-agencies sub-$1,000 band, with proof (ChatGPT and AI Overview first for Scoop Dogg) none of them prints |
-| **Every lead answered and followed up**: web forms, email, (text and phone once Twilio is back), a reply drafted at the owner's prices within minutes, follow-ups until an answer | **$400/mo** | above AI answering ($79-299), well under human answering ($810-2,100) | 91% under a receptionist's ~$4,500 | It does what an AI answering service does plus the follow-up and the drafting; the phone half is not sellable until Twilio is restored (`state.py`: account suspended) |
-| **Business development**: finding and writing to the business's referral partners (GCs, realtors, property managers, as done for Scoop Dogg), a list kept and worked every week | **$750/mo** | 63% under a $2,000 outreach retainer | 89-91% under a service sales rep's ~$7,000-8,800 | Every message is the owner's to approve (gate two); the guarantee is the list and the drafts, not replies |
-| **Social posting and short video**: posts and edited clips each week from the business's own work | **$600/mo** | 40-76% under $1,000-2,499 | 93% under a video editor's ~$8,500 | Pictures and video are what every employee can do (D75); no generative pixels where the owner's own photos exist |
-| **The whole back office** (bundle): all of the above plus estimates, documents and any office work asked | **$1,500/mo** | under the four agencies it replaces (~$5,000-6,000 together) | 69% under one office clerk's ~$4,900; far under the four hires | Ben's own target (`brain/pricing.md`, Services@4); the bundle is the employee, the line items are what it is guaranteed to do |
-
-**Agencies (proposal):** an agency pays **50% of list** per client organisation and sets its own price to the client,
-with the client's organisation, money and records its own (WS-011 case 4). Against GoHighLevel's $297/mo unlimited
-sub-accounts, the price is per client because the work is per client.
-
-## 6. Per-industry services (from lane INDUSTRY, when it reports)
-
-To be appended: each business type's equivalents of the bids example, their data, what each is worth, and a proposed
-price with the same two comparisons.
+The one monthly price for results (and whether it varies by the size of the business), whether "guaranteed" means the
+credit above, and the agency's terms. Nothing on any page shows a price until he has.

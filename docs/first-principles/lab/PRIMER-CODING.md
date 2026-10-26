@@ -34,6 +34,18 @@ hypothesis visible and honest, built well enough to judge, and say plainly what 
   demo. A demonstration business is labelled as one (TEST Walk Roofing is AMTECH's own test business).
 - **The repo is public on GitHub.** Commit nothing from a customer's private records; Scoop Dogg's public facts above
   are fine.
+- **No eyebrow text, ever** (Ben, 2026-10-26): no small uppercase or mono label above a heading, section or card. The
+  heading says what the section is. Labels inside a table or a drawn figure (a callout, an axis) are not eyebrows.
+- **The characters across the site, never boring** (Ben: *"we definitely need to use characters across the site.
+  however your initial use of them ... was incredibly boring"*, of 40 px characters beside table rows): they are the
+  page's living presence at real size, working, handing work to each other; a page where they could be deleted without
+  loss has failed.
+- **A customer is never a menu item** (Ben, on `lab/services` v0's nav "Scoop Dogg"): a customer's story is a proof
+  section on a page or a Customers page, not navigation.
+- **Money in the owner's own numbers** (Ben: *"9k a month for an estimator and 4.5k a month for a receptionist? thats
+  ridiculous"*): no loaded-cost multipliers on a page; and the price model is **whole-business results** (one monthly
+  price against everything the business would otherwise pay across agencies and positions), not per-service lines.
+  WS-030 edition 0's numbers are withdrawn; show no hire comparison or service price until WS-030 edition 1.
 - **Weight**: an experiment page under 300 KB on first load without its media; motion respects
   `prefers-reduced-motion` (the calm shot is taken automatically).
 
