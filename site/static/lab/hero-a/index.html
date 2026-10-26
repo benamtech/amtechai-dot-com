@@ -37,9 +37,9 @@ a{color:inherit}
 .nav a.go:hover{background:#000}
 
 /* Hero */
-.hero{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);border-bottom:1px solid var(--hair)}
-.say{padding:64px 44px 40px 44px;display:flex;flex-direction:column;border-right:1px solid var(--hair)}
-h1{font:600 54px/1.02 var(--sans);letter-spacing:-.043em;margin:0 0 24px;text-wrap:balance}
+.hero{display:grid;grid-template-columns:minmax(0,520px) minmax(0,1fr);border-bottom:1px solid var(--hair)}
+.say{padding:60px 40px 40px 40px;display:flex;flex-direction:column;border-right:1px solid var(--hair)}
+h1{font:600 50px/1.03 var(--sans);letter-spacing:-.042em;margin:0 0 24px;text-wrap:balance}
 .lede{font-size:18px;line-height:1.5;color:var(--ink-2);margin:0 0 32px;text-wrap:pretty;max-width:29em}
 .lede strong{color:var(--ink);font-weight:500}
 .btn{align-self:flex-start;display:inline-flex;align-items:center;gap:14px;height:50px;padding:0 20px 0 22px;background:var(--ink);color:#fff;border-radius:3px;text-decoration:none;font:500 16px/1 var(--sans);letter-spacing:-.01em}
@@ -61,7 +61,20 @@ h1{font:600 54px/1.02 var(--sans);letter-spacing:-.043em;margin:0 0 24px;text-wr
 .tick{position:absolute;pointer-events:none}
 .tick.t{top:0;left:40px;right:40px;height:7px;background:repeating-linear-gradient(90deg,var(--ink-3) 0 1px,transparent 1px 40px)}
 .tick.l{left:0;top:40px;bottom:40px;width:7px;background:repeating-linear-gradient(180deg,var(--ink-3) 0 1px,transparent 1px 40px)}
-.draw{position:relative;width:min(540px,100%)}
+.draw{position:relative;display:grid;grid-template-columns:150px minmax(0,470px);column-gap:34px;padding-right:180px;max-width:100%}
+.lane{position:relative}
+.mate-at{position:absolute;left:0;width:150px;display:flex;flex-direction:column;align-items:flex-start}
+.mate-at .f{position:relative;line-height:0}
+.mate-at .f .sh{position:absolute;left:10%;right:10%;bottom:-3px;height:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(24,24,27,.22),transparent)}
+.mate-at .f svg{position:relative;display:block}
+.mate-at h3{font:600 13.5px/1.2 var(--sans);margin:8px 0 2px;letter-spacing:-.01em}
+.mate-at p{margin:0;font-size:12px;line-height:1.35;color:var(--ink-3)}
+.mate-at p b{font-weight:500}
+.mate-at.lead h3{font-size:15px}
+.st-done{color:var(--ok)}.st-work{color:var(--blue)}
+.edges{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.edges path{fill:none;stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 3}
+.edges .spark{filter:drop-shadow(0 0 4px currentColor)}
 .titleblock{position:absolute;right:0;bottom:0;display:grid;grid-template-columns:auto auto auto;border-left:1px solid var(--hair);border-top:1px solid var(--hair);background:var(--paper)}
 .titleblock div{padding:8px 14px 9px;border-right:1px solid var(--hair);color:var(--ink);line-height:1.45}
 .titleblock div:last-child{border-right:0}
@@ -72,7 +85,7 @@ h1{font:600 54px/1.02 var(--sans);letter-spacing:-.043em;margin:0 0 24px;text-wr
   box-shadow:0 1px 1px rgba(24,24,27,.04),0 18px 40px -18px rgba(24,24,27,.22)}
 .sec{position:relative;padding:15px 20px;border-top:1px solid var(--card-line)}
 .sec:first-child{border-top:0}
-.head{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:16px 20px 14px}
+.head{display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center;padding:16px 20px 14px}
 .solid{position:relative;width:52px;height:52px}
 .solid .shadow{position:absolute;left:6px;right:6px;bottom:-4px;height:9px;border-radius:50%;background:radial-gradient(closest-side,rgba(24,24,27,.26),transparent)}
 .solid .who-c{position:relative;display:block;line-height:0}
@@ -114,8 +127,8 @@ h1{font:600 54px/1.02 var(--sans);letter-spacing:-.043em;margin:0 0 24px;text-wr
 .ask .say2{flex:1;min-width:0;height:34px;border:1px solid var(--card-line);border-radius:3px;background:#fff;color:var(--ink-3);font-size:13px;display:flex;align-items:center;padding:0 10px;white-space:nowrap;overflow:hidden}
 
 /* Callouts: a dot on the card's edge, a leader, a numbered balloon, a plain label */
-.co{position:absolute;left:100%;top:17px;display:flex;align-items:center;width:230px;pointer-events:none;font-size:13.5px;line-height:1.3;letter-spacing:-.005em}
-.co::before{content:"";flex:none;width:40px;height:1px;background:var(--ink)}
+.co{position:absolute;left:100%;top:17px;display:flex;align-items:center;width:190px;pointer-events:none;font-size:13.5px;line-height:1.3;letter-spacing:-.005em}
+.co::before{content:"";flex:none;width:30px;height:1px;background:var(--ink)}
 .co::after{content:"";position:absolute;left:-3px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--ink)}
 .co .n{flex:none;width:21px;height:21px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font:500 10.5px/1 var(--mono);background:var(--paper)}
 .co .t{margin-left:10px;color:var(--ink)}
@@ -128,9 +141,14 @@ h1{font:600 54px/1.02 var(--sans);letter-spacing:-.043em;margin:0 0 24px;text-wr
 .intro{display:grid;grid-template-columns:minmax(0,560px) minmax(0,1fr);gap:0 44px;margin:0 0 56px}
 h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:balance}
 .intro p{margin:6px 0 0;color:var(--ink-2);font-size:17px;line-height:1.5;max-width:34em;text-wrap:pretty}
-.elev{display:grid;grid-template-columns:1.25fr repeat(7,1fr);gap:0 22px;align-items:end}
-.fig{position:relative;height:120px;display:flex;align-items:flex-end;justify-content:flex-start}
-.fig .sh{position:absolute;left:4px;width:58px;bottom:-4px;height:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(24,24,27,.2),transparent)}
+.elev{position:relative;display:grid;grid-template-columns:1.3fr repeat(7,1fr);gap:0 22px;align-items:end;padding-top:56px}
+.elev svg.arcs{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}
+.elev svg.arcs path{fill:none;stroke:var(--ink-2);stroke-width:1;stroke-dasharray:3 3}
+.elev svg.arcs path.hd{stroke-dasharray:none}
+.elev svg.arcs text{font:400 10.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;fill:var(--ink-3);text-anchor:middle;paint-order:stroke;stroke:var(--paper);stroke-width:4px}
+.elev .spark{filter:drop-shadow(0 0 4px currentColor)}
+.fig{position:relative;height:160px;display:flex;align-items:flex-end;justify-content:flex-start}
+.fig .sh{position:absolute;left:8px;width:76px;bottom:-4px;height:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(24,24,27,.2),transparent)}
 .fig svg{position:relative;display:block}
 .ground{grid-column:1/-1;height:1px;background:var(--ink);margin:0 0 16px}
 .cap{align-self:start}
@@ -152,12 +170,15 @@ h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:b
 
 /* Motion: the object lands, the plan advances, the files land. The static page is the final state. */
 @media (prefers-reduced-motion: no-preference){
-  .js .head .who-c{animation:land 1s cubic-bezier(.22,1,.36,1) .15s both}
-  .js .head .shadow{animation:shadow 1s cubic-bezier(.22,1,.36,1) .15s both}
+  .js #m-emp .f svg{animation:land 1.05s cubic-bezier(.22,1,.36,1) .15s both}
+  .js .mate-at:not(.lead) .f svg{animation:fade .6s ease-out both}
+  .js #m-scout .f svg{animation-delay:.45s}.js #m-checker .f svg{animation-delay:.6s}.js #m-writer .f svg{animation-delay:.75s}
+  .js #m-emp .f .sh{animation:shadow 1.05s cubic-bezier(.22,1,.36,1) .15s both}
   .js .file.landing{animation:fileIn .55s cubic-bezier(.22,1,.36,1) both}
 }
 @keyframes land{0%{transform:translateY(-26px);opacity:0}35%{opacity:1}72%{transform:translateY(1.5px)}100%{transform:none;opacity:1}}
 @keyframes shadow{0%{transform:scaleX(.35);opacity:0}72%{transform:scaleX(1.06);opacity:1}100%{transform:none;opacity:1}}
+@keyframes fade{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
 @keyframes fileIn{from{transform:translateY(-8px);opacity:0}to{transform:none;opacity:1}}
 @media (prefers-reduced-motion: reduce){.pulse{animation:none}html{scroll-behavior:auto}}
 
@@ -231,14 +252,20 @@ h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:b
     <div class="plate">
       <span class="tick t"></span><span class="tick l"></span>
       <span class="reg tl"><i></i></span><span class="reg tr"><i></i></span><span class="reg bl"><i></i></span><span class="reg br"><i></i></span>
-      <div class="draw">
+      <div class="draw" id="draw">
+        <div class="lane" id="lane">
+          <div class="mate-at" id="m-scout" data-sec="plan"><span class="f"></span><h3>Permit scout</h3><p id="s-scout"><b class="st-done">Done</b> · rules for 4 towns, each with its page</p></div>
+          <div class="mate-at" id="m-checker" data-sec="trust"><span class="f"></span><h3>Checker</h3><p><b>Next</b> · every crew-page figure</p></div>
+          <div class="mate-at" id="m-writer" data-sec="files"><span class="f"></span><h3>Checklist writer</h3><p id="s-writer"><b class="st-work">Writing</b> · Dunmore crew page</p></div>
+          <div class="mate-at lead" id="m-emp" data-sec="ask"><span class="f"></span><h3>Your employee</h3><p>Asks you one thing</p></div>
+        </div>
+        <svg class="edges" id="edges" aria-hidden="true"></svg>
         <article class="card" aria-label="A piece of work, as the owner sees it in the AMTECH application">
           <div class="sec head">
-            <div class="solid"><span class="shadow"></span><span class="who-c" id="emp"></span></div>
-            <div><h2>Permit checklists for four towns</h2><p>Your employee, for TEST Walk Roofing</p></div>
+            <div><h2>Permit checklists for four towns</h2><p>Your employee and three teammates, for TEST Walk Roofing</p></div>
             <span class="step" id="step">Step 2 of 4</span>
           </div>
-          <div class="sec">
+          <div class="sec" id="sec-plan">
             <span class="co"><span class="n">1</span><span class="t">The plan the employee wrote</span></span>
             <p class="live"><span class="pulse" aria-hidden="true"></span><span id="liveline">Writing the Dunmore crew page</span></p>
             <ol class="plan" id="plan">
@@ -248,7 +275,7 @@ h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:b
               <li>Bring you what the towns do not publish</li>
             </ol>
           </div>
-          <div class="sec">
+          <div class="sec" id="sec-trust">
             <span class="co"><span class="n">2</span><span class="t">What the employee assumed, could not find, and checked</span></span>
             <div class="trust">
               <div><i aria-hidden="true">≈</i><b>Assumed 4</b><span>That a crew page should say the same things the Dunmore…</span></div>
@@ -256,7 +283,7 @@ h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:b
               <div><i aria-hidden="true" style="color:var(--ok)">✓</i><b>Checked 5</b><span>Every crew-page figure against the town page it came…</span></div>
             </div>
           </div>
-          <div class="sec">
+          <div class="sec" id="sec-files">
             <span class="co"><span class="n">3</span><span class="t">The files the employee made</span></span>
             <div class="files" id="files">
               <div class="file"><div class="pg"></div><h3>Throop checklist</h3><p>PDF / 39 KB / v8</p></div>
@@ -265,7 +292,7 @@ h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:b
               <div class="file writing"><div class="pg"></div><h3>Dunmore crew page</h3><p>Writing</p></div>
             </div>
           </div>
-          <div class="sec ask">
+          <div class="sec ask" id="sec-ask">
             <span class="co red"><span class="n">4</span><span class="t">The only thing the employee needs from you</span></span>
             <p class="ctx">One-page sign-up for the free storm-season roof check, with the form delivering to Sam</p>
             <h4>Publish this page at https://test-walk-161e6f88.amtechai.com/pages/storm-roof-check/?</h4>
@@ -316,45 +343,136 @@ h2.big{font:600 40px/1.05 var(--sans);letter-spacing:-.04em;margin:0;text-wrap:b
 
 <script type="module">
 import { characterSVG } from "/lab/_shared/characters.js";
+const $ = (id) => document.getElementById(id);
 document.documentElement.classList.add("js");
-document.getElementById("emp").innerHTML = characterSVG({ shape: "lblock", hue: "#0E7490", size: 52, plinth: true, label: "Your employee" });
-document.getElementById("scoop").innerHTML = characterSVG({ shape: "gem", hue: "#2F9E5A", size: 48, plinth: true, label: "Scoop Dogg's AI employee" });
-const TEAM = [
-  ["Checker", "tent", "#5E6B7D", "Independently re-measures a takeoff and reports every number that does not agree"],
-  ["Checklist writer", "frustum", "#A3479C", "Turns verified permit rules into a one-page crew checklist for one town."],
-  ["Estimator", "gem", "#0F9488", "Does quantity takeoffs from plan sets, with every quantity measured, scaled and sourced"],
-  ["Knock list", "prism", "#6E8B3D", "Turns a storm report into a door-knock list of real streets near the report"],
-  ["Permit scout", "octa", "#7C5CD6", "Finds and verifies roofing permit rules for one municipality at a time, with the page each rule came from."],
-  ["Postcard", "wedge", "#2F9E5A", "Drafts storm postcards and door hangers for one street list"],
-  ["Storm watch", "pyramid", "#C8810E", "Reads NOAA storm reports near Scranton each morning and says where the wind and hail hit"],
-];
-const pad = (n) => String(n).padStart(2, "0");
-const lead = { fig: `<div class="fig"><span class="sh" style="width:96px;left:8px"></span>${characterSVG({ shape: "lblock", hue: "#0E7490", size: 112, plinth: true, label: "Your employee" })}</div>`,
-  cap: `<div class="cap lead"><span class="no">00</span><h3>Your employee</h3><p>Works for TEST Walk Roofing: plans each piece of work and hands each part to the teammate for the job.</p></div>` };
-const mates = TEAM.map(([n, s, h, r], i) => ({ fig: `<div class="fig"><span class="sh"></span>${characterSVG({ shape: s, hue: h, size: 66, label: n })}</div>`,
-  cap: `<div class="cap"><span class="no">${pad(i + 1)}</span><h3>${n}</h3><p>${r}</p></div>` }));
-const all = [lead, ...mates];
-// Desktop: one row of figures on a ground line, captions under it (an elevation). Phone: each member as one block.
-document.getElementById("elev").innerHTML = all.map((m) => `<div class="mate">${m.fig}${m.cap}</div>`).join("");
-const reflow = () => {
-  const el = document.getElementById("elev"), wide = matchMedia("(min-width: 901px)").matches;
-  el.innerHTML = wide ? all.map((m) => m.fig).join("") + `<div class="ground"></div>` + all.map((m) => m.cap).join("")
-                      : all.map((m) => `<div class="mate">${m.fig}${m.cap}</div>`).join("");
-};
-reflow(); matchMedia("(min-width: 901px)").addEventListener("change", reflow);
+const calm = !matchMedia("(prefers-reduced-motion: no-preference)").matches;
+const LOOK = { scout: ["octa", "#7C5CD6"], checker: ["tent", "#5E6B7D"], writer: ["frustum", "#A3479C"], emp: ["lblock", "#0E7490"] };
+const fig = (k, size, plinth) => `<span class="sh"></span>${characterSVG({ shape: LOOK[k][0], hue: LOOK[k][1], size, plinth, label: "" })}`;
+$("m-scout").querySelector(".f").innerHTML = fig("scout", 62);
+$("m-checker").querySelector(".f").innerHTML = fig("checker", 62);
+$("m-writer").querySelector(".f").innerHTML = fig("writer", 62);
+$("m-emp").querySelector(".f").innerHTML = fig("emp", 118, true);
+$("scoop").innerHTML = characterSVG({ shape: "gem", hue: "#2F9E5A", size: 64, plinth: true, label: "Scoop Dogg's AI employee" });
 
-// The plan advances: step 1 finishes, then each file lands as its live line finishes. Ends at the static state.
-if (matchMedia("(prefers-reduced-motion: no-preference)").matches) {
-  const live = document.getElementById("liveline"), step = document.getElementById("step");
-  const plan = [...document.querySelectorAll("#plan li")], files = [...document.querySelectorAll("#files .file")];
+/* The lane: each teammate stands beside the part of the work it owns; leaders run to the card's edge. */
+const draw = $("draw"), svg = $("edges"), NS = "http://www.w3.org/2000/svg";
+const box = (el) => { const r = el.getBoundingClientRect(), d = draw.getBoundingClientRect(); return { x: r.left - d.left, y: r.top - d.top, w: r.width, h: r.height }; };
+let routes = {};
+const place = () => {
+  const wide = matchMedia("(min-width: 901px)").matches;
+  svg.innerHTML = ""; routes = {};
+  document.querySelectorAll(".mate-at").forEach((m) => { m.style.top = ""; });
+  if (!wide) return;
+  const card = box(document.querySelector(".card"));
+  const at = { "m-scout": ["sec-plan", 40], "m-checker": ["sec-trust", 4], "m-writer": ["sec-files", 6], "m-emp": ["sec-ask", -6] };
+  for (const [m, [sec, dy]] of Object.entries(at)) $(m).style.top = (box($(sec)).y + dy) + "px";
+  const mid = (m) => { const f = box($(m).querySelector(".f svg")); return { r: f.x + f.w + 4, y: f.y + f.h * 0.55, cx: f.x + f.w / 2 }; };
+  const edge = (d, cls = "") => { const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); if (cls) p.setAttribute("class", cls); svg.appendChild(p); return p; };
+  const xe = card.x;                      // the card's left edge
+  const xb = xe - 14;                     // the bracket's spine, in the gap between lane and card
+  const s = mid("m-scout"), c = mid("m-checker"), w = mid("m-writer"), e = mid("m-emp");
+  edge(`M${s.r} ${s.y}H${xe}`); edge(`M${c.r} ${c.y}H${xe}`); edge(`M${w.r} ${w.y}H${xe}`); edge(`M${e.r} ${e.y}H${xe}`);
+  edge(`M${xb} ${s.y}V${w.y}`);           // the hand-off: the scout's rules go down to the writer
+  const files = [...document.querySelectorAll("#files .file")].map(box);
+  routes.handoff = `M${s.r} ${s.y}H${xb}V${w.y}H${w.r}`;
+  routes.file = files.map((f) => `M${w.r} ${w.y}H${xe}V${f.y - 7}H${f.x + f.w / 2}V${f.y + 14}`);
+  const ask = box($("sec-ask"));
+  routes.ask = `M${e.r} ${e.y}H${xe + 20}`;
+};
+place(); addEventListener("resize", place); document.fonts && document.fonts.ready.then(place);
+
+const spark = (d, hue, ms) => new Promise((done) => {
+  if (!d) return done();
+  const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); p.style.stroke = "none"; svg.appendChild(p);
+  const c = document.createElementNS(NS, "circle"); c.setAttribute("r", 4); c.setAttribute("fill", hue); c.setAttribute("class", "spark"); c.style.color = hue; svg.appendChild(c);
+  const L = p.getTotalLength(), t0 = performance.now(), ease = (t) => (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2);
+  const step = (now) => { const t = Math.min(1, (now - t0) / ms), q = p.getPointAtLength(L * ease(t)); c.setAttribute("cx", q.x); c.setAttribute("cy", q.y);
+    if (t < 1) requestAnimationFrame(step); else { c.remove(); p.remove(); done(); } };
+  requestAnimationFrame(step);
+});
+
+/* The run: the employee lands; the scout hands its rules to the writer; each checklist travels into the card and lands. */
+if (!calm) {
+  const live = $("liveline"), stepEl = $("step"), plan = [...document.querySelectorAll("#plan li")], files = [...document.querySelectorAll("#files .file")];
+  const sw = $("s-writer"), ss = $("s-scout");
   files.forEach((f) => (f.style.visibility = "hidden"));
-  plan[0].className = "now"; plan[1].className = ""; step.textContent = "Step 1 of 4"; live.textContent = "Finding each town's roofing permit rules";
-  const show = (f) => { f.style.visibility = ""; f.classList.add("landing"); };
-  const at = (ms, fn) => setTimeout(fn, ms);
-  at(1300, () => { plan[0].className = "done"; plan[1].className = "now"; step.textContent = "Step 2 of 4"; live.textContent = "Writing the Throop checklist"; });
-  at(2300, () => { show(files[0]); live.textContent = "Writing the Archbald checklist"; });
-  at(3200, () => { show(files[1]); live.textContent = "Writing the Jessup checklist"; });
-  at(4100, () => { show(files[2]); live.textContent = "Writing the Dunmore crew page"; show(files[3]); });
+  plan[0].className = "now"; plan[1].className = ""; stepEl.textContent = "Step 1 of 4"; live.textContent = "Finding each town's roofing permit rules";
+  ss.innerHTML = '<b class="st-work">Working</b> · Throop, Archbald, Jessup, Dunmore'; sw.innerHTML = "<b>Waiting</b> · for the rules";
+  const wait = (ms) => new Promise((r) => setTimeout(r, ms));
+  const land = (f) => { f.style.visibility = ""; f.classList.add("landing"); };
+  (async () => {
+    await wait(1250);
+    await spark(routes.handoff, "#7C5CD6", 750);
+    plan[0].className = "done"; plan[1].className = "now"; stepEl.textContent = "Step 2 of 4";
+    ss.innerHTML = '<b class="st-done">Done</b> · rules for 4 towns, each with its page';
+    const names = ["Throop checklist", "Archbald checklist", "Jessup checklist", "Dunmore crew page"];
+    for (let i = 0; i < 3; i++) {
+      live.textContent = "Writing the " + names[i]; sw.innerHTML = '<b class="st-work">Writing</b> · ' + names[i];
+      await wait(350);
+      await spark(routes.file && routes.file[i], "#A3479C", 650);
+      land(files[i]);
+    }
+    live.textContent = "Writing the Dunmore crew page"; sw.innerHTML = '<b class="st-work">Writing</b> · Dunmore crew page';
+    land(files[3]);
+  })();
+}
+
+/* The team: an elevation in the order work moves between them, with each real hand-off drawn as an arc. */
+const TEAM = {
+  scout: ["Permit scout", "octa", "#7C5CD6", "Finds and verifies roofing permit rules for one municipality at a time, with the page each rule came from."],
+  writer: ["Checklist writer", "frustum", "#A3479C", "Turns verified permit rules into a one-page crew checklist for one town."],
+  estimator: ["Estimator", "gem", "#0F9488", "Does quantity takeoffs from plan sets, with every quantity measured, scaled and sourced"],
+  checker: ["Checker", "tent", "#5E6B7D", "Independently re-measures a takeoff and reports every number that does not agree"],
+  storm: ["Storm watch", "pyramid", "#C8810E", "Reads NOAA storm reports near Scranton each morning and says where the wind and hail hit"],
+  knock: ["Knock list", "prism", "#6E8B3D", "Turns a storm report into a door-knock list of real streets near the report"],
+  postcard: ["Postcard", "wedge", "#2F9E5A", "Drafts storm postcards and door hangers for one street list"],
+};
+const ORDER = ["scout", "writer", "estimator", "checker", "storm", "knock", "postcard"];
+const HANDS = [["scout", "writer", "permit rules"], ["estimator", "checker", "a takeoff"], ["storm", "knock", "a storm report"], ["knock", "postcard", "a street list"]];
+const pad = (n) => String(n).padStart(2, "0");
+const lead = { k: "emp", fig: `<div class="fig" data-k="emp"><span class="sh" style="width:120px;left:10px"></span>${characterSVG({ shape: "lblock", hue: "#0E7490", size: 150, plinth: true, label: "Your employee" })}</div>`,
+  cap: `<div class="cap lead"><h3>Your employee</h3><p>Works for TEST Walk Roofing. Plans each piece of work, hands each part to the teammate for the job, and brings you the decisions.</p></div>` };
+const mates = ORDER.map((k, i) => { const [n, s, h, r] = TEAM[k];
+  return { k, fig: `<div class="fig" data-k="${k}"><span class="sh"></span>${characterSVG({ shape: s, hue: h, size: 92, label: n })}</div>`,
+    cap: `<div class="cap"><h3>${n}</h3><p>${r}</p></div>` }; });
+const all = [lead, ...mates];
+const elev = $("elev");
+const arcs = () => {
+  const old = elev.querySelector("svg.arcs"); if (old) old.remove();
+  if (!matchMedia("(min-width: 901px)").matches) return [];
+  const e = elev.getBoundingClientRect(), a = document.createElementNS(NS, "svg"); a.setAttribute("class", "arcs"); a.setAttribute("aria-hidden", "true"); elev.appendChild(a);
+  return HANDS.map(([from, to, what]) => {
+    const A = elev.querySelector(`[data-k="${from}"] svg`).getBoundingClientRect(), B = elev.querySelector(`[data-k="${to}"] svg`).getBoundingClientRect();
+    const x1 = A.left - e.left + A.width / 2 + 8, x2 = B.left - e.left + B.width / 2 - 8, y = A.top - e.top + 10, top = y - 46;
+    const d = `M${x1} ${y}C${x1} ${top} ${x2} ${top} ${x2} ${y}`;
+    const p = document.createElementNS(NS, "path"); p.setAttribute("d", d); a.appendChild(p);
+    const head = document.createElementNS(NS, "path"); head.setAttribute("d", `M${x2 - 3.5} ${y - 6}L${x2} ${y}L${x2 + 3.5} ${y - 6}`); head.setAttribute("class", "hd"); a.appendChild(head);
+    const t = document.createElementNS(NS, "text"); t.setAttribute("x", (x1 + x2) / 2); t.setAttribute("y", top + 6); t.textContent = what; a.appendChild(t);
+    return { d, hue: TEAM[from][2], svg: a };
+  });
+};
+let drawn = [];
+const reflow = () => {
+  const wide = matchMedia("(min-width: 901px)").matches;
+  elev.innerHTML = wide ? all.map((m) => m.fig).join("") + `<div class="ground"></div>` + all.map((m) => m.cap).join("")
+                        : all.map((m) => `<div class="mate">${m.fig}${m.cap}</div>`).join("");
+  drawn = arcs();
+};
+reflow(); matchMedia("(min-width: 901px)").addEventListener("change", reflow); addEventListener("resize", () => { drawn = arcs(); });
+document.fonts && document.fonts.ready.then(() => { drawn = arcs(); });
+if (!calm && "IntersectionObserver" in window) {
+  let ran = false;
+  new IntersectionObserver((es, o) => { if (ran || !es[0].isIntersecting) return; ran = true; o.disconnect();
+    (async () => { for (let round = 0; round < 2; round++) for (const h of drawn) {
+      const a = h.svg, NSp = document.createElementNS(NS, "path"); NSp.setAttribute("d", h.d); NSp.style.stroke = "none"; a.appendChild(NSp);
+      const c = document.createElementNS(NS, "circle"); c.setAttribute("r", 4.5); c.setAttribute("fill", h.hue); c.style.color = h.hue; c.setAttribute("class", "spark"); a.appendChild(c);
+      const L = NSp.getTotalLength(); await new Promise((done) => { const t0 = performance.now();
+        const st = (now) => { const t = Math.min(1, (now - t0) / 900), q = NSp.getPointAtLength(L * (t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2));
+          c.setAttribute("cx", q.x); c.setAttribute("cy", q.y); if (t < 1) requestAnimationFrame(st); else { c.remove(); NSp.remove(); done(); } };
+        requestAnimationFrame(st); });
+      await new Promise((r) => setTimeout(r, 180));
+    } })();
+  }, { threshold: 0.45 }).observe(elev);
 }
 </script>
 </body></html>

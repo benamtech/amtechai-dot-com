@@ -95,3 +95,30 @@ spark carries it into the card and the file lands. The team screen becomes an el
 team's real routines drawn as arcs between figures (Storm watch to Knock list to Postcard; Permit scout to Checklist
 writer; Estimator to Checker), sparks running when the section comes into view. Text around moving characters (idea 9)
 is not attempted: Pretext is an unverified dependency and there is no time to do it well.
+
+## 20:58 message from the main session (Ben): the team is made per business; plan before building
+Ben: teammates are named by the employee as they are created for each business, so one business's roster limits the
+customer; "you are not planning out a good looking webpage before hand"; Scoop Dogg is one case study; prices only
+"custom agent setups from $1,200 a month" and "pay as you go from $50 a month", if any. First-screen message: AMTECH
+learns about your business in minutes and runs a team of AI agents for it. Then: stop building, the slot goes to a
+research lane.
+
+## 20:58 v3 (interim, shot at desktop only: hero-a-v3-desktop-first/calm/full; the phone pass crashed partway)
+Tried: the three teammates on this job in a lane beside the card, each beside the part it owns, dashed leaders to the
+card, sparks carrying the scout's rules to the writer and each checklist into its tile; the team screen re-ordered by
+real hand-offs with arcs. Seen wrong: the lane's spacing is uneven (Checker's caption collides with Checklist writer's
+figure), the leaders read as a flow chart, the plate is now crowded, and it is still one business's roster, which
+Ben has ruled out.
+
+## 20:58 last note: what v1-v3 showed
+- Works: live DOM of the application's own card on a paper sheet with callouts reads as product, not a screenshot;
+  the decision with its buttons fits the first screen at 1440; no eyebrows; the dot grid, edge ticks and title block
+  carry the drafting idea at a whisper; 16 KB of page weight.
+- Wrong: the characters were icons, then a crowded lane; one roofer's seven teammates is a roster, not the mechanism;
+  the second screen read as a table; the headline is four lines.
+- Plan for whoever picks this up (not built): concept, "any business in, a team forms for it in minutes". First
+  screen at 1440: a one- or two-line headline across the top; below it one wide plate where a business (a URL or a
+  Google listing) is read and the employee lands on its plinth at real size (160-200 px), then teammates form around it
+  one by one, each named for a job that business needs, with hand-off sparks between them; a single work card from
+  one of them as the proof of depth, rotating across two or three industries. At 390: headline, the employee landing,
+  the team forming as a row, the action. Type: Geist display at two sizes only, Plex Mono only inside the drawing.
