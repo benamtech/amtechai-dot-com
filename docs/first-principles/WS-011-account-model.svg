@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 720" width="1200" height="720" font-family="Inter, 'Helvetica Neue', Arial, sans-serif">
+  <title>The AMTECH account model: a person, organisations, businesses, AI employees and their teams</title>
+  <style>
+    .ink { fill: #111; } .grey { fill: #6b6b6b; } .rule { stroke: #111; stroke-width: 1.5; fill: none; }
+    .hair { stroke: #c9c9c9; stroke-width: 1; fill: none; } .box { fill: #fff; stroke: #111; stroke-width: 1.5; }
+    .biz { fill: #fafafa; stroke: #9a9a9a; stroke-width: 1; } .mono { font-family: 'IBM Plex Mono', Menlo, monospace; }
+    .h { font-size: 15px; font-weight: 700; } .s { font-size: 12px; } .xs { font-size: 10.5px; letter-spacing: .04em; }
+    .seat { stroke: #111; stroke-width: 1.5; fill: none; } .dash { stroke-dasharray: 5 4; }
+  </style>
+  <rect width="1200" height="720" fill="#fff"/>
+  <text x="40" y="44" class="ink h" font-size="18">How AMTECH is organised</text>
+  <text x="40" y="66" class="grey s">A person holds seats in organisations. An organisation runs businesses. Each business has AI employees. Each employee has its own team.</text>
+  <line x1="40" y1="84" x2="1160" y2="84" class="hair"/>
+
+  <!-- the person -->
+  <circle cx="92" cy="330" r="16" class="box"/>
+  <rect x="70" y="350" width="44" height="34" rx="3" class="box"/>
+  <text x="92" y="410" text-anchor="middle" class="ink h">You</text>
+  <text x="92" y="428" text-anchor="middle" class="grey s">signs in with a code</text>
+
+  <!-- seats -->
+  <path d="M116 360 C 170 360, 170 230, 220 230" class="seat"/>
+  <text x="150" y="222" class="mono xs ink">OWNER</text>
+  <path d="M116 372 C 170 372, 170 560, 220 560" class="seat"/>
+  <text x="40" y="500" class="mono xs ink">MEMBER · APPROVER</text>
+
+  <!-- organisation 1 -->
+  <rect x="220" y="104" width="560" height="290" class="box"/>
+  <text x="236" y="128" class="ink h">Your organisation</text>
+  <text x="236" y="146" class="grey s">pays, holds people and permissions</text>
+
+  <!-- business A -->
+  <rect x="236" y="162" width="256" height="216" class="biz"/>
+  <text x="250" y="184" class="ink h" font-size="13.5">Business: Coastline Pest</text>
+  <polygon points="276,212 300,252 252,252" fill="#E11D2A"/>
+  <circle cx="270" cy="236" r="2.6" fill="#fff"/><circle cx="282" cy="236" r="2.6" fill="#fff"/>
+  <rect x="254" y="254" width="44" height="5" fill="#111"/>
+  <text x="314" y="226" class="ink s" font-weight="600">AI employee</text>
+  <text x="314" y="243" class="grey s">its own computer, address</text>
+  <text x="314" y="258" class="grey s">and records</text>
+  <line x1="276" y1="264" x2="276" y2="290" class="rule"/>
+  <line x1="262" y1="290" x2="458" y2="290" class="hair"/>
+  <text x="250" y="310" class="mono xs grey">ITS TEAM</text>
+  <rect x="252" y="320" width="22" height="22" rx="2" fill="#2F6FDE"/>
+  <circle cx="306" cy="331" r="11" fill="#2F9E5A"/>
+  <polygon points="350,320 362,342 338,342" fill="#C98A1B"/>
+  <rect x="378" y="320" width="22" height="22" rx="11" fill="#7A4FD0" transform="rotate(45 389 331)"/>
+  <text x="250" y="366" class="grey s">teammates: the employee, one job each</text>
+
+  <!-- business B -->
+  <rect x="508" y="162" width="256" height="216" class="biz"/>
+  <text x="522" y="184" class="ink h" font-size="13.5">Business: Coastline Lawn</text>
+  <rect x="526" y="214" width="40" height="38" rx="3" fill="#111"/>
+  <circle cx="540" cy="232" r="2.6" fill="#fff"/><circle cx="552" cy="232" r="2.6" fill="#fff"/>
+  <rect x="524" y="254" width="44" height="5" fill="#111"/>
+  <text x="584" y="226" class="ink s" font-weight="600">AI employee</text>
+  <text x="584" y="243" class="grey s">a second one may join</text>
+  <text x="584" y="258" class="grey s">any business</text>
+  <line x1="546" y1="264" x2="546" y2="290" class="rule"/>
+  <line x1="532" y1="290" x2="730" y2="290" class="hair"/>
+  <text x="522" y="310" class="mono xs grey">ITS TEAM</text>
+  <circle cx="535" cy="331" r="11" fill="#C98A1B"/>
+  <rect x="558" y="320" width="22" height="22" rx="2" fill="#2F9E5A"/>
+  <text x="522" y="366" class="grey s">its own teammates, its own hues</text>
+
+  <!-- organisation 2: a seat in someone else's -->
+  <rect x="220" y="470" width="560" height="200" class="box"/>
+  <text x="236" y="494" class="ink h">Another organisation</text>
+  <text x="236" y="512" class="grey s">where you hold a seat: you use the employee you were given, or say yes to what it sends</text>
+  <rect x="236" y="528" width="256" height="126" class="biz"/>
+  <text x="250" y="550" class="ink h" font-size="13.5">Business: Harbor Books</text>
+  <circle cx="278" cy="598" r="22" fill="#2F6FDE"/>
+  <circle cx="271" cy="594" r="2.6" fill="#fff"/><circle cx="285" cy="594" r="2.6" fill="#fff"/>
+  <rect x="256" y="622" width="44" height="5" fill="#111"/>
+  <text x="314" y="592" class="ink s" font-weight="600">AI employee</text>
+  <text x="314" y="609" class="grey s">granted to you</text>
+
+  <!-- agency -->
+  <rect x="860" y="104" width="300" height="290" class="box"/>
+  <text x="876" y="128" class="ink h">An agency's organisation</text>
+  <text x="876" y="146" class="grey s">runs its clients' organisations</text>
+  <rect x="876" y="166" width="268" height="40" class="biz"/><text x="890" y="191" class="s ink">Client: Bayside Dental</text>
+  <rect x="876" y="214" width="268" height="40" class="biz"/><text x="890" y="239" class="s ink">Client: Ridge Roofing</text>
+  <rect x="876" y="262" width="268" height="40" class="biz"/><text x="890" y="287" class="s ink">Client: Mesa Movers</text>
+  <text x="876" y="330" class="mono xs ink">RESELLER</text>
+  <text x="876" y="350" class="grey s">each client keeps its own money,</text>
+  <text x="876" y="366" class="grey s">records and the power to end access</text>
+
+  <!-- amtech operator -->
+  <rect x="860" y="470" width="300" height="200" class="box dash"/>
+  <text x="876" y="494" class="ink h">AMTECH, when asked in</text>
+  <text x="876" y="514" class="grey s">operator access that the customer</text>
+  <text x="876" y="530" class="grey s">sees, can end, and that expires;</text>
+  <text x="876" y="546" class="grey s">every act logged with its reason</text>
+  <path d="M860 560 L 790 470" class="seat dash"/>
+  <text x="876" y="590" class="mono xs ink">OPERATOR · ENDS</text>
+
+  <text x="40" y="704" class="grey xs mono">AMTECH · WS-011 · the six words: you, organisation, business, AI employee, team, seat</text>
+</svg>

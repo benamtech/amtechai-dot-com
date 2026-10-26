@@ -1,0 +1,28 @@
+{
+ "round": "r0",
+ "name": "lab-characters",
+ "url": "http://127.0.0.1:8089/lab/characters/",
+ "at": "2026-10-26T20:17:00.381Z",
+ "sizes": {
+  "desktop": {
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+   ],
+   "failed": [],
+   "overflow": [],
+   "load_ms": 598,
+   "lcp_ms": 712,
+   "height": 900,
+   "bytes_kb": 30
+  },
+  "phone": {
+   "console_errors": [],
+   "failed": [],
+   "overflow": [],
+   "load_ms": 576,
+   "lcp_ms": 376,
+   "height": 890,
+   "bytes_kb": 18
+  }
+ }
+}

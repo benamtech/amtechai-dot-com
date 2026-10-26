@@ -1,0 +1,31 @@
+{
+ "round": "r0",
+ "name": "live-home",
+ "url": "https://amtechai.com/",
+ "at": "2026-10-26T20:05:52.016Z",
+ "sizes": {
+  "desktop": {
+   "console_errors": [],
+   "failed": [
+    "net::ERR_ABORTED https://www.google-analytics.com/g/collect?v=2&tid=G-HZ9HL72L7Q&gtm=45je6am0v9252513802za208zd9252513802xf1&_p=179304515",
+    "net::ERR_ABORTED https://www.google-analytics.com/g/collect?v=2&tid=G-HZ9HL72L7Q&gtm=45je6am0v9252513802za200zd9252513802xf1&_p=179304515"
+   ],
+   "overflow": [],
+   "load_ms": 2137,
+   "lcp_ms": 1460,
+   "height": 8927,
+   "bytes_kb": 535
+  },
+  "phone": {
+   "console_errors": [],
+   "failed": [
+    "net::ERR_ABORTED https://www.google-analytics.com/g/collect?v=2&tid=G-HZ9HL72L7Q&gtm=45je6am0v9252513802za208zd9252513802xf1&_p=179304518"
+   ],
+   "overflow": [],
+   "load_ms": 1374,
+   "lcp_ms": 868,
+   "height": 12201,
+   "bytes_kb": 601
+  }
+ }
+}
