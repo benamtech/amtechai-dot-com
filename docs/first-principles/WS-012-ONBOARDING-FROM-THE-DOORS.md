@@ -55,7 +55,46 @@ takes long enough that the wait needs hiding (measure the attach on the box befo
 
 ## 4. Open, to measure before the prototype
 
-- The attach's wall time from claim to the employee serving at its address (E-CLAIM-IS-ATTACH has the receipt).
+- ~~The attach's wall time~~ **Measured 2026-10-26 ~20:31 UTC** from the box's own logs (`/opt/amtech/run/claim-u-*.log`,
+  the twelve most recent claims): **2.0 to 11.4 s, median about 4 s**, in five steps the platform names itself:
+  `attached` (0.0 s), `rekey` (the employee's own key, 1-5 s), `visitor-key` (the visitor's key retired), `bounds`
+  (its limits lifted), `soul` (its instructions set). **What it changes:** the wait is short enough to show, not hide,
+  and its steps are real events the page can draw as they happen (H-ONB-REAL): "joined your organisation", "its own
+  key", "its limits lifted", "its instructions written". H-ONB-1's second falsifier does not hold at today's times.
 - Whether the interviewer's prompts still match the shipped talker's voice, and its cost per interview today.
 - What the site needs from the front door to host the conversation on `amtechai.com` (CORS for `/api/onboarding/*`
   is gated by `_origin_is(app_url)` or `_cors`).
+
+## 5. The flow, after RIVALS Part E (2026-10-26 20:34 UTC; the prototype's spec)
+
+RIVALS walked thirteen products to their identity walls (filmed, `research/.../sheets/RIVALS/onboarding/`; Summary E
+in `lanes/RIVALS.md`). Three findings decide the order: **value before any identity wins** (Perplexity, ChatGPT,
+Lovable by report); **nobody verifies a code inside the conversation** (every wall is OAuth, email or phone on its own
+page), so ours is new and must come after value, not before; **almost nobody shows work during the wait** (only Naive,
+and only after payment). Ben's order (a conversation, signup and verification inside it, then the new employee and
+organisation) holds; the first piece of real work moves in front of the email.
+
+1. **The first screen asks for the business, not an idea**: one field, "Your website or Google listing", and chips
+   named for an owner's jobs from the service list ("Answer every lead", "Find me the bids", "Get me found on
+   ChatGPT"), never product kinds. A trade picker is the fallback for a business with no website (Durable's per-trade
+   first screen).
+2. **Real work before the wall** (AMTECH's onboarding voice, the interviewer's three topics, `sourced_facts`): the page
+   reads the business's public footprint (its site through AMTECH's reader) and answers in the conversation with what it
+   found (services, towns, hours, what a customer sees first) and **the three jobs it would take first, each with what
+   that service costs elsewhere** (WS-030). Every fact quotes its source line. Cheap: one reader fetch, one model call.
+3. **The wall is a turn in the conversation**: "Where should I send your code?" (email or mobile), the code typed into
+   the conversation, `/signup/start` and `/signup/verify` underneath. The first question the employee will work on is
+   already written above the code field (Lovable's and Naive's preview of the next step).
+4. **The organisation and the employee arrive as events, shown as they happen** (measured 2.0-11.4 s, §4; read at 20:31 UTC): the
+   organisation named after the business; the employee joining it; its character given (shape, hue) and set on its
+   plinth; its own key; its limits lifted; its instructions written from the conversation. Each line appears when the
+   platform writes its row; nothing is animated that did not happen.
+5. **The person lands in the employee's own client**, the first job already running (the one drafted in step 2), the
+   six open topics as its first-session agenda, and the team forming as the employee makes teammates for the services
+   chosen. No empty state anywhere (Lovable's lesson).
+
+**What the lab prototype can and cannot do today:** a preview origin cannot call the interviewer (the front door allows
+only `https://amtechai.com` and `www`, and `/api/onboarding/message/stream` is not in `SITE_ROUTES`). So round 2's
+prototype replays recorded real turns and real claim timings, labelled as a replay; going live is a platform change
+(the site's origin list and the route), made when the design is chosen. OpenRouter credit is near zero (state.py), so
+the live first-work call (step 2) is measured for cost before it ships.
