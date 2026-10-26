@@ -72,3 +72,26 @@ is almost invisible and its labels are tiny and exact; teenage engineering draws
 v2 plan: h1 shorter in a wider column (3 lines); spec moved into the drawing's title block; faint grid with ticks;
 callouts in sentence case; phone shows the card in the first screen; second screen drawn as an elevation (the team
 standing on one ground line with leaders), not a table; proof as one line of large figures.
+
+## 20:45 message from the main session (Ben): the characters were "incredibly boring" as icons
+The characters must be the page's living presence at real size: the employee landing on its plinth, teammates at
+their jobs, hand-offs between them visible (FRONTIER 5 the object that lands, 10 hand-off sparks along edges, 9 text
+around moving characters if done well). Calm shot complete without motion. If the characters could be deleted without
+the page losing anything, the version has failed. v2 fails this: the employee is a 52 px icon in the card header.
+
+## 20:45 v2 shot and looked at (shots/r2/hero-a-v2-*; 0 errors, 0 overflow; LCP 1036 ms desktop)
+Better than v1: no eyebrows, the h1 is four lines in a wider column, the dot grid and edge ticks read as a drafting
+sheet rather than graph paper, the title block carries the provenance, callouts in sentence case read cleanly, the
+card fits the first screen with the decision and its buttons visible.
+Faults: V2-1 the characters are decoration (Ben's note): the page would lose nothing without them. V2-2 the plate's
+right third is empty dots beside the callouts. V2-3 the callout labels still wrap to three lines at 230 px. V2-4 the
+team screen is a row of captions under small figures: a table with the borders taken off.
+v3 plan (the characters carry the work): the plan's four steps map onto the team's own jobs (Permit scout finds the
+rules, Checklist writer writes the checklists, Checker checks the figures, the employee brings you the gaps). So the
+plate gets a lane left of the card: the employee at 120 px landing on its plinth, and the three teammates on this job
+at 64 px beside the section each owns, each with what it is doing now. Leaders run from each teammate to its section,
+and a spark in the teammate's hue travels the leader at each hand-off: as Checklist writer finishes a checklist, the
+spark carries it into the card and the file lands. The team screen becomes an elevation with the hand-offs of the
+team's real routines drawn as arcs between figures (Storm watch to Knock list to Postcard; Permit scout to Checklist
+writer; Estimator to Checker), sparks running when the section comes into view. Text around moving characters (idea 9)
+is not attempted: Pretext is an unverified dependency and there is no time to do it well.

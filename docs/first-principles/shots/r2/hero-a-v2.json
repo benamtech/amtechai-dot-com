@@ -1,0 +1,26 @@
+{
+ "round": "r2",
+ "name": "hero-a-v2",
+ "url": "http://127.0.0.1:8091/lab/hero-a/",
+ "at": "2026-10-26T20:42:41.414Z",
+ "sizes": {
+  "desktop": {
+   "console_errors": [],
+   "failed": [],
+   "overflow": [],
+   "load_ms": 865,
+   "lcp_ms": 1036,
+   "height": 2041,
+   "bytes_kb": 16
+  },
+  "phone": {
+   "console_errors": [],
+   "failed": [],
+   "overflow": [],
+   "load_ms": 747,
+   "lcp_ms": 680,
+   "height": 3954,
+   "bytes_kb": 12
+  }
+ }
+}
