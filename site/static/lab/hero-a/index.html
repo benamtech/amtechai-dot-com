@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab HERO-A: the AI employee at work, drawn on paper</title>
+<meta name="description" content="Experiment HERO-A for amtechai.com: the first screen is an AMTECH AI employee doing real work on a business's records, drawn as an engineering sheet.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://amtechai.com/lab/hero-a">
+<link rel="stylesheet" href="/lab/_shared/fonts.css">
+<style>
+:root{
+  --paper:#F6F5F1; --paper-2:#EFEEE8; --ink:#18181B; --ink-2:#52525B; --ink-3:#71717A; --hair:#D9D8D2; --hair-2:#E6E5E0;
+  --red:#E11D2A; --blue:#2563EB; --ok:#15803D; --warn:#A16207;
+  --card-line:#E8E8EB; --whisper:#FBFBFB; --layer:#F5F5F6;
+  --mono:'IBM Plex Mono',ui-monospace,monospace; --sans:'Geist',ui-sans-serif,system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.5 var(--sans);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit}
+.mono{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase}
+
+/* The sheet: a hairline frame with rulers, as a drawing office would print it */
+.sheet{position:relative;margin:16px;border:1px solid var(--hair);min-height:calc(100vh - 32px)}
+.ruler{position:absolute;left:0;right:0;height:8px;pointer-events:none;
+  background:repeating-linear-gradient(90deg,var(--hair) 0 1px,transparent 1px 8px) left bottom/100% 4px no-repeat,
+             repeating-linear-gradient(90deg,var(--hair) 0 1px,transparent 1px 40px) left bottom/100% 8px no-repeat}
+.ruler.top{top:64px}
+.reg{position:absolute;width:15px;height:15px;pointer-events:none}
+.reg::before,.reg::after{content:"";position:absolute;background:var(--ink-3)}
+.reg::before{left:7px;top:0;width:1px;height:15px}.reg::after{top:7px;left:0;height:1px;width:15px}
+.reg i{position:absolute;inset:3px;border:1px solid var(--ink-3);border-radius:50%}
+
+/* Header */
+.bar{display:flex;align-items:center;height:64px;border-bottom:1px solid var(--hair)}
+.mark{font:600 21px/1 var(--sans);letter-spacing:-.03em;padding:0 24px;text-decoration:none}
+.mark b{color:var(--red);font-weight:600}
+.nav{display:flex;height:100%;margin-left:auto}
+.nav a{display:flex;align-items:center;gap:10px;padding:0 22px;border-left:1px solid var(--hair);text-decoration:none;color:var(--ink-2)}
+.nav a span{color:var(--ink-3)}
+.nav a:hover{background:var(--paper-2);color:var(--ink)}
+.nav a.go{background:var(--ink);color:#fff;border-left:0}
+.nav a.go:hover{background:#000}
+
+/* Hero */
+.hero{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);border-bottom:1px solid var(--hair)}
+.say{padding:44px 40px 40px;display:flex;flex-direction:column;border-right:1px solid var(--hair)}
+.spec{display:grid;grid-template-columns:max-content 1fr;gap:5px 18px;margin:0 0 auto;padding-bottom:36px;color:var(--ink-2)}
+.spec dt{color:var(--ink-3)}.spec dd{margin:0;color:var(--ink)}
+h1{font:600 clamp(40px,4.4vw,64px)/1.0 var(--sans);letter-spacing:-.045em;margin:0 0 22px;text-wrap:balance}
+.lede{font-size:18px;line-height:1.5;color:var(--ink-2);max-width:31em;margin:0 0 30px;text-wrap:pretty}
+.lede strong{color:var(--ink);font-weight:500}
+.depts{list-style:none;margin:0 0 30px;padding:0;display:grid;grid-template-columns:1fr 1fr;border-top:1px solid var(--hair);max-width:470px}
+.depts li{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--hair);color:var(--ink)}
+.depts li:nth-child(odd){padding-right:14px}
+.depts span{color:var(--ink-3)}
+.act{display:flex;align-items:center;gap:18px}
+.btn{display:inline-flex;align-items:center;gap:12px;height:52px;padding:0 22px;background:var(--ink);color:#fff;border-radius:3px;text-decoration:none;font:500 16px/1 var(--sans);letter-spacing:-.01em}
+.btn:hover{background:#000}
+.btn svg{transition:transform .2s}.btn:hover svg{transform:translateX(3px)}
+.act small{color:var(--ink-3)}
+
+/* The plate: the drawing of the work */
+.plate{position:relative;padding:40px 40px 64px;
+  background:
+    linear-gradient(var(--hair-2) 1px,transparent 1px) 0 0/40px 40px,
+    linear-gradient(90deg,var(--hair-2) 1px,transparent 1px) 0 0/40px 40px;
+  background-color:var(--paper)}
+.plate .reg.tl{left:10px;top:10px}.plate .reg.tr{right:10px;top:10px}.plate .reg.bl{left:10px;bottom:10px}.plate .reg.br{right:10px;bottom:10px}
+.draw{position:relative;display:grid;grid-template-columns:minmax(0,520px) 1fr;column-gap:0}
+.titleblock{position:absolute;right:0;bottom:0;display:grid;grid-template-columns:auto auto auto;border-left:1px solid var(--hair);border-top:1px solid var(--hair);background:var(--paper)}
+.titleblock div{padding:7px 12px;border-right:1px solid var(--hair);color:var(--ink-2)}
+.titleblock div:last-child{border-right:0}
+.titleblock span{display:block;color:var(--ink-3);font-size:9px}
+
+/* The work card: the application's own look B */
+.card{position:relative;background:#fff;border:1px solid var(--card-line);border-radius:4px;box-shadow:0 1px 0 rgba(24,24,27,.04),0 12px 32px -12px rgba(24,24,27,.14);font-size:14px;line-height:1.45}
+.sec{position:relative;padding:14px 18px;border-top:1px solid var(--card-line)}
+.sec:first-child{border-top:0}
+.who{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;padding:16px 18px}
+.solid{position:relative;width:56px;height:56px}
+.solid .shadow{position:absolute;left:8px;right:8px;bottom:-3px;height:8px;border-radius:50%;background:radial-gradient(closest-side,rgba(24,24,27,.22),transparent);transform-origin:50% 50%}
+.solid amtech-character,.solid svg{position:relative;display:block}
+.who h2{font:600 15px/1.25 var(--sans);margin:0;letter-spacing:-.01em}
+.who p{margin:2px 0 0;color:var(--ink-3);font-size:13px}
+.step{font:500 12px/1 var(--sans);color:#1E40AF;background:#EEF3FE;padding:6px 8px;border-radius:3px;white-space:nowrap}
+.live{display:flex;align-items:center;gap:9px;margin:0 0 10px;font-weight:500}
+.pulse{width:8px;height:8px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 0 rgba(37,99,235,.4);animation:pulse 1.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,99,235,.45)}70%{box-shadow:0 0 0 7px rgba(37,99,235,0)}100%{box-shadow:0 0 0 0 rgba(37,99,235,0)}}
+.plan{list-style:none;margin:0;padding:0;display:grid;gap:7px;counter-reset:s}
+.plan li{display:grid;grid-template-columns:18px 1fr;gap:10px;color:var(--ink-2);font-size:13.5px}
+.plan li::before{content:"";width:14px;height:14px;margin-top:2px;border-radius:50%;border:1.5px solid #C4C4CA}
+.plan li.done{color:var(--ink-3)}
+.plan li.done::before{border-color:var(--ok);background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 14 14'%3E%3Cpath d='M4 7.2l2 2 4-4.4' fill='none' stroke='white' stroke-width='1.6'/%3E%3C/svg%3E") center/14px}
+.plan li.now{color:var(--ink)}
+.plan li.now::before{border-color:var(--blue);background:radial-gradient(circle,var(--blue) 0 3px,transparent 3.5px)}
+.trust{display:grid;gap:6px;font-size:13px}
+.trust div{display:grid;grid-template-columns:16px auto 1fr;gap:8px;align-items:baseline;white-space:nowrap;overflow:hidden}
+.trust b{font-weight:600}
+.trust span{color:var(--ink-3);overflow:hidden;text-overflow:ellipsis}
+.trust i{font-style:normal;font-size:12px;text-align:center}
+.files{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.file{border:1px solid var(--card-line);border-radius:3px;overflow:hidden;background:#fff}
+.file .pg{height:54px;background:#fff;border-bottom:1px solid var(--card-line);padding:7px 9px;
+  background-image:linear-gradient(var(--ink) 0 0),repeating-linear-gradient(180deg,#D4D4D8 0 1.5px,transparent 1.5px 5px);
+  background-size:55% 3px,88% 100%;background-position:9px 7px,9px 15px;background-repeat:no-repeat}
+.file h3{font:500 12px/1.25 var(--sans);margin:6px 8px 1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.file p{margin:0 8px 7px;font-size:11px;color:var(--ink-3)}
+.file.writing{border-style:dashed;border-color:#B9C8F5}
+.file.writing .pg{background-size:55% 3px,40% 100%}
+.file.writing p{color:var(--blue)}
+.ask{background:var(--whisper)}
+.ask .ctx{font-size:12px;color:var(--ink-3);margin:0 0 3px}
+.ask h4{font:500 14px/1.4 var(--sans);margin:0 0 10px;overflow-wrap:anywhere}
+.ask .row{display:flex;gap:8px;align-items:center}
+.b{height:34px;padding:0 14px;border-radius:3px;font:500 13.5px/1 var(--sans);border:1px solid var(--card-line);background:#fff;color:var(--ink);display:inline-flex;align-items:center}
+.b.pri{background:var(--blue);border-color:var(--blue);color:#fff}
+.ask .say2{flex:1;height:34px;border:1px solid var(--card-line);border-radius:3px;background:#fff;color:var(--ink-3);font-size:13px;display:flex;align-items:center;padding:0 10px}
+
+/* Callouts: leaders from the card's edge to a numbered balloon */
+.co{position:absolute;left:100%;top:22px;display:flex;align-items:center;width:200px;pointer-events:none}
+.co::before{content:"";width:34px;height:1px;background:var(--ink)}
+.co::after{content:"";position:absolute;left:-3px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--ink)}
+.co .n{flex:none;width:22px;height:22px;border:1px solid var(--ink);border-radius:50%;display:grid;place-items:center;font:500 11px/1 var(--mono);background:var(--paper)}
+.co .t{margin-left:10px;line-height:1.35;color:var(--ink)}
+.co.red::before{background:var(--red)}.co.red::after{background:var(--red)}
+.co.red .n{border-color:var(--red);color:var(--red)}.co.red .t{color:var(--red)}
+.note{margin:14px 0 0;color:var(--ink-3);max-width:520px}
+
+/* Second screen */
+.band{display:grid;grid-template-columns:200px 1fr;border-bottom:1px solid var(--hair)}
+.band>header{padding:40px 24px;border-right:1px solid var(--hair);color:var(--ink-3)}
+.band>header b{display:block;font:500 28px/1 var(--mono);color:var(--ink);letter-spacing:0;margin-bottom:10px}
+.band .body{padding:40px 40px 48px}
+h2.big{font:600 34px/1.1 var(--sans);letter-spacing:-.035em;margin:0 0 8px;max-width:22em;text-wrap:balance}
+.sub{color:var(--ink-2);font-size:16px;margin:0 0 32px;max-width:44em}
+.team{display:grid;grid-template-columns:repeat(8,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--hair)}
+.mate{border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:14px 14px 18px;display:flex;flex-direction:column;gap:10px;min-height:240px;background:var(--paper)}
+.mate .no{color:var(--ink-3)}
+.mate .fig{height:84px;display:flex;align-items:flex-end}
+.mate h3{font:600 15px/1.2 var(--sans);margin:0;letter-spacing:-.01em}
+.mate p{margin:0;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.mate.lead{background:#fff}
+.proof{display:grid;grid-template-columns:1.2fr repeat(4,1fr);border-top:1px solid var(--ink);border-left:1px solid var(--hair);margin-top:8px}
+.proof>div{border-right:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:18px 16px 20px}
+.proof .fig{font:600 48px/1 var(--sans);letter-spacing:-.04em;margin:0 0 10px;font-variant-numeric:tabular-nums}
+.proof p{margin:0;font-size:13px;line-height:1.45;color:var(--ink-2)}
+.proof .who2{display:flex;gap:14px;align-items:flex-start;background:#fff}
+.proof .who2 h3{font:600 17px/1.2 var(--sans);margin:0 0 4px;letter-spacing:-.015em}
+.foot{display:flex;justify-content:space-between;padding:16px 24px;color:var(--ink-3)}
+
+/* Motion: the object lands, the files land. Final state is the static state. */
+@media (prefers-reduced-motion: no-preference){
+  .js .solid .who-c{animation:land .9s cubic-bezier(.2,.9,.25,1.15) .2s both}
+  .js .solid .shadow{animation:shadow .9s cubic-bezier(.2,.9,.25,1) .2s both}
+  .js .file.landing{animation:fileIn .5s cubic-bezier(.2,.9,.3,1.1) both}
+}
+@keyframes land{from{transform:translateY(-22px);opacity:0}60%{opacity:1}to{transform:none;opacity:1}}
+@keyframes shadow{from{transform:scaleX(.4);opacity:0}to{transform:none;opacity:1}}
+@keyframes fileIn{from{transform:translateY(-10px);opacity:0}to{transform:none;opacity:1}}
+@media (prefers-reduced-motion: reduce){.pulse{animation:none}}
+
+/* Phone */
+@media (max-width: 900px){
+  .sheet{margin:8px;min-height:0}
+  .ruler.top{top:56px}
+  .bar{height:56px}.mark{padding:0 16px;font-size:19px}
+  .nav a:not(.go){display:none}.nav a.go{padding:0 16px;font-size:10px}
+  .hero{grid-template-columns:1fr}
+  .say{padding:28px 20px 32px;border-right:0;border-bottom:1px solid var(--hair)}
+  .spec{padding-bottom:24px;gap:3px 14px;font-size:10px}
+  h1{font-size:38px;letter-spacing:-.045em;margin-bottom:16px}
+  .lede{font-size:16px;margin-bottom:24px}
+  .btn{height:50px;width:100%;justify-content:space-between}
+  .act{flex-direction:column;align-items:stretch;gap:10px}
+  .plate{padding:28px 14px 72px;background-size:24px 24px}
+  .draw{grid-template-columns:1fr}
+  .co{position:static;width:auto;margin:0 0 8px;order:-1}
+  .co::before,.co::after{display:none}
+  .sec{display:flex;flex-direction:column}
+  .who{display:grid}
+  .who .co{grid-column:1/-1;grid-row:1}
+  .files{grid-template-columns:repeat(2,1fr)}
+  .band{grid-template-columns:1fr}
+  .band>header{padding:20px 20px 0;border-right:0;display:flex;gap:12px;align-items:baseline}
+  .band>header b{font-size:20px;margin:0}
+  .band .body{padding:12px 20px 32px}
+  h2.big{font-size:27px}
+  .team{grid-template-columns:repeat(2,1fr)}
+  .mate{min-height:0}
+  .proof{grid-template-columns:repeat(2,1fr)}
+  .proof .who2{grid-column:1/-1}
+  .proof .fig{font-size:38px}
+  .titleblock{left:0;grid-template-columns:1fr 1fr 1fr;border-left:0}
+}
+</style>
+</head><body>
+<div class="sheet">
+  <header class="bar">
+    <a class="mark" href="/lab/hero-a/" aria-label="AMTECH home">AMTECH<b>.</b></a>
+    <nav class="nav mono" aria-label="Sections">
+      <a href="#work"><span>01</span>The work</a>
+      <a href="#team"><span>02</span>The team</a>
+      <a href="#proof"><span>03</span>A real business</a>
+      <a class="go" href="#start">Start with your business</a>
+    </nav>
+  </header>
+
+  <section class="hero" id="work">
+    <div class="say">
+      <dl class="spec mono">
+        <dt>Sheet</dt><dd>01 / The employee at work</dd>
+        <dt>Shown</dt><dd>TEST Walk Roofing, Scranton, PA</dd>
+        <dt></dt><dd>AMTECH's own demonstration business</dd>
+        <dt>Work</dt><dd>Permit checklists for four towns</dd>
+      </dl>
+      <h1>Whole departments of work, done and checked by an AI employee.</h1>
+      <p class="lede">AMTECH gives a service business <strong>an AI employee with a computer and a team</strong>. The employee plans the work, does the work, shows you every check, and brings you only the decisions.</p>
+      <ul class="depts mono" aria-label="The work an employee does">
+        <li><span>01</span>Estimates</li><li><span>02</span>Permits and documents</li><li><span>03</span>Marketing</li>
+        <li><span>04</span>Bids</li><li><span>05</span>Business development</li><li><span>06</span>Research</li>
+      </ul>
+      <div class="act" id="start">
+        <a class="btn" href="#work">Start with your business <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h11M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="1.5"/></svg></a>
+        <small class="mono">Answered with real work</small>
+      </div>
+    </div>
+
+    <div class="plate">
+      <span class="reg tl"><i></i></span><span class="reg tr"><i></i></span><span class="reg bl"><i></i></span><span class="reg br"><i></i></span>
+      <div class="draw">
+        <article class="card" aria-label="A piece of work, as the owner sees it in the AMTECH application">
+          <div class="sec who">
+            <div class="solid"><span class="shadow"></span><span class="who-c" id="emp"></span></div>
+            <div><h2>Your employee</h2><p>Works for TEST Walk Roofing</p></div>
+            <span class="step" id="step">Step 2 of 4</span>
+          </div>
+          <div class="sec">
+            <span class="co mono"><span class="n">1</span><span class="t">The plan the employee wrote</span></span>
+            <p class="live"><span class="pulse" aria-hidden="true"></span><span id="liveline">Writing the Dunmore crew page</span></p>
+            <ol class="plan">
+              <li class="done">Find each town's roofing permit rules, with the page each rule came from</li>
+              <li class="now">Write a one-page crew checklist for each town</li>
+              <li>Check every crew-page figure against the town page it came from</li>
+              <li>Bring you what the towns do not publish</li>
+            </ol>
+          </div>
+          <div class="sec">
+            <span class="co mono"><span class="n">2</span><span class="t">What the employee assumed and checked</span></span>
+            <div class="trust">
+              <div><i aria-hidden="true">≈</i><b>Assumed 4</b><span>That a crew page should say the same things the Dunmore…</span></div>
+              <div><i aria-hidden="true" style="color:var(--warn)">!</i><b>4 gaps</b><span>Throop: the scope of its roofing permit. The…</span></div>
+              <div><i aria-hidden="true" style="color:var(--ok)">✓</i><b>Checked 5</b><span>Every crew-page figure against the town page it came…</span></div>
+            </div>
+          </div>
+          <div class="sec">
+            <span class="co mono"><span class="n">3</span><span class="t">The files the employee made</span></span>
+            <div class="files" id="files">
+              <div class="file"><div class="pg"></div><h3>Throop checklist</h3><p>PDF / 39 KB / v8</p></div>
+              <div class="file"><div class="pg"></div><h3>Archbald checklist</h3><p>PDF / 41 KB / v7</p></div>
+              <div class="file"><div class="pg"></div><h3>Jessup checklist</h3><p>PDF / 42 KB / v8</p></div>
+              <div class="file writing"><div class="pg"></div><h3>Dunmore crew page</h3><p>Writing</p></div>
+            </div>
+          </div>
+          <div class="sec ask">
+            <span class="co mono red"><span class="n">4</span><span class="t">The only thing the employee needs from you</span></span>
+            <p class="ctx">One-page sign-up for the free storm-season roof check, with the form delivering to Sam</p>
+            <h4>Publish this page at https://test-walk-161e6f88.amtechai.com/pages/storm-roof-check/?</h4>
+            <div class="row"><span class="b pri">Publish</span><span class="b">Don't publish</span><span class="say2">Or say what to change</span></div>
+          </div>
+        </article>
+      </div>
+      <p class="note mono">Drawn from the application. Words and files are the run's own (25 Oct 2026); the plan's steps are re-enacted from that finished run.</p>
+      <div class="titleblock mono"><div><span>Dwg</span>HERO-A</div><div><span>Scale</span>1:1 DOM</div><div><span>Sheet</span>1 of 2</div></div>
+    </div>
+  </section>
+
+  <section class="band" id="team">
+    <header class="mono"><b>02</b>The team</header>
+    <div class="body">
+      <h2 class="big">One employee, and a team of the employee focused on one job each.</h2>
+      <p class="sub">The team at TEST Walk Roofing, as the application lists them. Teammates are peers, not a hierarchy; the employee hands them the work and checks what comes back.</p>
+      <div class="team" id="teamgrid"></div>
+    </div>
+  </section>
+
+  <section class="band" id="proof">
+    <header class="mono"><b>03</b>A real business</header>
+    <div class="body">
+      <h2 class="big">Scoop Dogg's website and leads are run by an AMTECH AI employee.</h2>
+      <p class="sub">Pet waste and turf care in Ventura and Santa Barbara counties, California. What can be measured, measured.</p>
+      <div class="proof">
+        <div class="who2"><span id="scoop"></span><div><h3>Scoop Dogg</h3><p>Website and leads run by one AMTECH AI employee.</p></div></div>
+        <div><p class="fig">1st</p><p>In ChatGPT and Google's AI Overview for pet waste and turf care in Ventura and Santa Barbara, October 2026.</p></div>
+        <div><p class="fig">1st</p><p>On Google Maps for "pet waste removal" searched from Ventura and Oxnard, measured 26 October 2026.</p></div>
+        <div><p class="fig">5.0</p><p>From 45 Google reviews.</p></div>
+        <div><p class="fig">100</p><p>Ahrefs site health score for scoopdogg.net.</p></div>
+      </div>
+    </div>
+  </section>
+  <footer class="foot mono"><span>AMTECH<b style="color:var(--red)">.</b> Lab experiment HERO-A, not the site</span><span>Sheet 2 of 2</span></footer>
+</div>
+
+<script type="module">
+import { characterSVG } from "/lab/_shared/characters.js";
+document.documentElement.classList.add("js");
+document.getElementById("emp").innerHTML = characterSVG({ shape: "lblock", hue: "#0E7490", size: 56, plinth: true, label: "Your employee" });
+document.getElementById("scoop").innerHTML = characterSVG({ shape: "gem", hue: "#2F9E5A", size: 56, plinth: true, label: "Scoop Dogg's AI employee" });
+const TEAM = [
+  ["Checker", "tent", "#5E6B7D", "Independently re-measures a takeoff and reports every number that does not agree"],
+  ["Checklist writer", "frustum", "#A3479C", "Turns verified permit rules into a one-page crew checklist for one town."],
+  ["Estimator", "gem", "#0F9488", "Does quantity takeoffs from plan sets, with every quantity measured, scaled and sourced"],
+  ["Knock list", "prism", "#6E8B3D", "Turns a storm report into a door-knock list of real streets near the report"],
+  ["Permit scout", "octa", "#7C5CD6", "Finds and verifies roofing permit rules for one municipality at a time, with the page each rule came from."],
+  ["Postcard", "wedge", "#2F9E5A", "Drafts storm postcards and door hangers for one street list"],
+  ["Storm watch", "pyramid", "#C8810E", "Reads NOAA storm reports near Scranton each morning and says where the wind and hail hit"],
+];
+const pad = (n) => String(n).padStart(2, "0");
+document.getElementById("teamgrid").innerHTML =
+  `<div class="mate lead"><span class="no mono">00 / Employee</span><div class="fig">${characterSVG({ shape: "lblock", hue: "#0E7490", size: 84, plinth: true })}</div><h3>Your employee</h3><p>Works for TEST Walk Roofing. Plans the work and hands each part to the teammate for the job.</p></div>` +
+  TEAM.map(([n, s, h, r], i) => `<div class="mate"><span class="no mono">${pad(i + 1)}</span><div class="fig">${characterSVG({ shape: s, hue: h, size: 64 })}</div><h3>${n}</h3><p>${r}</p></div>`).join("");
+
+// The plan's live line advances and each file lands as its line finishes. Ends where the static page starts.
+if (matchMedia("(prefers-reduced-motion: no-preference)").matches) {
+  const live = document.getElementById("liveline"), files = [...document.querySelectorAll("#files .file")];
+  const lines = ["Writing the Throop checklist", "Writing the Archbald checklist", "Writing the Jessup checklist", "Writing the Dunmore crew page"];
+  files.forEach((f) => (f.style.visibility = "hidden"));
+  lines.forEach((l, i) => setTimeout(() => {
+    live.textContent = l;
+    if (i > 0) { const f = files[i - 1]; f.style.visibility = ""; f.classList.add("landing"); }
+    if (i === lines.length - 1) { const f = files[i]; f.style.visibility = ""; f.classList.add("landing"); }
+  }, 900 + i * 1100));
+}
+</script>
+</body></html>

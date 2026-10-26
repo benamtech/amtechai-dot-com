@@ -1,0 +1,32 @@
+{
+ "round": "r2",
+ "name": "hero-a-v1",
+ "url": "http://127.0.0.1:8091/lab/hero-a/",
+ "at": "2026-10-26T20:38:15.110Z",
+ "sizes": {
+  "desktop": {
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+   ],
+   "failed": [],
+   "overflow": [
+    "AMTECH."
+   ],
+   "load_ms": 460,
+   "lcp_ms": 524,
+   "height": 2000,
+   "bytes_kb": 16
+  },
+  "phone": {
+   "console_errors": [],
+   "failed": [],
+   "overflow": [
+    "AMTECH."
+   ],
+   "load_ms": 672,
+   "lcp_ms": 612,
+   "height": 4103,
+   "bytes_kb": 39
+  }
+ }
+}
