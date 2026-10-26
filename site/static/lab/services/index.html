@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lab: services an AI employee runs on its own, with proposed prices</title>
+<meta name="description" content="Experiment: AMTECH's services as a timetable, each priced against the agency and the full-time hire it stands in for. Proposed prices for review.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://amtechai.com/lab/services">
+<link rel="stylesheet" href="/lab/_shared/fonts.css">
+<style>
+:root{--ink:#111;--grey:#5f6368;--hair:#e3e3e3;--paper:#fff;--wash:#fafafa;--red:#E11D2A;--mono:'IBM Plex Mono',ui-monospace,monospace}
+*{box-sizing:border-box}html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.5 Geist,system-ui,sans-serif;font-feature-settings:"tnum"}
+.lab{background:#111;color:#ddd;font:12px/1.4 var(--mono);padding:8px 24px;letter-spacing:.02em}
+.lab b{color:#fff}
+header,main,footer{max-width:1200px;margin:0 auto;padding:0 24px}
+header{display:flex;justify-content:space-between;align-items:center;height:64px;border-bottom:1px solid var(--hair)}
+.mark{font:800 20px/1 Inter,Geist,sans-serif;letter-spacing:-.03em}.mark i{color:var(--red);font-style:normal}
+nav a{color:var(--ink);text-decoration:none;margin-left:24px;font-size:14px}
+h1{font:600 clamp(32px,4.4vw,56px)/1.04 Geist,sans-serif;letter-spacing:-.035em;margin:64px 0 16px;max-width:15em}
+.lede{font-size:19px;color:#333;max-width:40em;margin:0 0 40px}
+.kicker{font:500 12px/1 var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--grey);margin:56px 0 12px}
+/* the timetable */
+.tt{width:100%;border-collapse:collapse;margin:0 0 8px}
+.tt th{font:500 11px/1.2 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--grey);text-align:left;padding:10px 12px;border-bottom:2px solid var(--ink)}
+.tt td{padding:16px 12px;border-bottom:1px solid var(--hair);vertical-align:top}
+.tt tr:hover td{background:var(--wash)}
+.when{font:500 14px/1.3 var(--mono);white-space:nowrap}
+.svc{display:flex;gap:12px;align-items:flex-start}.svc svg,.card svg{flex-shrink:0}.svc b{display:block;font-weight:600}.svc span{color:var(--grey);font-size:14px}
+.num{font:500 15px/1.3 var(--mono);text-align:right;white-space:nowrap}
+.price{font:600 20px/1.2 Geist,sans-serif;letter-spacing:-.01em;text-align:right;white-space:nowrap}
+.price small{display:block;font:400 11px/1.3 var(--mono);color:var(--grey);letter-spacing:0}
+.bar{height:6px;background:var(--hair);margin-top:6px;position:relative}.bar i{position:absolute;inset:0 auto 0 0;background:var(--ink)}
+.note{font:12px/1.5 var(--mono);color:var(--grey);margin:0 0 48px}
+/* the two offers */
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--ink)}
+.offer{padding:28px}.offer+.offer{border-left:1px solid var(--ink)}
+.offer h3{font:600 22px/1.2 Geist,sans-serif;margin:0 0 8px;letter-spacing:-.02em}
+.offer .p{font:600 30px/1.1 Geist,sans-serif;letter-spacing:-.02em;margin:14px 0 4px}
+.offer ul{padding-left:18px;margin:12px 0 0;color:#333}
+/* one service opened */
+.card{display:grid;grid-template-columns:96px 1fr 1fr;gap:24px;padding:28px 0;border-top:1px solid var(--hair)}
+.card h3{margin:0 0 6px;font:600 20px/1.25 Geist,sans-serif;letter-spacing:-.015em}
+.card dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:14px}
+.card dt{font:500 11px/1.6 var(--mono);text-transform:uppercase;letter-spacing:.06em;color:var(--grey)}
+.card dd{margin:0}
+.proof{display:grid;grid-template-columns:repeat(4,1fr);border-top:2px solid var(--ink);margin-top:8px}
+.proof div{padding:18px 16px 18px 0}.proof b{display:block;font:600 28px/1.1 Geist,sans-serif;letter-spacing:-.02em}.proof span{font-size:14px;color:#333}
+footer{margin-top:80px;padding:32px 24px 64px;border-top:1px solid var(--hair);font:12px/1.6 var(--mono);color:var(--grey)}
+@media (max-width:760px){
+  nav{display:none}.offers{grid-template-columns:1fr}.offer+.offer{border-left:0;border-top:1px solid var(--ink)}
+  .tt thead{display:none}.tt,.tt tbody,.tt tr,.tt td{display:block;width:100%}.tt tr{border-bottom:1px solid var(--hair);padding:14px 0}
+  .tt td{border:0;padding:4px 0}.num,.price{text-align:left}.card{grid-template-columns:56px 1fr}.card>div:last-child{grid-column:2}
+  .proof{grid-template-columns:1fr 1fr}
+}
+</style>
+</head><body>
+<div class="lab"><b>LAB · lab/services</b> · Proposed prices for Ben to confirm. Not the site, not published. Working: docs/first-principles/WS-030.</div>
+<header><div class="mark">AMTECH<i>.</i></div><nav><a href="#timetable">Services</a><a href="#offers">Pricing</a><a href="#proof">Scoop Dogg</a></nav></header>
+<main>
+<h1>Work your business pays for every month, done on a schedule without you setting it up.</h1>
+<p class="lede">Each service is one result on a timetable. Your AI employee sets it up from what you tell it, runs it with a teammate it makes for the job, and shows you every delivery. A missed delivery comes off your next invoice.</p>
+
+<p class="kicker" id="timetable">The timetable</p>
+<table class="tt" aria-label="Services, when they run, and what they cost against an agency and a hire">
+<thead><tr><th>When</th><th>Service, and the teammate who runs it</th><th style="text-align:right">An agency charges</th><th style="text-align:right">A hire costs</th><th style="text-align:right">AMTECH, a month</th></tr></thead>
+<tbody id="rows"></tbody>
+</table>
+<p class="note">Agency figures: Ahrefs survey of 439 SEO providers; SE Ranking, 260 agencies; HeyOrca 2026; Smith.ai, Ruby and Goodcall price pages; ConstructConnect; Belkins (no sample stated). Hire figures: BLS wage medians, May 2025, times 1.35 for benefits and taxes (BLS employer costs, businesses with 1 to 49 workers). Read 26 October 2026.</p>
+
+<p class="kicker">Each service, opened</p>
+<div id="cards"></div>
+
+<p class="kicker" id="offers">Two ways to pay</p>
+<div class="offers">
+  <div class="offer"><h3>You run it</h3><p>Your employee, its team and its own computer. You tell it the work; it does the work and asks you only what only you can answer.</p>
+    <div class="p">$1,200 setup</div><div style="color:#5f6368;font-size:14px">then you pay for the work it does, as it does it</div>
+    <ul><li>A setup call with Ben, the founder</li><li>The first session free, before any card</li></ul></div>
+  <div class="offer"><h3>You pay for results</h3><p>Pick services from the timetable. Your employee runs each one on its schedule without you setting it up, and you see every delivery.</p>
+    <div class="p">From $400 a month</div><div style="color:#5f6368;font-size:14px">per service; the whole back office $1,500 a month</div>
+    <ul><li>A missed delivery comes off the next invoice</li><li>Every message to a customer waits for your yes</li></ul></div>
+</div>
+
+<p class="kicker" id="proof">A business that runs this way</p>
+<div class="proof">
+  <div><b>1st</b><span>in ChatGPT and Google's AI Overview for pet waste and turf care in Ventura and Santa Barbara, October 2026</span></div>
+  <div><b>1st</b><span>on Google Maps for "pet waste removal" searched from Ventura and Oxnard, measured 26 October 2026</span></div>
+  <div><b>5.0</b><span>from 45 Google reviews</span></div>
+  <div><b>100</b><span>Ahrefs site health score for scoopdogg.net</span></div>
+</div>
+<p class="note">Scoop Dogg, pet waste and turf care in Ventura County. Website and leads run by an AMTECH AI employee. Sources: brain/proof.md, 26 October 2026.</p>
+</main>
+<footer>AMTECH · lab/services · experiment for the redesign · copy and prices are drafts</footer>
+<script type="module">
+import { characterSVG } from "/lab/_shared/characters.js";
+const S = [
+  { when: "Weekdays 7:00", name: "The bids, priced", who: { shape: "stairs", hue: "#C8810E" }, line: "Every public bid and RFQ within your miles, priced across every trade you and your subs cover.",
+    agency: [129, 199, "bid data alone, unpriced"], hire: [9600, "an estimator"], price: 750,
+    gets: "A list in your inbox before work: each new bid, its deadline, the drawings, and a price for every trade you do or sub out.", data: "County, city and state bid boards; school and transit RFQs; federal notices.", measure: "Delivered by 7:00 every weekday; every board in your list checked." },
+  { when: "Within 5 minutes", name: "Every lead answered", who: { shape: "prism", hue: "#0F9488" }, line: "A reply to every form, email and booking, drafted at your prices, with follow-ups until there is an answer.",
+    agency: [245, 2100, "an answering service"], hire: [4500, "a receptionist"], price: 400,
+    gets: "A reply drafted in your voice at your prices; follow-ups on day 2 and day 5; a note when someone books.", data: "Your website's forms, your mailbox, your booking page.", measure: "Every lead has a draft within five minutes and a follow-up until it is answered." },
+  { when: "Every Monday", name: "AI search and local SEO", who: { shape: "gem", hue: "#2F9E5A" }, line: "Your listing, your site and what ChatGPT and Google say about you, measured weekly, with three fixes a month.",
+    agency: [1557, 1557, "an SEO agency, on average"], hire: [8800, "a marketing specialist"], price: 500,
+    gets: "The map rank in each town you serve, what AI answers say, faults on your site fixed, a receipt each month.", data: "Google Maps, your Search Console, AI answers for a fixed set of questions.", measure: "A weekly measurement and a monthly receipt; three fixes made or proposed each month." },
+  { when: "Every Tuesday", name: "Partners found and written to", who: { shape: "wedge", hue: "#7C5CD6" }, line: "The general contractors, realtors and property managers who send work like yours, found and written to.",
+    agency: [2000, 2000, "an outreach retainer"], hire: [7900, "a sales rep"], price: 750,
+    gets: "Ten new partners a week with why each fits, and a first note to each for your yes.", data: "Licence boards, permits pulled, listings, company pages.", measure: "Ten researched partners and ten drafts every week." },
+  { when: "Thursdays", name: "Posts and short video", who: { shape: "star", hue: "#A3479C" }, line: "Posts and edited clips each week from your own jobs and photos.",
+    agency: [1000, 2499, "a social media agency"], hire: [8500, "a video editor"], price: 600,
+    gets: "Three posts and one short video a week, cut from your own photos and clips, for your yes.", data: "Your photos, your jobs, your reviews.", measure: "Three posts and one clip ready every Thursday." },
+];
+const fmt = (n) => "$" + n.toLocaleString("en-US");
+document.getElementById("rows").innerHTML = S.map((s) => {
+  const save = Math.round(100 * (1 - s.price / s.hire[0]));
+  return `<tr><td class="when">${s.when}</td>
+  <td><div class="svc">${characterSVG({ ...s.who, size: 40 })}<div><b>${s.name}</b><span>${s.line}</span></div></div></td>
+  <td class="num">${s.agency[0] === s.agency[1] ? fmt(s.agency[0]) : fmt(s.agency[0]) + "-" + fmt(s.agency[1])}<br><small style="color:#5f6368">${s.agency[2]}</small></td>
+  <td class="num">${fmt(s.hire[0])}<br><small style="color:#5f6368">${s.hire[1]}</small></td>
+  <td class="price">${fmt(s.price)}<small>${save}% under the hire</small><div class="bar" aria-hidden="true"><i style="width:${Math.max(2, 100 * s.price / s.hire[0])}%"></i></div></td></tr>`;
+}).join("");
+document.getElementById("cards").innerHTML = S.map((s) => `<div class="card">${characterSVG({ ...s.who, size: 80 })}
+  <div><h3>${s.name}</h3><p style="margin:0;color:#333">${s.gets}</p></div>
+  <div><dl><dt>Runs</dt><dd>${s.when}</dd><dt>Works from</dt><dd>${s.data}</dd><dt>Guaranteed</dt><dd>${s.measure}</dd><dt>Instead of</dt><dd>${s.agency[2]} at ${fmt(s.agency[0])}${s.agency[0] !== s.agency[1] ? "-" + fmt(s.agency[1]) : ""} a month, or ${s.hire[1]} at ${fmt(s.hire[0])} a month</dd></dl></div></div>`).join("");
+</script>
+</body></html>

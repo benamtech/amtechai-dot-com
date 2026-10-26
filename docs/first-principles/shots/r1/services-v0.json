@@ -1,0 +1,28 @@
+{
+ "round": "r1",
+ "name": "services-v0",
+ "url": "http://127.0.0.1:8089/lab/services/",
+ "at": "2026-10-26T20:26:19.386Z",
+ "sizes": {
+  "desktop": {
+   "console_errors": [
+    "Failed to load resource: the server responded with a status of 404 (File not found)"
+   ],
+   "failed": [],
+   "overflow": [],
+   "load_ms": 688,
+   "lcp_ms": 692,
+   "height": 3022,
+   "bytes_kb": 42
+  },
+  "phone": {
+   "console_errors": [],
+   "failed": [],
+   "overflow": [],
+   "load_ms": 469,
+   "lcp_ms": 416,
+   "height": 6138,
+   "bytes_kb": 50
+  }
+ }
+}
