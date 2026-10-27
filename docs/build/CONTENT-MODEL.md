@@ -41,6 +41,9 @@ routines: ["Every morning: ...", "Every Friday: ..."]      # 2-3
 first_jobs: ["...", "...", "..."]                          # exactly 3, imperative, specific to the trade
 live: {who: t1, title: "Estimate for the plan set from Tuesday's email", step: "Step 2 of 4: measuring the roof planes at scale"}
 services: [estimates-from-plans-and-photos, invoices-out-and-paid, found-on-google-and-in-ai-answers]  # 3-5 slugs from data/services.json: "made for your kind of business"
+team_h: "Who works your roofing office"                # the team section's heading, written for this page
+employee_does: "..."                     # what the employee itself does in this trade (one sentence)
+services_h: "What roofing companies hand over first"    # the services section's heading
 questions_h: "What roofing contractors ask first"
 questions:                               # 4-6, the trade's own questions, answered in the first sentence
   - {q: "Does it work from drone photos?", a: "Yes. ..."}
@@ -59,7 +62,8 @@ cards come from the industry pages themselves (`label`, `card_line`, `team`), or
 
 ## A department page: `content/departments/<slug>/index.md` (layout `departments/page.html`)
 
-The industry page's fields, without `label`/`card_line`/`config`, plus:
+The industry page's fields, without `label`/`card_line`/`config`, plus `medal_line` (the line under #1 in the
+medallion), `proof_figure_line`, and:
 
 ```yaml
 proof_h: "Scoop Dogg: first in ChatGPT for pet and yard cleanup, across Ventura and Santa Barbara."
@@ -94,6 +98,11 @@ card, `config=<slug>`. `/start` is noindex, out of the sitemap, never prerendere
 `el.start(business)`.
 
 ## Words: the rules every page keeps
+
+- **Written, never assembled** (Ben, 2026-10-27: "All pages are to be individually written"). A layout never builds a
+  sentence from a page's fields ("What " + label + " ask first" printed "What roofing ask first" in ART's study), never
+  changes a field's case to fit one, and never falls back to stock words when a page leaves a field out: the field is
+  required and the build stops. Site-wide words live once in `data/w.json`. `check.mjs` section 11 enforces it.
 
 - Ben's voice: `amtech-biz-brain/brain/voice.md`. Plain, full sentences. No eyebrow text above any heading, ever.
 - The price line, word for word, from `brain/pricing.md`: "Start free and pay as you go. Custom agents with guaranteed

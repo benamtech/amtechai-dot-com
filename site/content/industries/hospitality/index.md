@@ -13,6 +13,8 @@ config: hospitality
 team: [employee, t5, t2, t3]
 names: {t5: "Food cost", t2: "Events"}
 employee_does: "Learns every location's menu, suppliers and events calendar, then hands each invoice, booking and review to the teammate for it and brings one recap back to you each morning."
+team_h: "Who works behind every location"
+services_h: "What restaurant groups hand over first"
 team_detail:
   - {id: t5, does: "Reads each location's sales and every Sysco, US Foods and produce invoice, keeps the recipe costs current when a case price moves, and shows which plates lost margin this week."}
   - {id: t2, does: "Answers every private dining, catering and buyout inquiry with the right room, menu and minimum, sends the contract and deposit request once you approve, and follows up until the date is booked or released."}

@@ -13,6 +13,8 @@ config: roofing
 team: [employee, t1, t2, t4]
 names: {}
 employee_does: "Learns your price book, your crews and the roofs you like to win, then hands each plan set, quote and deposit to the teammate for it and brings the result back to you to approve."
+team_h: "Who works your roofing office"
+services_h: "What roofing companies hand over first"
 team_detail:
   - {id: t1, does: "Measures each roof plane from the plan set, the drone photos or an EagleView report, adds pitch and waste, prices it from your book, and names anything the pictures could not show."}
   - {id: t2, does: "Follows every open estimate until the homeowner says yes or no, and drafts the next note in your words for you to approve before it goes."}

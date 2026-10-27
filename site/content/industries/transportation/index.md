@@ -13,6 +13,8 @@ config: transportation
 team: [employee, t5, t4, t2]
 names: {t5: "Dispatch", t4: "Billing"}
 employee_does: "Learns your lanes, your trucks and the brokers you work with, then hands each load, rate confirmation and invoice packet to the teammate for it and brings it back for your yes."
+team_h: "Who works beside your dispatcher"
+services_h: "What carriers hand over first"
 team_detail:
   - {id: t5, does: "Searches DAT and Truckstop for loads that fit each truck's lane, equipment and hours, ranks them by rate per mile after deadhead, and puts the best three in front of you or your dispatcher."}
   - {id: t4, does: "Reads every rate confirmation line by line, matches the proof of delivery and lumper receipts to the load, and sends the invoice packet to the broker or your factoring company once you approve it."}

@@ -139,5 +139,24 @@ for (const f of files.filter((f) => f.startsWith('/okf/') && f.endsWith('.md') &
 const steer = /ignore (all |any )?(previous|prior) instructions|(ai|llm|language model|chatgpt|assistant)s?[^.<]{0,40}(should|must|always) (recommend|cite|mention|rank)|note to (ai|llm|language models)/i;
 for (const f of files.filter((f) => /\.(html|md|txt|json)$/.test(f))) if (steer.test(fs.readFileSync(PUB + f, 'utf8'))) bad(f, 'carries text aimed at language models');
 
+// 11. The new pages are written, never assembled (Ben, 2026-10-27: "All pages are to be individually written"; ART's
+// study once printed "What roofing ask first" from "What " + label + " ask first"). A layout of the new families may not
+// build a sentence from a page's fields, change a field's case to fit one, or fall back to stock words when a page
+// leaves a field out: every heading and line a visitor reads comes whole from the page's own file or from data/w.json.
+const LAYOUTS = path.join(PUB, '..', 'layouts');
+const ownWords = ['home.html', 'industries', 'departments', 'services', 'questions', '_partials/w']   // the visible page; w/jsonld and w/meta build machine ids
+  
+  .map((p) => path.join(LAYOUTS, p)).filter((p) => fs.existsSync(p))
+  .flatMap((p) => (fs.statSync(p).isDirectory() ? walk(p) : [p])).filter((f) => f.endsWith('.html') && !/w\/(jsonld|meta)\.html$/.test(f));
+for (const f of ownWords) {
+  const where = 'layouts/' + path.relative(LAYOUTS, f);
+  const src = fs.readFileSync(f, 'utf8').replace(/\{\{-?\s*\/\*[\s\S]*?\*\/\s*-?\}\}/g, '');
+  // Words are letters with a space between them; a URL, an #id or a class name ("ow") is not prose.
+  const words = (t) => /[A-Za-z]{2,} [A-Za-z]{2,}|[A-Za-z]{2,} %|% ?[a-z]* [A-Za-z]{2,}/.test(t) && !/^[%a-z]*[/#.]/.test(t);
+  for (const m of src.matchAll(/printf\s+"([^"]*)"/g)) if (words(m[1])) bad(where, `builds words with printf "${m[1]}"`);
+  for (const m of src.matchAll(/\|\s*default\s+"([^"]*)"/g)) if (words(m[1]) && m[1] !== 'AMTECH AI') bad(where, `falls back to stock words "${m[1].slice(0, 50)}"`);
+  for (const m of src.matchAll(/\b(lower|upper|title|humanize|strings\.FirstUpper)\s+(\$?\.Params|\.)/g)) bad(where, `changes a field's case to fit it into a sentence (${m[0]})`);
+}
+
 if (fail.length) { console.error(`check: ${fail.length} problem(s)\n  ` + fail.join('\n  ')); process.exit(1); }
 console.log(`check: ${pages.length} pages, ${locs.length} sitemap URLs, ${redirects.length} redirects, ${files.filter((f) => f.endsWith('.md')).length} Markdown files: all good`);

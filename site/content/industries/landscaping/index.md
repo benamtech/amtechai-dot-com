@@ -13,6 +13,8 @@ config: landscaping
 team: [employee, t1, t2, t4]
 names: {t1: "Measuring", t2: "Renewals"}
 employee_does: "Learns your properties, your crews' routes and your maintenance agreements, then hands each measurement, renewal and invoice to the teammate for it and brings it back for your yes."
+team_h: "Who keeps your landscaping crews' paperwork moving"
+services_h: "What landscaping companies hand over first"
 team_detail:
   - {id: t1, does: "Measures turf, beds, hardscape and linear edging from the aerial map of the address, then prices the mowing visits, mulch yards and cleanups from your own production rates."}
   - {id: t2, does: "Works through last season's customer list from November on, drafts each renewal with the new price and an aeration or overseeding offer, and follows it until the agreement is signed."}

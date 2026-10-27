@@ -8,6 +8,11 @@ field: "Your business's name"
 button: "Start the free trial"
 team: [employee, t3, t5, t2]
 names: {}
+team_h: "Who gets you found"
+services_h: "Services built on being found"
+employee_does: "Learns your trade, your town and what your customers ask, then hands each page, listing and lead to the teammate for it and shows you every change before it goes live."
+proof_figure_line: "in ChatGPT and at the top of Google Maps"
+medal_line: "in ChatGPT, Ventura and Santa Barbara"
 team_detail:
   - {id: t3, does: "Fixes what search engines and AI assistants read on your site, writes the pages your customers' questions need, and keeps your Google Business Profile's categories, services, hours and photos right."}
   - {id: t5, does: "Asks ChatGPT, Gemini and Google the questions your customers ask, records who gets named and why, and finds the directories and local sites where your competitors are listed and you are not."}
