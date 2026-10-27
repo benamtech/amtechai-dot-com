@@ -11,11 +11,16 @@
 {{- with .Params.now }}<div class="cta-now hh-now"><p class="now-h"><i class="pulse" aria-hidden="true"></i>{{ $p.Params.now_h }}</p>{{ range . }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "in-stack") }}{{ end }}</div>{{ end }}</div>
 <div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ .Params.orbit_centre }}">{{ .Params.orbit_centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "names" .Params.names) }}</div></div>
 </div></section>
+{{- with .Params.can }}
+<section class="wcan"><div class="wrap"><h2>{{ $p.Params.can_h }}</h2><p class="sec-p">{{ $p.Params.can_sub }}</p><ul class="wcan-grid">
+{{- range . }}<li>{{ partial "w/character.html" (dict "id" .who "size" 44) }}<div><h3>{{ .h }}</h3><p>{{ .p }}</p><span class="wcan-who">{{ partial "w/name.html" (dict "id" .who) }}</span></div></li>{{ end }}
+</ul></div></section>
+{{- end }}
 <section class="ind"><div class="wrap"><h2>{{ .Params.industries_h }}</h2><p class="sec-p">{{ .Params.industries_sub }}</p><div class="ind-grid">
 {{- range (where site.RegularPages "Section" "industries").ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h3>{{ .Params.label }}</h3><p>{{ .Params.card_line }}</p></a>{{ end }}
 </div></div></section>
 <section class="pkg"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><p class="sec-p">{{ .Params.services_sub }}</p><a class="wlink" href="/services">{{ .Params.services_more }}</a></div><div class="pkg-grid">
-{{- range .Params.services_featured }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "home: services_featured names %q, which is not in data/services.json" . }}{{ end }}<a class="pkg-card" href="/services#{{ $s.slug }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
+{{- range .Params.services_featured }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "home: services_featured names %q, which is not in data/services.json" . }}{{ end }}<a class="pkg-card" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/services#{{ $s.slug }}{{ end }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
 </div></div></section>
 <section class="how"><div class="wrap"><h2>{{ .Params.how_h }}</h2><ol class="how-grid">{{ range $i, $s := .Params.how }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol></div></section>
 {{ partial "w/proof.html" (dict "id" "proof") }}

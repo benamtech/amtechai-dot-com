@@ -40,5 +40,12 @@
   "job": "Finds the facts a job needs, with sources",
   "shape": "gem",
   "hue": "#A3479C"
+ },
+ {
+  "id": "t6",
+  "name": "Builder",
+  "job": "Builds and ships websites, apps and the tools your business needs",
+  "shape": "stairs",
+  "hue": "#5E6B7D"
  }
 ]
