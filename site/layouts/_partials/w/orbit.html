@@ -1,7 +1,8 @@
 {{- /* The Orbit (lane ART kit/orbit/orbit.mjs, in Hugo): the employee and the team it made on the inner orbit, the
        business's own systems by name on the outer, each wired to the employee by a bowed line carrying a pulse. No
        script. (dict "team" [...] "systems" [...] "names" .Params.names "cls" "ow" "plate" (dict "src" "" "alt" "")).
-       On phones the systems at 3 and 9 o'clock hide (o-extra) and long names shorten (data/w.json short). */ -}}
+       On phones the systems at 3 and 9 o'clock hide (o-extra) and long names shorten (data/w.json short, else the
+       first of "A or B" or "A, B"); a name over 22 characters is short at every width (the band below names it in full). */ -}}
 {{- $S := 640.0 }}{{ $cx := 320.0 }}{{ $cy := 320.0 }}{{ $rT := 214.0 }}{{ $rS := 300.0 }}{{ $pi := math.Pi -}}
 {{- $names := .names }}{{ $cls := .cls | default "ow" }}{{ $short := hugo.Data.w.short -}}
 {{- $mates := slice }}{{ range .team }}{{ if ne . "employee" }}{{ $mates = $mates | append . }}{{ end }}{{ end -}}
@@ -20,6 +21,6 @@
 <div class="o-ch" style="left:{{ printf "%.2f" (mul (div (add $cx (mul $rT (math.Cos $a))) $S) 100) }}%;top:{{ printf "%.2f" (mul (div (add $cy (mul $rT (math.Sin $a))) $S) 100) }}%;--sz:64;--h:{{ (index (where hugo.Data.team "id" $id) 0).hue }}">{{ partial "w/character.html" (dict "id" $id "size" 64) }}<span>{{ partial "w/name.html" (dict "id" $id "names" $names) }}</span></div>
 {{- end }}
 {{- range $i, $name := .systems }}{{ $a := add (div $pi -2.0) (div $pi (float $n)) (div (mul (float $i) 2.0 $pi) (float $n)) }}{{ $c := math.Cos $a }}{{ $extra := or (and (gt $n 4) (gt (math.Abs $c) 0.9)) (ge $i 6) }}
-<div class="o-sys {{ if lt $c -0.2 }}l{{ else if gt $c 0.2 }}r{{ else }}c{{ end }}{{ if $extra }} o-extra{{ end }}" style="left:{{ printf "%.2f" (mul (div (add $cx (mul $rS $c)) $S) 100) }}%;top:{{ printf "%.2f" (mul (div (add $cy (mul $rS (math.Sin $a))) $S) 100) }}%"><i></i><b><span class="o-full">{{ $name }}</span><span class="o-short">{{ index $short $name | default $name }}</span></b></div>
+<div class="o-sys {{ if lt $c -0.2 }}l{{ else if gt $c 0.2 }}r{{ else }}c{{ end }}{{ if $extra }} o-extra{{ end }}" style="left:{{ printf "%.2f" (mul (div (add $cx (mul $rS $c)) $S) 100) }}%;top:{{ printf "%.2f" (mul (div (add $cy (mul $rS (math.Sin $a))) $S) 100) }}%"><i></i><b>{{ $sh := index $short $name | default (replaceRE " or .*$" "" (replaceRE ",.*$" "" $name)) }}<span class="o-full">{{ cond (gt (len $name) 22) $sh $name }}</span><span class="o-short">{{ $sh }}</span></b></div>
 {{- end }}
 </figure>

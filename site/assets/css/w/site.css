@@ -18,5 +18,27 @@
 .ind-sys{margin-top:10px!important;font-size:13.5px!important;color:var(--ink-3)}
 .mk2-inst{margin-top:6px;font-size:14px;color:var(--ink-3)}
 .mk2-card[hidden]{display:none}
-@media (max-width:1100px){.wteam-grid{grid-template-columns:1fr 1fr}.whub-in{grid-template-columns:1fr;gap:24px}}
+@media (max-width:1100px){.wteam-grid{grid-template-columns:1fr 1fr}.whub-in{grid-template-columns:minmax(0,1fr);gap:24px}}
 @media (max-width:640px){.wteam{padding:52px 0 24px}.wteam-grid{grid-template-columns:1fr;gap:22px}.wteam-grid li{display:grid;grid-template-columns:auto 1fr;gap:2px 16px}.wteam-grid li svg{grid-row:span 2}.wteam-grid h3{margin-top:4px;font-size:23px}.wteam-grid p{margin-top:0}.whub{padding:28px 0 0}.ind-card h2{margin-top:10px;font-size:22px}}
+/* Footer: the logo and the promise on the left, the links on the right in a wrapping list, the made-by line and the
+   credits across (ART's three columns squeezed the promise once the footer carried every industry). */
+.foot-in{grid-template-columns:minmax(0,4fr) minmax(0,7fr);grid-template-areas:"logo nav" "promise nav" "made made" "credits credits";gap:14px 64px}
+.foot-in>.logo{grid-area:logo}.foot-in>p:not(.made):not(.credits){grid-area:promise;max-width:30em}.foot-in>nav{grid-area:nav;align-content:start;gap:10px 22px}.foot .made{grid-area:made;margin-top:18px}.foot .credits{grid-area:credits}
+@media (max-width:820px){.foot-in{grid-template-columns:1fr;grid-template-areas:"logo" "promise" "nav" "made" "credits"}}
+/* Phones: the medallion shrinks and the team's names sit above it, so no label is cut ("Collectio", 2026-10-27). */
+@media (max-width:640px){.cw-art .medal,.wd-art .medal{width:36%}.cw-art .o-ch,.wd-art .o-ch{z-index:4}.cw-art .medal-name{font-size:22px}.cw-art .medal-k{font-size:14px}
+  .wclose .start{flex-direction:column;max-width:none}}
+/* The hub on a phone: one card a row, so each trade's systems read as a line, not a column of fragments. */
+@media (max-width:640px){.whub-list .ind-grid{grid-template-columns:minmax(0,1fr)}}
+/* Services. The featured card's Orbit had no box of its own (absolute against the card) and covered its title; the
+   filter bar ran wider than the cards; on a phone two columns broke every heading into fragments. */
+.wmk .feat-orb{position:relative;flex:0 0 44%;aspect-ratio:1;padding:0!important;margin:28px 8px 28px 44px}
+.wmk .feat-orb .orbit{position:absolute;inset:15%;width:auto!important}
+@media (min-width:821px){.wmk .mk2-bar{max-width:1224px;padding-left:0;padding-right:0}.wmk .mk2-top{max-width:1224px;padding-left:0;padding-right:0}}
+@media (max-width:820px){.wmk .feat-orb{width:78%;flex:none;margin:22px auto 0}}
+@media (max-width:640px){.wmk .mk2-grid{grid-template-columns:minmax(0,1fr)}.wmk .mk2-card.feat{grid-column:auto}.wmk .mk2-card h2{font-size:24px}.wmk .mk2-bar .tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}}
+@media (max-width:820px){.wmk .mk2-bar{padding-left:20px;padding-right:20px}}
+/* Industry hero: the Orbit a little smaller beside the words, so a long system name at 3 o'clock ("DAT and Truckstop")
+   stays clear of the paragraph; on a phone the medallion carries only the business's name. */
+@media (min-width:1101px){.chapel-w .cw-art{width:78%;margin:0 0 0 6%}.chapel-w .cw-in{gap:72px}}
+@media (max-width:640px){.cw-art .medal-k,.wd-art .medal-k{display:none}.wd-art .medal-big{font-size:34px!important}}

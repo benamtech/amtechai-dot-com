@@ -1,0 +1,5 @@
+{{- /* A page's last real change: its content file's last commit (enableGitInfo), else front-matter lastmod or date
+       (hugo.toml [frontmatter]), else its `reviewed.date`. Zero when none is known: callers then print no date. */ -}}
+{{- $t := .Lastmod -}}
+{{- if $t.IsZero }}{{ with .Params.reviewed }}{{ $t = time .date }}{{ end }}{{ end -}}
+{{- return $t -}}

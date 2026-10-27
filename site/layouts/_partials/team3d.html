@@ -1,0 +1,14 @@
+{{- /* The hero's team in 3D (lane 3D, 2026-10-27). Call it INSIDE the Orbit's wrapper, after the figure:
+       {{ partial "team3d.html" (dict "team" $team "systems" $systems "names" $names) }}
+       It emits the team's looks (data/team.json: shape, hue) as JSON and a tiny module loader. The loader runs after
+       load and idle, bails on reduced motion, Save-Data, no WebGL2 or a software renderer, and imports the scene
+       (a second js.Build, fingerprinted, URL in data-t3d) only once the Orbit is in view. The SVG Orbit stays the first
+       paint and the fallback. three (package.json, pinned) resolves from the repo root's node_modules: Hugo 0.167's esbuild
+       walks up from site/ and finds it, but reads only under security.node.permissions.allowRead, so the site's config
+       needs allowRead = [".", "../node_modules"] (default ["."]); without it the build fails "outside the project". */ -}}
+{{- $t := slice }}{{ range .team }}{{ $c := index (where hugo.Data.team "id" .) 0 }}{{ if not $c }}{{ errorf "team3d: %q is not in data/team.json" . }}{{ end }}{{ $t = $t | append (dict "id" . "shape" $c.shape "hue" $c.hue) }}{{ end -}}
+{{- $o := dict "minify" true "format" "esm" "target" "es2020" -}}
+{{- $scene := resources.Get "js/team3d/scene.js" | js.Build (merge $o (dict "targetPath" "js/team3d/scene.js")) | fingerprint -}}
+{{- $loader := resources.Get "js/team3d/loader.js" | js.Build (merge $o (dict "targetPath" "js/team3d/loader.js")) | fingerprint -}}
+<script type="application/json" data-t3d="{{ $scene.RelPermalink }}">{{ dict "team" $t "systems" (.systems | default slice) "names" (.names | default dict) | jsonify | safeJS }}</script>
+<script type="module" src="{{ $loader.RelPermalink }}" integrity="{{ $loader.Data.Integrity }}" crossorigin="anonymous"></script>
