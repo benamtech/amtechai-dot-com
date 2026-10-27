@@ -4,7 +4,7 @@
 .wcs-hero{padding:48px 0 72px}
 .wcs-hero-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:center}
 .wcs-hero h1{font-size:clamp(42px,4.6vw,70px);line-height:1}
-.wcs-hero h1 .red{display:block;font-family:var(--sans);font-weight:700;letter-spacing:-0.04em;font-size:1.15em;margin-top:.08em}
+.wcs-hero h1 .blue{display:block;font-family:var(--sans);font-weight:700;letter-spacing:-0.04em;font-size:1.15em;margin-top:.08em;color:var(--blue)}
 .wcs-hero .lede{margin-top:18px;font-size:17.5px}
 .wcs-hero .start{margin-top:26px}
 .wcs-out{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;margin-top:6px}
@@ -137,7 +137,7 @@
 @media (max-width:640px){.wcs-gpt .wrap.wcs-gpt-in{padding-left:16px;padding-right:16px}}
 /* Ben, 2026-10-27: the hero keeps its large "#1 in its area." in blue; no repeated "#1" and no large red text below it:
    the figures are plain statements in black serif. */
-.wcs-hero h1 .red{color:var(--blue)}   /* Ben: "the #1 in its area is good on the hero but that should be in blue" */
+   /* Ben: "the #1 in its area is good on the hero but that should be in blue" */
 .wcs-figs b{font:500 30px/1.1 var(--serif);letter-spacing:-0.01em;color:var(--ink)}
 @media (max-width:640px){.wcs-figs b{font-size:26px}}
 .wcs-figs span{font:400 16px/1.5 var(--sans);color:var(--ink-2)}

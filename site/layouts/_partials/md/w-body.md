@@ -3,6 +3,7 @@
        reads the same at /<route>.md and in /okf/. (dict "p" page "m" (partial "w/meta.html" page)) */ -}}
 {{- $p := .p }}{{ $m := .m }}{{ $P := $p.Params }}{{ $W := hugo.Data.w }}{{ $o := site.BaseURL | strings.TrimSuffix "/" -}}
 {{- $names := $P.names -}}
+{{- if eq $p.Layout "company" }}{{ partial "md/company.md" . }}{{ else -}}
 # {{ $m.h1 }}
 
 {{ with $P.sub }}{{ . }}{{ end }}
@@ -438,3 +439,4 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>&
 {{ with $P.reviewed }}
 Written by an AMTECH AI employee from AMTECH's records; reviewed by {{ .by }}, {{ (time .date).Format "2 January 2006" }}.
 {{ end }}
+{{- end }}

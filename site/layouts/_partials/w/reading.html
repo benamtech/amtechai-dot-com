@@ -4,5 +4,5 @@
        (/okf/<route>.md), written by md/read-doc.md. The articles themselves have their own outputs. */ -}}
 {{- $out := slice -}}
 {{- with site.GetPage "/articles" }}{{ $out = $out | append . }}{{ end -}}
-{{- range site.RegularPages }}{{ if and (in (slice "legal" "contact") .Layout) (not .Params.noindex) }}{{ $out = $out | append . }}{{ end }}{{ end -}}
+{{- range site.RegularPages }}{{ if and (in (slice "legal" "contact" "schedule-demo") .Layout) (not .Params.noindex) }}{{ $out = $out | append . }}{{ end }}{{ end -}}
 {{- return $out -}}

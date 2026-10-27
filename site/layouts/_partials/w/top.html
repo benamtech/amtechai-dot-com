@@ -3,7 +3,7 @@
 {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 {{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
 {{- $title := cond (or .IsHome (strings.HasSuffix .Title (site.Params.site_name | default "AMTECH AI"))) .Title (printf "%s | %s" .Title (site.Params.site_name | default "AMTECH AI")) -}}
-{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") (resources.Get "css/w/team3d.css") (resources.Get "css/w/pages.css") (resources.Get "css/w/sections.css") (resources.Get "css/w/frame.css") (resources.Get "css/w/customers.css") (resources.Get "css/w/prose.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
+{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") (resources.Get "css/w/team3d.css") (resources.Get "css/w/pages.css") (resources.Get "css/w/sections.css") (resources.Get "css/w/frame.css") (resources.Get "css/w/customers.css") (resources.Get "css/w/prose.css") (resources.Get "css/w/company.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
 <!doctype html>
 <html lang="en">
 <head>
@@ -29,9 +29,20 @@
 <meta property="og:url" content="{{ $url }}">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ $title }}">
+<meta name="twitter:description" content="{{ .Description }}">
+{{ partial "w/ogimage.html" . }}
+<meta name="theme-color" content="#FFFFFF">
+<link rel="manifest" href="/manifest.webmanifest">
 {{ partial "w/jsonld.html" (dict "page" . "url" $url) }}
 {{ partial "analytics.html" . }}
 </head>
 <body class="w">
 {{ partial "w/sprite.html" . }}
-<header class="nav"><div class="wrap nav-in"><a class="logo" href="/" aria-label="AMTECH home">AMTECH<span class="dot">.</span></a><nav class="links" aria-label="Main"><a href="/services"{{ if eq .Section "services" }} aria-current="page"{{ end }}>Services</a><a href="/industries"{{ if eq .Section "industries" }} aria-current="page"{{ end }}>Industries</a><a href="/departments/being-found"{{ if eq .Section "departments" }} aria-current="page"{{ end }}>Being found</a><a href="/customers"{{ if eq .Section "customers" }} aria-current="page"{{ end }}>Customers</a></nav><div class="nav-r"><a class="signin" href="{{ site.Params.app }}/">Sign in</a><a class="btn btn-s" href="#start">Start</a></div></div></header>
+{{- $cur := cond (eq .Layout "company") (.Params.route | default "") (printf "/%s" .Section) -}}
+{{- $links := slice (dict "u" "/services" "t" "Services") (dict "u" "/industries" "t" "Industries") (dict "u" "/departments/being-found" "t" "Being found" "s" "/departments") (dict "u" "/customers" "t" "Customers") (dict "u" "/pricing" "t" "Pricing") }}
+<header class="nav"><div class="wrap nav-in"><a class="logo" href="/" aria-label="AMTECH home">AMTECH<span class="dot">.</span></a><nav class="links" aria-label="Main">{{ range $links }}<a href="{{ .u }}"{{ if eq $cur (.s | default .u) }} aria-current="page"{{ end }}>{{ .t }}</a>{{ end }}</nav><div class="nav-r"><a class="signin" href="{{ site.Params.app }}/signup">Sign in</a><a class="btn btn-s" href="{{ if .Params.no_start }}/#start{{ else }}#start{{ end }}">Start</a><button class="menu-b" type="button" aria-expanded="false" aria-controls="menu" data-menu><span class="sr">Menu</span><i aria-hidden="true"></i></button></div></div>
+<nav class="menu" id="menu" aria-label="Menu" hidden><div class="wrap">{{ range $links }}<a href="{{ .u }}"{{ if eq $cur (.s | default .u) }} aria-current="page"{{ end }}>{{ .t }}</a>{{ end }}<a href="/about">About</a><a href="/contact">Contact</a><a class="menu-in" href="{{ site.Params.app }}/signup">Sign in</a></div></nav></header>
+{{- /* The phone menu: a disclosure (aria-expanded), Escape or a second press closes it and gives focus back to the
+       button, a link or a press outside closes it. The panel is laid over the page, so nothing below moves. */}}
+<script>{{ `(()=>{const b=document.querySelector("[data-menu]"),m=document.getElementById("menu");if(!b||!m)return;const set=o=>{b.setAttribute("aria-expanded",o);m.hidden=!o;document.documentElement.classList.toggle("menu-open",o)};b.addEventListener("click",()=>set(m.hidden));document.addEventListener("keydown",e=>{if(e.key==="Escape"&&!m.hidden){set(false);b.focus()}});document.addEventListener("click",e=>{if(!m.hidden&&!m.contains(e.target)&&!b.contains(e.target))set(false)});m.addEventListener("click",e=>{if(e.target.closest("a"))set(false)});matchMedia("(min-width:1001px)").addEventListener("change",e=>{if(e.matches)set(false)})})()` | safeJS }}</script>

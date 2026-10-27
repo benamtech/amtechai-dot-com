@@ -9,7 +9,7 @@
 {{ partial "w/top.html" . }}
 <main class="wcs">
 <section class="wcs-hero"><div class="wrap wcs-hero-in">
-<div class="wcs-hero-t"><h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1><p class="lede">{{ $P.sub }}</p>
+<div class="wcs-hero-t"><h1><span class="ink">{{ $P.h1a }}</span> <span class="blue">{{ $P.h1b }}</span></h1><p class="lede">{{ $P.sub }}</p>
 {{ partial "w/start.html" (dict "id" "start" "field" $P.field "button" $P.button) }}
 <p class="wcs-out"><a class="wlink" href="{{ $P.site_link.url }}">{{ $P.site_link.text }}<span aria-hidden="true"> &#8599;</span></a>{{ with $P.reviews_link }}<a class="wlink2" href="{{ .url }}" rel="noopener">{{ .text }}</a>{{ end }}</p></div>
 <figure class="wcs-hero-art">{{ range $i, $s := $P.hero_shots }}<div class="wcs-frame wcs-h{{ $i }}"><span class="wcs-bar" aria-hidden="true"><i></i><i></i><i></i></span><picture><source type="image/avif" srcset="{{ $s.src }}.avif"><img src="{{ $s.src }}.webp" alt="{{ $s.alt }}" width="{{ $s.w }}" height="{{ $s.h }}"{{ if eq $i 0 }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async"></picture></div>{{ end }}<figcaption>{{ $P.hero_cap }}</figcaption></figure>

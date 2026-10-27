@@ -21,7 +21,9 @@
 {{- else if and (eq .Section "articles") .IsSection }}{{ $type = "Article Index" }}{{ $schema = "CollectionPage" -}}
 {{- else if eq .Section "articles" }}{{ $type = "Article" }}{{ $crumbs = $crumbs | append (dict "name" "Articles" "url" (printf "%s/articles" $origin)) -}}
 {{- else if eq .Layout "legal" }}{{ $type = "Policy" -}}
-{{- else if eq .Layout "contact" }}{{ $type = "Contact Page" }}{{ end -}}
+{{- else if eq .Layout "contact" }}{{ $type = "Contact Page" -}}
+{{- else if eq .Layout "schedule-demo" }}{{ $type = "Booking Page" -}}
+{{- else if eq .Layout "company" }}{{ $type = .Params.okf_type | default "Web Page" }}{{ end -}}
 {{- $name := .Params.label | default .Params.crumb | default .Params.heading | default (cond (and (eq .Section "articles") .IsPage) .Title "") | default (cond (and (eq .Section "services") .IsSection) "Services" (cond (and (eq .Section "questions") .IsSection) "Questions" (cond (and (eq .Section "industries") .IsSection) "Industries" ((index (split .Title ":") 0))))) -}}
 {{- if not .IsHome }}{{ $crumbs = $crumbs | append (dict "name" $name "url" $url) }}{{ end -}}
 {{- $twin := cond .IsHome "/index.md" (printf "%s.md" $route) -}}

@@ -1,6 +1,6 @@
 {{- /* A note set apart from the text: {{< callout title="..." tone="warning" >}} one paragraph {{< /callout >}}.
        tone="warning" is red-ruled; anything else is black-ruled. Styled by assets/css/w/prose.css. */ -}}
 <aside class="pr-callout{{ if eq (.Get "tone") "warning" }} warn{{ end }}">
-  <h3>{{ .Get "title" }}</h3>
+  <p class="pr-callout-t">{{ .Get "title" }}</p>
   <p>{{ .Inner | strings.TrimSpace | .Page.RenderString }}</p>
 </aside>

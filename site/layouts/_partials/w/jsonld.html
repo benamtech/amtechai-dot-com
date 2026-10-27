@@ -24,8 +24,8 @@
 {{- $g = $g | append (dict "@type" "WebSite" "@id" $site "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o) "inLanguage" "en-US" "publisher" (dict "@id" $org)) -}}
 {{- end -}}
 {{- $wp := dict "@type" $m.schema "@id" (printf "%s#webpage" $m.url) "url" $m.url "name" $m.h1 "description" $p.Description "isPartOf" (dict "@id" $site) "inLanguage" "en-US" -}}
-{{- if $p.IsHome }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
-{{- if eq $p.Section "customers" }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
+{{- if or $p.IsHome (eq $P.route "/about") }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
+{{- if or (eq $p.Section "customers") (eq $p.Layout "company") }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
 {{- if not $m.lastmod.IsZero }}{{ $wp = merge $wp (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
 {{- if not $p.IsHome -}}
   {{- $items := slice }}{{ range $i, $c := $m.crumbs }}{{ $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $c.name "item" $c.url) }}{{ end -}}

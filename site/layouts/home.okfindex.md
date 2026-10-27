@@ -91,6 +91,11 @@ AMTECH AI is a platform that gives a business AI employees: each connects itself
 * [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
 {{- end }}{{ end }}
 
+## Company
+{{ range $new }}{{ if eq .Layout "company" }}{{ $m := partial "w/meta.html" . }}
+* [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
+{{- end }}{{ end }}
+
 ## Articles
 {{ range $articles }}
 * [{{ .Title }}](/articles/{{ .File.ContentBaseName }}.md) - {{ .Description }}

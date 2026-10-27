@@ -53,7 +53,7 @@
 .pr-answer-p{margin-top:8px;font-size:20px;line-height:1.55;color:var(--ink)}
 .pr-callout{margin:2em 0;padding:22px 26px;border-radius:6px;background:var(--panel);box-shadow:inset 3px 0 0 var(--ink)}
 .pr-callout.warn{box-shadow:inset 3px 0 0 var(--red)}
-.pr-callout h3{margin:0;font-size:25px}
+.pr-callout .pr-callout-t{margin:0;font-family:var(--serif);font-weight:500;letter-spacing:-0.012em;text-wrap:balance;color:var(--ink);font-size:25px;line-height:1.15}
 .pr-callout p{margin-top:8px;font-size:17px;color:var(--ink-2)}
 .pr-prompt{margin:2em 0;padding:26px 28px;border-radius:6px;background:var(--white);box-shadow:inset 0 0 0 1px var(--hair),0 24px 50px -40px rgba(10,10,10,.45);scroll-margin-top:24px}
 .pr-prompt-top{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:14px}

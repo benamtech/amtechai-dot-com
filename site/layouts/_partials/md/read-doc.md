@@ -29,6 +29,10 @@ generated: { by: amtech/website, at: "{{ .UTC.Format "2006-01-02T15:04:05Z" }}" 
 {{ $W.prose.effective }} {{ $P.effective }}
 
 {{ $p.RenderShortcodes | replaceRE `\]\((/[^)]*)\)` (printf "](%s$1)" $o) | strings.TrimSpace }}
+{{ else if eq $p.Layout "schedule-demo" }}
+{{ $P.sub }}
+
+{{ $P.twin_p }} {{ $o }}/schedule-demo
 {{ else if eq $p.Layout "contact" }}
 {{ $P.sub }}
 {{ range $P.ways }}

@@ -143,10 +143,10 @@ for (const f of files.filter((f) => /\.(html|md|txt|json)$/.test(f))) if (steer.
 // study once printed "What roofing ask first" from "What " + label + " ask first"). A layout of the new families may not
 // build a sentence from a page's fields, change a field's case to fit one, or fall back to stock words when a page
 // leaves a field out: every heading and line a visitor reads comes whole from the page's own file or from data/w.json.
-const LAYOUTS = path.join(PUB, '..', 'layouts');
+const LAYOUTS = path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'layouts');
 // Every layout except the old pages' (the ported site, kept as it was) and the machine outputs: a new page family is
 // covered the day its folder appears.
-const OLD = new Set(['baseof.html', 'about.html', 'contractors.html', 'create.html', 'how-it-works.html', 'investors.html', 'painters.html', 'pay.html', 'pricing.html', 'schedule-demo.html', 'start.html', '_partials', '_shortcodes', '_markup']);
+const OLD = new Set(['baseof.html', 'contractors.html', 'create.html', 'how-it-works.html', 'investors.html', 'painters.html', 'pay.html', '_partials', '_shortcodes', '_markup']);
 const ownWords = fs.readdirSync(LAYOUTS).filter((n) => !OLD.has(n) && (n.endsWith('.html') || fs.statSync(path.join(LAYOUTS, n)).isDirectory())).concat(['_partials/w'])   // the visible page; w/jsonld and w/meta build machine ids
   
   .map((p) => path.join(LAYOUTS, p)).filter((p) => fs.existsSync(p))
@@ -160,6 +160,26 @@ for (const f of ownWords) {
   for (const m of src.matchAll(/\|\s*default\s+"([^"]*)"/g)) if (words(m[1]) && m[1] !== 'AMTECH AI') bad(where, `falls back to stock words "${m[1].slice(0, 50)}"`);
   for (const m of src.matchAll(/\b(lower|upper|title|humanize|strings\.FirstUpper)\s+(\$?\.Params|\.)/g)) bad(where, `changes a field's case to fit it into a sentence (${m[0]})`);
 }
+
+// 12. Share images (tools/og.mjs): every page's og:image is a PNG the site serves. A page whose H1 has changed since its
+// image was drawn, or that has none of its own, is named here but does not fail the build (Vercel cannot draw them):
+// run `node site/tools/og.mjs` and commit site/static/og/.
+const ogManifestFile = path.join(PUB, 'og', 'manifest.json');
+const ogManifest = fs.existsSync(ogManifestFile) ? JSON.parse(fs.readFileSync(ogManifestFile, 'utf8')) : {};
+const ogStale = [];
+for (const p of pages) {
+  if (/<meta name="robots" content="noindex/.test(p.html)) continue;
+  const og = p.html.split('</head>')[0].match(/<meta property="og:image" content="([^"]+)"/);
+  if (!og) { bad(p.route, 'no og:image'); continue; }
+  const img = og[1].replace(ORIGIN, '');
+  if (!fileSet.has(img)) { bad(p.route, `og:image ${img} is not in the build`); continue; }
+  const key = p.route === '/' ? 'home' : p.route.slice(1).replace(/\//g, '-');
+  const h1 = (p.html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1];
+  const text = h1 && h1.replace(/<br\s*\/?>/g, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+  if (!(key in ogManifest)) ogStale.push(`${p.route} (no image of its own)`);
+  else if (text && ogManifest[key] !== text) ogStale.push(`${p.route} (H1 changed)`);
+}
+if (ogStale.length) console.log(`check: share images to redraw (node site/tools/og.mjs): ${ogStale.join(', ')}`);
 
 if (fail.length) { console.error(`check: ${fail.length} problem(s)\n  ` + fail.join('\n  ')); process.exit(1); }
 console.log(`check: ${pages.length} pages, ${locs.length} sitemap URLs, ${redirects.length} redirects, ${files.filter((f) => f.endsWith('.md')).length} Markdown files: all good`);
