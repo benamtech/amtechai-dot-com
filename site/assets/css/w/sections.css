@@ -148,3 +148,6 @@
 .wany h2{font-size:clamp(32px,3.4vw,48px);line-height:1.05}
 @media (max-width:820px){.wany-in{grid-template-columns:minmax(0,1fr);gap:20px}.wany{padding:48px 0}}
 .wframe{padding:96px 0}.wframe h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04;margin-bottom:32px}
+/* Lane WRITE2's notes: chips wrap instead of widening the page; the start after the proof stacks on a phone. */
+.wcon-g li,.wcon-any{width:auto;max-width:100%;white-space:normal}
+@media (max-width:640px){.wsb .start{flex-direction:column;max-width:none}}

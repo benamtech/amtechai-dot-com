@@ -42,5 +42,77 @@ proof_h: "Scoop Dogg gets bookings every week."
 proof_p: "Scoop Dogg is the first business run by an AI employee. His employee set up his new website and its online booking, then set up his automatic replies itself, so every customer who writes hears back. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in Ventura and Santa Barbara."
 closing_h: "Name your business, and no lead goes quiet."
 closing_sub: "Your employee reads your site and your Google listing, finds the quotes that never got an answer, and sends the first follow-up when you say yes."
+frame_h: "Watch a lead get followed up to a yes"
+frame:
+  - tab: "A lead at 10 at night"
+    who: t2
+    ask: "Someone filled in the website form last night about a fence repair. Did anyone answer?"
+    reply: "Yes. Follow-up answered within minutes under your standing approval for first replies, with your price range and two times to come and look. The customer picked Thursday. The booking is ready for your yes."
+    title: "Fence repair lead from the website form"
+    steps: ["Read the form: a fence repair, with photos", "Sent the first reply under your standing approval", "The customer picked Thursday morning", "Waiting for your yes to book the visit"]
+    line: "Found Thursday morning open on your calendar"
+    doc:
+      kind: email
+      title: "Booking the visit"
+      meta: "Written in your words"
+      to: "The customer, from your website's form"
+      subject: "Thursday morning for your fence"
+      body:
+        - "Thanks for choosing Thursday. Our estimator will be at your house between 9 and 10 to look at the fence."
+        - "You do not need to be home if the side gate is open. You will have the price the same day."
+        - "Just reply here if the time no longer works."
+    trust: {assumed: "the side gate can be reached from the street, as the photos show", checked: "Thursday morning against your calendar"}
+    approve: {act: "Book it and send"}
+  - tab: "A quote that went quiet"
+    who: t2
+    ask: "Any word on the kitchen quote we sent Monday?"
+    reply: "Not yet. Follow-up sent a short note on Wednesday and another on Friday. The third, below, asks one easy question so the customer can answer in a word."
+    title: "Third note on the kitchen quote from Monday"
+    steps: ["Read the quote and both earlier notes", "Checked for any reply by email, text or phone", "Wrote a short third note in your words", "Waiting for your yes to send it"]
+    line: "Asked one question they can answer in a word"
+    doc:
+      kind: email
+      title: "Third note"
+      meta: "Short, in your words"
+      to: "The homeowner on Birch Lane"
+      subject: "Your kitchen quote"
+      body:
+        - "Hi again. I wanted to check on the kitchen quote we sent on Monday."
+        - "Is it still something you are planning, or should I close the file for now?"
+        - "Either answer helps, and it only takes a word."
+    trust: {assumed: "the price stays as quoted, since you did not ask to change it", checked: "your inbox and texts for any reply"}
+    approve: {act: "Send the third note"}
+  - tab: "Every open quote"
+    who: employee
+    ask: "Which quotes are still open?"
+    reply: "Every open quote is below, with where it stands and what goes out next. Only the ones marked for you need your yes."
+    title: "Open quotes this morning"
+    steps: ["Read every quote sent in the last few months", "Matched each one to the replies since", "Set the next note for each, on your schedule", "Waiting for your yes on the ones marked"]
+    line: "Closed the ones that said no, with the reason"
+    doc:
+      kind: sheet
+      title: "Open quotes"
+      meta: "This morning, from your quote log and inbox"
+      cols: ["Quote", "Last heard", "Next", "Who"]
+      rows:
+        - ["Birch Lane kitchen", "Monday", "Third note today", "Your yes"]
+        - ["Oak Street fence", "Last week", "Second note Friday", "Standing approval"]
+        - ["Hill Road deck", "Said yes", "Deposit request", "Collections"]
+        - ["Mesa Drive patio", "Said no: price", "Closed", "Reason noted"]
+    trust: {assumed: "your schedule: a note after two days, then after a week", checked: "every reply by email, text and Google message"}
+    approve: {act: "Send the notes marked for you"}
+connects_h: "Every place a lead can reach you, connected"
+connects_sub: "Each door a customer can knock on sends the lead to your employee, so none sits unread in an inbox nobody checks."
+connects:
+  - {name: "Your website", systems: ["Contact forms", "Booking page", "Website chat"]}
+  - {name: "Google", systems: ["Google messages", "Local Services Ads", "Gmail"]}
+  - {name: "Lead sites", systems: ["Angi", "Thumbtack", "Nextdoor"]}
+  - {name: "Where quotes live", systems: ["Housecall Pro", "Jobber", "Your quote log", "Google Calendar"]}
+connects_how:
+  - "Point each form and inbox at your employee once. Every new lead lands in one place."
+  - "Sign in to lead sites and your calendar on their own screens. Your employee never sees a password."
+  - "No quote tool? Your employee keeps the quote log itself, and nothing falls through."
+start2_h: "Name your business, and the quotes nobody chased get chased."
+ask_prompt: "Can AMTECH AI (amtechai.com) follow up every lead and quote for my business?"
 reviewed: {by: "Ben Palaskas", date: "2026-10-27"}
 ---

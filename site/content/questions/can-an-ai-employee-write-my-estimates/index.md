@@ -41,5 +41,61 @@ related:
   - {text: "General contractors", href: "/industries/contractors", why: "Full plan sets from BuildingConnected, measured and priced."}
 closing_h: "Name your business, and price the next job."
 closing_sub: "Your employee reads your site and your Google listing, asks for one plan set or a few photos, and prices the first job while you watch."
+frame_h: "Watch an estimate get written from photos"
+frame:
+  - tab: "From walk-through photos"
+    who: t1
+    ask: "The crew sent photos of the house on Sage Court on Tuesday. Can we price the repaint?"
+    reply: "Takeoffs measured the walls, trim and doors from the photos at scale, and priced the prep and two coats from your book. No photo showed the back porch ceiling, so it is marked."
+    title: "Exterior repaint from Tuesday's photos"
+    steps: ["Read the crew's photos and notes", "Measured walls, trim and doors at scale", "Priced the trim and the prep from your book", "Waiting for your yes to send the estimate"]
+    line: "Marked the back porch ceiling: no photo showed it"
+    doc:
+      kind: estimate
+      title: "Exterior repaint"
+      meta: "Sage Court, from Tuesday's photos"
+      priced: "From your book"
+      rows:
+        - {item: "Siding: wash, scrape, prime bare spots", unit: "square feet"}
+        - {item: "Siding: two coats", unit: "square feet"}
+        - {item: "Trim and fascia", unit: "linear feet"}
+        - {item: "Doors and shutters", unit: "each"}
+        - {item: "Back porch ceiling, not in any photo", unit: "check on site"}
+      foot: "Each line names the photo it was measured from."
+    trust: {assumed: "the house was built after 1978, as the county record shows", checked: "the scale against the front door's standard height"}
+    approve: {act: "Send to the homeowner"}
+  - tab: "From drone photos"
+    who: t1
+    ask: "Here are the drone photos of the roof on Canyon View. Can you price a re-roof?"
+    reply: "Takeoffs measured each plane from the drone photos, with pitch and waste, and priced it from your book. Research found the county's re-roof permit and added it as a line."
+    title: "Re-roof from the drone photos"
+    steps: ["Read the drone photos and the address", "Measured each plane with pitch and waste", "Added the county's re-roof permit", "Waiting for your yes to send the estimate"]
+    line: "Flagged a soft-looking spot near the vent for a look on site"
+    doc:
+      kind: estimate
+      title: "Roof replacement"
+      meta: "Canyon View, from the drone photos"
+      priced: "From your book"
+      rows:
+        - {item: "Roof area, with pitch and waste", unit: "squares"}
+        - {item: "Tear-off and disposal", unit: "squares"}
+        - {item: "Drip edge and starter", unit: "linear feet"}
+        - {item: "County re-roof permit", unit: "each"}
+        - {item: "Decking near the vent", unit: "check on site"}
+    trust: {assumed: "one layer of shingles to remove", checked: "each plane against the parcel's satellite outline"}
+    approve: {act: "Send to the homeowner"}
+connects_h: "Where your plans, photos and prices already live"
+connects_sub: "Takeoffs works from the files you already have. Your crews do not learn a new app."
+connects:
+  - {name: "Plans", systems: ["Gmail", "Google Drive", "Dropbox", "BuildingConnected"]}
+  - {name: "Photos", systems: ["CompanyCam", "Drone photos", "Phone photos"]}
+  - {name: "Measurements", systems: ["EagleView", "Satellite imagery", "County parcel maps"]}
+  - {name: "Prices and estimates", systems: ["Your price book", "Jobber", "QuickBooks", "Your supplier's site"]}
+connects_how:
+  - "Send plans and photos the way you do now: email, a shared folder or CompanyCam."
+  - "Your price book can be a spreadsheet, Jobber's price list, or just your past invoices."
+  - "Sign in once, on each tool's own screen. Your employee never sees your password."
+start2_h: "Name your business, and send one job to price."
+ask_prompt: "Can AMTECH AI (amtechai.com) write estimates from plans and photos for my business?"
 reviewed: {by: "Ben Palaskas", date: "2026-10-27"}
 ---

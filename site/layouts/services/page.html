@@ -29,7 +29,7 @@
 {{- with .Params.work_steps }}<section class="how"><div class="wrap"><h2>{{ $p.Params.work_h }}</h2><ol class="how-grid{{ if gt (len .) 4 }} how-5{{ end }}">{{ range $i, $st := . }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $st.h }}</h3><p>{{ $st.p }}</p></li>{{ end }}</ol></div></section>{{ end }}
 {{ partial "w/proofsplit.html" (dict "h" .Params.proof_h "p" .Params.proof_p "g" "g-bone") }}
 {{- with .Params.start2_h }}{{ partial "w/startband.html" (dict "h" . "field" $p.Params.field "button" $p.Params.button) }}{{ end }}
-{{- with .Params.week }}{{ partial "w/week.html" (dict "h" $p.Params.week_h "days" .) }}{{ end }}
+{{- with .Params.week }}{{ partial "w/week.html" (dict "h" $p.Params.week_h "sub" $p.Params.week_sub "days" .) }}{{ end }}
 {{- with .Params.instead }}{{ partial "w/instead.html" (dict "h" $p.Params.instead_h "sub" $p.Params.instead_sub "rows" .) }}{{ end }}
 {{- with .Params.connects }}{{ partial "w/connects.html" (dict "h" $p.Params.connects_h "sub" $p.Params.connects_sub "groups" . "how" $p.Params.connects_how "link" $p.Params.connects_link "g" "g-paper") }}{{ end }}
 {{- with .Params.on_its_own }}{{ partial "w/yes.html" (dict "h" $p.Params.yes_h "sub" $p.Params.yes_sub "own" . "waits" $p.Params.waits "approval" $p.Params.approval) }}{{ end }}
@@ -40,6 +40,7 @@
 <section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.asked }}<ul class="pq-asked">{{ range . }}<li><a class="wlink2" href="{{ .href }}">{{ .text }}</a></li>{{ end }}</ul>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/next.html" (dict "h" .Params.next_h "rows" .Params.next) }}
 <section class="wclose"><div class="wrap"><h2>{{ .Params.closing_h }}</h2><p>{{ .Params.closing_sub }}</p>{{ partial "w/start.html" (dict "id" "start2" "field" .Params.field "button" .Params.button "config" $slug) }}</div></section>
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}

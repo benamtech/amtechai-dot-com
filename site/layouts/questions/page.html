@@ -17,7 +17,7 @@
 <li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does }}</p></li>
 {{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}
 </ul></div></section>
-{{- with .Params.connects }}{{ partial "w/connects.html" (dict "h" $p.Params.connects_h "sub" $p.Params.connects_sub "groups" . "how" $p.Params.connects_how "g" "g-paper") }}{{ end }}
+{{- with .Params.connects }}{{ partial "w/connects.html" (dict "h" $p.Params.connects_h "sub" $p.Params.connects_sub "groups" . "how" $p.Params.connects_how "link" $p.Params.connects_link "g" "g-paper") }}{{ end }}
 {{ partial "w/proofsplit.html" (dict "h" .Params.proof_h "p" .Params.proof_p "g" "g-bone") }}
 {{- with .Params.start2_h }}{{ partial "w/startband.html" (dict "h" . "field" $p.Params.field "button" $p.Params.button) }}{{ end }}
 <section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.questions_sub }}<p class="sec-p">{{ . }}</p>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
