@@ -1,30 +1,51 @@
 {{- /* Home (C on white; Ben, 2026-10-27). A conventional hero: the headline, the paragraph and the start field together,
-       the plain Orbit beside them (below them on a phone); never a start panel beside the hero (Ben, 15:5x: "we should
-       never have the cta to the left of the hero like that. dont reinvent the wheel"). Then the industries, the services,
-       how it works, Scoop Dogg and the closing start. Every word is in content/_index.md. */ -}}
+       the plain Orbit beside them (below them on a phone); never a start panel beside the hero (Ben: "dont reinvent the
+       wheel"). Then the journey (build/SECTIONS-PLAN.md §3; Ben: "way too short", "think about the customer journey",
+       "keep all the main parts. we are building onto it"): see the work, the business types (before the capability
+       list: Ben), believe (Scoop Dogg), act, what the team can do, the week, the team it makes, the services, what it
+       takes the place of, connections, how it works, your yes, the three doors, price, questions, the close.
+       Grounds: at most four tinted sections, never two in a row. Every word is in content/_index.md. */ -}}
 {{- $p := . -}}
-{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "industries_h" "services_h" "services_featured" "how_h" "how" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "industries_h" "services_h" "services_featured" "how_h" "how" "start2_h" "team_h" "team_sub" "team_all" "team_detail" "team_systems" "instead_h" "instead" "connects_h" "connects" "connects_how" "yes_h" "on_its_own" "waits" "approval" "doors_h" "doors" "price_h" "questions_h" "questions" "ask_prompt" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main>
 <section class="hh"><div class="wrap hh-in">
 <div class="hh-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}
+<nav class="hh-trades" aria-label="Your trade">{{ range (where site.RegularPages "Section" "industries").ByWeight }}<a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ .Params.label }}</a>{{ end }}</nav>
 {{- with .Params.now }}<div class="cta-now hh-now"><p class="now-h"><i class="pulse" aria-hidden="true"></i>{{ $p.Params.now_h }}</p>{{ range . }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "in-stack") }}{{ end }}</div>{{ end }}</div>
 <div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ .Params.orbit_centre }}">{{ .Params.orbit_centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "names" .Params.names) }}</div></div>
 </div></section>
+{{/* N1 work at size (lane FRAME): the application frame, three jobs; words in content/_index.md (work_h, work_sub, frame) */}}
+{{- with .Params.frame }}
+<section class="wwork g-paper" id="work"><div class="wrap"><h2>{{ $.Params.work_h }}</h2><p class="sec-p">{{ $.Params.work_sub }}</p>{{ partial "w/appframe.html" (dict "frame" . "names" $.Params.names "id" "work") }}</div></section>
+{{- end }}
+{{/* /N1 work at size */}}
 <section class="ind"><div class="wrap"><h2>{{ .Params.industries_h }}</h2><p class="sec-p">{{ .Params.industries_sub }}</p><div class="ind-grid">
 {{- range (where site.RegularPages "Section" "industries").ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range first 4 .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h3>{{ .Params.label }}</h3><p>{{ .Params.card_line }}</p></a>{{ end }}
 </div></div></section>
+{{ partial "w/proofsplit.html" (dict "id" "proof" "g" "g-bone") }}
+{{ partial "w/startband.html" (dict "h" .Params.start2_h) }}
 {{- with .Params.can }}
-<section class="wcan"><div class="wrap"><h2>{{ $p.Params.can_h }}</h2><p class="sec-p">{{ $p.Params.can_sub }}</p><ul class="wcan-grid">
+<section class="wcan g-white"><div class="wrap"><h2>{{ $p.Params.can_h }}</h2><p class="sec-p">{{ $p.Params.can_sub }}</p><ul class="wcan-grid">
 {{- range . }}<li>{{ partial "w/character.html" (dict "id" .who "size" 44) }}<div><h3>{{ .h }}</h3><p>{{ .p }}</p><span class="wcan-who">{{ partial "w/name.html" (dict "id" .who) }}</span></div></li>{{ end }}
 </ul></div></section>
 {{- end }}
-<section class="pkg"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><p class="sec-p">{{ .Params.services_sub }}</p><a class="wlink" href="/services">{{ .Params.services_more }}</a></div><div class="pkg-grid">
+{{/* N4 week (lane FRAME): Monday to Friday; words in content/_index.md (week_h, week_sub, week) */}}
+{{- with .Params.week }}{{ partial "w/week.html" (dict "h" $.Params.week_h "sub" $.Params.week_sub "days" . "names" $.Params.names "cls" "") }}{{ end }}
+{{/* /N4 week */}}
+{{ partial "w/teamforms.html" (dict "h" .Params.team_h "sub" .Params.team_sub "team" .Params.team_all "detail" .Params.team_detail "systems" .Params.team_systems) }}
+<section class="pkg g-paper"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><p class="sec-p">{{ .Params.services_sub }}</p><a class="wlink" href="/services">{{ .Params.services_more }}</a></div><div class="pkg-grid">
 {{- range .Params.services_featured }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "home: services_featured names %q, which is not in data/services.json" . }}{{ end }}<a class="pkg-card" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/services#{{ $s.slug }}{{ end }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
 </div></div></section>
+{{ partial "w/instead.html" (dict "h" .Params.instead_h "sub" .Params.instead_sub "rows" .Params.instead) }}
+{{ partial "w/connects.html" (dict "h" .Params.connects_h "sub" .Params.connects_sub "groups" .Params.connects "how" .Params.connects_how "link" .Params.connects_link) }}
 <section class="how"><div class="wrap"><h2>{{ .Params.how_h }}</h2><ol class="how-grid">{{ range $i, $s := .Params.how }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol></div></section>
-{{ partial "w/proof.html" (dict "id" "proof") }}
+{{ partial "w/yes.html" (dict "h" .Params.yes_h "sub" .Params.yes_sub "own" .Params.on_its_own "waits" .Params.waits "approval" .Params.approval) }}
+{{ partial "w/doors.html" (dict "h" .Params.doors_h "rows" .Params.doors) }}
+{{ partial "w/price.html" (dict "h" .Params.price_h "q" .Params.price_q "g" "g-paper") }}
+<section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/closing.html" (dict) }}
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}

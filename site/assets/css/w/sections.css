@@ -1,0 +1,111 @@
+/* The sections that carry the journey (SECTIONS-PLAN.md N5-N12, N14; the main session, 2026-10-27): grounds, control,
+   what it takes the place of, the proof split, the connections wall, the three doors, price, ask the AIs, next pages. */
+/* Grounds (SECTIONS-PLAN §1, §14): Paper for product and control, Bone for proof; never two tinted sections in a row. */
+.g-paper{background:var(--panel)}
+.g-bone{background:#FAF4E9}
+.g-bone .sec-p,.g-bone p{color:var(--ink-2)}
+.wyes,.winst,.wps,.wcon,.wdoors,.wprice,.wnext,.wtf{padding:96px 0}
+.wyes h2,.winst h2,.wps h2,.wcon h2,.wdoors h2,.wprice h2,.wnext h2,.wtf h2,.wsb h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04;max-width:20em}
+.sec-p{margin-top:14px;max-width:42em;color:var(--ink-2)}
+
+/* N5 your yes */
+.wyes-in{display:grid;grid-template-columns:1fr 1fr minmax(0,1.1fr);gap:28px;margin-top:36px;align-items:start}
+.wyes-col h3{font:600 15px/1.3 var(--sans);color:var(--ink);padding-bottom:12px;border-bottom:1px solid var(--ink)}
+.wyes-col ul{list-style:none}.wyes-col li{padding:12px 0;border-bottom:1px solid var(--hair);font-size:15.5px;color:var(--ink-2)}
+.wyes-wait h3{color:var(--blue-2);border-color:var(--blue)}
+.wyes-card{background:#fff;border-radius:8px;padding:20px;box-shadow:0 1px 0 var(--hair),0 24px 48px -28px rgba(10,10,10,.35);display:grid;grid-template-columns:auto 1fr;gap:6px 12px;align-items:center}
+.wyes-k{grid-column:1/-1;font-size:12.5px;color:var(--ink-3)}
+.wyes-act{font-weight:600;font-size:15.5px}.wyes-to{grid-column:2;font-size:13.5px;color:var(--ink-3);margin-top:-4px}
+.wyes-card blockquote{grid-column:1/-1;margin-top:8px;padding:12px 14px;background:var(--panel);border-radius:4px;font-size:14px;color:var(--ink-2)}
+.wyes-bar{grid-column:1/-1;display:flex;gap:8px;margin-top:10px}.wyes-bar .btn{height:38px;padding:0 16px;font-size:14px;display:inline-flex;align-items:center}
+.wyes-trust{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px;padding-top:24px;border-top:1px solid var(--hair)}
+.wyes-trust li{font:italic 500 20px/1.3 var(--serif);color:var(--ink)}
+
+/* N6 what it takes the place of */
+.winst-t{width:100%;margin-top:32px;border-collapse:collapse;font-size:16px}
+.winst-t th{text-align:left;font:600 14px/1.3 var(--sans);padding:0 0 12px;border-bottom:1px solid var(--ink)}
+.winst-t td{padding:16px 24px 16px 0;border-bottom:1px solid var(--hair);vertical-align:top;color:var(--ink-2);width:50%}
+.winst-t td:first-child{font:500 22px/1.2 var(--serif);color:var(--ink)}
+
+/* N7 the proof split */
+.wps-in{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,6fr);gap:56px;align-items:center}
+.wps-t>p{margin-top:16px;font-size:18px;max-width:34em}
+.wps-figs{list-style:none;display:grid;gap:14px;margin-top:28px}
+.wps-figs li{display:grid;grid-template-columns:minmax(150px,auto) 1fr;gap:2px 18px;align-items:baseline;padding-bottom:14px;border-bottom:1px solid rgba(10,10,10,.12)}
+.wps-figs b{font:600 44px/1 var(--serif);grid-row:span 2}.wps-figs span{font-size:16px;color:var(--ink)}.wps-figs small{font-size:12.5px;color:var(--ink-3)}
+.wps-links{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px}
+.wps-shots{position:relative;aspect-ratio:1.05}
+.wps-shot{position:absolute;margin:0;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 1px 0 rgba(10,10,10,.08),0 30px 60px -30px rgba(10,10,10,.45)}
+.wps-shot img{width:100%;height:auto;display:block}
+.wps-s0{left:0;top:4%;width:84%}.wps-s1{right:0;top:30%;width:28%}.wps-s2{left:12%;bottom:0;width:48%}
+
+/* N8 connections wall */
+.wcon-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:56px}
+.wcon-how{list-style:none;margin-top:24px}.wcon-how li{padding:12px 0;border-top:1px solid var(--hair);font-size:15.5px;color:var(--ink-2)}
+.wcon-t .wlink{display:inline-block;margin-top:18px}
+.wcon-wall{display:grid;grid-template-columns:repeat(3,1fr);gap:24px 20px;align-content:start}
+.wcon-g h3{font:600 13px/1.3 var(--sans);color:var(--ink-3);margin-bottom:10px}
+.wcon-g ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+.wcon-g li,.wcon-any{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;padding:6px 10px;border-radius:4px;background:#fff;box-shadow:inset 0 0 0 1px var(--hair);font-size:14px}
+.wcon-g i,.wcon-any i{width:7px;height:7px;border-radius:50%;background:var(--blue);flex:none}
+.wcon-any{grid-column:1/-1;font-weight:600}
+
+/* N9 three doors */
+.wdoors-l{list-style:none;margin-top:28px}
+.wdoors-l li{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,440px);gap:28px;align-items:center;padding:26px 0;border-top:1px solid var(--hair)}
+.wdoors-l li:last-child{border-bottom:1px solid var(--hair)}
+.wdoors-team{display:flex;gap:4px}.wdoors-t h3{font-size:32px;line-height:1.05}.wdoors-t p{margin-top:6px;color:var(--ink-2);font-size:15.5px}
+.wdoors-f{display:flex;gap:6px;padding:5px;border-radius:6px;border:1.5px solid var(--ink);background:#fff}
+.wdoors-f .start-in{flex:1;min-width:0}
+
+/* N10 price */
+.wprice-line{margin-top:10px;font:italic 500 24px/1.3 var(--serif);color:var(--ink)}
+.wprice-cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:30px}
+.wprice-cols>div{background:#fff;border-radius:8px;padding:24px;box-shadow:inset 0 0 0 1px var(--hair)}
+.wprice-cols h3{font-size:30px}.wprice-cols ul{margin:12px 0 0 18px;color:var(--ink-2)}.wprice-cols li{margin-top:6px}
+.wprice-f{margin-top:24px}
+.wprice-q{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:32px}
+.wprice-q dt{font:500 20px/1.2 var(--serif)}.wprice-q dd{margin-top:6px;font-size:14.5px;color:var(--ink-2)}
+
+/* N11 ask the AIs */
+.wask{padding:0 0 64px;text-align:center}.wask-h{font:500 22px/1.2 var(--serif)}.wask-sub{margin-top:4px;font-size:14px;color:var(--ink-3)}
+.wask ul{list-style:none;display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin-top:14px}
+.wask a{display:inline-block;padding:8px 14px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--hair);font-size:14px;color:var(--ink)}
+.wask a:hover{box-shadow:inset 0 0 0 1px var(--blue);color:var(--blue-2)}
+
+/* N14 next pages */
+.wnext{padding:72px 0}.wnext-l{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:22px 32px;margin-top:26px}
+.wnext-l a{font:500 22px/1.2 var(--serif);color:var(--ink);text-decoration:underline;text-underline-offset:4px;text-decoration-color:var(--hair)}
+.wnext-l a:hover{text-decoration-color:var(--blue)}.wnext-l p{margin-top:6px;font-size:14.5px;color:var(--ink-2)}
+
+/* The start after the proof */
+.wsb{padding:56px 0}.wsb-in{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,540px);gap:40px;align-items:center}
+.wsb h2{font-size:clamp(28px,2.8vw,40px)}
+
+/* Home: the team it makes */
+.wtf-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center}
+.wtf-art .h2-orb{width:100%;max-width:560px}
+.wtf-l{list-style:none;margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:18px 24px}
+.wtf-l li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start}.wtf-l h3{font-size:22px}.wtf-l p{margin-top:4px;font-size:14.5px;color:var(--ink-2)}
+
+@media (max-width:1100px){
+  .wyes-in{grid-template-columns:1fr 1fr}.wyes-card{grid-column:1/-1;max-width:520px}
+  .wps-in,.wcon-in,.wtf-in,.wsb-in{grid-template-columns:minmax(0,1fr);gap:32px}
+  .wdoors-l li{grid-template-columns:minmax(0,1fr);gap:12px}
+  .wnext-l,.wprice-q{grid-template-columns:1fr 1fr}
+}
+@media (max-width:640px){
+  .wyes,.winst,.wps,.wcon,.wdoors,.wprice,.wnext,.wtf{padding:56px 0}
+  .wyes-in,.wyes-trust,.wcon-wall,.wprice-cols,.wprice-q,.wnext-l,.wtf-l{grid-template-columns:minmax(0,1fr)}
+  .wcon-wall{grid-template-columns:1fr 1fr}
+  .winst-t thead{display:none}.winst-t tr{display:block;padding:14px 0;border-bottom:1px solid var(--hair)}.winst-t td{display:block;width:auto;padding:0;border:0}.winst-t td+td{margin-top:6px}
+  .wps-figs li{grid-template-columns:minmax(0,1fr)}.wps-figs b{font-size:36px}
+  .wps-shots{aspect-ratio:auto;display:grid;grid-template-columns:2fr 1fr;gap:10px}.wps-shot{position:static;width:auto}.wps-s2{grid-column:1/-1}
+  .wdoors-f{flex-direction:column}.wsb{padding:40px 0}
+}
+.g-white{background:#fff}
+/* Home hero: the trades under the start field (Housecall Pro's trade picker), each to its page. */
+.hh-trades{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:16px;font-size:14px}
+.hh-trades a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--hair)}
+.hh-trades a:hover{color:var(--blue-2);text-decoration-color:var(--blue)}
+.wps-figs b{font-family:var(--sans);font-weight:700;letter-spacing:-0.03em}

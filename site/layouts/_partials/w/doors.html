@@ -1,0 +1,9 @@
+{{- /* N9 the three doors: an owner, an agency, an operator. Typographic rows, not cards; each row its own start
+       (for= rides to /start). (dict "h" .Params.doors_h "rows" .Params.doors) rows: [{who, line, team: [ids], for, button}] */ -}}
+<section class="wdoors"><div class="wrap">
+<h2>{{ .h }}</h2>
+<ul class="wdoors-l">{{ range $i, $d := .rows }}
+<li><div class="wdoors-team">{{ range $d.team }}{{ partial "w/character.html" (dict "id" . "size" 38) }}{{ end }}</div><div class="wdoors-t"><h3>{{ $d.who }}</h3><p>{{ $d.line }}</p></div>
+<form class="wdoors-f" action="/start" method="get" data-start id="door{{ $i }}"><input type="hidden" name="for" value="{{ $d.for }}"><label class="sr" for="door{{ $i }}-in">{{ $d.field }}</label><input id="door{{ $i }}-in" name="business" class="start-in" placeholder="{{ $d.field }}" autocomplete="organization" maxlength="120" required data-echo-src><button class="btn start-btn" type="submit">{{ $d.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></form></li>
+{{- end }}</ul>
+</div></section>

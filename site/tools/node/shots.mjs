@@ -23,7 +23,10 @@ for (const w of [390, 1440]) {
   const page = await ctx.newPage();
   for (const p of paths) {
     await page.goto(base + p, { waitUntil: 'networkidle' });
-    await page.waitForTimeout(400);
+    // scroll through once so lazy pictures load, then back to the top
+    const h = await page.evaluate(() => document.documentElement.scrollHeight);
+    for (let y = 0; y < h; y += 700) { await page.evaluate((yy) => window.scrollTo(0, yy), y); await page.waitForTimeout(60); }
+    await page.evaluate(() => window.scrollTo(0, 0)); await page.waitForTimeout(500);
     const name = (p.replace(/^\/|\/$/g, '').replace(/\//g, '-') || 'index') + `-${w}`;
     await page.screenshot({ path: path.join(out, name + '.png'), fullPage: true });
     // Labels that overflow their box or the screen (ART's bounding-box check, 2026-10-27)

@@ -1,0 +1,5 @@
+{{- /* N11 ask the AIs: links that open ChatGPT, Perplexity, Claude and Google with the page's own prompt, so a reader
+       checks AMTECH (or Scoop Dogg) in the answers themselves. Engines and labels in data/w.json ask.
+       (dict "prompt" .Params.ask_prompt) */ -}}
+{{- $A := hugo.Data.w.ask -}}
+{{- with .prompt }}<div class="wask"><div class="wrap"><p class="wask-h">{{ $A.h }}</p><p class="wask-sub">{{ $A.sub }}</p><ul>{{ range $A.engines }}<li><a href="{{ .url }}{{ $.prompt | urlquery }}" rel="nofollow noopener" target="_blank">{{ .name }}<span aria-hidden="true"> &#8599;</span></a></li>{{ end }}</ul></div></div>{{ end }}

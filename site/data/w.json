@@ -29,5 +29,100 @@
   "Scoop Dogg: his AI employee set up his new website, its online booking and his automatic replies; he gets bookings every week; first in ChatGPT and on Google for pet and yard cleanup across Ventura and Santa Barbara: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net).",
   "The work shown in progress on this page (\"Step 2 of 4\" and the like) illustrates the AMTECH application; it is not a customer's job."
  ],
- "centre": "Your business"
+ "centre": "Your business",
+ "yes": {
+  "own_h": "Goes ahead under your standing approval",
+  "waits_h": "Waits for your yes",
+  "card_k": "Ready for your yes",
+  "approve": "Approve",
+  "change": "Change",
+  "trust": [
+   "AMTECH's own access to your business ends by itself, and you see it end.",
+   "Every action your employee takes leaves a receipt you can open.",
+   "Close your account and nothing of your business stays behind."
+  ]
+ },
+ "instead": {
+  "today": "What you pay for today",
+  "now": "What your AI team does instead"
+ },
+ "proof2": {
+  "figures": [
+   {
+    "big": "#1",
+    "line": "in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara",
+    "when": "October 2026"
+   },
+   {
+    "big": "#1",
+    "line": "on Google Maps for pet waste removal in Ventura and Oxnard",
+    "when": "Captured 27 October 2026"
+   },
+   {
+    "big": "Every week",
+    "line": "new customers book through his site, answered by his employee at his real prices",
+    "when": "Ben Palaskas, October 2026"
+   }
+  ],
+  "shots": [
+   {
+    "src": "/customers/scoop-dogg/site-home-desktop",
+    "alt": "scoopdogg.net's home page, set up by his AI employee",
+    "w": 1200,
+    "h": 750
+   },
+   {
+    "src": "/customers/scoop-dogg/site-book-phone",
+    "alt": "Scoop Dogg's online booking on a phone",
+    "w": 600,
+    "h": 1298
+   },
+   {
+    "src": "/customers/scoop-dogg/maps-pet-waste-removal-ventura",
+    "alt": "Google Maps: Scoop Dogg first for pet waste removal in Ventura",
+    "w": 820,
+    "h": 840
+   }
+  ],
+  "story": "/customers/scoop-dogg",
+  "story_text": "Read how his employee did it",
+  "site_text": "Visit scoopdogg.net"
+ },
+ "connect_any": "Anything with a sign-in",
+ "price2": {
+  "free_h": "Start free",
+  "free": [
+   "Your employee and its team, working on your own business today",
+   "Pay as you go, only for the work done",
+   "A test drive on your real work before anything else"
+  ],
+  "custom_h": "Custom agents, from $1,200/mo",
+  "custom": [
+   "Set up with you for how your business runs",
+   "Results guaranteed",
+   "Every department you hand over, run end to end"
+  ]
+ },
+ "ask": {
+  "h": "Ask the AIs",
+  "sub": "Ask any assistant what AMTECH does for a business like yours.",
+  "engines": [
+   {
+    "name": "ChatGPT",
+    "url": "https://chatgpt.com/?q="
+   },
+   {
+    "name": "Perplexity",
+    "url": "https://www.perplexity.ai/search?q="
+   },
+   {
+    "name": "Claude",
+    "url": "https://claude.ai/new?q="
+   },
+   {
+    "name": "Google",
+    "url": "https://www.google.com/search?q="
+   }
+  ]
+ }
 }
