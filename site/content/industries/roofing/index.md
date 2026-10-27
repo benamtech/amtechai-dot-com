@@ -148,4 +148,54 @@ week:
   - {day: "Thursday", who: t4, lines: ["Deposit requests for the jobs won this week", "Progress invoices for the roofs torn off"]}
   - {day: "Friday", who: employee, lines: ["Open quotes followed up and unpaid deposits chased", "Your week, in plain words"]}
   - {day: "After a storm", who: t2, lines: ["The streets it hit in your service area, listed", "A letter to each homeowner, ready for your yes"]}
+# The rest of SECTIONS-PLAN §4 (lane TRADES, 2026-10-27): proof, the start after it, connections, what it takes the
+# place of, your yes, price, next pages and ask the AIs, every word written for roofing.
+proof_h: "The first business run by an AI employee works outdoors, like your crews."
+proof: "Scoop Dogg cleans up pet waste and cares for turf across Ventura and Santa Barbara counties, so his work, like a roofer's, happens outside and his leads come in while he is on a job. His AI employee set up his new website and its online booking, then set up his automatic replies itself. Every booking and quote request is answered at his real prices, he gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area."
+start2_h: "Name your roofing company. Your employee starts on the next estimate."
+connects_h: "Plugs into what your roofing office runs today"
+connects_sub: "Your employee works inside your own job software, measurement reports and books from the first day, with a seat of its own."
+connects:
+  - {name: "Jobs and crews", systems: ["AccuLynx", "JobNimbus", "Roofr", "CompanyCam"]}
+  - {name: "Measurements", systems: ["EagleView", "Hover", "Drone photos", "Satellite imagery"]}
+  - {name: "Insurance claims", systems: ["Xactimate", "The carriers' claim portals"]}
+  - {name: "Deposits and books", systems: ["QuickBooks", "Your financing partner's portal"]}
+  - {name: "Storm leads", systems: ["Your website's forms", "Google Business Profile", "NOAA storm reports", "Your permit office's records"]}
+connects_how:
+  - "Your employee builds each connection itself. You sign in while it walks you through it, and it never asks you for a key or a password."
+  - "Where a system has no way in, such as a carrier's claim portal, your employee works it the way your office does, through the screen."
+  - "It can also do the job of the software you pay for, so dropping a subscription becomes your choice."
+connects_link: {text: "Can it connect to AccuLynx or JobNimbus?", url: "/questions/can-an-ai-employee-connect-to-my-software"}
+instead_h: "What your AI team takes the place of"
+instead_sub: "A roofing office buys its paperwork in pieces: an estimator's time, measurement reports, a supplement company, a billing clerk and an agency. Your AI team runs all of it."
+instead:
+  - {today: "Your evenings at the kitchen table building estimates", now: "Every roof measured and priced from your book by morning, waiting for your yes."}
+  - {today: "A measurement report bought for every bid", now: "Takeoffs measures from the plan set, the drone photos or the satellite imagery, and names the roofs that still need a ladder."}
+  - {today: "A supplement company's share of every claim", now: "Supplements written from your own photos and measurements and followed until the carrier answers each line."}
+  - {today: "A billing clerk", now: "Deposit, progress and final invoices sent on time and chased until they are paid."}
+  - {today: "A local marketing agency", now: "Your storm page, your Google listing and what ChatGPT says about you, worked every week."}
+yes_h: "Nothing reaches a homeowner or an adjuster without you"
+yes_sub: "Your employee does the work and shows it to you. You approve each piece, or write a standing approval so the routine work goes ahead on its own."
+on_its_own:
+  - "Pricing the morning's estimates from your book"
+  - "Following up open quotes in the words you approved"
+  - "Listing yesterday's roofing permits in your area"
+  - "Answering a new lead with your next inspection times"
+waits:
+  - "Sending an estimate to a homeowner"
+  - "Sending a supplement to the adjuster"
+  - "Asking for a deposit"
+  - "Mailing the storm-street letters"
+approval: {who: t4, act: "Send the deposit request", to: "To the homeowner, from the signed contract", preview: "Thank you for choosing us for your new roof. Here is the deposit from your signed contract, with a link to pay by card or bank transfer. We will confirm your start date as soon as it is in."}
+price_h: "What a roofing company pays"
+price_q:
+  - {q: "Is there a fee per estimate or per claim?", a: "No. You pay as you go for the work your employee does, and every piece of work shows what it cost before you approve the next."}
+  - {q: "When does a roofer need a custom agent?", a: "When your office runs a way of its own, such as your supplement process or your storm routine, and you want it set up with you, with the results agreed up front."}
+next_h: "Where roofers go next"
+next:
+  - {label: "Estimates from plans and photos", url: "/services/estimates-from-plans-and-photos", line: "How Takeoffs measures and prices a roof, start to finish."}
+  - {label: "Can an AI employee write my estimates?", url: "/questions/can-an-ai-employee-write-my-estimates", line: "What it reads, what it checks and what it flags."}
+  - {label: "Being found after a storm", url: "/departments/being-found", line: "Your storm page, your listing and the AI answers, worked every week."}
+  - {label: "General contractors", url: "/industries/contractors", line: "If you take on full builds and remodels as well."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a roofing company?"
 ---

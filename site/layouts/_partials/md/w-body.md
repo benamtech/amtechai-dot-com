@@ -269,6 +269,24 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 
 - **The team:** {{ $t := slice }}{{ range $P.team }}{{ $t = $t | append (partial "w/name.html" (dict "id" . "names" $names)) }}{{ end }}{{ delimit $t ", " }}
 - **Connects to:** {{ delimit $P.systems ", " }}
+{{- if eq $p.Section "industries" }}
+
+## {{ $P.workday_h }}
+
+{{ $P.workday_sub }}
+{{ range $P.workday }}
+### {{ .job }}
+
+{{ .does }} {{ partial "md/w-docline.md" .doc }}
+{{ end }}
+## {{ $P.proof_h }}
+
+{{ $P.proof }} [{{ $W.proof.link_text }}]({{ $W.proof.link }})
+
+## {{ $P.start2_h }}
+
+Start with your business's name: {{ $o }}/start?business=<your business's name>&industry={{ $P.config }}
+{{- end }}
 
 ## {{ $P.team_h | default (cond (eq $p.Section "industries") (printf "The team for %s" (lower ($P.label | default ""))) "The team") }}
 
@@ -295,6 +313,57 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 
 {{ delimit $P.systems ", " }}
 {{- end }}
+{{- if eq $p.Section "industries" }}
+
+## {{ $P.work_h }}
+
+{{ $P.work_sub }}
+{{ range $P.frame }}
+- **You:** {{ .ask }}
+- **{{ partial "w/name.html" (dict "id" .who "names" $names) }}:** {{ .reply }}
+- **{{ .title }}:** {{ delimit .steps "; " }}. {{ partial "md/w-docline.md" .doc }} Assumed: {{ .trust.assumed }}. Checked: {{ .trust.checked }}.
+{{- end }}
+
+## {{ $P.week_h }}
+
+{{ $P.week_sub }}
+{{ range $P.week }}
+- **{{ .day }}:** {{ delimit .lines "; " }}.
+{{- end }}
+
+## {{ $P.connects_h }}
+
+{{ $P.connects_sub }}
+{{ range $P.connects }}
+- **{{ .name }}:** {{ delimit .systems ", " }}
+{{- end }}
+- {{ $W.connect_any }}
+{{ range $P.connects_how }}
+{{ . }}
+{{ end }}
+[{{ $P.connects_link.text }}]({{ $o }}{{ $P.connects_link.url }})
+
+## {{ $P.instead_h }}
+
+{{ $P.instead_sub }}
+{{ range $P.instead }}
+- **{{ .today }}:** {{ .now }}
+{{- end }}
+
+## {{ $P.yes_h }}
+
+{{ $P.yes_sub }}
+
+### {{ $W.yes.own_h }}
+{{ range $P.on_its_own }}
+- {{ . }}
+{{- end }}
+
+### {{ $W.yes.waits_h }}
+{{ range $P.waits }}
+- {{ . }}
+{{- end }}
+{{- end }}
 
 ## {{ $P.services_h | default (cond (eq $p.Section "departments") "Services that use this department" "Made for your kind of business") }}
 {{ range $P.services }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}
@@ -302,6 +371,27 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 
 {{ $s.instead }}. For {{ lower (substr $s.for 0 1) }}{{ substr $s.for 1 }}. [{{ $s.name }}]({{ $o }}/services#{{ $s.slug }})
 {{ end }}
+{{- if eq $p.Section "industries" }}
+
+## {{ $P.price_h }}
+
+{{ $W.prices }}
+
+### {{ $W.price2.free_h }}
+{{ range $W.price2.free }}
+- {{ . }}
+{{- end }}
+
+### {{ $W.price2.custom_h }}
+{{ range $W.price2.custom }}
+- {{ . }}
+{{- end }}
+{{ range $P.price_q }}
+### {{ .q }}
+
+{{ .a }}
+{{ end }}
+{{- end }}
 
 ## {{ $P.questions_h }}
 {{ range $P.questions }}
@@ -309,13 +399,19 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 
 {{ .a }}
 {{ end }}
+{{- if eq $p.Section "industries" }}
+## {{ $P.next_h }}
+{{ range $P.next }}
+- [{{ .label }}]({{ $o }}{{ .url }}): {{ .line }}
+{{- end }}
+{{ end }}
 {{- end }}
 {{- if $P.proof_p }}
 
 ## {{ $P.proof_h }}
 
 {{ $P.proof_p }} [{{ $W.proof.link_text }}]({{ $W.proof.link }})
-{{- else if not (eq $p.Section "departments" "services" "questions" "customers") }}
+{{- else if not (eq $p.Section "departments" "services" "questions" "customers" "industries") }}
 
 ## {{ $W.proof.h }}
 
@@ -325,6 +421,12 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 ## {{ $P.closing_h | default $W.closing_h }}
 
 {{ $P.closing_sub | default $W.late }}
+{{- if and (eq $p.Section "industries") $p.IsPage }}
+
+## {{ $W.ask.h }}
+
+{{ $W.ask.sub }} "{{ $P.ask_prompt }}"
+{{- end }}
 
 ## Sources
 {{ range $i, $x := $W.sources }}
