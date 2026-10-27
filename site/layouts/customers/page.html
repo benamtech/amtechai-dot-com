@@ -1,11 +1,11 @@
 {{- /* A customer story (/customers/<slug>), N16 (build/SECTIONS-PLAN.md §10; lane STORY, 2026-10-27): the hero with a real
        capture, the facts and the figures, the captures on Bone, what the employee did in order, the timeline, the week,
        the owner's words, how it was done, the trades, the start after the proof, ask the AIs, the close and the sources.
-       Every word is in the page's content file. The slots Ben fills (chatgpt, google_search, josue) render nothing
+       Every word is in the page's content file. The slots Ben fills (chatgpt, josue) render nothing
        while empty: never a placeholder box on the live page. */ -}}
 {{- $p := . -}}
 {{- range slice "title" "description" "h1a" "h1b" "sub" "site_link" "hero_shots" "hero_cap" "facts_h" "facts" "figures" "gallery_h" "gallery" "answers_h" "did_h" "did" "timeline_h" "timeline" "week_h" "week" "words_h" "words" "how_h" "how_p" "how_link" "trades_h" "trades" "start2_h" "ask_h" "ask_sub" "ask_prompt" "closing_h" "closing_sub" "sources" "reviewed" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
-{{- $P := .Params }}{{ $cg := $P.chatgpt }}{{ $gs := $P.google_search -}}
+{{- $P := .Params }}{{ $cg := $P.chatgpt -}}
 {{ partial "w/top.html" . }}
 <main class="wcs">
 <section class="wcs-hero"><div class="wrap wcs-hero-in">
@@ -27,10 +27,9 @@
 {{- range $s := .shots }}<figure class="wcs-shot{{ if .phone }} wcs-pair{{ end }}"><div class="wcs-pics"><div class="wcs-frame"><span class="wcs-bar" aria-hidden="true"><i></i><i></i><i></i></span><picture><source type="image/avif" srcset="{{ .src }}.avif"><img src="{{ .src }}.webp" alt="{{ .alt }}" width="{{ .w }}" height="{{ .h }}" loading="lazy" decoding="async"></picture></div>{{ with .phone }}<div class="wcs-phone"><picture><source type="image/avif" srcset="{{ . }}.avif"><img src="{{ . }}.webp" alt="{{ $s.phone_alt }}" width="600" height="1298" loading="lazy" decoding="async"></picture></div>{{ end }}</div><figcaption>{{ .cap }}</figcaption></figure>{{ end }}
 </div>
 {{- end }}
-{{- if or $cg.answer $cg.src $gs.src }}
+{{- if or $cg.answer $cg.src }}
 <h3 class="wcs-gh">{{ $P.answers_h }}</h3><div class="wcs-grid wcs-answers">
 {{- if or $cg.answer $cg.src }}<figure class="wcs-shot wcs-ai">{{ with $cg.src }}<div class="wcs-frame"><img src="{{ . }}" alt="{{ $cg.prompt }}" width="{{ $cg.w }}" height="{{ $cg.h }}" loading="lazy" decoding="async"></div>{{ end }}{{ with $cg.answer }}<blockquote><p class="wcs-q">{{ $cg.prompt }}</p><p>{{ . }}</p></blockquote>{{ end }}<figcaption>{{ $cg.cap }}</figcaption></figure>{{ end }}
-{{- with $gs.src }}<figure class="wcs-shot"><div class="wcs-frame"><img src="{{ . }}" alt="{{ $gs.alt }}" width="{{ $gs.w }}" height="{{ $gs.h }}" loading="lazy" decoding="async"></div><figcaption>{{ $gs.cap }}</figcaption></figure>{{ end }}
 </div>
 {{- end }}
 </div></section>

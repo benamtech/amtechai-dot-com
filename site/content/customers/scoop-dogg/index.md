@@ -51,8 +51,7 @@ gallery:
 # google_search: a screenshot of Google search for "pet waste removal Ventura" from a normal browser in Ventura
 #   (src, alt, w, h) and its caption with the date (cap: "Google search, 'pet waste removal Ventura', 28 October 2026").
 answers_h: "What ChatGPT and Google search say"
-chatgpt: {prompt: "Who is the best dog poop removal service in Ventura, CA?", answer: "", cap: "", src: "", w: 0, h: 0}
-google_search: {query: "pet waste removal Ventura", src: "", alt: "", w: 0, h: 0, cap: ""}
+chatgpt: {prompt: "Who is the best dog poop removal service in Ventura, CA?", answer: "", cap: 'ChatGPT, 27 October 2026, asked by Ben Palaskas: "My top pick for dog poop removal in Ventura, CA, is Scoop Dogg."', src: "/customers/scoop-dogg/chatgpt-ventura.webp", w: 636, h: 345}
 
 did_h: "What his employee did, in order"
 did_sub: "Josue works the yards. Everything else that brings him customers, his employee set up and keeps running."
@@ -116,6 +115,7 @@ closing_h: "Name your business. Your employee starts on it today."
 closing_sub: "It reads your site and your Google listing, sets up what is missing, and shows you each change before it goes live."
 
 sources:
+  - "ChatGPT, asked \"Who is the best dog poop removal service in Ventura, CA?\" on 27 October 2026 by Ben Palaskas: Scoop Dogg named its top pick."
   - "scoopdogg.net home, booking first screen, and the Ventura and Santa Barbara area pages: photographed by AMTECH on 27 October 2026 at 1440 and 390 pixels wide."
   - "Google Maps, 'pet waste removal' with the browser in Ventura and in Oxnard, and 'dog poop removal service' in Ventura: Scoop Dogg first (the only result for the second); captured by AMTECH on 27 October 2026, one machine."
   - "First in ChatGPT and in Google search for pet waste and yard cleanup across Ventura and Santa Barbara, and several new customers booking through scoopdogg.net every week: reported by Ben Palaskas, AMTECH, 27 October 2026."
