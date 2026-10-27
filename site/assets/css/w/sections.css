@@ -109,3 +109,22 @@
 .hh-trades a{color:var(--ink-2);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--hair)}
 .hh-trades a:hover{color:var(--blue-2);text-decoration-color:var(--blue)}
 .wps-figs b{font-family:var(--sans);font-weight:700;letter-spacing:-0.03em}
+.how-grid.how-5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:1100px){.how-grid.how-5{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.how-grid.how-5{grid-template-columns:1fr}}
+/* Lane VISUAL (2026-10-27): the capabilities as mixed-size tiles, not a uniform 3x3 (Sierra's bento); the first two
+   tiles carry the character at size. Same words. */
+@media (min-width:1101px){
+  .wcan-grid{grid-template-columns:repeat(4,1fr)}
+  .wcan-grid li:nth-child(1),.wcan-grid li:nth-child(2){grid-column:span 2;grid-row:span 2;align-content:start;padding:28px}
+  .wcan-grid li:nth-child(1) h3,.wcan-grid li:nth-child(2) h3{font-size:34px}
+  .wcan-grid li:nth-child(1) p,.wcan-grid li:nth-child(2) p{font-size:17px}
+  .wcan-grid li:nth-child(1) .chr,.wcan-grid li:nth-child(2) .chr{width:72px;height:72px}
+  .wcan-grid li:nth-child(9){grid-column:span 2}
+}
+/* The close inside one contained panel per page (lane VISUAL: Lindy, Sierra): Bone, rounded, inside the wrap. */
+.wclose{padding:72px 0}
+.wclose>.wrap{background:#FAF4E9;border-radius:16px;padding:72px 48px}
+@media (max-width:640px){.wclose{padding:40px 0}.wclose>.wrap{border-radius:12px;padding:44px 20px;margin:0 16px}}
+/* A team list of five fits one row on a desk (no orphan on a second row). */
+@media (min-width:1101px){.wteam-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
