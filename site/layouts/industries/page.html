@@ -14,7 +14,7 @@
 {{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}
 </ul></div></section>
 <section class="pkg wmade"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><a class="wlink" href="/services">See all services</a></div><div class="pkg-grid">
-{{- range .Params.services }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "GATE %s: services names %q, which is not in data/services.json" $p.File.Path . }}{{ end }}<a class="pkg-card" href="/services#{{ $s.slug }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
+{{- range .Params.services }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "GATE %s: services names %q, which is not in data/services.json" $p.File.Path . }}{{ end }}<a class="pkg-card" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/services#{{ $s.slug }}{{ end }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
 </div></div></section>
 <section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/proof.html" (dict) }}

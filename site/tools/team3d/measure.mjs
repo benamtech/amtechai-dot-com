@@ -10,6 +10,7 @@ import fs from "node:fs"; import path from "node:path"; import zlib from "node:z
 const { chromium } = pkg; const exe = "/home/georgej/.cache/ms-playwright/chromium-1248/chrome-linux64/chrome";
 const argv = process.argv.slice(2), arg = (k, d) => { const i = argv.indexOf(k); return i >= 0 ? argv[i + 1] : d; };
 const dist = argv[0] && !argv[0].startsWith("--") ? argv[0] : "/tmp/t3d-public";
+const PATH = arg("--path", "/"), TAG = arg("--tag", "home");
 const modes = arg("--modes", "gpu,sw,phone4x,reduced").split(","), shots = arg("--shots", null), WINDOW_S = +arg("--window", "10");
 const GPU = ["--use-angle=gl", "--ignore-gpu-blocklist", "--enable-gpu"];
 const types = { ".html": "text/html", ".js": "text/javascript", ".css": "text/css", ".json": "application/json", ".svg": "image/svg+xml", ".png": "image/png", ".woff2": "font/woff2", ".webp": "image/webp", ".avif": "image/avif" };
@@ -43,7 +44,7 @@ async function one(mode) {
     if (throttle > 1) await cdp.send("Emulation.setCPUThrottlingRate", { rate: throttle });
     const errors = []; page.on("pageerror", (e) => errors.push(String(e).slice(0, 200))); page.on("console", (m) => { if (m.type() === "error") errors.push(m.text().slice(0, 200)); });
     const tNav = Date.now();
-    await page.goto("http://t3d.test/", { waitUntil: "load" });
+    await page.goto("http://t3d.test" + PATH, { waitUntil: "load" });
     // the start field is usable now, before any scene: type into it and read it back
     const typed = await page.evaluate(() => { const i = document.querySelector("form input"); if (!i) return null; i.focus(); i.value = "Acme Roofing"; return document.activeElement === i && i.value === "Acme Roofing"; });
     await page.waitForFunction(() => window.__t3d && (window.__t3d.firstFrameAt || /^(reduced-motion|save-data|no-webgl2|software|no-host|error|team|no-)/.test(window.__t3d.reason || "")), null, { timeout: 60000 }).catch(() => {});
@@ -64,7 +65,7 @@ async function one(mode) {
     }
     const end = await page.evaluate(() => ({ lcp: window.__lcp.at(-1) || null, cls: +window.__cls.toFixed(4), t3d: Object.fromEntries(Object.entries(window.__t3d || {}).filter(([, v]) => typeof v !== "function")) }));
     const wall = m1 ? m1.Timestamp - m0.Timestamp : 1;
-    const r = { mode, loadavg_1m: load1(), viewport: `${vp.width}x${vp.height}@${phone ? 2 : 1}`, cpu_throttle: throttle, renderer: end.t3d.gl || end.t3d.renderer || null,
+    const r = { page: PATH, mode, loadavg_1m: load1(), viewport: `${vp.width}x${vp.height}@${phone ? 2 : 1}`, cpu_throttle: throttle, renderer: end.t3d.gl || end.t3d.renderer || null,
       reason: end.t3d.reason, state: end.t3d.state || null, scene_loaded: !!sceneFile, canvas: st.canvas, swapped: st.on,
       loader_gzip: loaderFile ? loaderFile.gz : null, scene_gzip: sceneFile ? sceneFile.gz : null, page_gzip_total: tally.gzip, files: tally.files.length,
       fcp_ms: st.fcp && Math.round(st.fcp), load_ms: Math.round(st.load), scene_request_after_nav_ms: sceneFile ? sceneFile.at - tNav : null,
@@ -75,11 +76,10 @@ async function one(mode) {
       script_ms_per_s: m1 ? +(((m1.ScriptDuration - m0.ScriptDuration) / wall) * 1000).toFixed(0) : null,
       js_heap_mb: m1 ? +(m1.JSHeapUsedSize / 1048576).toFixed(1) : null, lcp: end.lcp, cls: end.cls, errors };
     console.log(JSON.stringify(r));
-    if (shots) {
+    if (shots) {   // stills at scroll 0 (after the intro), 200 and 400
       fs.mkdirSync(shots, { recursive: true });
-      await page.mouse.wheel(0, -2000); await page.waitForTimeout(2500);
-      await page.screenshot({ path: `${shots}/t3d-${mode}-${vp.width}.png` });
-      if (st.t3d.firstFrameAt) { await page.mouse.wheel(0, 420); await page.waitForTimeout(2500); await page.screenshot({ path: `${shots}/t3d-${mode}-${vp.width}-scrolled.png` }); }
+      for (const y of [0, 200, 400]) { await page.evaluate((y) => scrollTo(0, y), y); await page.waitForTimeout(y ? 2000 : 2600);
+        await page.screenshot({ path: `${shots}/${TAG}-${vp.width}-${mode}-y${y}.png` }); }
       console.log(JSON.stringify({ mode, after_shots: await page.evaluate(() => window.__t3d && { state: window.__t3d.state, level: window.__t3d.level, meanMs: window.__t3d.meanMs }) }));
     }
   } finally { await browser.close(); }

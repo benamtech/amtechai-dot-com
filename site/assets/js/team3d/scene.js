@@ -14,19 +14,16 @@ import {
   Points, PointsMaterial, InstancedMesh, Matrix4, BufferGeometry, Float32BufferAttribute, Vector3, Vector2, CatmullRomCurve3, Raycaster, Plane,
 } from "three";
 import { character } from "./characters.js";
-import { ground, wirePath, W } from "./ground.js";
+import { ground, groundMaterial, wirePath, W } from "./ground.js";
 
-const EASE = "cubic-bezier(.16,1,.3,1)";
-const CSS = `.t3d-c{position:absolute;left:-10%;top:-4%;width:120%;height:126%;pointer-events:none;opacity:0;transition:opacity .6s ${EASE}}
-.t3d-on .t3d-c{opacity:1}
-.orbit .o-svg,.orbit .o-ch>svg,.orbit .o-ch::before{transition:opacity .6s ${EASE}}
-.t3d-on .o-svg,.t3d-on .o-ch>svg,.t3d-on .o-ch::before{opacity:0}
-.t3d-on .o-ch,.t3d-on .o-sys{will-change:translate}`;
-const FOV = 24, TAU = Math.PI * 2, D2R = Math.PI / 180;
+// the page's rules for the swap are in assets/css/w/team3d.css (in the site's bundle)
+const FOV = 32, TAU = Math.PI * 2, D2R = Math.PI / 180;
 // the canvas overhangs the figure (left/right 10%, top 4%, bottom 22%: the near side grows as the ring tilts back)
 const ML = 0.1, MT = 0.04, MB = 0.22;
-// waypoints over the hero's scroll progress: elevation, azimuth (deg), distance (x the fitted distance)
-const WAY = [[89.9, 0, 1], [68, -7, 0.97], [54, -14, 0.93]];
+// After the swap the camera rises from straight down (the SVG's view) to a 3/4 view over INTRO s, ease-out; then the
+// hero's scroll carries it along these waypoints (elevation, azimuth in degrees, distance x the fitted distance):
+// a slow orbit of 22 degrees and a slight dolly in. Kage's rig, as technique: CatmullRom through hand-set stops, damped.
+const WAY = [[55, 0, 1], [50, -12, 0.95], [44, -22, 0.9]], REST = 89.9, INTRO = 1.4;
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
 const damp = (cur, to, rate, dt) => cur + (to - cur) * (1 - Math.exp(-rate * dt));
 const pct = (el, k) => parseFloat(el.style[k]) * 6.4;   // the Orbit's inline left/top % -> SVG units (640)
@@ -43,11 +40,12 @@ export function start(wrap, data) {
   const chEls = [...fig.querySelectorAll(".o-ch")], sysEls = [...fig.querySelectorAll(".o-sys")];
   const centreEl = wrap.querySelector("[data-t3d-centre],.h2-centre");
   const team = (data && data.team) || [];
+  const medal = !!centreEl && centreEl.hasAttribute("data-t3d-centre");
+  let hole = 0;                                       // the medal's radius in SVG units: wires and pulses stop under it
   if (!chEls.length || chEls.length !== team.length) return "team-mismatch";
   const info = (window.__t3d = window.__t3d || {});
   Object.assign(info, { state: "starting", frames: 0, firstFrameAt: null, level: 0, t0: performance.now() });
 
-  if (!document.getElementById("t3d-css")) { const s = document.createElement("style"); s.id = "t3d-css"; s.textContent = CSS; document.head.append(s); }
   const canvas = document.createElement("canvas"); canvas.className = "t3d-c"; canvas.setAttribute("aria-hidden", "true");
   let renderer;
   try { renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: "high-performance", failIfMajorPerformanceCaveat: true }); }
@@ -64,21 +62,28 @@ export function start(wrap, data) {
   // ---- the team: anchors from the Orbit's own markup, looks from the data (data/team.json via the partial)
   // the halo is white-after.css's .ow .o-ch::before (the hue at 30%, 12% at 55%, gone by 72%). The SVG's grey
   // drop-shadow (0 10px 12px, .16) is not drawn: it does not read beside the halo, and it cost six draw calls
-  const halo = softDisc([[0, 0.3], [0.778, 0.12], [1, 0]]);
+  const halo = softDisc([[0, 0.3], [0.778, 0.12], [1, 0]]), contact = softDisc([[0, 1], [0.45, 0.55], [1, 0]]);
   const unitPlane = new PlaneGeometry(1, 1);
   const chars = team.map((m, i) => {
     const el = chEls[i], c = character(m.shape, m.hue), holder = new Group(), hop = new Group();
     const h = new Mesh(unitPlane, new MeshBasicMaterial({ map: halo, color: m.hue, transparent: true, depthWrite: false, depthTest: false }));
     h.renderOrder = 1;
+    // a soft contact shadow on the floor under the feet: nothing at rest (the SVG has none), up with the tilt
+    const sh = new Mesh(unitPlane, new MeshBasicMaterial({ map: contact, color: 0x0a0a0a, opacity: 0, transparent: true, depthWrite: false, depthTest: false }));
+    sh.rotation.x = -Math.PI / 2; sh.renderOrder = 1; scene.add(sh);
     // in the transparent list too, so the ground and halos (drawn without depth) go first and the solids on top
     // (forceSinglePass: three draws a transparent DoubleSide material in two passes, flipping .side and recompiling
     // the program's parameters twice a frame; measured 2026-10-27: 118 material updates a second each, gone with this)
     c.solid.traverse((o) => { o.renderOrder = 2; if (o.material) { o.material.transparent = true; o.material.forceSinglePass = true; } });
     hop.add(c.solid); holder.add(h, hop); scene.add(holder);
-    return { el, x: pct(el, "left"), y: pct(el, "top"), holder, hop, halo: h, eyes: c.eyes, emp: i === 0, ph: i % 2 ? 3 : 0, jump: -1 };
+    return { el, x: pct(el, "left"), y: pct(el, "top"), holder, hop, halo: h, shadow: sh, eyes: c.eyes, emp: i === 0, ph: i % 2 ? 3 : 0, jump: -1 };
   });
   const emp = chars[0];
   const sys = sysEls.map((el) => ({ el, x: pct(el, "left"), y: pct(el, "top") }));
+  // the home Orbit is "ow oclean" (no r0/r1, spokes, hands); the industry and department Orbits are "ow" and their CSS
+  // masks the SVG's centre under the medal: read both from the page, so the ground draws what the SVG draws
+  const clean = fig.classList.contains("oclean"), svgEl = fig.querySelector(".o-svg"), svgCS = svgEl && getComputedStyle(svgEl);
+  const mask = !!svgCS && [svgCS.maskImage, svgCS.webkitMaskImage].some((m) => m && m !== "none");
 
   // ---- the ground (rings + wires) and the pulses: rebuilt in layout() because phones hide some systems
   let groundMesh = null, wires = [];
@@ -124,28 +129,30 @@ export function start(wrap, data) {
     const live = sys.filter((s) => getComputedStyle(s.el).display !== "none");
     wires = live.map((s) => ({ s, f: wirePath(s.x, s.y, emp.x, emp.y), i: sys.indexOf(s) }));
     if (groundMesh) { scene.remove(groundMesh); groundMesh.geometry.dispose(); }
-    groundMesh = ground(wires.map((x) => x.f)); scene.add(groundMesh);
+    hole = medal ? (centreEl.offsetWidth / 2 / w) * 640 : 0;
+    groundMesh = ground(wires.map((x) => x.f), { clean, mask, hole, hands: chars.slice(1).map((c) => [emp.x, emp.y, c.x, c.y]) }); scene.add(groundMesh);
     pulses.count = Math.min(12, wires.length);
   }
 
   // ---- the rig
-  const way = WAY.map(([el, az, d]) => new Vector3(Math.cos(el * D2R) * Math.sin(az * D2R), Math.sin(el * D2R), Math.cos(el * D2R) * Math.cos(az * D2R)).multiplyScalar(d));
-  const curve = new CatmullRomCurve3(way, false, "catmullrom", 0.42);
-  let prog = 0, progTo = 0, px = 0, py = 0, pxTo = 0, pyTo = 0;
+  const curve = new CatmullRomCurve3(WAY.map(([e, a, d]) => new Vector3(e, a, d)), false, "catmullrom", 0.42);
+  let prog = 0, progTo = 0, px = 0, py = 0, pxTo = 0, pyTo = 0, introAt = Infinity, iu = 0;
   const readScroll = () => { const r = wrap.getBoundingClientRect(), top = r.top + scrollY; progTo = clamp(scrollY / Math.max(1, top + r.height * 0.6), 0, 1); };
   const onMove = (e) => { pxTo = (e.clientX / innerWidth) * 2 - 1; pyTo = (e.clientY / innerHeight) * 2 - 1; };
-  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;   // parallax on a desktop pointer, never on touch
+  const wp = new Vector3(), lastCam = new Vector3(NaN, 0, 0);
   let moved = true;
   function placeCamera(dt) {
-    moved = Math.abs(prog - progTo) > 1e-4 || Math.abs(px - pxTo) > 1e-3 || Math.abs(py - pyTo) > 1e-3 || !dt;
+    prog = damp(prog, progTo, 3.2, dt); px = damp(px, pxTo, 2.4, dt); py = damp(py, pyTo, 2.4, dt);
+    const u = clamp((t - introAt) / INTRO, 0, 1); iu = 1 - Math.pow(1 - u, 3);           // ease-out cubic
+    curve.getPoint(prog, wp);
+    const el = (REST + (wp.x - REST) * iu - py * 2.5 * iu) * D2R, az = (wp.y + px * 4) * iu * D2R, d = D * (1 + (wp.z - 1) * iu);
+    tmp.set(Math.cos(el) * Math.sin(az), Math.sin(el), Math.cos(el) * Math.cos(az)).multiplyScalar(d);
+    moved = !dt || tmp.distanceToSquared(lastCam) > 1e-8 || !(lastCam.x === lastCam.x); lastCam.copy(tmp);
     if (!moved) return;
-    prog = damp(prog, progTo, 4, dt); px = damp(px, pxTo, 3, dt); py = damp(py, pyTo, 3, dt);
-    curve.getPoint(prog, tmp); const len = tmp.length();
-    const par = fine ? Math.max(0, 1 - prog / 0.3) : 0;          // pointer parallax only near the top (Kage: fades)
-    tmp.x += px * 0.035 * par; tmp.z += py * 0.025 * par;
-    cam.position.copy(tmp.normalize().multiplyScalar(D * len));
-    cam.lookAt(0, 0, 0); cam.updateMatrixWorld();
+    cam.position.copy(tmp); cam.lookAt(0, 0, 0); cam.updateMatrixWorld();
     camUp.set(0, 1, 0).applyQuaternion(cam.quaternion); camRight.set(1, 0, 0).applyQuaternion(cam.quaternion);
+    groundMaterial().userData.lift.value = iu;                                             // the wires rise into arcs
   }
 
   // ---- labels: DOM, moved by the projected delta of their anchors
@@ -158,9 +165,21 @@ export function start(wrap, data) {
     if (el.__t3d !== v) { el.style.translate = v; el.__t3d = v; }
   };
 
+  // the centre: "Your business" follows the ring's centre; a medal (data-t3d-centre) sits on ring r0 (150 units), so it
+  // follows the middle of r0's projected near and far points and scales to r0's projected depth, never covering the
+  // team as the ring tilts (scale and translate are transforms: no reflow)
+  const q1 = [0, 0], q2 = [0, 0];
+  function centre() {
+    if (!medal) return follow(centreEl, 320, 320);
+    proj(0, -15, q1); proj(0, 15, q2);
+    const dx = (q1[0] + q2[0]) / 2 - w / 2, dy = (q1[1] + q2[1]) / 2 - h / 2, k = (q2[1] - q1[1]) / (h * 300 / 640);
+    const v = `${dx.toFixed(1)}px ${dy.toFixed(1)}px`, sc = Math.abs(k - 1) < 0.002 ? "" : k.toFixed(3);
+    if (centreEl.__t3d !== v + sc) { centreEl.style.translate = v; centreEl.style.scale = sc; centreEl.__t3d = v + sc; }
+  }
+
   // ---- the frame
   let t = 0, nextWork = 2.2, mate = 0, workFrom = -1, workTo = null;
-  const mates = chars.slice(1);
+  const mates = chars.slice(1), feet = new Vector3();
   function frame(dt) {
     t += dt; placeCamera(dt);
     const bobAmp = 4 * wpp;
@@ -173,24 +192,33 @@ export function start(wrap, data) {
       if (c.jump >= 0) { const u = (t - c.jump) / 0.55; if (u >= 1) c.jump = -1; else { lift += 9 * wpp * Math.sin(Math.PI * u); sq = u > 0.85 ? 1 - 0.09 * Math.sin(Math.PI * (u - 0.85) / 0.15) : 1; } }
       c.hop.position.y = lift; c.hop.scale.set(c.size / 40 / Math.sqrt(sq), (c.size / 40) * sq, c.size / 40);
       const blink = ((t + c.ph * 1.7 + (c.emp ? 2 : 0)) % 4.6) < 0.12; c.eyes.scale.y = blink ? 0.12 : 1;
+      // contact shadow: where the ray from the camera through the drawing's feet meets the floor; smaller in a hop
+      if (iu > 0) {
+        feet.copy(c.holder.position).addScaledVector(camUp, -0.42 * c.size).sub(cam.position);
+        const k = -cam.position.y / feet.y; c.shadow.position.copy(cam.position).addScaledVector(feet, k); c.shadow.position.y = 0.02;
+        const hopK = 1 - Math.min(0.35, (lift / wpp) / 30), sw = c.size * 0.95 * hopK;
+        c.shadow.scale.set(sw, sw * 0.62, 1); c.shadow.material.opacity = 0.28 * iu * hopK;
+        c.halo.material.opacity = 1 - 0.6 * iu;
+      }
+      c.shadow.visible = iu > 0;
     }
     // the SVG's pulses: system -> employee, dur 2.8 + 0.6 (i mod 3) s, begin 0.7 i s
     for (let k = 0; k < pulses.count; k++) { const { f, i } = wires[k], dur = 2.8 + (i % 3) * 0.6, b = 0.7 * i;
-      if (t < b) { pulses.setMatrixAt(k, hidden); continue; } const [sx, sy] = f(((t - b) / dur) % 1), [wx, wz] = W(sx, sy); pulses.setMatrixAt(k, pm.makeTranslation(wx, 0.01, wz)); }
+      if (t < b) { pulses.setMatrixAt(k, hidden); continue; } const u = ((t - b) / dur) % 1, [sx, sy] = f(u), [wx, wz] = W(sx, sy); if (hole && Math.hypot(sx - 320, sy - 320) < hole) { pulses.setMatrixAt(k, hidden); continue; } pulses.setMatrixAt(k, pm.makeTranslation(wx, 0.01 + f.arc(u) * iu, wz)); }
     pulses.instanceMatrix.needsUpdate = true;
     // a teammate works: a pulse runs from the employee to it, then it hops
     if (mates.length && t >= nextWork) { workTo = mates[mate++ % mates.length]; workFrom = t; nextWork = t + 2.6 + Math.random() * 1.2; }
     if (workTo) { const u = (t - workFrom) / 0.7;
       if (u >= 1) { work.visible = false; workTo.jump = t; workTo = null; }
-      else { const [ax, az] = W(emp.x, emp.y), [bx, bz] = W(workTo.x, workTo.y), e = 1 - Math.pow(1 - u, 3); work.visible = true; work.material.opacity = Math.min(1, 4 * (1 - u));
-        work.position.set(ax + (bx - ax) * e, 0.01, az + (bz - az) * e); } }
+      else { const [ax, az] = W(emp.x, emp.y), [bx, bz] = W(workTo.x, workTo.y), e = 1 - Math.pow(1 - u, 3); work.material.opacity = Math.min(1, 4 * (1 - u));
+        work.position.set(ax + (bx - ax) * e, 0.01, az + (bz - az) * e); work.visible = !hole || Math.hypot(work.position.x, work.position.z) * 10 > hole; } }
     // motes drift toward the camera; respawned ahead of it when they leave the view
     if (motes.visible) { const pos = mg.attributes.position;
       for (let i = 0; i < MOTES; i++) { const j = i * 3; mpos[j + 1] += mvel[i] * dt; mpos[j] += Math.sin(t * 0.4 + i) * 0.15 * dt;
         tmp.set(mpos[j], mpos[j + 1], mpos[j + 2]).project(cam); if (mpos[j + 1] > 16 || Math.abs(tmp.x) > 1 || Math.abs(tmp.y) > 1) spawn(i, false); }
       pos.needsUpdate = true; }
     renderer.render(scene, cam);
-    if (moved || relabel) { relabel = false; for (const c of chars) follow(c.el, c.x, c.y); for (const s of sys) follow(s.el, s.x, s.y); if (centreEl) follow(centreEl, 320, 320); }
+    if (moved || relabel) { relabel = false; for (const c of chars) follow(c.el, c.x, c.y); for (const s of sys) follow(s.el, s.x, s.y); if (centreEl) centre(); }
   }
 
   // ---- governor (Kage's idea: watch the frame time, step quality down; here never back up, and finally give up)
@@ -218,7 +246,7 @@ export function start(wrap, data) {
     raf = requestAnimationFrame(tick);
     const ms = last === null ? 16.7 : now - last; last = now;
     frame(Math.min(0.05, ms / 1000));
-    if (!info.frames++) { info.firstFrameAt = performance.now(); info.state = "running"; requestAnimationFrame(() => { fig.classList.add("t3d-on"); setTimeout(() => { const o = fig.querySelector(".o-svg"); if (o && o.pauseAnimations && fig.classList.contains("t3d-on")) o.pauseAnimations(); }, 700); }); }
+    if (!info.frames++) { info.firstFrameAt = performance.now(); info.state = "running"; introAt = t + 0.7; requestAnimationFrame(() => { fig.classList.add("t3d-on"); if (medal && centreEl.getAttribute("data-t3d-centre") !== "behind") fig.classList.add("t3d-front"); setTimeout(() => { const o = fig.querySelector(".o-svg"); if (o && o.pauseAnimations && fig.classList.contains("t3d-on")) o.pauseAnimations(); }, 700); }); }
     else govern(ms);
   };
   const go = () => { if (!raf && !stopped && visible && !document.hidden) raf = requestAnimationFrame(tick); };
@@ -230,8 +258,8 @@ export function start(wrap, data) {
     if (stopped) return; stopped = true; info.state = "stopped:" + why;
     cancelAnimationFrame(raf); io.disconnect(); ro.disconnect();
     removeEventListener("scroll", onScroll); removeEventListener("pointermove", onMove); document.removeEventListener("visibilitychange", onVis);
-    fig.classList.remove("t3d-on"); const o = fig.querySelector(".o-svg"); if (o && o.unpauseAnimations) o.unpauseAnimations();
-    for (const el of [...chEls, ...sysEls, centreEl]) if (el) { el.style.translate = ""; el.__t3d = ""; }
+    fig.classList.remove("t3d-on", "t3d-front"); const o = fig.querySelector(".o-svg"); if (o && o.unpauseAnimations) o.unpauseAnimations();
+    for (const el of [...chEls, ...sysEls, centreEl]) if (el) { el.style.translate = ""; el.style.scale = ""; el.__t3d = ""; }
     setTimeout(() => { canvas.remove(); renderer.dispose(); renderer.forceContextLoss(); }, 700);
   }
   info.stop = stop; if (/[?&]t3ddebug/.test(location.search)) info.three = { renderer, scene, cam };
