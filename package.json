@@ -3,7 +3,7 @@
   "private": true,
   "engines": { "node": "24.x" },
   "type": "module",
-  "description": "amtechai.com: one Hugo project in site/. Node is here only for Tailwind. Read site/README.md.",
+  "description": "amtechai.com: one Hugo project in site/. Node is here for Tailwind and for three (the hero's 3D team, bundled by Hugo). Read site/README.md.",
   "scripts": {
     "build": "bash site/tools/build.sh && node site/tools/check.mjs",
     "dev": "bash site/tools/build.sh server --port 1314",
@@ -15,5 +15,8 @@
     "autoprefixer": "10.4.20",
     "postcss": "8.4.47",
     "tailwindcss": "3.4.17"
+  },
+  "dependencies": {
+    "three": "0.186.1"
   }
 }

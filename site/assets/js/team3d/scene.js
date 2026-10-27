@@ -11,18 +11,20 @@
 // Paused off-screen and in a hidden tab. Everything the eye reads (names, systems) is still the DOM's.
 import {
   WebGLRenderer, Scene, PerspectiveCamera, Group, Mesh, MeshBasicMaterial, CircleGeometry, PlaneGeometry, CanvasTexture,
-  Points, PointsMaterial, BufferGeometry, Float32BufferAttribute, Vector3, Vector2, CatmullRomCurve3, Raycaster, Plane,
+  Points, PointsMaterial, InstancedMesh, Matrix4, BufferGeometry, Float32BufferAttribute, Vector3, Vector2, CatmullRomCurve3, Raycaster, Plane,
 } from "three";
 import { character } from "./characters.js";
 import { ground, wirePath, W } from "./ground.js";
 
 const EASE = "cubic-bezier(.16,1,.3,1)";
-const CSS = `.t3d-c{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;opacity:0;transition:opacity .6s ${EASE}}
+const CSS = `.t3d-c{position:absolute;left:-10%;top:-4%;width:120%;height:126%;pointer-events:none;opacity:0;transition:opacity .6s ${EASE}}
 .t3d-on .t3d-c{opacity:1}
 .orbit .o-svg,.orbit .o-ch>svg,.orbit .o-ch::before{transition:opacity .6s ${EASE}}
 .t3d-on .o-svg,.t3d-on .o-ch>svg,.t3d-on .o-ch::before{opacity:0}
 .t3d-on .o-ch,.t3d-on .o-sys{will-change:translate}`;
 const FOV = 24, TAU = Math.PI * 2, D2R = Math.PI / 180;
+// the canvas overhangs the figure (left/right 10%, top 4%, bottom 22%: the near side grows as the ring tilts back)
+const ML = 0.1, MT = 0.04, MB = 0.22;
 // waypoints over the hero's scroll progress: elevation, azimuth (deg), distance (x the fitted distance)
 const WAY = [[89.9, 0, 1], [68, -7, 0.97], [54, -14, 0.93]];
 const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
@@ -60,17 +62,20 @@ export function start(wrap, data) {
   const reduceMQ = matchMedia("(prefers-reduced-motion: reduce)");
 
   // ---- the team: anchors from the Orbit's own markup, looks from the data (data/team.json via the partial)
-  const halo = softDisc([[0, 0.3], [0.778, 0.12], [1, 0]]), shade = softDisc([[0, 1], [0.5, 0.45], [1, 0]]);
+  // the halo is white-after.css's .ow .o-ch::before (the hue at 30%, 12% at 55%, gone by 72%). The SVG's grey
+  // drop-shadow (0 10px 12px, .16) is not drawn: it does not read beside the halo, and it cost six draw calls
+  const halo = softDisc([[0, 0.3], [0.778, 0.12], [1, 0]]);
   const unitPlane = new PlaneGeometry(1, 1);
   const chars = team.map((m, i) => {
     const el = chEls[i], c = character(m.shape, m.hue), holder = new Group(), hop = new Group();
     const h = new Mesh(unitPlane, new MeshBasicMaterial({ map: halo, color: m.hue, transparent: true, depthWrite: false, depthTest: false }));
-    const s = new Mesh(unitPlane, new MeshBasicMaterial({ map: shade, color: 0x0a0a0a, opacity: 0.13, transparent: true, depthWrite: false, depthTest: false }));
-    h.renderOrder = 1; s.renderOrder = 1;
+    h.renderOrder = 1;
     // in the transparent list too, so the ground and halos (drawn without depth) go first and the solids on top
-    c.solid.traverse((o) => { o.renderOrder = 2; if (o.material) o.material.transparent = true; });
-    hop.add(c.solid); holder.add(h, s, hop); scene.add(holder);
-    return { el, x: pct(el, "left"), y: pct(el, "top"), holder, hop, halo: h, shadow: s, eyes: c.eyes, emp: i === 0, ph: i % 2 ? 3 : 0, jump: -1 };
+    // (forceSinglePass: three draws a transparent DoubleSide material in two passes, flipping .side and recompiling
+    // the program's parameters twice a frame; measured 2026-10-27: 118 material updates a second each, gone with this)
+    c.solid.traverse((o) => { o.renderOrder = 2; if (o.material) { o.material.transparent = true; o.material.forceSinglePass = true; } });
+    hop.add(c.solid); holder.add(h, hop); scene.add(holder);
+    return { el, x: pct(el, "left"), y: pct(el, "top"), holder, hop, halo: h, eyes: c.eyes, emp: i === 0, ph: i % 2 ? 3 : 0, jump: -1 };
   });
   const emp = chars[0];
   const sys = sysEls.map((el) => ({ el, x: pct(el, "left"), y: pct(el, "top") }));
@@ -79,13 +84,14 @@ export function start(wrap, data) {
   let groundMesh = null, wires = [];
   const pulseGeo = new CircleGeometry(0.34, 20); pulseGeo.rotateX(-Math.PI / 2);
   const pulseMat = new MeshBasicMaterial({ color: 0x0f62fe, transparent: true, depthWrite: false, depthTest: false });
-  const pulses = [];
+  const pulses = new InstancedMesh(pulseGeo, pulseMat, 12); pulses.renderOrder = 1; pulses.count = 0; pulses.frustumCulled = false; scene.add(pulses);
+  const pm = new Matrix4(), hidden = new Matrix4().makeScale(0, 0, 0);
   const work = new Mesh(pulseGeo, pulseMat.clone()); work.renderOrder = 1; work.visible = false; scene.add(work);
 
   // ---- motes, respawned in the cone ahead of the camera
   const MOTES = 36, mpos = new Float32Array(MOTES * 3), mvel = new Float32Array(MOTES);
   const mg = new BufferGeometry(); mg.setAttribute("position", new Float32BufferAttribute(mpos, 3));
-  const motes = new Points(mg, new PointsMaterial({ map: softDisc([[0, 1], [0.6, 0.8], [1, 0]]), color: 0x8fa9f0, size: 3, sizeAttenuation: false, transparent: true, opacity: 0.55, depthWrite: false, depthTest: false }));
+  const motes = new Points(mg, new PointsMaterial({ map: softDisc([[0, 1], [0.6, 0.8], [1, 0]]), color: 0x9db4f0, size: 2.5, sizeAttenuation: false, transparent: true, opacity: 0.45, depthWrite: false, depthTest: false }));
   motes.renderOrder = 1; motes.frustumCulled = false; scene.add(motes);
   const ray = new Raycaster(), ndc = new Vector2(), hit = new Vector3(), plane = new Plane(new Vector3(0, 1, 0), 0);
   const spawn = (i, anywhere) => {
@@ -96,28 +102,30 @@ export function start(wrap, data) {
   };
 
   // ---- layout: sizes in px -> world (the figure maps the SVG's 640 units; world = SVG / 10)
-  let w = 0, h = 0, wpp = 0, D = 0;
+  let w = 0, h = 0, cw = 0, ch = 0, wpp = 0, D = 0, relabel = true;
   const camUp = new Vector3(), camRight = new Vector3(), tmp = new Vector3();
   function layout() {
     w = fig.clientWidth; h = fig.clientHeight; if (!w || !h) return;
-    renderer.setSize(w, h, false); cam.aspect = w / h;
+    cw = w * (1 + 2 * ML); ch = h * (1 + MT + MB);
+    renderer.setSize(cw, ch, false);
     wpp = 64 / h;                                  // world units per CSS px at the ground, at rest
-    D = 32 / Math.tan((FOV / 2) * D2R); cam.updateProjectionMatrix();
+    // the camera is centred on the figure: a full view symmetric about its centre, the canvas a window of it
+    const fh = h * (1 + 2 * MB), t = Math.tan((FOV / 2) * D2R);
+    D = 32 / t; cam.fov = 2 * Math.atan(t * fh / h) / D2R; cam.aspect = cw / fh;
+    cam.setViewOffset(cw, fh, 0, (MB - MT) * h, cw, ch); cam.updateProjectionMatrix(); relabel = true;
     for (const c of chars) {
       const svg = c.el.querySelector("svg"), cs = svg ? getComputedStyle(svg) : null;
       const sz = cs ? parseFloat(cs.width) : 64, H = c.el.offsetHeight;
-      c.size = sz * wpp; c.up = (-0.58 * H + sz / 2) * wpp;            // the drawing's centre above the anchor
+      c.size = sz * wpp; c.up = (0.58 * H - sz / 2) * wpp;             // the drawing's centre, above the anchor
       c.hop.scale.setScalar(c.size / 40);
       const hs = sz * 1.75 * wpp; c.halo.scale.set(hs, hs, 1); c.halo.position.set(0, (-0.14 * H - (-0.58 * H + sz / 2)) * -wpp, -0.1);
-      c.shadow.scale.set(sz * 1.1 * wpp, sz * 0.9 * wpp, 1); c.shadow.position.set(0, -10 * wpp, -0.05);   // drop-shadow(0 10px 12px)
     }
     // wires: only to systems the page shows (phones hide the 3 and 9 o'clock ones)
     const live = sys.filter((s) => getComputedStyle(s.el).display !== "none");
     wires = live.map((s) => ({ s, f: wirePath(s.x, s.y, emp.x, emp.y), i: sys.indexOf(s) }));
     if (groundMesh) { scene.remove(groundMesh); groundMesh.geometry.dispose(); }
     groundMesh = ground(wires.map((x) => x.f)); scene.add(groundMesh);
-    while (pulses.length < wires.length) { const p = new Mesh(pulseGeo, pulseMat); p.renderOrder = 1; scene.add(p); pulses.push(p); }
-    pulses.forEach((p, i) => { p.visible = i < wires.length; });
+    pulses.count = Math.min(12, wires.length);
   }
 
   // ---- the rig
@@ -127,7 +135,10 @@ export function start(wrap, data) {
   const readScroll = () => { const r = wrap.getBoundingClientRect(), top = r.top + scrollY; progTo = clamp(scrollY / Math.max(1, top + r.height * 0.6), 0, 1); };
   const onMove = (e) => { pxTo = (e.clientX / innerWidth) * 2 - 1; pyTo = (e.clientY / innerHeight) * 2 - 1; };
   const fine = matchMedia("(hover: hover) and (pointer: fine)").matches;
+  let moved = true;
   function placeCamera(dt) {
+    moved = Math.abs(prog - progTo) > 1e-4 || Math.abs(px - pxTo) > 1e-3 || Math.abs(py - pyTo) > 1e-3 || !dt;
+    if (!moved) return;
     prog = damp(prog, progTo, 4, dt); px = damp(px, pxTo, 3, dt); py = damp(py, pyTo, 3, dt);
     curve.getPoint(prog, tmp); const len = tmp.length();
     const par = fine ? Math.max(0, 1 - prog / 0.3) : 0;          // pointer parallax only near the top (Kage: fades)
@@ -138,7 +149,7 @@ export function start(wrap, data) {
   }
 
   // ---- labels: DOM, moved by the projected delta of their anchors
-  const proj = (x, z, out) => { tmp.set(x, 0, z).project(cam); out[0] = (tmp.x + 1) / 2 * w; out[1] = (1 - tmp.y) / 2 * h; return out; };
+  const proj = (x, z, out) => { tmp.set(x, 0, z).project(cam); out[0] = (tmp.x + 1) / 2 * cw - ML * w; out[1] = (1 - tmp.y) / 2 * ch - MT * h; return out; };
   const xy = [0, 0];
   const follow = (el, sx, sy) => {
     const [wx, wz] = W(sx, sy); proj(wx, wz, xy);
@@ -164,8 +175,9 @@ export function start(wrap, data) {
       const blink = ((t + c.ph * 1.7 + (c.emp ? 2 : 0)) % 4.6) < 0.12; c.eyes.scale.y = blink ? 0.12 : 1;
     }
     // the SVG's pulses: system -> employee, dur 2.8 + 0.6 (i mod 3) s, begin 0.7 i s
-    wires.forEach(({ f, i }, k) => { const dur = 2.8 + (i % 3) * 0.6, b = 0.7 * i, p = pulses[k];
-      if (t < b) { p.visible = false; return; } p.visible = true; const [sx, sy] = f(((t - b) / dur) % 1), [wx, wz] = W(sx, sy); p.position.set(wx, 0.01, wz); });
+    for (let k = 0; k < pulses.count; k++) { const { f, i } = wires[k], dur = 2.8 + (i % 3) * 0.6, b = 0.7 * i;
+      if (t < b) { pulses.setMatrixAt(k, hidden); continue; } const [sx, sy] = f(((t - b) / dur) % 1), [wx, wz] = W(sx, sy); pulses.setMatrixAt(k, pm.makeTranslation(wx, 0.01, wz)); }
+    pulses.instanceMatrix.needsUpdate = true;
     // a teammate works: a pulse runs from the employee to it, then it hops
     if (mates.length && t >= nextWork) { workTo = mates[mate++ % mates.length]; workFrom = t; nextWork = t + 2.6 + Math.random() * 1.2; }
     if (workTo) { const u = (t - workFrom) / 0.7;
@@ -178,24 +190,25 @@ export function start(wrap, data) {
         tmp.set(mpos[j], mpos[j + 1], mpos[j + 2]).project(cam); if (mpos[j + 1] > 16 || Math.abs(tmp.x) > 1 || Math.abs(tmp.y) > 1) spawn(i, false); }
       pos.needsUpdate = true; }
     renderer.render(scene, cam);
-    for (const c of chars) follow(c.el, c.x, c.y);
-    for (const s of sys) follow(s.el, s.x, s.y);
-    if (centreEl) follow(centreEl, 320, 320);
+    if (moved || relabel) { relabel = false; for (const c of chars) follow(c.el, c.x, c.y); for (const s of sys) follow(s.el, s.x, s.y); if (centreEl) follow(centreEl, 320, 320); }
   }
 
   // ---- governor (Kage's idea: watch the frame time, step quality down; here never back up, and finally give up)
-  let acc = 0, n = 0, settle = 40, level = 0;
+  // a sample is capped at 50 ms, so one stall (a screenshot, a GC, the page's own work) cannot condemn the scene.
+  // Over ~49 fps: hold. Slower: a step after two windows of 40 frames, after one when under 36 fps; under 22 fps:
+  // stop at once. The steps: lower pixel ratio (only where it is above 1), then no motes at ratio 1, then 0.75, then stop.
+  const steps = [...(pr0 > 1 ? [() => { pr = Math.max(1, pr0 * 0.75); }] : []), () => { pr = 1; motes.visible = false; }, () => { pr = 0.75; }];
+  let acc = 0, n = 0, settle = 30, level = 0, slow = 0;
   function govern(ms) {
     if (settle > 0) { settle--; return; }
-    acc += ms; n++; if (n < 45) return;
+    acc += Math.min(ms, 50); n++; if (n < 40) return;
     const mean = acc / n; acc = 0; n = 0; info.meanMs = +mean.toFixed(1);
-    if (mean <= 20.5) return;                                           // ~49 fps or better: hold
-    info.level = ++level; settle = 40;
-    if (level === 1) pr = Math.max(1, pr0 * 0.75);
-    else if (level === 2) { pr = 1; motes.visible = false; }
-    else if (level === 3) pr = 0.75;
-    else return stop("governor");
-    renderer.setPixelRatio(pr); renderer.setSize(w, h, false);
+    if (mean <= 20.5) { slow = 0; return; }
+    if (mean > 45) return stop("governor");
+    if (++slow < (mean > 28 ? 1 : 2)) return;
+    slow = 0; info.level = ++level; settle = 30;
+    if (level > steps.length) return stop("governor");
+    steps[level - 1](); renderer.setPixelRatio(pr); renderer.setSize(cw, ch, false);
   }
 
   // ---- loop, visibility, stop
@@ -221,7 +234,7 @@ export function start(wrap, data) {
     for (const el of [...chEls, ...sysEls, centreEl]) if (el) { el.style.translate = ""; el.__t3d = ""; }
     setTimeout(() => { canvas.remove(); renderer.dispose(); renderer.forceContextLoss(); }, 700);
   }
-  info.stop = stop;
+  info.stop = stop; if (/[?&]t3ddebug/.test(location.search)) info.three = { renderer, scene, cam };
   canvas.addEventListener("webglcontextlost", () => stop("context-lost"));
   reduceMQ.addEventListener && reduceMQ.addEventListener("change", (e) => { if (e.matches) stop("reduced-motion"); });
 

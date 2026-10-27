@@ -1,0 +1,29 @@
+# The team3d harness (lane 3D): the real home's hero, built by the site's own Hugo from the site's own assets, data,
+# partials and home content, with the team3d partial called inside the Orbit's wrapper. Build it with build.sh here.
+baseURL = "http://t3d.test/"
+disableKinds = ["section", "taxonomy", "term", "RSS", "sitemap", "robotsTXT", "404", "page"]
+[module]
+  [[module.mounts]]
+    source = "layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "../../layouts"
+    target = "layouts"
+  [[module.mounts]]
+    source = "../../assets"
+    target = "assets"
+  [[module.mounts]]
+    source = "../../data"
+    target = "data"
+  [[module.mounts]]
+    source = "../../static"
+    target = "static"
+  [[module.mounts]]
+    source = "../../content"
+    target = "content"
+    files = ["_index.md"]
+
+# three lives in the repo root's node_modules, outside the Hugo project: Hugo 0.167's esbuild finds it by walking up
+# from the project, but only reads files under security.node.permissions.allowRead (default ['.']).
+[security.node.permissions]
+  allowRead = [".", "../../../node_modules"]

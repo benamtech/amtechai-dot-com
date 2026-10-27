@@ -41,13 +41,13 @@ export function ground(wires) {
     const n = Math.ceil(r * 0.6), pts = Array.from({ length: n + 1 }, (_, i) => { const t = (i / n) * 2 * Math.PI; return [320 + r * Math.cos(t), 320 + r * Math.sin(t)]; });
     strip(pts, rgb, () => a, w, d, g);
   }
-  // the study masks the Orbit's centre (radial transparent to 21%, opaque from 24% of the 452-unit corner radius)
-  const mask = (x, y) => { const r = Math.hypot(x - 320, y - 320); return 0.7 * 0.85 * Math.min(1, Math.max(0, (r - 95) / 13.5)); };
-  for (const f of wires) strip(Array.from({ length: 49 }, (_, i) => f(i / 48)), BLUE, mask, 1.2, 3, 4);
+  // the SVG's wire is rgba(15,98,254,.7) at opacity .85 (alpha .6); a 1.2-unit ribbon reads lighter than the SVG's
+  // antialiased stroke, so it is drawn at .7 (compared side by side at 1440, 2026-10-27)
+  for (const f of wires) strip(Array.from({ length: 49 }, (_, i) => f(i / 48)), BLUE, () => 0.7, 1.2, 3, 4);
   const g = new BufferGeometry();
   g.setAttribute("position", new Float32BufferAttribute(pos, 3));
   g.setAttribute("color", new Float32BufferAttribute(col, 4));
-  const m = new Mesh(g, new MeshBasicMaterial({ vertexColors: true, transparent: true, depthWrite: false, depthTest: false, side: DoubleSide }));
+  const m = new Mesh(g, new MeshBasicMaterial({ vertexColors: true, transparent: true, depthWrite: false, depthTest: false, side: DoubleSide, forceSinglePass: true }));
   m.renderOrder = 0;
   return m;
 }

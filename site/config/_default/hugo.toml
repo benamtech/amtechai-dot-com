@@ -92,3 +92,8 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 # front door (app.amtechai.com/site/slots and /site/booking), which keeps demo_bookings in the platform's own store.
 [security.funcs]
   getenv = ["^HUGO_", "^CI$"]
+
+# three (the hero's 3D team, layouts/_partials/team3d.html) resolves from the repo root's node_modules: Hugo's esbuild
+# walks up from site/ and finds it, but reads only what allowRead names.
+[security.node.permissions]
+  allowRead = [".", "../node_modules"]
