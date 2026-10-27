@@ -54,7 +54,17 @@ okf_version: "0.2"
 AMTECH AI is a platform that gives a business AI employees: each connects itself to the systems the business already runs, makes its own team for the work, and improves as it works. Each page of https://amtechai.com is here as Markdown, with who wrote it, who reviewed it and when. Each page's plain Markdown twin is also at its own URL with `.md` added (home: https://amtechai.com/index.md). Changes: [log](/log.md).
 
 ## AMTECH
-{{ range $new }}{{ if or .IsHome (eq .Section "services") }}{{ $m := partial "w/meta.html" . }}
+{{ range $new }}{{ if or .IsHome (and (eq .Section "services") .IsSection) }}{{ $m := partial "w/meta.html" . }}
+* [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
+{{- end }}{{ end }}
+
+## Services
+{{ range $new }}{{ if and (eq .Section "services") .IsPage }}{{ $m := partial "w/meta.html" . }}
+* [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
+{{- end }}{{ end }}
+
+## Answers
+{{ range $new }}{{ if eq .Section "questions" }}{{ $m := partial "w/meta.html" . }}
 * [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
 {{- end }}{{ end }}
 

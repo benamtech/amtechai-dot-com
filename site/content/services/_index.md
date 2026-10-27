@@ -1,12 +1,12 @@
 ---
-title: "Services: AI employees set up for one kind of work, from estimates to bookkeeping"
-description: "Twenty-eight packages, each an AMTECH AI employee and the team it makes for one kind of work, with the systems it connects to. Start any one free."
+title: "AI services: whole departments run by your AI employee"
+description: "Twenty-eight departments an AMTECH AI employee and its team run end to end, from estimating to bookkeeping, each replacing a hire, an agency or software."
 h1: "Services"
-sub: "Each service is an AI employee and the team it makes, set up for one kind of work: its connections, routines and first jobs. Start one free."
+sub: "Each service is a whole department of your business, run end to end by an AI employee and the team it makes: estimating, collections, bookkeeping, marketing, bids, hiring and more. Each one plugs into the systems you run, takes the place of a hire, an agency or a subscription, and can be set up custom for how you work."
 search: "Search by work or business"
 go: "Start the free trial"
 featured: estimates-from-plans-and-photos
 groups: ["Estimates", "Public bids", "Proposals", "Getting paid", "Bookkeeping", "Marketing", "Being found", "Business development", "Documents", "Scheduling", "Inbox", "Hiring"]
 closing_h: "Name your business."
-closing_sub: "Your employee reads your site and your Google listing, and tells you which of these your business needs first."
+closing_sub: "Your employee reads your site and your Google listing, and tells you which of these departments to hand over first."
 ---

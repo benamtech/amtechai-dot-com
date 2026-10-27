@@ -8,11 +8,14 @@
 {{- $type := "Web Page" }}{{ $schema := "WebPage" -}}
 {{- $crumbs := slice (dict "name" "Home" "url" (printf "%s/" $origin)) -}}
 {{- if .IsHome }}{{ $type = "Organization Overview" -}}
-{{- else if eq .Section "services" }}{{ $type = "Service Catalog" }}{{ $schema = "CollectionPage" -}}
+{{- else if and (eq .Section "services") .IsSection }}{{ $type = "Service Catalog" }}{{ $schema = "CollectionPage" -}}
+{{- else if eq .Section "services" }}{{ $type = "Service" }}{{ $crumbs = $crumbs | append (dict "name" "Services" "url" (printf "%s/services" $origin)) -}}
+{{- else if and (eq .Section "questions") .IsSection }}{{ $type = "Question Index" }}{{ $schema = "CollectionPage" -}}
+{{- else if eq .Section "questions" }}{{ $type = "Answer" }}{{ $crumbs = $crumbs | append (dict "name" "Questions" "url" (printf "%s/questions" $origin)) -}}
 {{- else if and (eq .Section "industries") .IsSection }}{{ $type = "Industry" }}{{ $schema = "CollectionPage" -}}
 {{- else if eq .Section "industries" }}{{ $type = "Business Type" }}{{ $crumbs = $crumbs | append (dict "name" "Industries" "url" (printf "%s/industries" $origin)) -}}
 {{- else if eq .Section "departments" }}{{ $type = "Department" }}{{ end -}}
-{{- $name := .Params.label | default .Params.crumb | default (cond (eq .Section "services") "Services" (cond (and (eq .Section "industries") .IsSection) "Industries" ((index (split .Title ":") 0)))) -}}
+{{- $name := .Params.label | default .Params.crumb | default (cond (and (eq .Section "services") .IsSection) "Services" (cond (and (eq .Section "questions") .IsSection) "Questions" (cond (and (eq .Section "industries") .IsSection) "Industries" ((index (split .Title ":") 0))))) -}}
 {{- if not .IsHome }}{{ $crumbs = $crumbs | append (dict "name" $name "url" $url) }}{{ end -}}
 {{- $twin := cond .IsHome "/index.md" (printf "%s.md" $route) -}}
 {{- $okf := cond .IsHome "/home.md" (printf "%s.md" $route) -}}

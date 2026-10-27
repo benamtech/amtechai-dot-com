@@ -4,7 +4,9 @@
          page references by @id only;
        - every page: WebPage, or CollectionPage with an ItemList of what it lists in visible order (services, the hub);
        - every page but home: BreadcrumbList;
-       - industry and department pages: Service (provider #organization) and FAQPage from `questions`, which they show.
+       - industry and department pages: Service (provider #organization) and FAQPage from `questions`, which they show;
+       - service pages (/services/<slug>): Service from data/services.json (name, group, audience) and FAQPage;
+       - question pages: WebPage and FAQPage whose first Question is the page's own H1 and answer, then `questions`.
        Never Review, AggregateRating, HowTo or LocalBusiness. (dict "page" . "url" $url) */ -}}
 {{- $p := .page }}{{ $P := $p.Params }}{{ $m := partial "w/meta.html" $p -}}
 {{- $o := site.BaseURL | strings.TrimSuffix "/" }}{{ $org := printf "%s/#organization" $o }}{{ $site := printf "%s/#website" $o -}}
@@ -28,7 +30,7 @@
 {{- if eq $m.schema "CollectionPage" -}}
   {{- $li := slice -}}
   {{- if eq $p.Section "services" }}{{ range $i, $s := hugo.Data.services }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" $s.name "url" (printf "%s/services#%s" $o $s.slug)) }}{{ end -}}
-  {{- else }}{{ range $i, $x := $p.RegularPages.ByWeight }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" $x.Params.label "url" (printf "%s%s" $o (strings.TrimSuffix "/" $x.RelPermalink))) }}{{ end }}{{ end -}}
+  {{- else }}{{ range $i, $x := $p.RegularPages.ByWeight }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" ($x.Params.label | default $x.Params.h1) "url" (printf "%s%s" $o (strings.TrimSuffix "/" $x.RelPermalink))) }}{{ end }}{{ end -}}
   {{- $wp = merge $wp (dict "mainEntity" (dict "@type" "ItemList" "numberOfItems" (len $li) "itemListElement" $li)) -}}
 {{- end -}}
 {{- $g = $g | append $wp -}}
@@ -37,8 +39,12 @@
   {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
 {{- end -}}
+{{- if and $p.IsPage (eq $p.Section "services") -}}
+  {{- $slug := path.Base $p.File.Dir }}{{ $d := index (where hugo.Data.services "slug" $slug) 0 -}}
+  {{- $g = $g | append (dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $d.name "serviceType" $d.group "description" $P.sub "provider" (dict "@id" $org) "url" $m.url "audience" (dict "@type" "BusinessAudience" "name" $d.for)) -}}
+{{- end -}}
 {{- with $P.questions -}}
-  {{- $qs := slice }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
+  {{- $qs := slice }}{{ if and $p.IsPage (eq $p.Section "questions") }}{{ $qs = $qs | append (dict "@type" "Question" "name" $P.h1 "acceptedAnswer" (dict "@type" "Answer" "text" (printf "%s %s" $P.yes $P.answer))) }}{{ end }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
   {{- $g = $g | append (dict "@type" "FAQPage" "@id" (printf "%s#faq" $m.url) "mainEntity" $qs) -}}
 {{- end }}
 <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $g | jsonify | safeJS }}</script>

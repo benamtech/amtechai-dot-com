@@ -77,3 +77,10 @@
 .wcan-who{display:inline-block;margin-top:10px;font-size:12.5px;color:var(--ink-3)}
 @media (max-width:1100px){.wcan-grid{grid-template-columns:1fr 1fr}}
 @media (max-width:640px){.wcan{padding:44px 0 36px}.wcan-grid{grid-template-columns:minmax(0,1fr);gap:10px}.wcan-grid li{padding:16px}.wcan-grid h3{font-size:21px}}
+/* Cards never push the page wider than the screen: columns may shrink below their content, and a team of five
+   (the Builder joined, 2026-10-27) wraps its row of characters on a phone. */
+.ind-grid,.pkg-grid{grid-template-columns:repeat(var(--cols,3),minmax(0,1fr))}
+.ind-team{display:flex;flex-wrap:wrap;gap:4px}
+@media (max-width:1100px){.ind-grid,.pkg-grid{--cols:2}}
+@media (max-width:640px){.pkg-grid{--cols:1}.ind-grid{--cols:2}.whub-list .ind-grid{--cols:1}.ind-card .ind-team svg{width:28px;height:28px}}
+@media (min-width:1101px){.pkg-grid{--cols:4}}

@@ -1,9 +1,9 @@
 [
  {
   "slug": "estimates-from-plans-and-photos",
-  "name": "Estimates from plans and photos",
-  "instead": "Instead of an outsourced estimator",
-  "for": "Trade contractors who price from drawings, photos or a walk-through",
+  "name": "Estimating, from plans, photos and satellite imagery",
+  "instead": "Replaces an estimator and the takeoff software",
+  "for": "Trade contractors who price from drawings, photos, a walkthrough or the address alone",
   "connects": [
    "Gmail",
    "Jobber",
@@ -18,9 +18,9 @@
  },
  {
   "slug": "billing-dates-pay-applications-waivers-and-lien-notices",
-  "name": "Billing dates, pay applications, waivers and lien notices",
-  "instead": "Instead of a project accountant's hours",
-  "for": "Commercial subcontractors",
+  "name": "Pay applications, lien waivers and lien rights, run every month",
+  "instead": "Replaces a project accountant and the billing software",
+  "for": "Commercial subcontractors and the contractors who bill on a schedule of values",
   "connects": [
    "Gmail",
    "Procore",
@@ -35,9 +35,9 @@
  },
  {
   "slug": "the-first-year-after-buying-a-business",
-  "name": "The first year after buying a business",
-  "instead": "Instead of the seller's office manager you did not keep",
-  "for": "Owners who just bought a trade or service business",
+  "name": "Running the office of a business you just bought",
+  "instead": "Replaces the office manager the business needed and the consultant you would have called",
+  "for": "Owners who just bought a trade or service business and inherited its paperwork",
   "connects": [
    "Gmail",
    "QuickBooks Online"
@@ -51,9 +51,9 @@
  },
  {
   "slug": "client-reports-written-every-month",
-  "name": "Client reports written every month",
-  "instead": "Instead of an agency's reporting hours",
-  "for": "SEO and marketing agencies",
+  "name": "Client reporting for every account, every month",
+  "instead": "Replaces your team's reporting days and the dashboard subscription",
+  "for": "SEO and marketing agencies with a client list to report to",
   "connects": [
    "HighLevel",
    "Google Business Profile",
@@ -68,9 +68,9 @@
  },
  {
   "slug": "the-morning-public-bid-sheet",
-  "name": "The morning public-bid sheet",
-  "instead": "Instead of a bid-board subscription and the hour spent reading it",
-  "for": "Contractors who want public work in their county",
+  "name": "Public bidding, from the morning bid search to the submitted bid",
+  "instead": "Replaces a bid-board subscription and the estimator's hours reading it",
+  "for": "Contractors who want public work from their city, county, schools and state",
   "connects": [
    "Gmail",
    "Autodesk BuildingConnected"
@@ -84,9 +84,9 @@
  },
  {
   "slug": "daily-rfp-and-grant-match-with-the-capability-statement-drafted",
-  "name": "Daily RFP and grant match, with the capability statement drafted",
-  "instead": "Instead of a bid-search subscription and a proposal writer",
-  "for": "Consulting firms, architects, engineers and surveyors",
+  "name": "Business development from RFPs and grants, every day",
+  "instead": "Replaces a bid-search subscription and a proposal writer",
+  "for": "Consulting firms, architects, engineers and surveyors who win work by proposal",
   "connects": [
    "Gmail",
    "Notion"
@@ -100,9 +100,9 @@
  },
  {
   "slug": "this-months-posts-and-pictures",
-  "name": "This month's posts and pictures",
-  "instead": "Instead of a social media agency",
-  "for": "Any local business that should be posting",
+  "name": "Social media, run every week",
+  "instead": "Replaces a social media agency",
+  "for": "Any local business whose customers look for it online",
   "connects": [
    "Meta",
    "Canva",
@@ -117,9 +117,9 @@
  },
  {
   "slug": "found-on-google-and-in-ai-answers",
-  "name": "Found on Google and in AI answers",
-  "instead": "Instead of a local SEO retainer",
-  "for": "Any local business",
+  "name": "Being found on Google, Google Maps and in AI answers",
+  "instead": "Replaces a local SEO agency's retainer",
+  "for": "Any local business that customers look for in a town",
   "connects": [
    "Google Business Profile",
    "Wix",
@@ -134,9 +134,9 @@
  },
  {
   "slug": "outbound-to-the-right-companies-from-the-owners-own-mailbox",
-  "name": "Outbound to the right companies, from the owner's own mailbox",
-  "instead": "Instead of an appointment-setting agency",
-  "for": "B2B service firms, consultants, agencies",
+  "name": "Outbound sales to the right companies, from your own mailbox",
+  "instead": "Replaces a sales development rep and an appointment-setting agency",
+  "for": "B2B service firms, consultants and agencies that sell to other businesses",
   "connects": [
    "Gmail",
    "HubSpot",
@@ -151,9 +151,9 @@
  },
  {
   "slug": "grants-found-written-and-reported-on-time",
-  "name": "Grants found, written and reported on time",
-  "instead": "Instead of a freelance grant writer",
-  "for": "Nonprofits",
+  "name": "Grants found, written, won and reported",
+  "instead": "Replaces a grant writer and a grant database subscription",
+  "for": "Nonprofits that live on grants",
   "connects": [
    "Gmail",
    "Notion",
@@ -168,9 +168,9 @@
  },
  {
   "slug": "new-matters-intake-conflict-check-engagement-letter",
-  "name": "New matters: intake, conflict check, engagement letter",
-  "instead": "Instead of an intake specialist",
-  "for": "Small law firms",
+  "name": "New-client intake for a law firm, start to signed letter",
+  "instead": "Replaces an intake specialist and the intake software",
+  "for": "Small law firms that take new matters every week",
   "connects": [
    "Clio",
    "Calendly",
@@ -185,8 +185,8 @@
  },
  {
   "slug": "inspection-reports-into-repair-quotes",
-  "name": "Inspection reports into repair quotes",
-  "instead": "Instead of a service coordinator retyping inspection reports",
+  "name": "Inspection reports turned into quoted repair work",
+  "instead": "Replaces a service coordinator and the hours spent retyping reports",
   "for": "Inspection trades (fire, backflow, elevator, HVAC service) and realtor-repair contractors",
   "connects": [
    "Gmail",
@@ -202,9 +202,9 @@
  },
  {
   "slug": "proposals-and-statements-of-work",
-  "name": "Proposals and statements of work",
-  "instead": "Instead of a freelance proposal writer",
-  "for": "Consultants, agencies, professional firms",
+  "name": "Proposals and statements of work, written and won",
+  "instead": "Replaces a proposal writer and the proposal software",
+  "for": "Consultants, agencies and professional firms",
   "connects": [
    "Gmail",
    "HubSpot",
@@ -219,8 +219,8 @@
  },
  {
   "slug": "invoices-out-and-paid",
-  "name": "Invoices out and paid",
-  "instead": "Instead of a collections service",
+  "name": "Billing and collections, run end to end",
+  "instead": "Replaces a billing clerk and a collections service",
   "for": "Any service business that invoices after the work",
   "connects": [
    "Stripe",
@@ -236,8 +236,8 @@
  },
  {
   "slug": "prospects-from-failed-inspections-and-violations",
-  "name": "Prospects from failed inspections and violations",
-  "instead": "Instead of a purchased lead list",
+  "name": "New customers from failed inspections and violations",
+  "instead": "Replaces a purchased lead list and the sales rep who calls it",
   "for": "Pest control, cleaning and property-repair firms",
   "connects": [
    "Gmail"
@@ -251,9 +251,9 @@
  },
  {
   "slug": "hire-the-next-person",
-  "name": "Hire the next person",
-  "instead": "Instead of a recruiting agency's fee",
-  "for": "Any owner hiring",
+  "name": "Hiring, from the job post to the interview",
+  "instead": "Replaces a recruiting agency's fee and the job-board busywork",
+  "for": "Any owner who needs the next person",
   "connects": [
    "Gmail",
    "Calendly"
@@ -267,9 +267,9 @@
  },
  {
   "slug": "inquiries-answered-and-booked",
-  "name": "Inquiries answered and booked",
-  "instead": "Instead of an answering service",
-  "for": "Service businesses with a calendar",
+  "name": "Every inquiry answered and booked, on every channel",
+  "instead": "Replaces a front desk, an answering service and the booking software",
+  "for": "Service businesses that live on their calendar",
   "connects": [
    "Any website form",
    "Calendly",
@@ -284,9 +284,9 @@
  },
  {
   "slug": "building-violations-caught-the-work-order-already-drafted",
-  "name": "Building violations caught, the work order already drafted",
-  "instead": "Instead of a clerk checking the city's violation records",
-  "for": "Property managers",
+  "name": "Building violations caught and the repair under way",
+  "instead": "Replaces the staff hours spent checking city records and writing work orders",
+  "for": "Property managers with buildings in a city that publishes violations",
   "connects": [
    "AppFolio",
    "Buildium"
@@ -300,9 +300,9 @@
  },
  {
   "slug": "contractors-whose-insurance-expires-near-you",
-  "name": "Contractors whose insurance expires near you",
-  "instead": "Instead of a lead vendor's contractor list",
-  "for": "Independent insurance agencies",
+  "name": "New business from contractors whose insurance is due",
+  "instead": "Replaces a lead vendor's contractor list and the producer's research hours",
+  "for": "Independent insurance agencies that write contractors",
   "connects": [
    "Gmail"
   ],
@@ -315,9 +315,9 @@
  },
  {
   "slug": "open-permits-and-inspections-chased-on-live-jobs",
-  "name": "Open permits and inspections chased on live jobs",
-  "instead": "Instead of a permit expediter",
-  "for": "General contractors and remodelers",
+  "name": "Permits and inspections run on every live job",
+  "instead": "Replaces a permit expediter",
+  "for": "General contractors and remodelers with jobs open in more than one city",
   "connects": [
    "Gmail",
    "Procore"
@@ -331,8 +331,8 @@
  },
  {
   "slug": "insurance-claim-supplements-followed-to-payment",
-  "name": "Insurance claim supplements, followed to payment",
-  "instead": "Instead of a supplement company's cut of the claim",
+  "name": "Insurance claims and supplements, followed to payment",
+  "instead": "Replaces a supplement company and its cut of the claim",
   "for": "Roofers and restoration contractors working insurance claims",
   "connects": [
    "Gmail",
@@ -348,8 +348,8 @@
  },
  {
   "slug": "on-general-contractors-bid-lists",
-  "name": "On general contractors' bid lists",
-  "instead": "Instead of a business-development rep calling estimators",
+  "name": "Getting on general contractors' bid lists and winning their work",
+  "instead": "Replaces a business-development rep calling estimators",
   "for": "Subcontractors who want commercial work",
   "connects": [
    "Gmail",
@@ -364,8 +364,8 @@
  },
  {
   "slug": "the-books-kept-every-week",
-  "name": "The books kept every week",
-  "instead": "Instead of a part-time bookkeeper",
+  "name": "Bookkeeping, closed every week",
+  "instead": "Replaces a bookkeeper's weekly hours and the reporting add-on",
   "for": "Any business that keeps its books in QuickBooks or Xero",
   "connects": [
    "QuickBooks Online",
@@ -381,8 +381,8 @@
  },
  {
   "slug": "client-documents-chased-and-month-end-prepared",
-  "name": "Client documents chased and month-end prepared",
-  "instead": "Instead of an admin chasing clients for documents",
+  "name": "Month-end for every client, documents to close",
+  "instead": "Replaces the staff hours spent chasing clients and preparing month-end",
   "for": "Accounting, tax and bookkeeping firms",
   "connects": [
    "QuickBooks Online",
@@ -398,9 +398,9 @@
  },
  {
   "slug": "the-six-oclock-numbers-food-cost-job-cost-cash",
-  "name": "The six o'clock numbers: food cost, job cost, cash",
-  "instead": "Instead of waiting for the bookkeeper's month-end report",
-  "for": "Restaurants and trades that want to see margin daily",
+  "name": "Your numbers every morning: food cost, job cost and cash",
+  "instead": "Replaces a back-office manager and the month-end report you wait for",
+  "for": "Restaurants and trades that want to see their margin every day",
   "connects": [
    "Toast",
    "Square",
@@ -415,9 +415,9 @@
  },
  {
   "slug": "seasonal-tune-ups-and-win-back-from-the-customer-list",
-  "name": "Seasonal tune-ups and win-back from the customer list",
-  "instead": "Instead of your field software's marketing add-on",
-  "for": "Trades with a customer list (HVAC, lawn, pest)",
+  "name": "Repeat business from your customer list, every season",
+  "instead": "Replaces a marketing agency and your field software's marketing add-on",
+  "for": "Trades with a customer list, such as HVAC, lawn care and pest control",
   "connects": [
    "Jobber",
    "Housecall Pro",
@@ -432,8 +432,8 @@
  },
  {
   "slug": "new-homeowners-welcomed-with-a-quote",
-  "name": "New homeowners welcomed with a quote",
-  "instead": "Instead of a new-mover mailing service",
+  "name": "New homeowners in your area, each sent a quote",
+  "instead": "Replaces a new-mover mailing service",
   "for": "Lawn, pest, pet-waste, painting and home-service firms",
   "connects": [
    "Gmail",
@@ -448,9 +448,9 @@
  },
  {
   "slug": "paid-search-and-social-run-and-reported",
-  "name": "Paid search and social, run and reported",
-  "instead": "Instead of a pay-per-click agency",
-  "for": "Businesses already spending on Google or Meta ads",
+  "name": "Paid search and social ads, run and reported",
+  "instead": "Replaces a pay-per-click agency's retainer",
+  "for": "Businesses spending on Google or Meta ads",
   "connects": [
    "Meta",
    "Google Business Profile",

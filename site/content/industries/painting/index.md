@@ -1,28 +1,29 @@
 ---
-title: "AI employee for painting contractors: walkthrough to signed proposal"
-description: "An AMTECH AI employee turns a walkthrough's photos and notes into a priced painting proposal with options, follows it up and books the crew."
+title: "AI employee for painting contractors: proposals the same night"
+description: "An AMTECH AI employee turns a walkthrough's photos and notes into a priced painting proposal with options, follows it to a signature and books the crew."
 weight: 3
 label: "Painting"
 card_line: "From the walkthrough to a signed proposal the same night."
 h1a: "Painting contractors: from the walkthrough to a signed proposal"
 h1b: "the same night."
-sub: "AMTECH gives a painting company an AI employee and three teammates. Estimates turns the photos and notes from your walkthrough into a proposal priced by the wall, the trim and the coat, with a good, better and best option, and Follow-up keeps after it until the homeowner signs or says no."
+sub: "AMTECH gives a painting company an AI employee that does the evening's estimating and the week's follow-up for you. Estimates turns the photos and voice notes from your walkthrough into a proposal priced by the wall, the trim and the coat, with a good, better and best option, and Follow-up keeps after it until the homeowner signs, so your evenings stop going to paperwork."
 field: "Your painting company's name"
 button: "Start the free trial"
 config: painting
-team: [employee, t1, t2, t3]
+team: [employee, t1, t2, t3, t6]
 names: {t1: "Estimates"}
-employee_does: "Learns your production rates, your paint lines and the way you write a proposal, then hands each walkthrough, follow-up and invoice to the teammate for it and brings it back for your yes."
+employee_does: "Learns your production rates, your paint lines and the way you write a proposal, connects to PaintScout, Jobber, CompanyCam or anything else you use, and gives each walkthrough, follow-up and invoice to the teammate for it, so the proposals get closer to yours every week."
 team_h: "Who handles the office side of your painting jobs"
 services_h: "What painting contractors hand over first"
 team_detail:
   - {id: t1, does: "Reads your walkthrough photos and voice notes room by room, works out wall area, trim and doors, adds prep and the number of coats, and prices it from your production rates and your paint store's account prices."}
   - {id: t2, does: "Follows every proposal from the day after the walkthrough, answers the colour and timing questions you have already answered once, and asks for the deposit when the homeowner is ready."}
-  - {id: t3, does: "Posts the before and after photos from each finished job, keeps your Google listing current, and asks happy customers for the review that brings the next one."}
+  - {id: t3, does: "Posts the before and after photos from each finished job, keeps your Google listing current, and asks happy customers for the review that brings the next job, which is the work a marketing agency bills you for each month."}
+  - {id: t6, does: "Builds a gallery of your finished jobs on your website and a colour-selection page each customer fills in before the crew arrives, and keeps both current."}
 systems: ["PaintScout or DripJobs", "Jobber", "CompanyCam", "QuickBooks", "Your paint store account", "Gmail"]
 routines:
   - "Every evening: today's walkthroughs turned into proposals, waiting for your yes before they go out."
-  - "Every Monday: the week's exterior jobs checked against the forecast, with the reschedule notes drafted for rain days."
+  - "Every Monday: the week's exterior jobs checked against the forecast, with the rain-day reschedule notes sent to customers on your yes."
   - "Every January: interior work offered to past customers and to the property managers who turn units over."
 first_jobs:
   - "Turn yesterday's walkthrough photos into a proposal with three options"
@@ -33,7 +34,7 @@ live: {who: t1, title: "Proposal for the colonial on Elm Street", step: "Step 2 
 questions_h: "What painting contractors ask first"
 questions:
   - {q: "Can it price a job from my walkthrough photos?", a: "Yes. Take your usual photos and talk through the job on your phone, and Estimates measures each surface, names anything it had to assume, and prices it from your own rates."}
-  - {q: "Does it replace PaintScout or DripJobs?", a: "No. Your employee works inside the proposal software you already use with a seat of its own, so every proposal, signature and deposit stays in one place."}
+  - {q: "Does it replace PaintScout or DripJobs?", a: "It can. Your employee starts inside the proposal software you use today, and it can also write, send and track every proposal, signature and deposit on its own, in your format and at your rates, so the subscription becomes your choice rather than a cost you carry."}
   - {q: "Will it handle colour questions?", a: "Yes, the routine ones. The employee answers from your colour process and the selections already on the job, and passes anything that needs your eye straight to you."}
   - {q: "Who sends the proposal?", a: "You do. Nothing goes to a homeowner until you say yes, or until a standing approval in your own words covers it, such as follow-up notes on proposals you have already sent."}
   - {q: "What about older houses?", a: "The employee flags every house built before 1978 on the proposal, so you can plan lead-safe prep and paperwork before the crew arrives."}

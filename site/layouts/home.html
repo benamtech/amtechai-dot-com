@@ -17,7 +17,7 @@
 </ul></div></section>
 {{- end }}
 <section class="ind"><div class="wrap"><h2>{{ .Params.industries_h }}</h2><p class="sec-p">{{ .Params.industries_sub }}</p><div class="ind-grid">
-{{- range (where site.RegularPages "Section" "industries").ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h3>{{ .Params.label }}</h3><p>{{ .Params.card_line }}</p></a>{{ end }}
+{{- range (where site.RegularPages "Section" "industries").ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range first 4 .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h3>{{ .Params.label }}</h3><p>{{ .Params.card_line }}</p></a>{{ end }}
 </div></div></section>
 <section class="pkg"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><p class="sec-p">{{ .Params.services_sub }}</p><a class="wlink" href="/services">{{ .Params.services_more }}</a></div><div class="pkg-grid">
 {{- range .Params.services_featured }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "home: services_featured names %q, which is not in data/services.json" . }}{{ end }}<a class="pkg-card" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/services#{{ $s.slug }}{{ end }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}

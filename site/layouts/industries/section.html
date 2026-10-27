@@ -6,7 +6,7 @@
 <main>
 <section class="whub"><div class="wrap whub-in"><div><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p></div><div class="whub-start">{{ partial "w/start.html" (dict "id" "start") }}</div></div></section>
 <section class="ind whub-list"><div class="wrap"><div class="ind-grid">
-{{- range .RegularPages.ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h2>{{ .Params.label }}</h2><p>{{ .Params.card_line }}</p><p class="ind-sys">Connects to {{ delimit .Params.systems ", " }}</p></a>{{ end }}
+{{- range .RegularPages.ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range first 4 .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h2>{{ .Params.label }}</h2><p>{{ .Params.card_line }}</p><p class="ind-sys">Connects to {{ delimit .Params.systems ", " }}</p></a>{{ end }}
 </div></div></section>
 {{ partial "w/proof.html" (dict) }}
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}

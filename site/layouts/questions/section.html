@@ -1,0 +1,16 @@
+{{- /* The questions hub (/questions), lane PAGES 2026-10-27: the questions owners type, each answered on its own page.
+       A conventional hero (the H1, the paragraph and the start field in one column), then one card per question page
+       by weight: its team, the question, its short answer. Words in content/questions/_index.md and each page's
+       `card_line`. */ -}}
+{{- $p := . -}}
+{{- range slice "title" "description" "h1" "sub" "closing_h" "closing_sub" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="whub pq-hub"><div class="wrap"><h1>{{ .Params.h1 }}</h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button) }}</div></section>
+<section class="ind whub-list"><div class="wrap"><div class="pq-cards">
+{{- range .RegularPages.ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 40) }}{{ end }}</div><h2>{{ .Params.h1 }}</h2><p><span class="red">{{ .Params.yes }}</span> {{ .Params.card_line }}</p></a>{{ end }}
+</div></div></section>
+{{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub "field" .Params.field "button" .Params.button) }}
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

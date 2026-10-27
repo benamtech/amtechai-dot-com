@@ -3,16 +3,16 @@
  "prices": "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.",
  "field": "Your business's name",
  "action": "Start",
- "promise": "AMTECH gives your business AI employees that connect themselves to everything you run, make their own teams, and improve as they work.",
- "late": "Nothing leaves your employee's computer, a message, a page or a payment, until a person you authorised says yes.",
- "closing_h": "Name your business.",
+ "promise": "AMTECH gives your business AI employees that do the work of a hire, an agency or a subscription, plug into everything you run on the first day, and get better every week.",
+ "late": "You stay in charge. No message, page, payment or booking goes out until you or a person you authorised says yes, or a standing approval in your own words covers it.",
+ "closing_h": "Name your business and put your employee to work.",
  "proof": {
   "h": "Scoop Dogg was the first business run by an AI employee.",
-  "p": "Pet waste and turf care in Ventura and Santa Barbara counties. AMTECH built his site and its online booking; his employee now answers every booking, quote and contact at his real prices. He is first in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara, and at the top of Google Maps.",
+  "p": "Pet waste and turf care in Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area.",
   "link": "https://scoopdogg.net",
   "link_text": "See scoopdogg.net",
   "figure": "#1",
-  "figure_line": "in ChatGPT for pet and yard cleanup, Ventura and Santa Barbara"
+  "figure_line": "in ChatGPT and on Google for pet and yard cleanup, Ventura and Santa Barbara"
  },
  "short": {
   "Google Business Profile": "Google",
@@ -26,7 +26,7 @@
  "credits": "Type: Cormorant Garamond and Geist, SIL Open Font License. Instrument photographs: The Metropolitan Museum of Art, Open Access (CC0).",
  "sources": [
   "The price line: AMTECH's price list, October 2026.",
-  "Scoop Dogg, first in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara and at the top of Google Maps: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net).",
+  "Scoop Dogg: his AI employee set up his new website, its online booking and his automatic replies; he gets bookings every week; first in ChatGPT and on Google for pet and yard cleanup across Ventura and Santa Barbara: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net).",
   "The work shown in progress on this page (\"Step 2 of 4\" and the like) illustrates the AMTECH application; it is not a customer's job."
  ],
  "centre": "Your business"
