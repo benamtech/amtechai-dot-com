@@ -8,7 +8,7 @@
 <main>
 <section class="sky chapel-w"><div class="wrap cw-in"><div class="cw-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.team "systems" .Params.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true"><div class="medal-in"><p class="medal-k">{{ .Params.label }}</p><p class="medal-name" data-echo="{{ .Params.medal | default "Your business" }}">{{ .Params.medal | default "Your business" }}</p></div></div></div>
 <div class="cw-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button "industry" .Params.config) }}{{ with .Params.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "cw-live") }}{{ end }}</div></div>
-<div class="wrap"><dl class="band"><div><dt>The team</dt><dd>{{ $t := slice }}{{ range .Params.team }}{{ $t = $t | append (partial "w/name.html" (dict "id" . "names" $names)) }}{{ end }}{{ delimit $t ", " }}</dd></div><div><dt>Connects to</dt><dd>{{ delimit .Params.systems ", " }}</dd></div><div><dt>Routines</dt><dd>{{ delimit .Params.routines " " }}</dd></div><div><dt>First jobs</dt><dd>{{ delimit .Params.first_jobs ". " }}.</dd></div></dl></div></section>
+<div class="wrap"><div class="band"><div><div class="bt w-fixed">The team</div><p class="bd">{{ $t := slice }}{{ range .Params.team }}{{ $t = $t | append (partial "w/name.html" (dict "id" . "names" $names)) }}{{ end }}{{ delimit $t ", " }}</p></div><div><div class="bt w-fixed">Connects to</div><p class="bd">{{ delimit .Params.systems ", " }}</p></div><div><div class="bt w-fixed">Routines</div><p class="bd">{{ delimit .Params.routines " " }}</p></div><div><div class="bt w-fixed">First jobs</div><p class="bd">{{ delimit .Params.first_jobs ". " }}.</p></div></div></div></section>
 <section class="wteam"><div class="wrap"><h2>{{ .Params.team_h | default (printf "The team for %s" (lower .Params.label)) }}</h2><ul class="wteam-grid">
 <li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does | default "Learns your business, makes the team, and answers to you. Every teammate's work comes back through your employee, in one conversation." }}</p></li>
 {{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}
@@ -19,5 +19,6 @@
 <section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/proof.html" (dict) }}
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub "field" .Params.field "button" .Params.button "industry" .Params.config) }}
+{{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}

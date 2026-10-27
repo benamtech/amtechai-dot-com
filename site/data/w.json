@@ -14,6 +14,19 @@
   "figure": "#1",
   "figure_line": "in ChatGPT for pet and yard cleanup, Ventura and Santa Barbara"
  },
- "short": {"Google Business Profile": "Google", "Your website's forms": "Web forms", "Your website": "Website", "Your price book": "Price book", "Your clients' sites": "Client sites", "Search Console": "Search", "ChatGPT and AI Overview": "AI answers"},
- "credits": "Type: Cormorant Garamond and Geist, SIL Open Font License. Instrument photographs: The Metropolitan Museum of Art, Open Access (CC0)."
+ "short": {
+  "Google Business Profile": "Google",
+  "Your website's forms": "Web forms",
+  "Your website": "Website",
+  "Your price book": "Price book",
+  "Your clients' sites": "Client sites",
+  "Search Console": "Search",
+  "ChatGPT and AI Overview": "AI answers"
+ },
+ "credits": "Type: Cormorant Garamond and Geist, SIL Open Font License. Instrument photographs: The Metropolitan Museum of Art, Open Access (CC0).",
+ "sources": [
+  "The price line: AMTECH's price list, October 2026.",
+  "Scoop Dogg, first in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara and at the top of Google Maps: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net).",
+  "The work shown in progress on this page (\"Step 2 of 4\" and the like) illustrates the AMTECH application; it is not a customer's job."
+ ]
 }

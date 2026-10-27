@@ -12,6 +12,7 @@ button: "Start the free trial"
 config: painting
 team: [employee, t1, t2, t3]
 names: {t1: "Estimates"}
+employee_does: "Learns your production rates, your paint lines and the way you write a proposal, then hands each walkthrough, follow-up and invoice to the teammate for it and brings it back for your yes."
 team_detail:
   - {id: t1, does: "Reads your walkthrough photos and voice notes room by room, works out wall area, trim and doors, adds prep and the number of coats, and prices it from your production rates and your paint store's account prices."}
   - {id: t2, does: "Follows every proposal from the day after the walkthrough, answers the colour and timing questions you have already answered once, and asks for the deposit when the homeowner is ready."}

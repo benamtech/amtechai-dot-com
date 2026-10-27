@@ -1,0 +1,11 @@
+{{- /* The end of a new page's main content: where the page sits (the visible breadcrumb the structured data names),
+       the sources of its figures, and how it was made (AISEO page-spec 2.11, 2.12; scaled_gate H4, H6). The sources
+       list is the same on every page, so the gate reads it as a shared part: aiseo_gate.py --shared-class
+       cproof,wproof,proof,w-fixed,foot. w-fixed marks every word the layout or the site owns, not the page. Never above a
+       heading (no eyebrow text, Ben 2026-10-26). */ -}}
+{{- $W := hugo.Data.w -}}
+<aside class="wsrc"><div class="wrap">
+{{- if not .IsHome }}<nav class="crumbs" aria-label="Breadcrumb"><a href="/">AMTECH</a>{{ range .Ancestors.Reverse }}{{ if not .IsHome }}{{ if ne .Section "departments" }} <span aria-hidden="true">/</span> <a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ .Params.crumb | default .Params.label | default .Params.h1 | default .Title }}</a>{{ end }}{{ end }}{{ end }} <span aria-hidden="true">/</span> <span aria-current="page">{{ .Params.crumb | default .Params.label | default .Params.h1 | default .Title }}</span></nav>{{ end }}
+<div class="sources wsrc-list w-fixed"><h2 class="wsrc-h">Sources</h2><ol>{{ range $W.sources }}<li>{{ . }}</li>{{ end }}{{ range .Params.sources }}<li>{{ . }}</li>{{ end }}</ol></div>
+{{- with .Params.reviewed }}<p class="made">{{ with $.Params.label }}This page on {{ lower . }} was{{ else }}This page was{{ end }} written by an AMTECH AI employee from AMTECH's records.</p><div class="made w-fixed">Reviewed by {{ .by }}, {{ (time .date).Format "2 January 2006" }}.</div>{{ else }}<p class="made">Written by AMTECH from its own records.</p>{{ end }}
+</div></aside>

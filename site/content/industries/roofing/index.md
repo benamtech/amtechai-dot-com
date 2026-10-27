@@ -6,12 +6,13 @@ label: "Roofing"
 card_line: "Every estimate measured, priced and followed up."
 h1a: "Roofing contractors: every estimate measured, priced and"
 h1b: "followed up."
-sub: "AMTECH gives a roofing company an AI employee and three teammates. Takeoffs measures the plan set or the drone photos at scale and prices the squares from your book, Follow-up chases every quote until a yes or a no, and Collections sends the deposit request the day a job is won."
+sub: "AMTECH gives a roofing company an AI employee and three teammates. Takeoffs measures the plan set, the drone photos or an EagleView report at scale and prices the squares from your book, Follow-up chases every quote until a yes or a no, and Collections sends the deposit request the day a job is won."
 field: "Your roofing company's name"
 button: "Start the free trial"
 config: roofing
 team: [employee, t1, t2, t4]
 names: {}
+employee_does: "Learns your price book, your crews and the roofs you like to win, then hands each plan set, quote and deposit to the teammate for it and brings the result back to you to approve."
 team_detail:
   - {id: t1, does: "Measures each roof plane from the plan set, the drone photos or an EagleView report, adds pitch and waste, prices it from your book, and names anything the pictures could not show."}
   - {id: t2, does: "Follows every open estimate until the homeowner says yes or no, and drafts the next note in your words for you to approve before it goes."}

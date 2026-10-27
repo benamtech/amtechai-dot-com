@@ -13,6 +13,7 @@
 {{- range $S }}{{ if ne .slug $feat.slug }}<a class="mk2-card" id="{{ .slug }}" data-g="{{ .group }}" href="/start?config={{ .slug }}"><div class="mk2-team">{{ range .team }}{{ partial "w/character.html" (dict "id" . "size" 38) }}{{ end }}</div><h2>{{ .name }}</h2><p class="mk2-for">{{ .for }}</p>{{ with .instead }}<p class="mk2-inst">{{ . }}</p>{{ end }}<p class="mk2-sys">Connects to {{ delimit .connects ", " }}</p></a>{{ end }}{{ end }}
 </div></section>
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}
+{{ partial "w/made.html" . }}
 </main>
 <script>{{ `(()=>{const b=[...document.querySelectorAll(".mk2-bar [data-group]")],c=[...document.querySelectorAll(".mk2-grid [data-g]")],s=document.querySelector(".mk-search");let g="";const f=()=>{const q=(s.value||"").trim().toLowerCase();c.forEach(e=>{e.hidden=!((!g||e.dataset.g===g)&&(!q||e.textContent.toLowerCase().includes(q)))})};b.forEach(x=>x.addEventListener("click",()=>{g=x.dataset.group;b.forEach(y=>{y.classList.toggle("on",y===x);y.setAttribute("aria-pressed",y===x)});f()}));s.addEventListener("input",f)})()` | safeJS }}</script>
 {{ partial "w/bottom.html" . }}

@@ -7,8 +7,8 @@
 <meta name="robots" content="noindex, nofollow"><title>{{ .Title }} | AMTECH AI</title><meta name="description" content="{{ .Description }}">
 <link rel="canonical" href="https://amtechai.com/start"><link rel="icon" type="image/svg+xml" href="/favicon.svg">
 {{ partial "analytics.html" . }}
-<style>html,body{margin:0;height:100%;background:#fff}amtech-workspace{display:block;height:100vh;height:100dvh}.ns{max-width:640px;margin:48px auto;padding:0 24px;font:17px/1.5 system-ui;color:#0a0a0a}</style>
-</head><body><div id="holder"></div><noscript><p class="ns">Your AI employee runs in the page. Turn on JavaScript to start.</p></noscript>
+<style>html,body{margin:0;height:100%;background:#fff}amtech-workspace{display:block;height:100vh;height:100dvh}.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}.ns{max-width:640px;margin:48px auto;padding:0 24px;font:17px/1.5 system-ui;color:#0a0a0a}</style>
+</head><body><h1 class="sr">Your AI employee</h1><div id="holder"></div><noscript><p class="ns">Your AI employee runs in the page. Turn on JavaScript to start.</p></noscript>
 <script>
 (() => {
   const APP = {{ site.Params.app }};

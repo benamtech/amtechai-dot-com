@@ -20,5 +20,6 @@
 <section class="how"><div class="wrap"><h2>{{ .Params.how_h }}</h2><ol class="how-grid">{{ range $i, $s := .Params.how }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol></div></section>
 {{ partial "w/proof.html" (dict "id" "proof") }}
 {{ partial "w/closing.html" (dict) }}
+{{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}

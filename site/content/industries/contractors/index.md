@@ -12,6 +12,7 @@ button: "Start the free trial"
 config: contractors
 team: [employee, t1, t5, t4]
 names: {t5: "Permits", t4: "Draws"}
+employee_does: "Learns your subs, your schedule of values and the jobs you have running, then hands each bid, permit and draw request to the teammate for it and brings it back for your yes."
 team_detail:
   - {id: t1, does: "Takes off the plan set by trade, builds the scope sheet for each bid package, sends it to the subs on your list and levels their numbers side by side when they come back."}
   - {id: t5, does: "Checks each live job's permit on the city or county portal every weekday, books the next inspection, and tells you the morning one fails, with what the inspector wrote."}

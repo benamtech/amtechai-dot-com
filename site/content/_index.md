@@ -3,7 +3,7 @@
 # Its line in /llms.txt (the list AI assistants read first), and where in that list.
 llms: { order: 1, label: "AMTECH", text: "AMTECH gives a business AI employees: each connects itself to the systems the business runs, makes its own team for the work, and improves as it works." }
 title: "AMTECH AI: the AI team that wires itself into your business"
-description: "AMTECH gives your business AI employees that connect themselves to Jobber, QuickBooks, Gmail and the rest, build their own team, and get better every week. Start free."
+description: "AMTECH gives your business AI employees that connect themselves to Jobber, QuickBooks and Gmail, build their own team, and improve every week. Start free."
 route: "/"
 now_h: "Now, across your business"
 now:

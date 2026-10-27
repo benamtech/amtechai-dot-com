@@ -3,4 +3,4 @@
 {{- $W := hugo.Data.w -}}
 {{- $field := .field | default $W.field }}{{ $button := .button | default $W.action -}}
 <form class="start" id="{{ .id }}" action="/start" method="get" data-start><label class="sr" for="{{ .id }}-in">{{ $field }}</label><input id="{{ .id }}-in" name="business" class="start-in" placeholder="{{ $field }}" autocomplete="organization" maxlength="120" required data-echo-src>{{ with .industry }}<input type="hidden" name="industry" value="{{ . }}">{{ end }}{{ with .config }}<input type="hidden" name="config" value="{{ . }}">{{ end }}<button class="btn start-btn" data-action type="submit">{{ $button }}<span aria-hidden="true" class="arr">&rarr;</span></button></form>
-<p class="prices">{{ $W.prices }}</p>
+<div class="prices w-fixed">{{ $W.prices }}</div>

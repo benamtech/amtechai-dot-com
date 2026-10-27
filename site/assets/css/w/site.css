@@ -53,3 +53,13 @@
 .hh-art .h2-orb{width:88%;max-width:600px;margin:0 auto}
 @media (max-width:1100px){.hh-in{grid-template-columns:minmax(0,1fr);gap:24px}.hh-art .h2-orb{width:min(80%,520px)}}
 @media (max-width:640px){.hh{padding:18px 0 36px}.hh h1{font-size:40px}.hh .lede{font-size:16.5px;margin-top:14px}.hh .start{flex-direction:column;max-width:none;margin-top:20px}.hh-now .live:nth-of-type(n+2){display:none}.hh-now{margin-top:20px}}
+/* The page's end: breadcrumb, sources, how it was made. Quiet, after the closing start. */
+.wsrc{padding:28px 0 36px;border-top:1px solid var(--hair);font-size:13px;color:var(--ink-3)}
+.wsrc .crumbs{margin-bottom:10px}.wsrc .crumbs a{color:var(--ink-2);text-decoration:underline;text-underline-offset:2px}
+.wsrc-h{font:600 13px/1.4 var(--sans);color:var(--ink-2);letter-spacing:0}
+.wsrc ol{margin:4px 0 0 18px;max-width:62em}.wsrc li{margin-top:2px}
+.wsrc .made{margin-top:10px}
+/* The band as plain blocks (its labels are the layout's words, marked w-fixed for the uniqueness gate). */
+.band .bt{font:italic 500 23px/1.1 var(--serif);color:var(--ink)}
+.band .bd{margin-top:8px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.wsrc .made+.made{margin-top:2px}
