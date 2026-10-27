@@ -60,7 +60,7 @@ did:
     shot: {src: "/customers/scoop-dogg/site-book-desktop", alt: "The first screen of Scoop Dogg's online booking", w: 1200, h: 483}
   - h: "Then, his automatic replies"
     p: "His employee set up his automatic replies itself. Every booking, quote request, contact form and waitlist sign-up from his site now reaches his employee, which answers at his real prices. Nobody waits for Josue to get out of a yard."
-    shot: {src: "/customers/scoop-dogg/site-book-phone", alt: "Scoop Dogg's booking on a phone, where each customer's request starts", w: 600, h: 1298, phone: true}
+    shot: {src: "/customers/scoop-dogg/employee-replies", alt: "Scoop Dogg's AI employee in its own workspace, on a quote request AMTECH sent through scoopdogg.net as a test: what the person wants, then the reply in Josue's name at his published prices. The contact line is blurred.", w: 1200, h: 914}
   - h: "Then, being found"
     p: "His employee wrote his business into the pages and listings that Google and the AI assistants read, and kept his site and his Google listing in step. By October 2026 he was first on Google Maps in Ventura and Oxnard, at the top of Google search, and first in ChatGPT for pet waste and yard cleanup across Ventura and Santa Barbara."
     shot: {src: "/customers/scoop-dogg/maps-dog-poop-removal-service-ventura", alt: "Google Maps for dog poop removal service in Ventura: Scoop Dogg is the only result", w: 820, h: 760}
@@ -120,6 +120,7 @@ sources:
   - "First in ChatGPT and in Google search for pet waste and yard cleanup across Ventura and Santa Barbara, and several new customers booking through scoopdogg.net every week: reported by Ben Palaskas, AMTECH, 27 October 2026."
   - "His employee set up his website and its online booking, then his automatic replies: reported by Ben Palaskas, AMTECH, 27 October 2026. The site went live on 3 October 2026 (AMTECH's records)."
   - "AMTECH's own AI employee started the sales call that brought Scoop Dogg in as a lead: reported by Ben Palaskas, AMTECH, 27 October 2026."
+  - "His employee answering a lead: a screen of his AI employee's workspace, captured by AMTECH on 25 October 2026, on a quote request AMTECH sent through scoopdogg.net as a test (not a customer). Cropped; the test contact line is blurred."
   - "\"Literally doing everything 24/7 that isn't physically working in the yards\": Ben Palaskas, AMTECH, 17 October 2026."
 reviewed: {by: "Ben Palaskas", date: "2026-10-27"}
 ---
