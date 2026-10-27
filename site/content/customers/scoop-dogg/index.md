@@ -50,8 +50,7 @@ gallery:
 #   and, if saved, the screenshot under static/customers/scoop-dogg/ (src with extension, w, h).
 # google_search: a screenshot of Google search for "pet waste removal Ventura" from a normal browser in Ventura
 #   (src, alt, w, h) and its caption with the date (cap: "Google search, 'pet waste removal Ventura', 28 October 2026").
-answers_h: "What ChatGPT and Google search say"
-chatgpt: {prompt: "Who is the best dog poop removal service in Ventura, CA?", answer: "", cap: 'ChatGPT, 27 October 2026, asked by Ben Palaskas: "My top pick for dog poop removal in Ventura, CA, is Scoop Dogg."', src: "/customers/scoop-dogg/chatgpt-ventura.webp", w: 636, h: 345}
+chatgpt: {h: "ChatGPT's top pick in Ventura", p: "Ask ChatGPT who the best dog poop removal service in Ventura is, and it names Scoop Dogg first: the site, the listing and the reviews his employee built all point the same way.", prompt: "Who is the best dog poop removal service in Ventura, CA?", cap: "Asked by Ben Palaskas on 27 October 2026. AI answers change; ask it yourself.", go: "Ask ChatGPT yourself", alt: "ChatGPT's answer: My top pick for dog poop removal in Ventura, CA, is Scoop Dogg - Dog Poop Cleanup Ventura. 5.0 out of 5 from 42 reviews.", src: "/customers/scoop-dogg/chatgpt-ventura", w: 632, h_px: 336}
 
 did_h: "What his employee did, in order"
 did_sub: "Josue works the yards. Everything else that brings him customers, his employee set up and keeps running."

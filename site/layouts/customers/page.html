@@ -4,7 +4,7 @@
        Every word is in the page's content file. The slots Ben fills (chatgpt, josue) render nothing
        while empty: never a placeholder box on the live page. */ -}}
 {{- $p := . -}}
-{{- range slice "title" "description" "h1a" "h1b" "sub" "site_link" "hero_shots" "hero_cap" "facts_h" "facts" "figures" "gallery_h" "gallery" "answers_h" "did_h" "did" "timeline_h" "timeline" "week_h" "week" "words_h" "words" "how_h" "how_p" "how_link" "trades_h" "trades" "start2_h" "ask_h" "ask_sub" "ask_prompt" "closing_h" "closing_sub" "sources" "reviewed" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "site_link" "hero_shots" "hero_cap" "facts_h" "facts" "figures" "gallery_h" "gallery" "did_h" "did" "timeline_h" "timeline" "week_h" "week" "words_h" "words" "how_h" "how_p" "how_link" "trades_h" "trades" "start2_h" "ask_h" "ask_sub" "ask_prompt" "closing_h" "closing_sub" "sources" "reviewed" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{- $P := .Params }}{{ $cg := $P.chatgpt -}}
 {{ partial "w/top.html" . }}
 <main class="wcs">
@@ -20,16 +20,17 @@
 <ul class="wcs-figs">{{ range $P.figures }}<li><b class="red">{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
 </div></section>
 
+{{- with $cg.src }}
+<section class="wcs-gpt"><div class="wrap wcs-gpt-in">
+<div class="wcs-gpt-t"><h2>{{ $cg.h }}</h2><p class="sec-p">{{ $cg.p }}</p><p class="wcs-gpt-q">{{ $cg.prompt }}</p><p class="wcs-gpt-when">{{ $cg.cap }}</p><a class="wbtn ghost wcs-gpt-go" href="https://chatgpt.com/?q={{ $cg.prompt | urlquery }}" rel="nofollow noopener" target="_blank">{{ $cg.go }}<span aria-hidden="true"> &#8599;</span></a></div>
+<figure class="wcs-gpt-shot"><img src="{{ . }}.webp" srcset="{{ . }}.webp 1x, {{ . }}@2x.webp 2x" alt="{{ $cg.alt }}" width="{{ $cg.w }}" height="{{ $cg.h_px }}" loading="lazy" decoding="async"></figure>
+</div></section>
+{{- end }}
 <section class="wcs-gal g-bone" id="captures"><div class="wrap">
 <h2>{{ $P.gallery_h }}</h2>{{ with $P.gallery_sub }}<p class="sec-p">{{ . }}</p>{{ end }}
 {{- range $P.gallery }}
 <h3 class="wcs-gh">{{ .h }}</h3><div class="wcs-grid{{ if not (index .shots 0).phone }} wcs-grid-3{{ end }}">
 {{- range $s := .shots }}<figure class="wcs-shot{{ if .phone }} wcs-pair{{ end }}"><div class="wcs-pics"><div class="wcs-frame"><span class="wcs-bar" aria-hidden="true"><i></i><i></i><i></i></span><picture><source type="image/avif" srcset="{{ .src }}.avif"><img src="{{ .src }}.webp" alt="{{ .alt }}" width="{{ .w }}" height="{{ .h }}" loading="lazy" decoding="async"></picture></div>{{ with .phone }}<div class="wcs-phone"><picture><source type="image/avif" srcset="{{ . }}.avif"><img src="{{ . }}.webp" alt="{{ $s.phone_alt }}" width="600" height="1298" loading="lazy" decoding="async"></picture></div>{{ end }}</div><figcaption>{{ .cap }}</figcaption></figure>{{ end }}
-</div>
-{{- end }}
-{{- if or $cg.answer $cg.src }}
-<h3 class="wcs-gh">{{ $P.answers_h }}</h3><div class="wcs-grid wcs-answers">
-{{- if or $cg.answer $cg.src }}<figure class="wcs-shot wcs-ai">{{ with $cg.src }}<div class="wcs-frame"><img src="{{ . }}" alt="{{ $cg.prompt }}" width="{{ $cg.w }}" height="{{ $cg.h }}" loading="lazy" decoding="async"></div>{{ end }}{{ with $cg.answer }}<blockquote><p class="wcs-q">{{ $cg.prompt }}</p><p>{{ . }}</p></blockquote>{{ end }}<figcaption>{{ $cg.cap }}</figcaption></figure>{{ end }}
 </div>
 {{- end }}
 </div></section>
