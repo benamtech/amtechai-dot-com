@@ -1,10 +1,12 @@
 ---
 title: "What AI Agents See When They Read Your Website"
-description: "Most web content scores around 12/30 when audited for agent-readability. This walkthrough explains all six OKF rubric dimensions, scores a real AMTECH article, and names the five infrastructure gaps most publishers need to fix."
+description: "Good writing is not the same as agent-readable infrastructure. Here is what the score reveals and what to fix."
 dek: "Good writing is not the same as agent-readable infrastructure. Here is what the score reveals and what to fix."
 date: 2026-06-19
 lastmod: 2026-06-19
 author: "AMTECH AI"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-19" }
 audience: "Founders, content operators, SEO strategists, and technical marketers publishing educational content who want it to reach AI agents and AI search systems"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:

@@ -6,6 +6,6 @@
 {{- $W := hugo.Data.w -}}
 <aside class="wsrc"><div class="wrap">
 {{- if not .IsHome }}<nav class="crumbs" aria-label="Breadcrumb"><a href="/">AMTECH</a>{{ range .Ancestors.Reverse }}{{ if not .IsHome }}{{ if ne .Section "departments" }} <span aria-hidden="true">/</span> <a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ .Params.crumb | default .Params.label | default .Params.h1 | default .Title }}</a>{{ end }}{{ end }}{{ end }} <span aria-hidden="true">/</span> <span aria-current="page">{{ .Params.crumb | default .Params.label | default .Params.h1 | default .Title }}</span></nav>{{ end }}
-<div class="sources wsrc-list w-fixed"><h2 class="wsrc-h">Sources</h2><ol>{{ range $W.sources }}<li>{{ . }}</li>{{ end }}{{ range .Params.sources }}<li>{{ . }}</li>{{ end }}</ol></div>
+<div class="sources wsrc-list w-fixed"><h2 class="wsrc-h">Sources</h2><ol>{{ if not (in (slice "articles" "privacy" "terms" "sms" "contact") .Section) }}{{ range $W.sources }}<li>{{ . }}</li>{{ end }}{{ end }}{{ range .Params.sources }}<li>{{ . }}</li>{{ end }}</ol></div>
 {{- with .Params.reviewed }}<p class="made">This page was written by an AMTECH AI employee from AMTECH's records.</p><div class="made w-fixed">Reviewed by {{ .by }}, {{ (time .date).Format "2 January 2006" }}.</div>{{ else }}<p class="made">Written by AMTECH from its own records.</p>{{ end }}
 </div></aside>

@@ -4,6 +4,7 @@
        - /okf/log.md: one line per concept under the date of its last change, newest first (OKF §9);
        - /content-hashes.json: each indexable page's visible-words hash and lastmod, which tools/indexnow.mjs compares
          with what it last submitted, so a deploy tells IndexNow only the pages whose words changed;
+       - the reading pages' twins and concepts (w/reading.html: the articles hub, legal pages, contact; md/read-doc.md);
        - the concept files /okf/entities/<key>.md from data/concepts.yaml (a concept has no page of its own).
        Links are relative to the bundle's root, /okf/. */ -}}
 {{- $articles := (where site.RegularPages "Section" "articles").ByDate.Reverse -}}
@@ -26,10 +27,17 @@
   {{- $hashes = merge $hashes (dict $m.url (dict "hash" (crypto.SHA256 (printf "%s\n%s\n%s" .Title .Description $body)) "lastmod" (cond $m.lastmod.IsZero "" ($m.lastmod.Format "2006-01-02")))) }}
   {{- if not $m.lastmod.IsZero }}{{ $log = $log | append (dict "date" ($m.lastmod.Format "2006-01-02") "title" $m.h1 "path" $m.okf) }}{{ end }}
 {{- end }}
+{{- $reading := partial "w/reading.html" . -}}
+{{- range $reading }}
+  {{- $m := partial "w/meta.html" . }}
+  {{- $doc := partial "md/read-doc.md" (dict "p" . "m" $m) }}
+  {{- with (resources.FromString (strings.TrimPrefix "/" $m.twin) $doc) }}{{ with .Publish }}{{ end }}{{ end }}
+  {{- with (resources.FromString (printf "okf%s" $m.okf) $doc) }}{{ with .Publish }}{{ end }}{{ end }}
+{{- end }}
 {{- range partial "w/older.html" . }}
   {{- $u := printf "https://amtechai.com%s" (.Params.route | default (strings.TrimSuffix "/" .RelPermalink)) }}
   {{- $c := printf "---\ntype: \"Web Page\"\ntitle: %s\ndescription: %s\nresource: %s\nstatus: stable\n---\n# %s\n\n%s\n\nThe page: %s\n" (.Title | jsonify) (.Description | jsonify) ($u | jsonify) .Title .Description $u }}
-  {{- with (resources.FromString (printf "okf/pages/%s.md" (path.Base $u)) $c) }}{{ with .Publish }}{{ end }}{{ end }}
+  {{- if not (in $reading .) }}{{ with (resources.FromString (printf "okf/pages/%s.md" (path.Base $u)) $c) }}{{ with .Publish }}{{ end }}{{ end }}{{ end }}
   {{- /* Their words live in their layouts, not their content files: the hash is of the content file only. */}}
   {{- $t := partial "w/lastmod.html" . }}
   {{- $hashes = merge $hashes (dict $u (dict "hash" (crypto.SHA256 (printf "%s\n%s\n%s" .Title .Description .Plain)) "lastmod" (cond $t.IsZero "" ($t.Format "2006-01-02")))) }}
@@ -91,7 +99,7 @@ AMTECH AI is a platform that gives a business AI employees: each connects itself
 
 ## Other pages
 {{ range partial "w/older.html" . }}{{ $u := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}
-* [{{ .Title }}](/pages/{{ path.Base $u }}.md) - {{ .Description }}
+* [{{ .Title }}]({{ if in $reading . }}{{ $u }}.md{{ else }}/pages/{{ path.Base $u }}.md{{ end }}) - {{ .Description }}
 {{- end }}
 
 {{- with $concepts }}

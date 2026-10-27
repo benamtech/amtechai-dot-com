@@ -146,7 +146,7 @@ for (const f of files.filter((f) => /\.(html|md|txt|json)$/.test(f))) if (steer.
 const LAYOUTS = path.join(PUB, '..', 'layouts');
 // Every layout except the old pages' (the ported site, kept as it was) and the machine outputs: a new page family is
 // covered the day its folder appears.
-const OLD = new Set(['baseof.html', 'about.html', 'contact.html', 'contractors.html', 'create.html', 'how-it-works.html', 'investors.html', 'legal.html', 'painters.html', 'pay.html', 'pricing.html', 'schedule-demo.html', '404.html', 'start.html', 'articles', '_partials', '_shortcodes', '_markup']);
+const OLD = new Set(['baseof.html', 'about.html', 'contractors.html', 'create.html', 'how-it-works.html', 'investors.html', 'painters.html', 'pay.html', 'pricing.html', 'schedule-demo.html', 'start.html', '_partials', '_shortcodes', '_markup']);
 const ownWords = fs.readdirSync(LAYOUTS).filter((n) => !OLD.has(n) && (n.endsWith('.html') || fs.statSync(path.join(LAYOUTS, n)).isDirectory())).concat(['_partials/w'])   // the visible page; w/jsonld and w/meta build machine ids
   
   .map((p) => path.join(LAYOUTS, p)).filter((p) => fs.existsSync(p))

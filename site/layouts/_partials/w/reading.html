@@ -1,0 +1,8 @@
+{{- /* The reading pages in C on white (lane PORT, 2026-10-27) that are not in w/pages.html: the articles hub, the legal
+       pages (layout legal: /privacy, /terms, /sms) and /contact. They stay in the sitemap and llms.txt as before (the
+       older pages' rows); home.okfindex.md gives each its Markdown twin (/<route>.md) and bundle concept
+       (/okf/<route>.md), written by md/read-doc.md. The articles themselves have their own outputs. */ -}}
+{{- $out := slice -}}
+{{- with site.GetPage "/articles" }}{{ $out = $out | append . }}{{ end -}}
+{{- range site.RegularPages }}{{ if and (in (slice "legal" "contact") .Layout) (not .Params.noindex) }}{{ $out = $out | append . }}{{ end }}{{ end -}}
+{{- return $out -}}

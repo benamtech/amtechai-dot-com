@@ -5,6 +5,8 @@ dek: "AI can help turn measurements, prep notes, colors, coatings, and labor ass
 date: 2026-06-17
 lastmod: 2026-06-17
 author: "AMTECH AI"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-17" }
 audience: "residential and commercial painting contractors"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:
@@ -22,12 +24,12 @@ next:
   - label: "Talk through an estimating workflow"
     href: "/schedule-demo"
     reason: "Map the exact estimate, follow-up, and admin steps AMTECH can automate for your business."
-  - label: "See how AMTECH works"
-    href: "/how-it-works"
-    reason: "Understand how AI employees turn one-off prompts into repeatable operating systems."
-  - label: "Compare investment levels"
-    href: "/pricing"
-    reason: "Use this after you know whether you need a prompt, a workflow, or a complete AI employee."
+  - label: "See estimating, start to finish"
+    href: "/services/estimates-from-plans-and-photos"
+    reason: "Your AI employee measures, prices and follows up every estimate from your own price book."
+  - label: "Can an AI employee write my estimates?"
+    href: "/questions/can-an-ai-employee-write-my-estimates"
+    reason: "Yes: how it learns your prices and prices the next job you send it."
 ---
 {{< prompt id="copy-paste-prompt" title="Copy this prompt" helper="Paste this into ChatGPT, Claude, or your AI workspace. Replace every bracketed note with your real job details before you generate the estimate." >}}
 [YOUR COMPANY NAME] is a [painting, pressure washing, roofing, landscaping, HVAC, etc.] contractor in [city, state, neighborhood, or service area].
@@ -64,8 +66,6 @@ If you are in the truck or walking the property, talk the same way you would tal
 | Client details | A real estimate needs to feel official and ready to send. | Decision-maker name, billing contact, jobsite notes, requested start date. |
 | Brand direction | The same numbers convert better when the document looks intentional. | Logo, colors, tone, tagline, financing or deposit terms. |
 
-Pricing logic
-{.kicker}
 
 ## If you are not sure what to charge, ask for the math separately {#pricing}
 
@@ -87,8 +87,6 @@ In practice, AI pricing can land close enough to be useful as a first pass, but 
 Never send an AI-generated estimate without reviewing scope, price, terms, warranty language, and exclusions. The tool can write faster than your office, but you are still responsible for what the client signs.
 {{< /callout >}}
 
-Next level
-{.kicker}
 
 ## The bigger win is turning the prompt into a repeatable system {#beyond-document}
 

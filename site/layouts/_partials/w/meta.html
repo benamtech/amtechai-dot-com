@@ -1,10 +1,11 @@
 {{- /* What every machine surface needs to know about one new page, from its content file:
        route, url, twin (its Markdown twin's path), okf (its bundle path, relative to /okf/), type (OKF), schema
-       (WebPage or CollectionPage), h1 (as the page shows it), crumbs (the breadcrumb, home first), lastmod. */ -}}
+       (WebPage or CollectionPage), h1 (as the page shows it), crumbs (the breadcrumb, home first), lastmod.
+       The reading pages (lane PORT): the articles hub and each article, the legal pages (layout legal) and contact. */ -}}
 {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 {{- $origin := site.BaseURL | strings.TrimSuffix "/" -}}
 {{- $url := printf "%s%s" $origin $route -}}
-{{- $h1 := .Params.h1 | default (printf "%s %s" .Params.h1a .Params.h1b) -}}
+{{- $h1 := .Params.h1 | default .Params.heading | default (cond (isset .Params "h1a") (printf "%s %s" .Params.h1a .Params.h1b) .Title) -}}
 {{- $type := "Web Page" }}{{ $schema := "WebPage" -}}
 {{- $crumbs := slice (dict "name" "Home" "url" (printf "%s/" $origin)) -}}
 {{- if .IsHome }}{{ $type = "Organization Overview" -}}
@@ -16,8 +17,12 @@
 {{- else if eq .Section "industries" }}{{ $type = "Business Type" }}{{ $crumbs = $crumbs | append (dict "name" "Industries" "url" (printf "%s/industries" $origin)) -}}
 {{- else if eq .Section "departments" }}{{ $type = "Department" -}}
 {{- else if and (eq .Section "customers") .IsSection }}{{ $type = "Case Study Index" }}{{ $schema = "CollectionPage" -}}
-{{- else if eq .Section "customers" }}{{ $type = "Case Study" }}{{ $crumbs = $crumbs | append (dict "name" "Customers" "url" (printf "%s/customers" $origin)) }}{{ end -}}
-{{- $name := .Params.label | default .Params.crumb | default (cond (and (eq .Section "services") .IsSection) "Services" (cond (and (eq .Section "questions") .IsSection) "Questions" (cond (and (eq .Section "industries") .IsSection) "Industries" ((index (split .Title ":") 0))))) -}}
+{{- else if eq .Section "customers" }}{{ $type = "Case Study" }}{{ $crumbs = $crumbs | append (dict "name" "Customers" "url" (printf "%s/customers" $origin)) -}}
+{{- else if and (eq .Section "articles") .IsSection }}{{ $type = "Article Index" }}{{ $schema = "CollectionPage" -}}
+{{- else if eq .Section "articles" }}{{ $type = "Article" }}{{ $crumbs = $crumbs | append (dict "name" "Articles" "url" (printf "%s/articles" $origin)) -}}
+{{- else if eq .Layout "legal" }}{{ $type = "Policy" -}}
+{{- else if eq .Layout "contact" }}{{ $type = "Contact Page" }}{{ end -}}
+{{- $name := .Params.label | default .Params.crumb | default .Params.heading | default (cond (and (eq .Section "articles") .IsPage) .Title "") | default (cond (and (eq .Section "services") .IsSection) "Services" (cond (and (eq .Section "questions") .IsSection) "Questions" (cond (and (eq .Section "industries") .IsSection) "Industries" ((index (split .Title ":") 0))))) -}}
 {{- if not .IsHome }}{{ $crumbs = $crumbs | append (dict "name" $name "url" $url) }}{{ end -}}
 {{- $twin := cond .IsHome "/index.md" (printf "%s.md" $route) -}}
 {{- $okf := cond .IsHome "/home.md" (printf "%s.md" $route) -}}

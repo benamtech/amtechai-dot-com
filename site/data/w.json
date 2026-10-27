@@ -124,5 +124,36 @@
     "url": "https://www.google.com/search?q="
    }
   ]
+ },
+ "prose": {
+  "_note": "The reading pages' labels (lane PORT): the articles, the legal pages, contact, the 404.",
+  "published": "Published",
+  "updated": "Updated",
+  "read": "min read",
+  "for": "For",
+  "toc": "On this page",
+  "faq": "Questions",
+  "cited": "Sources",
+  "next": "Where to go next.",
+  "effective": "Effective"
+ },
+ "notfound": {
+  "_note": "The 404 page's words (layouts/404.html): a 404 has no content file.",
+  "h": "This page is not here.",
+  "p": "It may have moved, or the address has a typo. Start from one of these instead.",
+  "go": [
+   {
+    "text": "Try it on a job",
+    "to": "/contractors"
+   },
+   {
+    "text": "Home",
+    "to": "/"
+   },
+   {
+    "text": "Articles",
+    "to": "/articles"
+   }
+  ]
  }
 }

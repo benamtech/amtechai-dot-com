@@ -1,0 +1,160 @@
+/* Reading pages in "C on white" (lane PORT, 2026-10-27): the articles hub and the articles, /privacy, /terms, /sms,
+   /contact and the 404. A serif H1 with its red payoff, Geist text at 18px on a 68ch measure, and the blocks the
+   articles' shortcodes draw (the short answer, a prompt to copy, a callout, a table). No dark ground, no eyebrow:
+   an article's {.kicker} line (a small label above a heading) is not shown. */
+.pr-head{padding:48px 0 36px}
+.pr-head h1{max-width:18em;font-size:clamp(40px,4.6vw,66px);line-height:1.02}
+.pr-art .pr-head h1{max-width:22em;font-size:clamp(38px,4.2vw,60px)}
+.pr-dek{margin-top:20px;max-width:40em;font-size:20px;line-height:1.55;color:var(--ink-2)}
+.pr-meta{display:flex;flex-wrap:wrap;gap:4px 22px;margin-top:22px;list-style:none;font-size:14.5px;color:var(--ink-3)}
+.pr-meta b{font-weight:600;color:var(--ink-2)}
+.pr-body{padding:8px 0 72px}
+.pr-grid{display:grid;grid-template-columns:minmax(0,68ch) 15rem;gap:72px;justify-content:space-between;align-items:start}
+.pr-toc{position:sticky;top:28px;font-size:14px}
+.pr-toc h2{font:600 14px/1.4 var(--sans);color:var(--ink)}
+.pr-toc ul{list-style:none;margin-top:12px;box-shadow:inset 1px 0 0 var(--hair)}
+.pr-toc a{display:block;padding:5px 0 5px 14px;color:var(--ink-3);line-height:1.35;box-shadow:inset 0 0 0 0 var(--blue);transition:box-shadow .3s var(--ease),color .3s var(--ease)}
+.pr-toc a:hover{color:var(--ink);box-shadow:inset 2px 0 0 var(--blue)}
+
+/* The text */
+.prose{max-width:68ch;font-size:18px;line-height:1.68;color:var(--ink-2)}
+.prose>*+*{margin-top:1.1em}
+.prose h2{margin-top:2.3em;font-size:clamp(30px,2.6vw,38px);line-height:1.1;scroll-margin-top:24px}
+.prose h3{margin-top:1.8em;font-size:clamp(24px,2vw,28px);line-height:1.15;scroll-margin-top:24px}
+.prose h2+*,.prose h3+*{margin-top:.7em}
+.prose>:first-child{margin-top:0}
+.prose .kicker{display:none}
+.prose .kicker+h2{margin-top:2.3em}
+.prose strong,.prose b{font-weight:600;color:var(--ink)}
+.prose a{color:var(--blue);text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px}
+.prose a:hover{color:var(--blue-2)}
+.prose ul,.prose ol{padding-left:1.4em}
+.prose li+li{margin-top:.45em}
+.prose li::marker{color:var(--ink-4)}
+.prose ol>li::marker{font-weight:600;color:var(--ink-3)}
+.prose li>ul,.prose li>ol{margin-top:.45em}
+.prose blockquote{padding-left:22px;box-shadow:inset 3px 0 0 var(--ink);font:italic 500 24px/1.4 var(--serif);color:var(--ink)}
+.prose code,.prose pre{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.86em}
+.prose :not(pre)>code{padding:.1em .35em;border-radius:3px;background:var(--panel);color:var(--ink)}
+.prose pre{padding:18px 20px;border-radius:6px;background:var(--panel);overflow-x:auto;line-height:1.6}
+.prose hr{border:0;height:1px;background:var(--hair);margin:2.4em 0}
+.prose img{border-radius:6px}
+
+/* Tables (layouts/_markup/render-table.html): on a phone each row is a block with its column names beside the values */
+.article-table{margin-top:1.6em;overflow-x:auto}
+.article-table table{width:100%;border-collapse:collapse;font-size:15.5px;line-height:1.5;text-align:left}
+.article-table th{padding:10px 14px 10px 0;vertical-align:bottom;box-shadow:inset 0 -1.5px 0 var(--ink);font:600 14px/1.35 var(--sans);color:var(--ink)}
+.article-table td{padding:14px 14px 14px 0;vertical-align:top;box-shadow:inset 0 -1px 0 var(--hair)}
+.article-table td:first-child{font-weight:600;color:var(--ink)}
+
+/* The short answer, a callout, a prompt to copy (layouts/_shortcodes) */
+.pr-answer{margin:2em 0;padding:22px 26px;border-radius:6px;background:var(--panel);box-shadow:inset 3px 0 0 var(--red)}
+.pr-answer-k{font:600 14px/1.4 var(--sans);color:var(--ink)}
+.pr-answer-p{margin-top:8px;font-size:20px;line-height:1.55;color:var(--ink)}
+.pr-callout{margin:2em 0;padding:22px 26px;border-radius:6px;background:var(--panel);box-shadow:inset 3px 0 0 var(--ink)}
+.pr-callout.warn{box-shadow:inset 3px 0 0 var(--red)}
+.pr-callout h3{margin:0;font-size:25px}
+.pr-callout p{margin-top:8px;font-size:17px;color:var(--ink-2)}
+.pr-prompt{margin:2em 0;padding:26px 28px;border-radius:6px;background:var(--white);box-shadow:inset 0 0 0 1px var(--hair),0 24px 50px -40px rgba(10,10,10,.45);scroll-margin-top:24px}
+.pr-prompt-top{display:flex;flex-wrap:wrap;align-items:flex-start;justify-content:space-between;gap:14px}
+.pr-prompt h2{margin:0;font-size:30px;line-height:1.1}
+.pr-prompt-help{margin-top:10px;font-size:16px;color:var(--ink-2)}
+.pr-prompt pre{margin-top:18px;padding:18px 20px;border-radius:4px;background:var(--panel);white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.75;color:var(--ink)}
+.pr-prompt .blank{color:var(--blue);font-weight:600}
+
+/* An article's questions, its sources, where to go next */
+.pr-faq{margin-top:3.2em}
+.pr-faq dl{margin-top:14px}
+.pr-faq dl>div{padding:18px 0;box-shadow:inset 0 -1px 0 var(--hair)}
+.pr-faq dl>div:first-child{box-shadow:inset 0 1px 0 var(--hair),inset 0 -1px 0 var(--hair)}
+.pr-faq dt{font:500 24px/1.2 var(--serif);color:var(--ink)}
+.pr-faq dd{margin-top:6px;font-size:17px;color:var(--ink-2)}
+.pr-cite{margin-top:3em;padding-top:22px;box-shadow:inset 0 1px 0 var(--hair)}
+.pr-cite h2{font:600 15px/1.4 var(--sans);margin-top:0}
+.pr-cite ol{margin-top:10px;padding-left:1.3em;font-size:15px;line-height:1.55}
+.pr-cite li+li{margin-top:6px}
+.pr-next{padding:64px 0;background:var(--panel)}
+.pr-next h2{font-size:clamp(30px,3vw,42px);line-height:1.05}
+.pr-cards{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+.pr-cards a{display:block;height:100%;padding:22px 22px 24px;border-radius:6px;background:var(--white);box-shadow:inset 0 0 0 1px var(--hair);transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.pr-cards a:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--blue),0 20px 40px -30px rgba(15,98,254,.6)}
+.pr-cards b{display:block;font:500 25px/1.15 var(--serif);color:var(--ink)}
+.pr-cards b .arr{color:var(--blue)}
+.pr-cards span{display:block;margin-top:8px;font-size:15px;line-height:1.5;color:var(--ink-2)}
+
+/* The articles hub */
+.pr-list{list-style:none;padding:0 0 72px}
+.pr-list li{box-shadow:inset 0 -1px 0 var(--hair)}
+.pr-list li:first-child{box-shadow:inset 0 1.5px 0 var(--ink),inset 0 -1px 0 var(--hair)}
+.pr-list a{display:grid;grid-template-columns:10rem minmax(0,1fr) 2rem;gap:40px;padding:30px 0}
+.pr-list time{padding-top:8px;font-size:14px;color:var(--ink-3)}
+.pr-list b{display:block;font:500 clamp(25px,2.2vw,31px)/1.12 var(--serif);color:var(--ink);transition:color .3s var(--ease)}
+.pr-list span{display:block;margin-top:10px;max-width:46em;font-size:16.5px;line-height:1.55;color:var(--ink-2)}
+.pr-list .arr{padding-top:6px;font-size:22px;color:var(--blue)}
+.pr-list a:hover b{color:var(--blue)}.pr-list a:hover .arr{transform:translateX(4px)}
+
+/* The legal pages: read by reviewers (Google's OAuth consent, the carriers), so plain */
+.pr-eff{margin-top:18px;font-size:14.5px;color:var(--ink-3)}
+.pr-legal .prose h2{font-size:clamp(26px,2.2vw,32px)}
+.pr-legal .prose h2:first-child{margin-top:0}
+.legal-hl{padding:22px 26px;border-radius:6px;background:#FEF5F5;box-shadow:inset 0 0 0 1px rgba(225,29,42,.28)}
+.legal-hl>*+*{margin-top:1em}
+.legal-hl>h2:first-child{margin-top:0}
+.prose>.legal-hl{margin-top:2.3em}
+#sms-consent{padding:16px 18px;border-radius:4px;box-shadow:inset 0 0 0 1px #C9C9CF;font-size:15px;line-height:1.5;color:var(--ink)}
+#sms-consent label{display:flex;align-items:flex-start;gap:12px}
+#sms-consent input{margin-top:4px;flex:none;width:16px;height:16px}
+
+/* Contact and the 404 */
+.pr-ways{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:16px;padding-bottom:64px}
+.pr-ways a{display:flex;flex-direction:column;height:100%;padding:28px 28px 26px;border-radius:6px;background:var(--white);box-shadow:inset 0 0 0 1px var(--hair);transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.pr-ways a:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--blue),0 20px 40px -30px rgba(15,98,254,.6)}
+.pr-ways h2{font-size:30px;line-height:1.1}
+.pr-ways p{margin-top:10px;flex:1;color:var(--ink-2)}
+.pr-ways span{margin-top:18px;font-weight:600;color:var(--blue)}
+.pr-ways a:hover .arr{transform:translateX(4px)}
+.pr-try{padding:64px 0;background:var(--panel)}
+.pr-try h2{font-size:clamp(32px,3.4vw,50px);line-height:1.04;max-width:18em}
+.pr-try p{margin-top:14px;max-width:40em;font-size:18px;color:var(--ink-2)}
+.pr-try .btn{margin-top:26px}
+.pr-404{padding:72px 0 96px}
+.pr-404 .lede{margin-top:18px;max-width:36em}
+.pr-go{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:30px}
+.pr-go .wlink{margin-top:0}
+.pr-start{padding:56px 0;box-shadow:inset 0 1px 0 var(--hair)}
+
+@media (max-width:1100px){.pr-grid{grid-template-columns:minmax(0,1fr)}.pr-toc{display:none}}
+@media (max-width:820px){
+  .pr-head{padding:26px 0 24px}
+  .pr-head h1,.pr-art .pr-head h1{font-size:36px;line-height:1.05}
+  .pr-dek{margin-top:14px;font-size:17.5px}
+  .pr-meta{margin-top:16px;font-size:13.5px;gap:2px 16px}
+  .pr-body{padding-bottom:48px}
+  .prose{font-size:17px;line-height:1.65}
+  .prose h2{font-size:28px}.prose h3{font-size:23px}
+  .prose blockquote{font-size:21px}
+  .pr-answer,.pr-callout,.pr-prompt{margin-left:-4px;margin-right:-4px;padding:18px 18px}
+  .pr-answer-p{font-size:18px}
+  .pr-prompt h2{font-size:26px}
+  .pr-prompt pre{padding:14px 14px;font-size:13px}
+  .article-table{overflow:visible}
+  .article-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .article-table tr{display:block;padding:14px 0;box-shadow:inset 0 1.5px 0 var(--ink)}
+  .article-table td{display:block;padding:4px 0;box-shadow:none}
+  .article-table td::before{content:attr(data-label);display:block;font-size:12.5px;font-weight:600;color:var(--ink-3)}
+  .article-table td:first-child{font-size:17px}
+  .article-table td:first-child::before{display:none}
+  .pr-faq dt{font-size:21px}
+  .pr-next,.pr-try{padding:44px 0}
+  .pr-cards{grid-template-columns:1fr}
+  .pr-list a{grid-template-columns:minmax(0,1fr);gap:6px;padding:22px 0}
+  .pr-list time{padding-top:0;order:-1}.pr-list .arr{display:none}
+  .pr-list b{font-size:24px}.pr-list span{font-size:15.5px}
+  .pr-ways{grid-template-columns:1fr;padding-bottom:44px}.pr-ways h2{font-size:26px}
+  .pr-404{padding:36px 0 56px}
+  .pr-start{padding:40px 0}
+  .legal-hl{padding:18px}
+}
+.pr-pay{display:block}
+.pr-cards b .arr{display:inline;margin:0;font-size:inherit;color:var(--blue)}
+.pr-404 h1{font-size:clamp(40px,4.6vw,66px);line-height:1.02}@media (max-width:820px){.pr-404 h1{font-size:36px}}
