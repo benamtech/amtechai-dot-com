@@ -4,7 +4,7 @@
 {{- $P := hugo.Data.w.proof }}{{ $Q := hugo.Data.w.proof2 -}}
 <section class="wps {{ .g | default "g-bone" }}"{{ with .id }} id="{{ . }}"{{ end }}><div class="wrap wps-in">
 <div class="wps-t"><h2>{{ .h | default $P.h }}</h2><p>{{ .p | default $P.p }}</p>
-<ul class="wps-figs">{{ range $Q.figures }}<li><b class="red">{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
+<ul class="wps-figs">{{ range $Q.figures }}<li><b>{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
 <p class="wps-links"><a class="wlink" href="{{ $Q.story }}">{{ $Q.story_text }}</a><a class="wlink2" href="{{ $P.link }}">{{ $Q.site_text }}</a></p></div>
 <div class="wps-shots">{{ range $i, $s := $Q.shots }}<figure class="wps-shot wps-s{{ $i }}"><picture><source type="image/avif" srcset="{{ $s.src }}.avif"><img src="{{ $s.src }}.webp" alt="{{ $s.alt }}" width="{{ $s.w }}" height="{{ $s.h }}" loading="lazy" decoding="async"></picture></figure>{{ end }}</div>
 </div></section>

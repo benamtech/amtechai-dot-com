@@ -25,9 +25,9 @@ facts:
   - {k: "What his employee did", v: "Set up his new website and online booking, set up his automatic replies, and got him found"}
   - {k: "His AI employee since", v: "September 2026"}
 figures:
-  - {big: "#1", line: "in ChatGPT for pet waste and yard cleanup across Ventura and Santa Barbara", when: "October 2026, Ben Palaskas's own test"}
-  - {big: "#1", line: "on Google Maps for pet waste removal in Ventura and Oxnard", when: "Captured 27 October 2026"}
-  - {big: "Every week", line: "several new customers book him through his site, and his employee answers each one at his real prices", when: "October 2026"}
+  - {big: "First in ChatGPT", line: "for pet waste and yard cleanup across Ventura and Santa Barbara", when: "October 2026, Ben Palaskas's own test"}
+  - {big: "First on Google Maps", line: "for pet waste removal in Ventura and Oxnard", when: "Captured 27 October 2026"}
+  - {big: "New customers every week", line: "several book him through his site, and his employee answers each one at his real prices", when: "October 2026"}
 
 gallery_h: "See it for yourself"
 gallery_sub: "Real screens, taken on 27 October 2026. His site is live at scoopdogg.net, and the map results are Google's own."

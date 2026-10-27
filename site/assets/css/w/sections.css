@@ -151,3 +151,7 @@
 /* Lane WRITE2's notes: chips wrap instead of widening the page; the start after the proof stacks on a phone. */
 .wcon-g li,.wcon-any{width:auto;max-width:100%;white-space:normal}
 @media (max-width:640px){.wsb .start{flex-direction:column;max-width:none}}
+/* Proof figures as plain statements in black serif (Ben: no repeated #1 in large red). */
+.wps-figs b{font:500 26px/1.15 var(--serif)!important;letter-spacing:-0.01em;color:var(--ink)}
+.wps-figs li{grid-template-columns:minmax(200px,auto) 1fr}
+@media (max-width:640px){.wps-figs b{font-size:23px!important}.wps-figs li{grid-template-columns:minmax(0,1fr)}}

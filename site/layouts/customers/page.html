@@ -17,7 +17,7 @@
 
 <section class="wcs-facts"><div class="wrap wcs-facts-in">
 <div class="wcs-box"><h2>{{ $P.facts_h }}</h2><dl>{{ range $P.facts }}<div><dt>{{ .k }}</dt><dd>{{ .v }}</dd></div>{{ end }}</dl></div>
-<ul class="wcs-figs">{{ range $P.figures }}<li><b class="red">{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
+<ul class="wcs-figs">{{ range $P.figures }}<li><b>{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
 </div></section>
 
 {{- with $cg.src }}
