@@ -84,3 +84,10 @@
 @media (max-width:1100px){.ind-grid,.pkg-grid{--cols:2}}
 @media (max-width:640px){.pkg-grid{--cols:1}.ind-grid{--cols:2}.whub-list .ind-grid{--cols:1}.ind-card .ind-team svg{width:28px;height:28px}}
 @media (min-width:1101px){.pkg-grid{--cols:4}}
+/* Services: a real hero above the catalogue (Ben: "bare title and description look like an unfinished wordpress title
+   section"); the catalogue's own heading below it. */
+.smk-hero{padding-bottom:28px}
+.wmk .mk2-top h2{font:500 clamp(30px,3vw,42px)/1.05 var(--serif);color:var(--ink)}
+/* Department hero: the Orbit a little smaller and further right, so a system name at 9 o'clock ("ChatGPT") stays
+   clear of the paragraph. */
+@media (min-width:1101px){.wdept .wd-in{gap:72px}.wdept .wd-art{width:80%;margin-left:auto;margin-right:0}}

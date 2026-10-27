@@ -19,15 +19,15 @@ orbit_centre: "Your business"
 can_h: "Anything a computer can do, your team does"
 can_sub: "ChatGPT can tell you how to build a website or chase an invoice. Your AI employee and its team do it, inside your business, every day, and you see what is going out before it goes."
 can:
-  - {who: t2, h: "Answers every lead wherever it arrives", p: "Follow-up sets up replies on your website's forms, your Google listing, your inbox and your texts, quotes at your prices and keeps after each lead until a yes or a no."}
-  - {who: t1, h: "Runs every takeoff available to you, every day", p: "Each new plan set from your bid invitations, plan rooms and public bids is measured and priced the day it arrives, so you choose which jobs to bid instead of which to skip."}
-  - {who: t1, h: "Measures roofs and lots from satellite imagery", p: "Takeoffs reads the aerial and satellite pictures of an address, measures the roof planes, turf, beds or paving, and prices them from your book without a site visit."}
-  - {who: t5, h: "Pulls every new permit in your area each morning", p: "Research reads the city and county permit records every day and puts the new jobs, the owners and the contractors who pulled them in front of you before your competitors call."}
-  - {who: t4, h: "Keeps the books and gets you paid", p: "Collections sends every invoice, matches every payment in QuickBooks or Xero, closes the week's books and keeps after whoever is late until the money is in."}
-  - {who: t3, h: "Gets you named on Google and in ChatGPT", p: "Being found fixes what search engines and AI assistants read about you, writes the pages your customers' questions need and checks every week what the answers say."}
-  - {who: employee, h: "Hires your next person", p: "Your employee writes and posts the job, reads every application, and books the interviews you choose on your calendar."}
-  - {who: t6, h: "Builds and launches a new website or app", p: "Builder designs, writes and publishes a new site for your business, or the customer portal, quote form or booking page you have been meaning to build, and puts it live once you say yes."}
-  - {who: t6, h: "Edits the website you already have", p: "New pages, new prices, a new service area or a broken form fixed: Builder works on your current site directly, whoever built it."}
+  - {who: t2, h: "Lead replies", p: "Every form, call-back request and Google message answered in minutes, at your prices."}
+  - {who: t1, h: "Daily takeoffs", p: "Every new plan set from your bid invites measured and priced the day it arrives."}
+  - {who: t1, h: "Satellite measurements", p: "Roofs, lots and paving measured from aerial imagery, no site visit."}
+  - {who: t5, h: "Permit reports", p: "Every new permit in your area, with the owner and the contractor, each morning."}
+  - {who: t4, h: "Bookkeeping and collections", p: "Invoices out, payments matched in QuickBooks, late payers chased."}
+  - {who: t3, h: "Google and ChatGPT rankings", p: "Your site, listing and pages fixed until the answers name you."}
+  - {who: employee, h: "Hiring", p: "Job posted, applicants read, interviews on your calendar."}
+  - {who: t6, h: "Websites and apps", p: "A new site, booking page or customer portal, built and launched."}
+  - {who: t6, h: "Website edits", p: "New pages, prices and service areas on the site you have now."}
 industries_h: "Customized to your business"
 industries_sub: "Each trade gets an employee and a team built around its own paperwork, systems and season, with a custom setup wherever your business works its own way. Pick yours."
 services_h: "Services"

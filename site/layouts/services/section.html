@@ -2,11 +2,15 @@
        data/services.json. Filters by group and a search work in the browser; without script every card shows. Each card
        starts that package: /start?config=<slug>. */ -}}
 {{- $p := . }}{{ $S := hugo.Data.services -}}
-{{- range slice "title" "description" "h1" "sub" "featured" "groups" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "browse_h" "featured" "groups" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{- $feat := index (where $S "slug" .Params.featured) 0 }}{{ if not $feat }}{{ errorf "services: featured %q is not in data/services.json" .Params.featured }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main class="wmk">
-<section class="mk2-h"><div class="wrap mk2-top"><h1>{{ .Params.h1 }}</h1><p>{{ .Params.sub }}</p></div>
+<section class="hh smk-hero"><div class="wrap hh-in">
+<div class="hh-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}</div>
+<div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems) }}</div></div>
+</div></section>
+<section class="mk2-h"><div class="wrap mk2-top"><h2>{{ .Params.browse_h }}</h2></div>
 <div class="wrap mk2-bar"><div class="tabs" role="group" aria-label="Filter services"><button type="button" aria-pressed="true" class="on" data-group="">All<span>{{ len $S }}</span></button>{{ range .Params.groups }}{{ $n := len (where $S "group" .) }}{{ if $n }}<button type="button" aria-pressed="false" data-group="{{ . }}">{{ . }}<span>{{ $n }}</span></button>{{ end }}{{ end }}</div><input class="mk-search" type="search" placeholder="{{ .Params.search }}" aria-label="{{ .Params.search }}"></div></section>
 <section class="mk2"><div class="wrap mk2-grid">
 <div class="mk2-card feat" id="{{ $feat.slug }}" data-g="{{ $feat.group }}"><div class="feat-orb">{{ partial "w/orbit.html" (dict "team" $feat.team "systems" $feat.connects "cls" "ow cm-orb") }}</div><div class="feat-t"><h2>{{ with site.GetPage (printf "/services/%s" $feat.slug) }}<a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ $feat.name }}</a>{{ else }}{{ $feat.name }}{{ end }}</h2><p class="mk2-for">{{ $feat.for }}</p><p class="mk2-sys">Connects to {{ delimit $feat.connects ", " }}</p><a class="mk-go" href="/start?config={{ $feat.slug }}" data-action>{{ .Params.go }}<span aria-hidden="true"> &rarr;</span></a></div></div>

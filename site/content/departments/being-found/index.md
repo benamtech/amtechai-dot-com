@@ -3,7 +3,7 @@ title: "Local SEO and AI answers: get found on Google and in ChatGPT"
 description: "How an AMTECH AI employee gets a local business found on Google, on Google Maps and in the answers ChatGPT, Gemini and Google's AI Overview give."
 h1a: "Being found: first on Google and"
 h1b: "in the AI answers."
-sub: "AMTECH's being-found team runs your website, your Google Business Profile and what ChatGPT, Gemini and Google's AI Overview say about your trade in your town, the whole job a local SEO agency charges a retainer for. Scoop Dogg's AI employee set up his new website and his automatic replies itself, and he is now first in ChatGPT and on Google for pet and yard cleanup in his area."
+sub: "AMTECH's being-found team runs your website, your Google Business Profile and what ChatGPT and Google say about your trade in your town: the whole job of a local SEO agency."
 field: "Your business's name"
 button: "Start the free trial"
 team: [employee, t3, t5, t6, t2]
@@ -12,7 +12,6 @@ team_h: "Who gets you found"
 services_h: "Services built on being found"
 employee_does: "Learns your trade, your town and what your customers ask, connects to your website, your Google listing, Search Console and Analytics, and gives each page, listing and lead to the teammate for it, with every change shown to you before it goes live."
 proof_figure_line: "in ChatGPT and on Google in his area"
-medal_line: "in ChatGPT and on Google, Ventura and Santa Barbara"
 team_detail:
   - {id: t3, does: "Fixes what search engines and AI assistants read on your site, writes and publishes the pages your customers' questions need, and keeps your Google Business Profile's categories, services, hours and photos right."}
   - {id: t5, does: "Asks ChatGPT, Gemini and Google the questions your customers ask, records who gets named and why, and finds the directories and local sites where your competitors are listed and you are not."}

@@ -2,12 +2,12 @@
        medallion carrying the proof, then the proof, the team, first jobs and routines, the services, the questions and
        the closing start. Every word is in the page's content file (docs/build/CONTENT-MODEL.md). */ -}}
 {{- $p := . }}{{ $names := .Params.names -}}
-{{- range slice "title" "description" "h1a" "h1b" "sub" "team" "team_detail" "systems" "routines" "first_jobs" "live" "services" "proof_h" "proof" "questions_h" "questions" "closing_h" "closing_sub" "team_h" "employee_does" "services_h" "proof_figure_line" "medal_line" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "team" "team_detail" "systems" "routines" "first_jobs" "live" "services" "proof_h" "proof" "questions_h" "questions" "closing_h" "closing_sub" "team_h" "employee_does" "services_h" "proof_figure_line" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{- $P := hugo.Data.w.proof -}}
 {{ partial "w/top.html" . }}
 <main>
 <section class="sky wdept"><div class="wrap wd-in"><div class="wd-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button "config" .Params.config) }}{{ with .Params.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "cw-live") }}{{ end }}</div>
-<div class="wd-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.team "systems" .Params.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre="behind"><div class="medal-in"><p class="medal-big red">{{ $P.figure }}</p><p class="medal-k">{{ .Params.medal_line }}</p></div></div>{{ partial "team3d.html" (dict "team" .Params.team "systems" .Params.systems "names" $names) }}</div></div></section>
+<div class="wd-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.team "systems" .Params.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-name" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p></div></div>{{ partial "team3d.html" (dict "team" .Params.team "systems" .Params.systems "names" $names) }}</div></div></section>
 {{ partial "w/proof.html" (dict "h" .Params.proof_h "p" .Params.proof "figure_line" .Params.proof_figure_line) }}
 <section class="wteam"><div class="wrap"><h2>{{ .Params.team_h }}</h2><ul class="wteam-grid">
 <li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does }}</p></li>
