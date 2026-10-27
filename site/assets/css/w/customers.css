@@ -141,3 +141,11 @@
 .wcs-figs b{font:500 30px/1.1 var(--serif);letter-spacing:-0.01em;color:var(--ink)}
 @media (max-width:640px){.wcs-figs b{font-size:26px}}
 .wcs-figs span{font:400 16px/1.5 var(--sans);color:var(--ink-2)}
+.wcs-h1{width:62%;bottom:0}
+@media (max-width:640px){.wcs-h1{width:92%;margin:-40px 0 0 auto}}
+/* The ChatGPT card overlaps the site's bottom-right; the caption goes under both, never under the card. */
+@media (min-width:641px){.wcs-hero-art{padding-bottom:26%}.wcs-h1{bottom:52px}.wcs-hero-art figcaption{position:absolute;left:0;bottom:0;width:100%;text-align:right}}
+/* The hub's single picture: no overlap, so no reserved space; the caption sits right under it. */
+.wcs-hero-art.wcs-hub-art{padding-bottom:0}
+.wcs-hub-art figcaption{position:static!important;text-align:left!important;margin-top:12px}
+.wcs-hub-art .wcs-frame{max-width:632px;margin-left:auto}

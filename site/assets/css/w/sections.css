@@ -158,3 +158,13 @@
 .wyes-bar .wbtn{display:inline-flex;align-items:center;height:38px;padding:0 14px;border-radius:4px;box-shadow:inset 0 0 0 1px var(--hair);font-size:14px;color:var(--ink);background:#fff}
 /* Department hero on a phone: the words and the start first, the team after (Ben's hero rule). */
 @media (max-width:1100px){.wdept .wd-t{order:-1}.wdept .wd-art{width:min(86%,460px);margin:8px auto 0}}
+/* The proof's two links sit on one baseline at one size (Ben: "the line up of visit scoopdogg.net link with read how
+   his employee did it"). */
+.wps-links{align-items:baseline;gap:12px 28px}
+.wps-links a{margin:0!important;display:inline-block;font-size:16px;line-height:1.4}
+/* The ChatGPT answer in the proof stack (Ben: it "would look way better in every place we use the google maps
+   result"): wide and text-heavy, so it gets the width to be read. */
+.wps-shots{aspect-ratio:1.02}
+.wps-s0{left:0;top:0;width:80%}.wps-s1{right:0;top:12%;width:24%}.wps-s2{left:4%;bottom:0;width:72%}
+@media (max-width:640px){.wps-s2{grid-column:1/-1}}
+@media (max-width:640px){.wps-shots{grid-template-columns:minmax(0,1fr)}.wps-s1{display:none}}

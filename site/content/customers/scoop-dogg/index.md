@@ -13,8 +13,8 @@ field: "Your business's name"
 button: "Start"
 hero_shots:
   - {src: "/customers/scoop-dogg/site-home-desktop", alt: "scoopdogg.net's home page, set up by his AI employee: dog poop cleaning services in Ventura County, with a price from a ZIP code", w: 1200, h: 750}
-  - {src: "/customers/scoop-dogg/maps-pet-waste-removal-ventura", alt: "Google Maps for pet waste removal in Ventura: Scoop Dogg is the first result", w: 820, h: 840}
-hero_cap: "His home page, and Google Maps for \"pet waste removal\" in Ventura on 27 October 2026: Scoop Dogg first."
+  - {src: "/customers/scoop-dogg/chatgpt-ventura", alt: "ChatGPT's answer to who is the best dog poop removal service in Ventura: its top pick is Scoop Dogg, 5.0 from 42 reviews", w: 632, h: 336}
+hero_cap: "His home page, and ChatGPT's answer on 27 October 2026: Scoop Dogg, its top pick in Ventura."
 
 facts_h: "The business"
 facts:
@@ -63,7 +63,7 @@ did:
     shot: {src: "/customers/scoop-dogg/employee-replies", alt: "Scoop Dogg's AI employee in its own workspace, answering a quote request from scoopdogg.net: what the person wants, then the reply in Josue's name at his published prices. The requester's details are redacted.", w: 1200, h: 784}
   - h: "Then, being found"
     p: "His employee wrote his business into the pages and listings that Google and the AI assistants read, and kept his site and his Google listing in step. By October 2026 he was first on Google Maps in Ventura and Oxnard, at the top of Google search, and first in ChatGPT for pet waste and yard cleanup across Ventura and Santa Barbara."
-    shot: {src: "/customers/scoop-dogg/maps-dog-poop-removal-service-ventura", alt: "Google Maps for dog poop removal service in Ventura: Scoop Dogg is the only result", w: 820, h: 760}
+    shot: {src: "/customers/scoop-dogg/chatgpt-ventura", alt: "ChatGPT's answer to who is the best dog poop removal service in Ventura: its top pick is Scoop Dogg, 5.0 from 42 reviews", w: 632, h: 336}
 
 timeline_h: "From a sales call to first in his area"
 timeline:
