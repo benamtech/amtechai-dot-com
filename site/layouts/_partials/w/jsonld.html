@@ -1,1 +1,44 @@
-{{- /* Structured data for the new pages: emitted from the page's own content file (the search layer fills this in). (dict "page" . "url" $url) */ -}}
+{{- /* Structured data for the new pages, from the page's own content file and nothing it does not show (Google: "Don't
+       mark up content that is not visible"). One @graph per page (lane SEARCH, 2026-10-27; AISEO page-spec 2.4):
+       - home: the one Organization node (OnlineBusiness, #organization) and the WebSite (#website), which every other
+         page references by @id only;
+       - every page: WebPage, or CollectionPage with an ItemList of what it lists in visible order (services, the hub);
+       - every page but home: BreadcrumbList;
+       - industry and department pages: Service (provider #organization) and FAQPage from `questions`, which they show.
+       Never Review, AggregateRating, HowTo or LocalBusiness. (dict "page" . "url" $url) */ -}}
+{{- $p := .page }}{{ $P := $p.Params }}{{ $m := partial "w/meta.html" $p -}}
+{{- $o := site.BaseURL | strings.TrimSuffix "/" }}{{ $org := printf "%s/#organization" $o }}{{ $site := printf "%s/#website" $o -}}
+{{- $name := site.Params.site_name | default "AMTECH AI" -}}
+{{- $g := slice -}}
+{{- if $p.IsHome -}}
+{{- $g = $g | append (dict "@type" "OnlineBusiness" "@id" $org "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o)
+     "logo" (dict "@type" "ImageObject" "url" (printf "%s/logo.png" $o) "width" 512 "height" 512)
+     "founder" (dict "@type" "Person" "name" "Benjamin Palaskas")
+     "description" site.Params.organization) -}}
+{{- $g = $g | append (dict "@type" "WebSite" "@id" $site "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o) "inLanguage" "en-US" "publisher" (dict "@id" $org)) -}}
+{{- end -}}
+{{- $wp := dict "@type" $m.schema "@id" (printf "%s#webpage" $m.url) "url" $m.url "name" $m.h1 "description" $p.Description "isPartOf" (dict "@id" $site) "inLanguage" "en-US" -}}
+{{- if $p.IsHome }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
+{{- if not $m.lastmod.IsZero }}{{ $wp = merge $wp (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
+{{- if not $p.IsHome -}}
+  {{- $items := slice }}{{ range $i, $c := $m.crumbs }}{{ $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $c.name "item" $c.url) }}{{ end -}}
+  {{- $wp = merge $wp (dict "breadcrumb" (dict "@id" (printf "%s#breadcrumb" $m.url))) -}}
+  {{- $g = $g | append (dict "@type" "BreadcrumbList" "@id" (printf "%s#breadcrumb" $m.url) "itemListElement" $items) -}}
+{{- end -}}
+{{- if eq $m.schema "CollectionPage" -}}
+  {{- $li := slice -}}
+  {{- if eq $p.Section "services" }}{{ range $i, $s := hugo.Data.services }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" $s.name "url" (printf "%s/services#%s" $o $s.slug)) }}{{ end -}}
+  {{- else }}{{ range $i, $x := $p.RegularPages.ByWeight }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" $x.Params.label "url" (printf "%s%s" $o (strings.TrimSuffix "/" $x.RelPermalink))) }}{{ end }}{{ end -}}
+  {{- $wp = merge $wp (dict "mainEntity" (dict "@type" "ItemList" "numberOfItems" (len $li) "itemListElement" $li)) -}}
+{{- end -}}
+{{- $g = $g | append $wp -}}
+{{- if and $p.IsPage (in (slice "industries" "departments") $p.Section) -}}
+  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI employee" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
+  {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
+  {{- $g = $g | append $svc -}}
+{{- end -}}
+{{- with $P.questions -}}
+  {{- $qs := slice }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
+  {{- $g = $g | append (dict "@type" "FAQPage" "@id" (printf "%s#faq" $m.url) "mainEntity" $qs) -}}
+{{- end }}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $g | jsonify | safeJS }}</script>

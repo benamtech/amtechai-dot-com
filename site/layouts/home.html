@@ -1,14 +1,15 @@
-{{- /* Home (C on white; Ben, 2026-10-27): the start panel first, then the hero over the plain Orbit, then the industries,
-       the services, how it works, Scoop Dogg and the closing start. Every word is in content/_index.md. */ -}}
+{{- /* Home (C on white; Ben, 2026-10-27). A conventional hero: the headline, the paragraph and the start field together,
+       the plain Orbit beside them (below them on a phone); never a start panel beside the hero (Ben, 15:5x: "we should
+       never have the cta to the left of the hero like that. dont reinvent the wheel"). Then the industries, the services,
+       how it works, Scoop Dogg and the closing start. Every word is in content/_index.md. */ -}}
 {{- $p := . -}}
-{{- range slice "title" "description" "start_h" "start_sub" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "industries_h" "services_h" "services_featured" "how_h" "how" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "industries_h" "services_h" "services_featured" "how_h" "how" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main>
-<section class="h2-top"><div class="wrap h2-in">
-<aside class="cta"><p class="cta-k">{{ .Params.start_h }}</p><p class="cta-t">{{ .Params.start_sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}
-{{- with .Params.now }}<div class="cta-now"><p class="now-h"><i class="pulse" aria-hidden="true"></i>{{ $p.Params.now_h }}</p>{{ range . }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "in-stack") }}{{ end }}</div>{{ end }}</aside>
-<div class="hero2"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>
-<div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ .Params.orbit_centre }}">{{ .Params.orbit_centre }}</p></div></div>
+<section class="hh"><div class="wrap hh-in">
+<div class="hh-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}
+{{- with .Params.now }}<div class="cta-now hh-now"><p class="now-h"><i class="pulse" aria-hidden="true"></i>{{ $p.Params.now_h }}</p>{{ range . }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "in-stack") }}{{ end }}</div>{{ end }}</div>
+<div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ .Params.orbit_centre }}">{{ .Params.orbit_centre }}</p></div></div>
 </div></section>
 <section class="ind"><div class="wrap"><h2>{{ .Params.industries_h }}</h2><p class="sec-p">{{ .Params.industries_sub }}</p><div class="ind-grid">
 {{- range (where site.RegularPages "Section" "industries").ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h3>{{ .Params.label }}</h3><p>{{ .Params.card_line }}</p></a>{{ end }}

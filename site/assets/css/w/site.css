@@ -42,3 +42,14 @@
    stays clear of the paragraph; on a phone the medallion carries only the business's name. */
 @media (min-width:1101px){.chapel-w .cw-art{width:78%;margin:0 0 0 6%}.chapel-w .cw-in{gap:72px}}
 @media (max-width:640px){.cw-art .medal-k,.wd-art .medal-k{display:none}.wd-art .medal-big{font-size:34px!important}}
+/* Home's hero, conventional (Ben, 2026-10-27): headline, paragraph and start field in one column, the Orbit beside it;
+   on a phone the start field follows the paragraph, inside the first screen, and the Orbit comes after. */
+.hh{padding:44px 0 64px}
+.hh-in{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,10fr);gap:40px;align-items:center}
+.hh h1{font-size:clamp(46px,4.9vw,76px);line-height:1}
+.hh .lede{margin-top:18px;font-size:18.5px;max-width:34em;color:var(--ink-2)}
+.hh .start{margin-top:28px;max-width:540px}
+.hh-now{margin-top:30px;max-width:540px}
+.hh-art .h2-orb{width:88%;max-width:600px;margin:0 auto}
+@media (max-width:1100px){.hh-in{grid-template-columns:minmax(0,1fr);gap:24px}.hh-art .h2-orb{width:min(80%,520px)}}
+@media (max-width:640px){.hh{padding:18px 0 36px}.hh h1{font-size:40px}.hh .lede{font-size:16.5px;margin-top:14px}.hh .start{flex-direction:column;max-width:none;margin-top:20px}.hh-now .live:nth-of-type(n+2){display:none}.hh-now{margin-top:20px}}

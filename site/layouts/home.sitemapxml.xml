@@ -1,7 +1,12 @@
-{{- /* /sitemap.xml: every page the site serves (Hugo's own sitemap lists only the home page's direct children). */ -}}
+{{- /* /sitemap.xml: every page search engines may index (not noindex, not 404), each with its lastmod: the last commit
+       that touched its content file (w/lastmod.html; none printed when unknown). The new pages first. */ -}}
 {{- printf "<?xml version=\"1.0\" encoding=\"UTF-8\"?>" | safeHTML }}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-{{- range site.Pages }}{{ if and (.OutputFormats.Get "html") (not .Params.noindex) (ne .Kind "404") }}
-  <url><loc>https://amtechai.com{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}</loc>{{ if eq .Section "articles" }}{{ if .IsPage }}<lastmod>{{ .Lastmod.Format "2006-01-02" }}</lastmod>{{ end }}{{ end }}</url>
+{{- $new := partial "w/pages.html" . }}
+{{- range $new }}{{ $m := partial "w/meta.html" . }}
+  <url><loc>{{ $m.url }}</loc>{{ if not $m.lastmod.IsZero }}<lastmod>{{ $m.lastmod.Format "2006-01-02" }}</lastmod>{{ end }}</url>
+{{- end }}
+{{- range site.Pages }}{{ if and (.OutputFormats.Get "html") (not .Params.noindex) (ne .Kind "404") (not (in $new .)) }}{{ $t := partial "w/lastmod.html" . }}
+  <url><loc>https://amtechai.com{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}</loc>{{ if not $t.IsZero }}<lastmod>{{ $t.Format "2006-01-02" }}</lastmod>{{ end }}</url>
 {{- end }}{{ end }}
 </urlset>

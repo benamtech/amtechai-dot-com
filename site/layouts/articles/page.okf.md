@@ -1,4 +1,4 @@
-{{- /* This article's entry in the knowledge bundle (/okf/articles/<slug>.md). Links are relative to the bundle's root. */ -}}
+{{- /* OKF v0.2 (lane SEARCH 2026-10-27: no v0.1 `timestamp`, status stable; no `generated`, since who wrote each article is not recorded). This article's entry in the knowledge bundle (/okf/articles/<slug>.md). Links are relative to the bundle's root. */ -}}
 {{- $slug := .File.ContentBaseName -}}
 {{- $concepts := hugo.Data.concepts -}}
 ---
@@ -10,8 +10,7 @@ tags:
 {{- range .Params.about }}
   - {{ .name | jsonify }}
 {{- end }}
-timestamp: "{{ .Lastmod.Format "2006-01-02" }}"
-status: "published"
+status: stable
 ---
 # {{ .Title }}
 

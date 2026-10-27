@@ -18,15 +18,19 @@
 
 {{ $P.industries_sub }}
 {{ range (where site.RegularPages "Section" "industries").ByWeight }}
-- [{{ .Params.label }}]({{ $o }}{{ strings.TrimSuffix "/" .RelPermalink }}): {{ .Params.card_line }}
-{{- end }}
+### {{ .Params.label }}
+
+{{ .Params.card_line }} [The {{ lower .Params.label }} page]({{ $o }}{{ strings.TrimSuffix "/" .RelPermalink }})
+{{ end }}
 
 ## {{ $P.services_h }}
 
 {{ $P.services_sub }}
 {{ range $P.services_featured }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}
-- [{{ $s.name }}]({{ $o }}/services#{{ $s.slug }}): {{ $s.instead }}.
-{{- end }}
+### {{ $s.name }}
+
+{{ $s.instead }}. [{{ $s.name }}]({{ $o }}/services#{{ $s.slug }})
+{{ end }}
 
 [{{ $P.services_more }}]({{ $o }}/services)
 
@@ -86,11 +90,19 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 {{ range $P.routines }}
 - {{ . }}
 {{- end }}
+{{- if eq $p.Section "departments" }}
+
+## Connects to
+
+{{ delimit $P.systems ", " }}
+{{- end }}
 
 ## {{ $P.services_h | default (cond (eq $p.Section "departments") "Services that use this department" "Made for your kind of business") }}
 {{ range $P.services }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}
-- [{{ $s.name }}]({{ $o }}/services#{{ $s.slug }}): {{ $s.instead }}. For {{ lower (substr $s.for 0 1) }}{{ substr $s.for 1 }}.
-{{- end }}
+### {{ $s.name }}
+
+{{ $s.instead }}. For {{ lower (substr $s.for 0 1) }}{{ substr $s.for 1 }}. [{{ $s.name }}]({{ $o }}/services#{{ $s.slug }})
+{{ end }}
 
 ## {{ $P.questions_h }}
 {{ range $P.questions }}

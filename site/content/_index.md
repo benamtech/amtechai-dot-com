@@ -5,8 +5,6 @@ llms: { order: 1, label: "AMTECH", text: "AMTECH gives a business AI employees: 
 title: "AMTECH AI: the AI team that wires itself into your business"
 description: "AMTECH gives your business AI employees that connect themselves to Jobber, QuickBooks, Gmail and the rest, build their own team, and get better every week. Start free."
 route: "/"
-start_h: "Start free"
-start_sub: "Name your business, and your employee starts on it."
 now_h: "Now, across your business"
 now:
   - {who: t1, title: "Estimate from the plan set you sent", step: "Step 2 of 4: measuring the roof planes at scale"}

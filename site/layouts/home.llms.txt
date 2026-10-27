@@ -1,20 +1,32 @@
-{{- /* /llms.txt: what an AI assistant reads first. Pages with an `llms` line in their front matter, in its order, then
-       every article. */ -}}
+{{- /* /llms.txt: what an AI assistant reads first (lane SEARCH, 2026-10-27). What AMTECH is, in the home page's own
+       words; the new pages first (home, services, the industries hub, each industry, each department: w/pages.html),
+       each with its Markdown twin; then every article; then the other pages that carry an `llms` line. */ -}}
+{{- $o := site.BaseURL | strings.TrimSuffix "/" -}}
 # AMTECH AI
 
-> AMTECH builds AI employees for contractors, service companies and local operators: an employee that knows the business, drafts the estimates, pages and follow-ups, and waits for the owner's yes before anything goes out.
+> {{ site.Params.organization }} AMTECH AI (amtechai.com) was founded by Benjamin Palaskas.
 
-## Knowledge bundle (Open Knowledge Format)
+{{ site.Home.Params.llms.text }} {{ hugo.Data.w.prices }}
 
-- [Knowledge bundle index](https://amtechai.com/okf/index.md): AMTECH's published articles as Markdown files, in the Open Knowledge Format.
-
-## Key pages
-{{ $key := slice }}{{ range site.Pages }}{{ if .Params.llms }}{{ $key = $key | append . }}{{ end }}{{ end }}
-{{- range sort $key "Params.llms.order" }}
-- [{{ .Params.llms.label }}](https://amtechai.com{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}): {{ .Params.llms.text }}
+## Pages
+{{ range partial "w/pages.html" . }}{{ $m := partial "w/meta.html" . }}
+- [{{ cond .IsHome (.Params.llms.label | default "AMTECH") .Title }}]({{ $m.url }}): {{ .Description }} Markdown: {{ $o }}{{ $m.twin }}
 {{- end }}
 
 ## Published articles
 {{ range (where site.RegularPages "Section" "articles").ByDate.Reverse }}
-- [{{ .Title }}](https://amtechai.com/articles/{{ .File.ContentBaseName }}): {{ .Description }} Markdown: https://amtechai.com/articles/{{ .File.ContentBaseName }}.md
+- [{{ .Title }}]({{ $o }}/articles/{{ .File.ContentBaseName }}): {{ .Description }} Markdown: {{ $o }}/articles/{{ .File.ContentBaseName }}.md
 {{- end }}
+
+## Knowledge bundle (Open Knowledge Format v0.2)
+
+- [Knowledge bundle index]({{ $o }}/okf/index.md): every page above as Markdown, with who wrote it, who reviewed it and when.
+
+## More
+{{ $key := slice }}{{ range site.Pages }}{{ if and .Params.llms (not .IsHome) }}{{ $key = $key | append . }}{{ end }}{{ end }}
+{{- range sort $key "Params.llms.order" }}
+- [{{ .Params.llms.label }}]({{ $o }}{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}): {{ .Params.llms.text }}
+{{- end }}
+{{- range partial "w/older.html" . }}{{ if not .Params.llms }}
+- [{{ .Title }}]({{ $o }}{{ .Params.route | default (strings.TrimSuffix "/" .RelPermalink) }}): {{ .Description }}
+{{- end }}{{ end }}

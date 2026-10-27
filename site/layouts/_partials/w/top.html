@@ -2,7 +2,7 @@
        {{ partial "w/top.html" . }} <main>...</main> {{ partial "w/bottom.html" . }}. The old pages keep baseof.html. */ -}}
 {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 {{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
-{{- $title := cond .IsHome .Title (printf "%s | AMTECH AI" .Title) -}}
+{{- $title := cond .IsHome .Title (printf "%s | %s" .Title (site.Params.site_name | default "AMTECH AI")) -}}
 {{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
 <!doctype html>
 <html lang="en">
@@ -13,11 +13,17 @@
 <meta name="description" content="{{ .Description }}">
 <link rel="canonical" href="{{ $url }}">
 <meta name="robots" content="{{ if .Params.noindex }}noindex, follow{{ else }}index, follow{{ end }}">
-<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+{{- if not .Params.noindex }}{{ $m := partial "w/meta.html" . }}
+<link rel="alternate" type="text/markdown" href="{{ site.BaseURL | strings.TrimSuffix "/" }}{{ $m.twin }}" title="{{ .Title }} (Markdown)">{{ end }}
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96.png">
+<link rel="icon" type="image/png" sizes="192x192" href="/favicon-192.png">
+<link rel="icon" type="image/svg+xml" href="/favicon-mark.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <link rel="preload" href="/fonts/w/CormorantGaramond-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="/fonts/w/Geist-latin.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
-<meta property="og:site_name" content="AMTECH AI">
+<meta property="og:site_name" content="{{ site.Params.site_name | default "AMTECH AI" }}">
 <meta property="og:title" content="{{ $title }}">
 <meta property="og:description" content="{{ .Description }}">
 <meta property="og:url" content="{{ $url }}">
