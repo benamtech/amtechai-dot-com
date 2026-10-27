@@ -1,0 +1,8 @@
+{{- /* N8 the connections wall: the systems this page's buyers run, grouped by kind, each a chip with the Orbit's blue
+       node, the last chip "Anything with a sign-in" (data/w.json), and how the employee connects them.
+       (dict "h" .Params.connects_h "sub" .Params.connects_sub "groups" .Params.connects "how" .Params.connects_how "link" .Params.connects_link "g" "g-paper")
+       groups: [{name, systems: [...]}] so their order is the page's. */ -}}
+<section class="wcon {{ .g }}"><div class="wrap wcon-in">
+<div class="wcon-t"><h2>{{ .h }}</h2>{{ with .sub }}<p class="sec-p">{{ . }}</p>{{ end }}<ul class="wcon-how">{{ range .how }}<li>{{ . }}</li>{{ end }}</ul>{{ with .link }}<a class="wlink" href="{{ .url }}">{{ .text }}</a>{{ end }}</div>
+<div class="wcon-wall">{{ range .groups }}<div class="wcon-g"><h3>{{ .name }}</h3><ul>{{ range .systems }}<li><i aria-hidden="true"></i>{{ . }}</li>{{ end }}</ul></div>{{ end }}<p class="wcon-any"><i aria-hidden="true"></i>{{ hugo.Data.w.connect_any }}</p></div>
+</div></section>

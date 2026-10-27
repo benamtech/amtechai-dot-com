@@ -1,10 +1,12 @@
 ---
 title: "What Is OKF? Google's New Format For AI-Readable Knowledge"
-description: "OKF is a simple way to package knowledge so AI agents can read it. Here is how markdown concept files become a graph, why AMTECH treats OKF as one output of a larger publishing system, and how to score your own content with the free OKF Audit Skill."
+description: "OKF is not just a better wiki format. It is a portable surface for agent-readable concepts, and the first step toward a richer knowledge publishing system."
 dek: "OKF is not just a better wiki format. It is a portable surface for agent-readable concepts, and the first step toward a richer knowledge publishing system."
 date: 2026-06-19
 lastmod: 2026-06-19
 author: "AMTECH AI"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-19" }
 audience: "founders, technical marketers, SEO strategists, content operators, and AI builders"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:
@@ -70,8 +72,6 @@ next:
 OKF, short for Open Knowledge Format, is a way to package knowledge so AI agents can read it directly. In plain English, OKF is a folder of markdown files where each file describes one concept, and the links between files form a simple knowledge graph.
 {{< /answer >}}
 
-Context
-{.kicker}
 
 ## Agents need context, but websites are messy {#why-okf-exists}
 
@@ -110,8 +110,6 @@ An AI Employee is not just a chatbot. It is a connected operating assistant that
 | Citation link | Trust edge | Claims become easier to inspect and verify. |
 | Sitemap | Discovery surface | Crawlers and agents need stable entry points. |
 
-Graph layer
-{.kicker}
 
 ## Why links matter more than they look {#links-become-edges}
 
@@ -136,8 +134,6 @@ This is where knowledge graph SEO and OKF overlap. Google's Search documentation
 If you export a messy wiki into OKF, you have a portable messy wiki. That is better than a trapped messy wiki, but it is not a knowledge advantage. The advantage comes from deciding what deserves to be a concept, how concepts relate, which claims need evidence, and which surfaces need to stay in sync.
 {{< /callout >}}
 
-AMTECH standard
-{.kicker}
 
 ## OKF should be one output, not the whole system {#amtech-standard}
 
@@ -159,8 +155,6 @@ One source and many surfaces prevents the usual failure mode where the blog says
 | robots.txt | Crawl guidance. |
 | llms.txt | Agent orientation. |
 
-Example
-{.kicker}
 
 ## AI Employee is stronger as a concept graph than as one landing page {#concept-example}
 
@@ -198,8 +192,6 @@ Return:
 6. A warning list of weak, duplicate, or vague concepts to avoid
 {{< /prompt >}}
 
-Decision point
-{.kicker}
 
 ## When to keep OKF simple and when to build a pipeline {#when-to-keep-it-simple}
 
@@ -207,8 +199,6 @@ You do not need a full graph pipeline on day one. Keep it simple if you have few
 
 Build a larger system when you publish many articles, care about AI search visibility, need structured data and human pages to stay in sync, or want the same knowledge to power articles, internal tools, search, and automation. That is when OKF should stop being the whole thing and become one generated surface from a stronger source model.
 
-AMTECH skill
-{.kicker}
 
 ## How to check whether your knowledge is actually agent-readable {#audit-with-the-skill}
 
@@ -218,8 +208,6 @@ It is a skill in the literal sense: a portable instruction package an agent can 
 
 This is the validation step that keeps OKF honest. A bundle can be valid markdown and still be a weak knowledge surface. Running the audit before you publish, and on your competitors after, turns "is this agent-readable?" from an opinion into a score you can act on.
 
-Bottom line
-{.kicker}
 
 ## The future of content is useful knowledge projected into many surfaces {#short-version}
 

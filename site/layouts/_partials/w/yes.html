@@ -1,0 +1,16 @@
+{{- /* N5 Your yes (SECTIONS-PLAN): what goes ahead under the owner's standing approval and what waits for a yes, the
+       application's approval card beside them, and the three trust lines. Words: the page's own (h, sub, own, waits,
+       approval) and data/w.json yes (column heads, card labels, trust lines).
+       (dict "h" .Params.yes_h "sub" .Params.yes_sub "own" .Params.on_its_own "waits" .Params.waits "approval" .Params.approval "g" "g-paper") */ -}}
+{{- $Y := hugo.Data.w.yes -}}
+<section class="wyes {{ .g }}"><div class="wrap">
+<h2>{{ .h }}</h2>{{ with .sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<div class="wyes-in">
+<div class="wyes-col"><h3>{{ $Y.own_h }}</h3><ul>{{ range .own }}<li>{{ . }}</li>{{ end }}</ul></div>
+<div class="wyes-col wyes-wait"><h3>{{ $Y.waits_h }}</h3><ul>{{ range .waits }}<li>{{ . }}</li>{{ end }}</ul></div>
+{{- with .approval }}
+<div class="wyes-card" aria-label="An approval in the AMTECH application"><p class="wyes-k"><i class="pulse" aria-hidden="true"></i>{{ $Y.card_k }}</p>{{ partial "w/character.html" (dict "id" .who "size" 34) }}<p class="wyes-act">{{ .act }}</p><p class="wyes-to">{{ .to }}</p><blockquote>{{ .preview }}</blockquote><div class="wyes-bar"><span class="btn">{{ $Y.approve }}</span><span class="wbtn ghost">{{ $Y.change }}</span></div></div>
+{{- end }}
+</div>
+<ul class="wyes-trust">{{ range $Y.trust }}<li>{{ . }}</li>{{ end }}</ul>
+</div></section>

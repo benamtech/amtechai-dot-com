@@ -1,0 +1,11 @@
+{{- /* The new pages that search engines may index, in the order every machine surface lists them (llms.txt, the OKF
+       bundle, the sitemap's new rows): home, services and each service page, the industries hub, each industry by weight, each department, the customers hub and each customer story (lane STORY), the questions hub and each question page (lane PAGES), then the company pages /pricing, /about, /security (lane PAGES2).
+       /start is noindex and never here. Used by home.llms.txt, home.okfindex.md and home.sitemapxml.xml. */ -}}
+{{- $out := slice site.Home -}}
+{{- with site.GetPage "/services" }}{{ $out = $out | append . }}{{ $out = $out | append .RegularPages.ByTitle }}{{ end -}}
+{{- with site.GetPage "/industries" }}{{ $out = $out | append . }}{{ $out = $out | append .RegularPages.ByWeight }}{{ end -}}
+{{- $out = $out | append (where (where site.RegularPages "Section" "departments") "Params.noindex" "!=" true).ByWeight -}}
+{{- with site.GetPage "/customers" }}{{ $out = $out | append . }}{{ $out = $out | append .RegularPages.ByWeight }}{{ end -}}
+{{- with site.GetPage "/questions" }}{{ $out = $out | append . }}{{ $out = $out | append .RegularPages.ByWeight }}{{ end -}}
+{{- range slice "/pricing" "/about" "/security" }}{{ with site.GetPage . }}{{ $out = $out | append . }}{{ end }}{{ end -}}
+{{- return $out -}}

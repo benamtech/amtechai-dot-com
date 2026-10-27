@@ -1,0 +1,6 @@
+{{- /* Home's "the team it makes": the employee making its team for one business, the whole cast on the Orbit (and the 3D
+       scene where it runs) beside the team list. (dict "h" .Params.team_h "sub" .Params.team_sub "team" .Params.team_all "detail" .Params.team_detail "systems" .Params.team_systems) */ -}}
+<section class="wtf"><div class="wrap wtf-in">
+<div class="wtf-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .team "systems" .systems "cls" "ow oclean wtf-orb") }}<p class="h2-centre" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p></div></div>
+<div class="wtf-t"><h2>{{ .h }}</h2><p class="sec-p">{{ .sub }}</p><ul class="wtf-l">{{ range .detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 44) }}<div><h3>{{ partial "w/name.html" (dict "id" .id) }}</h3><p>{{ .does }}</p></div></li>{{ end }}</ul></div>
+</div></section>

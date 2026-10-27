@@ -1,0 +1,137 @@
+/* "C on white" (lane ART, 2026-10-27, Ben's choice of 14:26 UTC): C's system on a white ground. Colour roles and
+   contrast: lanes/ART-data/colour.md. Ink for words, blue for action and wiring, red for the mark and the payoff,
+   the characters' nine hues for the team. Cormorant Garamond for display (serif on light: Ben, "nothing wrong"),
+   Geist for text. */
+:root{
+  --white:#FFFFFF; --panel:#F6F6F4; --ink:#0A0A0A; --ink-2:#3F3F46; --ink-3:#52525B; --ink-4:#71717A; --hair:#E4E4E7;
+  --blue:#0F62FE; --blue-2:#0043CE; --red:#E11D2A;
+  --serif:"Cormorant Garamond",Georgia,serif; --sans:"Geist",system-ui,sans-serif;
+  --ease:cubic-bezier(0.16,1,0.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--white);color:var(--ink);font:400 17px/1.55 var(--sans);-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--serif);font-weight:500;letter-spacing:-0.012em;text-wrap:balance;color:var(--ink)}
+p{text-wrap:pretty}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.wrap{max-width:1320px;margin:0 auto;padding:0 48px;position:relative}
+.red{color:var(--red)}.ink{color:var(--ink)}
+.nav{position:relative;z-index:20;background:var(--white)}
+.nav-in{display:flex;align-items:center;gap:40px;height:72px}
+.logo{font:700 22px/1 var(--sans);letter-spacing:-0.03em;color:var(--ink)}.logo .dot{color:var(--red)}
+.links{display:flex;gap:28px;font-size:15px;color:var(--ink-2)}.links a:hover{color:var(--blue)}
+.nav-r{margin-left:auto;display:flex;gap:20px;align-items:center;font-size:15px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:52px;padding:0 22px;border:0;border-radius:4px;background:var(--blue);color:#fff;font:600 16px/1 var(--sans);cursor:pointer;transition:background .3s var(--ease)}
+.btn:hover{background:var(--blue-2)}.btn-s{height:40px;padding:0 16px;font-size:14px}
+.arr{transition:transform .4s var(--ease)}.btn:hover .arr{transform:translateX(4px)}
+.start{display:flex;gap:6px;padding:6px;border-radius:6px;background:var(--white);border:1.5px solid var(--ink);max-width:520px}
+.start-in{flex:1;min-width:0;border:0;outline:0;background:transparent;color:var(--ink);font:500 17px var(--sans);padding:0 12px}
+.start-in::placeholder{color:var(--ink-4);font-weight:400}
+.start:focus-within{box-shadow:0 0 0 4px rgba(15,98,254,.22);border-color:var(--blue)}
+.prices{margin-top:12px;font-size:14px;color:var(--ink-3)}
+.lede{font-size:19px;line-height:1.55;color:var(--ink-2)}
+.wlink{display:inline-block;margin-top:14px;color:var(--blue);font-weight:600;text-decoration:underline;text-underline-offset:4px}
+.wlink:hover{color:var(--blue-2)}
+.swarm{position:absolute;inset:0;z-index:0;pointer-events:none}
+
+/* Home: the headline above, the halo below with the start field in the marble medallion */
+.whome{position:relative;overflow:hidden;padding:34px 0 0;min-height:calc(100vh - 72px)}
+.wh-t{text-align:center;position:relative;z-index:2}
+.whome h1{font-size:clamp(46px,5.4vw,82px);line-height:.98;font-weight:500}
+.whome h1 .red{display:block}
+.whome .lede{max-width:760px;margin:18px auto 0;font-size:18.5px}
+.wh-orbit{position:relative;z-index:2;width:min(900px,92vw);margin:-6px auto 0;aspect-ratio:1}
+.wh-orbit .orbit{position:absolute;inset:0}
+.medal{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:43%;aspect-ratio:1;border-radius:50%;z-index:3;
+  background:radial-gradient(circle at 40% 35%,#FFFFFF,#EDEDEA 70%); /* the build: no marble texture (Ben, 10-27: the characters, not the marble) */
+  box-shadow:0 0 0 1px rgba(10,10,10,.08),0 0 0 9px #fff,0 0 0 10px rgba(10,10,10,.1),0 40px 80px -40px rgba(10,10,10,.35),inset 0 2px 0 rgba(255,255,255,.9),inset 0 -10px 30px rgba(10,10,10,.06)}
+.medal::before{content:"";position:absolute;inset:0;border-radius:50%;background:rgba(255,255,255,.55)}
+.medal-in{position:relative;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:0 12%;gap:10px}
+.medal-k{font:italic 500 22px/1.15 var(--serif);color:var(--ink-2)}
+.medal-name{font:500 32px/1.1 var(--serif);color:var(--ink)}
+.medal-big{font:600 92px/0.9 var(--serif)}
+.medal .start{width:100%;flex-direction:column;gap:6px;border-width:1px;border-color:#CFCFCF;box-shadow:0 10px 30px -18px rgba(10,10,10,.4)}
+.medal .start-in{height:46px;text-align:center;font-size:18px}
+.medal .start-btn{height:50px}
+.medal .prices{font-size:12.5px;margin-top:2px}
+.wh-m{display:none}
+.wh-live{position:absolute;z-index:3;left:3%;top:330px;width:270px}
+
+/* how, proof, industries, close */
+.how{padding:30px 0 90px}
+.how h2,.wind h2,.wclose h2,.wproof h2,.wfaq h2,.wjobs h2{font-size:clamp(34px,3.8vw,56px);line-height:1.02}
+.how-grid{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:34px}
+.how-n{display:inline-flex;width:34px;height:34px;border-radius:50%;align-items:center;justify-content:center;background:var(--blue);color:#fff;font:600 15px var(--sans)}
+.how-grid h3{margin-top:14px;font-size:28px;line-height:1.05}
+.how-grid p{margin-top:8px;font-size:15.5px;color:var(--ink-2)}
+.wproof{padding:80px 0;background:var(--panel)}
+.wproof-in{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,4fr);gap:60px;align-items:center}
+.wproof p{margin-top:16px;font-size:18px;color:var(--ink-2);max-width:40em}
+.wproof-k{text-align:center}.wproof-k .big{font:600 150px/0.85 var(--serif)}.wproof-k p{margin-top:8px;font:italic 500 22px/1.25 var(--serif);color:var(--ink)}
+.wind{padding:90px 0}
+.wind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:30px}
+.wind-card{padding:22px 20px;border-radius:6px;background:var(--white);box-shadow:inset 0 0 0 1px var(--hair);transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.wind-card:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--blue),0 20px 40px -30px rgba(15,98,254,.6)}
+.wind-card h3{margin-top:12px;font-size:30px}.wind-card p{margin-top:6px;font-size:15px;color:var(--ink-2)}
+.wclose{padding:100px 0 110px;text-align:center}
+.wclose p{margin:16px auto 0;max-width:40em;color:var(--ink-2)}
+.wclose .start{margin:28px auto 0}
+.foot{border-top:1px solid var(--hair);padding:44px 0 56px;font-size:14px;color:var(--ink-3)}
+.foot-in{display:grid;grid-template-columns:auto 1fr auto;gap:36px}.foot nav{display:flex;gap:18px;flex-wrap:wrap}.foot .credits{grid-column:1/-1;font-size:12.5px}
+
+/* Industry pages: the Chapel on white */
+.chapel-w{position:relative;overflow:hidden;padding:22px 0 60px}
+.cw-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;position:relative;z-index:2}
+.cw-art{position:relative;width:88%;max-width:520px;margin:0 auto;aspect-ratio:1}
+.cw-art .orbit{position:absolute;inset:0}
+.cw-art .medal{width:44%}
+.cw-cap{position:absolute;left:0;right:0;bottom:-26px;text-align:center;font:italic 14px/1.3 var(--serif);color:var(--ink-4)}
+.chapel-w h1,.wdept h1{font-size:clamp(42px,4.6vw,70px);line-height:1}
+.chapel-w h1 .red,.wdept h1 .red{display:block}
+.cw-t .lede{margin-top:18px;font-size:17.5px}
+.cw-t .start{margin-top:26px}
+.cw-live{margin-top:18px}
+.band{position:relative;z-index:2;margin-top:52px;display:grid;grid-template-columns:repeat(4,1fr);border-radius:6px;background:var(--panel)}
+.band>div{padding:22px 24px}.band>div+div{box-shadow:inset 1px 0 0 var(--hair)}
+.band dt{font:italic 500 23px/1.1 var(--serif);color:var(--ink)}
+.band dd{margin-top:8px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.wfaq{padding:84px 0}
+.wfaq-in{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr);gap:60px}
+.wfaq dl{display:grid;gap:0}
+.wfaq dl>div{padding:20px 0;box-shadow:inset 0 -1px 0 var(--hair)}
+.wfaq dt{font:500 25px/1.2 var(--serif)}.wfaq dd{margin-top:6px;color:var(--ink-2)}
+
+/* Department: being found */
+.wdept{position:relative;overflow:hidden;padding:30px 0 70px}
+.wd-in{display:grid;grid-template-columns:minmax(0,6fr) minmax(0,5fr);gap:56px;align-items:center;position:relative;z-index:2}
+.wd-t .lede{margin-top:18px;font-size:17.5px}.wd-t .start{margin-top:26px}
+.wd-art{position:relative;width:100%;max-width:540px;margin-left:auto;aspect-ratio:1}
+.wd-art .orbit{position:absolute;inset:0}.wd-art .medal{width:42%}
+.wjobs{padding:84px 0}
+.wjobs-in{display:grid;grid-template-columns:1fr 1fr;gap:60px}
+.verse{list-style:none;margin-top:18px;counter-reset:v}
+.verse li{counter-increment:v;padding:16px 0;box-shadow:inset 0 -1px 0 var(--hair);font:italic 500 25px/1.25 var(--serif)}
+.verse li::before{content:counter(v,upper-roman) ".";color:var(--blue);margin-right:12px;font-style:normal}
+.verse.plain li::before{content:none}
+.sub-h{margin-top:36px;font-size:32px!important}.conn-line{margin-top:10px;color:var(--ink-2)}
+
+@media (max-width:820px){
+  .wrap{padding:0 20px}.links,.signin{display:none}.nav-in{height:60px}
+  .whome{padding:14px 0 30px;min-height:0;display:flex;flex-direction:column}
+  .wh-t{text-align:left;order:0}.whome h1{font-size:42px}.whome .lede{font-size:16px;margin:12px 0 0}
+  .wh-m{display:block;order:1;padding:0 20px;margin-top:20px}.wh-m .start{flex-direction:column;max-width:none}.wh-m .start-in{height:48px}
+  .wh-orbit{order:2;width:96%;margin:8px auto 0}.wh-orbit .medal .start,.wh-orbit .medal .prices{display:none}
+  .wh-live{display:block;order:3;position:relative;left:auto;top:auto;width:auto;margin:10px 20px 0}
+  .medal-k{font-size:15px}.medal-name{font-size:20px}.medal-big{font-size:52px}
+  .how-grid,.wind-grid{grid-template-columns:1fr 1fr;gap:16px}.how-grid h3{font-size:22px}
+  .wproof-in,.wfaq-in,.wjobs-in{grid-template-columns:1fr;gap:24px}.wproof-k .big{font-size:96px}
+  .cw-in,.wd-in{grid-template-columns:1fr;gap:16px}
+  .cw-art{order:0;width:66%;margin:0 auto}.cw-art .medal{width:46%}.cw-cap{display:none}
+  .chapel-w h1,.wdept h1{font-size:34px}.cw-t .lede,.wd-t .lede{font-size:15.5px;margin-top:12px}
+  .cw-t .start,.wd-t .start{flex-direction:column;max-width:none;margin-top:18px}.start-in{height:48px}
+  .wd-art{order:-1;width:66%;margin:0 auto}
+  .band{grid-template-columns:1fr}.band>div+div{box-shadow:inset 0 1px 0 var(--hair)}
+  .foot-in{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}

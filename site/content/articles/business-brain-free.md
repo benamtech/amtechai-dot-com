@@ -5,6 +5,8 @@ dek: "A useful AI system does not start with a clever prompt. It starts with the
 date: 2026-06-18
 lastmod: 2026-06-18
 author: "AMTECH AI"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-18" }
 audience: "small-business owners, operators, and office managers who want to prepare for AI without wasting money on tools too early"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:
@@ -48,8 +50,6 @@ next:
 To build a business brain for free, collect the business knowledge that already exists in your estimates, invoices, emails, job notes, customer questions, SOPs, pricing rules, and approval habits. Put it into a simple folder and spreadsheet system first. Then use AI to draft, summarize, compare, and prepare work against those examples while a human still approves important decisions.
 {{< /answer >}}
 
-Foundation
-{.kicker}
 
 ## Why the business brain comes before automation {#why-it-matters}
 
@@ -97,8 +97,6 @@ For each section, give me:
 Do not recommend buying software yet. Keep the first version free, simple, and owner-friendly.
 {{< /prompt >}}
 
-First pass
-{.kicker}
 
 ## What to collect in the first two hours {#what-to-collect-first}
 
@@ -121,8 +119,6 @@ Then add short notes explaining why each example is good or bad. AI learns more 
 Uploading a messy folder into a chat tool is not the same as building a business brain. Sensitive data, stale examples, contradictory rules, and unlabeled documents can create confident but wrong outputs. Clean the first layer, label examples, and keep approval boundaries visible.
 {{< /callout >}}
 
-Decision point
-{.kicker}
 
 ## When the free version is enough and when to bring in help {#diy-vs-expert}
 

@@ -1,0 +1,10 @@
+{{- /* N7 the proof split: Scoop Dogg's story, his three figures, and the real captures of his site and his Google Maps
+       place (taken 2026-10-27), linking to the full story. Words from data/w.json (proof, proof2) unless the page words
+       the heading or the paragraph its own way. (dict "h" .Params.proof_h "p" .Params.proof "id" "proof" "g" "g-bone") */ -}}
+{{- $P := hugo.Data.w.proof }}{{ $Q := hugo.Data.w.proof2 -}}
+<section class="wps {{ .g | default "g-bone" }}"{{ with .id }} id="{{ . }}"{{ end }}><div class="wrap wps-in">
+<div class="wps-t"><h2>{{ .h | default $P.h }}</h2><p>{{ .p | default $P.p }}</p>
+<ul class="wps-figs">{{ range $Q.figures }}<li><b>{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
+<p class="wps-links"><a class="wlink" href="{{ $Q.story }}">{{ $Q.story_text }}</a><a class="wlink2" href="{{ $P.link }}">{{ $Q.site_text }}</a></p></div>
+<div class="wps-shots">{{ range $i, $s := $Q.shots }}<figure class="wps-shot wps-s{{ $i }}"><picture><source type="image/avif" srcset="{{ $s.src }}.avif"><img src="{{ $s.src }}.webp" alt="{{ $s.alt }}" width="{{ $s.w }}" height="{{ $s.h }}" loading="lazy" decoding="async"></picture></figure>{{ end }}</div>
+</div></section>

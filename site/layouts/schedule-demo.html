@@ -1,153 +1,62 @@
-{{ define "root" }}
-{{- /* Ported from src/pages/ScheduleDemo.tsx and src/components/schedule/ (production 4d1ad0c): the same four steps,
-   look and motion. Changed on purpose: the industry and topic lists (front matter), and the confirmation no longer
-   says a confirmation was sent, because none is: app.amtechai.com/site/booking mails the operator only. */ -}}
-{{- $steps := slice "Your Info" "Industry" "Topic" "Date & Time" -}}
-{{- $input := "w-full border border-black/10 bg-white/70 px-4 py-3 text-[13px] text-black rounded-lg outline-none transition-colors focus:border-black/25 placeholder:text-black/45" -}}
-<div class="min-h-screen bg-[#FAFAFA] flex flex-col">
-  <header class="border-b border-black/[0.06] bg-white/80 backdrop-blur-xl px-4 sm:px-7 py-3 flex items-center justify-between">
-    <a class="inline-flex items-baseline" href="/"><span class="font-display text-base font-black tracking-[0.06em] text-black">AMTECH</span><span class="text-base font-black text-red">.</span></a>
-    <span class="mono-label text-red">Schedule Demo</span>
-  </header>
-
-  <div class="flex-1 flex items-start justify-center px-4 py-8 sm:py-12 lg:py-16">
-    <div class="w-full max-w-2xl">
-      <div data-booking>
-        <div class="mb-6 sm:mb-8">
-          <div class="mb-5">
-            <p class="mono-label text-red mb-1">Book a Demo</p>
-            <h1 class="text-[22px] sm:text-[28px] font-display font-black text-black leading-tight">30-Minute Consultation</h1>
-          </div>
-          <div class="flex items-center gap-1 sm:gap-2" data-indicator>
-            {{- range $i, $label := $steps }}
-            <div class="flex items-center gap-1 sm:gap-2">
-              {{- if gt $i 0 }}
-              <div data-line class="w-4 sm:w-8 lg:w-12 h-px transition-colors duration-300 bg-black/10"></div>
-              {{- end }}
-              <div class="flex items-center gap-1.5">
-                <div data-dot="{{ add $i 1 }}" class="w-6 h-6 flex items-center justify-center text-[10px] font-bold rounded-md transition-all duration-300 {{ if eq $i 0 }}border border-black/30 text-black{{ else }}border border-black/20 text-black/50{{ end }}">{{ add $i 1 }}</div>
-                <span data-label class="hidden sm:inline text-[10px] tracking-[0.12em] uppercase font-semibold transition-colors duration-300 {{ if eq $i 0 }}text-black{{ else }}text-black/50{{ end }}">{{ $label }}</span>
-              </div>
-            </div>
-            {{- end }}
-          </div>
-        </div>
-
-        <div class="glass-card px-4 py-5 sm:px-7 sm:py-6">
-          <div data-step="0">
-            <form class="space-y-5" data-info>
-              {{- range slice (dict "k" "name" "label" "Full Name" "type" "text" "ph" "John Smith") (dict "k" "email" "label" "Email Address" "type" "email" "ph" "john@company.com") (dict "k" "organization" "label" "Organization" "type" "text" "ph" "Acme Corp") }}
-              <div>
-                <label class="block mono-label text-black/60 mb-2">{{ .label }}</label>
-                <input type="{{ .type }}" name="{{ .k }}" placeholder="{{ .ph }}" class="{{ $input }}">
-                <p data-error="{{ .k }}" hidden class="text-[11px] mt-1 text-red"></p>
-              </div>
-              {{- end }}
-              <div class="pt-2">
-                <button type="submit" class="btn-primary w-full">Continue{{ partial "icon.html" (dict "name" "arrow-right" "class" "w-3.5 h-3.5") }}</button>
-              </div>
-            </form>
-          </div>
-
-          {{- range $n, $s := slice (dict "key" "industry" "title" "What industry are you in?" "subtitle" "This helps us tailor the demo to your needs" "options" .Params.industries) (dict "key" "topic" "title" "What are you interested in?" "subtitle" "Select the topic you'd like to discuss" "options" .Params.topics) }}
-          <div data-step="{{ add $n 1 }}" data-pick="{{ $s.key }}" hidden>
-            <div class="space-y-3">
-              <div class="mb-4">
-                <p class="mono-label text-red mb-1">Select One</p>
-                <h3 class="text-[15px] font-display font-black text-black">{{ $s.title }}</h3>
-                <p class="text-[12px] text-black/40 mt-0.5">{{ $s.subtitle }}</p>
-              </div>
-              <div class="space-y-2">
-                {{- range $s.options }}
-                <button type="button" data-option="{{ . }}" class="w-full text-left px-5 py-4 rounded-xl transition-all duration-200 flex items-center justify-between glass text-black/60 hover:text-black">
-                  <span class="text-[13px] font-medium">{{ . }}</span>
-                  {{- partial "icon.html" (dict "name" "check" "class" "w-4 h-4 flex-shrink-0 text-red" "attrs" "hidden") }}
-                </button>
-                {{- end }}
-              </div>
-              <div class="flex gap-3 pt-2">
-                <button type="button" data-back class="btn-secondary flex-1">{{ partial "icon.html" (dict "name" "arrow-left" "class" "w-3.5 h-3.5") }}Back</button>
-                <button type="button" data-next disabled class="btn-primary flex-1 disabled:opacity-25 disabled:cursor-not-allowed">Continue{{ partial "icon.html" (dict "name" "arrow-right" "class" "w-3.5 h-3.5") }}</button>
-              </div>
-            </div>
-          </div>
-          {{- end }}
-
-          <div data-step="3" hidden>
-            <div class="space-y-4">
-              <div class="mb-2">
-                <p class="mono-label text-red mb-1">Pick a Time</p>
-                <h3 class="text-[15px] font-display font-black text-black">Select Date &amp; Time</h3>
-              </div>
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                <div class="rounded-xl p-5" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.06)">
-                  <div class="mono-label text-black/50 mb-4">Select a Date</div>
-                  <div>
-                    <div class="flex items-center justify-between mb-4">
-                      <button type="button" data-prev class="p-1.5 text-black/30 hover:text-black transition-colors disabled:opacity-20 disabled:cursor-not-allowed">{{ partial "icon.html" (dict "name" "chevron-left" "class" "w-4 h-4") }}</button>
-                      <span data-month class="text-[13px] font-semibold text-black tracking-wide"></span>
-                      <button type="button" data-nextmonth class="p-1.5 text-black/30 hover:text-black transition-colors disabled:opacity-20 disabled:cursor-not-allowed">{{ partial "icon.html" (dict "name" "chevron-right" "class" "w-4 h-4") }}</button>
-                    </div>
-                    <div class="grid grid-cols-7 gap-px" data-days>
-                      {{- range slice "Sun" "Mon" "Tue" "Wed" "Thu" "Fri" "Sat" }}
-                      <div class="text-center text-[9px] tracking-[0.15em] uppercase text-black/50 font-semibold py-2">{{ . }}</div>
-                      {{- end }}
-                    </div>
-                  </div>
-                </div>
-                <div class="rounded-xl p-5 min-h-[280px]" style="background: rgba(255,255,255,0.7); border: 1px solid rgba(0,0,0,0.06)">
-                  <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-                    <div class="mono-label text-black/50">Select a Time</div>
-                    <label class="flex w-full sm:w-auto items-center gap-1.5 text-[11px] text-black/55"><span class="whitespace-nowrap">Times in</span>
-                      <select data-zone aria-label="Time zone" class="min-w-0 flex-1 sm:flex-none sm:max-w-[260px] text-[11px] text-black/70 bg-white/80 border border-black/10 rounded-lg px-2 py-1"></select>
-                    </label>
-                  </div>
-                  <div data-times class="contents">
-                    <div class="flex items-center justify-center h-full min-h-[200px]"><p class="mono-label text-black/15">Select a date first</p></div>
-                  </div>
-                </div>
-              </div>
-              <div class="flex gap-3 pt-2">
-                <button type="button" data-back class="btn-secondary flex-1">{{ partial "icon.html" (dict "name" "arrow-left" "class" "w-3.5 h-3.5") }}Back</button>
-                <button type="button" data-confirm disabled class="btn-primary flex-1 disabled:opacity-25 disabled:cursor-not-allowed">Confirm Booking</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <p class="text-center mono-label text-black/50 mt-6">AMTECH // American Marketing Technology</p>
-      </div>
-
-      <div data-confirmed hidden>
-        <div class="space-y-4">
-          <div class="glass-card px-6 py-6 sm:px-8">
-            <p class="mono-label text-red mb-1">Confirmed</p>
-            <h2 class="text-[22px] sm:text-[28px] font-display font-black text-black leading-tight">Demo Scheduled</h2>
-            <p class="text-[12px] text-black/40 mt-1">Booked under <span data-v="email" class="text-black/70 font-medium"></span></p>
-          </div>
-          <div class="glass-card px-6 py-6 sm:px-8">
-            <div class="mono-label text-black/50 mb-4">Booking Details</div>
-            <div class="space-y-0">
-              {{- $rows := slice (slice "Date" "bookingDate") (slice "Time" "bookingTime") (slice "Name" "name") (slice "Organization" "organization") (slice "Industry" "industry") (slice "Topic" "topic") }}
-              {{- range $i, $r := $rows }}
-              <div class="flex items-center justify-between py-3 {{ if lt $i 5 }}border-b border-black/[0.06]{{ end }}">
-                <span class="mono-label text-black/50">{{ index $r 0 }}</span>
-                <span data-v="{{ index $r 1 }}" class="text-[13px] font-medium text-black/80"></span>
-              </div>
-              {{- end }}
-            </div>
-          </div>
-          <div class="pt-2">
-            <a class="btn-secondary w-full text-center block" href="/">Back to Home</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
+{{- /* /schedule-demo in C on white (lane PAGES2, 2026-10-27; first ported from src/pages/ScheduleDemo.tsx). The same four
+       steps and the same booking: assets/js/w/booking.js asks app.amtechai.com/site/slots which times are taken and
+       sends the booking to /site/booking, which checks it, stores it and mails Ben (never the address typed). Every
+       word is content/schedule-demo.md's; the script's words ride in window.BOOKING.words. */ -}}
+{{- $P := .Params -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "covers_h" "covers" "steps" "fields" "industries" "topics" "pick" "words" "done_h" "done_p" "done_rows" "done_back" "other_h" "other" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{- $L := $P.words -}}
+{{ partial "w/top.html" . }}
+<main class="wbk">
+<section class="bk"><div class="wrap bk-in">
+<div class="bk-t">
+<h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1>
+<p class="lede">{{ $P.sub }}</p>
 </div>
-{{- $sb := dict "slots" (printf "%s/site/slots" site.Params.app) "book" (printf "%s/site/booking" site.Params.app) }}
-{{- with resources.Get "js/booking.js" | minify | fingerprint }}
+<div class="bk-cov-w"><h2 class="bk-cov-h">{{ $P.covers_h }}</h2>
+<ul class="bk-cov">{{ range $P.covers }}<li>{{ . }}</li>{{ end }}</ul></div>
+<div class="bk-box">
+<div data-booking>
+<ol class="bk-steps" data-indicator aria-label="{{ $L.steps_label }}">{{ range $i, $s := $P.steps }}<li data-dot="{{ add $i 1 }}" data-state="{{ if eq $i 0 }}active{{ end }}"><span class="bk-n" aria-hidden="true">{{ add $i 1 }}</span><span class="bk-l">{{ $s }}</span></li>{{ end }}</ol>
+<div class="bk-card">
+<div data-step="0">
+<form class="bk-form" data-info novalidate>
+{{- range $P.fields }}
+<div class="bk-f"><label for="bk-{{ .k }}">{{ .label }}</label><input id="bk-{{ .k }}" type="{{ .type }}" name="{{ .k }}" placeholder="{{ .ph }}" autocomplete="{{ .ac }}"><p class="bk-err" data-error="{{ .k }}" hidden></p></div>
+{{- end }}
+<button type="submit" class="btn bk-go">{{ $L.continue }}<span aria-hidden="true" class="arr">&rarr;</span></button>
+</form>
+</div>
+{{- range $n, $s := slice (dict "key" "industry" "q" $P.pick.industry_q "sub" $P.pick.industry_sub "options" $P.industries) (dict "key" "topic" "q" $P.pick.topic_q "sub" $P.pick.topic_sub "options" $P.topics) }}
+<div data-step="{{ add $n 1 }}" data-pick="{{ $s.key }}" hidden>
+<h3 class="bk-q">{{ $s.q }}</h3><p class="bk-sub">{{ $s.sub }}</p>
+<div class="bk-opts" role="group" aria-label="{{ $s.q }}">{{ range $s.options }}<button type="button" class="bk-opt" data-option="{{ . }}" aria-pressed="false"><span>{{ . }}</span><i aria-hidden="true"></i></button>{{ end }}</div>
+<div class="bk-nav"><button type="button" class="wbtn ghost bk-back" data-back><span aria-hidden="true">&larr;</span> {{ $L.back }}</button><button type="button" class="btn bk-go" data-next disabled>{{ $L.continue }}<span aria-hidden="true" class="arr">&rarr;</span></button></div>
+</div>
+{{- end }}
+<div data-step="3" hidden>
+<h3 class="bk-q">{{ $P.pick.time_q }}</h3>
+<div class="bk-dt">
+<div class="bk-cal"><div class="bk-mo"><button type="button" class="bk-arrow" data-prev aria-label="{{ $L.prev }}">&lsaquo;</button><span data-month aria-live="polite"></span><button type="button" class="bk-arrow" data-nextmonth aria-label="{{ $L.next }}">&rsaquo;</button></div>
+<div class="bk-days" data-days>{{ range $L.weekdays }}<div class="bk-wd">{{ . }}</div>{{ end }}</div></div>
+<div class="bk-times"><label class="bk-zone"><span>{{ $L.zone }}</span><select data-zone aria-label="{{ $L.zone_label }}"></select></label><div data-times aria-live="polite"></div></div>
+</div>
+<div class="bk-nav"><button type="button" class="wbtn ghost bk-back" data-back><span aria-hidden="true">&larr;</span> {{ $L.back }}</button><button type="button" class="btn bk-go" data-confirm disabled>{{ $L.confirm }}</button></div>
+</div>
+</div>
+</div>
+<div data-confirmed hidden tabindex="-1">
+<div class="bk-card bk-done"><h2>{{ $P.done_h }}</h2><p class="bk-sub">{{ $P.done_p }} <span data-v="email"></span></p>
+<dl class="bk-rows">{{ range $P.done_rows }}<div><dt>{{ .label }}</dt><dd data-v="{{ .k }}"></dd></div>{{ end }}</dl>
+<a class="wlink" href="/">{{ $P.done_back }}</a></div>
+</div>
+</div>
+</div></section>
+<section class="bk-other g-paper"><div class="wrap"><h2>{{ $P.other_h }}</h2><ul class="pr-ways">{{ range $P.other }}<li><a href="{{ replaceRE `^app:` site.Params.app .to }}"><h3>{{ .title }}</h3><p>{{ .body }}</p><span>{{ .label }} <span class="arr" aria-hidden="true">&rarr;</span></span></a></li>{{ end }}</ul></div></section>
+{{ partial "w/made.html" . }}
+</main>
+{{- $sb := dict "slots" (printf "%s/site/slots" site.Params.app) "book" (printf "%s/site/booking" site.Params.app) "words" $L }}
 <script>window.BOOKING = {{ $sb }};</script>
+{{- with resources.Get "js/w/booking.js" | minify | fingerprint }}
 <script defer src="{{ .RelPermalink }}"></script>
 {{- end }}
-{{ end }}
+{{ partial "w/bottom.html" . }}

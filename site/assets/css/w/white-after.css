@@ -1,0 +1,150 @@
+/* the Orbit on white: ink rings, blue wiring, white chips with ink names; the characters lightly shadowed */
+.ow{--o-line:rgba(10,10,10,.16);--o-strong:rgba(10,10,10,.34);--o-wire:rgba(15,98,254,.7);--o-pulse:#0F62FE;--o-plate-bg:#F4F4F2;--o-plate-shadow:0 0 0 1px rgba(10,10,10,.08),0 0 0 8px #fff,0 0 0 9px rgba(10,10,10,.1);--o-label-ink:#0A0A0A;--o-label-bg:rgba(255,255,255,.94);--o-node:#0F62FE;--o-node-halo:rgba(15,98,254,.14);--o-sys-ink:#0A0A0A;--o-sys-bg:#FFFFFF;--o-sys-border:#DADADD;--o-cap:#71717A;--o-ch-shadow:drop-shadow(0 10px 12px rgba(10,10,10,.16))}
+.ow .o-sys b{box-shadow:0 6px 16px -10px rgba(10,10,10,.35)}
+.ow .o-plate img{object-fit:contain;padding:8%;background:#F7F7F5}
+.wh-orbit .o-svg,.cw-art .o-svg,.wd-art .o-svg{-webkit-mask-image:radial-gradient(circle,transparent 0 21%,#000 24%);mask-image:radial-gradient(circle,transparent 0 21%,#000 24%)}
+/* the Catalogue on white */
+.wmk .mk2-h{padding-top:26px}
+.wmk .mk2-top h1{font-family:var(--serif);font-weight:500}
+.wmk .mk2-top p{color:var(--ink-2);opacity:1}
+.wmk .mk2-bar{box-shadow:inset 0 1px 0 var(--ink),inset 0 -1px 0 var(--hair)}
+.wmk .mk2-bar .tabs button{color:var(--ink-2);opacity:1}.wmk .mk2-bar .tabs button span{color:var(--blue);opacity:1}
+.wmk .mk2-bar .tabs button.on{background:var(--ink);color:#fff}.wmk .mk2-bar .tabs button.on span{color:#fff}
+.wmk .mk-search{height:42px;border:1px solid #CFCFCF;border-radius:4px;padding:0 14px;font:400 15px var(--sans)}
+.wmk .mk2-card{background:#fff;box-shadow:inset 0 0 0 1px var(--hair)}
+.wmk .mk2-card:hover{box-shadow:inset 0 0 0 1px var(--blue),0 20px 40px -30px rgba(15,98,254,.55)}
+.wmk .mk2-card h2{font-family:var(--serif);font-weight:500;font-size:23px}
+.wmk .mk2-for{color:var(--ink-2);opacity:1}.wmk .mk2-sys{color:var(--ink-3);opacity:1}
+.wmk .mk2-card.feat{background:var(--panel);align-items:center}
+.wmk .feat-orb{width:46%;padding:18px 10px 18px 50px}.wmk .feat-orb .cm-orb{--k:.6;width:100%;margin:0}
+.wmk .feat-t h2{font-size:38px}.wmk .mk-go{color:var(--blue);font-weight:600;margin-top:6px}
+@media (max-width:820px){.wmk .feat-orb{width:76%;padding:14px 20px 0;margin:0 auto}}
+/* fixes after the first shots (14:5x UTC) */
+.whome h1{font-size:clamp(44px,4.8vw,72px)}
+.whome .lede{margin-top:14px}
+.wh-orbit{width:min(780px,92vw);margin-top:-24px}
+.wh-live{width:250px;top:300px}
+.wd-art{max-width:480px;margin-right:56px}
+@media (max-width:820px){.wd-art .medal-k{font-size:11.5px}.wd-art .medal-big{font-size:40px}.wmk .feat-orb{width:68%}.wh-orbit{width:84%}}
+.wh-live{width:232px;top:226px;left:1.5%}
+.medal-big,.wproof-k .big{font-family:var(--sans)!important;font-weight:700!important;letter-spacing:-0.04em}
+.wproof-k .big{font-size:120px}
+@media (max-width:820px){.wh-live{width:auto;left:auto;top:auto}.wproof-k .big{font-size:84px}}
+/* question pages on white */
+.wq{position:relative;overflow:hidden;padding:40px 0 70px}
+.wq-in{display:grid;grid-template-columns:minmax(0,6.5fr) minmax(0,4.5fr);gap:80px;align-items:start;position:relative;z-index:2}
+.wq h1{font-size:clamp(40px,4.4vw,66px);line-height:1.02;font-style:italic}
+.wq-a{margin:22px 0 26px;font:500 25px/1.42 var(--serif);color:var(--ink)}
+.wq-orb{position:relative;aspect-ratio:1;width:84%;margin:0 auto}.wq-orb .orbit{position:absolute;inset:0}.wq-orb .medal{width:44%}
+.wq-orb .o-svg{-webkit-mask-image:radial-gradient(circle,transparent 0 21%,#000 24%);mask-image:radial-gradient(circle,transparent 0 21%,#000 24%)}
+.wlink2{color:var(--blue);text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:1px}
+/* the Manifest on white */
+.wmf-wrap{padding:28px 0 80px}
+.wmf{display:grid;grid-template-columns:minmax(0,1fr) 360px;border-radius:8px;box-shadow:inset 0 0 0 1px var(--hair),0 40px 80px -60px rgba(10,10,10,.5);overflow:hidden}
+.wmf-main{padding:34px 36px}
+.wmf h1{font-size:clamp(40px,4.4vw,66px);line-height:1}.wmf h1 .red{display:block}
+.wmf .lede{margin-top:14px;font-size:17px}
+.wmf-grid{display:grid;grid-template-columns:280px minmax(0,1fr);gap:26px;margin-top:26px;align-items:start}
+.wmf-orb{--k:.36}.wmf-orb .orbit{--k:.36}.wmf-orb .o-sys b{font-size:10.5px;padding:4px 6px}.wmf-orb .o-ch span{font-size:10px}
+.wmf-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.wmf-fields>div{padding:14px 16px;border-radius:6px;background:var(--panel)}
+.wmf-fields dt{font:500 22px/1.1 var(--serif);display:flex;gap:10px;align-items:baseline}.wmf-fields dt span{font:600 13px var(--sans);color:#fff;background:var(--blue);width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center}
+.wmf-fields dd{margin-top:8px;font-size:14px;color:var(--ink-2)}.wmf-fields ul,.wmf-fields ol{padding-left:18px;display:grid;gap:4px}
+.mf-team{display:flex;flex-wrap:wrap;gap:6px 12px}.mf-team span{display:flex;align-items:center;gap:6px}.mf-team b{font-weight:600;font-size:13.5px}
+.wmf-side{background:var(--panel);padding:34px 28px;display:flex;flex-direction:column;justify-content:center;box-shadow:inset 1px 0 0 var(--hair)}
+.wmf-for{font:italic 500 26px/1.1 var(--serif);margin-bottom:16px}
+.wmf-side .start{flex-direction:column;max-width:none}.wmf-side .start-in{height:48px}
+@media (max-width:1100px){.wmf-grid{grid-template-columns:1fr}.wmf-orb{max-width:300px}}
+@media (max-width:820px){.wq-in{grid-template-columns:1fr;gap:28px}.wq h1{font-size:34px}.wq-a{font-size:20px}.wq .start{flex-direction:column;max-width:none}
+  .wmf{grid-template-columns:1fr}.wmf-side{order:-1;box-shadow:inset 0 -1px 0 var(--hair);padding:20px}.wmf-main{padding:22px 20px}.wmf h1{font-size:34px}.wmf-fields{grid-template-columns:1fr}}
+/* the Live Stack on home becomes a full-width strip below the hero (main session, 15:0x) */
+.now{padding:8px 0 70px}
+.now-h{display:flex;align-items:center;gap:10px;font:600 15px var(--sans);color:var(--ink)}
+.now-h .pulse{width:8px;height:8px;border-radius:50%;background:var(--blue);animation:breathe 1.6s cubic-bezier(.32,.72,0,1) infinite}
+@keyframes breathe{50%{opacity:.35}}
+.now-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:14px}
+.now-row .live{max-width:none;box-shadow:0 18px 40px -26px rgba(10,10,10,.35)}
+/* 390: the medallion carries the start field above the fold */
+@media (max-width:820px){
+  .whome{padding-bottom:10px}
+  .whome .lede{font-size:15px}
+  .wh-orbit{width:100%;margin-top:4px}
+  .wh-orbit .medal{width:53%}
+  .wh-orbit .medal .start{display:flex;padding:4px}.wh-orbit .medal .start-in{height:38px;font-size:14px}.wh-orbit .medal .start-btn{height:40px;font-size:15px}
+  .wh-orbit .medal .medal-k{font-size:14px}.wh-orbit .medal-in{gap:6px;padding:0 9%}
+  .wh-orbit .medal .prices{display:none}
+  .now-row{grid-template-columns:1fr}
+}
+/* colour lives in the team: each character stands in a soft disc of its own hue (colour.md: the hues carry the page's colour) */
+.ow .o-ch::before{content:"";position:absolute;z-index:-1;left:50%;top:44%;width:calc(var(--sz) * var(--k) * 1.75px);height:calc(var(--sz) * var(--k) * 1.75px);transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(circle,color-mix(in srgb,var(--h) 30%,transparent) 0%,color-mix(in srgb,var(--h) 12%,transparent) 55%,transparent 72%)}
+.ow .o-ch span{position:relative}
+/* red is the payoff's last words only, the headline runs on in black ("mostly black": measured red > black before) */
+.whome h1 .red,.chapel-w h1 .red,.wdept h1 .red{display:inline}
+.wmf h1 .red{display:inline}
+/* clipped labels (main session 15:0x): keep the being-found orbit's right label and the featured card's left label inside */
+.wd-art{max-width:440px;margin-right:110px}
+.wmk .feat-orb{padding-left:84px;padding-right:20px}
+.wmk .feat-orb{padding-left:120px}
+.wmf-orb{padding:0 48px}.wmf-orb .o-full{display:none}.wmf-orb .o-short{display:inline}
+@media (max-width:820px){.wd-art{margin:0 auto!important;width:62%}.wh-orbit{width:88%}.wh-orbit .medal{width:57%}.wmf-orb{max-width:280px;margin:0 auto;padding:0 56px}.wmk .feat-orb{padding-left:56px}}
+
+/* ---------- Home, re-planned (Ben, 14:53-15:0x UTC): CTA first, the clean Orbit as the hero, industries, packages ---------- */
+.h2-top{padding:26px 0 40px}
+.h2-in{display:grid;grid-template-columns:400px minmax(0,1fr);gap:56px;align-items:start}
+.cta{position:sticky;top:20px;background:var(--panel);border-radius:10px;padding:28px 26px 22px;box-shadow:inset 0 0 0 1px var(--hair)}
+.cta-k{font:italic 500 26px/1 var(--serif);color:var(--ink)}
+.cta-t{margin:10px 0 18px;font-size:16px;color:var(--ink-2)}
+.cta .start{flex-direction:column;max-width:none;background:#fff}.cta .start-in{height:50px;font-size:17px}.cta .start-btn{height:52px}
+.cta .prices{font-size:13.5px}
+.cta-now{margin-top:22px;padding-top:18px;box-shadow:inset 0 1px 0 var(--hair)}
+.cta-now .now-h{font-size:13.5px}
+.cta-now .live.in-stack{background:transparent;padding:10px 0;border-top:0;box-shadow:inset 0 -1px 0 var(--hair)}
+.cta-now .live.in-stack:last-child{box-shadow:none}
+.hero2 h1{font-size:clamp(46px,4.9vw,76px);line-height:1}
+.hero2 .lede{margin-top:16px;font-size:18px;max-width:40em}
+.h2-orb{position:relative;width:min(100%,640px);aspect-ratio:1;margin:6px auto 0}
+.h2-orb .orbit{position:absolute;inset:0}
+.oclean .o-r0,.oclean .o-r1,.oclean .o-spoke{opacity:0}
+.h2-centre{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);font:italic 500 30px/1.1 var(--serif);color:var(--ink-3);text-align:center;max-width:36%}
+.sec-p{margin-top:12px;font-size:17px;color:var(--ink-2);max-width:40em}
+.ind{padding:70px 0 40px}
+.ind h2,.pkg h2{font-size:clamp(36px,3.8vw,56px);line-height:1.02}
+.ind-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:28px}
+.ind-card{padding:22px 20px 20px;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1px var(--hair);transition:box-shadow .5s var(--ease),transform .5s var(--ease)}
+.ind-card:hover{transform:translateY(-2px);box-shadow:inset 0 0 0 1px var(--blue),0 20px 40px -30px rgba(15,98,254,.55)}
+.ind-team{display:flex;align-items:flex-end;gap:2px}
+.ind-card h3{margin-top:14px;font-size:27px;line-height:1.08}
+.ind-card p{margin-top:6px;font-size:15px;line-height:1.45;color:var(--ink-2)}
+.pkg{padding:60px 0 50px;background:var(--panel)}
+.pkg-h{display:grid;grid-template-columns:auto 1fr auto;gap:28px;align-items:end}.pkg-h .sec-p{margin:0}.pkg-h .wlink{margin:0}
+.pkg-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
+.pkg-card{padding:18px 18px 16px;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1px var(--hair)}
+.pkg-card:hover{box-shadow:inset 0 0 0 1px var(--blue)}
+.pkg-card h3{margin-top:12px;font-size:23px;line-height:1.1}
+.pkg-card p{margin-top:6px;font-size:14.5px;color:var(--ink-3)}
+.how{padding:80px 0 80px}
+@media (max-width:1100px){.h2-in{grid-template-columns:1fr}.cta{position:static}.ind-grid,.pkg-grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:820px){
+  .h2-top{padding:14px 0 20px}
+  .h2-in{gap:28px}
+  .cta{padding:20px 18px 16px}
+  .cta-k{font-size:24px}.cta-t{font-size:15px;margin:8px 0 14px}
+  .cta-now{display:none}
+  .hero2 h1{font-size:38px}.hero2 .lede{font-size:16px}
+  .h2-orb{width:70%;margin-top:14px}.h2-centre{font-size:19px}
+  .ind{padding:44px 0 24px}.ind-grid,.pkg-grid{grid-template-columns:1fr;gap:12px}
+  .ind-card{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;align-items:center;padding:16px}.ind-card .ind-team{grid-row:span 2}.ind-card .ind-team svg{width:30px;height:30px}.ind-card h3{margin:0;font-size:22px}.ind-card p{margin:0;grid-column:2}
+  .pkg-h{grid-template-columns:1fr;gap:8px}
+  .pkg-card{display:grid;grid-template-columns:auto 1fr;gap:2px 14px;align-items:center;padding:14px}.pkg-card .ind-team{grid-row:span 2}.pkg-card .ind-team svg{width:26px;height:26px}.pkg-card h3{margin:0;font-size:20px}.pkg-card p{margin:0;grid-column:2}
+  .how-grid{grid-template-columns:1fr!important;gap:22px}.how-grid li{display:grid;grid-template-columns:auto 1fr;gap:4px 14px}.how-grid .how-n{grid-row:span 2}.how-grid h3{margin:0;font-size:24px!important}.how-grid p{margin:0}
+  .wind-grid{grid-template-columns:1fr}
+}
+.oclean .o-hand{opacity:0}
+@media (max-width:820px){
+  .h2-orb{width:84%}
+  .ind-card,.pkg-card{display:block;padding:16px}
+  .ind-card .ind-team svg{width:32px;height:32px}.pkg-card .ind-team svg{width:28px;height:28px}
+  .ind-card h3{margin-top:10px;font-size:23px}.ind-card p{margin-top:4px}
+  .pkg-card h3{margin-top:8px;font-size:21px}.pkg-card p{margin-top:4px}
+  .ind-grid{grid-template-columns:1fr 1fr;gap:10px}.ind-card h3{font-size:20px}.ind-card p{font-size:13.5px}
+}

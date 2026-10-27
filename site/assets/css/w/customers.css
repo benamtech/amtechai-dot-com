@@ -1,0 +1,151 @@
+/* The customer story and the customers hub (lane STORY, 2026-10-27). */
+/* Customer stories (/customers, /customers/<slug>; lane STORY, 2026-10-27, SECTIONS-PLAN §10 N16). Grounds: white, with
+   Bone for the captures and the owner's words, Paper for the timeline; never two tinted sections in a row. */
+.wcs-hero{padding:48px 0 72px}
+.wcs-hero-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:center}
+.wcs-hero h1{font-size:clamp(42px,4.6vw,70px);line-height:1}
+.wcs-hero h1 .blue{display:block;font-family:var(--sans);font-weight:700;letter-spacing:-0.04em;font-size:1.15em;margin-top:.08em;color:var(--blue)}
+.wcs-hero .lede{margin-top:18px;font-size:17.5px}
+.wcs-hero .start{margin-top:26px}
+.wcs-out{display:flex;flex-wrap:wrap;gap:8px 24px;align-items:baseline;margin-top:6px}
+.wcs-out .wlink2{font-size:15px}
+.wcs-frame{position:relative;border-radius:8px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(10,10,10,.08),0 30px 60px -32px rgba(10,10,10,.45)}
+.wcs-frame img{width:100%;height:auto;display:block}
+.wcs-bar{display:flex;gap:5px;align-items:center;height:22px;padding:0 10px;background:var(--panel);box-shadow:inset 0 -1px 0 var(--hair)}
+.wcs-bar i{width:7px;height:7px;border-radius:50%;background:#D4D4D8}
+.wcs-hero-art{position:relative;margin:0;padding-bottom:22%}
+.wcs-h0{width:92%}
+.wcs-h1{position:absolute;right:0;bottom:30px;width:38%}
+.wcs-hero-art figcaption,.wcs-shot figcaption{margin-top:12px;font-size:13.5px;color:var(--ink-3)}
+.wcs-hero-art figcaption{position:absolute;left:0;bottom:0;width:58%}
+.wcs-hub-art{padding-bottom:0;max-width:440px;margin-left:auto}
+.wcs-hub-art figcaption{position:static;width:auto}
+
+/* Facts and figures */
+.wcs-facts{padding:24px 0 96px}
+.wcs-facts-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+.wcs-box{border-top:1.5px solid var(--ink);padding-top:18px}
+.wcs-box h2{font-size:32px}
+.wcs-box dl{margin-top:10px}
+.wcs-box dl>div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid var(--hair)}
+.wcs-box dt{font-size:14px;font-weight:600;color:var(--ink)}
+.wcs-box dd{font-size:15.5px;color:var(--ink-2)}
+.wcs-figs{list-style:none;display:grid;gap:0}
+.wcs-figs li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--hair)}
+.wcs-figs li:first-child{padding-top:0}
+.wcs-figs b{grid-row:span 2;font:700 76px/0.9 var(--sans);letter-spacing:-0.045em}
+.wcs-figs li:last-child b{font-size:38px;line-height:1}
+.wcs-figs span{font:500 23px/1.25 var(--serif);color:var(--ink)}
+.wcs-figs small{font-size:13px;color:var(--ink-3)}
+
+/* The captures */
+.wcs-gal,.wcs-did,.wcs-time,.wcs-words,.wcs-trades{padding:104px 0}
+.wcs-gal h2,.wcs-did h2,.wcs-time h2,.wcs-words h2,.wcs-trades h2,.wcs-how h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04;max-width:20em}
+.wcs-gh{margin-top:48px;font-size:28px}
+.wcs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 32px;margin-top:20px}
+.wcs-shot{margin:0}
+.wcs-pics{display:grid;grid-template-columns:minmax(0,1fr) 24%;gap:14px;align-items:start}
+.wcs-shot:not(.wcs-pair) .wcs-pics{grid-template-columns:minmax(0,1fr)}
+.wcs-phone{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(10,10,10,.1),0 24px 48px -26px rgba(10,10,10,.45)}
+.wcs-phone img{width:100%;height:auto;display:block}
+.wcs-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.wcs-ai blockquote{padding:20px;background:#fff;border-radius:8px;box-shadow:inset 0 0 0 1px var(--hair);font-size:15.5px;color:var(--ink-2)}
+.wcs-q{font-weight:600;color:var(--ink);margin-bottom:8px}
+
+/* What his employee did, in order */
+.wcs-did-l{list-style:none;margin-top:40px;display:grid;gap:64px}
+.wcs-row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:center}
+.wcs-row:nth-child(even) .wcs-row-t{order:2}
+.wcs-row h3{margin-top:14px;font-size:34px;line-height:1.08}
+.wcs-row p{margin-top:12px;font-size:17px;color:var(--ink-2);max-width:34em}
+.wcs-row-ph .wcs-phone{width:min(220px,56%);justify-self:center}
+.wcs-row>.wcs-frame:not(.wcs-phone){width:100%;max-width:560px;justify-self:center}
+.wcs-row:last-child>.wcs-frame{max-width:420px}
+
+/* The timeline */
+.wcs-time-r{list-style:none;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));margin-top:48px;border-top:1.5px solid var(--ink)}
+.wcs-time-r li{position:relative;padding:22px 24px 0 0}
+.wcs-time-r li::before{content:"";position:absolute;left:0;top:-7px;width:12px;height:12px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px var(--panel)}
+.wcs-time-r li:first-child::before{background:var(--red)}
+.wcs-when{display:block;font:600 13px/1.3 var(--sans);color:var(--ink-3)}
+.wcs-time-r h3{margin-top:8px;font-size:26px;line-height:1.1}
+.wcs-time-r p{margin-top:8px;font-size:15px;color:var(--ink-2)}
+
+/* The owner's words */
+.wcs-quotes{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:28px 56px;margin-top:40px}
+.wcs-quotes figure{margin:0;padding-top:18px;border-top:1px solid rgba(10,10,10,.14)}
+.wcs-quotes figure:first-child{grid-row:span 2;border-top:1.5px solid var(--ink)}
+.wcs-quotes blockquote p{font:italic 500 26px/1.3 var(--serif);color:var(--ink)}
+.wcs-quotes figure:first-child blockquote p{font-size:clamp(34px,3.4vw,50px);line-height:1.12}
+.wcs-quotes figcaption{margin-top:12px;font-size:14px;color:var(--ink-3)}
+
+/* How it was done */
+.wcs-how{padding:96px 0}
+.wcs-how-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:64px;align-items:start}
+.wcs-how p{font-size:19px;color:var(--ink-2)}
+
+/* The trades */
+.wcs-trades{padding-top:24px}
+.wcs-trade-l{list-style:none;margin-top:32px;border-top:1px solid var(--ink)}
+.wcs-trade-l a{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,7fr) 32px;gap:24px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--hair)}
+.wcs-tn{font:500 34px/1.1 var(--serif);color:var(--ink)}
+.wcs-tl{font-size:16px;color:var(--ink-2)}
+.wcs-ta{color:var(--blue);font-size:20px;transition:transform .4s var(--ease)}
+.wcs-trade-l a:hover .wcs-tn{color:var(--blue-2)}.wcs-trade-l a:hover .wcs-ta{transform:translateX(4px)}
+
+/* Ask the AIs */
+.wcs-ask{padding:72px 0}
+.wcs .wcs-ask h2.wask-h{font:500 32px/1.15 var(--serif);max-width:none}
+.wcs-prompt{margin-top:14px;font:italic 500 22px/1.3 var(--serif);color:var(--ink)}
+
+@media (max-width:1100px){
+  .wcs-hero-in,.wcs-facts-in,.wcs-row,.wcs-how-in{grid-template-columns:minmax(0,1fr);gap:36px}
+  .wcs-row:nth-child(even) .wcs-row-t{order:0}
+  .wcs-time-r{grid-template-columns:minmax(0,1fr);border-top:0;border-left:1.5px solid var(--ink);margin-left:6px}
+  .wcs-time-r li{padding:0 0 28px 26px}.wcs-time-r li::before{left:-7px;top:4px}
+  .wcs-quotes{grid-template-columns:minmax(0,1fr)}.wcs-quotes figure:first-child{grid-row:auto}
+  .wcs-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:820px){
+  .wcs-hero{padding:18px 0 48px}.wcs-hero h1{font-size:36px}.wcs-hero .lede{font-size:16px;margin-top:12px}
+  .wcs-hero .start{flex-direction:column;max-width:none;margin-top:18px}
+  .wcs-gal,.wcs-did,.wcs-time,.wcs-words,.wcs-trades,.wcs-how{padding:60px 0}
+  .wcs-facts{padding:8px 0 60px}
+  .wcs-grid,.wcs-grid-3{grid-template-columns:minmax(0,1fr)}
+  .wcs-box dl>div{grid-template-columns:minmax(0,1fr);gap:2px}
+  .wcs-figs li{grid-template-columns:minmax(0,1fr)}.wcs-figs b{font-size:60px}.wcs-figs span{font-size:20px}
+  .wcs-row h3{font-size:28px}.wcs-row p{font-size:16px}
+  .wcs-trade-l a{grid-template-columns:minmax(0,1fr) 24px;gap:4px 12px}.wcs-tn{font-size:26px}.wcs-tl{grid-column:1;grid-row:2}.wcs-ta{grid-row:1/span 2;grid-column:2;align-self:center}
+  .wcs-quotes blockquote p{font-size:22px}.wcs-quotes figure:first-child blockquote p{font-size:30px}
+  .wcs-hero-art{padding-bottom:0}.wcs-h0{width:92%}.wcs-h1{position:relative;right:auto;bottom:auto;width:48%;margin:-64px 0 0 auto}.wcs-hero-art figcaption{position:static;width:auto;margin-top:12px}
+  .wcs-hub-art{max-width:none}.wcs-hub-art figcaption{margin-top:12px}
+}
+/* ChatGPT's answer, its own section (Ben: "well placed and well formatted"): the capture at its true size in a soft
+   card beside the question, never scaled up. */
+.wcs-gpt{padding:88px 0}
+.wcs-gpt-in{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,632px);gap:56px;align-items:center;justify-content:space-between}
+.wcs-gpt h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04}
+.wcs-gpt-q{margin-top:22px;padding:14px 18px;border-radius:999px;background:var(--panel);font-size:15.5px;color:var(--ink);width:fit-content;max-width:100%}
+.wcs-gpt-when{margin-top:12px;font-size:13px;color:var(--ink-3)}
+.wcs-gpt-go{display:inline-block;margin-top:18px}
+.wcs-gpt-shot{margin:0;border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 1px 0 var(--hair),0 0 0 1px var(--hair),0 30px 60px -32px rgba(10,10,10,.35)}
+.wcs-gpt-shot img{display:block;width:100%;height:auto}
+@media (max-width:1100px){.wcs-gpt-in{grid-template-columns:minmax(0,1fr);gap:28px}.wcs-gpt-shot{max-width:632px}}
+@media (max-width:640px){.wcs-gpt{padding:52px 0}.wcs-gpt-q{border-radius:12px}}
+.wcs-gpt-go{padding:10px 16px;border-radius:6px;box-shadow:inset 0 0 0 1.5px var(--ink);font-size:15px;font-weight:600;color:var(--ink)}
+.wcs-gpt-go:hover{box-shadow:inset 0 0 0 1.5px var(--blue);color:var(--blue-2)}
+@media (max-width:640px){.wcs-gpt .wrap.wcs-gpt-in{padding-left:16px;padding-right:16px}}
+/* Ben, 2026-10-27: the hero keeps its large "#1 in its area." in blue; no repeated "#1" and no large red text below it:
+   the figures are plain statements in black serif. */
+   /* Ben: "the #1 in its area is good on the hero but that should be in blue" */
+.wcs-figs b{font:500 30px/1.1 var(--serif);letter-spacing:-0.01em;color:var(--ink)}
+@media (max-width:640px){.wcs-figs b{font-size:26px}}
+.wcs-figs span{font:400 16px/1.5 var(--sans);color:var(--ink-2)}
+.wcs-h1{width:62%;bottom:0}
+@media (max-width:640px){.wcs-h1{width:92%;margin:-40px 0 0 auto}}
+/* The ChatGPT card overlaps the site's bottom-right; the caption goes under both, never under the card. */
+@media (min-width:641px){.wcs-hero-art{padding-bottom:26%}.wcs-h1{bottom:52px}.wcs-hero-art figcaption{position:absolute;left:0;bottom:0;width:100%;text-align:right}}
+/* The hub's single picture: no overlap, so no reserved space; the caption sits right under it. */
+.wcs-hero-art.wcs-hub-art{padding-bottom:0}
+.wcs-hub-art figcaption{position:static!important;text-align:left!important;margin-top:12px}
+.wcs-hub-art .wcs-frame{max-width:632px;margin-left:auto}

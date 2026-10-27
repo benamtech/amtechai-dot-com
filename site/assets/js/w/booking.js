@@ -1,7 +1,9 @@
-// The booking page, as src/pages/ScheduleDemo.tsx and src/components/schedule/ did it, without React. Every class
-// string is the component's own, written out here so Tailwind generates it.
+// The booking page in C on white (lane PAGES2, 2026-10-27; first ported from src/pages/ScheduleDemo.tsx): the same
+// steps, schedule, time zones and calls to the platform. State is carried by attributes (data-state, aria-pressed,
+// disabled) that assets/css/w/company.css draws; the words come from content/schedule-demo.md via BOOKING.words.
 (() => {
   const C = window.BOOKING;
+  const T = C.words;
   const $ = (s, r = document) => r.querySelector(s);
   const $$ = (s, r = document) => [...r.querySelectorAll(s)];
   const state = { step: 0, name: '', email: '', organization: '', industry: '', topic: '', date: null, time: '', booked: [], loading: false, submitting: false };
@@ -172,22 +174,15 @@
     indicator();
     moving = moving.then(() => new Promise((done) => {
       from.style.transition = 'opacity 0.2s ease-out, transform 0.2s ease-out'; from.style.opacity = '0'; from.style.transform = 'translateX(-20px)';
-      setTimeout(() => { from.hidden = true; show(to, 'translateX(20px)'); done(); }, 200);
+      setTimeout(() => { from.hidden = true; show(to, 'translateX(20px)'); const f = to.querySelector('h3, input'); if (f) { if (f.tagName === 'H3') f.tabIndex = -1; f.focus({ preventScroll: true }); } done(); }, 200);
     }));
   };
 
-  // ---- step indicator (StepIndicator.tsx) ----
-  const CHECK = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check w-3 h-3"><path d="M20 6 9 17l-5-5"></path></svg>';
+  // ---- step indicator ----
   function indicator() {
     $$('[data-dot]').forEach((dot, i) => {
-      const done = i < state.step, active = i === state.step;
-      dot.className = `w-6 h-6 flex items-center justify-center text-[10px] font-bold rounded-md transition-all duration-300 ${done ? 'bg-red text-white' : active ? 'border border-black/30 text-black' : 'border border-black/20 text-black/50'}`;
-      dot.innerHTML = done ? CHECK : String(i + 1);
-      const label = dot.nextElementSibling;
-      label.className = `hidden sm:inline text-[10px] tracking-[0.12em] uppercase font-semibold transition-colors duration-300 ${active ? 'text-black' : done ? 'text-black/60' : 'text-black/50'}`;
-    });
-    $$('[data-line]').forEach((line, k) => {
-      line.className = `w-4 sm:w-8 lg:w-12 h-px transition-colors duration-300 ${k + 1 < state.step ? 'bg-black' : 'bg-black/10'}`;
+      dot.dataset.state = i < state.step ? 'done' : i === state.step ? 'active' : '';
+      if (i === state.step) dot.setAttribute('aria-current', 'step'); else dot.removeAttribute('aria-current');
     });
   }
 
@@ -197,12 +192,12 @@
     e.preventDefault();
     const v = (k) => info.elements[k].value;
     const errs = {};
-    if (!v('name').trim()) errs.name = 'Name is required';
-    if (!v('email').trim()) errs.email = 'Email is required';
-    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) errs.email = 'Enter a valid email';
-    if (!v('organization').trim()) errs.organization = 'Organization is required';
-    for (const k of ['name', 'email', 'organization']) { const p = $(`[data-error="${k}"]`); p.textContent = errs[k] || ''; p.hidden = !errs[k]; }
-    if (Object.keys(errs).length) return;
+    if (!v('name').trim()) errs.name = T.name_req;
+    if (!v('email').trim()) errs.email = T.email_req;
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v('email'))) errs.email = T.email_bad;
+    if (!v('organization').trim()) errs.organization = T.org_req;
+    for (const k of ['name', 'email', 'organization']) { const p = $(`[data-error="${k}"]`); p.textContent = errs[k] || ''; p.hidden = !errs[k]; info.elements[k].setAttribute('aria-invalid', errs[k] ? 'true' : 'false'); if (errs[k]) info.elements[k].setAttribute('aria-describedby', p.id = `bk-${k}-err`); }
+    if (Object.keys(errs).length) { info.elements[Object.keys(errs)[0]].focus(); return; }
     state.name = v('name').trim(); state.email = v('email').trim(); state.organization = v('organization').trim();
     go(1);
   });
@@ -213,12 +208,7 @@
     const next = $('[data-next]', panel);
     $$('[data-option]', panel).forEach((b) => b.addEventListener('click', () => {
       state[key] = b.dataset.option;
-      $$('[data-option]', panel).forEach((o) => {
-        const on = o.dataset.option === state[key];
-        o.className = `w-full text-left px-5 py-4 rounded-xl transition-all duration-200 flex items-center justify-between ${on ? 'glass-bright text-black' : 'glass text-black/60 hover:text-black'}`;
-        o.style.borderColor = on ? 'rgba(225, 29, 42, 0.3)' : '';
-        o.querySelector('svg').toggleAttribute('hidden', !on);
-      });
+      $$('[data-option]', panel).forEach((o) => o.setAttribute('aria-pressed', String(o.dataset.option === state[key])));
       next.disabled = false;
     }));
     const n = Number(panel.dataset.step);
@@ -240,7 +230,7 @@
     const grid = $('[data-days]');
     $$('[data-cell]', grid).forEach((c) => c.remove());
     const first = new Date(y, m, 1).getDay(), count = new Date(y, m + 1, 0).getDate();
-    for (let i = 0; i < first; i++) grid.insertAdjacentHTML('beforeend', '<div data-cell class="aspect-square"></div>');
+    for (let i = 0; i < first; i++) grid.insertAdjacentHTML('beforeend', '<div data-cell class="bk-day bk-pad"></div>');
     for (let d = 1; d <= count; d++) {
       const date = new Date(y, m, d);
       const disabled = date < today || !HOURS[date.getDay()];
@@ -248,8 +238,10 @@
       const isToday = sameDay(date, today);
       const b = document.createElement('button');
       b.type = 'button'; b.dataset.cell = ''; b.disabled = disabled; b.textContent = String(d);
-      b.className = `aspect-square flex items-center justify-center text-[12px] font-medium rounded-lg transition-all duration-150 relative ${disabled ? 'text-black/10 cursor-not-allowed' : selected ? 'bg-red text-white font-bold' : isToday ? 'text-black font-bold' : 'text-black/60 hover:bg-black/[0.04]'}`;
-      if (isToday && !selected) b.insertAdjacentHTML('beforeend', '<span class="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-red"></span>');
+      b.className = 'bk-day';
+      b.setAttribute('aria-pressed', String(selected));
+      b.setAttribute('aria-label', display(date));
+      if (isToday) b.dataset.today = '';
       b.addEventListener('click', () => pickDate(date));
       grid.appendChild(b);
     }
@@ -268,22 +260,23 @@
   function times() {
     const box = $('[data-times]');
     confirm.disabled = !state.date || !state.time || state.submitting;
-    if (!state.date) { box.innerHTML = '<div class="flex items-center justify-center h-full min-h-[200px]"><p class="mono-label text-black/50">Select a date first</p></div>'; return; }
+    const msg = (t) => { const p = document.createElement('p'); p.className = 'bk-empty'; p.textContent = t; box.appendChild(p); };
     box.innerHTML = '';
-    box.insertAdjacentHTML('beforeend', '<div class="text-[11px] text-black/55 mb-4"></div>');
+    if (!state.date) { msg(T.pick_date); return; }
+    box.insertAdjacentHTML('beforeend', '<p class="bk-date"></p>');
     box.lastElementChild.textContent = display(state.date);
-    if (sameDay(state.date, today)) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center h-full min-h-[160px]"><p class="mono-label text-black/55">Sorry — All booked up!</p></div>'); return; }
-    if (state.loading) { box.insertAdjacentHTML('beforeend', '<div class="flex items-center justify-center py-8"><div class="mono-label text-black/50">Loading availability...</div></div>'); return; }
+    if (sameDay(state.date, today)) { msg(T.full); return; }
+    if (state.loading) { msg(T.loading); return; }
     const slots = slotsFor(state.date);
     const taken = new Set(state.booked.map(storedMinutes).filter((m) => m !== null));
     const held = heldFor(state.date, taken);
-    const wrap = document.createElement('div'); wrap.className = 'space-y-4'; box.appendChild(wrap);
+    const wrap = document.createElement('div'); wrap.className = 'bk-groups'; box.appendChild(wrap);
     // Grouped by the visitor's own clock, in time order: Ben's Friday evening is a Pacific visitor's afternoon, and a
     // Tokyo visitor's Monday night runs on into Tuesday morning, so a group names the day when it is not the calendar's.
     const groups = [];
     for (const t of slots) {
       const at = instant(state.date, t), h = localHour(at);
-      const key = (h < 12 ? 'Morning' : h < 17 ? 'Afternoon' : 'Evening')
+      const key = (h < 12 ? T.parts[0] : h < 17 ? T.parts[1] : T.parts[2])
         + (dayKey(at, zone) === forDB(state.date) ? '' : `, ${localWeekday(at)}`);
       if (!groups.length || groups[groups.length - 1][0] !== key) groups.push([key, []]);
       groups[groups.length - 1][1].push(t);
@@ -291,14 +284,16 @@
     for (const [label, part] of groups) {
       if (!part.length) continue;
       const sec = document.createElement('div');
-      sec.innerHTML = `<div class="mono-label text-black/50 mb-2">${label}</div><div class="grid grid-cols-2 sm:grid-cols-3 gap-2"></div>`;
+      sec.innerHTML = '<p class="bk-part"></p><div class="bk-slots"></div>';
+      sec.firstElementChild.textContent = label;
       for (const t of part) {
         const time = fmtSlot(t), isBooked = taken.has(t) || held.has(t), on = state.time === time;
         const b = document.createElement('button');
         b.type = 'button'; b.disabled = isBooked; b.textContent = localClock(instant(state.date, t));     // the group names the day
         if (zone !== ET) b.title = `${clock(t)} Eastern`;
-        b.className = `px-2 py-2.5 text-[11px] tracking-wide rounded-lg transition-all duration-200 ${isBooked ? 'border border-black/5 text-black/15 cursor-not-allowed line-through' : on ? 'bg-red text-white font-semibold' : 'border border-black/10 text-black/60 hover:border-black/20 hover:text-black'}`;
-        b.addEventListener('click', () => { state.time = time; confirm.textContent = 'Confirm Booking'; times(); });
+        b.className = 'bk-slot';
+        b.setAttribute('aria-pressed', String(on));
+        b.addEventListener('click', () => { state.time = time; confirm.textContent = T.confirm; times(); const again = [...box.querySelectorAll('.bk-slot')].find((x) => x.getAttribute('aria-pressed') === 'true'); again && again.focus(); });
         sec.lastElementChild.appendChild(b);
       }
       wrap.appendChild(sec);
@@ -307,28 +302,28 @@
     if (state.time && zone !== ET) {
       const t = storedMinutes(state.time);
       const note = document.createElement('p');
-      note.className = 'text-[11px] text-black/55';
-      note.textContent = `${shown(state.date, t)} ${zoneShort(zone, instant(state.date, t))} is ${clock(t)} Eastern Time, when the call is on our calendar.`;
+      note.className = 'bk-note';
+      note.textContent = `${shown(state.date, t)} ${zoneShort(zone, instant(state.date, t))} = ${clock(t)} ${T.eastern}, ${T.note}.`;
       wrap.appendChild(note);
     }
   }
 
   confirm.addEventListener('click', async () => {
     if (!state.date || !state.time) return;
-    state.submitting = true; confirm.textContent = 'Scheduling...'; times();
+    state.submitting = true; confirm.textContent = T.sending; times();
     const booking = { name: state.name, email: state.email, organization: state.organization, industry: state.industry, topic: state.topic, bookingDate: forDB(state.date), bookingTime: state.time };
     const res = await createBooking(booking);
     state.submitting = false;
     if (res !== 'ok') {
       if (res === 'taken') { state.time = ''; state.booked = await bookedSlots(forDB(state.date)); }
-      confirm.textContent = res === 'taken' ? 'That time was just taken. Pick another' : 'That did not go through. Try again';
+      confirm.textContent = res === 'taken' ? T.taken : T.failed;
       times();
       return;
     }
-    confirm.textContent = 'Confirm Booking'; times();
+    confirm.textContent = T.confirm; times();
     booking.bookingDate = display(state.date);
     const at = instant(state.date, storedMinutes(state.time));
-    booking.bookingTime = zone === ET ? `${clock(storedMinutes(state.time))} Eastern Time`
+    booking.bookingTime = zone === ET ? `${clock(storedMinutes(state.time))} ${T.eastern}`
       : `${shown(state.date, storedMinutes(state.time))} ${zoneName(zone, at)} (${clock(storedMinutes(state.time))} Eastern)`;
     window.gtag?.('event', 'generate_lead', { industry: state.industry, topic: state.topic });
     for (const el of $$('[data-v]')) el.textContent = booking[el.dataset.v];
@@ -338,6 +333,7 @@
     done.style.transition = 'none'; done.style.opacity = '0'; done.style.transform = 'scale(0.97)';
     done.getBoundingClientRect();
     done.style.transition = 'opacity 0.3s ease-out, transform 0.3s ease-out'; done.style.opacity = '1'; done.style.transform = 'none';
+    done.focus({ preventScroll: true }); done.scrollIntoView({ block: 'start' });
   });
 
   zonePicker();

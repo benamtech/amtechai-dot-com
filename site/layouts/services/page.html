@@ -1,0 +1,46 @@
+{{- /* A service page (/services/<slug>), lane PAGES 2026-10-27. The slug is a package in data/services.json, which gives
+       the page its name, team, connections and group. A conventional hero (Ben, 2026-10-27): the H1 with its red
+       payoff, the paragraph and the start field (config=<slug>) in one column, the Orbit beside it. Then ART's Manifest
+       as a card below the hero, never beside it: 1 the team, 2 connects to, 3 routines, 4 first jobs. Then who it is
+       for, its questions, Scoop Dogg where it fits, the closing start. Since 17:1x (SECTIONS-PLAN §7) the journey around
+       it: the work in the application, how the work runs, Scoop Dogg, the start, the week, what it takes the place of,
+       connections, your yes, who uses it, price, questions, next pages. Each new section shows once its words exist. Every other word is in the page's content file
+       (docs/build/CONTENT-MODEL.md, "A service page"). */ -}}
+{{- $p := . }}{{ $names := .Params.names -}}
+{{- range slice "title" "description" "crumb" "h1a" "h1b" "sub" "field" "button" "employee_does" "team_detail" "routines" "first_jobs" "live" "manifest_h" "for_h" "for_sub" "industries" "questions_h" "questions" "closing_h" "closing_sub" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- $slug := .File.ContentBaseName }}{{ if eq $slug "index" }}{{ $slug = path.Base .File.Dir }}{{ end -}}
+{{- $s := index (where hugo.Data.services "slug" $slug) 0 }}{{ if not $s }}{{ errorf "GATE %s: %q is not a package in data/services.json" .File.Path $slug }}{{ end -}}
+{{- if ne (len .Params.first_jobs) 3 }}{{ errorf "GATE %s: first_jobs must be exactly 3" .File.Path }}{{ end -}}
+{{- $systems := $s.connects }}{{ range .Params.systems_more }}{{ $systems = $systems | append . }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="sky psv"><div class="wrap psv-in"><div class="psv-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button "config" $slug) }}{{ with .Params.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "cw-live") }}{{ end }}</div>
+<div class="psv-art"><div class="wq-orb">{{ partial "w/orbit.html" (dict "team" $s.team "systems" $systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true"><div class="medal-in"><p class="medal-k">{{ $s.group }}</p><p class="medal-name" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p></div></div></div></div></div></section>
+<section class="pmf-wrap"><div class="wrap"><div class="pmf"><h2>{{ .Params.manifest_h }}</h2><div class="pmf-grid">
+<div class="pmf-f"><h3><span aria-hidden="true">1</span>The team</h3><ul class="pmf-team">
+<li>{{ partial "w/character.html" (dict "id" "employee" "size" 40) }}<div><b>Your AI employee</b><p>{{ .Params.employee_does }}</p></div></li>
+{{- range .Params.team_detail }}{{ if not (in $s.team .id) }}{{ errorf "GATE %s: team_detail names %q, which is not in the package's team" $p.File.Path .id }}{{ end }}<li>{{ partial "w/character.html" (dict "id" .id "size" 40) }}<div><b>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</b><p>{{ .does }}</p></div></li>{{ end }}
+</ul></div>
+<div class="pmf-f"><h3><span aria-hidden="true">2</span>Connects to</h3><ul class="pmf-sys">{{ range $systems }}<li>{{ . }}</li>{{ end }}</ul>{{ with .Params.connects_note }}<p class="pmf-note">{{ . }}</p>{{ end }}</div>
+<div class="pmf-f"><h3><span aria-hidden="true">3</span>Routines</h3><ul class="pmf-list">{{ range .Params.routines }}<li>{{ . }}</li>{{ end }}</ul></div>
+<div class="pmf-f"><h3><span aria-hidden="true">4</span>First jobs</h3><ol class="pmf-list">{{ range .Params.first_jobs }}<li>{{ . }}</li>{{ end }}</ol></div>
+</div></div></div></section>
+{{- with .Params.frame }}<section class="wframe g-paper"><div class="wrap"><h2>{{ $p.Params.frame_h }}</h2>{{ partial "w/appframe.html" (dict "frame" .) }}</div></section>{{ end }}
+{{- with .Params.work_steps }}<section class="how"><div class="wrap"><h2>{{ $p.Params.work_h }}</h2><ol class="how-grid{{ if gt (len .) 4 }} how-5{{ end }}">{{ range $i, $st := . }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $st.h }}</h3><p>{{ $st.p }}</p></li>{{ end }}</ol></div></section>{{ end }}
+{{ partial "w/proofsplit.html" (dict "h" .Params.proof_h "p" .Params.proof_p "g" "g-bone") }}
+{{- with .Params.start2_h }}{{ partial "w/startband.html" (dict "h" . "field" $p.Params.field "button" $p.Params.button) }}{{ end }}
+{{- with .Params.week }}{{ partial "w/week.html" (dict "h" $p.Params.week_h "sub" $p.Params.week_sub "days" .) }}{{ end }}
+{{- with .Params.instead }}{{ partial "w/instead.html" (dict "h" $p.Params.instead_h "sub" $p.Params.instead_sub "rows" .) }}{{ end }}
+{{- with .Params.connects }}{{ partial "w/connects.html" (dict "h" $p.Params.connects_h "sub" $p.Params.connects_sub "groups" . "how" $p.Params.connects_how "link" $p.Params.connects_link "g" "g-paper") }}{{ end }}
+{{- with .Params.on_its_own }}{{ partial "w/yes.html" (dict "h" $p.Params.yes_h "sub" $p.Params.yes_sub "own" . "waits" $p.Params.waits "approval" $p.Params.approval) }}{{ end }}
+<section class="ind pfor"><div class="wrap"><h2>{{ .Params.for_h }}</h2><p class="sec-p">{{ .Params.for_sub }}</p><div class="pfor-grid">
+{{- range .Params.industries }}{{ $ip := site.GetPage (printf "/industries/%s" .slug) }}{{ if $ip }}<a class="ind-card" href="{{ $ip.RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range $ip.Params.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $ip.Params.label }}</h3><p>{{ .line }}</p></a>{{ else }}<div class="ind-card"><h3>{{ .label }}</h3><p>{{ .line }}</p></div>{{ end }}{{ end }}
+</div></div></section>
+{{- with .Params.price_h }}{{ partial "w/price.html" (dict "h" . "q" $p.Params.price_q "g" "g-paper") }}{{ end }}
+<section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.asked }}<ul class="pq-asked">{{ range . }}<li><a class="wlink2" href="{{ .href }}">{{ .text }}</a></li>{{ end }}</ul>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
+{{ partial "w/next.html" (dict "h" .Params.next_h "rows" .Params.next) }}
+<section class="wclose"><div class="wrap"><h2>{{ .Params.closing_h }}</h2><p>{{ .Params.closing_sub }}</p>{{ partial "w/start.html" (dict "id" "start2" "field" .Params.field "button" .Params.button "config" $slug) }}</div></section>
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

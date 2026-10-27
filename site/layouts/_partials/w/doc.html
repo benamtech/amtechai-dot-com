@@ -1,0 +1,39 @@
+{{- /* N3 Document (lane FRAME, SECTIONS-PLAN §2): one piece of finished work, drawn as paper in the application's look.
+       (dict "doc" .) where the doc comes whole from the page's content file:
+         kind      estimate | email | invoice | page | sheet | report
+         title     the document's name, as the application lists it            (required)
+         meta      one line under the title (where it came from), optional
+         estimate  rows: [{item, qty (only from a real run), unit}], priced: the words in the price column ("From your book")
+         email     to, subject, body: [paragraphs]
+         invoice   to, rows: [{item, note}], due, pay (the pay button's words)
+         page      url, h, p, button, rows: [lines the page answers]
+         sheet     cols: [..], rows: [[..], ..]
+         report    rows: [{label, value}]: the morning numbers as labels only
+         foot      one closing line, optional
+       No money figure ever (SECTIONS-PLAN §0.7): a price reads as words. Column labels are the application's own
+       (data/frame.json). */ -}}
+{{- $d := .doc }}{{ $F := hugo.Data.frame -}}
+{{- if not $d.title }}{{ errorf "doc: a document has no title (kind %q)" $d.kind }}{{ end -}}
+{{- if not (in (slice "estimate" "email" "invoice" "page" "sheet" "report") $d.kind) }}{{ errorf "doc: unknown kind %q (%s)" $d.kind $d.title }}{{ end -}}
+<article class="doc doc-{{ $d.kind }}">
+<header class="doc-h"><b>{{ $d.title }}</b>{{ with $d.meta }}<span>{{ . }}</span>{{ end }}</header>
+{{- if eq $d.kind "estimate" }}
+<table class="doc-t"><thead><tr><th scope="col">{{ $F.item }}</th><th scope="col" class="n">{{ $F.qty }}</th><th scope="col">{{ $F.unit }}</th><th scope="col" class="r">{{ $F.price }}</th></tr></thead><tbody>
+{{- range $d.rows }}<tr><td>{{ .item }}</td><td class="n">{{ with .qty }}{{ . }}{{ else }}<span class="doc-dash" aria-hidden="true">&ndash;</span>{{ end }}</td><td>{{ .unit }}</td><td class="r doc-w">{{ $d.priced }}</td></tr>{{ end }}
+</tbody></table>
+{{- else if eq $d.kind "email" }}
+<dl class="doc-kv"><div><dt>{{ $F.to }}</dt><dd>{{ $d.to }}</dd></div><div><dt>{{ $F.subject }}</dt><dd>{{ $d.subject }}</dd></div></dl>
+<div class="doc-body">{{ range $d.body }}<p>{{ . }}</p>{{ end }}</div>
+{{- else if eq $d.kind "invoice" }}
+<dl class="doc-kv"><div><dt>{{ $F.to }}</dt><dd>{{ $d.to }}</dd></div></dl>
+<table class="doc-t"><tbody>{{ range $d.rows }}<tr><td>{{ .item }}</td><td class="r doc-w">{{ .note }}</td></tr>{{ end }}</tbody></table>
+<div class="doc-pay"><span><span class="doc-k">{{ $F.due }}</span> {{ $d.due }}</span><span class="doc-btn" aria-hidden="true">{{ $d.pay }}</span></div>
+{{- else if eq $d.kind "page" }}
+<div class="doc-site"><div class="doc-url"><i aria-hidden="true"></i>{{ $d.url }}</div><div class="doc-site-in"><p class="doc-site-h">{{ $d.h }}</p><p>{{ $d.p }}</p>{{ with $d.button }}<span class="doc-btn" aria-hidden="true">{{ . }}</span>{{ end }}{{ with $d.rows }}<ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}</div></div>
+{{- else if eq $d.kind "sheet" }}
+<div class="doc-scroll"><table class="doc-t doc-sheet"><thead><tr>{{ range $d.cols }}<th scope="col">{{ . }}</th>{{ end }}</tr></thead><tbody>{{ range $d.rows }}<tr>{{ range . }}<td>{{ . }}</td>{{ end }}</tr>{{ end }}</tbody></table></div>
+{{- else if eq $d.kind "report" }}
+<dl class="doc-rep">{{ range $d.rows }}<div><dt>{{ .label }}</dt><dd>{{ .value }}</dd></div>{{ end }}</dl>
+{{- end }}
+{{- with $d.foot }}<p class="doc-f">{{ . }}</p>{{ end }}
+</article>

@@ -1,0 +1,26 @@
+{{- /* The Orbit (lane ART kit/orbit/orbit.mjs, in Hugo): the employee and the team it made on the inner orbit, the
+       business's own systems by name on the outer, each wired to the employee by a bowed line carrying a pulse. No
+       script. (dict "team" [...] "systems" [...] "names" .Params.names "cls" "ow" "plate" (dict "src" "" "alt" "")).
+       On phones the systems at 3 and 9 o'clock hide (o-extra) and long names shorten (data/w.json short, else the
+       first of "A or B" or "A, B"); a name over 22 characters is short at every width (the band below names it in full). */ -}}
+{{- $S := 640.0 }}{{ $cx := 320.0 }}{{ $cy := 320.0 }}{{ $rT := 214.0 }}{{ $rS := 300.0 }}{{ $pi := math.Pi -}}
+{{- $names := .names }}{{ $cls := .cls | default "ow" }}{{ $short := hugo.Data.w.short -}}
+{{- $mates := slice }}{{ range .team }}{{ if ne . "employee" }}{{ $mates = $mates | append . }}{{ end }}{{ end -}}
+{{- $ex := $cx }}{{ $ey := sub $cy $rT }}{{ $n := len .systems }}{{ $m := len $mates -}}
+{{- $wid := replaceRE "[^a-z0-9]" "" $cls -}}
+<figure class="orbit {{ $cls }}" aria-label="Your AI employee, the team it made, and the systems it connected itself to">
+<svg class="o-svg" viewBox="0 0 640 640" aria-hidden="true">
+{{- range $i, $r := slice 150 166 190 214 252 300 318 }}<circle cx="320" cy="320" r="{{ $r }}" class="o-ring o-r{{ $i }}"/>{{ end }}
+{{- range seq 0 47 }}{{ $a := div (mul (float .) $pi) 24.0 }}<line x1="{{ printf "%.1f" (add $cx (mul 150 (math.Cos $a))) }}" y1="{{ printf "%.1f" (add $cy (mul 150 (math.Sin $a))) }}" x2="{{ printf "%.1f" (add $cx (mul 166 (math.Cos $a))) }}" y2="{{ printf "%.1f" (add $cy (mul 166 (math.Sin $a))) }}" class="o-spoke"/>{{ end }}
+{{- range $i, $id := $mates }}{{ $a := add (div $pi -2.0) (div (mul (float (add $i 1)) 2.0 $pi) (float (add $m 1))) }}<line x1="{{ $ex }}" y1="{{ $ey }}" x2="{{ printf "%.1f" (add $cx (mul $rT (math.Cos $a))) }}" y2="{{ printf "%.1f" (add $cy (mul $rT (math.Sin $a))) }}" class="o-hand"/>{{ end }}
+{{- range $i, $name := .systems }}{{ $a := add (div $pi -2.0) (div $pi (float $n)) (div (mul (float $i) 2.0 $pi) (float $n)) }}{{ $px := add $cx (mul $rS (math.Cos $a)) }}{{ $py := add $cy (mul $rS (math.Sin $a)) }}{{ $mx := div (add $px $ex) 2.0 }}{{ $my := div (add $py $ey) 2.0 }}{{ $extra := or (and (gt $n 4) (gt (math.Abs (math.Cos $a)) 0.9)) (ge $i 6) }}<path id="w{{ $wid }}{{ $i }}" d="M{{ printf "%.1f" $px }},{{ printf "%.1f" $py }} Q{{ printf "%.1f" (add $mx (mul (sub $cx $mx) 0.55)) }},{{ printf "%.1f" (add $my (mul (sub $cy $my) 0.55)) }} {{ $ex }},{{ $ey }}" class="o-wire{{ if $extra }} o-extra{{ end }}"/><circle r="3.4" class="o-pulse"><animateMotion dur="{{ printf "%.1f" (add 2.8 (mul (mod $i 3) 0.6)) }}s" begin="{{ printf "%.1f" (mul $i 0.7) }}s" repeatCount="indefinite"><mpath href="#w{{ $wid }}{{ $i }}"/></animateMotion></circle>{{ end }}
+</svg>
+{{- with .plate }}<div class="o-plate">{{ partial "w/plate.html" . }}</div>{{ end }}
+<div class="o-ch o-emp" style="left:50.00%;top:{{ printf "%.2f" (mul (div $ey $S) 100) }}%;--sz:92;--h:{{ (index (where hugo.Data.team "id" "employee") 0).hue }}">{{ partial "w/character.html" (dict "id" "employee" "size" 92) }}<span>Your AI employee</span></div>
+{{- range $i, $id := $mates }}{{ $a := add (div $pi -2.0) (div (mul (float (add $i 1)) 2.0 $pi) (float (add $m 1))) }}
+<div class="o-ch" style="left:{{ printf "%.2f" (mul (div (add $cx (mul $rT (math.Cos $a))) $S) 100) }}%;top:{{ printf "%.2f" (mul (div (add $cy (mul $rT (math.Sin $a))) $S) 100) }}%;--sz:64;--h:{{ (index (where hugo.Data.team "id" $id) 0).hue }}">{{ partial "w/character.html" (dict "id" $id "size" 64) }}<span>{{ partial "w/name.html" (dict "id" $id "names" $names) }}</span></div>
+{{- end }}
+{{- range $i, $name := .systems }}{{ $a := add (div $pi -2.0) (div $pi (float $n)) (div (mul (float $i) 2.0 $pi) (float $n)) }}{{ $c := math.Cos $a }}{{ $extra := or (and (gt $n 4) (gt (math.Abs $c) 0.9)) (ge $i 6) }}
+<div class="o-sys {{ if lt $c -0.2 }}l{{ else if gt $c 0.2 }}r{{ else }}c{{ end }}{{ if $extra }} o-extra{{ end }}" style="left:{{ printf "%.2f" (mul (div (add $cx (mul $rS $c)) $S) 100) }}%;top:{{ printf "%.2f" (mul (div (add $cy (mul $rS (math.Sin $a))) $S) 100) }}%"><i></i><b>{{ $sh := index $short $name | default (replaceRE " or .*$" "" (replaceRE ",.*$" "" $name)) }}<span class="o-full">{{ cond (gt (len $name) 22) $sh $name }}</span><span class="o-short">{{ $sh }}</span></b></div>
+{{- end }}
+</figure>

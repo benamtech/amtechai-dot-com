@@ -1,0 +1,51 @@
+[
+ {
+  "id": "employee",
+  "name": "Your AI employee",
+  "job": "Learns the business, makes the team, answers to you",
+  "shape": "arch",
+  "hue": "#0F9488"
+ },
+ {
+  "id": "t1",
+  "name": "Takeoffs",
+  "job": "Measures plan sets and prices them from your book",
+  "shape": "prism",
+  "hue": "#C8810E"
+ },
+ {
+  "id": "t2",
+  "name": "Follow-up",
+  "job": "Follows every lead until a yes or a no",
+  "shape": "wedge",
+  "hue": "#7C5CD6"
+ },
+ {
+  "id": "t3",
+  "name": "Being found",
+  "job": "Search and AI-answer work on your site",
+  "shape": "star",
+  "hue": "#2F9E5A"
+ },
+ {
+  "id": "t4",
+  "name": "Collections",
+  "job": "Invoices, payment requests and reminders",
+  "shape": "slab",
+  "hue": "#0E7490"
+ },
+ {
+  "id": "t5",
+  "name": "Research",
+  "job": "Finds the facts a job needs, with sources",
+  "shape": "gem",
+  "hue": "#A3479C"
+ },
+ {
+  "id": "t6",
+  "name": "Builder",
+  "job": "Builds and ships websites, apps and the tools your business needs",
+  "shape": "stairs",
+  "hue": "#5E6B7D"
+ }
+]

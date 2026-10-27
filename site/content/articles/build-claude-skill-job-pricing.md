@@ -5,6 +5,8 @@ dek: "Use Claude to turn messy job details into a repeatable pricing review: mis
 date: 2026-06-18
 lastmod: 2026-06-18
 author: "AMTECH AI"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-18" }
 audience: "Claude users, local service business owners and contractors learning how to turn AI prompts into repeatable workflows"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:
@@ -104,8 +106,6 @@ Target profit margin:
 A Claude Skill is a saved set of instructions Claude can reuse for a specific task. For a local service business, a strong first skill is a Job Profitability Check: Claude reviews job details, asks for missing information, estimates costs, calculates price ranges, flags risk, and gives the owner a decision memo before a quote goes out.
 {{< /answer >}}
 
-Action first
-{.kicker}
 
 ## Start with one pricing decision your business repeats every week. {#start-with-workflow}
 
@@ -115,8 +115,6 @@ The workflow in this guide is called a Job Profitability Check. It helps answer 
 
 This works for painters, pressure washers, HVAC companies, cleaners, landscapers, roofers, remodelers, plumbers, electricians, restoration companies, and other local service businesses. The point is not to let AI guess. The point is to make Claude walk through the decision with discipline.
 
-Plain English
-{.kicker}
 
 ## What is a Claude Skill? {#what-is-skill}
 
@@ -135,8 +133,6 @@ Anthropic describes skills as reusable, filesystem-based resources that give Cla
 | AI agent | AI that can take multiple steps with tools, files, or systems. | “Review the job notes, check the price table, draft the estimate, and prepare follow-up.” |
 | AI employee | A business role built around AI, rules, tools, memory, handoffs, and approvals. | “An AI office employee helps with intake, estimating, follow-up, records, reports, and owner approvals.” |
 
-Claude setup
-{.kicker}
 
 ## How to get started with Claude if you are new. {#get-started}
 
@@ -146,8 +142,6 @@ Paste the quick-start prompt from the top of this article and use one real job e
 
 Once the prompt helps, look for the Skills option in your Claude setup or use Claude Code if your workflow is technical. Claude Code documentation explains that skills can be invoked directly by name or used when Claude decides they are relevant. For this article, you only need the simple idea: save the instructions so Claude can repeat the workflow later.
 
-Why this workflow
-{.kicker}
 
 ## Pricing is a useful first skill because it is repeated, valuable, and easy to rush. {#why-pricing}
 
@@ -345,8 +339,6 @@ List what the owner must verify before sending.
 - Always remind the owner to verify scope, costs, terms, and margin before sending.
 {{< /prompt >}}
 
-In the field
-{.kicker}
 
 ## Example: a pressure washing owner checks a $650 quote. {#real-example}
 
@@ -364,8 +356,6 @@ Claude does not automatically know your crew speed, labor burden, material costs
 Never send an AI-generated quote without reviewing scope, exclusions, assumptions, taxes, payment terms, warranty language, customer promises, safety constraints, licensing, and compliance requirements. A skill can help you think. It should not become an unchecked authority.
 {{< /callout >}}
 
-The bigger system
-{.kicker}
 
 ## How this connects to AI employees. {#ai-employees}
 
@@ -391,8 +381,6 @@ That is the bigger opportunity. Start with one useful skill. Then connect it to 
 - You need approval rules, reporting dashboards, or durable business memory.
 - You want an AI employee, not just a better prompt.
 
-Bottom line
-{.kicker}
 
 ## Start with one decision your business repeats every week. {#bottom-line}
 

@@ -1,0 +1,12 @@
+{{- /* The share image for a page: front matter og_image (a path under static/), else /og/<key>.png drawn by
+       tools/og.mjs from the page's own H1 (key: the route, slashes to dashes; "/" is "home"), else the home image. */ -}}
+{{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
+{{- $key := cond (or .IsHome (eq $route "") (eq $route "/")) "home" (replace (strings.TrimPrefix "/" $route) "/" "-") -}}
+{{- $img := .Params.og_image | default (cond (fileExists (printf "static/og/%s.png" $key)) (printf "/og/%s.png" $key) "/og/home.png") -}}
+{{- $abs := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $img -}}
+<meta property="og:image" content="{{ $abs }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:alt" content="{{ .Title }}">
+<meta name="twitter:image" content="{{ $abs }}">

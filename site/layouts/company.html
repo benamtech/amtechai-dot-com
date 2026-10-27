@@ -1,0 +1,72 @@
+{{- /* The company pages in C on white (lane PAGES2, 2026-10-27; shapes.json h:pricing and h:company): /pricing, /about,
+       /security. Each page is its own written file: its hero, then `blocks`, its sections in its own order, each with a
+       `kind` and its own words. The layout owns no sentence: every heading and line comes from the page's file or
+       data/w.json (check.mjs section 11). Kinds:
+         ways     two columns in detail (h, sub, cols: [{h, lead, items[]}]), the start field under them
+         points   numbered or plain rows (h, sub, rows: [{h, p}], numbered; grid: 2-4 lays them out in columns)
+         prose    a statement (h, paras[], facts: [{k, v, href}])
+         reach    the ways to reach AMTECH as cards (h, rows: [{title, body, label, to}])
+         instead  N6 (h, sub, rows)          yes   N5 (h, sub, own, waits, approval)
+         proof    N7 (h, p)                  start the start after the proof (h)
+         faq      the page's `questions` (h), which its structured data marks up as FAQPage
+         doors    N9 (h, rows)               next  N14 (h, rows)
+       Each block may carry `g` (g-paper, g-bone) and `id`. The close and the sources end every page. */ -}}
+{{- $p := . }}{{ $P := .Params }}{{ $W := hugo.Data.w -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "field" "button" "hero" "blocks" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main class="wco">
+<section class="co-hero"><div class="wrap co-hero-in">
+<div class="co-hero-t"><h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1><p class="lede">{{ $P.sub }}</p>
+{{ partial "w/start.html" (dict "id" "start" "field" $P.field "button" $P.button) }}</div>
+{{- with $P.hero }}
+<div class="co-hero-art co-art-{{ .kind }}">
+{{- if eq .kind "prices" }}{{ $R := $W.price2 }}
+<div class="co-pr"><div><p class="co-pr-h">{{ $R.free_h }}</p><p>{{ .free }}</p></div><div><p class="co-pr-h">{{ $R.custom_h }}</p><p>{{ .custom }}</p></div></div>
+{{- else if eq .kind "team" }}
+<ul class="co-team">{{ range .team }}<li>{{ partial "w/character.html" (dict "id" .id "size" 72) }}<span>{{ .line }}</span></li>{{ end }}</ul>{{ with .cap }}<p class="co-cap">{{ . }}</p>{{ end }}
+{{- else if eq .kind "card" }}{{ $Y := $W.yes }}
+<div class="wyes-card co-card" aria-label="An approval in the AMTECH application"><p class="wyes-k"><i class="pulse" aria-hidden="true"></i>{{ $Y.card_k }}</p>{{ partial "w/character.html" (dict "id" .who "size" 34) }}<p class="wyes-act">{{ .act }}</p><p class="wyes-to">{{ .to }}</p><blockquote>{{ .preview }}</blockquote><div class="wyes-bar"><span class="btn">{{ $Y.approve }}</span><span class="wbtn ghost">{{ $Y.change }}</span></div></div>
+<ul class="co-rec">{{ range .receipts }}<li><i aria-hidden="true"></i>{{ . }}</li>{{ end }}</ul>
+{{- end }}
+</div>
+{{- end }}
+</div></section>
+{{- range $i, $b := $P.blocks }}
+{{- if eq $b.kind "ways" }}
+<section class="co-ways {{ $b.g }}"{{ with $b.id }} id="{{ . }}"{{ end }}><div class="wrap"><h2>{{ $b.h }}</h2>{{ with $b.sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<div class="co-ways-in">{{ range $b.cols }}<div class="co-way"><h3>{{ .h }}</h3><p class="co-way-lead">{{ .lead }}</p><ul>{{ range .items }}<li>{{ . }}</li>{{ end }}</ul>{{ with .link }}<a class="wlink" href="{{ .url }}">{{ .text }}</a>{{ end }}</div>{{ end }}</div>
+{{ with $b.start }}<div class="co-ways-f">{{ partial "w/start.html" (dict "id" (printf "start%d" $i) "field" $P.field "button" $P.button) }}</div>{{ end }}
+</div></section>
+{{- else if eq $b.kind "points" }}
+<section class="co-pts{{ with $b.grid }} co-grid co-g{{ . }}{{ end }} {{ $b.g }}"{{ with $b.id }} id="{{ . }}"{{ end }}><div class="wrap co-pts-in"><div class="co-pts-h"><h2>{{ $b.h }}</h2>{{ with $b.sub }}<p class="sec-p">{{ . }}</p>{{ end }}</div>
+{{ if $b.numbered }}<ol class="co-pts-l co-num">{{ range $b.rows }}<li><h3>{{ .h }}</h3><p>{{ .p }}</p></li>{{ end }}</ol>{{ else }}<ul class="co-pts-l">{{ range $b.rows }}<li><h3>{{ .h }}</h3><p>{{ .p }}</p></li>{{ end }}</ul>{{ end }}
+</div></section>
+{{- else if eq $b.kind "prose" }}
+<section class="co-prose {{ $b.g }}"{{ with $b.id }} id="{{ . }}"{{ end }}><div class="wrap co-prose-in"><div><h2>{{ $b.h }}</h2>{{ range $b.paras }}<p>{{ . }}</p>{{ end }}</div>
+{{- with $b.facts }}<dl class="co-facts">{{ range . }}<div><dt>{{ .k }}</dt><dd>{{ if .href }}<a href="{{ .href }}">{{ .v }}</a>{{ else }}{{ .v }}{{ end }}</dd></div>{{ end }}</dl>{{ end }}
+</div></section>
+{{- else if eq $b.kind "reach" }}
+<section class="co-reach {{ $b.g }}"{{ with $b.id }} id="{{ . }}"{{ end }}><div class="wrap"><h2>{{ $b.h }}</h2>{{ with $b.sub }}<p class="sec-p">{{ . }}</p>{{ end }}<ul class="pr-ways">
+{{- range $b.rows }}<li><a href="{{ replaceRE `^app:` site.Params.app .to }}"><h3>{{ .title }}</h3><p>{{ .body }}</p><span>{{ .label }} <span class="arr" aria-hidden="true">&rarr;</span></span></a></li>{{ end }}
+</ul></div></section>
+{{- else if eq $b.kind "instead" }}
+{{ partial "w/instead.html" (dict "h" $b.h "sub" $b.sub "rows" $b.rows "g" $b.g) }}
+{{- else if eq $b.kind "yes" }}
+{{ partial "w/yes.html" (dict "h" $b.h "sub" $b.sub "own" $b.own "waits" $b.waits "approval" $b.approval "g" $b.g) }}
+{{- else if eq $b.kind "proof" }}
+{{ partial "w/proofsplit.html" (dict "h" $b.h "p" $b.p "g" ($b.g | default "g-bone") "id" $b.id) }}
+{{- else if eq $b.kind "start" }}
+{{ partial "w/startband.html" (dict "h" $b.h "field" $P.field "button" $P.button) }}
+{{- else if eq $b.kind "faq" }}
+<section class="wfaq {{ $b.g }}"{{ with $b.id }} id="{{ . }}"{{ end }}><div class="wrap wfaq-in"><h2>{{ $b.h }}</h2><dl>{{ range $P.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
+{{- else if eq $b.kind "doors" }}
+{{ partial "w/doors.html" (dict "h" $b.h "rows" $b.rows) }}
+{{- else if eq $b.kind "next" }}
+{{ partial "w/next.html" (dict "h" $b.h "rows" $b.rows) }}
+{{- else }}{{ errorf "GATE %s: block %d has kind %q, which the company layout does not draw" $p.File.Path $i $b.kind }}
+{{- end }}
+{{- end }}
+{{ partial "w/closing.html" (dict "h" $P.closing_h "p" $P.closing_sub "field" $P.field "button" $P.button) }}
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

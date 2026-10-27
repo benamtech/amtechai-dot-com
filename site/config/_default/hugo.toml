@@ -3,11 +3,18 @@
 baseURL = "https://amtechai.com/"
 locale = "en-US"
 title = "AMTECH AI"
+# Each page's lastmod (the sitemap's <lastmod>, the twins' and the bundle's dates) is its content file's last commit.
+# Where the checkout has no usable history (tools/build.sh turns this off on a shallow clone it cannot deepen), a
+# front-matter `lastmod`, then `date`, then the page's `reviewed.date` (layouts/_partials/w/lastmod.html) stand in.
+enableGitInfo = true
 disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 
 # What one build writes besides the pages, for search engines and AI readers (site/README.md, "What visitors and
 # crawlers get"): /sitemap.xml, /llms.txt, every article's Markdown twin /articles/<slug>.md, and the knowledge bundle
 # /okf/ (index, one file per article, one per concept in data/concepts.yaml).
+[frontmatter]
+  lastmod = [":git", "lastmod", "modified", "date"]
+
 [outputs]
   home = ["html", "llms", "sitemapxml", "okfindex"]
   section = ["html", "okfindex"]
@@ -74,7 +81,10 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 [params]
   app = "https://app.amtechai.com"
   # The Organization structured data on Home.
-  organization = "AMTECH builds AI employees that work inside a business — answering, selling, scheduling, and handling admin work."
+  # The one site name, everywhere Google reads it: the title suffix, og:site_name, WebSite.name, Organization.name.
+  site_name = "AMTECH AI"
+  # The Organization's description (structured data on every home head, old and new), in today's words.
+  organization = "AMTECH AI is a platform that gives a business AI employees: each connects itself to the systems the business already runs, makes its own team for the work, and improves as it works."
   ga = "G-HZ9HL72L7Q"
   ga_load = "head"   # head | load | interaction: see layouts/_partials/analytics.html
 
@@ -82,3 +92,8 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 # front door (app.amtechai.com/site/slots and /site/booking), which keeps demo_bookings in the platform's own store.
 [security.funcs]
   getenv = ["^HUGO_", "^CI$"]
+
+# three (the hero's 3D team, layouts/_partials/team3d.html) resolves from the repo root's node_modules: Hugo's esbuild
+# walks up from site/ and finds it, but reads only what allowRead names.
+[security.node.permissions]
+  allowRead = [".", "../node_modules"]

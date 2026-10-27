@@ -1,0 +1,27 @@
+{{- /* The industries hub (/industries): a hero with the start and the Orbit, the trades' cards (from each industry page's
+       label, card_line and team, by weight), what every trade gets, Scoop Dogg, the start after the proof, connections
+       across trades, your trade is not listed, three doors, price, the close (SECTIONS-PLAN §5). Words in
+       content/industries/_index.md. */ -}}
+{{- $p := . -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "closing_h" "closing_sub" "orbit_team" "orbit_systems" "anat_h" "anat" "start2_h" "connects_h" "connects" "connects_how" "any_h" "any_sub" "doors_h" "doors" "price_h" "ask_prompt" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="hh"><div class="wrap hh-in">
+<div class="hh-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}</div>
+<div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems) }}</div></div>
+</div></section>
+<section class="ind whub-list"><div class="wrap"><div class="ind-grid">
+{{- range .RegularPages.ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range first 4 .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h2>{{ .Params.label }}</h2><p>{{ .Params.card_line }}</p><p class="ind-sys">Connects to {{ delimit .Params.systems ", " }}</p></a>{{ end }}
+</div></div></section>
+<section class="wanat"><div class="wrap"><h2>{{ .Params.anat_h }}</h2><p class="sec-p">{{ .Params.anat_sub }}</p><div class="band">{{ range .Params.anat }}<div><div class="bt">{{ .h }}</div><p class="bd">{{ .p }}</p></div>{{ end }}</div></div></section>
+{{ partial "w/proofsplit.html" (dict "g" "g-bone") }}
+{{ partial "w/startband.html" (dict "h" .Params.start2_h) }}
+{{ partial "w/connects.html" (dict "h" .Params.connects_h "sub" .Params.connects_sub "groups" .Params.connects "how" .Params.connects_how "link" .Params.connects_link "g" "g-paper") }}
+<section class="wany"><div class="wrap wany-in"><div><h2>{{ .Params.any_h }}</h2><p class="sec-p">{{ .Params.any_sub }}</p></div><div>{{ partial "w/start.html" (dict "id" "starta") }}</div></div></section>
+{{ partial "w/doors.html" (dict "h" .Params.doors_h "rows" .Params.doors) }}
+{{ partial "w/price.html" (dict "h" .Params.price_h "q" .Params.price_q "g" "g-paper") }}
+{{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

@@ -1,0 +1,13 @@
+{{- $W := hugo.Data.w -}}
+{{- $inds := where (where site.RegularPages "Section" "industries") "Params.label" "!=" nil -}}
+<footer class="foot"><div class="wrap foot-in"><a class="logo" href="/" aria-label="AMTECH home">AMTECH<span class="dot">.</span></a><p>{{ $W.promise }}</p>
+<nav aria-label="Footer"><a href="/services">Services</a><a href="/pricing">Pricing</a><a href="/industries">Industries</a>{{ range $inds.ByWeight }}<a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ .Params.label }}</a>{{ end }}<a href="/departments/being-found">Being found</a><a href="/customers/scoop-dogg">Scoop Dogg&rsquo;s story</a><a href="/articles">Articles</a><a href="/about">About</a><a href="/security">Security</a><a href="/contact">Contact</a><a href="/schedule-demo">Book a call</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></nav>
+<p class="credits">{{ $W.credits }}</p></div></footer>
+{{- /* The business's name, typed in any start field, appears in the others and at the Orbit's centre. A submit is the
+       site's conversion, sent to Google Analytics as start_business (marked a key event in GA4's admin) with the page's
+       trade or package; the form still goes to /start if the analytics tag is blocked. */}}
+<script>{{ `(()=>{const i=[...document.querySelectorAll("[data-echo-src]")],o=[...document.querySelectorAll("[data-echo]")];i.forEach(a=>a.addEventListener("input",()=>{const v=a.value.trim();o.forEach(e=>e.textContent=v||e.dataset.echo);i.forEach(b=>{if(b!==a)b.value=a.value})}));document.querySelectorAll("form[data-start]").forEach(f=>f.addEventListener("submit",()=>{const d=new FormData(f);window.gtag&&gtag("event","start_business",{industry:d.get("industry")||"",config:d.get("config")||"",form:f.id,transport_type:"beacon"})}))})()` | safeJS }}</script>
+{{- if .Params.swarm }}{{ with resources.Get "js/w/swarm.js" | minify | fingerprint }}
+<script type="module" src="{{ .RelPermalink }}"></script>{{ end }}{{ end }}
+</body>
+</html>

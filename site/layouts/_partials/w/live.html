@@ -1,0 +1,2 @@
+{{- /* The Live Line: one piece of work in progress, as the application shows it. (dict "who" "t1" "title" "..." "step" "..." "cls" "") */ -}}
+<div class="live {{ .cls }}" aria-label="Work in progress in the AMTECH application">{{ partial "w/character.html" (dict "id" .who "size" 34) }}<div><b>{{ .title }}</b><span><i class="pulse" aria-hidden="true"></i>{{ .step }}</span></div><span class="wbtn ghost" aria-hidden="true">Open</span></div>

@@ -1,0 +1,80 @@
+{{- /* Structured data for the new pages, from the page's own content file and nothing it does not show (Google: "Don't
+       mark up content that is not visible"). One @graph per page (lane SEARCH, 2026-10-27; AISEO page-spec 2.4):
+       - home: the one Organization node (OnlineBusiness, #organization) and the WebSite (#website), which every other
+         page references by @id only;
+       - every page: WebPage, or CollectionPage with an ItemList of what it lists in visible order (services, the hub);
+       - every page but home: BreadcrumbList;
+       - industry and department pages: Service (provider #organization) and FAQPage from `questions`, which they show;
+       - service pages (/services/<slug>): Service from data/services.json (name, group, audience) and FAQPage;
+       - question pages: WebPage and FAQPage whose first Question is the page's own H1 and answer, then `questions`.
+       - customer stories: Article (author and reviewer Ben, about the customer's LocalBusiness by the @id its own site
+         publishes); the hub is a CollectionPage of the stories.
+       - articles (lane PORT): the hub a CollectionPage of the articles; each an Article (from article-schema.html) and
+         FAQPage from its `faqs`, which it shows.
+       Never Review, AggregateRating or HowTo, and never LocalBusiness for AMTECH. (dict "page" . "url" $url) */ -}}
+{{- $p := .page }}{{ $P := $p.Params }}{{ $m := partial "w/meta.html" $p -}}
+{{- $o := site.BaseURL | strings.TrimSuffix "/" }}{{ $org := printf "%s/#organization" $o }}{{ $site := printf "%s/#website" $o -}}
+{{- $name := site.Params.site_name | default "AMTECH AI" -}}
+{{- $g := slice -}}
+{{- if $p.IsHome -}}
+{{- $g = $g | append (dict "@type" "OnlineBusiness" "@id" $org "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o)
+     "logo" (dict "@type" "ImageObject" "url" (printf "%s/logo.png" $o) "width" 512 "height" 512)
+     "founder" (dict "@type" "Person" "name" "Benjamin Palaskas")
+     "description" site.Params.organization) -}}
+{{- $g = $g | append (dict "@type" "WebSite" "@id" $site "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o) "inLanguage" "en-US" "publisher" (dict "@id" $org)) -}}
+{{- end -}}
+{{- $wp := dict "@type" $m.schema "@id" (printf "%s#webpage" $m.url) "url" $m.url "name" $m.h1 "description" $p.Description "isPartOf" (dict "@id" $site) "inLanguage" "en-US" -}}
+{{- if or $p.IsHome (eq $P.route "/about") }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
+{{- if or (eq $p.Section "customers") (eq $p.Layout "company") }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
+{{- if not $m.lastmod.IsZero }}{{ $wp = merge $wp (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
+{{- if not $p.IsHome -}}
+  {{- $items := slice }}{{ range $i, $c := $m.crumbs }}{{ $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $c.name "item" $c.url) }}{{ end -}}
+  {{- $wp = merge $wp (dict "breadcrumb" (dict "@id" (printf "%s#breadcrumb" $m.url))) -}}
+  {{- $g = $g | append (dict "@type" "BreadcrumbList" "@id" (printf "%s#breadcrumb" $m.url) "itemListElement" $items) -}}
+{{- end -}}
+{{- if eq $m.schema "CollectionPage" -}}
+  {{- $li := slice -}}
+  {{- if eq $p.Section "services" }}{{ range $i, $s := hugo.Data.services }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" $s.name "url" (printf "%s/services#%s" $o $s.slug)) }}{{ end -}}
+  {{- else if eq $p.Section "articles" }}{{ range $i, $x := $p.RegularPages.ByDate.Reverse }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" $x.Title "url" (printf "%s%s" $o (strings.TrimSuffix "/" $x.RelPermalink))) }}{{ end -}}
+  {{- else }}{{ range $i, $x := $p.RegularPages.ByWeight }}{{ $li = $li | append (dict "@type" "ListItem" "position" (add $i 1) "name" ($x.Params.label | default $x.Params.h1) "url" (printf "%s%s" $o (strings.TrimSuffix "/" $x.RelPermalink))) }}{{ end }}{{ end -}}
+  {{- $wp = merge $wp (dict "mainEntity" (dict "@type" "ItemList" "numberOfItems" (len $li) "itemListElement" $li)) -}}
+{{- end -}}
+{{- $g = $g | append $wp -}}
+{{- if and $p.IsPage (in (slice "industries" "departments") $p.Section) -}}
+  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI employee" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
+  {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
+  {{- $g = $g | append $svc -}}
+{{- end -}}
+{{- if and $p.IsPage (eq $p.Section "services") -}}
+  {{- $slug := path.Base $p.File.Dir }}{{ $d := index (where hugo.Data.services "slug" $slug) 0 -}}
+  {{- $g = $g | append (dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $d.name "serviceType" $d.group "description" $P.sub "provider" (dict "@id" $org) "url" $m.url "audience" (dict "@type" "BusinessAudience" "name" $d.for)) -}}
+{{- end -}}
+{{- if and $p.IsPage (eq $p.Section "customers") -}}
+  {{- /* A customer story: an Article by Ben about the customer's business, joined to the @id the customer's own site
+         publishes (AISEO scoopdogg.md §2). The business is `about`, never AMTECH, and carries no Review or rating. */ -}}
+  {{- $art := dict "@type" "Article" "@id" (printf "%s#article" $m.url) "headline" $m.h1 "description" $p.Description "url" $m.url "mainEntityOfPage" (dict "@id" (printf "%s#webpage" $m.url)) "publisher" (dict "@id" $org) "inLanguage" "en-US" -}}
+  {{- with $P.reviewed }}{{ $art = merge $art (dict "author" (dict "@type" "Person" "name" .by) "datePublished" .date) }}{{ end -}}
+  {{- if not $m.lastmod.IsZero }}{{ $art = merge $art (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
+  {{- with $P.hero_shots }}{{ $art = merge $art (dict "image" (printf "%s%s.webp" $o (index . 0).src)) }}{{ end -}}
+  {{- with $P.site_link }}{{ $art = merge $art (dict "about" (dict "@type" "LocalBusiness" "@id" (printf "%s/#business" (strings.TrimSuffix "/" .url)) "name" $P.label "url" .url)) }}{{ end -}}
+  {{- $g = $g | append $art -}}
+{{- end -}}
+{{- if and $p.IsPage (eq $p.Section "articles") -}}
+  {{- /* An article (lane PORT, from _partials/article-schema.html): what it is about and what it cites, from its front
+         matter; written by AMTECH (the Organization) unless its `author` names someone else. */ -}}
+  {{- $about := slice }}{{ $kw := slice }}{{ range $P.about }}{{ $t := dict "@type" "Thing" "name" .name "additionalType" .type }}{{ with .sameAs }}{{ $t = merge $t (dict "sameAs" .) }}{{ end }}{{ $about = $about | append $t }}{{ $kw = $kw | append .name }}{{ end -}}
+  {{- $cites := slice }}{{ range $P.citations }}{{ $cites = $cites | append .url }}{{ end -}}
+  {{- $author := dict "@id" $org }}{{ with $P.author }}{{ if ne . $name }}{{ $author = dict "@type" "Person" "name" . }}{{ end }}{{ end -}}
+  {{- $art := dict "@type" "Article" "@id" (printf "%s#article" $m.url) "headline" $p.Title "description" $p.Description "url" $m.url "mainEntityOfPage" (dict "@id" (printf "%s#webpage" $m.url)) "datePublished" ($p.Date.Format "2006-01-02") "dateModified" ($p.Lastmod.Format "2006-01-02") "author" $author "publisher" (dict "@id" $org) "inLanguage" "en-US" -}}
+  {{- with $kw }}{{ $art = merge $art (dict "keywords" (delimit . ", ")) }}{{ end }}{{ with $about }}{{ $art = merge $art (dict "about" .) }}{{ end }}{{ with $cites }}{{ $art = merge $art (dict "citation" .) }}{{ end -}}
+  {{- $g = $g | append $art -}}
+{{- end -}}
+{{- with $P.faqs -}}
+  {{- $qs := slice }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
+  {{- $g = $g | append (dict "@type" "FAQPage" "@id" (printf "%s#faq" $m.url) "mainEntity" $qs) -}}
+{{- end -}}
+{{- with $P.questions -}}
+  {{- $qs := slice }}{{ if and $p.IsPage (eq $p.Section "questions") }}{{ $qs = $qs | append (dict "@type" "Question" "name" $P.h1 "acceptedAnswer" (dict "@type" "Answer" "text" (printf "%s %s" $P.yes $P.answer))) }}{{ end }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
+  {{- $g = $g | append (dict "@type" "FAQPage" "@id" (printf "%s#faq" $m.url) "mainEntity" $qs) -}}
+{{- end }}
+<script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $g | jsonify | safeJS }}</script>

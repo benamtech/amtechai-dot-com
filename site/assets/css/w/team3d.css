@@ -1,0 +1,11 @@
+/* The hero's 3D team (lane 3D, layouts/_partials/team3d.html + js/team3d/). Inert until the scene runs: it adds
+   .t3d-on to the Orbit's figure after its first frame (the canvas fades in, the SVG drawings fade out; labels stay),
+   and .t3d-front where a medal sits in the centre (the canvas over the medal, so the near teammates stand in front of
+   it; the labels over both). The canvas overhangs the figure: the near side of the ring grows as it tilts back. */
+.t3d-c{position:absolute;left:-10%;top:-4%;width:120%;height:126%;pointer-events:none;opacity:0;transition:opacity .6s cubic-bezier(.16,1,.3,1)}
+.t3d-on .t3d-c{opacity:1}
+.orbit .o-svg,.orbit .o-ch>svg,.orbit .o-ch::before{transition:opacity .6s cubic-bezier(.16,1,.3,1)}
+.t3d-on .o-svg,.t3d-on .o-ch>svg,.t3d-on .o-ch::before{opacity:0}
+.t3d-on .o-ch,.t3d-on .o-sys{will-change:translate}
+.t3d-front .t3d-c{z-index:4}
+.t3d-front .o-ch,.t3d-front .o-sys{z-index:5}

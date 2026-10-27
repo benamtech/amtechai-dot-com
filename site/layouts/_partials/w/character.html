@@ -1,0 +1,3 @@
+{{- /* (dict "id" "t1" "size" 44): one of the team, drawn from the page's sprite. */ -}}
+{{- if not (index hugo.Data.characters .id) }}{{ errorf "character: no drawing for %q (data/team.json)" .id }}{{ end -}}
+<svg class="chr" width="{{ .size }}" height="{{ .size }}" viewBox="0 0 40 40" aria-hidden="true"><use href="#ch-{{ .id }}"/></svg>

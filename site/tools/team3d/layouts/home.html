@@ -1,0 +1,14 @@
+{{- /* The harness page: the real home's first screen (layouts/home.html, 2026-10-27) with the team3d partial called inside
+       the Orbit's wrapper, as the main session will. ?t3d is read by nothing: the loader decides alone. */ -}}
+{{- $p := . -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="h2-top"><div class="wrap h2-in">
+<aside class="cta"><p class="cta-k">{{ .Params.start_h }}</p><p class="cta-t">{{ .Params.start_sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}
+{{- with .Params.now }}<div class="cta-now"><p class="now-h"><i class="pulse" aria-hidden="true"></i>{{ $p.Params.now_h }}</p>{{ range . }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "in-stack") }}{{ end }}</div>{{ end }}</aside>
+<div class="hero2"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>
+<div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ .Params.orbit_centre }}">{{ .Params.orbit_centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "names" .Params.names) }}</div></div>
+</div></section>
+<section style="height:1400px"></section>
+</main>
+{{ partial "w/bottom.html" . }}

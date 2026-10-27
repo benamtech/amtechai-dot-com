@@ -1,129 +1,51 @@
-{{ define "main" }}
-{{- $d := hugo.Data.home -}}
-<div class="bg-[#f4f4f4] text-black">
-  <section class="relative overflow-hidden border-b-4 border-black bg-white pt-36 pb-16 md:pt-44 md:pb-24">
-    <div class="container-wide">
-      <div class="max-w-6xl">
-        <h1 class="max-w-6xl text-[clamp(3.2rem,8.5vw,8.8rem)] font-black leading-[0.86] tracking-[-0.085em]">Your next employee is an AI agent<span class="text-red">.</span></h1>
-        <p class="mt-8 max-w-3xl text-lg leading-8 text-black/70 md:text-xl">AMTECH sets up a textable AI Employee for serious local businesses. It learns your pricing, services, documents, customers, tools, and operating rules, then helps get estimates, invoices, follow-up, job notes, reports, and other office work done without making you learn another AI tool.</p>
-        <a href="{{ site.Params.app }}/" class="mt-10 inline-flex min-h-12 items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright">Claim my AI Employee{{ partial "icon.html" (dict "name" "arrow-right" "size" 16) }}</a>
-      </div>
-    </div>
-  </section>
-
-  <section aria-label="agent-entry" class="border-b border-black/15 bg-white py-3">
-    <div class="container-wide flex flex-wrap items-center gap-x-4 gap-y-1">
-      <span class="text-xs text-black/45">This site is agent-readable.</span>
-      <a href="/contractors" class="text-xs text-black/55 underline underline-offset-2 hover:text-black">Working agent</a>
-      <a href="/okf/index.md" class="text-xs text-black/55 underline underline-offset-2 hover:text-black">Knowledge graph</a>
-      <a href="/llms.txt" class="text-xs text-black/55 underline underline-offset-2 hover:text-black">llms.txt</a>
-    </div>
-  </section>
-
-  <section class="border-b-4 border-black bg-black py-12 text-white md:py-16">
-    <div class="container-wide">
-      <a class="group grid gap-6 border border-white/16 bg-white/[0.03] p-6 transition hover:border-red/70 md:grid-cols-[1fr_auto] md:items-center md:p-8" href="/articles/amtech-vs-chatgpt-claude">
-        <div>
-          <h2 class="max-w-4xl text-[clamp(1.8rem,4vw,3.8rem)] font-black leading-[0.96] tracking-[-0.055em]">Know the difference between using ChatGPT and managing an AI Employee.</h2>
-        </div>
-        <span class="inline-flex items-center gap-2 text-sm font-black text-white">Read the comparison{{ partial "icon.html" (dict "name" "arrow-right" "size" 16 "class" "transition group-hover:translate-x-1") }}</span>
-      </a>
-    </div>
-  </section>
-
-  <section class="bg-[#f4f4f4]">
-    {{- range $i, $s := $d.narrative }}
-    {{- $odd := eq (mod $i 2) 1 }}
-    <article class="border-b-4 border-black {{ if $odd }}bg-black text-white{{ else }}bg-[#f4f4f4] text-black{{ end }}">
-      <div class="container-wide grid lg:grid-cols-2 {{ if $odd }} lg:[&>*:first-child]:order-2 {{ end }}">
-        <div class="relative aspect-[4/5] min-h-[500px] overflow-hidden border-x-4 border-black lg:aspect-auto lg:min-h-[650px]">
-          <img src="{{ $s.image }}" alt="{{ $s.alt }}" class="h-full w-full object-cover grayscale" loading="lazy">
-          <div class="absolute inset-0 {{ if $odd }}bg-black/25{{ else }}bg-red/10 mix-blend-multiply{{ end }}"></div>
-        </div>
-        <div class="flex min-h-[560px] flex-col justify-center py-14 lg:px-14 lg:py-20">
-          <div class="p-1 md:p-4">
-            <h3 class="text-[clamp(2.05rem,4.8vw,5rem)] font-black leading-[0.91] tracking-[-0.065em]">{{ $s.title }}</h3>
-            <div class="mt-8 space-y-5">
-              {{- range $s.body }}
-              <p class="text-base leading-8 md:text-lg {{ if $odd }}text-white/72{{ else }}text-black/66{{ end }}">{{ . }}</p>
-              {{- end }}
-            </div>
-            {{- with $s.related }}
-            <a class="mt-8 inline-flex items-center gap-2 text-sm font-black {{ if $odd }}text-white{{ else }}text-black{{ end }}" href="{{ .to }}">{{ .label }}{{ partial "icon.html" (dict "name" "arrow-right" "size" 15) }}</a>
-            {{- end }}
-          </div>
-        </div>
-      </div>
-    </article>
-    {{- end }}
-  </section>
-
-  <section class="border-y-4 border-black bg-white py-20 md:py-28">
-    <div class="container-wide">
-      <div class="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-end">
-        <h2 class="max-w-3xl text-[clamp(2.3rem,5.4vw,5rem)] font-black leading-[0.92] tracking-[-0.065em]">Learn enough to make the next serious move.</h2>
-        <p class="max-w-2xl text-lg leading-8 text-black/64">Use the articles to understand the tools. Use AMTECH when you are ready to turn repeat work into a practical operating system.</p>
-      </div>
-      <div class="mt-12 grid gap-4 lg:grid-cols-3">
-        {{- range $d.learning }}
-        <a class="group flex min-h-[230px] flex-col justify-between border-2 border-black bg-[#f4f4f4] p-6 transition hover:bg-white" href="{{ .to }}">
-          {{ partial "icon.html" (dict "name" "book-open" "size" 24 "class" "h-6 w-6 text-red") }}
-          <div>
-            <h3 class="text-2xl font-black leading-tight tracking-[-0.04em]">{{ .title }}</h3>
-            <p class="mt-4 text-sm leading-6 text-black/62">{{ .description }}</p>
-          </div>
-          <span class="inline-flex items-center gap-2 text-sm font-black text-black">Read article {{ partial "icon.html" (dict "name" "arrow-right" "size" 15 "class" "transition group-hover:translate-x-1") }}</span>
-        </a>
-        {{- end }}
-      </div>
-      <div class="mt-6 grid gap-4 md:grid-cols-2">
-        {{- range $d.additional }}
-        <a class="group border-2 border-black bg-white p-6 transition hover:-translate-y-1 hover:shadow-[10px_10px_0_#000]" href="{{ .to }}">
-          <h3 class="text-2xl font-black leading-tight tracking-[-0.04em]">{{ .title }}</h3>
-          <p class="mt-4 text-sm leading-6 text-black/62">{{ .description }}</p>
-          <span class="mt-7 inline-flex items-center gap-2 text-sm font-black text-black">Read article {{ partial "icon.html" (dict "name" "arrow-right" "size" 15 "class" "transition group-hover:translate-x-1") }}</span>
-        </a>
-        {{- end }}
-      </div>
-    </div>
-  </section>
-
-  <section class="border-b-4 border-black bg-[#f4f4f4] py-16 md:py-20">
-    <div class="container-wide">
-      <div class="grid gap-8 border-2 border-black bg-white p-7 md:p-10 lg:grid-cols-[120px_1fr] lg:items-start">
-        {{ partial "icon.html" (dict "name" "quote" "size" 24 "class" "h-12 w-12 text-red" "attrs" "aria-hidden=true") }}
-        <div>
-          <p class="max-w-5xl text-[clamp(1.6rem,3.4vw,3.2rem)] font-black leading-[1.02] tracking-[-0.05em]">A landscaper sent photos, a voice note, and a rough price range. The AI Employee organized the scope, drafted the estimate, wrote the customer follow-up, and returned the approval points before the owner got back to the office.</p>
-          <p class="mt-6 max-w-2xl text-base leading-7 text-black/58">The hard work was still human judgment. The drag was gathering, formatting, and remembering. That is the part the employee handled.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="bg-black py-20 text-white md:py-28">
-    <div class="container-wide grid gap-10 lg:grid-cols-[1fr_0.85fr] lg:items-center">
-      <div>
-        <h2 class="text-[clamp(2.35rem,5.8vw,5.8rem)] font-black leading-[0.9] tracking-[-0.07em]">Put your number in. Claim your AI Employee.</h2>
-        <p class="mt-7 max-w-3xl text-lg leading-8 text-white/66">The claim page will ask seven business questions, verify the phone, capture consent, and start the setup path for a textable worker built around your business.</p>
-      </div>
-      {{- /* Without script the form still reaches the same door: GET /start?who=<number>. */}}
-      <form data-claim action="{{ site.Params.app }}/start" method="get" class="border border-red bg-red/10 p-7 md:p-9">
-        <label class="block">
-          <span class="mb-3 block text-sm font-black text-white/70">Mobile phone</span>
-          <input name="who" autocomplete="tel" inputmode="tel" placeholder="+18055550142" class="h-14 w-full border-2 border-white bg-white px-4 text-base font-semibold text-black outline-none transition focus:border-red">
-        </label>
-        <button type="submit" class="mt-5 inline-flex min-h-12 w-full items-center justify-center gap-3 bg-red px-7 py-4 text-sm font-black text-white transition hover:bg-red-bright">Claim my AI Employee{{ partial "icon.html" (dict "name" "phone" "size" 16) }}</button>
-        <p class="mt-4 text-xs leading-5 text-white/45">You will verify this number on the claim page before anything is provisioned.</p>
-      </form>
-    </div>
-  </section>
-</div>
-<script>
-  // As the app did: the number, trimmed, rides along to the sign-up chat's secure step; empty goes without it.
-  document.querySelector('[data-claim]').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const v = e.target.who.value.trim();
-    window.location.href = '{{ site.Params.app }}/start' + (v ? '?who=' + encodeURIComponent(v) : '');
-  });
-</script>
-{{ end }}
+{{- /* Home (C on white; Ben, 2026-10-27). A conventional hero: the headline, the paragraph and the start field together,
+       the plain Orbit beside them (below them on a phone); never a start panel beside the hero (Ben: "dont reinvent the
+       wheel"). Then the journey (build/SECTIONS-PLAN.md §3; Ben: "way too short", "think about the customer journey",
+       "keep all the main parts. we are building onto it"): see the work, the business types (before the capability
+       list: Ben), believe (Scoop Dogg), act, what the team can do, the week, the team it makes, the services, what it
+       takes the place of, connections, how it works, your yes, the three doors, price, questions, the close.
+       Grounds: at most four tinted sections, never two in a row. Every word is in content/_index.md. */ -}}
+{{- $p := . -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "industries_h" "services_h" "services_featured" "how_h" "how" "start2_h" "team_h" "team_sub" "team_all" "team_detail" "team_systems" "instead_h" "instead" "connects_h" "connects" "connects_how" "yes_h" "on_its_own" "waits" "approval" "doors_h" "doors" "price_h" "questions_h" "questions" "ask_prompt" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="hh"><div class="wrap hh-in">
+<div class="hh-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}
+<nav class="hh-trades" aria-label="Your trade">{{ range (where site.RegularPages "Section" "industries").ByWeight }}<a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ .Params.label }}</a>{{ end }}</nav>
+{{- with .Params.now }}<div class="cta-now hh-now"><p class="now-h"><i class="pulse" aria-hidden="true"></i>{{ $p.Params.now_h }}</p>{{ range . }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "in-stack") }}{{ end }}</div>{{ end }}</div>
+<div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ .Params.orbit_centre }}">{{ .Params.orbit_centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "names" .Params.names) }}</div></div>
+</div></section>
+{{/* N1 work at size (lane FRAME): the application frame, three jobs; words in content/_index.md (work_h, work_sub, frame) */}}
+{{- with .Params.frame }}
+<section class="wwork g-paper" id="work"><div class="wrap"><h2>{{ $.Params.work_h }}</h2><p class="sec-p">{{ $.Params.work_sub }}</p>{{ partial "w/appframe.html" (dict "frame" . "names" $.Params.names "id" "work") }}</div></section>
+{{- end }}
+{{/* /N1 work at size */}}
+<section class="ind"><div class="wrap"><h2>{{ .Params.industries_h }}</h2><p class="sec-p">{{ .Params.industries_sub }}</p><div class="ind-grid">
+{{- range (where site.RegularPages "Section" "industries").ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range first 4 .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h3>{{ .Params.label }}</h3><p>{{ .Params.card_line }}</p></a>{{ end }}
+</div></div></section>
+{{ partial "w/proofsplit.html" (dict "id" "proof" "g" "g-bone") }}
+{{ partial "w/startband.html" (dict "h" .Params.start2_h) }}
+{{- with .Params.can }}
+<section class="wcan g-white"><div class="wrap"><h2>{{ $p.Params.can_h }}</h2><p class="sec-p">{{ $p.Params.can_sub }}</p><ul class="wcan-grid">
+{{- range . }}<li>{{ partial "w/character.html" (dict "id" .who "size" 44) }}<div><h3>{{ .h }}</h3><p>{{ .p }}</p><span class="wcan-who">{{ partial "w/name.html" (dict "id" .who) }}</span></div></li>{{ end }}
+</ul></div></section>
+{{- end }}
+{{/* N4 week (lane FRAME): Monday to Friday; words in content/_index.md (week_h, week_sub, week) */}}
+{{- with .Params.week }}{{ partial "w/week.html" (dict "h" $.Params.week_h "sub" $.Params.week_sub "days" . "names" $.Params.names "cls" "") }}{{ end }}
+{{/* /N4 week */}}
+{{ partial "w/teamforms.html" (dict "h" .Params.team_h "sub" .Params.team_sub "team" .Params.team_all "detail" .Params.team_detail "systems" .Params.team_systems) }}
+<section class="pkg g-paper"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><p class="sec-p">{{ .Params.services_sub }}</p><a class="wlink" href="/services">{{ .Params.services_more }}</a></div><div class="pkg-grid">
+{{- range .Params.services_featured }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "home: services_featured names %q, which is not in data/services.json" . }}{{ end }}<a class="pkg-card" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/services#{{ $s.slug }}{{ end }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
+</div></div></section>
+{{ partial "w/instead.html" (dict "h" .Params.instead_h "sub" .Params.instead_sub "rows" .Params.instead) }}
+{{ partial "w/connects.html" (dict "h" .Params.connects_h "sub" .Params.connects_sub "groups" .Params.connects "how" .Params.connects_how "link" .Params.connects_link) }}
+<section class="how"><div class="wrap"><h2>{{ .Params.how_h }}</h2><ol class="how-grid">{{ range $i, $s := .Params.how }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol></div></section>
+{{ partial "w/yes.html" (dict "h" .Params.yes_h "sub" .Params.yes_sub "own" .Params.on_its_own "waits" .Params.waits "approval" .Params.approval) }}
+{{ partial "w/doors.html" (dict "h" .Params.doors_h "rows" .Params.doors) }}
+{{ partial "w/price.html" (dict "h" .Params.price_h "q" .Params.price_q "g" "g-paper") }}
+<section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
+{{ partial "w/closing.html" (dict) }}
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

@@ -1,10 +1,12 @@
 ---
 title: "How to Use ChatGPT or Claude to Build a Local SEO Plan That Out-Ranks Bigger Competitors"
-description: "Give ChatGPT or Claude your services, local conditions, and buyer questions. Turn the output into a knowledge graph, publish answer-first pages, and become the source AI search wants to cite."
+description: "Give ChatGPT or Claude your services, local conditions, and buyer questions."
 dek: "A brand-new site can beat lazy high-authority competitors when it becomes the clearest source on the exact problems, places, materials, and decisions customers actually search for."
 date: 2026-06-18
 lastmod: 2026-06-18
 author: "AMTECH staff"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-18" }
 audience: "local service business owners, contractors, operators, and founders who want AI-assisted SEO that compounds instead of generic blog volume"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:
@@ -64,8 +66,6 @@ Use ChatGPT or Claude to map your business into a local knowledge graph: service
 AMTECH used this exact strategy to push a brand-new, roughly two-month-old site with almost no article library into Google AI Overviews. Not with 10,000 posts. Not with a decade-old domain. With a tighter graph, clearer answers, and pages that made the machine’s job easier.
 {{< /callout >}}
 
-The opening
-{.kicker}
 
 ## Search is turning into a research assistant. That is the crack in the wall. {#why-now}
 
@@ -84,8 +84,6 @@ So stop asking, “Can I rank for landscaping Phoenix?” Ask, “When the machi
 | Expand | Diagnostic table, examples, instructions, warnings, local constraints, and proof. | This creates topical depth without burying the answer. |
 | Expand again | FAQs, internal links, citations, schema, and related next steps. | The page becomes a node in a larger graph instead of an isolated blog post. |
 
-Step 1
-{.kicker}
 
 ## Turn your business into an entity graph. {#entity-graph}
 
@@ -119,8 +117,6 @@ Finally, mark the 15 intersections where a local expert could answer better than
 | Problem × season | Why does my gravel wash into the street during monsoon? | Generic articles say add edging. A local answer explains sheet flow, yard pitch, granite size, swales, and low-point control. |
 | Service × regulation | What landscaping changes trigger HOA issues in Scottsdale? | National content cannot safely guess neighborhood-level standards, approval patterns, and documentation expectations. |
 
-Step 2
-{.kicker}
 
 ## Find the gaps authority sites left open. {#gap-audit}
 
@@ -145,8 +141,6 @@ Rank the opportunities by information gain, buyer intent, and how hard the answe
 ChatGPT can structure the plan. It cannot truthfully claim your customer’s yard has caliche, your city requires a permit, or your team saw a specific failure mode unless you verify it. The proof layer is what separates authority from AI slop.
 {{< /callout >}}
 
-Step 3
-{.kicker}
 
 ## Turn the graph into a publishing plan. {#publishing-plan}
 
@@ -183,8 +177,6 @@ Prioritize pages that create a wiki-like cluster around my services, locations, 
 - Link internally to the service page, the location page, and the related guide that naturally expands the answer.
 - Use schema only for what is visible: Article, FAQPage when the FAQ exists, BreadcrumbList, and accurate entity markup.
 
-Why the structure has legs
-{.kicker}
 
 ## The research backs the instinct: useful graphs beat isolated posts. {#research}
 
@@ -194,8 +186,6 @@ Google’s public guidance points in the same direction from a practical SEO ang
 
 Our hypothesis is simple: a local website built like a useful wiki around real services, real places, real questions, and real proof is easier for AI search to retrieve, summarize, and cite than a generic authority site with shallow content. The graph is not a hack. It is the architecture of being useful.
 
-The real unlock
-{.kicker}
 
 ## Aggressive only works if the standard is strict. {#execution}
 
@@ -205,8 +195,6 @@ Every page needs research. Every local claim needs verification. Every answer ne
 
 That editorial layer used to require a researcher, writer, strategist, editor, and SEO operator. That is why the good version of this was trapped inside expensive retainers. AI did not remove the need for standards. It removed the excuse for moving slowly.
 
-How we use it
-{.kicker}
 
 ## This is the system AMTECH is building for operators. {#amtech}
 

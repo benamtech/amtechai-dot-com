@@ -1,0 +1,118 @@
+{{- /* /start: the handoff (lane START, 2026-10-27; first mounted by lane SITEBUILD). The business's name typed on any page
+       becomes the onboarding's first input. The workspace (app.amtechai.com/w/workspace.js) is loaded here only, never
+       on a content page. Contract: standard/projection/web/src/public.tsx (attributes app, intent, fonts, expand,
+       signin; start(name)). The live employee answers on amtechai.com only, so previews and localhost test this page
+       with the workspace stubbed (site/tools/node/start-page.mjs, start-handoff.mjs). industry=, config= and for= ride
+       along in location.search, which the workspace sends as the visit's landing (the platform's arrival_said).
+
+       THE WORKSPACE IS ALWAYS THE WHOLE SCREEN TALL: its root is 100dvh inside its own shadow root, so nothing may sit
+       above it (its message box would fall below the fold). The slim chrome (logo, Sign in, what happens next) is a
+       column BESIDE it from 1280px; narrower, the workspace covers the screen once it is up, and its own header carries
+       Sign in. States, on <html data-state>: loading, ready, failed, empty (no name); none without JavaScript.
+
+       Every word is content/start.md's, or the contact page's own ways (mailto: and tel:). The visitor's name is put in
+       by the script with textContent, beside `setting`, never built into a sentence. The page has one <h1>, the empty
+       state's; the name's heading is a level-1 role on a <p> because the two are never shown together. */ -}}
+{{- range slice "title" "description" "home_label" "signin" "setting" "next_h" "next" "loading" "fail_h" "fail_p" "retry" "help_h" "contact_label" "empty_h" "empty_p" "noscript" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{- $app := site.Params.app -}}
+{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/start.css") | resources.Concat "css/w-start.css" | minify | fingerprint -}}
+{{- $ways := slice }}{{ with site.GetPage "/contact" }}{{ range .Params.ways }}{{ if findRE `^(mailto|tel):` .to }}{{ $ways = $ways | append . }}{{ end }}{{ end }}{{ end -}}
+{{- if not $ways }}{{ errorf "start: the contact page has no mailto: or tel: way to reach a person" }}{{ end -}}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>{{ .Title }} | {{ site.Params.site_name | default "AMTECH AI" }}</title>
+<meta name="description" content="{{ .Description }}">
+<link rel="canonical" href="https://amtechai.com/start">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="icon" type="image/svg+xml" href="/favicon-mark.svg">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="{{ $app }}" crossorigin>
+<link rel="preload" href="/fonts/w/CormorantGaramond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/w/Geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<script>{{ `(()=>{const n=(new URLSearchParams(location.search).get("business")||"").trim();document.documentElement.dataset.state=n?"loading":"empty"})()` | safeJS }}</script>
+{{ partial "analytics.html" . }}
+</head>
+<body class="w st">
+{{ partial "w/sprite.html" . }}
+<div class="st-shell">
+<aside class="st-side">
+<header class="st-top"><a class="logo" href="/" aria-label="{{ .Params.home_label }}">AMTECH<span class="dot">.</span></a><a class="st-signin" href="{{ $app }}/signup">{{ .Params.signin }}</a></header>
+<div class="st-intro">
+<div class="st-who" data-named>{{ partial "w/character.html" (dict "id" "employee" "size" 52) }}
+<p class="st-h" role="heading" aria-level="1"><span class="st-set">{{ .Params.setting }}</span> <span class="st-name" data-name></span><span class="red" aria-hidden="true">.</span></p></div>
+<h2 class="st-nh">{{ .Params.next_h }}</h2>
+<ol class="st-next">{{ range .Params.next }}<li>{{ . }}</li>{{ end }}</ol>
+</div>
+<div class="st-help"><p>{{ .Params.help_h }}</p><p>{{ range $i, $w := $ways }}{{ if $i }} <span aria-hidden="true">&middot;</span> {{ end }}<a href="{{ $w.to }}">{{ $w.label }}</a>{{ end }}</p><p><a class="st-more" href="/contact">{{ .Params.contact_label }} <span aria-hidden="true" class="arr">&rarr;</span></a></p></div>
+</aside>
+<main class="st-main">
+<div class="st-load" role="status" aria-live="polite">{{ partial "w/character.html" (dict "id" "employee" "size" 88) }}<p>{{ .Params.loading }}</p><span class="st-bar" aria-hidden="true"><span></span></span></div>
+<div class="st-fail" role="alert"><div class="st-card">{{ partial "w/character.html" (dict "id" "employee" "size" 56) }}<h2>{{ .Params.fail_h }}</h2><p>{{ .Params.fail_p }}</p>
+<p class="st-acts"><button class="btn" type="button" data-retry>{{ .Params.retry }}<span aria-hidden="true" class="arr">&rarr;</span></button>{{ range $ways }}<a class="st-way" href="{{ .to }}">{{ .label }}</a>{{ end }}</p>
+<p><a class="st-more" href="/contact">{{ .Params.contact_label }} <span aria-hidden="true" class="arr">&rarr;</span></a></p></div></div>
+<div class="st-empty"><div class="st-card">{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h1>{{ .Params.empty_h }}</h1><p>{{ .Params.empty_p }}</p>{{ partial "w/start.html" (dict "id" "start") }}</div></div>
+<noscript><div class="st-card st-ns">{{ partial "w/character.html" (dict "id" "employee" "size" 56) }}<p>{{ .Params.noscript }}</p></div></noscript>
+</main>
+</div>
+<div class="st-ws" id="holder"></div>
+{{- /* The mount. Ready means the workspace drew itself in its shadow root and its stylesheet loaded; until then the
+       page says it is opening. Not ready in 12 s, a missing script or an element that never defined: the failed state,
+       with a retry and a person. A workspace that comes up after that still takes over (the visitor never loses it).
+       GA4: start_loaded (seconds to ready) and start_failed (why), each with the page's trade, package and door. */}}
+<script>
+(() => {
+  const APP = {{ $app }};
+  const root = document.documentElement;
+  const q = new URLSearchParams(location.search);
+  const name = (q.get('business') || '').trim().slice(0, 120);
+  const tags = { industry: q.get('industry') || '', config: q.get('config') || '', door: q.get('for') || '' };
+  const ga = (e, more) => window.gtag && gtag('event', e, Object.assign({}, tags, more));
+  document.querySelector('[data-retry]').addEventListener('click', () => location.reload());
+  if (!name) { root.dataset.state = 'empty'; return; }
+  document.querySelector('[data-name]').textContent = name;
+  root.dataset.state = 'loading';
+  const t0 = performance.now();
+  const secs = () => Math.round(performance.now() - t0) / 1000;
+  let el = null, done = false, failed = false;
+  const fail = (why) => {
+    if (done || failed) return;
+    failed = true; root.dataset.state = 'failed'; ga('start_failed', { reason: why, seconds: secs() });
+  };
+  const up = () => {
+    const sh = el && el.shadowRoot;
+    if (!sh) return false;
+    const drawn = [...sh.children].some((n) => n.tagName === 'DIV' && n.firstElementChild);
+    const css = sh.querySelector('link[rel=stylesheet]');
+    return drawn && (!css || !!css.sheet);
+  };
+  const watch = () => {
+    if (up()) { done = true; root.dataset.state = 'ready'; ga('start_loaded', { seconds: secs() }); return; }
+    if (performance.now() - t0 > 12000) fail('timeout');
+    if (performance.now() - t0 < 120000) setTimeout(watch, 150);
+  };
+  const s = document.createElement('script');
+  s.src = `${APP}/w/workspace.js`;
+  s.async = true;
+  s.onerror = () => fail('script');
+  s.onload = () => {
+    if (!customElements.get('amtech-workspace')) return fail('undefined');
+    el = document.createElement('amtech-workspace');
+    el.setAttribute('app', APP);
+    el.setAttribute('intent', 'start');
+    el.setAttribute('fonts', 'none');
+    el.setAttribute('expand', 'none');
+    el.setAttribute('signin', `${APP}/signup`);
+    document.getElementById('holder').appendChild(el);
+    if (el.start) el.start(name);
+  };
+  document.head.appendChild(s);
+  watch();
+})();
+</script>
+</body>
+</html>

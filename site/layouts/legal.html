@@ -1,17 +1,19 @@
-{{ define "main" }}
-{{- /* /privacy, /terms, /sms: content/<page>.md. Ported from src/components/legal/LegalLayout.tsx (production
-   4d1ad0c). Plain on purpose: they are read by reviewers (Google's OAuth consent, the carriers), so no animation. */ -}}
-<section class="bg-[#FAFAFA] pt-32 pb-10 md:pt-40 md:pb-14">
-  <div class="container-wide">
-    <p class="mono-label text-black/55">Legal</p>
-    <h1 class="mt-4 max-w-3xl font-display text-display-lg text-black">{{ .Params.heading }}</h1>
-    <p class="mt-6 max-w-2xl font-body text-body-lg leading-relaxed text-black/50">{{ .Params.intro }}</p>
-    <p class="mt-6 font-mono text-sm text-black/55">Effective {{ .Params.effective }}</p>
-  </div>
-</section>
-<section class="bg-white">
-  <div class="container-wide py-12 md:py-20">
-    <div class="legal-body max-w-3xl">{{ .Content }}</div>
-  </div>
-</section>
-{{ end }}
+{{- /* /privacy, /terms, /sms in C on white (lane PORT, 2026-10-27): content/<page>.md, its words verbatim (Google's
+       OAuth review and the carriers cite them). Plain on purpose: no animation, no made-by line. The heading, intro
+       and effective date are the page's front matter; the label is data/w.json's `prose`. The start field closes the
+       page, below the text. */ -}}
+{{- $W := hugo.Data.w -}}
+{{- range slice "title" "description" "heading" "intro" "effective" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main class="pr-legal">
+<header class="pr-head"><div class="wrap">
+<h1>{{ .Params.heading }}</h1>
+<p class="pr-dek">{{ .Params.intro }}</p>
+<p class="pr-eff">{{ $W.prose.effective }} {{ .Params.effective }}</p>
+</div></header>
+<div class="pr-body"><div class="wrap"><div class="prose">
+{{ .Content }}
+</div></div></div>
+<section class="wsb pr-start"><div class="wrap wsb-in"><h2>{{ $W.closing_h }}</h2><div>{{ partial "w/start.html" (dict "id" "start") }}</div></div></section>
+</main>
+{{ partial "w/bottom.html" . }}

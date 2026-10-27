@@ -5,6 +5,8 @@ dek: "ChatGPT and Claude are powerful general tools. AMTECH. builds a private AI
 date: 2026-06-17
 lastmod: 2026-06-17
 author: "AMTECH AI"
+# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
+reviewed: { by: "Ben Palaskas", date: "2026-06-17" }
 audience: "Business owners comparing DIY AI tools with a custom AI employee"
 # What the article is about, for search engines and AI readers (structured data); not shown on the page.
 about:
@@ -66,8 +68,6 @@ Use ChatGPT or Claude when you need a strong one-off draft. Use AMTECH when you 
 | Train a team on repeatable admin work | Good for examples, templates, and SOP drafts. | Better when the process must run the same way every time. |
 | Handle sensitive or revenue-critical workflows | Owner must control inputs, review outputs, and maintain the process. | System design can add validation, review steps, escalation rules, and auditability. |
 
-The short version
-{.kicker}
 
 ## The difference is not intelligence. It is business ownership of the workflow. {#short-version}
 
@@ -88,8 +88,6 @@ That distinction matters because most small-business owners do not lose hours be
 | What is repeated work? | Something the owner often has to prompt or set up again. | A candidate for a reusable skill, procedure, record update, or scheduled workflow. |
 | Best use case | Thinking, drafting, research, one-off analysis, and personal productivity. | Operational capacity: estimates, follow-up, inbox work, reports, records, approvals, and business-specific admin. |
 
-Respect the tools
-{.kicker}
 
 ## ChatGPT and Claude are useful. They are just not your business system by default. {#tools-are-useful}
 
@@ -99,8 +97,6 @@ Modern general AI tools are also becoming more agentic. OpenAI describes ChatGPT
 
 But capability is not the same as implementation. The fact that a tool can connect to systems or use a browser does not mean your business has a designed workflow, a clean records layer, approved escalation rules, a repeatable skill library, industry-specific operating context, or a dashboard that shows what work was completed and what is still open.
 
-Practical path
-{.kicker}
 
 ## Start with prompts, then systemize what repeats {#best-first-step}
 
@@ -108,8 +104,6 @@ The fastest way to learn what AI can do for your company is to use a simple prom
 
 The point where AMTECH becomes useful is when that task keeps coming back. If every lead needs similar questions, every estimate needs similar pricing logic, and every missed follow-up costs money, the issue is no longer a prompt. It is an operating system problem.
 
-The AMTECH. model
-{.kicker}
 
 ## AMTECH. builds the employee, not just the prompt. {#amtech-builds-employee}
 
@@ -127,8 +121,6 @@ A general AI tool can produce a great answer when a human asks the right questio
 ChatGPT or Claude is a powerful tool you use. AMTECH. is a custom AI employee you manage. One helps you work faster in a chat. The other is designed to take ownership of repeated business work under your rules.
 {{< /callout >}}
 
-The real problem
-{.kicker}
 
 ## Most owners do not have a software problem. They have an office-capacity problem. {#office-capacity}
 
@@ -149,8 +141,6 @@ General AI helps when the owner is present to drive. AMTECH. is designed for the
 | The action affects customers, money, commitments, or destructive system changes. | Use carefully and review everything. | Build explicit approval boundaries and escalation rules into the workflow. |
 | You want to double or triple computer-based output without hiring a full manager. | Helpful as personal leverage. | The core use case: owner leverage through a managed AI employee. |
 
-Concrete example
-{.kicker}
 
 ## A contractor estimate shows the difference. {#contractor-example}
 
@@ -169,8 +159,6 @@ The difference is not that one system can write better sentences. The difference
 - You need approval boundaries because some actions affect customers, money, commitments, or records.
 - You want your team to manage outcomes instead of learning another complicated software interface.
 
-What not to do
-{.kicker}
 
 ## Do not confuse access to AI with operational leverage. {#what-not-to-do}
 
@@ -180,8 +168,6 @@ Do not start by asking, “Which model is smartest?” Start by asking, “Which
 
 Also do not over-automate judgment. The point is not to remove the owner from important decisions. The point is to remove the owner from unnecessary labor so they can spend more time managing SOPs, teaching the team, improving the business, and growing it.
 
-Bottom line
-{.kicker}
 
 ## Use general AI to think. Use AMTECH. when the business needs the work done. {#bottom-line}
 

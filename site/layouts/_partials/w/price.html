@@ -1,0 +1,9 @@
+{{- /* N10 price: the price line word for word as the lead (brain/pricing.md, via data/w.json), the two ways in, the
+       start field, and the page's own price questions. No other figures. (dict "h" .Params.price_h "q" .Params.price_q "industry" .Params.config "g" "g-paper") */ -}}
+{{- $W := hugo.Data.w }}{{ $R := $W.price2 -}}
+<section class="wprice {{ .g }}"><div class="wrap">
+<h2>{{ .h }}</h2><p class="wprice-line">{{ $W.prices }}</p>
+<div class="wprice-cols"><div><h3>{{ $R.free_h }}</h3><ul>{{ range $R.free }}<li>{{ . }}</li>{{ end }}</ul></div><div><h3>{{ $R.custom_h }}</h3><ul>{{ range $R.custom }}<li>{{ . }}</li>{{ end }}</ul></div></div>
+<form class="start wprice-f" action="/start" method="get" data-start id="startp"><label class="sr" for="startp-in">{{ $W.field }}</label><input id="startp-in" name="business" class="start-in" placeholder="{{ $W.field }}" autocomplete="organization" maxlength="120" required data-echo-src>{{ with .industry }}<input type="hidden" name="industry" value="{{ . }}">{{ end }}<button class="btn start-btn" type="submit">{{ $W.action }}<span aria-hidden="true" class="arr">&rarr;</span></button></form>
+{{- with .q }}<dl class="wprice-q">{{ range . }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl>{{ end }}
+</div></section>

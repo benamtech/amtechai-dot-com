@@ -1,0 +1,2 @@
+{{- /* The team's six drawings, once per page; every character on the page is a <use> of one (w/character.html). */ -}}
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs>{{ range hugo.Data.team }}<symbol id="ch-{{ .id }}" viewBox="0 0 40 40">{{ index hugo.Data.characters .id | safeHTML }}</symbol>{{ end }}</defs></svg>

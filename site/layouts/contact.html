@@ -1,52 +1,20 @@
-{{ define "main" }}
-{{- /* New 2026-10-13 (was a redirect to /schedule-demo), built from the live pages' own parts: the /painters hero
-   and glow, its card grid, and the black closing panel. Facts: the footer's phone and email; sign-in measured at
-   app.amtechai.com/signup. */ -}}
-{{- $ways := slice
-  (dict "icon" "message-square" "title" "Book a call" "body" "Thirty minutes with Ben Palaskas, at a time you pick. Bring a real job if you have one." "label" "Pick a time" "to" "/schedule-demo")
-  (dict "icon" "file-text" "title" "Email" "body" "ben@amtechai.com. Send the job, the question or the file." "label" "Write to Ben" "to" "mailto:ben@amtechai.com")
-  (dict "icon" "phone" "title" "Phone" "body" "(805) 886-9173." "label" "Call (805) 886-9173" "to" "tel:+18058869173")
-  (dict "icon" "users" "title" "Already have an employee" "body" "Sign in at app.amtechai.com. Your employee opens with all its work." "label" "Sign in" "to" (printf "%s/signup" site.Params.app))
--}}
-<section class="relative overflow-hidden bg-[#FAFAFA] pt-32 pb-16 md:pt-44 md:pb-20">
-  <div class="pointer-events-none absolute left-1/2 top-1/4 h-[700px] w-[900px] -translate-x-1/2 -translate-y-1/2" style="background: radial-gradient(ellipse at center, rgba(228, 37, 28, 0.22) 0%, rgba(228, 37, 28, 0.06) 45%, transparent 70%)" aria-hidden="true"></div>
-  <div class="container-wide relative z-10">
-    <div class="max-w-3xl" data-fade>
-      <p class="mono-label mb-4 text-red">Contact</p>
-      <h1 class="font-display text-display-hero text-black">Talk to a person.<br><span class="text-red">Or give it the work.</span></h1>
-      <p class="mt-7 max-w-xl font-body text-body-lg leading-relaxed text-black/60">AMTECH is Ben Palaskas. Book a call, email him or phone him. Or try the employee on a real job now.</p>
-    </div>
-  </div>
-</section>
-
-<section class="bg-[#FAFAFA]">
-  <div class="container-wide pb-20 md:pb-24">
-    <div class="grid gap-6 md:grid-cols-2">
-      {{- range $i, $w := $ways }}
-      <div data-fade style="--d: {{ mul $i 0.07 }}s">
-        <a class="glass-card group flex h-full flex-col p-8" href="{{ $w.to }}">
-          {{ partial "icon.html" (dict "name" $w.icon "size" 24 "class" "text-red" "stroke" 1.75) }}
-          <h2 class="mt-5 font-display text-display-sm text-black">{{ $w.title }}</h2>
-          <p class="mt-3 font-body text-body-md leading-relaxed text-black/60">{{ $w.body }}</p>
-          <span class="mt-6 inline-flex items-center gap-2 font-body text-sm font-semibold text-black">{{ $w.label }}{{ partial "icon.html" (dict "name" "arrow-right" "size" 15 "class" "transition group-hover:translate-x-1") }}</span>
-        </a>
-      </div>
-      {{- end }}
-    </div>
-  </div>
-</section>
-
-<section class="relative overflow-hidden bg-[#FAFAFA] pb-28 md:pb-36">
-  <div class="container-wide relative z-10">
-    <div data-fade>
-      <div class="rounded-3xl bg-black p-10 md:p-16">
-        <h2 class="max-w-3xl font-display text-display-xl text-white">Or try it on a job first.</h2>
-        <p class="mt-6 max-w-2xl font-body text-body-lg leading-relaxed text-white/70">Give the AMTECH employee a real job on the contractors page. It does the first real piece while you watch. No card and no sign-up to start.</p>
-        <div class="mt-10">
-          <a class="btn-primary" href="/contractors">Start with the work{{ partial "icon.html" (dict "name" "arrow-right" "size" 16) }}</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-{{ end }}
+{{- /* /contact in C on white (lane PORT, 2026-10-27; first built 2026-10-13). Every word is content/contact.md's: the
+       hero (h1a, its red payoff h1b, sub), the four ways to reach AMTECH (ways: title, body, label, to; "app:" is the
+       application's address), and the try-it panel. The start field closes the page. */ -}}
+{{- $W := hugo.Data.w -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "ways" "try_h" "try_p" "try_button" "try_to" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<header class="pr-head"><div class="wrap">
+<h1>{{ .Params.h1a }} <span class="red pr-pay">{{ .Params.h1b }}</span></h1>
+<p class="pr-dek">{{ .Params.sub }}</p>
+</div></header>
+<div class="wrap"><ul class="pr-ways">
+{{- range .Params.ways }}
+<li><a href="{{ replaceRE `^app:` site.Params.app .to }}"><h2>{{ .title }}</h2><p>{{ .body }}</p><span>{{ .label }} <span class="arr" aria-hidden="true">&rarr;</span></span></a></li>
+{{- end }}
+</ul></div>
+<section class="pr-try"><div class="wrap"><h2>{{ .Params.try_h }}</h2><p>{{ .Params.try_p }}</p><a class="btn" href="{{ .Params.try_to }}">{{ .Params.try_button }}<span aria-hidden="true" class="arr">&rarr;</span></a></div></section>
+<section class="wsb pr-start"><div class="wrap wsb-in"><h2>{{ $W.closing_h }}</h2><div>{{ partial "w/start.html" (dict "id" "start") }}</div></div></section>
+</main>
+{{ partial "w/bottom.html" . }}

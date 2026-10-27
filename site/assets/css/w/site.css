@@ -1,0 +1,93 @@
+/* The build session's additions to the white system (2026-10-27): the pages' own parts that ART's studies did not have. */
+.made{margin-top:14px;font-size:13px;color:var(--ink-3)}
+/* Six industries: three across on a desk, so the grid closes (ART's four-across left a 4 + 2). */
+@media (min-width:1101px){.ind-grid{grid-template-columns:repeat(3,1fr)}}
+/* The team at work in this trade (industry and department pages). */
+.wteam{padding:84px 0 40px}
+.wteam h2{font-size:clamp(34px,4vw,52px);line-height:1.05}
+.wteam-grid{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:28px;margin-top:34px}
+.wteam-grid h3{margin-top:12px;font-size:27px;line-height:1.08}
+.wteam-grid p{margin-top:8px;font-size:15.5px;color:var(--ink-2)}
+.wmade{background:transparent;padding-top:40px}
+/* The hub: its words and the start beside them; the cards carry each trade's systems. */
+.whub{padding:56px 0 8px}
+.whub-in{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:56px;align-items:end}
+.whub h1{font-size:clamp(40px,5vw,68px);line-height:1.02}
+.whub .lede{margin-top:18px;max-width:36em}
+.ind-card h2{margin-top:14px;font-size:27px;line-height:1.08}
+.ind-sys{margin-top:10px!important;font-size:13.5px!important;color:var(--ink-3)}
+.mk2-inst{margin-top:6px;font-size:14px;color:var(--ink-3)}
+.mk2-card[hidden]{display:none}
+@media (max-width:1100px){.wteam-grid{grid-template-columns:1fr 1fr}.whub-in{grid-template-columns:minmax(0,1fr);gap:24px}}
+@media (max-width:640px){.wteam{padding:52px 0 24px}.wteam-grid{grid-template-columns:1fr;gap:22px}.wteam-grid li{display:grid;grid-template-columns:auto 1fr;gap:2px 16px}.wteam-grid li svg{grid-row:span 2}.wteam-grid h3{margin-top:4px;font-size:23px}.wteam-grid p{margin-top:0}.whub{padding:28px 0 0}.ind-card h2{margin-top:10px;font-size:22px}}
+/* Footer: the logo and the promise on the left, the links on the right in a wrapping list, the made-by line and the
+   credits across (ART's three columns squeezed the promise once the footer carried every industry). */
+.foot-in{grid-template-columns:minmax(0,4fr) minmax(0,7fr);grid-template-areas:"logo nav" "promise nav" "made made" "credits credits";gap:14px 64px}
+.foot-in>.logo{grid-area:logo}.foot-in>p:not(.made):not(.credits){grid-area:promise;max-width:30em}.foot-in>nav{grid-area:nav;align-content:start;gap:10px 22px}.foot .made{grid-area:made;margin-top:18px}.foot .credits{grid-area:credits}
+@media (max-width:820px){.foot-in{grid-template-columns:1fr;grid-template-areas:"logo" "promise" "nav" "made" "credits"}}
+/* Phones: the medallion shrinks and the team's names sit above it, so no label is cut ("Collectio", 2026-10-27). */
+@media (max-width:640px){.cw-art .medal,.wd-art .medal{width:36%}.cw-art .o-ch,.wd-art .o-ch{z-index:4}.cw-art .medal-name{font-size:22px}.cw-art .medal-k{font-size:14px}
+  .wclose .start{flex-direction:column;max-width:none}}
+/* The hub on a phone: one card a row, so each trade's systems read as a line, not a column of fragments. */
+@media (max-width:640px){.whub-list .ind-grid{grid-template-columns:minmax(0,1fr)}}
+/* Services. The featured card's Orbit had no box of its own (absolute against the card) and covered its title; the
+   filter bar ran wider than the cards; on a phone two columns broke every heading into fragments. */
+.wmk .feat-orb{position:relative;flex:0 0 44%;aspect-ratio:1;padding:0!important;margin:28px 8px 28px 44px}
+.wmk .feat-orb .orbit{position:absolute;inset:15%;width:auto!important}
+@media (min-width:821px){.wmk .mk2-bar{max-width:1224px;padding-left:0;padding-right:0}.wmk .mk2-top{max-width:1224px;padding-left:0;padding-right:0}}
+@media (max-width:820px){.wmk .feat-orb{width:78%;flex:none;margin:22px auto 0}}
+@media (max-width:640px){.wmk .mk2-grid{grid-template-columns:minmax(0,1fr)}.wmk .mk2-card.feat{grid-column:auto}.wmk .mk2-card h2{font-size:24px}.wmk .mk2-bar .tabs{overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none}}
+@media (max-width:820px){.wmk .mk2-bar{padding-left:20px;padding-right:20px}}
+/* Industry hero: the Orbit a little smaller beside the words, so a long system name at 3 o'clock ("DAT and Truckstop")
+   stays clear of the paragraph; on a phone the medallion carries only the business's name. */
+/* Industry heroes read like home's (Ben, 2026-10-27, "dont reinvent the wheel"): the words and the start field first,
+   the Orbit to their right on a desk and after them on a phone. */
+.chapel-w .cw-t{order:-1}
+@media (min-width:1101px){.chapel-w .cw-in{grid-template-columns:minmax(0,11fr) minmax(0,10fr);gap:48px}.chapel-w .cw-art{width:78%;margin:0 auto}}
+@media (max-width:640px){.cw-art .medal-k,.wd-art .medal-k{display:none}.wd-art .medal-big{font-size:34px!important}}
+/* Home's hero, conventional (Ben, 2026-10-27): headline, paragraph and start field in one column, the Orbit beside it;
+   on a phone the start field follows the paragraph, inside the first screen, and the Orbit comes after. */
+.hh{padding:44px 0 64px}
+.hh-in{display:grid;grid-template-columns:minmax(0,11fr) minmax(0,10fr);gap:40px;align-items:center}
+.hh h1{font-size:clamp(46px,4.9vw,76px);line-height:1}
+.hh .lede{margin-top:18px;font-size:18.5px;max-width:34em;color:var(--ink-2)}
+.hh .start{margin-top:28px;max-width:540px}
+.hh-now{margin-top:30px;max-width:540px}
+.hh-art .h2-orb{width:88%;max-width:600px;margin:0 auto}
+@media (max-width:1100px){.hh-in{grid-template-columns:minmax(0,1fr);gap:24px}.hh-art .h2-orb{width:min(80%,520px)}}
+@media (max-width:640px){.hh{padding:18px 0 36px}.hh h1{font-size:40px}.hh .lede{font-size:16.5px;margin-top:14px}.hh .start{flex-direction:column;max-width:none;margin-top:20px}.hh-now .live:nth-of-type(n+2){display:none}.hh-now{margin-top:20px}}
+/* The page's end: breadcrumb, sources, how it was made. Quiet, after the closing start. */
+.wsrc{padding:28px 0 36px;border-top:1px solid var(--hair);font-size:13px;color:var(--ink-3)}
+.wsrc .crumbs{margin-bottom:10px}.wsrc .crumbs a{color:var(--ink-2);text-decoration:underline;text-underline-offset:2px}
+.wsrc-h{font:600 13px/1.4 var(--sans);color:var(--ink-2);letter-spacing:0}
+.wsrc ol{margin:4px 0 0 18px;max-width:62em}.wsrc li{margin-top:2px}
+.wsrc .made{margin-top:10px}
+/* The band as plain blocks (its labels are the layout's words, marked w-fixed for the uniqueness gate). */
+.band .bt{font:italic 500 23px/1.1 var(--serif);color:var(--ink)}
+.band .bd{margin-top:8px;font-size:14.5px;line-height:1.5;color:var(--ink-2)}
+.wsrc .made+.made{margin-top:2px}
+/* Home: what the team can do. One grid of concrete work across every business; each item names the teammate doing it. */
+.wcan{padding:72px 0 64px;background:var(--panel)}
+.wcan h2{font-size:clamp(36px,4.2vw,60px);line-height:1.04;max-width:18em}
+.wcan .sec-p{max-width:46em}
+.wcan-grid{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:32px}
+.wcan-grid li{display:grid;grid-template-columns:auto 1fr;gap:4px 16px;padding:20px 20px 18px;border-radius:8px;background:#fff;box-shadow:inset 0 0 0 1px var(--hair)}
+.wcan-grid h3{font-size:24px;line-height:1.1}
+.wcan-grid p{margin-top:6px;font-size:15px;color:var(--ink-2)}
+.wcan-who{display:inline-block;margin-top:10px;font-size:12.5px;color:var(--ink-3)}
+@media (max-width:1100px){.wcan-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){.wcan{padding:44px 0 36px}.wcan-grid{grid-template-columns:minmax(0,1fr);gap:10px}.wcan-grid li{padding:16px}.wcan-grid h3{font-size:21px}}
+/* Cards never push the page wider than the screen: columns may shrink below their content, and a team of five
+   (the Builder joined, 2026-10-27) wraps its row of characters on a phone. */
+.ind-grid,.pkg-grid{grid-template-columns:repeat(var(--cols,3),minmax(0,1fr))}
+.ind-team{display:flex;flex-wrap:wrap;gap:4px}
+@media (max-width:1100px){.ind-grid,.pkg-grid{--cols:2}}
+@media (max-width:640px){.pkg-grid{--cols:1}.ind-grid{--cols:2}.whub-list .ind-grid{--cols:1}.ind-card .ind-team svg{width:28px;height:28px}}
+@media (min-width:1101px){.pkg-grid{--cols:4}}
+/* Services: a real hero above the catalogue (Ben: "bare title and description look like an unfinished wordpress title
+   section"); the catalogue's own heading below it. */
+.smk-hero{padding-bottom:28px}
+.wmk .mk2-top h2{font:500 clamp(30px,3vw,42px)/1.05 var(--serif);color:var(--ink)}
+/* Department hero: the Orbit a little smaller and further right, so a system name at 9 o'clock ("ChatGPT") stays
+   clear of the paragraph. */
+@media (min-width:1101px){.wdept .wd-in{gap:72px}.wdept .wd-art{width:80%;margin-left:auto;margin-right:0}}

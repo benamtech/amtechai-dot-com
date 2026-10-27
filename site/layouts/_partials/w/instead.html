@@ -1,0 +1,9 @@
+{{- /* N6 What it takes the place of: what the business pays for today against what the AI team does instead, as a
+       hairline table. No money figures (Ben, 2026-10-26). (dict "h" .Params.instead_h "sub" .Params.instead_sub "rows" .Params.instead "g" "") */ -}}
+{{- $I := hugo.Data.w.instead -}}
+<section class="winst {{ .g }}"><div class="wrap">
+<h2>{{ .h }}</h2>{{ with .sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<table class="winst-t"><thead><tr><th scope="col">{{ $I.today }}</th><th scope="col">{{ $I.now }}</th></tr></thead><tbody>
+{{- range .rows }}<tr><td>{{ .today }}</td><td>{{ .now }}</td></tr>{{ end }}
+</tbody></table>
+</div></section>

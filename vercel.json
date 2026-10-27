@@ -7,10 +7,20 @@
   "cleanUrls": false,
   "headers": [
     {"source": "/okf/(.*)", "headers": [{"key": "Content-Type", "value": "text/markdown; charset=utf-8"}, {"key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400"}]},
-    {"source": "/articles/(.*)\\.md", "headers": [{"key": "Content-Type", "value": "text/markdown; charset=utf-8"}, {"key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400"}]},
-    {"source": "/llms.txt", "headers": [{"key": "Content-Type", "value": "text/markdown; charset=utf-8"}, {"key": "Cache-Control", "value": "public, max-age=3600"}]}
+    {"source": "/(.*)\\.md", "headers": [{"key": "Content-Type", "value": "text/markdown; charset=utf-8"}, {"key": "Cache-Control", "value": "public, max-age=3600, stale-while-revalidate=86400"}]},
+    {"source": "/content-hashes.json", "headers": [{"key": "Cache-Control", "value": "no-cache"}]},
+    {"source": "/llms.txt", "headers": [{"key": "Content-Type", "value": "text/markdown; charset=utf-8"}, {"key": "Cache-Control", "value": "public, max-age=3600"}]},
+    {"source": "/css/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
+    {"source": "/js/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=31536000, immutable"}]},
+    {"source": "/fonts/(.*)", "headers": [{"key": "Cache-Control", "value": "public, max-age=2592000, stale-while-revalidate=604800"}]},
+    {"source": "/(customers|investors|og|legal)/(.*)\\.(png|jpg|jpeg|webp|avif|svg|mp4)", "headers": [{"key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800"}]},
+    {"source": "/(favicon.*|apple-touch-icon\\.png|logo\\.png|painters-.*\\.jpg|manifest\\.webmanifest)", "headers": [{"key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800"}]}
   ],
   "redirects": [
+    {"source": "/how-it-works", "destination": "/", "statusCode": 301},
+    {"source": "/how-it-works/", "destination": "/", "statusCode": 301},
+    {"source": "/how-it-works.html", "destination": "/", "statusCode": 301},
+    {"source": "/how-it-works/index.html", "destination": "/", "statusCode": 301},
     {"source": "/claim", "destination": "https://app.amtechai.com/", "statusCode": 301},
     {"source": "/claim(/.*)?", "destination": "https://app.amtechai.com/", "statusCode": 301},
     {"source": "/schedule-call", "destination": "/schedule-demo", "statusCode": 301},

@@ -1,0 +1,3 @@
+{{- /* N14 next pages: the reader's next questions as links with one line each (shapes.json `next`).
+       (dict "h" .Params.next_h "rows" .Params.next) rows: [{label, url, line}] */ -}}
+{{- with .rows }}<section class="wnext"><div class="wrap"><h2>{{ $.h }}</h2><ul class="wnext-l">{{ range . }}<li><a href="{{ .url }}">{{ .label }}<span aria-hidden="true"> &rarr;</span></a><p>{{ .line }}</p></li>{{ end }}</ul></div></section>{{ end }}

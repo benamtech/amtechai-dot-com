@@ -1,0 +1,159 @@
+{
+ "_note": "The site-wide words of the new pages (C on white), each written once. Page words live in each page's content file.",
+ "prices": "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.",
+ "field": "Your business's name",
+ "action": "Start",
+ "promise": "AMTECH gives your business AI employees that do the work of a hire, an agency or a subscription, plug into everything you run on the first day, and get better every week.",
+ "late": "You stay in charge. No message, page, payment or booking goes out until you or a person you authorised says yes, or a standing approval in your own words covers it.",
+ "closing_h": "Name your business and put your employee to work.",
+ "proof": {
+  "h": "Scoop Dogg was the first business run by an AI employee.",
+  "p": "Pet waste and turf care in Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area. It started with a sales call made by AMTECH's own AI employee.",
+  "link": "https://scoopdogg.net",
+  "link_text": "See scoopdogg.net",
+  "figure": "#1",
+  "figure_line": "in ChatGPT and on Google for pet and yard cleanup, Ventura and Santa Barbara"
+ },
+ "short": {
+  "Google Business Profile": "Google",
+  "Your website's forms": "Web forms",
+  "Your website": "Website",
+  "Your price book": "Price book",
+  "Your clients' sites": "Client sites",
+  "Search Console": "Search",
+  "ChatGPT and AI Overview": "AI answers"
+ },
+ "credits": "Type: Cormorant Garamond and Geist, SIL Open Font License. Instrument photographs: The Metropolitan Museum of Art, Open Access (CC0).",
+ "sources": [
+  "The price line: AMTECH's price list, October 2026.",
+  "Scoop Dogg: his AI employee set up his new website, its online booking and his automatic replies; he gets bookings every week; first in ChatGPT and on Google for pet and yard cleanup across Ventura and Santa Barbara: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net).",
+  "The work shown in progress on this page (\"Step 2 of 4\" and the like) illustrates the AMTECH application; it is not a customer's job."
+ ],
+ "centre": "Your business",
+ "yes": {
+  "own_h": "Goes ahead under your standing approval",
+  "waits_h": "Waits for your yes",
+  "card_k": "Ready for your yes",
+  "approve": "Approve",
+  "change": "Change",
+  "trust": [
+   "AMTECH's own access to your business ends by itself, and you see it end.",
+   "Every action your employee takes leaves a receipt you can open.",
+   "Close your account and nothing of your business stays behind."
+  ]
+ },
+ "instead": {
+  "today": "What you pay for today",
+  "now": "What your AI team does instead"
+ },
+ "proof2": {
+  "figures": [
+   {
+    "big": "First in ChatGPT",
+    "line": "for pet and yard cleanup across Ventura and Santa Barbara",
+    "when": "October 2026"
+   },
+   {
+    "big": "First on Google Maps",
+    "line": "for pet waste removal in Ventura and Oxnard",
+    "when": "Captured 27 October 2026"
+   },
+   {
+    "big": "New customers every week",
+    "line": "several book through his site, answered by his employee at his real prices",
+    "when": "Ben Palaskas, October 2026"
+   }
+  ],
+  "shots": [
+   {
+    "src": "/customers/scoop-dogg/site-home-desktop",
+    "alt": "scoopdogg.net's home page, set up by his AI employee",
+    "w": 1200,
+    "h": 750
+   },
+   {
+    "src": "/customers/scoop-dogg/site-book-phone",
+    "alt": "Scoop Dogg's online booking on a phone",
+    "w": 600,
+    "h": 1298
+   },
+   {
+    "src": "/customers/scoop-dogg/chatgpt-ventura",
+    "alt": "ChatGPT's answer to who is the best dog poop removal service in Ventura: its top pick is Scoop Dogg, 5.0 from 42 reviews",
+    "w": 632,
+    "h": 336
+   }
+  ],
+  "story": "/customers/scoop-dogg",
+  "story_text": "Read how his employee did it",
+  "site_text": "Visit scoopdogg.net"
+ },
+ "connect_any": "Anything with a sign-in",
+ "price2": {
+  "free_h": "Start free",
+  "free": [
+   "Your employee and its team, working on your own business today",
+   "Pay as you go, only for the work done",
+   "A test drive on your real work before anything else"
+  ],
+  "custom_h": "Custom agents, from $1,200/mo",
+  "custom": [
+   "Set up with you for how your business runs",
+   "Results guaranteed",
+   "Every department you hand over, run end to end"
+  ]
+ },
+ "ask": {
+  "h": "Ask the AIs",
+  "sub": "Ask any assistant what AMTECH does for a business like yours.",
+  "engines": [
+   {
+    "name": "ChatGPT",
+    "url": "https://chatgpt.com/?q="
+   },
+   {
+    "name": "Perplexity",
+    "url": "https://www.perplexity.ai/search?q="
+   },
+   {
+    "name": "Claude",
+    "url": "https://claude.ai/new?q="
+   },
+   {
+    "name": "Google",
+    "url": "https://www.google.com/search?q="
+   }
+  ]
+ },
+ "prose": {
+  "_note": "The reading pages' labels (lane PORT): the articles, the legal pages, contact, the 404.",
+  "published": "Published",
+  "updated": "Updated",
+  "read": "min read",
+  "for": "For",
+  "toc": "On this page",
+  "faq": "Questions",
+  "cited": "Sources",
+  "next": "Where to go next.",
+  "effective": "Effective"
+ },
+ "notfound": {
+  "_note": "The 404 page's words (layouts/404.html): a 404 has no content file.",
+  "h": "This page is not here.",
+  "p": "It may have moved, or the address has a typo. Start from one of these instead.",
+  "go": [
+   {
+    "text": "Try it on a job",
+    "to": "/contractors"
+   },
+   {
+    "text": "Home",
+    "to": "/"
+   },
+   {
+    "text": "Articles",
+    "to": "/articles"
+   }
+  ]
+ }
+}

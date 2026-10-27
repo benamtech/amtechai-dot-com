@@ -1,5 +1,5 @@
 {{- $dark := .Params.footer_dark -}}
-{{- $links := slice (dict "label" "How It Works" "to" "/how-it-works") (dict "label" "About" "to" "/about") (dict "label" "Pricing" "to" "/pricing") (dict "label" "For Contractors" "to" "/contractors") (dict "label" "Contact" "to" "/contact") -}}
+{{- $links := slice (dict "label" "Services" "to" "/services") (dict "label" "About" "to" "/about") (dict "label" "Pricing" "to" "/pricing") (dict "label" "For Contractors" "to" "/contractors") (dict "label" "Contact" "to" "/contact") -}}
 {{- $small := cond $dark "text-white/45 hover:text-white/70" "text-black/50 hover:text-black/75" -}}
 <footer class="border-t {{ if $dark }}border-white/[0.04] bg-black{{ else }}border-black/[0.06] bg-white{{ end }}">
   <div class="container-wide py-12 md:py-16">

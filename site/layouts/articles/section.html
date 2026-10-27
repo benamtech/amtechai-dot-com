@@ -1,28 +1,20 @@
-{{ define "main" }}
-{{- /* /articles: every article in content/articles/, newest first. Nothing to edit here when one is added. */ -}}
-<section class="relative overflow-hidden bg-[#FAFAFA] pt-32 pb-14 md:pt-44 md:pb-20">
-  <div class="pointer-events-none absolute left-1/2 top-0 h-[520px] w-[900px] -translate-x-1/2 -translate-y-1/3" style="background: radial-gradient(ellipse at center, rgba(228, 37, 28, 0.16) 0%, rgba(228, 37, 28, 0.04) 45%, transparent 70%)" aria-hidden="true"></div>
-  <div class="container-wide relative z-10">
-    <h1 class="font-display text-display-hero text-black">{{ .Params.heading | replaceRE `\.$` "" }}<span class="text-red">.</span></h1>
-    <p class="mt-7 max-w-2xl font-body text-body-lg leading-relaxed text-black/60">{{ .Params.intro }}</p>
-  </div>
-</section>
-<section class="bg-white pb-24 md:pb-32">
-  <div class="container-wide">
-    <ol class="border-t-2 border-black">
-      {{- range .Pages.ByDate.Reverse }}
-      <li class="border-b border-black/10">
-        <a class="group grid gap-3 py-8 md:grid-cols-[10rem_minmax(0,1fr)_2rem] md:gap-10 md:py-10" href="{{ strings.TrimSuffix "/" .RelPermalink }}">
-          <span class="font-mono text-xs uppercase tracking-wider text-black/45 md:pt-2"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time></span>
-          <span>
-            <span class="block font-display text-display-sm text-black transition-colors group-hover:text-red md:text-[1.75rem] md:leading-tight">{{ .Title }}</span>
-            <span class="mt-3 block max-w-2xl font-body text-body-md leading-relaxed text-black/60">{{ .Params.dek | default .Description }}</span>
-          </span>
-          <span class="hidden text-red transition-transform group-hover:translate-x-1 md:block md:pt-2">{{ partial "icon.html" (dict "name" "arrow-right" "size" 22) }}</span>
-        </a>
-      </li>
-      {{- end }}
-    </ol>
-  </div>
-</section>
-{{ end }}
+{{- /* /articles in C on white (lane PORT, 2026-10-27): every article in content/articles/, newest first. Nothing to edit
+       here when one is added. Its words are content/articles/_index.md's (heading, intro); a heading's closing period
+       is set in red. */ -}}
+{{- $W := hugo.Data.w -}}
+{{- range slice "title" "description" "heading" "intro" "crumb" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<header class="pr-head"><div class="wrap">
+<h1>{{ .Params.heading | strings.TrimSuffix "." }}{{ if strings.HasSuffix .Params.heading "." }}<span class="red">.</span>{{ end }}</h1>
+<p class="pr-dek">{{ .Params.intro }}</p>
+</div></header>
+<div class="wrap"><ol class="pr-list">
+{{- range .Pages.ByDate.Reverse }}
+<li><a href="{{ strings.TrimSuffix "/" .RelPermalink }}"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2 January 2006" }}</time><span><b>{{ .Title }}</b><span>{{ .Params.dek | default .Description }}</span></span><span class="arr" aria-hidden="true">&rarr;</span></a></li>
+{{- end }}
+</ol></div>
+<section class="wsb pr-start"><div class="wrap wsb-in"><h2>{{ $W.closing_h }}</h2><div>{{ partial "w/start.html" (dict "id" "start") }}</div></div></section>
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

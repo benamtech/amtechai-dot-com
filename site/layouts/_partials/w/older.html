@@ -1,0 +1,7 @@
+{{- /* The indexable pages that are neither new (w/pages.html) nor articles: the pages kept from the old site (contact,
+       contractors, create, painters, privacy, terms ...) and the articles list. Each gets a short bundle concept
+       (/okf/pages/<slug>.md: its title, description and URL) and an llms.txt line, so every sitemap URL has both. */ -}}
+{{- $new := partial "w/pages.html" . -}}
+{{- $out := slice -}}
+{{- range site.Pages }}{{ if and (.OutputFormats.Get "html") (not .Params.noindex) (ne .Kind "404") (not (in $new .)) (not (and (eq .Section "articles") .IsPage)) }}{{ $out = $out | append . }}{{ end }}{{ end -}}
+{{- return $out -}}

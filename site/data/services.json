@@ -1,0 +1,466 @@
+[
+ {
+  "slug": "estimates-from-plans-and-photos",
+  "name": "Estimating, from plans, photos and satellite imagery",
+  "instead": "Replaces an estimator and the takeoff software",
+  "for": "Trade contractors who price from drawings, photos, a walkthrough or the address alone",
+  "connects": [
+   "Gmail",
+   "Jobber",
+   "CompanyCam"
+  ],
+  "team": [
+   "employee",
+   "t1",
+   "t5"
+  ],
+  "group": "Estimates"
+ },
+ {
+  "slug": "billing-dates-pay-applications-waivers-and-lien-notices",
+  "name": "Pay applications, lien waivers and lien rights, run every month",
+  "instead": "Replaces a project accountant and the billing software",
+  "for": "Commercial subcontractors and the contractors who bill on a schedule of values",
+  "connects": [
+   "Gmail",
+   "Procore",
+   "QuickBooks Online"
+  ],
+  "team": [
+   "employee",
+   "t4",
+   "t2"
+  ],
+  "group": "Getting paid"
+ },
+ {
+  "slug": "the-first-year-after-buying-a-business",
+  "name": "Running the office of a business you just bought",
+  "instead": "Replaces the office manager the business needed and the consultant you would have called",
+  "for": "Owners who just bought a trade or service business and inherited its paperwork",
+  "connects": [
+   "Gmail",
+   "QuickBooks Online"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t4"
+  ],
+  "group": "Documents"
+ },
+ {
+  "slug": "client-reports-written-every-month",
+  "name": "Client reporting for every account, every month",
+  "instead": "Replaces your team's reporting days and the dashboard subscription",
+  "for": "SEO and marketing agencies with a client list to report to",
+  "connects": [
+   "HighLevel",
+   "Google Business Profile",
+   "HubSpot"
+  ],
+  "team": [
+   "employee",
+   "t3",
+   "t2"
+  ],
+  "group": "Marketing"
+ },
+ {
+  "slug": "the-morning-public-bid-sheet",
+  "name": "Public bidding, from the morning bid search to the submitted bid",
+  "instead": "Replaces a bid-board subscription and the estimator's hours reading it",
+  "for": "Contractors who want public work from their city, county, schools and state",
+  "connects": [
+   "Gmail",
+   "Autodesk BuildingConnected"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t1"
+  ],
+  "group": "Public bids"
+ },
+ {
+  "slug": "daily-rfp-and-grant-match-with-the-capability-statement-drafted",
+  "name": "Business development from RFPs and grants, every day",
+  "instead": "Replaces a bid-search subscription and a proposal writer",
+  "for": "Consulting firms, architects, engineers and surveyors who win work by proposal",
+  "connects": [
+   "Gmail",
+   "Notion"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t1"
+  ],
+  "group": "Public bids"
+ },
+ {
+  "slug": "this-months-posts-and-pictures",
+  "name": "Social media, run every week",
+  "instead": "Replaces a social media agency",
+  "for": "Any local business whose customers look for it online",
+  "connects": [
+   "Meta",
+   "Canva",
+   "Google Business Profile"
+  ],
+  "team": [
+   "employee",
+   "t3",
+   "t2"
+  ],
+  "group": "Marketing"
+ },
+ {
+  "slug": "found-on-google-and-in-ai-answers",
+  "name": "Being found on Google, Google Maps and in AI answers",
+  "instead": "Replaces a local SEO agency's retainer",
+  "for": "Any local business that customers look for in a town",
+  "connects": [
+   "Google Business Profile",
+   "Wix",
+   "WooCommerce"
+  ],
+  "team": [
+   "employee",
+   "t3",
+   "t5"
+  ],
+  "group": "Being found"
+ },
+ {
+  "slug": "outbound-to-the-right-companies-from-the-owners-own-mailbox",
+  "name": "Outbound sales to the right companies, from your own mailbox",
+  "instead": "Replaces a sales development rep and an appointment-setting agency",
+  "for": "B2B service firms, consultants and agencies that sell to other businesses",
+  "connects": [
+   "Gmail",
+   "HubSpot",
+   "HighLevel"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t2"
+  ],
+  "group": "Business development"
+ },
+ {
+  "slug": "grants-found-written-and-reported-on-time",
+  "name": "Grants found, written, won and reported",
+  "instead": "Replaces a grant writer and a grant database subscription",
+  "for": "Nonprofits that live on grants",
+  "connects": [
+   "Gmail",
+   "Notion",
+   "Bloomerang"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t2"
+  ],
+  "group": "Proposals"
+ },
+ {
+  "slug": "new-matters-intake-conflict-check-engagement-letter",
+  "name": "New-client intake for a law firm, start to signed letter",
+  "instead": "Replaces an intake specialist and the intake software",
+  "for": "Small law firms that take new matters every week",
+  "connects": [
+   "Clio",
+   "Calendly",
+   "Any website form"
+  ],
+  "team": [
+   "employee",
+   "t2",
+   "t5"
+  ],
+  "group": "Inbox"
+ },
+ {
+  "slug": "inspection-reports-into-repair-quotes",
+  "name": "Inspection reports turned into quoted repair work",
+  "instead": "Replaces a service coordinator and the hours spent retyping reports",
+  "for": "Inspection trades (fire, backflow, elevator, HVAC service) and realtor-repair contractors",
+  "connects": [
+   "Gmail",
+   "ServiceTitan",
+   "Housecall Pro"
+  ],
+  "team": [
+   "employee",
+   "t1",
+   "t5"
+  ],
+  "group": "Estimates"
+ },
+ {
+  "slug": "proposals-and-statements-of-work",
+  "name": "Proposals and statements of work, written and won",
+  "instead": "Replaces a proposal writer and the proposal software",
+  "for": "Consultants, agencies and professional firms",
+  "connects": [
+   "Gmail",
+   "HubSpot",
+   "Notion"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t2"
+  ],
+  "group": "Proposals"
+ },
+ {
+  "slug": "invoices-out-and-paid",
+  "name": "Billing and collections, run end to end",
+  "instead": "Replaces a billing clerk and a collections service",
+  "for": "Any service business that invoices after the work",
+  "connects": [
+   "Stripe",
+   "QuickBooks Online",
+   "Jobber"
+  ],
+  "team": [
+   "employee",
+   "t4",
+   "t2"
+  ],
+  "group": "Getting paid"
+ },
+ {
+  "slug": "prospects-from-failed-inspections-and-violations",
+  "name": "New customers from failed inspections and violations",
+  "instead": "Replaces a purchased lead list and the sales rep who calls it",
+  "for": "Pest control, cleaning and property-repair firms",
+  "connects": [
+   "Gmail"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t2"
+  ],
+  "group": "Business development"
+ },
+ {
+  "slug": "hire-the-next-person",
+  "name": "Hiring, from the job post to the interview",
+  "instead": "Replaces a recruiting agency's fee and the job-board busywork",
+  "for": "Any owner who needs the next person",
+  "connects": [
+   "Gmail",
+   "Calendly"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t2"
+  ],
+  "group": "Hiring"
+ },
+ {
+  "slug": "inquiries-answered-and-booked",
+  "name": "Every inquiry answered and booked, on every channel",
+  "instead": "Replaces a front desk, an answering service and the booking software",
+  "for": "Service businesses that live on their calendar",
+  "connects": [
+   "Any website form",
+   "Calendly",
+   "Jobber"
+  ],
+  "team": [
+   "employee",
+   "t2",
+   "t4"
+  ],
+  "group": "Scheduling"
+ },
+ {
+  "slug": "building-violations-caught-the-work-order-already-drafted",
+  "name": "Building violations caught and the repair under way",
+  "instead": "Replaces the staff hours spent checking city records and writing work orders",
+  "for": "Property managers with buildings in a city that publishes violations",
+  "connects": [
+   "AppFolio",
+   "Buildium"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t4"
+  ],
+  "group": "Documents"
+ },
+ {
+  "slug": "contractors-whose-insurance-expires-near-you",
+  "name": "New business from contractors whose insurance is due",
+  "instead": "Replaces a lead vendor's contractor list and the producer's research hours",
+  "for": "Independent insurance agencies that write contractors",
+  "connects": [
+   "Gmail"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t2"
+  ],
+  "group": "Business development"
+ },
+ {
+  "slug": "open-permits-and-inspections-chased-on-live-jobs",
+  "name": "Permits and inspections run on every live job",
+  "instead": "Replaces a permit expediter",
+  "for": "General contractors and remodelers with jobs open in more than one city",
+  "connects": [
+   "Gmail",
+   "Procore"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t4"
+  ],
+  "group": "Documents"
+ },
+ {
+  "slug": "insurance-claim-supplements-followed-to-payment",
+  "name": "Insurance claims and supplements, followed to payment",
+  "instead": "Replaces a supplement company and its cut of the claim",
+  "for": "Roofers and restoration contractors working insurance claims",
+  "connects": [
+   "Gmail",
+   "AccuLynx",
+   "CompanyCam"
+  ],
+  "team": [
+   "employee",
+   "t1",
+   "t5"
+  ],
+  "group": "Estimates"
+ },
+ {
+  "slug": "on-general-contractors-bid-lists",
+  "name": "Getting on general contractors' bid lists and winning their work",
+  "instead": "Replaces a business-development rep calling estimators",
+  "for": "Subcontractors who want commercial work",
+  "connects": [
+   "Gmail",
+   "Autodesk BuildingConnected"
+  ],
+  "team": [
+   "employee",
+   "t5",
+   "t1"
+  ],
+  "group": "Public bids"
+ },
+ {
+  "slug": "the-books-kept-every-week",
+  "name": "Bookkeeping, closed every week",
+  "instead": "Replaces a bookkeeper's weekly hours and the reporting add-on",
+  "for": "Any business that keeps its books in QuickBooks or Xero",
+  "connects": [
+   "QuickBooks Online",
+   "Xero",
+   "Gmail"
+  ],
+  "team": [
+   "employee",
+   "t4",
+   "t5"
+  ],
+  "group": "Bookkeeping"
+ },
+ {
+  "slug": "client-documents-chased-and-month-end-prepared",
+  "name": "Month-end for every client, documents to close",
+  "instead": "Replaces the staff hours spent chasing clients and preparing month-end",
+  "for": "Accounting, tax and bookkeeping firms",
+  "connects": [
+   "QuickBooks Online",
+   "Xero",
+   "Karbon"
+  ],
+  "team": [
+   "employee",
+   "t4",
+   "t5"
+  ],
+  "group": "Bookkeeping"
+ },
+ {
+  "slug": "the-six-oclock-numbers-food-cost-job-cost-cash",
+  "name": "Your numbers every morning: food cost, job cost and cash",
+  "instead": "Replaces a back-office manager and the month-end report you wait for",
+  "for": "Restaurants and trades that want to see their margin every day",
+  "connects": [
+   "Toast",
+   "Square",
+   "QuickBooks Online"
+  ],
+  "team": [
+   "employee",
+   "t4",
+   "t5"
+  ],
+  "group": "Bookkeeping"
+ },
+ {
+  "slug": "seasonal-tune-ups-and-win-back-from-the-customer-list",
+  "name": "Repeat business from your customer list, every season",
+  "instead": "Replaces a marketing agency and your field software's marketing add-on",
+  "for": "Trades with a customer list, such as HVAC, lawn care and pest control",
+  "connects": [
+   "Jobber",
+   "Housecall Pro",
+   "ServiceTitan"
+  ],
+  "team": [
+   "employee",
+   "t3",
+   "t2"
+  ],
+  "group": "Marketing"
+ },
+ {
+  "slug": "new-homeowners-welcomed-with-a-quote",
+  "name": "New homeowners in your area, each sent a quote",
+  "instead": "Replaces a new-mover mailing service",
+  "for": "Lawn, pest, pet-waste, painting and home-service firms",
+  "connects": [
+   "Gmail",
+   "Any website form"
+  ],
+  "team": [
+   "employee",
+   "t3",
+   "t2"
+  ],
+  "group": "Marketing"
+ },
+ {
+  "slug": "paid-search-and-social-run-and-reported",
+  "name": "Paid search and social ads, run and reported",
+  "instead": "Replaces a pay-per-click agency's retainer",
+  "for": "Businesses spending on Google or Meta ads",
+  "connects": [
+   "Meta",
+   "Google Business Profile",
+   "Any website form"
+  ],
+  "team": [
+   "employee",
+   "t3",
+   "t2"
+  ],
+  "group": "Marketing"
+ }
+]
