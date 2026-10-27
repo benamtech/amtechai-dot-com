@@ -140,6 +140,113 @@ Start any one at {{ $o }}/start?config=<service>. {{ $W.prices }}
 
 {{ .for }}.{{ with .instead }} {{ . }}.{{ end }} Connects to {{ delimit .connects ", " }}. Group: {{ .group }}. Start it: {{ $o }}/start?config={{ .slug }}
 {{ end }}
+{{- else if and (eq $p.Section "customers") $p.IsPage }}
+
+Start with your business's name: {{ $o }}/start?business=<your business's name>
+
+{{ $W.prices }}
+
+[{{ $P.site_link.text }}]({{ $P.site_link.url }})
+
+## {{ $P.facts_h }}
+{{ range $P.facts }}
+- **{{ .k }}:** {{ .v }}
+{{- end }}
+{{ range $P.figures }}
+- **{{ .big }}** {{ .line }} ({{ .when }})
+{{- end }}
+
+## {{ $P.gallery_h }}
+
+{{ $P.gallery_sub }}
+{{ range $P.gallery }}
+### {{ .h }}
+{{ range .shots }}
+- [{{ .cap }}]({{ $o }}{{ .src }}.webp)
+{{- end }}
+{{ end }}
+{{- if or $P.chatgpt.answer $P.chatgpt.src $P.google_search.src }}
+### {{ $P.answers_h }}
+{{ with $P.chatgpt }}{{ if or .answer .src }}
+{{ .cap }}. Asked: "{{ .prompt }}"{{ with .answer }} Answer: {{ . }}{{ end }}
+{{ end }}{{ end }}
+{{- with $P.google_search }}{{ if .src }}
+- [{{ .cap }}]({{ $o }}{{ .src }})
+{{ end }}{{ end }}
+{{- end }}
+## {{ $P.did_h }}
+
+{{ $P.did_sub }}
+{{ range $i, $d := $P.did }}
+### {{ add $i 1 }}. {{ $d.h }}
+
+{{ $d.p }}
+{{ end }}
+## {{ $P.timeline_h }}
+{{ range $P.timeline }}
+### {{ .h }}
+
+{{ .when }}: {{ .p }}
+{{ end }}
+## {{ $P.week_h }}
+
+{{ $P.week_sub }}
+{{ range $P.week }}
+- **{{ .day }}:** {{ delimit .lines "; " }}.
+{{- end }}
+
+## {{ $P.words_h }}
+{{ range $P.words }}
+> "{{ .q }}" ({{ .who }}, {{ .when }})
+{{ end }}
+{{- with $P.josue }}{{ if .q }}
+> "{{ .q }}" ({{ .who }}{{ with .when }}, {{ . }}{{ end }})
+{{ end }}{{ end }}
+## {{ $P.how_h }}
+
+{{ $P.how_p }} [{{ $P.how_link.text }}]({{ $o }}{{ $P.how_link.url }})
+
+## {{ $P.trades_h }}
+
+{{ $P.trades_sub }}
+{{ range $P.trades }}{{ $ip := site.GetPage (printf "/industries/%s" .slug) }}
+- [{{ $ip.Params.label }}]({{ $o }}{{ strings.TrimSuffix "/" $ip.RelPermalink }}): {{ .line }}
+{{- end }}
+
+## {{ $P.start2_h }}
+
+Start with your business's name: {{ $o }}/start?business=<your business's name>
+
+## {{ $P.ask_h }}
+
+{{ $P.ask_sub }} "{{ $P.ask_prompt }}"
+{{- else if and (eq $p.Section "customers") $p.IsSection }}
+
+Start with your business's name: {{ $o }}/start?business=<your business's name>
+
+{{ $W.prices }}
+
+## {{ $P.proof_h }}
+
+{{ $P.proof }}
+{{ range hugo.Data.w.proof2.figures }}
+- **{{ .big }}** {{ .line }} ({{ .when }})
+{{- end }}
+
+[{{ hugo.Data.w.proof2.story_text }}]({{ $o }}{{ hugo.Data.w.proof2.story }}) · [{{ hugo.Data.w.proof2.site_text }}]({{ $W.proof.link }})
+{{ range $p.RegularPages.ByWeight }}
+## {{ .Params.label }}
+
+{{ .Description }} [The story]({{ $o }}{{ strings.TrimSuffix "/" .RelPermalink }}) ([Markdown]({{ $o }}{{ strings.TrimSuffix "/" .RelPermalink }}.md))
+{{ end }}
+## {{ $P.start2_h }}
+
+Start with your business's name: {{ $o }}/start?business=<your business's name>
+
+## {{ $P.next_h }}
+{{ range $P.next }}
+- [{{ .label }}]({{ $o }}{{ .url }}): {{ .line }}
+{{- end }}
 {{- else if $p.IsSection }}
 
 {{ $W.prices }}
@@ -208,7 +315,7 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 ## {{ $P.proof_h }}
 
 {{ $P.proof_p }} [{{ $W.proof.link_text }}]({{ $W.proof.link }})
-{{- else if not (eq $p.Section "departments" "services" "questions") }}
+{{- else if not (eq $p.Section "departments" "services" "questions" "customers") }}
 
 ## {{ $W.proof.h }}
 

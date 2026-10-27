@@ -14,7 +14,9 @@
 {{- else if eq .Section "questions" }}{{ $type = "Answer" }}{{ $crumbs = $crumbs | append (dict "name" "Questions" "url" (printf "%s/questions" $origin)) -}}
 {{- else if and (eq .Section "industries") .IsSection }}{{ $type = "Industry" }}{{ $schema = "CollectionPage" -}}
 {{- else if eq .Section "industries" }}{{ $type = "Business Type" }}{{ $crumbs = $crumbs | append (dict "name" "Industries" "url" (printf "%s/industries" $origin)) -}}
-{{- else if eq .Section "departments" }}{{ $type = "Department" }}{{ end -}}
+{{- else if eq .Section "departments" }}{{ $type = "Department" -}}
+{{- else if and (eq .Section "customers") .IsSection }}{{ $type = "Case Study Index" }}{{ $schema = "CollectionPage" -}}
+{{- else if eq .Section "customers" }}{{ $type = "Case Study" }}{{ $crumbs = $crumbs | append (dict "name" "Customers" "url" (printf "%s/customers" $origin)) }}{{ end -}}
 {{- $name := .Params.label | default .Params.crumb | default (cond (and (eq .Section "services") .IsSection) "Services" (cond (and (eq .Section "questions") .IsSection) "Questions" (cond (and (eq .Section "industries") .IsSection) "Industries" ((index (split .Title ":") 0))))) -}}
 {{- if not .IsHome }}{{ $crumbs = $crumbs | append (dict "name" $name "url" $url) }}{{ end -}}
 {{- $twin := cond .IsHome "/index.md" (printf "%s.md" $route) -}}

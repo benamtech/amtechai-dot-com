@@ -31,16 +31,16 @@
 .wcs-box dt{font-size:14px;font-weight:600;color:var(--ink)}
 .wcs-box dd{font-size:15.5px;color:var(--ink-2)}
 .wcs-figs{list-style:none;display:grid;gap:0}
-.wcs-figs li{display:grid;grid-template-columns:minmax(170px,auto) minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--hair)}
+.wcs-figs li{display:grid;grid-template-columns:200px minmax(0,1fr);gap:4px 24px;align-items:baseline;padding:22px 0;border-bottom:1px solid var(--hair)}
 .wcs-figs li:first-child{padding-top:0}
 .wcs-figs b{grid-row:span 2;font:700 76px/0.9 var(--sans);letter-spacing:-0.045em}
-.wcs-figs li:last-child b{font-size:44px;line-height:1}
+.wcs-figs li:last-child b{font-size:38px;line-height:1}
 .wcs-figs span{font:500 23px/1.25 var(--serif);color:var(--ink)}
 .wcs-figs small{font-size:13px;color:var(--ink-3)}
 
 /* The captures */
 .wcs-gal,.wcs-did,.wcs-time,.wcs-words,.wcs-trades{padding:104px 0}
-.wcs h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04;max-width:20em}
+.wcs-gal h2,.wcs-did h2,.wcs-time h2,.wcs-words h2,.wcs-trades h2,.wcs-how h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04;max-width:20em}
 .wcs-gh{margin-top:48px;font-size:28px}
 .wcs-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:36px 32px;margin-top:20px}
 .wcs-shot{margin:0}
@@ -48,7 +48,7 @@
 .wcs-shot:not(.wcs-pair) .wcs-pics{grid-template-columns:minmax(0,1fr)}
 .wcs-phone{border-radius:14px;overflow:hidden;background:#fff;box-shadow:0 0 0 1px rgba(10,10,10,.1),0 24px 48px -26px rgba(10,10,10,.45)}
 .wcs-phone img{width:100%;height:auto;display:block}
-.wcs-grid:has(> .wcs-shot:not(.wcs-pair)){grid-template-columns:repeat(3,minmax(0,1fr))}
+.wcs-grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 .wcs-ai blockquote{padding:20px;background:#fff;border-radius:8px;box-shadow:inset 0 0 0 1px var(--hair);font-size:15.5px;color:var(--ink-2)}
 .wcs-q{font-weight:600;color:var(--ink);margin-bottom:8px}
 
@@ -58,7 +58,9 @@
 .wcs-row:nth-child(even) .wcs-row-t{order:2}
 .wcs-row h3{margin-top:14px;font-size:34px;line-height:1.08}
 .wcs-row p{margin-top:12px;font-size:17px;color:var(--ink-2);max-width:34em}
-.wcs-row-ph .wcs-phone{width:min(260px,60%);justify-self:center}
+.wcs-row-ph .wcs-phone{width:min(220px,56%);justify-self:center}
+.wcs-row>.wcs-frame:not(.wcs-phone){width:100%;max-width:560px;justify-self:center}
+.wcs-row:last-child>.wcs-frame{max-width:420px}
 
 /* The timeline */
 .wcs-time-r{list-style:none;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));margin-top:48px;border-top:1.5px solid var(--ink)}
@@ -102,19 +104,19 @@
   .wcs-time-r{grid-template-columns:minmax(0,1fr);border-top:0;border-left:1.5px solid var(--ink);margin-left:6px}
   .wcs-time-r li{padding:0 0 28px 26px}.wcs-time-r li::before{left:-7px;top:4px}
   .wcs-quotes{grid-template-columns:minmax(0,1fr)}.wcs-quotes figure:first-child{grid-row:auto}
-  .wcs-grid:has(> .wcs-shot:not(.wcs-pair)){grid-template-columns:repeat(2,minmax(0,1fr))}
+  .wcs-grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
 }
 @media (max-width:820px){
   .wcs-hero{padding:18px 0 48px}.wcs-hero h1{font-size:36px}.wcs-hero .lede{font-size:16px;margin-top:12px}
   .wcs-hero .start{flex-direction:column;max-width:none;margin-top:18px}
   .wcs-gal,.wcs-did,.wcs-time,.wcs-words,.wcs-trades,.wcs-how{padding:60px 0}
   .wcs-facts{padding:8px 0 60px}
-  .wcs-grid,.wcs-grid:has(> .wcs-shot:not(.wcs-pair)){grid-template-columns:minmax(0,1fr)}
+  .wcs-grid,.wcs-grid-3{grid-template-columns:minmax(0,1fr)}
   .wcs-box dl>div{grid-template-columns:minmax(0,1fr);gap:2px}
   .wcs-figs li{grid-template-columns:minmax(0,1fr)}.wcs-figs b{font-size:60px}.wcs-figs span{font-size:20px}
   .wcs-row h3{font-size:28px}.wcs-row p{font-size:16px}
   .wcs-trade-l a{grid-template-columns:minmax(0,1fr) 24px;gap:4px 12px}.wcs-tn{font-size:26px}.wcs-tl{grid-column:1;grid-row:2}.wcs-ta{grid-row:1/span 2;grid-column:2;align-self:center}
   .wcs-quotes blockquote p{font-size:22px}.wcs-quotes figure:first-child blockquote p{font-size:30px}
-  .wcs-hero-art{padding-bottom:0}.wcs-h0{width:100%}.wcs-h1{width:40%;right:-4px;bottom:auto;top:52%}.wcs-hero-art figcaption{position:static;width:auto;margin-top:96px}
+  .wcs-hero-art{padding-bottom:0}.wcs-h0{width:92%}.wcs-h1{position:relative;right:auto;bottom:auto;width:48%;margin:-64px 0 0 auto}.wcs-hero-art figcaption{position:static;width:auto;margin-top:12px}
   .wcs-hub-art{max-width:none}.wcs-hub-art figcaption{margin-top:12px}
 }

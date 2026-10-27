@@ -1,0 +1,70 @@
+{{- /* A customer story (/customers/<slug>), N16 (build/SECTIONS-PLAN.md §10; lane STORY, 2026-10-27): the hero with a real
+       capture, the facts and the figures, the captures on Bone, what the employee did in order, the timeline, the week,
+       the owner's words, how it was done, the trades, the start after the proof, ask the AIs, the close and the sources.
+       Every word is in the page's content file. The slots Ben fills (chatgpt, google_search, josue) render nothing
+       while empty: never a placeholder box on the live page. */ -}}
+{{- $p := . -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "site_link" "hero_shots" "hero_cap" "facts_h" "facts" "figures" "gallery_h" "gallery" "answers_h" "did_h" "did" "timeline_h" "timeline" "week_h" "week" "words_h" "words" "how_h" "how_p" "how_link" "trades_h" "trades" "start2_h" "ask_h" "ask_sub" "ask_prompt" "closing_h" "closing_sub" "sources" "reviewed" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- $P := .Params }}{{ $cg := $P.chatgpt }}{{ $gs := $P.google_search -}}
+{{ partial "w/top.html" . }}
+<main class="wcs">
+<section class="wcs-hero"><div class="wrap wcs-hero-in">
+<div class="wcs-hero-t"><h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1><p class="lede">{{ $P.sub }}</p>
+{{ partial "w/start.html" (dict "id" "start" "field" $P.field "button" $P.button) }}
+<p class="wcs-out"><a class="wlink" href="{{ $P.site_link.url }}">{{ $P.site_link.text }}<span aria-hidden="true"> &#8599;</span></a>{{ with $P.reviews_link }}<a class="wlink2" href="{{ .url }}" rel="noopener">{{ .text }}</a>{{ end }}</p></div>
+<figure class="wcs-hero-art">{{ range $i, $s := $P.hero_shots }}<div class="wcs-frame wcs-h{{ $i }}"><span class="wcs-bar" aria-hidden="true"><i></i><i></i><i></i></span><picture><source type="image/avif" srcset="{{ $s.src }}.avif"><img src="{{ $s.src }}.webp" alt="{{ $s.alt }}" width="{{ $s.w }}" height="{{ $s.h }}"{{ if eq $i 0 }} fetchpriority="high"{{ else }} loading="lazy"{{ end }} decoding="async"></picture></div>{{ end }}<figcaption>{{ $P.hero_cap }}</figcaption></figure>
+</div></section>
+
+<section class="wcs-facts"><div class="wrap wcs-facts-in">
+<div class="wcs-box"><h2>{{ $P.facts_h }}</h2><dl>{{ range $P.facts }}<div><dt>{{ .k }}</dt><dd>{{ .v }}</dd></div>{{ end }}</dl></div>
+<ul class="wcs-figs">{{ range $P.figures }}<li><b class="red">{{ .big }}</b><span>{{ .line }}</span><small>{{ .when }}</small></li>{{ end }}</ul>
+</div></section>
+
+<section class="wcs-gal g-bone" id="captures"><div class="wrap">
+<h2>{{ $P.gallery_h }}</h2>{{ with $P.gallery_sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+{{- range $P.gallery }}
+<h3 class="wcs-gh">{{ .h }}</h3><div class="wcs-grid{{ if not (index .shots 0).phone }} wcs-grid-3{{ end }}">
+{{- range $s := .shots }}<figure class="wcs-shot{{ if .phone }} wcs-pair{{ end }}"><div class="wcs-pics"><div class="wcs-frame"><span class="wcs-bar" aria-hidden="true"><i></i><i></i><i></i></span><picture><source type="image/avif" srcset="{{ .src }}.avif"><img src="{{ .src }}.webp" alt="{{ .alt }}" width="{{ .w }}" height="{{ .h }}" loading="lazy" decoding="async"></picture></div>{{ with .phone }}<div class="wcs-phone"><picture><source type="image/avif" srcset="{{ . }}.avif"><img src="{{ . }}.webp" alt="{{ $s.phone_alt }}" width="600" height="1298" loading="lazy" decoding="async"></picture></div>{{ end }}</div><figcaption>{{ .cap }}</figcaption></figure>{{ end }}
+</div>
+{{- end }}
+{{- if or $cg.answer $cg.src $gs.src }}
+<h3 class="wcs-gh">{{ $P.answers_h }}</h3><div class="wcs-grid wcs-answers">
+{{- if or $cg.answer $cg.src }}<figure class="wcs-shot wcs-ai">{{ with $cg.src }}<div class="wcs-frame"><img src="{{ . }}" alt="{{ $cg.prompt }}" width="{{ $cg.w }}" height="{{ $cg.h }}" loading="lazy" decoding="async"></div>{{ end }}{{ with $cg.answer }}<blockquote><p class="wcs-q">{{ $cg.prompt }}</p><p>{{ . }}</p></blockquote>{{ end }}<figcaption>{{ $cg.cap }}</figcaption></figure>{{ end }}
+{{- with $gs.src }}<figure class="wcs-shot"><div class="wcs-frame"><img src="{{ . }}" alt="{{ $gs.alt }}" width="{{ $gs.w }}" height="{{ $gs.h }}" loading="lazy" decoding="async"></div><figcaption>{{ $gs.cap }}</figcaption></figure>{{ end }}
+</div>
+{{- end }}
+</div></section>
+
+<section class="wcs-did"><div class="wrap">
+<h2>{{ $P.did_h }}</h2>{{ with $P.did_sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<ol class="wcs-did-l">{{ range $i, $d := $P.did }}<li class="wcs-row{{ if $d.shot.phone }} wcs-row-ph{{ end }}"><div class="wcs-row-t"><span class="how-n">{{ add $i 1 }}</span><h3>{{ $d.h }}</h3><p>{{ $d.p }}</p></div>{{ with $d.shot }}<div class="wcs-frame{{ if .phone }} wcs-phone{{ end }}">{{ if not .phone }}<span class="wcs-bar" aria-hidden="true"><i></i><i></i><i></i></span>{{ end }}<picture><source type="image/avif" srcset="{{ .src }}.avif"><img src="{{ .src }}.webp" alt="{{ .alt }}" width="{{ .w }}" height="{{ .h }}" loading="lazy" decoding="async"></picture></div>{{ end }}</li>{{ end }}</ol>
+</div></section>
+
+<section class="wcs-time g-paper"><div class="wrap">
+<h2>{{ $P.timeline_h }}</h2>
+<ol class="wcs-time-r" style="--n:{{ len $P.timeline }}">{{ range $P.timeline }}<li><span class="wcs-when">{{ .when }}</span><h3>{{ .h }}</h3><p>{{ .p }}</p></li>{{ end }}</ol>
+</div></section>
+
+{{ partial "w/week.html" (dict "h" $P.week_h "sub" $P.week_sub "days" $P.week "names" $P.names) }}
+
+<section class="wcs-words g-bone"><div class="wrap">
+<h2>{{ $P.words_h }}</h2>
+<div class="wcs-quotes">{{ range $P.words }}<figure><blockquote><p>&ldquo;{{ .q }}&rdquo;</p></blockquote><figcaption>{{ .who }}, {{ .when }}</figcaption></figure>{{ end }}
+{{- with $P.josue }}{{ if .q }}<figure class="wcs-josue"><blockquote><p>&ldquo;{{ .q }}&rdquo;</p></blockquote><figcaption>{{ .who }}{{ with .when }}, {{ . }}{{ end }}</figcaption></figure>{{ end }}{{ end }}</div>
+</div></section>
+
+<section class="wcs-how"><div class="wrap wcs-how-in"><h2>{{ $P.how_h }}</h2><div><p>{{ $P.how_p }}</p><a class="wlink" href="{{ $P.how_link.url }}">{{ $P.how_link.text }}<span aria-hidden="true"> &rarr;</span></a></div></div></section>
+
+<section class="wcs-trades"><div class="wrap">
+<h2>{{ $P.trades_h }}</h2>{{ with $P.trades_sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<ul class="wcs-trade-l">{{ range $P.trades }}{{ $ip := site.GetPage (printf "/industries/%s" .slug) }}{{ if not $ip }}{{ errorf "GATE %s: trades names %q, which has no industry page" $p.File.Path .slug }}{{ end }}<li><a href="{{ $ip.RelPermalink | strings.TrimSuffix "/" }}"><span class="wcs-tn">{{ $ip.Params.label }}</span><span class="wcs-tl">{{ .line }}</span><span class="wcs-ta" aria-hidden="true">&rarr;</span></a></li>{{ end }}</ul>
+</div></section>
+
+{{ partial "w/startband.html" (dict "h" $P.start2_h "field" $P.field "button" $P.button) }}
+
+<section class="wask wcs-ask"><div class="wrap"><h2 class="wask-h">{{ $P.ask_h }}</h2><p class="wask-sub">{{ $P.ask_sub }}</p><p class="wcs-prompt">&ldquo;{{ $P.ask_prompt }}&rdquo;</p><ul>{{ range hugo.Data.w.ask.engines }}<li><a href="{{ .url }}{{ $P.ask_prompt | urlquery }}" rel="nofollow noopener" target="_blank">{{ .name }}<span aria-hidden="true"> &#8599;</span></a></li>{{ end }}</ul></div></section>
+
+{{ partial "w/closing.html" (dict "h" $P.closing_h "p" $P.closing_sub "field" $P.field "button" $P.button) }}
+{{ partial "w/made.html" . }}
+</main>
+{{ partial "w/bottom.html" . }}

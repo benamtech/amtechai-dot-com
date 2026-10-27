@@ -7,7 +7,9 @@
        - industry and department pages: Service (provider #organization) and FAQPage from `questions`, which they show;
        - service pages (/services/<slug>): Service from data/services.json (name, group, audience) and FAQPage;
        - question pages: WebPage and FAQPage whose first Question is the page's own H1 and answer, then `questions`.
-       Never Review, AggregateRating, HowTo or LocalBusiness. (dict "page" . "url" $url) */ -}}
+       - customer stories: Article (author and reviewer Ben, about the customer's LocalBusiness by the @id its own site
+         publishes); the hub is a CollectionPage of the stories.
+       Never Review, AggregateRating or HowTo, and never LocalBusiness for AMTECH. (dict "page" . "url" $url) */ -}}
 {{- $p := .page }}{{ $P := $p.Params }}{{ $m := partial "w/meta.html" $p -}}
 {{- $o := site.BaseURL | strings.TrimSuffix "/" }}{{ $org := printf "%s/#organization" $o }}{{ $site := printf "%s/#website" $o -}}
 {{- $name := site.Params.site_name | default "AMTECH AI" -}}
@@ -21,6 +23,7 @@
 {{- end -}}
 {{- $wp := dict "@type" $m.schema "@id" (printf "%s#webpage" $m.url) "url" $m.url "name" $m.h1 "description" $p.Description "isPartOf" (dict "@id" $site) "inLanguage" "en-US" -}}
 {{- if $p.IsHome }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
+{{- if eq $p.Section "customers" }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
 {{- if not $m.lastmod.IsZero }}{{ $wp = merge $wp (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
 {{- if not $p.IsHome -}}
   {{- $items := slice }}{{ range $i, $c := $m.crumbs }}{{ $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $c.name "item" $c.url) }}{{ end -}}
@@ -42,6 +45,16 @@
 {{- if and $p.IsPage (eq $p.Section "services") -}}
   {{- $slug := path.Base $p.File.Dir }}{{ $d := index (where hugo.Data.services "slug" $slug) 0 -}}
   {{- $g = $g | append (dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $d.name "serviceType" $d.group "description" $P.sub "provider" (dict "@id" $org) "url" $m.url "audience" (dict "@type" "BusinessAudience" "name" $d.for)) -}}
+{{- end -}}
+{{- if and $p.IsPage (eq $p.Section "customers") -}}
+  {{- /* A customer story: an Article by Ben about the customer's business, joined to the @id the customer's own site
+         publishes (AISEO scoopdogg.md §2). The business is `about`, never AMTECH, and carries no Review or rating. */ -}}
+  {{- $art := dict "@type" "Article" "@id" (printf "%s#article" $m.url) "headline" $m.h1 "description" $p.Description "url" $m.url "mainEntityOfPage" (dict "@id" (printf "%s#webpage" $m.url)) "publisher" (dict "@id" $org) "inLanguage" "en-US" -}}
+  {{- with $P.reviewed }}{{ $art = merge $art (dict "author" (dict "@type" "Person" "name" .by) "datePublished" .date) }}{{ end -}}
+  {{- if not $m.lastmod.IsZero }}{{ $art = merge $art (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
+  {{- with $P.hero_shots }}{{ $art = merge $art (dict "image" (printf "%s%s.webp" $o (index . 0).src)) }}{{ end -}}
+  {{- with $P.site_link }}{{ $art = merge $art (dict "about" (dict "@type" "LocalBusiness" "@id" (printf "%s/#business" (strings.TrimSuffix "/" .url)) "name" $P.label "url" .url)) }}{{ end -}}
+  {{- $g = $g | append $art -}}
 {{- end -}}
 {{- with $P.questions -}}
   {{- $qs := slice }}{{ if and $p.IsPage (eq $p.Section "questions") }}{{ $qs = $qs | append (dict "@type" "Question" "name" $P.h1 "acceptedAnswer" (dict "@type" "Answer" "text" (printf "%s %s" $P.yes $P.answer))) }}{{ end }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
