@@ -1,8 +1,10 @@
-{{- /* Services (/services): the Catalogue on white. The page's words in content/services/_index.md, the packages in
+{{- /* Services (/services): a hero, where most businesses start, the Catalogue (Ben: "services page main element is
+       great"), what a service is, several at once, the start, your yes, price, questions, the close (SECTIONS-PLAN §6).
+       The Catalogue on white. The page's words in content/services/_index.md, the packages in
        data/services.json. Filters by group and a search work in the browser; without script every card shows. Each card
        starts that package: /start?config=<slug>. */ -}}
 {{- $p := . }}{{ $S := hugo.Data.services -}}
-{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "browse_h" "featured" "groups" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "orbit_team" "orbit_systems" "browse_h" "featured" "groups" "starts_h" "starts" "anat_h" "anat" "team_h" "team_sub" "team_all" "team_detail" "start2_h" "yes_h" "on_its_own" "waits" "approval" "price_h" "questions_h" "questions" "ask_prompt" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{- $feat := index (where $S "slug" .Params.featured) 0 }}{{ if not $feat }}{{ errorf "services: featured %q is not in data/services.json" .Params.featured }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main class="wmk">
@@ -10,13 +12,21 @@
 <div class="hh-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start") }}</div>
 <div class="hh-art"><div class="h2-orb" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems "cls" "ow oclean") }}<p class="h2-centre" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p>{{ partial "team3d.html" (dict "team" .Params.orbit_team "systems" .Params.orbit_systems) }}</div></div>
 </div></section>
+{{ partial "w/starts.html" (dict "h" .Params.starts_h "sub" .Params.starts_sub "rows" .Params.starts "g" "g-paper") }}
 <section class="mk2-h"><div class="wrap mk2-top"><h2>{{ .Params.browse_h }}</h2></div>
 <div class="wrap mk2-bar"><div class="tabs" role="group" aria-label="Filter services"><button type="button" aria-pressed="true" class="on" data-group="">All<span>{{ len $S }}</span></button>{{ range .Params.groups }}{{ $n := len (where $S "group" .) }}{{ if $n }}<button type="button" aria-pressed="false" data-group="{{ . }}">{{ . }}<span>{{ $n }}</span></button>{{ end }}{{ end }}</div><input class="mk-search" type="search" placeholder="{{ .Params.search }}" aria-label="{{ .Params.search }}"></div></section>
 <section class="mk2"><div class="wrap mk2-grid">
 <div class="mk2-card feat" id="{{ $feat.slug }}" data-g="{{ $feat.group }}"><div class="feat-orb">{{ partial "w/orbit.html" (dict "team" $feat.team "systems" $feat.connects "cls" "ow cm-orb") }}</div><div class="feat-t"><h2>{{ with site.GetPage (printf "/services/%s" $feat.slug) }}<a href="{{ .RelPermalink | strings.TrimSuffix "/" }}">{{ $feat.name }}</a>{{ else }}{{ $feat.name }}{{ end }}</h2><p class="mk2-for">{{ $feat.for }}</p><p class="mk2-sys">Connects to {{ delimit $feat.connects ", " }}</p><a class="mk-go" href="/start?config={{ $feat.slug }}" data-action>{{ .Params.go }}<span aria-hidden="true"> &rarr;</span></a></div></div>
 {{- range $S }}{{ if ne .slug $feat.slug }}<a class="mk2-card" id="{{ .slug }}" data-g="{{ .group }}" href="{{ with site.GetPage (printf "/services/%s" .slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/start?config={{ .slug }}{{ end }}"><div class="mk2-team">{{ range .team }}{{ partial "w/character.html" (dict "id" . "size" 38) }}{{ end }}</div><h2>{{ .name }}</h2><p class="mk2-for">{{ .for }}</p>{{ with .instead }}<p class="mk2-inst">{{ . }}</p>{{ end }}<p class="mk2-sys">Connects to {{ delimit .connects ", " }}</p></a>{{ end }}{{ end }}
 </div></section>
+<section class="wanat"><div class="wrap"><h2>{{ .Params.anat_h }}</h2><p class="sec-p">{{ .Params.anat_sub }}</p><div class="band">{{ range .Params.anat }}<div><div class="bt">{{ .h }}</div><p class="bd">{{ .p }}</p></div>{{ end }}</div></div></section>
+{{ partial "w/teamforms.html" (dict "h" .Params.team_h "sub" .Params.team_sub "team" .Params.team_all "detail" .Params.team_detail "systems" .Params.orbit_systems) }}
+{{ partial "w/startband.html" (dict "h" .Params.start2_h) }}
+{{ partial "w/yes.html" (dict "h" .Params.yes_h "sub" .Params.yes_sub "own" .Params.on_its_own "waits" .Params.waits "approval" .Params.approval "g" "g-paper") }}
+{{ partial "w/price.html" (dict "h" .Params.price_h "q" .Params.price_q) }}
+<section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 <script>{{ `(()=>{const b=[...document.querySelectorAll(".mk2-bar [data-group]")],c=[...document.querySelectorAll(".mk2-grid [data-g]")],s=document.querySelector(".mk-search");let g="";const f=()=>{const q=(s.value||"").trim().toLowerCase();c.forEach(e=>{e.hidden=!((!g||e.dataset.g===g)&&(!q||e.textContent.toLowerCase().includes(q)))})};b.forEach(x=>x.addEventListener("click",()=>{g=x.dataset.group;b.forEach(y=>{y.classList.toggle("on",y===x);y.setAttribute("aria-pressed",y===x)});f()}));s.addEventListener("input",f)})()` | safeJS }}</script>

@@ -128,3 +128,18 @@
 @media (max-width:640px){.wclose{padding:40px 0}.wclose>.wrap{border-radius:12px;padding:44px 20px;margin:0 16px}}
 /* A team list of five fits one row on a desk (no orphan on a second row). */
 @media (min-width:1101px){.wteam-grid{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}}
+/* Where most businesses start: alternating wide rows */
+.wst{padding:96px 0}.wst h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04}
+.wst-row{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,6fr);gap:56px;align-items:center;margin-top:48px;padding-top:48px;border-top:1px solid rgba(10,10,10,.1)}
+.wst-flip .wst-art{order:2}
+.wst-art{display:flex;flex-direction:column;align-items:center;gap:22px;padding:36px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px var(--hair)}
+.wst-art .wst-live{width:100%;max-width:420px}
+.wst-t h3{font-size:clamp(30px,3vw,44px);line-height:1.05}
+.wst-inst{margin-top:8px;font-weight:600;color:var(--ink)}
+.wst-t p{margin-top:10px;font-size:17px;color:var(--ink-2);max-width:34em}
+.wst-t .wlink{display:inline-block;margin-top:16px}
+/* What a service is: the band, explained */
+.wanat{padding:96px 0}.wanat h2{font-size:clamp(34px,3.8vw,56px);line-height:1.04}
+.wanat .band{margin-top:32px}
+@media (max-width:820px){.wst-row{grid-template-columns:minmax(0,1fr);gap:24px}.wst-flip .wst-art{order:0}.wst,.wanat{padding:56px 0}}
+.wtf-art .h2-orb{width:84%;margin:0 auto}

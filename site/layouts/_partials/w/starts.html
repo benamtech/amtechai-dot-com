@@ -1,0 +1,15 @@
+{{- /* Where most businesses start (SECTIONS-PLAN §6.2; lane VISUAL pattern 8): the most-started departments as wide
+       alternating rows, not cards: the teammate at size, the department's name and what it replaces (data/services.json),
+       the page's own line for it, the work in progress as the application shows it, and its page or its start.
+       (dict "h" .Params.starts_h "sub" .Params.starts_sub "rows" .Params.starts "g" "g-paper")
+       rows: [{slug, who, line, live: {title, step}, go}] */ -}}
+<section class="wst {{ .g }}"><div class="wrap">
+<h2>{{ .h }}</h2>{{ with .sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+{{- range $i, $r := .rows }}{{ $s := index (where hugo.Data.services "slug" $r.slug) 0 }}{{ if not $s }}{{ errorf "starts: %q is not in data/services.json" $r.slug }}{{ end }}
+<div class="wst-row{{ if modBool $i 2 }}{{ else }} wst-flip{{ end }}">
+<div class="wst-art">{{ partial "w/character.html" (dict "id" $r.who "size" 92) }}{{ with $r.live }}{{ partial "w/live.html" (dict "who" $r.who "title" .title "step" .step "cls" "wst-live") }}{{ end }}</div>
+<div class="wst-t"><h3>{{ $s.name }}</h3><p class="wst-inst">{{ $s.instead }}</p><p>{{ $r.line }}</p>
+<a class="wlink" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/start?config={{ $s.slug }}{{ end }}">{{ $r.go }}</a></div>
+</div>
+{{- end }}
+</div></section>
