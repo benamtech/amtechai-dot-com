@@ -3,7 +3,7 @@
 {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 {{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
 {{- $title := cond .IsHome .Title (printf "%s | %s" .Title (site.Params.site_name | default "AMTECH AI")) -}}
-{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") (resources.Get "css/w/team3d.css") (resources.Get "css/w/pages.css") (resources.Get "css/w/sections.css") (resources.Get "css/w/frame.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
+{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") (resources.Get "css/w/team3d.css") (resources.Get "css/w/pages.css") (resources.Get "css/w/sections.css") (resources.Get "css/w/frame.css") (resources.Get "css/w/customers.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
 <!doctype html>
 <html lang="en">
 <head>
@@ -34,4 +34,4 @@
 </head>
 <body class="w">
 {{ partial "w/sprite.html" . }}
-<header class="nav"><div class="wrap nav-in"><a class="logo" href="/" aria-label="AMTECH home">AMTECH<span class="dot">.</span></a><nav class="links" aria-label="Main"><a href="/services"{{ if eq .Section "services" }} aria-current="page"{{ end }}>Services</a><a href="/industries"{{ if eq .Section "industries" }} aria-current="page"{{ end }}>Industries</a><a href="/departments/being-found"{{ if eq .Section "departments" }} aria-current="page"{{ end }}>Being found</a><a href="/#proof">Customers</a></nav><div class="nav-r"><a class="signin" href="{{ site.Params.app }}/">Sign in</a><a class="btn btn-s" href="#start">Start</a></div></div></header>
+<header class="nav"><div class="wrap nav-in"><a class="logo" href="/" aria-label="AMTECH home">AMTECH<span class="dot">.</span></a><nav class="links" aria-label="Main"><a href="/services"{{ if eq .Section "services" }} aria-current="page"{{ end }}>Services</a><a href="/industries"{{ if eq .Section "industries" }} aria-current="page"{{ end }}>Industries</a><a href="/departments/being-found"{{ if eq .Section "departments" }} aria-current="page"{{ end }}>Being found</a><a href="/customers"{{ if eq .Section "customers" }} aria-current="page"{{ end }}>Customers</a></nav><div class="nav-r"><a class="signin" href="{{ site.Params.app }}/">Sign in</a><a class="btn btn-s" href="#start">Start</a></div></div></header>

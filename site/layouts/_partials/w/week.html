@@ -1,0 +1,14 @@
+{{- /* N4 The week (lane FRAME, SECTIONS-PLAN §2): Monday to Friday as a ruler, the doing teammate standing on its day
+       with 1-3 short lines of what it does; one line can be a storm or a season. On a phone the ruler turns into a
+       vertical list. (dict "h" .Params.week_h "sub" .Params.week_sub "days" .Params.week "names" .Params.names "cls" "")
+       days: [{day, who, lines[1-3]}], 5 of them (a sixth, such as "After a storm", may follow). */ -}}
+{{- $names := .names -}}
+{{- if or (lt (len .days) 5) (gt (len .days) 6) }}{{ errorf "week: 5-6 days, has %d" (len .days) }}{{ end -}}
+<section class="wweek {{ .cls }}"><div class="wrap">
+<h2>{{ .h }}</h2>{{ with .sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<ol class="wweek-r" style="--n:{{ len .days }}">
+{{- range .days }}{{ if not .day }}{{ errorf "week: a day has no name" }}{{ end }}{{ if or (lt (len .lines) 1) (gt (len .lines) 3) }}{{ errorf "week: %q needs 1-3 lines" .day }}{{ end }}
+<li style="--h:{{ (index (where hugo.Data.team "id" .who) 0).hue }}"><span class="wweek-d">{{ .day }}</span><div class="wweek-c">{{ partial "w/character.html" (dict "id" .who "size" 52) }}<span>{{ partial "w/name.html" (dict "id" .who "names" $names) }}</span></div><ul>{{ range .lines }}<li>{{ . }}</li>{{ end }}</ul></li>
+{{- end }}
+</ol>
+</div></section>

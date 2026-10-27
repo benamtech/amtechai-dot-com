@@ -1,0 +1,19 @@
+{{- /* N2 Workday rows (lane FRAME, SECTIONS-PLAN §2): a trade's day as 4-5 jobs, each with what the employee does, the
+       teammate at real size, and its finished document (N3) at a size you can read. Rows alternate the document right
+       and left; the document's backing card takes a 7% tint of the doing teammate's own hue (SECTIONS-PLAN §1).
+       (dict "h" .Params.workday_h "sub" .Params.workday_sub "rows" .Params.workday "names" .Params.names "cls" "g-paper")
+       rows: [{job, does, who, doc}] */ -}}
+{{- $names := .names -}}
+{{- if or (lt (len .rows) 3) (gt (len .rows) 6) }}{{ errorf "workday: 3-6 rows, has %d" (len .rows) }}{{ end -}}
+<section class="wday {{ .cls }}"><div class="wrap">
+<h2>{{ .h }}</h2>{{ with .sub }}<p class="sec-p">{{ . }}</p>{{ end }}
+<ol class="wday-rows">
+{{- range $i, $r := .rows }}{{ range $k := slice "job" "does" "who" "doc" }}{{ if not (index $r $k) }}{{ errorf "workday: field %q is missing from the row %q" $k $r.job }}{{ end }}{{ end -}}
+{{- $hue := (index (where hugo.Data.team "id" $r.who) 0).hue }}
+<li class="wday-r{{ if modBool $i 2 }}{{ else }} flip{{ end }}" style="--h:{{ $hue }}">
+<div class="wday-t"><div class="wday-who">{{ partial "w/character.html" (dict "id" $r.who "size" 72) }}<span>{{ partial "w/name.html" (dict "id" $r.who "names" $names) }}</span></div><h3>{{ $r.job }}</h3><p>{{ $r.does }}</p></div>
+<div class="wday-d">{{ partial "w/doc.html" (dict "doc" $r.doc) }}</div>
+</li>
+{{- end }}
+</ol>
+</div></section>

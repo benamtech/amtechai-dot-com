@@ -12,7 +12,11 @@
 {{ partial "w/proofsplit.html" (dict "h" .Params.proof_h "p" .Params.proof "g" "g-bone") }}
 <section class="how"><div class="wrap"><h2>{{ .Params.how_done_h }}</h2>{{ with .Params.how_done_sub }}<p class="sec-p">{{ . }}</p>{{ end }}<ol class="how-grid how-5">{{ range $i, $s := .Params.how_done }}<li><span class="how-n">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol></div></section>
 {{ partial "w/startband.html" (dict "h" .Params.start2_h "field" .Params.field "button" .Params.button) }}
-{{/* N1 the AI-answer check */}}
+{{/* N1 the AI-answer check (lane FRAME): words in the page's file (work_h, work_sub, frame); render-if-present */}}
+{{- with .Params.frame }}
+<section class="wwork g-paper" id="work"><div class="wrap"><h2>{{ $.Params.work_h }}</h2><p class="sec-p">{{ $.Params.work_sub }}</p>{{ partial "w/appframe.html" (dict "frame" . "names" $.Params.names "id" "work") }}</div></section>
+{{- end }}
+{{/* /N1 the AI-answer check */}}
 <section class="wteam"><div class="wrap"><h2>{{ .Params.team_h }}</h2><ul class="wteam-grid">
 <li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does }}</p></li>
 {{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}

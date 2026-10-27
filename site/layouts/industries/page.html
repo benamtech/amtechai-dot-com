@@ -9,10 +9,19 @@
 <section class="sky chapel-w"><div class="wrap cw-in"><div class="cw-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.team "systems" .Params.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-k">{{ .Params.label }}</p><p class="medal-name" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p></div></div>{{ partial "team3d.html" (dict "team" .Params.team "systems" .Params.systems "names" $names) }}</div>
 <div class="cw-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button "industry" .Params.config) }}{{ with .Params.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "cw-live") }}{{ end }}</div></div>
 <div class="wrap"><div class="band"><div><div class="bt w-fixed">The team</div><p class="bd">{{ $t := slice }}{{ range .Params.team }}{{ $t = $t | append (partial "w/name.html" (dict "id" . "names" $names)) }}{{ end }}{{ delimit $t ", " }}</p></div><div><div class="bt w-fixed">Connects to</div><p class="bd">{{ delimit .Params.systems ", " }}</p></div><div><div class="bt w-fixed">Routines</div><p class="bd">{{ delimit .Params.routines " " }}</p></div><div><div class="bt w-fixed">First jobs</div><p class="bd">{{ delimit .Params.first_jobs ". " }}.</p></div></div></div></section>
+{{/* N2 workday (lane FRAME): the trade's day; render-if-present until every trade has workday_h, workday */}}
+{{- with .Params.workday }}{{ partial "w/workday.html" (dict "h" $p.Params.workday_h "sub" $p.Params.workday_sub "rows" . "names" $names "cls" "") }}{{ end }}
+{{/* /N2 workday */}}
 <section class="wteam"><div class="wrap"><h2>{{ .Params.team_h }}</h2><ul class="wteam-grid">
 <li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does }}</p></li>
 {{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}
 </ul></div></section>
+{{/* N1 one job and N4 week (lane FRAME): render-if-present until every trade has frame, week */}}
+{{- with .Params.frame }}
+<section class="wwork g-paper" id="work"><div class="wrap"><h2>{{ $p.Params.work_h }}</h2><p class="sec-p">{{ $p.Params.work_sub }}</p>{{ partial "w/appframe.html" (dict "frame" . "names" $names "id" "work") }}</div></section>
+{{- end }}
+{{- with .Params.week }}{{ partial "w/week.html" (dict "h" $p.Params.week_h "sub" $p.Params.week_sub "days" . "names" $names "cls" "") }}{{ end }}
+{{/* /N1 one job and N4 week */}}
 <section class="pkg wmade"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h }}</h2><a class="wlink" href="/services">See all services</a></div><div class="pkg-grid">
 {{- range .Params.services }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "GATE %s: services names %q, which is not in data/services.json" $p.File.Path . }}{{ end }}<a class="pkg-card" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/services#{{ $s.slug }}{{ end }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
 </div></div></section>

@@ -92,4 +92,28 @@ next:
   - {label: "Industries", url: "/industries", line: "Being found, written for your trade."}
 ask_prompt: "Who is the best dog poop removal service in Ventura, CA?"
 reviewed: {by: "Ben Palaskas", date: "2026-10-27"}
+# N1 the AI-answer check (lane FRAME, 2026-10-27): the application frame with a report; every word written here.
+work_h: "What ChatGPT and Google say about you, every week"
+work_sub: "Every week your employee asks ChatGPT, Gemini and Google the questions your customers ask, and reads the answers back to you: who they name, what changed since last week, and the fix it has ready."
+frame:
+  - who: t3
+    ask: "Are we coming up yet when people ask for a house painter in town?"
+    reply: "For interior painting, yes: ChatGPT started naming you this week. For exterior painting the answers still name others, so Being found wrote the page that answers that question."
+    title: "This week's check of what the AI answers say about you"
+    steps: ["Asked ChatGPT, Gemini and Google what your customers ask", "Read who each answer names, and the pages it cites", "Compared every answer with last week's", "Waiting for your yes to publish the fix"]
+    line: "Wrote the exterior painting page the answers are missing"
+    doc:
+      kind: report
+      title: "The AI-answer check"
+      meta: "This week, set against last week"
+      rows:
+        - {label: "ChatGPT: interior painting in your town", value: "Names you, new this week"}
+        - {label: "ChatGPT: exterior house painting", value: "Not yet"}
+        - {label: "Google AI Overview: house painters near me", value: "Names you"}
+        - {label: "Google Maps: house painters", value: "Your listing, with this week's photos"}
+        - {label: "Gemini: cabinet painting", value: "Cites your reviews"}
+        - {label: "The fix, ready for your yes", value: "A page for exterior painting"}
+      foot: "Every answer is saved as it read, with its date."
+    trust: {assumed: "your town and the towns around it, from your Google listing", checked: "each answer twice, from a fresh session"}
+    approve: {act: "Publish the page to your site"}
 ---

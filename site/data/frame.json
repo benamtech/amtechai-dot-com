@@ -1,0 +1,19 @@
+{
+ "_note": "Site-wide words of the product pictures (lane FRAME, N1-N4): the labels the AMTECH application itself prints. Every other word comes from the page's own content file.",
+ "frame_label": "An illustration of the AMTECH application",
+ "you": "You",
+ "working": "Working step by step",
+ "ready": "Ready for your yes",
+ "assumed": "Assumed",
+ "checked": "Checked",
+ "change": "Change",
+ "to": "To",
+ "subject": "Subject",
+ "item": "Item",
+ "qty": "Qty",
+ "unit": "Unit",
+ "price": "Price",
+ "due": "Due",
+ "jobs": "Jobs",
+ "message": "Message your employee"
+}
