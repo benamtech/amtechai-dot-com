@@ -1,0 +1,3 @@
+{{- /* The closing start. (dict "h" "" "p" "" "field" "" "button" "" "industry" "") */ -}}
+{{- $W := hugo.Data.w -}}
+<section class="wclose"><div class="wrap"><h2>{{ .h | default $W.closing_h }}</h2><p>{{ .p | default $W.late }}</p>{{ partial "w/start.html" (dict "id" "start2" "field" .field "button" .button "industry" .industry) }}</div></section>

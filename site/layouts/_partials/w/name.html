@@ -1,0 +1,5 @@
+{{- /* (dict "id" "t2" "names" .Params.names): a teammate's name on this page (a page may rename one for its trade). */ -}}
+{{- $n := "" -}}
+{{- with .names }}{{ $n = index . $.id | default "" }}{{ end -}}
+{{- if not $n }}{{ with index (where hugo.Data.team "id" .id) 0 }}{{ $n = .name }}{{ else }}{{ errorf "name: no teammate %q" $.id }}{{ end }}{{ end -}}
+{{- return $n -}}

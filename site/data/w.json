@@ -1,0 +1,19 @@
+{
+ "_note": "The site-wide words of the new pages (C on white), each written once. Page words live in each page's content file.",
+ "prices": "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.",
+ "field": "Your business's name",
+ "action": "Start",
+ "promise": "AMTECH gives your business AI employees that connect themselves to everything you run, make their own teams, and improve as they work.",
+ "late": "Nothing leaves your employee's computer, a message, a page or a payment, until a person you authorised says yes.",
+ "closing_h": "Name your business.",
+ "proof": {
+  "h": "Scoop Dogg was the first business run by an AI employee.",
+  "p": "Pet waste and turf care in Ventura and Santa Barbara counties. AMTECH built his site and its online booking; his employee now answers every booking, quote and contact at his real prices. He is first in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara, and at the top of Google Maps.",
+  "link": "https://scoopdogg.net",
+  "link_text": "See scoopdogg.net",
+  "figure": "#1",
+  "figure_line": "in ChatGPT for pet and yard cleanup, Ventura and Santa Barbara"
+ },
+ "short": {"Google Business Profile": "Google", "Your website's forms": "Web forms", "Your website": "Website", "Your price book": "Price book", "Your clients' sites": "Client sites", "Search Console": "Search", "ChatGPT and AI Overview": "AI answers"},
+ "credits": "Type: Cormorant Garamond and Geist, SIL Open Font License. Instrument photographs: The Metropolitan Museum of Art, Open Access (CC0)."
+}

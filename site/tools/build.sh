@@ -9,6 +9,8 @@ rm -f "$SITE/assets/css/site.css"
 # A Tailwind failure stops the build: without site.css Hugo would publish every page unstyled.
 (cd "$ROOT" && node_modules/.bin/tailwindcss -c site/tailwind.config.js -i site/.tw-input.css -o site/assets/css/site.css --postcss site/postcss.config.js) 2>&1 | grep -v -e "^$" -e "Browserslist" -e "update-browserslist" -e "Why you should do it" || true
 [ -s "$SITE/assets/css/site.css" ] || { echo "build: Tailwind did not write site.css" >&2; exit 1; }
+# The new pages' characters, drawn once into data/characters.json (site/tools/kit/characters-data.mjs).
+node "$SITE/tools/kit/characters-data.mjs"
 HUGO="$("$SITE/tools/hugo.sh")"
 cd "$SITE"
 if [ "${1:-}" = "server" ]; then shift; exec "$HUGO" server "$@"; fi

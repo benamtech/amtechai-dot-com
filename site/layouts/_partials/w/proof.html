@@ -1,0 +1,4 @@
+{{- /* Scoop Dogg, the proof. (dict "h" "" "p" "" "figure_line" "" "id" "proof"): a page may word it its own way; the
+       rest comes from data/w.json. */ -}}
+{{- $P := hugo.Data.w.proof -}}
+<section class="wproof"{{ with .id }} id="{{ . }}"{{ end }}><div class="wrap wproof-in"><div><h2>{{ .h | default $P.h }}</h2><p>{{ .p | default $P.p }}</p><a class="wlink" href="{{ $P.link }}">{{ $P.link_text }}</a></div><div class="wproof-k"><p class="big red">{{ $P.figure }}</p><p>{{ .figure_line | default $P.figure_line }}</p></div></div></section>

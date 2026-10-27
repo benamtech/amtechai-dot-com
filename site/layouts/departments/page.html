@@ -1,0 +1,23 @@
+{{- /* A department page (/departments/<slug>): C's department composition on white. The offer and the Orbit round a
+       medallion carrying the proof, then the proof, the team, first jobs and routines, the services, the questions and
+       the closing start. Every word is in the page's content file (docs/build/CONTENT-MODEL.md). */ -}}
+{{- $p := . }}{{ $names := .Params.names -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "team" "team_detail" "systems" "routines" "first_jobs" "live" "services" "proof_h" "proof" "questions_h" "questions" "closing_h" "closing_sub" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- $P := hugo.Data.w.proof -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="sky wdept"><div class="wrap wd-in"><div class="wd-t"><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button "config" .Params.config) }}{{ with .Params.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "cw-live") }}{{ end }}</div>
+<div class="wd-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" .Params.team "systems" .Params.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true"><div class="medal-in"><p class="medal-big red">{{ $P.figure }}</p><p class="medal-k">{{ .Params.medal_line | default "in ChatGPT, Ventura and Santa Barbara" }}</p></div></div></div></div></section>
+{{ partial "w/proof.html" (dict "h" .Params.proof_h "p" .Params.proof "figure_line" (.Params.proof_figure_line | default "in ChatGPT and at the top of Google Maps")) }}
+<section class="wteam"><div class="wrap"><h2>{{ .Params.team_h | default "The team" }}</h2><ul class="wteam-grid">
+<li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does | default "Learns your business, makes the team, and answers to you. Every teammate's work comes back through your employee, in one conversation." }}</p></li>
+{{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}
+</ul></div></section>
+<section class="wjobs"><div class="wrap wjobs-in"><div><h2>First jobs</h2><ol class="verse">{{ range .Params.first_jobs }}<li>{{ . }}</li>{{ end }}</ol></div><div><h2>Routines</h2><ul class="verse plain">{{ range .Params.routines }}<li>{{ . }}</li>{{ end }}</ul><h2 class="sub-h">Connects to</h2><p class="conn-line">{{ delimit .Params.systems ", " }}</p></div></div></section>
+<section class="pkg wmade"><div class="wrap"><div class="pkg-h"><h2>{{ .Params.services_h | default "Services that use this department" }}</h2><a class="wlink" href="/services">See all services</a></div><div class="pkg-grid">
+{{- range .Params.services }}{{ $s := index (where hugo.Data.services "slug" .) 0 }}{{ if not $s }}{{ errorf "GATE %s: services names %q, which is not in data/services.json" $p.File.Path . }}{{ end }}<a class="pkg-card" href="/services#{{ $s.slug }}"><div class="ind-team">{{ range $s.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $s.name }}</h3><p>{{ $s.instead }}</p></a>{{ end }}
+</div></div></section>
+<section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
+{{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub "field" .Params.field "button" .Params.button) }}
+</main>
+{{ partial "w/bottom.html" . }}

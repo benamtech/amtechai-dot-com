@@ -1,0 +1,31 @@
+{{- /* The new pages' document head and nav (C on white, 2026-10-27). A layout of the new families is a whole document:
+       {{ partial "w/top.html" . }} <main>...</main> {{ partial "w/bottom.html" . }}. The old pages keep baseof.html. */ -}}
+{{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
+{{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
+{{- $title := cond .IsHome .Title (printf "%s | AMTECH AI" .Title) -}}
+{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>{{ $title }}</title>
+<meta name="description" content="{{ .Description }}">
+<link rel="canonical" href="{{ $url }}">
+<meta name="robots" content="{{ if .Params.noindex }}noindex, follow{{ else }}index, follow{{ end }}">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="preload" href="/fonts/w/CormorantGaramond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/w/Geist-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+<meta property="og:site_name" content="AMTECH AI">
+<meta property="og:title" content="{{ $title }}">
+<meta property="og:description" content="{{ .Description }}">
+<meta property="og:url" content="{{ $url }}">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary_large_image">
+{{ partial "w/jsonld.html" (dict "page" . "url" $url) }}
+{{ partial "analytics.html" . }}
+</head>
+<body class="w">
+{{ partial "w/sprite.html" . }}
+<header class="nav"><div class="wrap nav-in"><a class="logo" href="/" aria-label="AMTECH home">AMTECH<span class="dot">.</span></a><nav class="links" aria-label="Main"><a href="/services"{{ if eq .Section "services" }} aria-current="page"{{ end }}>Services</a><a href="/industries"{{ if eq .Section "industries" }} aria-current="page"{{ end }}>Industries</a><a href="/departments/being-found"{{ if eq .Section "departments" }} aria-current="page"{{ end }}>Being found</a><a href="/#proof">Customers</a></nav><div class="nav-r"><a class="signin" href="{{ site.Params.app }}/">Sign in</a><a class="btn btn-s" href="#start">Start</a></div></div></header>

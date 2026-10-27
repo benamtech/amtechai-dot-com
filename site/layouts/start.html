@@ -1,0 +1,31 @@
+{{- /* /start: the handoff. The business's name typed on any page becomes the onboarding's first input. The workspace
+       (app.amtechai.com/w/workspace.js) is loaded here only, never on a content page. Contract:
+       standard/projection/web/src/public.tsx (attributes app, intent, fonts, expand, signin; start(name)). The live
+       employee answers on amtechai.com only, so previews and localhost test this page with the workspace stubbed
+       (site/tools/node/behaviour.mjs). industry= and config= ride along for the platform's step 2. */ -}}
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex, nofollow"><title>{{ .Title }} | AMTECH AI</title><meta name="description" content="{{ .Description }}">
+<link rel="canonical" href="https://amtechai.com/start"><link rel="icon" type="image/svg+xml" href="/favicon.svg">
+{{ partial "analytics.html" . }}
+<style>html,body{margin:0;height:100%;background:#fff}amtech-workspace{display:block;height:100vh;height:100dvh}.ns{max-width:640px;margin:48px auto;padding:0 24px;font:17px/1.5 system-ui;color:#0a0a0a}</style>
+</head><body><div id="holder"></div><noscript><p class="ns">Your AI employee runs in the page. Turn on JavaScript to start.</p></noscript>
+<script>
+(() => {
+  const APP = {{ site.Params.app }};
+  const q = new URLSearchParams(location.search);
+  const business = (q.get('business') || '').trim().slice(0, 120);
+  const s = document.createElement('script');
+  s.src = `${APP}/w/workspace.js`;
+  s.onload = () => {
+    const el = document.createElement('amtech-workspace');
+    el.setAttribute('app', APP);
+    el.setAttribute('intent', 'start');
+    el.setAttribute('fonts', 'none');
+    el.setAttribute('expand', 'none');
+    el.setAttribute('signin', `${APP}/signup`);
+    document.getElementById('holder').appendChild(el);
+    if (business && el.start) el.start(business);
+  };
+  document.head.appendChild(s);
+})();
+</script></body></html>

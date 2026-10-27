@@ -1,0 +1,14 @@
+{{- /* The industries hub (/industries): its own words in content/industries/_index.md; the cards from each industry
+       page's label, card_line and team, by weight. */ -}}
+{{- $p := . -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "closing_h" "closing_sub" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main>
+<section class="whub"><div class="wrap whub-in"><div><h1><span class="ink">{{ .Params.h1a }}</span> <span class="red">{{ .Params.h1b }}</span></h1><p class="lede">{{ .Params.sub }}</p></div><div class="whub-start">{{ partial "w/start.html" (dict "id" "start") }}</div></div></section>
+<section class="ind whub-list"><div class="wrap"><div class="ind-grid">
+{{- range .RegularPages.ByWeight }}<a class="ind-card" href="{{ .RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range .Params.team }}{{ partial "w/character.html" (dict "id" . "size" 44) }}{{ end }}</div><h2>{{ .Params.label }}</h2><p>{{ .Params.card_line }}</p><p class="ind-sys">Connects to {{ delimit .Params.systems ", " }}</p></a>{{ end }}
+</div></div></section>
+{{ partial "w/proof.html" (dict) }}
+{{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}
+</main>
+{{ partial "w/bottom.html" . }}
