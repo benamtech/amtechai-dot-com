@@ -1,7 +1,8 @@
 {{- /* A question page (/questions/<slug>), lane PAGES 2026-10-27: a question an owner types, answered first. The hero is
        conventional (Ben, 2026-10-27): the question as the H1, the answer opening with "Yes." in red, the start field,
        all in one column; the Orbit with this question's team and systems beside it (after it on a phone). Then how it
-       happens, the team at work, the next questions, related pages, Scoop Dogg where it fits, the closing start. Every
+       happens, watching it happen in the application, the team at work, connections, Scoop Dogg, the start, the next
+       questions, related pages, the closing start (SECTIONS-PLAN §9; new sections show once their words exist). Every
        word is in the page's content file (docs/build/CONTENT-MODEL.md, "A question page"). */ -}}
 {{- $p := . }}{{ $names := .Params.names -}}
 {{- range slice "title" "description" "h1" "yes" "answer" "field" "button" "team" "employee_does" "team_detail" "systems" "live" "steps_h" "steps" "team_h" "questions_h" "questions" "related_h" "related" "closing_h" "closing_sub" }}{{ if not (isset $p.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
@@ -11,14 +12,18 @@
 <section class="sky wq pq"><div class="wrap wq-in pq-in"><div class="pq-t"><h1>{{ .Params.h1 }}</h1><p class="wq-a"><span class="red">{{ .Params.yes }}</span> {{ .Params.answer }}</p>{{ partial "w/start.html" (dict "id" "start" "field" .Params.field "button" .Params.button "industry" .Params.config) }}</div>
 <div class="pq-art"><div class="wq-orb">{{ partial "w/orbit.html" (dict "team" .Params.team "systems" .Params.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true"><div class="medal-in"><p class="medal-name" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p></div></div></div>{{ with .Params.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "pq-live") }}{{ end }}</div></div></section>
 <section class="pq-how"><div class="wrap"><h2>{{ .Params.steps_h }}</h2><ol class="how-grid pq-steps{{ if eq $n 3 }} n3{{ else if eq $n 5 }} n5{{ end }}">{{ range $i, $s := .Params.steps }}<li><span class="how-n" aria-hidden="true">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol></div></section>
+{{- with .Params.frame }}<section class="wframe g-paper"><div class="wrap"><h2>{{ $p.Params.frame_h }}</h2>{{ partial "w/appframe.html" (dict "frame" .) }}</div></section>{{ end }}
 <section class="wteam"><div class="wrap"><h2>{{ .Params.team_h }}</h2><ul class="wteam-grid">
 <li>{{ partial "w/character.html" (dict "id" "employee" "size" 64) }}<h3>Your AI employee</h3><p>{{ .Params.employee_does }}</p></li>
 {{- range .Params.team_detail }}<li>{{ partial "w/character.html" (dict "id" .id "size" 64) }}<h3>{{ partial "w/name.html" (dict "id" .id "names" $names) }}</h3><p>{{ .does }}</p></li>{{ end }}
 </ul></div></section>
+{{- with .Params.connects }}{{ partial "w/connects.html" (dict "h" $p.Params.connects_h "sub" $p.Params.connects_sub "groups" . "how" $p.Params.connects_how "g" "g-paper") }}{{ end }}
+{{ partial "w/proofsplit.html" (dict "h" .Params.proof_h "p" .Params.proof_p "g" "g-bone") }}
+{{- with .Params.start2_h }}{{ partial "w/startband.html" (dict "h" . "field" $p.Params.field "button" $p.Params.button) }}{{ end }}
 <section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.questions_sub }}<p class="sec-p">{{ . }}</p>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 <section class="pq-rel"><div class="wrap"><h2>{{ .Params.related_h }}</h2><ul class="pq-rel-list">{{ range .Params.related }}<li><a href="{{ .href }}">{{ .text }}</a>{{ with .why }}<span>{{ . }}</span>{{ end }}</li>{{ end }}</ul></div></section>
-{{- with .Params.proof }}{{ partial "w/proof.html" (dict "h" $.Params.proof_h "p" $.Params.proof_p) }}{{ end }}
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub "field" .Params.field "button" .Params.button "industry" .Params.config) }}
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}
