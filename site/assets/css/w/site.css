@@ -40,7 +40,10 @@
 @media (max-width:820px){.wmk .mk2-bar{padding-left:20px;padding-right:20px}}
 /* Industry hero: the Orbit a little smaller beside the words, so a long system name at 3 o'clock ("DAT and Truckstop")
    stays clear of the paragraph; on a phone the medallion carries only the business's name. */
-@media (min-width:1101px){.chapel-w .cw-art{width:78%;margin:0 0 0 6%}.chapel-w .cw-in{gap:72px}}
+/* Industry heroes read like home's (Ben, 2026-10-27, "dont reinvent the wheel"): the words and the start field first,
+   the Orbit to their right on a desk and after them on a phone. */
+.chapel-w .cw-t{order:-1}
+@media (min-width:1101px){.chapel-w .cw-in{grid-template-columns:minmax(0,11fr) minmax(0,10fr);gap:48px}.chapel-w .cw-art{width:78%;margin:0 auto}}
 @media (max-width:640px){.cw-art .medal-k,.wd-art .medal-k{display:none}.wd-art .medal-big{font-size:34px!important}}
 /* Home's hero, conventional (Ben, 2026-10-27): headline, paragraph and start field in one column, the Orbit beside it;
    on a phone the start field follows the paragraph, inside the first screen, and the Orbit comes after. */
