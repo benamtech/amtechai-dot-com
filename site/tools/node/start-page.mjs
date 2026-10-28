@@ -94,6 +94,18 @@ for (const width of [390, 1440]) {
   ok((await page.evaluate(() => window.__started && window.__started.name)) === 'Casa Verde', `${width} the empty state's field starts the workspace`);
   await ctx.close();
 
+  // Empty with a package (/start?config=<package>, as the service cards and the Markdown twins link): the package, the
+  // trade page and the door go with the name typed (MISSED.md §4.2, 2026-10-28).
+  ({ ctx, page, app } = await open(width, '/start?config=this-months-posts-and-pictures&industry=roofing&for=agency', 'draws'));
+  await page.waitForTimeout(600);
+  ok(await state(page) === 'empty', `${width} a package link with no name is the empty state`);
+  await page.fill('.st-empty input[name=business]', 'Casa Verde');
+  await Promise.all([page.waitForURL(/business=Casa/), page.press('.st-empty input[name=business]', 'Enter')]);
+  const kept = new URL(page.url()).searchParams;
+  ok(kept.get('config') === 'this-months-posts-and-pictures' && kept.get('industry') === 'roofing' && kept.get('for') === 'agency'
+     && kept.getAll('config').length === 1, `${width} the empty state keeps the package, trade and door (${page.url()})`);
+  await ctx.close();
+
   // No JavaScript.
   const nctx = await browser.newContext({ viewport: { width, height: 844 }, javaScriptEnabled: false });
   const np = await nctx.newPage(); await np.goto(base + url);

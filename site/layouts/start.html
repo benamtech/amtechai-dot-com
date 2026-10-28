@@ -73,7 +73,19 @@
   const tags = { industry: q.get('industry') || '', config: q.get('config') || '', door: q.get('for') || '' };
   const ga = (e, more) => window.gtag && gtag('event', e, Object.assign({}, tags, more));
   document.querySelector('[data-retry]').addEventListener('click', () => location.reload());
-  if (!name) { root.dataset.state = 'empty'; return; }
+  if (!name) {
+    // The empty state's field asks only the name, so the package, the trade page and the door this link named go with
+    // it (/start?config=<package> is what the Markdown twins and the service cards advertise).
+    const form = document.querySelector('#start');
+    for (const [k, v] of [['industry', tags.industry], ['config', tags.config], ['for', tags.door]]) {
+      if (!v || !form || form.querySelector(`input[name="${k}"]`)) continue;
+      const i = document.createElement('input');
+      i.type = 'hidden'; i.name = k; i.value = v.slice(0, 60);
+      form.appendChild(i);
+    }
+    root.dataset.state = 'empty';
+    return;
+  }
   document.querySelector('[data-name]').textContent = name;
   root.dataset.state = 'loading';
   const t0 = performance.now();
