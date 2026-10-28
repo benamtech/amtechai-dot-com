@@ -135,3 +135,6 @@ p{text-wrap:pretty}
   .foot-in{grid-template-columns:1fr}
 }
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* The visitor check run ahead from a start field (js/w/check.js): Turnstile's invisible widget, out of the flow. */
+.vcheck-ahead{position:absolute}

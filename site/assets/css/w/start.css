@@ -84,3 +84,9 @@ body.st{min-height:100dvh;background:var(--white)}
   .st-ws{left:340px}
   .st-h{font-size:38px}
 }
+
+/* The visitor check's card (js/w/check.js): always drawn, because Turnstile must never render into display:none; seen
+   and pressable only while Cloudflare asks the person for a click. Above the workspace at every width. */
+.vcheck{position:fixed;left:50%;top:50%;z-index:60;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:14px;max-width:calc(100vw - 32px);padding:24px 24px 20px;background:var(--white);border-radius:6px;box-shadow:0 0 0 1px var(--hair),0 30px 60px -20px rgba(10,10,10,.35);text-align:center;opacity:0;pointer-events:none;transition:opacity .2s var(--ease)}
+.vcheck.on{opacity:1;pointer-events:auto}
+.vcheck p{margin:0;max-width:300px;font:500 16px/1.45 var(--sans);color:var(--ink)}

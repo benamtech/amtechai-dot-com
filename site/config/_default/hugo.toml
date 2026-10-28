@@ -80,6 +80,9 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
 
 [params]
   app = "https://app.amtechai.com"
+  # Cloudflare Turnstile's widget for the visitor check (public; its hostnames are amtechai.com and app.amtechai.com).
+  # assets/js/w/check.js runs it in the page; the front door verifies the token before an employee is handed out.
+  turnstile_sitekey = "0x4AAAAAAFMf88Sw5Eei8ebj"
   # The Organization structured data on Home.
   # The one site name, everywhere Google reads it: the title suffix, og:site_name, WebSite.name, Organization.name.
   site_name = "AMTECH AI"

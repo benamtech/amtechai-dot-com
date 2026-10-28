@@ -26,5 +26,6 @@ help_h: "Rather talk to a person?"
 contact_label: "Every way to reach us"
 empty_h: "Name your business and meet your employee."
 empty_p: "Type your business's name. Your AI employee reads your website and your Google listing and starts on the work while you watch."
+check: "One check that you are a person, then your words go to your employee."
 noscript: "Your AI employee works inside this page, and the page needs JavaScript to open the workspace. Turn JavaScript on and reload, or email ben@amtechai.com and Ben will set your employee up with you."
 ---
