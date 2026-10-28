@@ -1,8 +1,8 @@
 {{- /* /contact in C on white (lane PORT, 2026-10-27; first built 2026-10-13). Every word is content/contact.md's: the
        hero (h1a, its red payoff h1b, sub), the four ways to reach AMTECH (ways: title, body, label, to; "app:" is the
-       application's address), and the try-it panel. The start field closes the page. */ -}}
+       application's address). The start field closes the page. */ -}}
 {{- $W := hugo.Data.w -}}
-{{- range slice "title" "description" "h1a" "h1b" "sub" "ways" "try_h" "try_p" "try_button" "try_to" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "ways" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main>
 <header class="pr-head"><div class="wrap">
@@ -14,7 +14,6 @@
 <li><a href="{{ replaceRE `^app:` site.Params.app .to }}"><h2>{{ .title }}</h2><p>{{ .body }}</p><span>{{ .label }} <span class="arr" aria-hidden="true">&rarr;</span></span></a></li>
 {{- end }}
 </ul></div>
-<section class="pr-try"><div class="wrap"><h2>{{ .Params.try_h }}</h2><p>{{ .Params.try_p }}</p><a class="btn" href="{{ .Params.try_to }}">{{ .Params.try_button }}<span aria-hidden="true" class="arr">&rarr;</span></a></div></section>
 <section class="wsb pr-start"><div class="wrap wsb-in"><h2>{{ $W.closing_h }}</h2><div>{{ partial "w/start.html" (dict "id" "start") }}</div></div></section>
 </main>
 {{ partial "w/bottom.html" . }}

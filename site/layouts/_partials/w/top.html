@@ -3,7 +3,7 @@
 {{- $route := .Params.route | default (strings.TrimSuffix "/" .RelPermalink) -}}
 {{- $url := printf "%s%s" (site.BaseURL | strings.TrimSuffix "/") $route -}}
 {{- $title := cond (or .IsHome (strings.HasSuffix .Title (site.Params.site_name | default "AMTECH AI"))) .Title (printf "%s | %s" .Title (site.Params.site_name | default "AMTECH AI")) -}}
-{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") (resources.Get "css/w/team3d.css") (resources.Get "css/w/pages.css") (resources.Get "css/w/sections.css") (resources.Get "css/w/frame.css") (resources.Get "css/w/customers.css") (resources.Get "css/w/prose.css") (resources.Get "css/w/company.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
+{{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/orbit.css") (resources.Get "css/w/white-after.css") (resources.Get "css/w/site.css") (resources.Get "css/w/team3d.css") (resources.Get "css/w/pages.css") (resources.Get "css/w/sections.css") (resources.Get "css/w/frame.css") (resources.Get "css/w/customers.css") (resources.Get "css/w/prose.css") (resources.Get "css/w/company.css") (resources.Get "css/w/investors.css") | resources.Concat "css/w.css" | minify | fingerprint -}}
 <!doctype html>
 <html lang="en">
 <head>

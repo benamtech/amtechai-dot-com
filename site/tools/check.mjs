@@ -144,9 +144,9 @@ for (const f of files.filter((f) => /\.(html|md|txt|json)$/.test(f))) if (steer.
 // build a sentence from a page's fields, change a field's case to fit one, or fall back to stock words when a page
 // leaves a field out: every heading and line a visitor reads comes whole from the page's own file or from data/w.json.
 const LAYOUTS = path.join(path.dirname(new URL(import.meta.url).pathname), '..', 'layouts');
-// Every layout except the old pages' (the ported site, kept as it was) and the machine outputs: a new page family is
+// Every layout except the shared partials and the machine outputs: a new page family is
 // covered the day its folder appears.
-const OLD = new Set(['baseof.html', 'contractors.html', 'create.html', 'how-it-works.html', 'investors.html', 'painters.html', 'pay.html', '_partials', '_shortcodes', '_markup']);
+const OLD = new Set(['_partials', '_shortcodes', '_markup']);
 const ownWords = fs.readdirSync(LAYOUTS).filter((n) => !OLD.has(n) && (n.endsWith('.html') || fs.statSync(path.join(LAYOUTS, n)).isDirectory())).concat(['_partials/w'])   // the visible page; w/jsonld and w/meta build machine ids
   
   .map((p) => path.join(LAYOUTS, p)).filter((p) => fs.existsSync(p))
