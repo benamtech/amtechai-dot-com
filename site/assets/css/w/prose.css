@@ -113,10 +113,6 @@
 .pr-ways p{margin-top:10px;flex:1;color:var(--ink-2)}
 .pr-ways span{margin-top:18px;font-weight:600;color:var(--blue)}
 .pr-ways a:hover .arr{transform:translateX(4px)}
-.pr-try{padding:64px 0;background:var(--panel)}
-.pr-try h2{font-size:clamp(32px,3.4vw,50px);line-height:1.04;max-width:18em}
-.pr-try p{margin-top:14px;max-width:40em;font-size:18px;color:var(--ink-2)}
-.pr-try .btn{margin-top:26px}
 .pr-404{padding:72px 0 96px}
 .pr-404 .lede{margin-top:18px;max-width:36em}
 .pr-go{display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px;margin-top:30px}
@@ -145,7 +141,7 @@
   .article-table td:first-child{font-size:17px}
   .article-table td:first-child::before{display:none}
   .pr-faq dt{font-size:21px}
-  .pr-next,.pr-try{padding:44px 0}
+  .pr-next{padding:44px 0}
   .pr-cards{grid-template-columns:1fr}
   .pr-list a{grid-template-columns:minmax(0,1fr);gap:6px;padding:22px 0}
   .pr-list time{padding-top:0;order:-1}.pr-list .arr{display:none}

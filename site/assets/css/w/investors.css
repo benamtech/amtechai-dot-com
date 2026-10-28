@@ -1,0 +1,55 @@
+/* /investors (layouts/investors.html; assets/js/investors.js). C on white, 2026-10-28: the deck in a hairline frame,
+   one plate at a time once the script runs, a black full-screen view, the documents as rows that open on the page. */
+.iv-who{margin-top:18px;font-size:16px;color:var(--ink-3)}
+.iv-who a{color:var(--ink);font-weight:600;text-decoration:underline;text-decoration-color:rgba(225,29,42,.45);text-underline-offset:4px}
+.iv-who a:hover{text-decoration-color:var(--red)}
+.iv-deck{padding:8px 0 24px}
+.iv-list{list-style:none;display:grid;gap:40px}
+.iv-list.iv-one{gap:0}
+.iv-open{display:block;width:100%;padding:0;border:0;border-radius:6px;overflow:hidden;background:var(--panel);box-shadow:inset 0 0 0 1px var(--hair);cursor:zoom-in}
+.iv-open img{display:block;width:100%;height:auto}
+.iv-open:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.iv-words{margin-top:14px}
+.iv-words p{color:var(--ink-2);font-size:16px}
+.iv-words .iv-head{font:500 24px/1.2 var(--serif);color:var(--ink)}
+.iv-words p+p{margin-top:6px}
+.iv-one .iv-words{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.iv-bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin-top:16px}
+.iv-step{display:flex;align-items:center;gap:10px}
+.iv-sq{width:52px;padding:0;font-size:20px}
+.iv-count{min-width:4.5em;text-align:center;font-size:15px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.btn.iv-ghost{background:var(--white);color:var(--ink);box-shadow:inset 0 0 0 1.5px var(--ink)}
+.btn.iv-ghost:hover{background:var(--ink);color:#fff}
+.btn:disabled{opacity:.3;cursor:default}
+.iv-full{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;background:#0A0A0A}
+.iv-stage{position:relative;flex:1;min-height:0;display:flex;align-items:center;justify-content:center;padding:8px}
+.iv-stage img{max-width:100%;max-height:100%;object-fit:contain}
+.iv-full-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:0 16px 16px}
+.iv-full-bar p{font-size:14px;color:rgba(255,255,255,.6);font-variant-numeric:tabular-nums}
+.iv-fb{height:44px;border:1.5px solid rgba(255,255,255,.4);border-radius:4px;background:transparent;color:#fff;font:600 15px/1 var(--sans);cursor:pointer}
+.iv-fb.iv-sq{width:44px;font-size:18px}
+.iv-fb:hover{border-color:#fff}.iv-fb:disabled{opacity:.3;cursor:default}
+.iv-close{margin-left:8px;padding:0 16px;border-color:#fff}
+.iv-close:hover{background:#fff;color:#0A0A0A}
+.iv-docs{padding:72px 0 96px}
+.iv-docs h2{font-size:clamp(32px,3.4vw,50px);line-height:1.04}
+.iv-doclist{list-style:none;margin-top:24px;border-top:1.5px solid var(--ink)}
+.iv-doclist li{display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 0;border-bottom:1px solid var(--hair)}
+.iv-doclist h3{font-size:26px;line-height:1.15}
+.iv-doclist p{margin-top:4px;color:var(--ink-2)}
+.iv-doc{margin:auto;width:100%;max-width:56rem;height:88dvh;max-height:none;padding:0;border:0;border-radius:6px;background:var(--white);color:var(--ink);box-shadow:0 40px 80px -30px rgba(10,10,10,.5)}
+.iv-doc::backdrop{background:rgba(10,10,10,.6)}
+.iv-doc-in{display:flex;flex-direction:column;height:100%}
+.iv-doc-h{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:16px 28px;border-bottom:1px solid var(--hair)}
+.iv-doc-h h2{font-size:28px;line-height:1.1}
+.iv-doc-h .btn{height:40px;padding:0 16px;font-size:14px}
+.iv-doc-body{flex:1;overflow-y:auto;padding:40px 48px}
+.iv-doc-body .prose{max-width:44rem;margin:0 auto}
+@media (min-width:768px){.iv-stage{padding:24px}.iv-full-bar{padding:0 24px 24px}}
+@media (max-width:760px){
+  .iv-doclist li{flex-direction:column;align-items:flex-start;gap:14px}
+  .iv-doc{height:100dvh;max-width:none;border-radius:0}
+  .iv-doc-h{padding:14px 18px}.iv-doc-h h2{font-size:22px}
+  .iv-doc-body{padding:28px 20px}
+  .iv-docs{padding:48px 0 64px}
+}

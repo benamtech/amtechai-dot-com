@@ -143,8 +143,8 @@
   "p": "It may have moved, or the address has a typo. Start from one of these instead.",
   "go": [
    {
-    "text": "Try it on a job",
-    "to": "/contractors"
+    "text": "Meet your employee",
+    "to": "/start"
    },
    {
     "text": "Home",

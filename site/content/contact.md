@@ -14,8 +14,4 @@ ways:
   - { title: "Email", body: "ben@amtechai.com. Send the job, the question or the file.", label: "Write to Ben", to: "mailto:ben@amtechai.com" }
   - { title: "Phone", body: "(805) 886-9173.", label: "Call (805) 886-9173", to: "tel:+18058869173" }
   - { title: "Already have an employee", body: "Sign in at app.amtechai.com. Your employee opens with all its work.", label: "Sign in", to: "app:/signup" }
-try_h: "Or try it on a job first."
-try_p: "Give the AMTECH employee a real job on the contractors page. It does the first real piece while you watch. No card and no sign-up to start."
-try_button: "Start with the work"
-try_to: "/contractors"
 ---

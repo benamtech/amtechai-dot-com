@@ -16,4 +16,17 @@ documents:
   - { id: "one-page", title: "The one page", body: "What AMTECH is, who it is for, the deals and the raise.", pdf: "/investors/AMTECH-AI-one-page.pdf" }
   - { id: "how-it-is-built", title: "How it is built", body: "The platform under every employee, and what the experiments measured.", pdf: "/investors/AMTECH-AI-how-it-is-built.pdf" }
   - { id: "financials", title: "Financials and cap table", body: "The deal terms, the cost to run an employee, the round.", pdf: "/investors/AMTECH-AI-financials.pdf" }
+# The page's own labels (layouts/investors.html owns no words).
+founder: "Benjamin Palaskas, founder"
+labels:
+  documents: "Documents"
+  read: "Read"
+  pdf: "PDF"
+  full: "Full screen"
+  prev: "Previous plate"
+  next: "Next plate"
+  close: "Close"
+  plate: "Plate"
+  deck_full: "The deck, full screen"
+  deck_pdf: "Download the deck (PDF)"
 ---

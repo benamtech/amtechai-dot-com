@@ -59,7 +59,7 @@
       opener?.focus();
     };
 
-    list.classList.remove('space-y-10');
+    list.classList.add('iv-one');
     ui.hidden = false;
     prev.addEventListener('click', () => show(i - 1));
     next.addEventListener('click', () => show(i + 1));

@@ -1,4 +1,0 @@
-{{- /* A page's <title> and link-preview title: seo_title if it has one; an article's title with the site's name. */ -}}
-{{- $t := .Title -}}
-{{- if and .IsPage (eq .Section "articles") }}{{ $t = printf "%s | AMTECH AI" .Title }}{{ end -}}
-{{- return (.Params.seo_title | default $t) -}}

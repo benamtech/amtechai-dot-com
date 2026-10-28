@@ -18,7 +18,7 @@ import crypto from 'node:crypto';
 
 const ROOT = path.join(path.dirname(new URL(import.meta.url).pathname), '..', '..');
 const STATIC = path.join(ROOT, 'site', 'static');
-const PAGES_VARIED = ['/about', '/contractors', '/articles'];
+const PAGES_VARIED = ['/about', '/industries/contractors', '/articles'];
 
 function get(url, resolve) {
   return new Promise((done) => {
