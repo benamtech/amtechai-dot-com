@@ -126,15 +126,7 @@
     el.setAttribute('signin', `${APP}/signup`);
     if (check) el.check = check.token;
     document.getElementById('holder').appendChild(el);
-    // The name is the visit's first words once per browser: a reload, or coming back after keeping the employee,
-    // sent it again as a new message (walked in a real Firefox, 2026-10-28). Remembered for the visitor key's life.
-    const said = `amtech:start:${name.toLowerCase()}`;
-    let before = 0;
-    try { before = +(localStorage.getItem(said) || 0); } catch (e) {}
-    if (el.start && Date.now() - before > 30 * 86400000) {
-      el.start(name);
-      try { localStorage.setItem(said, String(Date.now())); } catch (e) {}
-    }
+    if (el.start) el.start(name);
   };
   document.head.appendChild(s);
   watch();
