@@ -13,7 +13,7 @@
        Every word is content/start.md's, or the contact page's own ways (mailto: and tel:). The visitor's name is put in
        by the script with textContent, beside `setting`, never built into a sentence. The page has one <h1>, the empty
        state's; the name's heading is a level-1 role on a <p> because the two are never shown together. */ -}}
-{{- range slice "title" "description" "home_label" "signin" "setting" "next_h" "next" "loading" "fail_h" "fail_p" "retry" "help_h" "contact_label" "empty_h" "empty_p" "noscript" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "home_label" "signin" "setting" "next_h" "next" "loading" "fail_h" "fail_p" "retry" "help_h" "contact_label" "empty_h" "empty_p" "check" "noscript" }}{{ if not (isset $.Params .) }}{{ errorf "GATE %s: front matter is missing %q" $.File.Path . }}{{ end }}{{ end -}}
 {{- $app := site.Params.app -}}
 {{- $css := slice (resources.Get "css/w/fonts.css") (resources.Get "css/w/white.css") (resources.Get "css/w/start.css") | resources.Concat "css/w-start.css" | minify | fingerprint -}}
 {{- $ways := slice }}{{ with site.GetPage "/contact" }}{{ range .Params.ways }}{{ if findRE `^(mailto|tel):` .to }}{{ $ways = $ways | append . }}{{ end }}{{ end }}{{ end -}}
@@ -60,6 +60,9 @@
 </main>
 </div>
 <div class="st-ws" id="holder"></div>
+{{- /* The visitor check: the page's, in this document, from load (js/w/check.js). Its token is handed to the workspace
+       as el.check, so the check runs while the workspace loads instead of after the visitor's words. */}}
+{{ with resources.Get "js/w/check.js" | minify | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" data-sitekey="{{ site.Params.turnstile_sitekey }}"></script>{{ end }}
 {{- /* The mount. Ready means the workspace drew itself in its shadow root and its stylesheet loaded; until then the
        page says it is opening. Not ready in 12 s, a missing script or an element that never defined: the failed state,
        with a retry and a person. A workspace that comes up after that still takes over (the visitor never loses it).
@@ -88,6 +91,8 @@
   }
   document.querySelector('[data-name]').textContent = name;
   root.dataset.state = 'loading';
+  const check = window.amtechCheck;
+  if (check) check.own(document.body, {{ .Params.check }});
   const t0 = performance.now();
   const secs = () => Math.round(performance.now() - t0) / 1000;
   let el = null, done = false, failed = false;
@@ -119,6 +124,7 @@
     el.setAttribute('fonts', 'none');
     el.setAttribute('expand', 'none');
     el.setAttribute('signin', `${APP}/signup`);
+    if (check) el.check = check.token;
     document.getElementById('holder').appendChild(el);
     if (el.start) el.start(name);
   };

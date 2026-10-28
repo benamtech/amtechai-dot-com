@@ -7,6 +7,8 @@
        site's conversion, sent to Google Analytics as start_business (marked a key event in GA4's admin) with the page's
        trade or package; the form still goes to /start if the analytics tag is blocked. */}}
 <script>{{ `(()=>{const i=[...document.querySelectorAll("[data-echo-src]")],o=[...document.querySelectorAll("[data-echo]")];i.forEach(a=>a.addEventListener("input",()=>{const v=a.value.trim();o.forEach(e=>e.textContent=v||e.dataset.echo);i.forEach(b=>{if(b!==a)b.value=a.value})}));document.querySelectorAll("form[data-start]").forEach(f=>f.addEventListener("submit",()=>{const d=new FormData(f);window.gtag&&gtag("event","start_business",{industry:d.get("industry")||"",config:d.get("config")||"",form:f.id,transport_type:"beacon"})}))})()` | safeJS }}</script>
+{{- /* The visitor check, run quietly from the first touch of a start field so its token is ready before /start needs it. */}}
+{{ with resources.Get "js/w/check.js" | minify | fingerprint }}<script src="{{ .RelPermalink }}" integrity="{{ .Data.Integrity }}" data-sitekey="{{ site.Params.turnstile_sitekey }}"></script>{{ end }}
 {{- if .Params.swarm }}{{ with resources.Get "js/w/swarm.js" | minify | fingerprint }}
 <script type="module" src="{{ .RelPermalink }}"></script>{{ end }}{{ end }}
 </body>
