@@ -69,10 +69,21 @@
     card.classList.toggle('on', on);
     card.setAttribute('aria-hidden', on ? 'false' : 'true');
   };
+  // A token handed to the workspace ends this widget. Left alive, Turnstile renews it every 300 s for as long as the
+  // page is open, and a renewal that asks for a click put the card over the conversation (measured 2026-10-28: a
+  // /start left open re-issued a challenge about every five minutes). A retried visit renders a new one.
+  const spent = () => {
+    if (widget === null) return;
+    const id = widget;
+    widget = null;
+    setTimeout(() => { try { window.turnstile.remove(id); } catch (e) { /* gone */ } });   // not inside its own callback
+    show(false);
+  };
   const settle = (err, t) => {
     const w = waiting; waiting = [];
     if (!err) failed = null;
     if (!w.length) { if (err) failed = err; else token = t; return; }
+    if (!err) spent();
     w.forEach(([ok, no]) => (err ? no(err) : ok(t)));
   };
   const run = () => load().then((ts) => {
@@ -102,7 +113,7 @@
   /** A token for one visit. The first may already be waiting; any later one runs the check again. */
   let first = true;
   const get = () => new Promise((ok, no) => {
-    if (token) { const t = token; token = null; first = false; return ok(t); }
+    if (token) { const t = token; token = null; first = false; spent(); return ok(t); }
     if (failed) { const e = failed; failed = null; first = false; return no(e); }
     waiting.push([ok, no]);
     if (!first || widget === null && !api) run();
