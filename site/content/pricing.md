@@ -1,6 +1,7 @@
 ---
 # /pricing (lane PAGES2, 2026-10-27; shapes.json h:pricing). Every figure here is brain/pricing.md's website wording
-# (Ben, 2026-10-27): the price line, which the layout prints from data/w.json, and "$1,200/mo". No other number.
+# (Ben, 2026-10-27): the price line, which the layout prints from data/w.json, and "$1,200/mo"; and (Ben, 2026-10-28, D82)
+# pay as you go is at least $50 a month in credits, with no setup fee, said where pay as you go is explained. No other number.
 title: "Pricing: start free and pay as you go, or custom agents from $1,200/mo"
 description: "AMTECH AI pricing: start free and pay only for the work your AI employee does, or have custom agents set up with you, results guaranteed."
 route: "/pricing"
@@ -28,7 +29,7 @@ blocks:
         items:
           - "Name your business and your employee starts on it straight away. The first work is free, with no card."
           - "It makes a team for your kind of work, connects to the systems you already run, and writes your business down as it learns it."
-          - "When you keep it, you pay as you go: for the work done, as it is done."
+          - "When you keep it, you pay as you go from $50 a month in credits, with no setup fee. The work done is paid from them, as it is done."
           - "Your account shows each day's work and what it cost, and every action leaves a receipt you can open."
       - h: "Custom agents, from $1,200/mo"
         lead: "For a business that wants whole departments handed over and run."
@@ -45,7 +46,7 @@ blocks:
     rows:
       - {h: "You pay for work done", p: "An estimate measured and priced, a lead followed up, a page written and published, an invoice sent and chased: that is the work. Time your employee spends waiting for the next job costs nothing."}
       - {h: "You see it as it happens", p: "Your account shows each day's work and what it cost. Every action your employee takes leaves a receipt you can open, so a line on your bill always points to the work behind it."}
-      - {h: "A quiet month costs less", p: "Your bill follows the work. A busy month of estimates and follow-ups costs more than a quiet one, because you are paying for what was done."}
+      - {h: "From $50 a month", p: "You add at least $50 a month in credits, and the work is paid from them. A busy month of estimates and follow-ups uses more than a quiet one, and what a quiet month leaves stays yours for the next."}
       - {h: "Yours to close", p: "Close your account whenever you choose, and nothing of your business stays behind with AMTECH."}
   - kind: points
     g: g-paper
@@ -93,7 +94,7 @@ blocks:
       - {label: "Scoop Dogg's story", url: "/customers/scoop-dogg", line: "The first business run by an AI employee."}
       - {label: "Book a call with Ben", url: "/schedule-demo", line: "Thirty minutes on your business and the custom setup."}
 questions:
-  - {q: "Is there a contract?", a: "Pay as you go is billed for the work done, and you can close your account whenever you choose. A custom agent setup is billed monthly, from $1,200/mo, on terms set with you at the setup call."}
+  - {q: "Is there a contract?", a: "Pay as you go is at least $50 a month in credits, spent on the work done, and you can close your account whenever you choose. A custom agent setup is billed monthly, from $1,200/mo, on terms set with you at the setup call."}
   - {q: "Do I need a card to start?", a: "No. Name your business and your employee starts on it. You add a card when you decide to keep it."}
   - {q: "What counts as work?", a: "What your employee and its team do for you: reading and answering your email, measuring a plan set, writing a page, checking your Google listing, sending a follow-up, making an invoice. Waiting for the next job is not work."}
   - {q: "How do I know what I am paying for?", a: "Your account shows each day's work and what it cost. Every action leaves a receipt you can open, so every line on the bill points to the work behind it."}
