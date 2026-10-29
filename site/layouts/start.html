@@ -1,7 +1,7 @@
 {{- /* /start: the handoff (lane START, 2026-10-27; first mounted by lane SITEBUILD). The business's name typed on any page
        becomes the onboarding's first input. The workspace (app.amtechai.com/w/workspace.js) is loaded here only, never
        on a content page. Contract: standard/projection/web/src/public.tsx (attributes app, intent, fonts, expand,
-       signin; start(name)). The live employee answers on amtechai.com only, so previews and localhost test this page
+       signin; begin(name), else start(name)). The live employee answers on amtechai.com only, so previews and localhost test this page
        with the workspace stubbed (site/tools/node/start-page.mjs, start-handoff.mjs). industry=, config= and for= ride
        along in location.search, which the workspace sends as the visit's landing (the platform's arrival_said).
 
@@ -126,7 +126,11 @@
     el.setAttribute('signin', `${APP}/signup`);
     if (check) el.check = check.token;
     document.getElementById('holder').appendChild(el);
-    if (el.start) el.start(name);
+    // begin: a visitor coming back (a reload, the link again) gets their own conversation, and the name is not sent
+    // again (walked 2026-10-28); a workspace from before begin existed takes the name as before.
+    // A visitor who came back makes no visit, so the check this page started at load ends unasked.
+    if (el.begin) Promise.resolve(el.begin(name)).then((back) => { if (back && check && check.drop) check.drop(); });
+    else if (el.start) el.start(name);
   };
   document.head.appendChild(s);
   watch();
