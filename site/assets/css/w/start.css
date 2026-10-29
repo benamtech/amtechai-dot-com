@@ -9,6 +9,8 @@ body.st{min-height:100dvh;background:var(--white)}
 .st-top{display:flex;align-items:center;justify-content:space-between;height:60px;border-bottom:1px solid var(--hair);margin:0 -20px;padding:0 20px}
 .st-signin{font-size:15px;font-weight:600;color:var(--blue);padding:8px 2px}
 .st-signin:hover{color:var(--blue-2)}
+/* One Sign in (MISSED §5): the workspace's own header carries it once it is up, so the side column's goes. */
+[data-state=ready] .st-signin{display:none}
 .st-intro{display:flex;flex-direction:column;gap:14px}
 .st-who{display:flex;gap:14px;align-items:center}
 .st-who .chr{flex:none}
