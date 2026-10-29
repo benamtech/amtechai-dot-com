@@ -63,7 +63,7 @@
   };
 
   /** /start: the card that holds the widget, seen only while Cloudflare asks the person for a click. */
-  let card = null, slot = null, widget = null, waiting = [], token = null, failed = null;
+  let card = null, slot = null, widget = null, waiting = [], token = null, failed = null, dropped = false;
   const show = (on) => {
     if (!card) return;
     card.classList.toggle('on', on);
@@ -87,6 +87,7 @@
     w.forEach(([ok, no]) => (err ? no(err) : ok(t)));
   };
   const run = () => load().then((ts) => {
+    if (dropped) return;                     // ended before Turnstile's script arrived: nothing renders
     if (widget !== null) { ts.reset(widget); return; }
     widget = ts.render(slot, {
       sitekey: SITEKEY, appearance: 'interaction-only', action: 'start',
@@ -113,6 +114,7 @@
   /** A token for one visit. The first may already be waiting; any later one runs the check again. */
   let first = true;
   const get = () => new Promise((ok, no) => {
+    dropped = false;
     if (token) { const t = token; token = null; first = false; spent(); return ok(t); }
     if (failed) { const e = failed; failed = null; first = false; return no(e); }
     waiting.push([ok, no]);
@@ -120,6 +122,10 @@
     first = false;
   });
 
-  window.amtechCheck = { ahead, own, token: get };
+  /** /start, a visitor coming back: no visit will be made, so the check ends and its card never asks (walked
+   *  2026-10-29: Cloudflare asked "Verify you are human" over the conversation the workspace had just reopened). */
+  const drop = () => { dropped = true; spent(); token = null; };
+
+  window.amtechCheck = { ahead, own, token: get, drop };
   document.querySelectorAll('form[data-start] input[name=business]').forEach(ahead);
 })();

@@ -128,7 +128,9 @@
     document.getElementById('holder').appendChild(el);
     // begin: a visitor coming back (a reload, the link again) gets their own conversation, and the name is not sent
     // again (walked 2026-10-28); a workspace from before begin existed takes the name as before.
-    if (el.begin) el.begin(name); else if (el.start) el.start(name);
+    // A visitor who came back makes no visit, so the check this page started at load ends unasked.
+    if (el.begin) Promise.resolve(el.begin(name)).then((back) => { if (back && check && check.drop) check.drop(); });
+    else if (el.start) el.start(name);
   };
   document.head.appendChild(s);
   watch();
