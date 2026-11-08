@@ -1,46 +1,47 @@
 ---
-# /real-estate (2026-11-08). A landing page in its own template (layouts/landing.html), shorter and calmer than the
-# industry family: Beam's conventions (one action, white space, large photographs with the work floating on them),
-# AMTECH's brand. The four jobs are the four paid job posts in ideas-for-agents/industry/real-estate/full-team.
-# Prices: only brain/pricing.md's website wording (the price line under every start field, and "$1,200 a month").
-# Proof: no customer, number or result is claimed. Every row in a card illustrates the application (data/w.json sources).
-# Photographs: made for this page with gpt-image-2.5 through AMTECH's gateway, 2026-11-08.
-title: "AI team for real estate: surveys, listing campaigns, reviews and seller calls"
-description: "An AI team for real estate firms: property surveys, listing email campaigns, reviews after every closing and seller calls. Custom built from $1,200/mo."
+# /real-estate (2026-11-08). A landing page in its own template (layouts/landing.html): Beam's conventions (one action,
+# white space, large photographs with the work floating on them), AMTECH's brand. Written for owners building a bigger
+# firm (Ben, 2026-11-08: "people trying to make millions of dollars"; $1,200 a month is the minimum retainer for any
+# engagement, and the page must carry a value a firm would pay $10,000 for). The four jobs that open the engagement
+# come from paid job posts (ideas-for-agents/industry/real-estate/full-team). Every row in a card illustrates the
+# application. Photographs: made for this page with gpt-image-2.5 through AMTECH's gateway, 2026-11-08.
+title: "Custom AI teams for real estate firms | Engagements from $1,200/mo"
+description: "AMTECH builds real estate firms a custom AI operating team that works every deal, listing and lead around the clock. Engagements from $1,200 a month."
 route: "/real-estate"
 layout: "landing"
 crumb: "Real estate"
 okf_type: "Business Type"
-llms: {order: 30, label: "Real estate", text: "AI agent teams for real estate businesses: property surveys, listing email campaigns, reviews after every closing, and seller calls, from $1,200/mo."}
-h1a: "The surveys, the listings, the reviews and the seller calls."
-h1b: "Done by your AI team."
-sub: "AMTECH builds your real estate business a team of AI agents that works inside the software you already use. It prepares every property survey, launches every listing by email, asks every client for a review and calls back every seller, and you approve what goes out."
+llms: {order: 30, label: "Real estate", text: "Custom AI operating teams for real estate firms: tenant surveys, listing marketing, seller acquisition, reviews and referrals, and any other work the firm hands over. Engagements from $1,200/mo."}
+h1a: "The operating team behind"
+h1b: "a much bigger real estate firm."
+sub: "AMTECH builds your firm a custom team of AI agents that works every deal, listing and lead you have, around the clock, inside the systems you already run. Your brokers spend their days on the deals that pay."
 field: "Your company's name"
 button: "Build my team"
-call: {text: "Or talk to Ben about a custom setup", href: "/schedule-demo"}
+prices: "Custom AI teams for real estate firms. Engagements from $1,200 a month."
+call: {text: "Book a strategy call with Ben", href: "/schedule-demo"}
 hero_img: "img/real-estate/hero.png"
 hero_alt: "A broker walking past a glass office building at sunset"
 hero_card:
   h: "Your team today"
   rows:
-    - {who: "Surveys", what: "Office survey for a 9,000 sq ft tenant, 14 buildings matched", state: "Step 3 of 4", tone: "run"}
-    - {who: "Listings", what: "Just-listed campaign for the house on Ridge Road", state: "Waiting for your yes", tone: "wait"}
-    - {who: "Reviews", what: "Five-star rating from the Ortiz closing, sent on to Google", state: "Done", tone: "done"}
-    - {who: "Sellers", what: "Call with the owner on Alder Street, walkthrough booked", state: "Thursday 10:00", tone: "done"}
-systems_h: "Works inside what your office already runs"
+    - {who: "Tenant rep", what: "Survey for a 9,000 sq ft office tenant, 14 buildings matched", state: "Step 3 of 4", tone: "run"}
+    - {who: "Listings", what: "Launch campaign for the house on Ridge Road", state: "Waiting for your yes", tone: "wait"}
+    - {who: "Acquisitions", what: "Owner on Alder Street ready to sell, walkthrough booked", state: "Thursday 10:00", tone: "done"}
+    - {who: "Clients", what: "Five-star review and a referral from the Ortiz closing", state: "Done", tone: "done"}
+systems_h: "Built into the systems your firm already runs"
 systems: ["Follow Up Boss", "kvCORE", "Lofty", "Salesforce", "Mailchimp", "Constant Contact", "Google Business Profile", "Zillow", "DocuSign", "dotloop", "Google Workspace", "QuickBooks"]
-jobs_h: "Four jobs your team takes over first"
-jobs_sub: "Real estate firms post each of these as a separate job and pay a freelancer to build a workflow that someone then has to run. Your AMTECH team runs all four, every day, and gets better at them."
+jobs_h: "Where your team starts making you money"
+jobs_sub: "Most firms open with these four. From there your team takes on anything your business runs on: underwriting, market reports, investor updates, recruiting, transactions, your website and software built only for your firm."
 jobs:
   - id: surveys
     img: "img/real-estate/surveys.png"
     alt: "An aerial view of a downtown office district in the morning"
-    h: "Commercial property surveys, the same day they are asked for"
-    p: "Send your team the tenant's requirements. It searches the listing databases you already log in to, checks each building against the size, rate, location and timing, and builds the survey in your template, with photos, floor plans and notes. You review a finished survey instead of spending the afternoon assembling one."
+    h: "Win the tenant before the other broker sends a survey"
+    p: "Your team turns a tenant's requirements into a finished survey the same day: every building in the market checked against size, rate, location and timing, laid out in your template with photos, floor plans and your notes. You answer first, you look sharper, and your brokers take on every requirement that comes in."
     gets:
-      - "Learns from the surveys you have already sent"
-      - "Works under your own logins, inside each database's terms"
-      - "Updates the survey when a space leases or a rate changes"
+      - "Built from every survey your firm has sent"
+      - "Kept current as spaces lease and rates move"
+      - "Branded, sourced and ready for your client"
     card:
       kind: table
       h: "Office survey: 8,000 to 10,000 sq ft"
@@ -55,12 +56,12 @@ jobs:
   - id: listings
     img: "img/real-estate/listings.png"
     alt: "A luxury living room with floor-to-ceiling windows above the city lights at dusk"
-    h: "Every listing launched by email, to the buyers and agents who fit"
-    p: "When a listing goes live, your team writes the campaign in your brand: the just-listed email, the open house invitation, the price change and the just-sold note. It picks the buyers and agents from your own lists who match the home, sends from your email platform once you approve, and tells you who opened, clicked and replied."
+    h: "Market every listing like your best one"
+    p: "The day a listing goes live, your team launches it: the announcement to the buyers and agents who fit the home, the open house, the price change, the just-sold story that wins the next seller. Every piece is written for the property and sent in your brand, and every reply goes straight to the listing agent."
     gets:
       - "Written for the property, never from a template"
-      - "Sent to the right segment, not the whole list"
-      - "Replies answered and handed to the right agent"
+      - "Sent to the buyers and agents most likely to act"
+      - "Every reply routed to the agent within minutes"
     card:
       kind: email
       h: "Just listed: a glass house above the city"
@@ -69,32 +70,15 @@ jobs:
         - "Five bedrooms, a double-height living room and the whole city in the windows."
         - "Private showings start Saturday. Reply to choose a time."
       action: "Approve and send"
-  - id: reviews
-    img: "img/real-estate/reviews.png"
-    alt: "A couple holding the key on the porch of their new house"
-    h: "A review asked for after every closing, and a call back for every unhappy client"
-    p: "After a closing, a showing or a lease signing, your team asks the client how it went by text or email, with the link to your Google or Zillow page. Anyone less than happy also gets a personal reply, and the agent is told at once with everything the client said, so the problem is fixed while the client still wants to talk."
-    gets:
-      - "Asks at the right moment, in your words"
-      - "Answers every public review on Google"
-      - "A monthly picture of how clients rate each agent"
-    card:
-      kind: flow
-      h: "After the Ortiz closing"
-      rows:
-        - {k: "Rating", v: "5 of 5"}
-        - {k: "Next", v: "Thanked, and reminded of your Google page"}
-        - {k: "Review", v: "Posted, and answered with a thank-you"}
-      foot: "A rating under 5 goes to the agent within minutes."
   - id: sellers
     img: "img/real-estate/sellers.png"
     alt: "A tired ranch house with an overgrown front lawn"
-    h: "Every seller called back, in a voice that sounds like your office"
-    p: "Your team calls back every owner who asked to hear from you, the moment they ask, day or night. It finds out whether they still want to sell, why, how soon, and what condition the house is in, works out a price range from your buying rules, and books the walkthrough on your calendar. Every call is recorded, written up and added to your CRM."
+    h: "Reach every motivated seller first"
+    p: "The moment an owner asks to hear from you, day or night, your team calls in a voice that sounds like your office. It learns why they are selling, how soon and what the house needs, works out a price range from your buying rules and books the walkthrough on your calendar. Every lead is followed until it is a yes or a no."
     gets:
-      - "Calls, texts and emails, one conversation"
-      - "Follows each seller until they say yes or no"
-      - "Keeps to do-not-call lists and the consent each owner gave"
+      - "Calls, texts and emails as one conversation"
+      - "A price range from your rules, on the call"
+      - "Every call recorded, summarised and in your CRM"
     card:
       kind: call
       h: "Call with the owner, Alder Street"
@@ -104,62 +88,76 @@ jobs:
         - {k: "Condition", v: "Roof about 20 years old, kitchen original"}
         - {k: "Price range", v: "From your buying rules"}
         - {k: "Next", v: "Walkthrough booked, Thursday 10:00"}
-team_h: "One team, with a page for every member"
-team_sub: "Your team lives in one application. You talk to it like a colleague, see each member's work as it happens, and approve what goes out from one list. Add a member for any other job your office does, from transaction paperwork to the website."
-team_img_alt: "The AMTECH application showing a real estate team at work"
+  - id: reviews
+    img: "img/real-estate/reviews.png"
+    alt: "A couple holding the key on the porch of their new house"
+    h: "Turn every closing into your next deal"
+    p: "After every closing, your team asks the client how it went, with the link to your Google and Zillow pages, answers every review in your voice, and keeps in touch for the referral and the next move. Any client less than delighted reaches the agent within minutes, while there is still time to make it right."
+    gets:
+      - "A review asked for after every closing"
+      - "Past clients kept warm for referrals and repeat deals"
+      - "Each agent's client ratings, every month"
+    card:
+      kind: flow
+      h: "After the Ortiz closing"
+      rows:
+        - {k: "Rating", v: "5 of 5"}
+        - {k: "Review", v: "Posted to Google, answered the same day"}
+        - {k: "Referral", v: "Their sister is buying in the spring"}
+      foot: "Any rating under 5 reaches the agent within minutes."
+team_h: "Your firm's own AI operating team"
+team_sub: "Built around how your firm makes money, with a page for every member, working in your systems and reporting to you. It grows with the business: add members for underwriting, transactions, recruiting, investor relations or your next market, and your team builds the software it needs on the way."
+team_img_alt: "The AMTECH application showing a real estate firm's AI team at work"
 team:
-  lead: {name: "Your real estate team", line: "Takes your requests and hands each one to the member for it"}
+  lead: {name: "Your operating team", line: "Takes every request and puts the right member on it"}
   members:
-    - {name: "Surveys", line: "3 surveys in progress"}
-    - {name: "Listings", line: "1 campaign waiting for your yes"}
-    - {name: "Reviews", line: "6 clients asked this week"}
-    - {name: "Sellers", line: "11 calls today, 2 walkthroughs booked"}
+    - {name: "Tenant rep", line: "3 surveys in progress"}
+    - {name: "Listings", line: "1 launch waiting for your yes"}
+    - {name: "Acquisitions", line: "11 sellers called today, 2 walkthroughs booked"}
+    - {name: "Clients", line: "6 reviews and 2 referrals this week"}
   waits_h: "Waiting for your yes"
   waits:
-    - "Send the just-listed campaign for Ridge Road"
+    - "Launch the Ridge Road listing to 1,240 buyers and agents"
     - "Send the office survey to the tenant's broker"
-offer_h: "Your team, built for your business, from $1,200 a month"
-offer_sub: "AMTECH builds your team with you: the members your work needs, the connections to your software, the routines and the rules for what goes out. Then it runs every day, and we keep improving it."
-offer_includes_h: "What the $1,200 covers"
+scale_h: "What changes when your team is running"
+scale_sub: "The firms that pull ahead are the ones that do more deals without more overhead. That is what this is built for."
+scale:
+  - {h: "Your best broker's standard on every deal", p: "Every survey, launch and follow-up done the way your top producer does it, on every deal, in every office."}
+  - {h: "Every lead worked, every hour", p: "Nothing waits until Monday. Every inquiry, seller and past client gets a response while your competitors are still asleep."}
+  - {h: "New markets without new overhead", p: "Open a new office, a new asset class or a new territory, and your team is already working it on the first day."}
+  - {h: "Software built for your firm", p: "Client portals, deal dashboards, a new website, internal tools: your team builds and runs what your firm needs, owned by you."}
+offer_h: "Designed around your firm. Run with you by AMTECH."
+offer_sub: "Every engagement starts with where your firm makes its money. AMTECH designs the team around it, connects every system, builds the routines and the software it needs, and runs and improves it with you every week."
+offer_includes_h: "Every engagement includes"
 offer_includes:
-  - "A team made for your business, not a template"
-  - "Every connection set up for you, to your CRM, email, calendar, phone and databases"
-  - "The four jobs on this page, and any others your office hands over"
-  - "Routines that run on their own, every morning and every week"
+  - "A team designed for your firm by AMTECH"
+  - "Every connection set up for you: CRM, email, phones, calendars and data"
+  - "The software your team builds for you, owned by you"
+  - "Routines that run every day without anyone starting them"
   - "Approvals in your words: what waits for you and what just goes"
-  - "A person at AMTECH who keeps improving it with you"
+  - "A dedicated AMTECH lead who keeps raising the bar"
 offer_steps_h: "How it starts"
 offer_steps:
-  - {h: "Tell us what your office does", p: "Type your company's name, or book a call. Your team reads your website and your listings first."}
-  - {h: "We build your team", p: "In a few days: the members, the connections and the first routines, tested on your real work."}
-  - {h: "It goes to work", p: "You approve the first surveys, campaigns and calls, then decide what can go out on its own."}
-compare_h: "Why a team, and not a one-off build"
-compare_sub: "A freelancer can build you a workflow. Somebody still has to run it, fix it when a website changes, and build the next one."
-compare_cols: ["A freelancer's build", "Another software subscription", "Your AMTECH team"]
-compare_rows:
-  - {k: "Does the work itself", v: ["Runs the steps it was built for", "You do the work inside it", "Yes, end to end"]}
-  - {k: "Handles what is new", v: ["Breaks, and needs another job post", "Waits for the vendor", "Adapts, and asks you when unsure"]}
-  - {k: "Covers more than one job", v: ["One workflow per project", "One job per tool", "Surveys, listings, reviews, sellers and more"]}
-  - {k: "Gets better every week", v: ["No", "When the vendor ships", "Yes, from your own approvals and edits"]}
-  - {k: "You approve what goes out", v: ["Depends on the build", "Depends on the tool", "Always, or under rules you set"]}
-yes_h: "You stay in charge"
+  - {h: "A strategy call with Ben", p: "Thirty minutes on where your firm makes money and where the team pays back fastest."}
+  - {h: "Your team, built in days", p: "The members, the connections and the first routines, tested on your real deals."}
+  - {h: "Live on your business", p: "You approve the first surveys, launches and calls, then decide what runs on its own."}
+yes_h: "You stay in control"
 yes:
-  - {h: "Nothing goes out without your yes", p: "Every email, survey, review reply and offer range waits for you, until you decide a kind of work can go out on its own."}
-  - {h: "Your logins stay yours", p: "Your team works inside your accounts with the access you give it, and you can end that access at any time."}
-  - {h: "Every action is on the record", p: "Each call, email and change is written down with who did it and why, so you can check any of it later."}
-questions_h: "What real estate firms ask first"
+  - {h: "Nothing goes out without your yes", p: "Every email, survey, review reply and offer range waits for you, until you decide a kind of work can run on its own."}
+  - {h: "Your accounts stay yours", p: "Your team works inside your systems with the access you give it, and you can end that access at any moment."}
+  - {h: "Every action on the record", p: "Each call, email and change is recorded with who did it and why."}
+questions_h: "What firm owners ask first"
 questions:
-  - {q: "Is this a chatbot?", a: "No. A chatbot answers questions. Your AMTECH team does the work: it prepares the survey, writes and sends the campaign, makes the call and books the walkthrough, inside your own software, and brings the finished work to you to approve."}
-  - {q: "Will it work with our CRM and our databases?", a: "Yes. Your team connects to Follow Up Boss, kvCORE, Lofty, Salesforce and the email, calendar and phone tools you use, and works in the listing and property databases you subscribe to under your own logins. If something has no ready connection, your team builds one."}
-  - {q: "Can it replace our review software, our email tool or our call service?", a: "It can. On day one it works inside what you already pay for, so nothing changes for your agents. When you would rather stop paying for a tool, your team takes over its job."}
-  - {q: "Are the seller calls legal?", a: "Your team calls owners who asked to hear from you or agreed to be called, checks do-not-call lists before every call, and says it is an automated assistant where the law asks it to. Cold lists are worked by mail and email unless you have consent to call."}
-  - {q: "Do you only work with one kind of real estate business?", a: "No. Commercial brokerages, residential teams, luxury agents, investors and property managers each get a team made for their own work. The four jobs on this page are where most start."}
-  - {q: "How fast is it set up?", a: "Usually within a few days. You can start with your company's name today, and your team begins by reading your website and your listings while we set up the rest with you."}
-closing_h: "Put your real estate team to work."
-closing_sub: "Type your company's name. Your team starts by reading your website and your listings."
+  - {q: "What does it cost?", a: "Engagements start at $1,200 a month, the minimum for any custom team. The full engagement follows what your team takes on: the work, the offices and the markets. You get the number on your strategy call."}
+  - {q: "How is this different from the AI tools we already pay for?", a: "Those are tools your people have to drive. This is a team that does the work itself, across every system you run, around the clock, and that AMTECH designs and runs with you."}
+  - {q: "Can it replace software and services we pay for now?", a: "Yes. On day one it works inside everything you already use, so nothing changes for your brokers. From there it can take over the jobs you pay other tools, agencies and call services for."}
+  - {q: "Will it work with our CRM and our data?", a: "Yes: Follow Up Boss, kvCORE, Lofty, Salesforce, your email, phones and calendars, and the listing and property databases you subscribe to. Where there is no ready connection, your team builds one."}
+  - {q: "Are the seller calls compliant?", a: "Yes. Your team calls owners who asked to hear from you or agreed to be called, checks do-not-call lists before every call and says it is an automated assistant where the law asks it to."}
+  - {q: "How fast is it live?", a: "Usually within days of the strategy call. Your team starts by reading your website and your listings while AMTECH sets up the rest."}
+closing_h: "Build the firm you are trying to build."
+closing_sub: "Type your company's name, or book a strategy call with Ben."
 site_sources: false
 sources:
-  - "The price line: AMTECH's price list, October 2026."
   - "The work shown in progress on this page (buildings, names, streets, times and counts) illustrates the AMTECH application; it is not a customer's job."
   - "The photographs on this page were made for it with an image model; they show no real client, agent or property."
 reviewed: {by: "Ben Palaskas", date: "2026-11-08"}

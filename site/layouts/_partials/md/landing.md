@@ -7,7 +7,7 @@
 
 Start with your company's name: {{ $o }}/start?business=<your company's name>&industry=real-estate
 
-{{ $W.prices }}
+{{ $P.prices }}
 
 [{{ $P.call.text }}]({{ $o }}{{ $P.call.href }})
 
@@ -44,16 +44,14 @@ Start with your company's name: {{ $o }}/start?business=<your company's name>&in
 {{ add $i 1 }}. **{{ $s.h }}** {{ $s.p }}
 {{- end }}
 
-## {{ $P.compare_h }}
+## {{ $P.scale_h }}
 
-{{ $P.compare_sub }}
+{{ $P.scale_sub }}
+{{ range $P.scale }}
+### {{ .h }}
 
-| | {{ delimit $P.compare_cols " | " }} |
-|---|---|---|---|
-{{- range $P.compare_rows }}
-| {{ .k }} | {{ delimit .v " | " }} |
-{{- end }}
-
+{{ .p }}
+{{ end }}
 ## {{ $P.yes_h }}
 {{ range $P.yes }}
 ### {{ .h }}

@@ -127,6 +127,14 @@
 .lp-cmp-hd{font-size:14px;color:var(--ink-3)}
 .lp-cmp-hd>span:last-child{color:var(--blue)}
 
+/* What changes */
+.lp-scale{padding:0 0 var(--lp-pad)}
+.lp-scale-g{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(24px,3vw,44px);border-top:1px solid var(--ink);padding-top:32px}
+.lp-scale h3{font-size:26px}
+.lp-scale p{margin-top:10px;color:var(--ink-2)}
+@media (max-width:1000px){.lp-scale-g{grid-template-columns:1fr 1fr}}
+@media (max-width:760px){.lp-scale-g{grid-template-columns:1fr}}
+
 /* You stay in charge */
 .lp-yes{padding:clamp(72px,8vw,120px) 0}
 .lp-yes-g{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(24px,3vw,48px);margin-top:40px}

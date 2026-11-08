@@ -3,7 +3,7 @@
        most, never in a row. The layout owns no sentence: every word is in the page's file or data/w.json (check.mjs
        section 11). Card kinds for a job: table, email, flow, call. */ -}}
 {{- $p := . }}{{ $P := .Params -}}
-{{- range slice "title" "description" "h1a" "h1b" "sub" "field" "button" "call" "hero_img" "hero_alt" "hero_card" "systems_h" "systems" "jobs_h" "jobs_sub" "jobs" "team_h" "team_sub" "team_img_alt" "team" "offer_h" "offer_sub" "offer_includes_h" "offer_includes" "offer_steps_h" "offer_steps" "compare_h" "compare_sub" "compare_cols" "compare_rows" "yes_h" "yes" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "field" "button" "call" "hero_img" "hero_alt" "hero_card" "systems_h" "systems" "jobs_h" "jobs_sub" "jobs" "team_h" "team_sub" "team_img_alt" "team" "offer_h" "offer_sub" "offer_includes_h" "offer_includes" "offer_steps_h" "offer_steps" "scale_h" "scale_sub" "scale" "prices" "yes_h" "yes" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main class="lp">
 
@@ -11,7 +11,7 @@
 <div class="lp-hero-t">
 <h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1>
 <p class="lede">{{ $P.sub }}</p>
-{{ partial "w/start.html" (dict "id" "start" "field" $P.field "button" $P.button "industry" "real-estate") }}
+{{ partial "w/start.html" (dict "id" "start" "field" $P.field "button" $P.button "industry" "real-estate" "prices" $P.prices) }}
 <a class="lp-call" href="{{ $P.call.href }}">{{ $P.call.text }}<span aria-hidden="true"> &rarr;</span></a>
 </div>
 <figure class="lp-stage">
@@ -85,18 +85,15 @@
 <div class="lp-offer-s">
 <h3>{{ $P.offer_steps_h }}</h3>
 <ol>{{ range $P.offer_steps }}<li><b>{{ .h }}</b><span>{{ .p }}</span></li>{{ end }}</ol>
-{{ partial "w/start.html" (dict "id" "start-offer" "field" $P.field "button" $P.button "industry" "real-estate") }}
+{{ partial "w/start.html" (dict "id" "start-offer" "field" $P.field "button" $P.button "industry" "real-estate" "prices" $P.prices) }}
 <a class="lp-call" href="{{ $P.call.href }}">{{ $P.call.text }}<span aria-hidden="true"> &rarr;</span></a>
 </div>
 </div>
 </div></section>
 
-<section class="lp-cmp"><div class="wrap">
-<div class="lp-head"><h2>{{ $P.compare_h }}</h2><p>{{ $P.compare_sub }}</p></div>
-<div class="lp-cmp-t" role="table">
-<div class="lp-cmp-r lp-cmp-hd" role="row"><span role="columnheader"></span>{{ range $P.compare_cols }}<span role="columnheader">{{ . }}</span>{{ end }}</div>
-{{- range $P.compare_rows }}<div class="lp-cmp-r" role="row"><span role="rowheader">{{ .k }}</span>{{ range $c, $v := .v }}<span role="cell" data-col="{{ index $P.compare_cols $c }}">{{ $v }}</span>{{ end }}</div>{{ end }}
-</div>
+<section class="lp-scale"><div class="wrap">
+<div class="lp-head"><h2>{{ $P.scale_h }}</h2><p>{{ $P.scale_sub }}</p></div>
+<div class="lp-scale-g">{{ range $P.scale }}<div><h3>{{ .h }}</h3><p>{{ .p }}</p></div>{{ end }}</div>
 </div></section>
 
 <section class="lp-yes g-panel"><div class="wrap">
@@ -112,7 +109,7 @@
 <section class="lp-close"><div class="wrap">
 <h2>{{ $P.closing_h }}</h2>
 <p class="lede">{{ $P.closing_sub }}</p>
-{{ partial "w/start.html" (dict "id" "start-close" "field" $P.field "button" $P.button "industry" "real-estate") }}
+{{ partial "w/start.html" (dict "id" "start-close" "field" $P.field "button" $P.button "industry" "real-estate" "prices" $P.prices) }}
 </div></section>
 
 </main>
