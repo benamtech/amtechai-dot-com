@@ -21,7 +21,7 @@
 <figure class="lp-stage">
 {{ partial "w/lpimg.html" (dict "src" $P.hero_img "alt" $P.hero_alt "sizes" "(min-width: 1100px) 720px, 100vw" "eager" true "cls" "lp-photo") }}
 <div class="lp-app-panel" aria-label="{{ hugo.Data.frame.frame_label }}">
-<div class="lp-ap-top"><span class="af-logo">AMTECH<i>.</i></span><span class="lp-ap-firm" data-echo="{{ $P.panel.firm }}">{{ $P.panel.firm }}</span></div>
+<div class="lp-ap-top"><span class="af-logo">AMTECH<i>.</i></span><span class="lp-ap-firm" data-echo-firm="{{ $P.panel.firm }}">{{ $P.panel.firm }}</span></div>
 <p class="lp-ap-h">{{ $P.panel.h }}</p>
 <ul class="lp-ap-list">{{ range $P.panel.rows }}<li>{{ partial "w/character.html" (dict "id" .who "size" 30) }}<span>{{ partial "w/name.html" (dict "id" .who "names" $names) }}</span><i class="lamp l-{{ .state }}" aria-hidden="true"></i></li>{{ end }}</ul>
 <div class="lp-ap-card"><p class="lp-ap-k"><i class="pulse" aria-hidden="true"></i>{{ hugo.Data.frame.working }}</p><b data-map-title="{{ $P.panel.card_h }}">{{ $P.panel.card_h }}</b>
@@ -47,7 +47,7 @@
 
 <section class="lp-orbit"><div class="wrap">
 <h2>{{ $P.orbit_h }}</h2>
-<div class="lp-orbit-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" $P.team "systems" $P.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-k">{{ $P.crumb }}</p><p class="medal-name" data-echo="{{ $P.panel.firm }}">{{ $P.panel.firm }}</p></div></div>{{ partial "team3d.html" (dict "team" $P.team "systems" $P.systems "names" $names) }}</div>
+<div class="lp-orbit-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" $P.team "systems" $P.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-k">{{ $P.crumb }}</p><p class="medal-name" data-echo-firm="{{ $P.panel.firm }}">{{ $P.panel.firm }}</p></div></div>{{ partial "team3d.html" (dict "team" $P.team "systems" $P.systems "names" $names) }}</div>
 </div></section>
 
 <section class="lp-grid"><div class="wrap">
@@ -82,6 +82,11 @@
 <a class="lp-sticky" href="#start">{{ $P.button }}</a>
 </main>
 <script>{{ `(()=>{const s=document.querySelector(".lp-sticky");if(s){const f=()=>s.classList.toggle("in",scrollY>640);addEventListener("scroll",f,{passive:true});f()}
-const t=document.querySelector("[data-map-title]");if(t){const d=t.dataset.mapTitle,i=document.querySelector(".lp-hero .lp-book input[name=business]");if(i){const p=d.slice(0,d.indexOf(": ")+2);i.addEventListener("input",()=>{t.textContent=i.value.trim()?p+i.value.trim():d})}}
+const t=document.querySelector("[data-map-title]"),cd=t&&t.closest(".lp-ap-card"),i=document.querySelector(".lp-hero .lp-book input[name=business]");
+if(t&&i){const d=t.dataset.mapTitle,p=d.slice(0,d.indexOf(": ")+2),badges=document.querySelectorAll(".lp-ap-firm,.medal-name"),bd=badges.length?badges[0].dataset.echoFirm:"";
+i.addEventListener("input",()=>setTimeout(()=>{const v=i.value.trim(),k=v.indexOf(","),firm=k>-1?v.slice(0,k).trim():v,city=k>-1?v.slice(k+1).trim():"";
+t.textContent=city?p+city:d;
+badges.forEach(b=>{b.textContent=firm||bd});
+if(cd){cd.classList.remove("rerun");void cd.offsetWidth;[...cd.querySelectorAll("li")].forEach((li,n)=>li.style.setProperty("--i",n));cd.classList.add("rerun")}},0))}
 if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{rootMargin:"0px 0px -12% 0px"});document.querySelectorAll(".lp-band,.lp-grid-t,.lp-offer-card,.lp-lines").forEach(n=>{n.classList.add("lp-rise");o.observe(n)})})()` | safeJS }}</script>
 {{ partial "w/bottom.html" . }}

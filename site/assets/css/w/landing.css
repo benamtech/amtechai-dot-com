@@ -42,6 +42,8 @@
 .lp-ap-card li.done::before{content:"";position:absolute;left:2px;top:3px;width:4px;height:8px;border:solid #16A34A;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .lp-ap-card li.lp-now{color:#0A0A0A;font-weight:600}
 .lp-ap-card li.lp-now::before{content:"";position:absolute;left:1px;top:6px}
+.lp-ap-card.rerun li{animation:lp-step .5s var(--ease) both;animation-delay:calc(var(--i,0) * 400ms)}
+@keyframes lp-step{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
 .lp-ap-total{margin-top:10px;padding-top:9px;border-top:1px solid #DCE3F6;font:600 12.5px/1.3 var(--sans);color:#0043CE;letter-spacing:-.01em}
 
 

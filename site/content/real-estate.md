@@ -18,7 +18,7 @@ team: [employee, t5, t1, t4, t2, t3, t6]
 h1a: "Find your next deals"
 h1b: "before anyone else."
 sub: "An AI team for your firm that finds the sellers, leases and off-market deals in your market every morning, and works each one."
-field: "Your firm's name"
+field: "Firm and city"
 button: "Get my Market Deal Map"
 book: {industry: "Real estate", topic: "A Market Deal Map"}
 prices: "Engagements from $1,200 a month. Your Map in seven days; one firm per market."
