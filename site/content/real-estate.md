@@ -81,12 +81,6 @@ grid:
   offices: ["Downtown", "Westside", "Commercial"]
   lamps: [[work, work, idle, wait, work], [work, idle, work, work, idle], [idle, work, work, idle, wait]]
   legend: {work: "working", wait: "waiting on you", idle: "idle"}
-lines_h: "What changes."
-lines:
-  - "Your best broker's standard on every deal."
-  - "Every lead worked, every hour."
-  - "New markets without new overhead."
-  - "Software built for your firm, owned by you."
 offer_h: "Start with your Market Deal Map."
 offer_p: "In seven days: the deals you are not working, a presentation for a real owner, and one appointment set. Credited when you start."
 options:
@@ -94,7 +88,7 @@ options:
   - {h: "Growth Team", p: "Deal finding and the full team for one market."}
   - {h: "Firm Operating System", p: "Every office, recruiting and your own software."}
 guarantee: "Your agreed pipeline in 90 days, or we work free."
-found: [{n: "38", what: "deals found this week"}, {n: "126", what: "letters written in your voice"}, {n: "9", what: "appointments booked"}]
+found: [{n: "38", what: "deals found this week"}, {n: "126", what: "letters in your voice"}, {n: "9", what: "appointments booked"}]
 approval: {who: t5, act: "Listing presentation for R. Castillo", to: "Sent this morning", preview: "Three homes on your street sold this year."}
 questions_h: "Questions"
 questions:
