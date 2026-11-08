@@ -1,0 +1,120 @@
+{{- /* A landing page (2026-11-08, first: /real-estate). Calmer and shorter than an industry page: one action, large
+       photographs with the work floating on them, eight sections. Ground stays white; panel tint on two sections at
+       most, never in a row. The layout owns no sentence: every word is in the page's file or data/w.json (check.mjs
+       section 11). Card kinds for a job: table, email, flow, call. */ -}}
+{{- $p := . }}{{ $P := .Params -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "field" "button" "call" "hero_img" "hero_alt" "hero_card" "systems_h" "systems" "jobs_h" "jobs_sub" "jobs" "team_h" "team_sub" "team_img_alt" "team" "offer_h" "offer_sub" "offer_includes_h" "offer_includes" "offer_steps_h" "offer_steps" "compare_h" "compare_sub" "compare_cols" "compare_rows" "yes_h" "yes" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main class="lp">
+
+<section class="lp-hero"><div class="wrap">
+<div class="lp-hero-t">
+<h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1>
+<p class="lede">{{ $P.sub }}</p>
+{{ partial "w/start.html" (dict "id" "start" "field" $P.field "button" $P.button "industry" "real-estate") }}
+<a class="lp-call" href="{{ $P.call.href }}">{{ $P.call.text }}<span aria-hidden="true"> &rarr;</span></a>
+</div>
+<figure class="lp-stage">
+{{ partial "w/lpimg.html" (dict "src" $P.hero_img "alt" $P.hero_alt "sizes" "(min-width: 1320px) 1224px, 100vw" "eager" true "cls" "lp-photo") }}
+<div class="lp-glass lp-today" aria-label="{{ $P.hero_card.h }}">
+<p class="lp-glass-h">{{ $P.hero_card.h }}</p>
+<ul>{{ range $P.hero_card.rows }}<li class="t-{{ .tone }}"><i aria-hidden="true"></i><div><b>{{ .who }}</b><span>{{ .what }}</span></div><em>{{ .state }}</em></li>{{ end }}</ul>
+</div>
+</figure>
+</div></section>
+
+<section class="lp-sys" aria-label="{{ $P.systems_h }}"><div class="wrap">
+<p class="lp-sys-h">{{ $P.systems_h }}</p>
+<ul>{{ range $P.systems }}<li>{{ . }}</li>{{ end }}</ul>
+</div></section>
+
+<section class="lp-jobs" id="jobs"><div class="wrap">
+<div class="lp-head"><h2>{{ $P.jobs_h }}</h2><p>{{ $P.jobs_sub }}</p></div>
+{{- range $i, $j := $P.jobs }}
+<article class="lp-job{{ if modBool $i 2 }}{{ else }} lp-flip{{ end }}" id="{{ $j.id }}">
+<figure class="lp-job-art">
+{{ partial "w/lpimg.html" (dict "src" $j.img "alt" $j.alt "sizes" "(min-width: 1100px) 640px, 100vw" "cls" "lp-photo") }}
+{{- with $j.card }}
+<div class="lp-glass lp-card k-{{ .kind }}">
+<p class="lp-card-h">{{ .h }}</p>{{ with .meta }}<p class="lp-card-m">{{ . }}</p>{{ end }}
+{{- if eq .kind "table" }}
+<table><thead><tr>{{ range .cols }}<th>{{ . }}</th>{{ end }}</tr></thead><tbody>{{ range .rows }}<tr>{{ range . }}<td>{{ . }}</td>{{ end }}</tr>{{ end }}</tbody></table>
+{{- else if eq .kind "email" }}
+<div class="lp-mail">{{ range .lines }}<p>{{ . }}</p>{{ end }}</div><span class="lp-btn-mock">{{ .action }}</span>
+{{- else }}
+<dl>{{ range .rows }}<div><dt>{{ .k }}</dt><dd>{{ .v }}</dd></div>{{ end }}</dl>
+{{- end }}
+{{- with .foot }}<p class="lp-card-f">{{ . }}</p>{{ end }}
+</div>
+{{- end }}
+</figure>
+<div class="lp-job-t">
+<h3>{{ $j.h }}</h3>
+<p>{{ $j.p }}</p>
+<ul class="lp-ticks">{{ range $j.gets }}<li>{{ . }}</li>{{ end }}</ul>
+</div>
+</article>
+{{- end }}
+</div></section>
+
+<section class="lp-team g-panel"><div class="wrap lp-team-in">
+<div class="lp-head"><h2>{{ $P.team_h }}</h2><p>{{ $P.team_sub }}</p></div>
+<div class="lp-app" role="img" aria-label="{{ $P.team_img_alt }}">
+<div class="lp-app-bar"><i></i><i></i><i></i></div>
+<div class="lp-app-body">
+<div class="lp-app-side">
+<div class="lp-m lp-m-lead"><span class="lp-dot"></span><div><b>{{ $P.team.lead.name }}</b><span>{{ $P.team.lead.line }}</span></div></div>
+{{- range $P.team.members }}<div class="lp-m"><span class="lp-dot"></span><div><b>{{ .name }}</b><span>{{ .line }}</span></div></div>{{ end }}
+</div>
+<div class="lp-app-main">
+<p class="lp-app-h">{{ $P.team.waits_h }}</p>
+{{- range $P.team.waits }}<div class="lp-wait"><span>{{ . }}</span><b class="lp-btn-mock">{{ hugo.Data.w.yes.approve }}</b></div>{{ end }}
+</div>
+</div>
+</div>
+</div></section>
+
+<section class="lp-offer" id="offer"><div class="wrap">
+<div class="lp-offer-card">
+<div class="lp-offer-t">
+<h2>{{ $P.offer_h }}</h2>
+<p class="lede">{{ $P.offer_sub }}</p>
+<h3>{{ $P.offer_includes_h }}</h3>
+<ul class="lp-ticks">{{ range $P.offer_includes }}<li>{{ . }}</li>{{ end }}</ul>
+</div>
+<div class="lp-offer-s">
+<h3>{{ $P.offer_steps_h }}</h3>
+<ol>{{ range $P.offer_steps }}<li><b>{{ .h }}</b><span>{{ .p }}</span></li>{{ end }}</ol>
+{{ partial "w/start.html" (dict "id" "start-offer" "field" $P.field "button" $P.button "industry" "real-estate") }}
+<a class="lp-call" href="{{ $P.call.href }}">{{ $P.call.text }}<span aria-hidden="true"> &rarr;</span></a>
+</div>
+</div>
+</div></section>
+
+<section class="lp-cmp"><div class="wrap">
+<div class="lp-head"><h2>{{ $P.compare_h }}</h2><p>{{ $P.compare_sub }}</p></div>
+<div class="lp-cmp-t" role="table">
+<div class="lp-cmp-r lp-cmp-hd" role="row"><span role="columnheader"></span>{{ range $P.compare_cols }}<span role="columnheader">{{ . }}</span>{{ end }}</div>
+{{- range $P.compare_rows }}<div class="lp-cmp-r" role="row"><span role="rowheader">{{ .k }}</span>{{ range $c, $v := .v }}<span role="cell" data-col="{{ index $P.compare_cols $c }}">{{ $v }}</span>{{ end }}</div>{{ end }}
+</div>
+</div></section>
+
+<section class="lp-yes g-panel"><div class="wrap">
+<h2>{{ $P.yes_h }}</h2>
+<div class="lp-yes-g">{{ range $P.yes }}<div><h3>{{ .h }}</h3><p>{{ .p }}</p></div>{{ end }}</div>
+</div></section>
+
+<section class="lp-faq"><div class="wrap lp-faq-in">
+<h2>{{ $P.questions_h }}</h2>
+<div>{{ range $P.questions }}<details><summary>{{ .q }}</summary><p>{{ .a }}</p></details>{{ end }}</div>
+</div></section>
+
+<section class="lp-close"><div class="wrap">
+<h2>{{ $P.closing_h }}</h2>
+<p class="lede">{{ $P.closing_sub }}</p>
+{{ partial "w/start.html" (dict "id" "start-close" "field" $P.field "button" $P.button "industry" "real-estate") }}
+</div></section>
+
+</main>
+<script>{{ `(()=>{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{rootMargin:"0px 0px -12% 0px"});document.querySelectorAll(".lp-job,.lp-app,.lp-offer-card").forEach(n=>{n.classList.add("lp-rise");o.observe(n)})})()` | safeJS }}</script>
+{{ partial "w/bottom.html" . }}

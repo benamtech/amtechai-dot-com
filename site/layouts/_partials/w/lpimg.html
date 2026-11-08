@@ -1,0 +1,8 @@
+{{- /* One photograph of a landing page, from assets/, as AVIF-free WebP at three widths with its own sizes.
+       (dict "src" "img/real-estate/hero.png" "alt" "..." "sizes" "(min-width: 1100px) 1224px, 100vw" "eager" true "cls" "...") */ -}}
+{{- $r := resources.Get .src -}}
+{{- if not $r }}{{ errorf "GATE landing: no image at assets/%s" .src }}{{ end -}}
+{{- $set := slice -}}
+{{- range slice 640 1100 1600 }}{{ if le . $r.Width }}{{ $i := $r.Resize (print . "x webp q78") }}{{ $set = $set | append (printf "%s %dw" $i.RelPermalink .) }}{{ end }}{{ end -}}
+{{- $mid := $r.Resize "1100x webp q78" -}}
+<img class="{{ .cls }}" src="{{ $mid.RelPermalink }}" srcset="{{ delimit $set ", " }}" sizes="{{ .sizes }}" width="{{ $mid.Width }}" height="{{ $mid.Height }}" alt="{{ .alt }}"{{ if .eager }} fetchpriority="high"{{ else }} loading="lazy" decoding="async"{{ end }}>
