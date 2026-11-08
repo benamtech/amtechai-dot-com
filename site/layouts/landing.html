@@ -5,7 +5,7 @@
        (assets/js/w/booking.js reads them). The layout owns no sentence: every word is in the page's file, data/w.json or
        data/frame.json (check.mjs section 11). */ -}}
 {{- $p := . }}{{ $P := .Params }}{{ $names := $P.names -}}
-{{- range slice "title" "description" "names" "team" "h1a" "h1b" "sub" "field" "button" "book" "prices" "hero_img" "hero_alt" "panel" "live" "systems" "orbit_h" "bands_h" "bands" "frame" "frame_h" "grid_h" "grid" "lines_h" "lines" "offer_h" "offer_p" "options" "guarantee" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "names" "team" "h1a" "h1b" "sub" "field" "button" "book" "prices" "hero_img" "hero_alt" "panel" "systems" "orbit_h" "bands_h" "bands" "frame" "frame_h" "grid_h" "grid" "lines_h" "lines" "offer_h" "offer_p" "options" "guarantee" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main class="lp">
 
@@ -24,7 +24,6 @@
 <div class="lp-ap-card"><p class="lp-ap-k"><i class="pulse" aria-hidden="true"></i>{{ hugo.Data.frame.working }}</p><b>{{ $P.panel.card_h }}</b>
 <ol>{{ range $P.panel.steps }}<li class="done">{{ . }}</li>{{ end }}<li class="lp-now">{{ $P.panel.now }}</li></ol></div>
 </div>
-<div class="lp-lives">{{ range $P.live }}{{ partial "w/live.html" (dict "who" .who "title" .title "step" .step "cls" "lp-live") }}{{ end }}</div>
 </figure>
 </div></section>
 

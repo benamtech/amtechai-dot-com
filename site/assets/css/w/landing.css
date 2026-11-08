@@ -37,8 +37,6 @@
 .lp-ap-card li.done::before{content:"";position:absolute;left:2px;top:3px;width:4px;height:8px;border:solid #16A34A;border-width:0 2px 2px 0;transform:rotate(45deg)}
 .lp-ap-card li.lp-now{color:#0A0A0A;font-weight:600}
 .lp-ap-card li.lp-now::before{content:"";position:absolute;left:1px;top:5px}
-.lp-lives{position:absolute;right:-20px;bottom:7%;display:grid;gap:10px;width:min(380px,70%)}
-.lp-live{max-width:none}
 
 /* The systems */
 .lp-sys{padding:clamp(40px,5vw,64px) 0 0}
@@ -133,7 +131,6 @@
   .lp-stage{aspect-ratio:auto;margin:0}
   .lp-stage>.lp-photo{position:relative;aspect-ratio:4/3;height:auto}
   .lp-app-panel{position:relative;left:auto;top:auto;width:auto;margin:-64px 12px 0}
-  .lp-lives{position:relative;right:auto;bottom:auto;width:auto;margin:12px 12px 0}
   .lp-band-art{aspect-ratio:auto}
   .lp-band-art>.lp-photo{position:relative;aspect-ratio:4/3}
   .lp-band-doc,.lp-flip .lp-band-doc{position:relative;left:auto;right:auto;bottom:auto;width:auto;margin:-48px 10px 0}

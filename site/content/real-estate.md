@@ -34,9 +34,6 @@ panel:
   card_h: "Market Deal Map: Westlake Hills"
   steps: ["Read 4,212 county records", "Ranked owners by likelihood to sell", "Wrote a letter and a valuation for each"]
   now: "Building 12 listing presentations"
-live:
-  - {who: t1, title: "Lease expiring at Harbor Point, floor 6", step: "Decision maker found"}
-  - {who: t4, title: "Off-market triplex on Alder Street", step: "Offer range ready for your yes"}
 systems: ["Follow Up Boss", "MLS", "County records", "DocuSign", "Zillow", "Gmail", "QuickBooks", "Your website"]
 orbit_h: "Your team, built around your firm."
 bands_h: "Deals your competitors never see."
