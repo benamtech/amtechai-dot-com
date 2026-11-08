@@ -1,0 +1,5 @@
+{{- /* A landing page's one action: the firm's name to /schedule-demo with the page's industry and topic already chosen
+       (booking.js reads business=, industry=, topic=). Every word from the page: field, button, book, prices.
+       (dict "id" "book" "P" .Params) */ -}}
+<form class="start lp-book" id="{{ .id }}" action="/schedule-demo" method="get"><label class="sr" for="{{ .id }}-in">{{ .P.field }}</label><input id="{{ .id }}-in" name="business" class="start-in" placeholder="{{ .P.field }}" autocomplete="organization" maxlength="120" required data-echo-src><input type="hidden" name="industry" value="{{ .P.book.industry }}"><input type="hidden" name="topic" value="{{ .P.book.topic }}"><button class="btn start-btn" data-action type="submit">{{ .P.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></form>
+<p class="prices">{{ .P.prices }}</p>

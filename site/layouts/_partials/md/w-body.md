@@ -3,7 +3,7 @@
        reads the same at /<route>.md and in /okf/. (dict "p" page "m" (partial "w/meta.html" page)) */ -}}
 {{- $p := .p }}{{ $m := .m }}{{ $P := $p.Params }}{{ $W := hugo.Data.w }}{{ $o := site.BaseURL | strings.TrimSuffix "/" -}}
 {{- $names := $P.names -}}
-{{- if eq $p.Layout "company" }}{{ partial "md/company.md" . }}{{ else -}}
+{{- if eq $p.Layout "company" }}{{ partial "md/company.md" . }}{{ else if eq $p.Layout "landing" }}{{ partial "md/landing.md" . }}{{ else -}}
 # {{ $m.h1 }}
 
 {{ with $P.sub }}{{ . }}{{ end }}

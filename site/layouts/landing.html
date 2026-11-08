@@ -1,0 +1,84 @@
+{{- /* A landing page (2026-11-08, first: /real-estate; rebuilt the same day from PAGE-10X.md). Built from AMTECH's own
+       parts: the characters (w/character, renamed per page through `names`), the Live Line (w/live), the Orbit and the 3D
+       team (w/orbit, team3d), the documents (w/doc), the application frame (w/appframe), and the owner app's team panel
+       and Agents grid drawn in its own look. One action: the firm's name to /schedule-demo with industry and topic chosen
+       (assets/js/w/booking.js reads them). The layout owns no sentence: every word is in the page's file, data/w.json or
+       data/frame.json (check.mjs section 11). */ -}}
+{{- $p := . }}{{ $P := .Params }}{{ $names := $P.names -}}
+{{- range slice "title" "description" "names" "team" "h1a" "h1b" "sub" "field" "button" "book" "prices" "hero_img" "hero_alt" "panel" "systems" "orbit_h" "bands_h" "bands" "frame" "frame_h" "grid_h" "grid" "lines_h" "lines" "offer_h" "offer_p" "options" "guarantee" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main class="lp">
+
+<section class="lp-hero"><div class="wrap lp-hero-in">
+<div class="lp-hero-t">
+<h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1>
+<p class="lede">{{ $P.sub }}</p>
+{{ partial "w/lpbook.html" (dict "id" "book" "P" $P) }}
+</div>
+<figure class="lp-stage">
+{{ partial "w/lpimg.html" (dict "src" $P.hero_img "alt" $P.hero_alt "sizes" "(min-width: 1100px) 680px, 100vw" "eager" true "cls" "lp-photo") }}
+<div class="lp-app-panel" aria-label="{{ hugo.Data.frame.frame_label }}">
+<div class="lp-ap-top"><span class="af-logo">AMTECH<i>.</i></span><span class="lp-ap-firm" data-echo="{{ $P.panel.firm }}">{{ $P.panel.firm }}</span></div>
+<p class="lp-ap-h">{{ $P.panel.h }}</p>
+<ul class="lp-ap-list">{{ range $P.panel.rows }}<li>{{ partial "w/character.html" (dict "id" .who "size" 22) }}<span>{{ partial "w/name.html" (dict "id" .who "names" $names) }}</span><i class="lamp l-{{ .state }}" aria-hidden="true"></i></li>{{ end }}</ul>
+<div class="lp-ap-card"><p class="lp-ap-k"><i class="pulse" aria-hidden="true"></i>{{ hugo.Data.frame.working }}</p><b>{{ $P.panel.card_h }}</b>
+<ol>{{ range $P.panel.steps }}<li class="done">{{ . }}</li>{{ end }}<li class="lp-now">{{ $P.panel.now }}</li></ol></div>
+</div>
+</figure>
+</div></section>
+
+<section class="lp-sys" aria-label="{{ delimit $P.systems ", " }}"><div class="wrap"><ul>{{ range $P.systems }}<li>{{ . }}</li>{{ end }}</ul></div></section>
+
+<section class="lp-orbit"><div class="wrap">
+<h2>{{ $P.orbit_h }}</h2>
+<div class="lp-orbit-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" $P.team "systems" $P.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-k">{{ $P.crumb }}</p><p class="medal-name" data-echo="{{ hugo.Data.w.centre }}">{{ hugo.Data.w.centre }}</p></div></div>{{ partial "team3d.html" (dict "team" $P.team "systems" $P.systems "names" $names) }}</div>
+</div></section>
+
+<section class="lp-bands" id="deals"><div class="wrap">
+<h2>{{ $P.bands_h }}</h2>
+{{- range $i, $b := $P.bands }}
+<article class="lp-band{{ if modBool $i 2 }}{{ else }} lp-flip{{ end }}">
+<div class="lp-band-t">{{ partial "w/character.html" (dict "id" $b.who "size" 56) }}<p class="lp-who">{{ partial "w/name.html" (dict "id" $b.who "names" $names) }}</p><h3>{{ $b.h }}</h3><p>{{ $b.p }}</p></div>
+<figure class="lp-band-art">{{ partial "w/lpimg.html" (dict "src" $b.img "alt" $b.alt "sizes" "(min-width: 1100px) 760px, 100vw" "cls" "lp-photo") }}<div class="lp-band-doc">{{ partial "w/doc.html" (dict "doc" $b.doc) }}</div></figure>
+</article>
+{{- end }}
+</div></section>
+
+<section class="lp-frame g-panel"><div class="wrap">
+<h2>{{ $P.frame_h }}</h2>
+{{ partial "w/appframe.html" (dict "frame" $P.frame "names" $names "id" "work") }}
+</div></section>
+
+<section class="lp-grid"><div class="wrap">
+<h2>{{ $P.grid_h }}</h2>
+{{- $mates := slice }}{{ range $P.panel.rows }}{{ $mates = $mates | append .who }}{{ end }}
+<div class="lp-grid-t" role="table" aria-label="{{ $P.grid_h }}">
+<div class="lp-grid-r lp-grid-hd" role="row"><span role="columnheader"></span>{{ range $mates }}<span role="columnheader">{{ partial "w/character.html" (dict "id" . "size" 26) }}<em>{{ partial "w/name.html" (dict "id" . "names" $names) }}</em></span>{{ end }}</div>
+{{- range $r, $o := $P.grid.offices }}<div class="lp-grid-r" role="row"><span role="rowheader">{{ $o }}</span>{{ range (index $P.grid.lamps $r) }}<span role="cell"><i class="lamp l-{{ . }}" title="{{ index $P.grid.legend . }}"></i></span>{{ end }}</div>{{ end }}
+</div>
+<p class="lp-legend">{{ range $k, $v := $P.grid.legend }}<span><i class="lamp l-{{ $k }}" aria-hidden="true"></i>{{ $v }}</span>{{ end }}</p>
+</div></section>
+
+<section class="lp-lines"><div class="wrap">
+<h2 class="sr">{{ $P.lines_h }}</h2>
+<ul>{{ range $P.lines }}<li>{{ . }}</li>{{ end }}</ul>
+</div></section>
+
+<section class="lp-offer" id="start"><div class="wrap"><div class="lp-offer-card">
+<div class="lp-offer-t"><h2>{{ $P.offer_h }}</h2><p class="lede">{{ $P.offer_p }}</p>{{ partial "w/lpbook.html" (dict "id" "book-2" "P" $P) }}<p class="lp-guar">{{ $P.guarantee }}</p></div>
+<ol class="lp-opts">{{ range $i, $o := $P.options }}<li{{ if eq $i 1 }} class="pick"{{ end }}><b>{{ $o.h }}</b><span>{{ $o.p }}</span></li>{{ end }}</ol>
+</div></div></section>
+
+<section class="lp-faq"><div class="wrap lp-faq-in">
+<h2>{{ $P.questions_h }}</h2>
+<div>{{ range $P.questions }}<details><summary>{{ .q }}</summary><p>{{ .a }}</p></details>{{ end }}</div>
+</div></section>
+
+<section class="lp-close"><div class="wrap">
+<h2>{{ $P.closing_h }}</h2>
+<p class="lede">{{ $P.closing_sub }}</p>
+{{ partial "w/lpbook.html" (dict "id" "book-3" "P" $P) }}
+</div></section>
+</main>
+<script>{{ `(()=>{if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{rootMargin:"0px 0px -12% 0px"});document.querySelectorAll(".lp-band,.lp-grid-t,.lp-offer-card").forEach(n=>{n.classList.add("lp-rise");o.observe(n)})})()` | safeJS }}</script>
+{{ partial "w/bottom.html" . }}
