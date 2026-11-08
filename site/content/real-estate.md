@@ -72,8 +72,8 @@ jobs:
   - id: reviews
     img: "img/real-estate/reviews.png"
     alt: "A couple holding the key on the porch of their new house"
-    h: "A review from every closing, and a call back for every unhappy client"
-    p: "After a closing, a showing or a lease signing, your team asks the client how it went by text or email. A happy client is sent straight to your Google or Zillow page to say so. Anyone less than happy gets a personal reply, and the agent is told at once with everything the client said, so it is fixed before it becomes a public review."
+    h: "A review asked for after every closing, and a call back for every unhappy client"
+    p: "After a closing, a showing or a lease signing, your team asks the client how it went by text or email, with the link to your Google or Zillow page. Anyone less than happy also gets a personal reply, and the agent is told at once with everything the client said, so the problem is fixed while the client still wants to talk."
     gets:
       - "Asks at the right moment, in your words"
       - "Answers every public review on Google"
@@ -83,7 +83,7 @@ jobs:
       h: "After the Ortiz closing"
       rows:
         - {k: "Rating", v: "5 of 5"}
-        - {k: "Next", v: "Sent the link to your Google page"}
+        - {k: "Next", v: "Thanked, and reminded of your Google page"}
         - {k: "Review", v: "Posted, and answered with a thank-you"}
       foot: "A rating under 5 goes to the agent within minutes."
   - id: sellers
