@@ -14,20 +14,21 @@
 
 /* 1. Hero: words left, the plate with the application and two live lines right; both in the first screen */
 .lp-hero{padding:clamp(20px,3vw,44px) 0 0}
-.lp-hero-in{display:grid;grid-template-columns:minmax(0,.84fr) minmax(0,1.16fr);grid-template-areas:"copy fig" "cta fig";grid-template-rows:auto 1fr;gap:0 clamp(32px,4vw,60px);align-items:center;min-height:min(720px,calc(100vh - 96px))}
+.lp-hero-in{display:grid;grid-template-columns:minmax(0,.72fr) minmax(0,1.28fr);grid-template-areas:"copy fig" "cta fig";grid-template-rows:auto 1fr;gap:0 clamp(32px,4vw,60px);align-items:center;min-height:min(720px,calc(100vh - 96px))}
 .lp-hero-copy{grid-area:copy;align-self:end}
 .lp-hero-cta{grid-area:cta;align-self:start;padding-top:30px}
 .lp-stage{grid-area:fig}
-.lp-hero h1{font-size:clamp(40px,4vw,60px);line-height:1}
+.lp-hero h1{font-size:clamp(38px,3.7vw,54px);line-height:1.02}
 .lp-hero h1 .red{display:block}
-.lp-hero .lede{max-width:520px;margin:22px 0 30px;font-size:19.5px}
-.lp-book{max-width:560px}
+.lp-hero .lede{margin:22px 0 30px;font-size:19.5px}
+.lp-book{max-width:100%}
 .lp-book .start-in{display:flex}
 .lp-book .start-in input{min-width:0;flex:1}
 .lp-book .btn{flex:none;padding:0 18px}
-.lp-stage{position:relative;aspect-ratio:1;max-height:min(676px,calc(100vh - 132px));min-height:480px}
+.lp-stage{position:relative;aspect-ratio:5/4;max-height:min(640px,calc(100vh - 150px));min-height:470px}
+@media (min-width:1101px){.lp-stage{margin-right:calc(-1 * max(48px,(100vw - 1320px) / 2))}}
 .lp-stage>.lp-photo{position:absolute;inset:0;object-position:50% 50%;box-shadow:0 50px 90px -60px rgba(10,10,10,.6)}
-.lp-app-panel{position:absolute;left:20px;bottom:22px;width:min(300px,calc(100% - 40px));background:#fff;border:1px solid #E4E4E7;border-radius:12px;padding:16px 16px 14px;
+.lp-app-panel{position:absolute;left:-34px;bottom:-40px;width:min(292px,calc(100% - 20px));background:#fff;border:1px solid #E4E4E7;border-radius:12px;padding:16px 16px 14px;
   font:400 13.5px/1.35 var(--sans);color:#18181B;box-shadow:0 34px 80px -34px rgba(10,10,10,.7)}
 .lp-ap-top{display:flex;align-items:center;justify-content:space-between;gap:10px;padding-bottom:11px;border-bottom:1px solid #EFEFF1}
 .lp-ap-firm{font-weight:600;font-size:12.5px;padding:4px 9px;border:1px solid #E4E4E7;border-radius:6px;max-width:170px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -93,7 +94,7 @@
 .lp-legend span{display:inline-flex;align-items:center;gap:8px}
 
 /* The morning's results, under the action on the first screen */
-.lp-hero-found{margin-top:clamp(22px,3vw,34px);padding-top:16px;border-top:1px solid var(--hair);max-width:540px}
+.lp-hero-found{margin-top:clamp(22px,3vw,34px);padding-top:16px;border-top:1px solid var(--hair)}
 .lp-hero-found ul{list-style:none;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .lp-hero-found li{display:grid;gap:2px}
 .lp-hero-found b{font:500 clamp(26px,2.4vw,34px)/1 var(--serif);letter-spacing:-.02em}
