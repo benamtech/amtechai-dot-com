@@ -186,8 +186,16 @@
     });
   }
 
+  // ---- a link may pre-choose (2026-11-08, /real-estate): ?business= or ?organization= fills the business's name;
+  // ?industry= and ?topic= pick an option only when it matches one of the page's own options exactly, and when both
+  // match, the visitor goes from their details straight to the day and time. Unknown values are ignored.
+  const Q = new URLSearchParams(location.search);
+  let skip = false;
+
   // ---- step 0 (InfoStep.tsx) ----
   const info = $('[data-info]');
+  const preOrg = (Q.get('business') || Q.get('organization') || '').trim().slice(0, 120);
+  if (preOrg) info.elements.organization.value = preOrg;
   info.addEventListener('submit', (e) => {
     e.preventDefault();
     const v = (k) => info.elements[k].value;
@@ -199,7 +207,7 @@
     for (const k of ['name', 'email', 'organization']) { const p = $(`[data-error="${k}"]`); p.textContent = errs[k] || ''; p.hidden = !errs[k]; info.elements[k].setAttribute('aria-invalid', errs[k] ? 'true' : 'false'); if (errs[k]) info.elements[k].setAttribute('aria-describedby', p.id = `bk-${k}-err`); }
     if (Object.keys(errs).length) { info.elements[Object.keys(errs)[0]].focus(); return; }
     state.name = v('name').trim(); state.email = v('email').trim(); state.organization = v('organization').trim();
-    go(1);
+    go(skip ? 3 : 1);
   });
 
   // ---- steps 1 and 2 (SelectionStep.tsx) ----
@@ -214,11 +222,15 @@
     const n = Number(panel.dataset.step);
     next.addEventListener('click', () => go(n + 1));
     $('[data-back]', panel).addEventListener('click', () => go(n - 1));
+    const want = Q.get(key);
+    const match = want && $$('[data-option]', panel).find((o) => o.dataset.option === want);
+    if (match) match.click();
   });
+  skip = Boolean(state.industry && state.topic);
 
   // ---- step 3 (DateTimeStep.tsx, CalendarPicker.tsx, TimePicker.tsx) ----
   const step3 = $('[data-step="3"]');
-  $('[data-back]', step3).addEventListener('click', () => go(2));
+  $('[data-back]', step3).addEventListener('click', () => go(skip ? 0 : 2));
   const confirm = $('[data-confirm]');
   let view = new Date(today.getFullYear(), today.getMonth(), 1);
   const monthStart = (d) => new Date(d.getFullYear(), d.getMonth(), 1);
@@ -325,7 +337,7 @@
     const at = instant(state.date, storedMinutes(state.time));
     booking.bookingTime = zone === ET ? `${clock(storedMinutes(state.time))} ${T.eastern}`
       : `${shown(state.date, storedMinutes(state.time))} ${zoneName(zone, at)} (${clock(storedMinutes(state.time))} Eastern)`;
-    window.gtag?.('event', 'generate_lead', { industry: state.industry, topic: state.topic });
+    window.gtag?.('event', 'generate_lead', { industry: state.industry, topic: state.topic, source: Q.get('utm_source') || document.referrer.replace(/^https?:\/\/[^/]+/, '') || '' });
     for (const el of $$('[data-v]')) el.textContent = booking[el.dataset.v];
     $('[data-booking]').hidden = true;
     const done = $('[data-confirmed]');

@@ -1,63 +1,51 @@
 {{- /* The body of a landing page's Markdown twin (layouts/landing.html): every section in the page's order, every
-       word from the page's content file or data/w.json. (dict "p" page "m" meta) */ -}}
-{{- $p := .p }}{{ $m := .m }}{{ $P := $p.Params }}{{ $W := hugo.Data.w }}{{ $o := site.BaseURL | strings.TrimSuffix "/" -}}
+       word from the page's content file. The sources live here only, never on the page (Ben, 2026-11-08).
+       (dict "p" page "m" meta) */ -}}
+{{- $p := .p }}{{ $m := .m }}{{ $P := $p.Params }}{{ $o := site.BaseURL | strings.TrimSuffix "/" }}{{ $names := $P.names -}}
 # {{ $m.h1 }}
 
 {{ $P.sub }}
 
-Start with your company's name: {{ $o }}/start?business=<your company's name>&industry=real-estate
+{{ $P.button }}: {{ $o }}/schedule-demo?business=<your firm's name>&industry={{ $P.book.industry | urlquery }}&topic={{ $P.book.topic | urlquery }}
 
 {{ $P.prices }}
 
-[{{ $P.call.text }}]({{ $o }}{{ $P.call.href }})
+Works with: {{ delimit $P.systems ", " }}.
 
-## {{ $P.systems_h }}
+## {{ $P.orbit_h }}
+{{ range $P.team }}
+- {{ partial "w/name.html" (dict "id" . "names" $names) }}
+{{- end }}
 
-{{ delimit $P.systems ", " }}
-
-## {{ $P.jobs_h }}
-
-{{ $P.jobs_sub }}
-{{ range $P.jobs }}
+## {{ $P.bands_h }}
+{{ range $P.bands }}
 ### {{ .h }}
 
 {{ .p }}
-{{ range .gets }}
+{{ end }}
+## {{ $P.frame_h }}
+{{ range $P.frame }}
+{{ .ask }}
+
+{{ .reply }}
+{{ range .steps }}
 - {{ . }}
 {{- end }}
 {{ end }}
-## {{ $P.team_h }}
-
-{{ $P.team_sub }}
+## {{ $P.lines_h }}
+{{ range $P.lines }}
+- {{ . }}
+{{- end }}
 
 ## {{ $P.offer_h }}
 
-{{ $P.offer_sub }}
-
-### {{ $P.offer_includes_h }}
-{{ range $P.offer_includes }}
-- {{ . }}
+{{ $P.offer_p }}
+{{ range $P.options }}
+- **{{ .h }}:** {{ .p }}
 {{- end }}
 
-### {{ $P.offer_steps_h }}
-{{ range $i, $s := $P.offer_steps }}
-{{ add $i 1 }}. **{{ $s.h }}** {{ $s.p }}
-{{- end }}
+{{ $P.guarantee }}
 
-## {{ $P.scale_h }}
-
-{{ $P.scale_sub }}
-{{ range $P.scale }}
-### {{ .h }}
-
-{{ .p }}
-{{ end }}
-## {{ $P.yes_h }}
-{{ range $P.yes }}
-### {{ .h }}
-
-{{ .p }}
-{{ end }}
 ## {{ $P.questions_h }}
 {{ range $P.questions }}
 ### {{ .q }}
