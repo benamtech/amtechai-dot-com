@@ -19,7 +19,7 @@ h1a: "Find your next deals"
 h1b: "before anyone else."
 sub: "An AI team for your firm that finds the sellers, leases and off-market deals in your market every morning, and works each one."
 field: "Firm and city"
-button: "Get my Market Deal Map"
+button: "Get my Deal Map"
 book: {industry: "Real estate", topic: "A Market Deal Map"}
 prices: "Engagements from $1,200 a month. Your Map in seven days; one firm per market."
 hero_img: "img/real-estate/hero-city.png"
@@ -71,7 +71,7 @@ frame:
     reply: "On it. 100 owners ranked, and a presentation built for the top twelve."
     title: "Listing presentation for R. Castillo"
     steps: ["Read the county records and ten years of sales", "Valued the house against the closest sales", "Wrote the presentation in your brand", "Booking the walkthrough for Thursday"]
-    line: "Owned 22 years. Kitchen remodelled in 2019."
+    line: "Owned 22 years. Kitchen remodeled in 2019."
     doc: {kind: page, title: "Your home on Ridgeview Court", meta: "A private page for the owner", url: "yourfirm.com/for/castillo", h: "What your home is worth this spring.", p: "Three homes on your street sold this year. Here is what yours would likely bring, and how we would sell it.", button: "Book a walkthrough", rows: ["What would we list it for?", "How long would it take?", "What would we fix first?"]}
     trust: {assumed: "the 2019 remodel, from the permit", checked: "every sale on the street since 2016"}
     approve: {act: "Send the letter"}
@@ -95,7 +95,7 @@ questions:
   - {q: "What does it cost?", a: "Engagements start at $1,200 a month. What you pay depends on how many offices and markets you hand over; you will have the number with your Map."}
   - {q: "How is this different from the AI tools we pay for?", a: "Those answer what arrives; your team finds the deals first, with the reason."}
   - {q: "Will it work with our systems?", a: "Yes. Inside your CRM, email, phone and calendar, and builds what is missing."}
-  - {q: "How fast is it live?", a: "Live within 14 days of your Map, or the fee comes back."}
+  - {q: "How fast is it live?", a: "Live within 14 days of your Map, or your first month is free."}
 closing_h: "Your next deals are already out there."
 closing_sub: "Type your firm's name; your Map is seven days away."
 site_sources: false

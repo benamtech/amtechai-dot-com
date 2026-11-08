@@ -21,7 +21,10 @@
 .lp-hero h1{font-size:clamp(40px,4vw,60px);line-height:1}
 .lp-hero h1 .red{display:block}
 .lp-hero .lede{max-width:520px;margin:22px 0 30px;font-size:19.5px}
-.lp-book{max-width:540px}
+.lp-book{max-width:560px}
+.lp-book .start-in{display:flex}
+.lp-book .start-in input{min-width:0;flex:1}
+.lp-book .btn{flex:none;padding:0 18px}
 .lp-stage{position:relative;aspect-ratio:1;max-height:min(676px,calc(100vh - 132px));min-height:480px}
 .lp-stage>.lp-photo{position:absolute;inset:0;object-position:50% 50%;box-shadow:0 50px 90px -60px rgba(10,10,10,.6)}
 .lp-app-panel{position:absolute;left:20px;bottom:22px;width:min(300px,calc(100% - 40px));background:#fff;border:1px solid #E4E4E7;border-radius:12px;padding:16px 16px 14px;
