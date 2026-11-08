@@ -95,7 +95,7 @@ questions:
   - {q: "What does it cost?", a: "Engagements start at $1,200 a month. What you pay depends on how many offices and markets you hand over; you will have the number with your Map."}
   - {q: "How is this different from the AI tools we pay for?", a: "Those answer what arrives; your team finds the deals first, with the reason."}
   - {q: "Will it work with our systems?", a: "Yes. Inside your CRM, email, phone and calendar, and builds what is missing."}
-  - {q: "How fast is it live?", a: "Live within 14 days of your Map, or your first month is free."}
+  - {q: "How fast is it live?", a: "Your team is live on your deals within 14 days of your Map."}
 closing_h: "Your next deals are already out there."
 closing_sub: "Type your firm's name; your Map is seven days away."
 site_sources: false
