@@ -52,7 +52,7 @@
   {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
 {{- end -}}
-{{- if and $p.IsPage (eq $p.Layout "landing") (not (in (slice "industries" "departments") $p.Section)) -}}
+{{- if and $p.IsPage (eq $p.Layout "landing") (not (in (slice "industries" "departments" "services") $p.Section)) -}}
   {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI agent team" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
   {{- with $P.crumb }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
