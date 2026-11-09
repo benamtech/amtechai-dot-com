@@ -1,150 +1,174 @@
 {
  "https://amtechai.com/": {
-  "hash": "3b68325524c0baf18f5bdeeed79c2f8c97c80a867bcba9d06719058a102eac7f",
-  "lastmod": "2026-10-27"
+  "hash": "b0f5e8d292324d44edf347ac417699233a28167623fc5e1c0f62145688573c5e",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/about": {
-  "hash": "a192eab6e2975d9995a57c07192440e7dc8ca0fbbac0227b9162370bd8f58707",
-  "lastmod": "2026-10-27"
+  "hash": "0b93feca9faedb26c601633a951e1d1c86f038afe3f3c704b9d1c48eb0652416",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/articles": {
   "hash": "32266bbb87a7a722fb8bb2a3cbbf287158dd1fd982fab462a97c0982870e84de",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/amtech-vs-chatgpt-claude": {
   "hash": "db15eebf45f9f158c6c4d1483f208e689f321274cb5b30e3d281aa3d912a603b",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
+ },
+ "https://amtechai.com/articles/amtech-vs-grok-bot": {
+  "hash": "055e75b54b3c04da6ad4e0fe14cb48376c4f419357420788a1e7d3548587f537",
+  "lastmod": "2026-11-09"
+ },
+ "https://amtechai.com/articles/amtech-vs-openai-dots": {
+  "hash": "447031f4b7c2deeb10347b9fe3c45fc8a2115bfec452bd6c7b91ac3d648eb13f",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/articles/build-claude-skill-job-pricing": {
   "hash": "f9c268ebef4f2ae817dcb015b34a1af47594845758f5e8550393a53a63e5af95",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/build-local-seo-plan-with-chatgpt": {
   "hash": "50c1ef5e86c304ee207a945fc6d5824374a8cd0b1688e7a0951b5826839b1bd6",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/business-brain-free": {
   "hash": "29328e99e53eaae159d538c7c4b1bf4d300336f5d942ddb7ca62e7f4113dd5b8",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/create-estimate-with-chatgpt": {
   "hash": "dfae71a23e6c5fde28e9ff5700225914a018bef031652d4396e31c6b8d9646c0",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/estimate-painting-cost-ai": {
   "hash": "c01eb4483d66c967d621f7624cc269627fe34247286548da617d8f224d29f114",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/what-ai-agents-see-when-they-read-your-website": {
   "hash": "882d5abf9d84dca0315ee8c0935627edff0c777a2b418d0cae9fb0c534d8bf52",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
+ },
+ "https://amtechai.com/articles/what-is-an-ai-agent-management-platform": {
+  "hash": "a3132a071cc31b495f712f49bcaca731ff0be30145ffc209d71ad9b7cfdf721d",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/articles/what-is-okf-ai-readable-knowledge": {
   "hash": "051bbeb21cda3c35afaa08929f561cbb72c347f9d9b3cf9b16dcad383f078432",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/articles/write-pressure-washing-estimate-with-ai": {
   "hash": "fd196773aeb06e3347ea45eb9504cbf2d5223d6589aaffa51eda54088fb04b23",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/contact": {
   "hash": "8739ce7a807308f6bac08f99b7b6c5c0ef80feaff2a48c428146846c7e677624",
-  "lastmod": "2026-10-28"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/customers": {
-  "hash": "dd6180f5130ab088c7628dd07076b36244eb40b6fc3517c1dd0976e3b62195e4",
-  "lastmod": "2026-10-27"
+  "hash": "5650446d576fd1da2711760331a6864bbc0dcb21cefc9a546c41c1b40f4e873c",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/customers/scoop-dogg": {
-  "hash": "3d4e1b721a69efac60289371e38690438604a6a9046bf92224b9723e9ea1f5f5",
-  "lastmod": "2026-10-27"
+  "hash": "f15a117d647b32fec6bc2d68fdac67aea0cfd22657d564d7130f694c25626595",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/departments/being-found": {
-  "hash": "4291e0956779576d64ff08b1db6ae6606535c89158f0a6daa228de5353f2dbed",
-  "lastmod": "2026-10-27"
+  "hash": "967b7caadbb4e0390bcd03caf98d7154707dc905b036aadda39d779feb4abd0b",
+  "lastmod": "2026-11-09"
+ },
+ "https://amtechai.com/ecommerce": {
+  "hash": "7999e94ebc90e6ea320d126051287daa39d7f633352cd806bb83ac4b0ac2a643",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries": {
-  "hash": "2bd14946eb1f8331da1bda832e0d3df8e9f4339ed6f16d4aea800c618acc58cd",
-  "lastmod": "2026-10-27"
+  "hash": "0fe3f507465ece9a6afd16711f18b8d32ebb8138c927376c371f5d3522572cf7",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries/contractors": {
-  "hash": "2992176bbf6f12dec25fa313942fd31d098fca8ce0a379a488ea4e1af528f81e",
-  "lastmod": "2026-10-27"
+  "hash": "933001d319dfba2b77e1f41a676de603cde2ba87c27ecb952397f36343ac19ef",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries/hospitality": {
-  "hash": "2d86dc53663027ce9712811eb6632319ebcc6759aa53f6089f0dcca4f0cf2311",
-  "lastmod": "2026-10-27"
+  "hash": "a863d103ff058c07669ad25413517bfc9261c51ed602b8264618e75edd180600",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries/landscaping": {
-  "hash": "23e2f2b9c913aa679752d681817d0b04133c46069706109a768a224c0a20fd39",
-  "lastmod": "2026-10-27"
+  "hash": "43f3e1158d91ea5e2e2352a0284cecda41a4f629100ff684190e87c260015dad",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries/painting": {
-  "hash": "f228828bdd281d35cb83b031ec246b73e784c014304979fa7c1914e5275d4480",
-  "lastmod": "2026-10-27"
+  "hash": "763267e2b4f9b899e17d832fb3c704bdf8a817f01c8270d876e14e222d5b423c",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries/roofing": {
-  "hash": "ef0b05a0cb0b388e2bc9ac235b7f84ab4f4fe423b18a9bf76b6dead11655e1b5",
-  "lastmod": "2026-10-27"
+  "hash": "37c42c16cdc23d03ecebfc0cffe0d56f0328259bbb9a3511bf3fde231b06402b",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/industries/transportation": {
-  "hash": "416cdec391858abe44f9df485dc98f36d243f09681d9586804db4a3de404c2c7",
-  "lastmod": "2026-10-27"
+  "hash": "fe12c84a84c6c40386744da291323b7bc378b5e771a634758a3637d148350f3a",
+  "lastmod": "2026-11-09"
+ },
+ "https://amtechai.com/lead-generation": {
+  "hash": "ccc0c28fd89bd398d84762b0e152e06680ede3a644a4fa005e8a5e7c1b453735",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/pricing": {
-  "hash": "04e552145d0d1acc365fedbe7bc0290e7e40012ba45bfb283aafeaa2ea6f05e2",
-  "lastmod": "2026-10-27"
+  "hash": "cd2fba6bef66934e668850041aa444e63c09f22f946f07711ec2deb34260b3a9",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/privacy": {
   "hash": "10e5a05948102cee6d2fe5e38ab6d7c22a13a6b2f39a36048e78c3081803ef3c",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/questions": {
-  "hash": "5e814ff59098b40d413232d6f5b8c0b77a381079071c10cb17a39bfc70eb89a9",
-  "lastmod": "2026-10-27"
+  "hash": "095e783f7f7e58fa36699352b7e863f553dea2c8b5166f20eee7d4b771967ba0",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/questions/can-an-ai-employee-connect-to-my-software": {
-  "hash": "06c74b2b41c5b6122a5af9d223e5ea153102bcbf0e1599d6a50d8a2a33054090",
-  "lastmod": "2026-10-27"
+  "hash": "70af5619c4dd068c11840b95aefd99c9490ec2cbfbb777d1a37b98e3c9be1919",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/questions/can-an-ai-employee-follow-up-every-lead": {
-  "hash": "c4a9454624f401cedc2b2842aaaeacea48a049f76b25316d30718d6f8b0ec44c",
-  "lastmod": "2026-10-27"
+  "hash": "9d3ffcb83786f9dba7ee796ddd6facf56fd9e907aac68ba223cbc9b4a09a1fa5",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/questions/can-an-ai-employee-write-my-estimates": {
-  "hash": "06d1282d58d7a83a6f537f9ca9d794da93167db598d587ebab58c3e64da14589",
-  "lastmod": "2026-10-27"
+  "hash": "d56980231387da2e1f088d2d457a7ea4894a4cf5c8fbc1ea3da86f906a5431c0",
+  "lastmod": "2026-11-09"
+ },
+ "https://amtechai.com/real-estate": {
+  "hash": "0b513a4a830c7ee615381ab52c3c99fa0e612eeb2491b3a9072326939b1ddc3e",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/schedule-demo": {
   "hash": "bc1d3acc72d64be36b5147e362762dfa67cb9e6e4b88de7d59dd3363b021e77d",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/security": {
-  "hash": "382b8ea3749f606ec8a3f56a51c975076400c672f54df0fd2be545c0b9150616",
-  "lastmod": "2026-10-27"
+  "hash": "ba93c7ef9b2c2e2719e95c7efe4f2b5a6b5acf11b8abf10ed99d55286d0f0ebf",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/services": {
-  "hash": "fe396230bb35bce64116b8028355e373d4bd3a69e0d8d3ecfc7b6acf8d89b47f",
-  "lastmod": "2026-10-27"
+  "hash": "97577bfd0cedb73462c60f314c96012bb64d51842223198cad622c00d595b546",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/services/estimates-from-plans-and-photos": {
-  "hash": "63fb6b6386344457162b1e8824abc81ee6ba27d8eb5c174e3cef75410a780a4c",
-  "lastmod": "2026-10-27"
+  "hash": "1718fd4554edf2f8220ec60aa3972bc18e4816ccdfab68aa6ec44a5e3a5be4f3",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/services/found-on-google-and-in-ai-answers": {
-  "hash": "2847f89b59780e5601d41cdf2ede2ff168955a4e5ad651244fd267519dd44d14",
-  "lastmod": "2026-10-27"
+  "hash": "97b68e15cb949ee9dd5b08527df11ae270cd4f08a19ae5b178d78af868b042a9",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/services/invoices-out-and-paid": {
-  "hash": "e4e354b48c17e023706277a63fe5f84da8b4ba8172d5b49de346b22e4c020923",
-  "lastmod": "2026-10-27"
+  "hash": "8abaf849af87b0b12c27b9e5d9ae03a421686eeb0b84bc1066a112ed63670b35",
+  "lastmod": "2026-11-09"
  },
  "https://amtechai.com/sms": {
   "hash": "f0c9578eab849d6faa637ab25bf38c14387a227691551c5a0b194925af9ff7f0",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  },
  "https://amtechai.com/terms": {
   "hash": "3c99e899359ff58a7db486274609c94d0e4611f33125838128a95c803c64c928",
-  "lastmod": "2026-10-27"
+  "lastmod": "2026-11-08"
  }
 }

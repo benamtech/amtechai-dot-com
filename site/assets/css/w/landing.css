@@ -167,6 +167,7 @@
 .lp-cards-g a{display:grid;gap:8px;align-content:start;height:100%;padding:20px 22px;border:1px solid var(--hair);border-radius:14px;background:#fff;color:inherit;text-decoration:none;transition:border-color .2s var(--ease),box-shadow .2s var(--ease)}
 .lp-cards-g a:hover{border-color:var(--ink-3);box-shadow:0 20px 40px -30px rgba(10,10,10,.4)}
 .lp-cards-team{display:flex;gap:4px}
+@media (min-width:1101px){.lp-cards-g:has(> li:nth-child(4):last-child){grid-template-columns:repeat(4,minmax(0,1fr))}}
 .lp-cards-gh{font:500 26px/1.1 var(--serif);margin:clamp(28px,3vw,44px) 0 14px}
 .lp-cards-g b{font:500 22px/1.15 var(--serif)}
 .lp-cards-g span:last-child{font-size:15px;color:var(--ink-3);line-height:1.4}
