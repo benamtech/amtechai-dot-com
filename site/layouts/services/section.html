@@ -26,7 +26,6 @@
 {{ partial "w/price.html" (dict "h" .Params.price_h "q" .Params.price_q) }}
 <section class="wfaq"><div class="wrap wfaq-in"><h2>{{ .Params.questions_h }}</h2><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}
-{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 <script>{{ `(()=>{const b=[...document.querySelectorAll(".mk2-bar [data-group]")],c=[...document.querySelectorAll(".mk2-grid [data-g]")],s=document.querySelector(".mk-search");let g="";const f=()=>{const q=(s.value||"").trim().toLowerCase();c.forEach(e=>{e.hidden=!((!g||e.dataset.g===g)&&(!q||e.textContent.toLowerCase().includes(q)))})};b.forEach(x=>x.addEventListener("click",()=>{g=x.dataset.group;b.forEach(y=>{y.classList.toggle("on",y===x);y.setAttribute("aria-pressed",y===x)});f()}));s.addEventListener("input",f)})()` | safeJS }}</script>

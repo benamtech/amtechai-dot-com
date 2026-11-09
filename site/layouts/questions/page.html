@@ -23,7 +23,6 @@
 <section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.questions_sub }}<p class="sec-p">{{ . }}</p>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
 <section class="pq-rel"><div class="wrap"><h2>{{ .Params.related_h }}</h2><ul class="pq-rel-list">{{ range .Params.related }}<li><a href="{{ .href }}">{{ .text }}</a>{{ with .why }}<span>{{ . }}</span>{{ end }}</li>{{ end }}</ul></div></section>
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub "field" .Params.field "button" .Params.button "industry" .Params.config) }}
-{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}

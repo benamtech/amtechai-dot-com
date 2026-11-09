@@ -18,9 +18,7 @@
 {{- with .Params.faqs }}
 <section class="pr-faq" id="questions"><h2>{{ $L.faq }}</h2><dl>{{ range . }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></section>
 {{- end }}
-{{- with .Params.citations }}
-<section class="pr-cite"><h2>{{ $L.cited }}</h2><ol>{{ range . }}<li><a href="{{ .url }}" rel="noreferrer">{{ .label }}</a>{{ with .publisher }}, {{ . }}{{ end }}</li>{{ end }}</ol></section>
-{{- end }}
+{{- /* Citations: in the Markdown twin and the structured data only (Ben, 2026-11-08: no sources on the site). */ -}}
 </div>
 <nav class="pr-toc" aria-label="{{ $L.toc }}"><h2>{{ $L.toc }}</h2><ul>
 {{- range .Fragments.Headings }}{{ range cond (eq .Level 2) (slice .) .Headings }}{{ if .ID }}<li><a href="#{{ .ID }}">{{ .Title | plainify }}</a></li>{{ end }}{{ end }}{{ end }}
