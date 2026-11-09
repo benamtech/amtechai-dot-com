@@ -1,125 +1,118 @@
 ---
-# Home (C on white, 2026-10-27). Every word on the page is here; layouts/home.html has almost none of its own.
-# Its line in /llms.txt (the list AI assistants read first), and where in that list.
-llms: { order: 1, label: "AMTECH", text: "AMTECH gives a business AI employees: each connects itself to the systems the business runs, makes its own team for the work, and improves as it works." }
-title: "AMTECH AI: AI employees that run whole parts of your business"
-description: "AMTECH gives your business AI employees that connect to anything it runs, build their own team, do the work and get better every week. Start free."
+# Home, rebuilt 2026-11-08 (session `lena`) on layouts/landing.html, the /real-estate pattern: photographs with the
+# application's own cards on them, few words set large, one action. Ben: "less clutter", "more images", "more about how
+# AMTECH is an agent management platform". What AMTECH may say it is comes from brain/proof.md: the infrastructure that
+# makes, runs and governs teams of AI agents for businesses; each employee makes its own team. The price line is the
+# site's own (brain/pricing.md, Ben 10-27). Every figure inside a card illustrates the application. Photographs:
+# gpt-image-2.5 through AMTECH's gateway. The old home's sections live on in /services, /industries and /questions.
+llms: { order: 1, label: "AMTECH", text: "AMTECH is an AI agent management platform for businesses: it builds a team of AI agents around how a business works, connects them to the software it runs, and gives the owner one screen to direct, watch and improve every agent." }
+title: "AMTECH: the AI agent management platform for businesses"
+description: "AMTECH is the AI agent management platform for businesses: a team of agents built around your work, connected to your software, run from one screen."
 route: "/"
-now_h: "Now, across your business"
-now:
-  - {who: t1, title: "Estimate from the plan set you sent", step: "Step 2 of 4: measuring the roof planes at scale"}
-  - {who: t2, title: "Quote for the request on your website form", step: "Step 2 of 3: pricing it from your book"}
-  - {who: t3, title: "Your page for the question customers ask most", step: "Step 3 of 5: checking what ChatGPT says about you now"}
-h1a: "The AI team that wires itself"
-h1b: "into your business."
-sub: "AMTECH gives your business an AI employee that plugs into any software, service or inbox you use, builds its own team for your estimating, bookkeeping, marketing and sales, and does that work end to end. Where no connection exists, your employee builds one, and every week the whole team gets better."
-orbit_team: [employee, t1, t2, t3, t4, t5]
-orbit_systems: ["Jobber", "QuickBooks", "Gmail", "Your website's forms", "Stripe", "Google Business Profile"]
-orbit_centre: "Your business"
-can_h: "Anything a computer can do, your team does"
-can_sub: "ChatGPT can tell you how to build a website or chase an invoice. Your AI employee and its team do it, inside your business, every day, and you see what is going out before it goes."
-can:
-  - {who: t2, h: "Lead replies", p: "Every form, call-back request and Google message answered in minutes, at your prices."}
-  - {who: t1, h: "Daily takeoffs", p: "Every new plan set from your bid invites measured and priced the day it arrives."}
-  - {who: t1, h: "Satellite measurements", p: "Roofs, lots and paving measured from aerial imagery, no site visit."}
-  - {who: t5, h: "Permit reports", p: "Every new permit in your area, with the owner and the contractor, each morning."}
-  - {who: t4, h: "Bookkeeping and collections", p: "Invoices out, payments matched in QuickBooks, late payers chased."}
-  - {who: t3, h: "Google and ChatGPT rankings", p: "Your site, listing and pages fixed until the answers name you."}
-  - {who: employee, h: "Hiring", p: "Job posted, applicants read, interviews on your calendar."}
-  - {who: t6, h: "Websites and apps", p: "A new site, booking page or customer portal, built and launched."}
-  - {who: t6, h: "Website edits", p: "New pages, prices and service areas on the site you have now."}
-industries_h: "Customized to your business"
-industries_sub: "Each trade gets an employee and a team built around its own paperwork, systems and season, with a custom setup wherever your business works its own way. Pick yours."
-services_h: "Services"
-services_sub: "Each service is a whole department your AI employee and its team run for you, replacing the hire, the agency or the software you pay for today."
-services_more: "See all 28 services"
-services_featured:
-  - estimates-from-plans-and-photos
-  - found-on-google-and-in-ai-answers
-  - the-books-kept-every-week
-  - invoices-out-and-paid
-  - client-reports-written-every-month
-  - this-months-posts-and-pictures
-  - the-morning-public-bid-sheet
-  - billing-dates-pay-applications-waivers-and-lien-notices
-how_h: "How a business gets its own AI team"
-how:
-  - {h: "Name your business", p: "Your employee reads your site and your Google listing and writes down how your business works, with a source on every line."}
-  - {h: "Your employee connects to everything you run", p: "Jobber, QuickBooks, Gmail, your website's forms, your Stripe, or any other service, webhook or tool you use. Where no connection exists, your employee builds one, and you never handle a key: your employee walks you through any sign-in. Your employee can also take over a program's job with a custom setup when the subscription stops earning its fee."}
-  - {h: "Your employee builds a team for the work", p: "A teammate for each department your business has, such as estimating, follow-up, being found and collections. Each one does the whole job, and you see what is going out and say yes, or set standing approvals so routine work just happens."}
-  - {h: "Everything gets better every week", p: "Your employee writes its own skills as it learns your business, you can add your own connections and change how it works, and every improvement AMTECH makes to the employee and the computer it works on reaches every business, rehearsed on a copy first."}
-start2_h: "Name your business and your employee starts today."
-team_h: "One employee, a whole team, made for your business"
-team_sub: "Your AI employee learns how your business runs, then builds a teammate for each kind of work it finds. Nobody picks from a menu: the work names the team."
-team_all: [employee, t1, t2, t3, t4, t5, t6]
-team_systems: ["QuickBooks", "Jobber", "Gmail", "Google Business Profile", "Your website", "Stripe"]
-team_detail:
-  - {id: t1, does: "Measures and prices every job from plans, photos or satellite imagery."}
-  - {id: t2, does: "Answers every lead and follows it to a yes or a no."}
-  - {id: t3, does: "Gets you named first on Google, Google Maps and in ChatGPT."}
-  - {id: t4, does: "Sends every invoice, keeps the books and collects what is owed."}
-  - {id: t5, does: "Finds permits, bids, prospects and the facts a job needs, with sources."}
-  - {id: t6, does: "Builds and ships websites, booking pages, portals and tools."}
-instead_h: "What it takes the place of"
-instead_sub: "Most businesses pay three ways for the work an AI team now does: people, agencies and software. Your employee does the work itself."
-instead:
-  - {today: "An estimator, or your own evenings", now: "Every plan set and photo measured and priced from your book the day it arrives."}
-  - {today: "An answering service and lead follow-up", now: "Every lead answered in minutes at your prices, and followed until it books."}
-  - {today: "A bookkeeper's weekly hours", now: "Invoices out, payments matched in QuickBooks, the late ones chased, the week closed."}
-  - {today: "A local SEO or marketing agency", now: "Your site, your Google listing and your answers in ChatGPT, worked every week."}
-  - {today: "A web developer", now: "A new site, booking page or customer portal, built, launched and kept current."}
-  - {today: "Five subscriptions that each do one thing", now: "One team that plugs into what you keep and does the rest itself."}
-connects_h: "Connects to everything you run"
-connects_sub: "Your employee works inside the software you already use, with a sign-in of its own, and builds the connection itself where none exists."
-connects:
-  - {name: "Field and job software", systems: ["Jobber", "ServiceTitan", "Housecall Pro", "AccuLynx", "Procore"]}
-  - {name: "Money", systems: ["QuickBooks", "Xero", "Stripe", "Square"]}
-  - {name: "Mail and calendar", systems: ["Gmail", "Outlook", "Google Calendar"]}
-  - {name: "Being found", systems: ["Google Business Profile", "Search Console", "Your website"]}
-  - {name: "Restaurants and freight", systems: ["Toast", "7shifts", "DAT", "Samsara"]}
-  - {name: "Public records", systems: ["Permit portals", "Bid boards", "Satellite imagery"]}
-connects_how:
-  - "You name the software in a sentence. Your employee finds how it connects and sets it up."
-  - "You sign in once on the system's own screen. Your employee never sees a password or a key."
-  - "Where a subscription only does a job, your employee can do that job itself, with a custom setup."
-connects_link: {text: "How your employee connects to your software", url: "/questions/can-an-ai-employee-connect-to-my-software"}
-yes_h: "You stay in charge of everything that goes out"
-yes_sub: "Your employee does the work and shows you what is ready. You approve it, or you give a standing approval in your own words and routine work simply happens."
-on_its_own:
-  - "Answering a new lead with your hours and service area"
-  - "Following up a quote that has gone quiet"
-  - "Pulling the morning's permits, bids and plan sets"
-  - "Matching payments and reconciling the books"
-waits:
-  - "Sending an estimate or a proposal"
-  - "Charging a card or sending an invoice above your limit"
-  - "Publishing a page or replying to a review"
-  - "Booking a job outside the rules you set"
-approval: {who: t1, act: "Send the estimate for 14 Oak Street", to: "To the homeowner, from your email", preview: "Priced from your book: tear-off, synthetic underlayment, architectural shingles, ridge vent. Two options, valid 30 days."}
-doors_h: "One business, a group, or every client you serve"
-doors:
-  - {who: "You own a business", line: "One employee and its team, working on your business from today.", team: [employee, t1, t2], for: "owner", field: "Your business's name", button: "Start"}
-  - {who: "You run an agency", line: "An employee for each client, doing the work your team bills for, under your name.", team: [employee, t3, t6], for: "agency", field: "Your agency's name", button: "Start"}
-  - {who: "You run several businesses", line: "One organisation, an employee in each business, one view across all of them.", team: [employee, t4, t5], for: "operator", field: "Your company's name", button: "Start"}
-price_h: "Price"
-price_q:
-  - {q: "What does free include?", a: "Your employee, its team and real work on your own business: a test drive on your real work. After that you pay as you go for the work done."}
-  - {q: "What is a custom agent?", a: "An employee set up with you for how your business runs, with the results it is accountable for agreed up front."}
-  - {q: "Can I stop at any time?", a: "Yes. Close your account and nothing of your business stays behind."}
-questions_h: "Questions owners ask first"
+layout: "landing"
+crumb: "AMTECH"
+names: {employee: "Your lead agent"}
+team: [employee, t1, t2, t3, t4, t5, t6]
+h1a: "One platform to run"
+h1b: "your AI agent team."
+sub: "Describe your business and AMTECH builds a team of AI agents around it, connects them to the software you already run, and gives you one screen to direct every agent and see its work."
+app:
+  name: "AMTECH"
+  category: "AI agent management platform"
+  features: ["Builds a team of AI agents from a description of the business", "Connects each agent to the business's own software, with its own sign-in", "One screen to direct every agent and see its work, live", "Standing rules in plain words, a receipt for every action, and the cost of every job", "A team for each business, location or client, on one account"]
+  offers:
+    - {name: "Start free", price: "0", description: "Start free and pay as you go for the work done."}
+    - {name: "Custom agents", price: "1200", description: "Custom agents set up with you, with guaranteed results, from $1,200 a month."}
+answer: "AMTECH is an AI agent management platform for businesses. A lead agent learns how the business runs and builds a team of specialist agents for estimating, follow-up, marketing, bookkeeping, research and building software; each agent works inside the business's own systems, and the owner directs, watches and improves all of them from one screen."
+field: "Your business's name"
+button: "Start"
+start: {industry: ""}
+prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+hero_img: "img/home/hero.png"
+hero_alt: "A company office at dawn, with work trucks lined up in the yard outside the window"
+panel:
+  firm: "Your business"
+  h: "Your agents"
+  rows:
+    - {who: t1, state: work}
+    - {who: t2, state: work}
+    - {who: t3, state: wait}
+    - {who: t4, state: work}
+    - {who: t5, state: idle}
+  card_h: "Before 9am: Your business"
+  steps: ["Priced three plan sets from bid invites", "Matched 14 payments in QuickBooks", "Wrote the page customers ask ChatGPT for"]
+  now: "Following up nine open quotes"
+  total: "26 jobs finished before you opened your email."
+found: [{n: "6", what: "agents at work"}, {n: "26", what: "jobs finished today"}, {n: "9", what: "systems connected"}]
+systems: ["QuickBooks", "Gmail", "Jobber", "Procore", "Stripe", "Google Business Profile", "Your website", "Google Calendar"]
+frame_h: "Talk to one agent. The team does the work."
+bands_h: "One platform for every agent you run."
+bands:
+  - who: employee
+    img: "img/home/build.png"
+    alt: "A landscaping company's equipment yard at sunrise"
+    h: "Built from how your business works."
+    p: "Your lead agent reads your site, your listing and your systems, then builds an agent for each kind of work it finds."
+    doc: {kind: sheet, title: "Your team, built this morning", meta: "From your website, your listing and your books", cols: ["Agent", "Its job", "Works in"], rows: [["Takeoffs", "Prices every plan set", "Plan rooms, your price book"], ["Follow-up", "Works every open quote", "Gmail, your CRM"], ["Collections", "Invoices and payments", "QuickBooks, Stripe"]], foot: "Nobody picks from a menu: the work names the team."}
+  - who: t5
+    img: "img/home/connect.png"
+    alt: "Architectural plans spread on a table in a construction site office"
+    h: "Inside the software you already run."
+    p: "Each agent gets its own sign-in to your tools, and builds the connection itself where none exists."
+    doc: {kind: sheet, title: "Connections", meta: "Your systems and the agents that use them", cols: ["System", "Used by", "Status"], rows: [["Procore", "Takeoffs", "Connected"], ["QuickBooks", "Collections", "Connected"], ["City permit portal", "Research", "Through the screen"]], foot: "You sign in once. No agent ever sees a password."}
+  - who: t2
+    img: "img/home/run.png"
+    alt: "A restaurant kitchen during afternoon prep"
+    h: "Every agent's work, live."
+    p: "What each agent is doing, what it finished and what it needs from you, across every location you run."
+    doc: {kind: sheet, title: "Today", meta: "Across your agents, live", cols: ["Agent", "Working on", "State"], rows: [["Follow-up", "Nine open quotes", "Working"], ["Being found", "This week's ChatGPT check", "Finished"], ["Collections", "Four late invoices", "Working"]], foot: "Every job shows what was read, written and checked."}
+  - who: t4
+    img: "img/home/govern.png"
+    alt: "A family business back office at dusk, a desk lamp lit over a quiet main street"
+    h: "Your rules, your records, your costs."
+    p: "Write in plain words what each agent may do on its own. Every action leaves a receipt, and every job shows what it cost."
+    doc: {kind: sheet, title: "Standing rules", meta: "Written by you, in your words", cols: ["Agent", "Goes ahead on its own", "Limit"], rows: [["Collections", "Reminders on overdue invoices", "Up to 30 days late"], ["Follow-up", "Replies to quotes gone quiet", "Your prices only"], ["Builder", "Edits to pages on your site", "Pages you approved"]], foot: "Change a rule in a sentence; the team follows it from the next job."}
+orbit_h: "Your agents, built around your business."
+industries_h: "Set up for the way your industry works."
+industries:
+  - {label: "Real estate", line: "Sellers, leases and off-market deals found every morning.", href: "/real-estate", img: "img/real-estate/hero-city.png", alt: "A glass office tower at blue hour"}
+  - {label: "General contractors", line: "Bids out, permits closed, every draw paid.", href: "/industries/contractors", img: "img/contractors/hero.png", alt: "A commercial building under construction at golden hour"}
+  - {label: "Roofing", line: "Every roof priced and every quote followed.", href: "/industries/roofing", img: "img/home/roofing.png", alt: "Roofers laying new shingles at golden hour"}
+  - {label: "Landscaping", line: "Every property bid and agreement renewed.", href: "/industries/landscaping", img: "img/home/landscaping.png", alt: "A newly finished backyard patio and planting beds"}
+  - {label: "Painting", line: "From the walkthrough to a signed proposal.", href: "/industries/painting", img: "img/home/painting.png", alt: "A house being repainted sage green"}
+  - {label: "Hospitality", line: "Every location's numbers, bookings and reviews.", href: "/industries/hospitality", img: "img/home/hospitality.png", alt: "A neighbourhood restaurant dining room in the evening"}
+  - {label: "Transportation", line: "Loads booked, paperwork checked, invoices out.", href: "/industries/transportation", img: "img/home/transportation.png", alt: "Semi trucks backed into a freight depot at dawn"}
+grid_h: "Every business, every team, one screen."
+grid:
+  offices: ["Main office", "North location", "A client you serve"]
+  lamps: [[work, work, wait, work, idle], [work, idle, work, work, work], [idle, work, work, idle, wait]]
+  legend: {work: "working", wait: "waiting on you", idle: "idle"}
+proof: {h: "Scoop Dogg was the first business run by an AI employee.", p: "Pet waste and turf care in Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area."}
+offer_h: "Start your agent team today."
+offer_p: "Name your business and your agents start on real work today. When you want a team set up with you, with the results agreed up front, we build it together."
+options:
+  - {h: "Start free", p: "Your agents on your real work, then pay as you go."}
+  - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
+  - {h: "Agencies and operators", p: "A team for every business or client you run, on one screen."}
+offer_found: false
+questions_h: "Questions"
 questions:
-  - {q: "What is an AI employee?", a: "An AI that works inside your business with its own sign-ins, does real work like estimates, follow-ups and books, and makes a team of AI teammates for each kind of work."}
-  - {q: "Can it replace the software I pay for?", a: "Yes. It plugs into what you run on the first day, and where a subscription only does a job, your employee can do that job itself, set up for how you work."}
-  - {q: "What does it need from me?", a: "Your business's name to start. It reads your website and Google listing, then asks only what it cannot find."}
-  - {q: "Who sees what goes out?", a: "You do. Nothing leaves without your yes or a standing approval you wrote yourself, and every action leaves a receipt."}
-  - {q: "Does it work for my kind of business?", a: "Yes. It builds the team for the work your business has, whatever the trade, and custom setups cover the rest."}
-  - {q: "ChatGPT costs $20 a month. Why not use that?", a: "ChatGPT is a tool you drive: it tells you how. Your AI employee does the work itself, on your own records and systems, every day, and you see every piece of work before it goes out."}
+  - {q: "What is an AI agent management platform?", a: "Software that builds, connects, runs and oversees AI agents in one place. AMTECH builds a team of agents for your business, connects each one to the tools it needs, and shows you every agent's work, rules and costs on one screen."}
+  - {q: "What does AMTECH do for a small business?", a: "It gives the business a lead agent that learns how it runs and builds a team of specialist agents for the work: estimates and takeoffs, quote follow-up, being found on Google and in ChatGPT, bookkeeping and collections, research, and websites and tools."}
+  - {q: "How is this different from ChatGPT?", a: "ChatGPT is a tool you drive: it tells you how. Your AMTECH agents do the work themselves, inside your own records and systems, every day, and you see every job they finish."}
+  - {q: "Can it replace the software I pay for?", a: "Yes. Your agents plug into what you run on the first day, and where a subscription only does a job, an agent can do that job itself, set up for how you work."}
+  - {q: "Can I run agents for several businesses or clients?", a: "Yes. One account holds a team for each business or client you run, and one screen shows all of them."}
+  - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
   - {q: "What happens to my data if I leave?", a: "It is yours. Export it whenever you like, and close your account to have nothing of your business left behind."}
-  - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds AI employees for businesses. It is not Amtech Systems."}
-ask_prompt: "What does AMTECH AI (amtechai.com) do for a small business?"
-# N1 work at size and N4 week (lane FRAME, 2026-10-27): the application frame and the week, every word written here.
-work_h: "Your employee does the work. You see it finished."
-work_sub: "Every job runs on a plan you can watch: what your employee read, what it measured or wrote, what it assumed and what it checked. The finished estimate, email or page waits for your yes, or goes out on its own under a standing approval you set."
+  - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds and runs teams of AI agents for businesses. It is not Amtech Systems."}
+closing_h: "Name your business and meet your agents."
+closing_sub: "Your lead agent reads your site and your Google listing, then your team starts on real work today."
+site_sources: false
+sources:
+  - "The work shown on this page (jobs, counts, rules and connections) illustrates the AMTECH application; it is not a customer's job."
+  - "Scoop Dogg: his AI employee set up his new website, its online booking and his automatic replies; he gets bookings every week; first in ChatGPT and on Google for pet and yard cleanup across Ventura and Santa Barbara: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net)."
+  - "The photographs on this page were made for it with an image model; they show no real client or business."
+reviewed: {by: "Ben Palaskas", date: "2026-11-08"}
 frame:
   - tab: "An estimate from a plan set"
     who: t1
@@ -179,12 +172,4 @@ frame:
       rows: ["How long does an exterior repaint take?", "Which paint lasts on a south-facing wall?", "Do you paint in the colder months?"]
     trust: {assumed: "your service area from your Google listing", checked: "what ChatGPT and Google answer for the question today"}
     approve: {act: "Publish to your site"}
-week_h: "A week of your AI employee"
-week_sub: "Each department on your business's own clock, and every line of it something your team finished, not something it reminded you to do."
-week:
-  - {day: "Monday", who: t1, lines: ["Every plan set from the weekend's bid invites measured and priced", "Weekend leads answered at your prices"]}
-  - {day: "Tuesday", who: t3, lines: ["The weekly check of what ChatGPT and Google say about you", "A new page for the question customers ask most"]}
-  - {day: "Wednesday", who: t5, lines: ["New permits and public bids in your area, with the owner and the contractor on each"]}
-  - {day: "Thursday", who: t4, lines: ["Invoices out for every finished job", "Payments matched in QuickBooks, late payers reminded"]}
-  - {day: "Friday", who: t2, lines: ["Every open quote followed up", "Unpaid deposits chased", "Your week, in plain words"]}
 ---

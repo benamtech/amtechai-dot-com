@@ -142,6 +142,22 @@
 .lp-close .lede{margin:16px auto 30px}
 .lp-close .lp-book{margin:0 auto}
 
+/* 4b. Industries: photo cards, the first two large (home, 2026-11-08 `lena`) */
+.lp-inds{padding:var(--lp-pad) 0}
+.lp-inds h2{margin-bottom:clamp(28px,3vw,44px)}
+.lp-inds-g{list-style:none;display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:16px}
+.lp-inds-g li{grid-column:span 2}
+.lp-inds-g li.big{grid-column:span 5}
+.lp-inds-g a{position:relative;display:block;aspect-ratio:4/5;border-radius:var(--r);overflow:hidden;color:#fff;text-decoration:none;isolation:isolate}
+.lp-inds-g li.big a{aspect-ratio:16/10}
+.lp-inds-g .lp-photo{position:absolute;inset:0;border-radius:0;transition:transform .6s var(--ease)}
+.lp-inds-g a::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0) 45%,rgba(10,10,10,.72));z-index:0}
+.lp-inds-g a:hover .lp-photo{transform:scale(1.035)}
+.lp-ind-t{position:absolute;left:18px;right:18px;bottom:16px;z-index:1;display:grid;gap:4px}
+.lp-ind-t b{font:500 clamp(22px,1.9vw,28px)/1.05 var(--serif)}
+.lp-inds-g li.big .lp-ind-t b{font-size:clamp(28px,2.6vw,38px)}
+.lp-ind-t span{font-size:14px;line-height:1.35;opacity:.88}
+
 
 @media (max-width:1100px){
   .lp-hero-in{grid-template-columns:minmax(0,1fr);min-height:0}
@@ -151,6 +167,9 @@
   .lp-stage{max-height:none;aspect-ratio:4/3;margin:0}
   .lp-band,.lp-flip,.lp-offer-card,.lp-faq-in{grid-template-columns:minmax(0,1fr)}
   .lp-flip .lp-band-t{order:0}
+  .lp-inds-g{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lp-inds-g li,.lp-inds-g li.big{grid-column:span 1}
+  .lp-inds-g li.big a,.lp-inds-g a{aspect-ratio:4/3}
 }
 @media (max-width:760px){
   .wrap{padding:0 20px}
@@ -169,4 +188,10 @@
   .lp-book{flex-direction:column}
   .lp-book .start-in{height:48px}
   .lp-hero h1 .red{display:inline}
+  .lp-inds-g{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+  .lp-inds-g li.big{grid-column:span 2}
+  .lp-inds-g li.big a{aspect-ratio:16/10}
+  .lp-inds-g a{aspect-ratio:3/4}
+  .lp-inds-g li:not(.big) .lp-ind-t span{display:none}
+  .lp-ind-t{left:12px;right:12px;bottom:10px}
 }

@@ -7,8 +7,12 @@
        then the engagement and one action. One action: the firm's name to /schedule-demo with industry and topic chosen
        (assets/js/w/booking.js reads them). The layout owns no sentence: every word is in the page's file, data/w.json or
        data/frame.json (check.mjs section 11). */ -}}
+{{- /* 2026-11-08 later (session `lena`): the same template serves home and the trade pages. Optional, each only where the
+       page's file has it: `start` (the action is the start field, w/lpact), `found`, `industries` (photo cards to each
+       industry page), `proof` (Scoop Dogg's split), `grid`, `options`, `guarantee`, `approval`. */ -}}
 {{- $p := . }}{{ $P := .Params }}{{ $names := $P.names -}}
-{{- range slice "title" "description" "names" "team" "h1a" "h1b" "sub" "field" "button" "book" "prices" "hero_img" "hero_alt" "panel" "orbit_h" "bands_h" "bands" "frame" "frame_h" "grid_h" "grid" "offer_h" "offer_p" "options" "found" "approval" "guarantee" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "team" "h1a" "h1b" "sub" "field" "button" "prices" "hero_img" "hero_alt" "panel" "orbit_h" "bands_h" "bands" "frame" "frame_h" "offer_h" "offer_p" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- if not (or $P.start $P.book) }}{{ errorf "GATE %s: a landing page needs `start` or `book` for its action" $p.File.Path }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main class="lp">
 
@@ -17,7 +21,7 @@
 <h1><span class="ink">{{ $P.h1a }}</span> <span class="red">{{ $P.h1b }}</span></h1>
 <p class="lede">{{ $P.sub }}</p>
 </div>
-<div class="lp-hero-cta">{{ partial "w/lpbook.html" (dict "id" "book" "P" $P) }}<div class="lp-hero-found"><ul>{{ range $P.found }}<li><b>{{ .n }}</b><span>{{ .what }}</span></li>{{ end }}</ul></div></div>
+<div class="lp-hero-cta">{{ partial "w/lpact.html" (dict "id" "book" "P" $P) }}{{ with $P.found }}<div class="lp-hero-found"><ul>{{ range . }}<li><b>{{ .n }}</b><span>{{ .what }}</span></li>{{ end }}</ul></div>{{ end }}</div>
 <figure class="lp-stage">
 {{ partial "w/lpimg.html" (dict "src" $P.hero_img "alt" $P.hero_alt "sizes" "(min-width: 1100px) 720px, 100vw" "eager" true "cls" "lp-photo") }}
 <div class="lp-app-panel" aria-label="{{ hugo.Data.frame.frame_label }}">
@@ -50,6 +54,13 @@
 <div class="lp-orbit-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" $P.team "systems" $P.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-k">{{ $P.crumb }}</p><p class="medal-name" data-echo-firm="{{ $P.panel.firm }}">{{ $P.panel.firm }}</p></div></div>{{ partial "team3d.html" (dict "team" $P.team "systems" $P.systems "names" $names) }}</div>
 </div></section>
 
+{{- with $P.industries }}
+<section class="lp-inds" id="industries"><div class="wrap">
+<h2>{{ $P.industries_h }}</h2>
+<ul class="lp-inds-g">{{ range $i, $c := . }}<li{{ if lt $i 2 }} class="big"{{ end }}><a href="{{ $c.href }}">{{ partial "w/lpimg.html" (dict "src" $c.img "alt" $c.alt "sizes" (cond (lt $i 2) "(min-width: 1100px) 640px, 100vw" "(min-width: 1100px) 260px, 50vw") "cls" "lp-photo") }}<span class="lp-ind-t"><b>{{ $c.label }}</b><span>{{ $c.line }}</span></span></a></li>{{ end }}</ul>
+</div></section>
+{{- end }}
+{{- with $P.grid }}
 <section class="lp-grid"><div class="wrap">
 <h2>{{ $P.grid_h }}</h2>
 {{- $mates := slice }}{{ range $P.panel.rows }}{{ $mates = $mates | append .who }}{{ end }}
@@ -59,13 +70,16 @@
 </div>
 <p class="lp-legend">{{ range $k, $v := $P.grid.legend }}<span><i class="lamp l-{{ $k }}" aria-hidden="true"></i>{{ $v }}</span>{{ end }}</p>
 </div></section>
+{{- end }}
+{{- with $P.proof }}{{ partial "w/proofsplit.html" (dict "h" .h "p" .p "id" "proof" "g" "g-bone w-fixed") }}{{ end }}
+
 
 <section class="lp-offer" id="start"><div class="wrap"><div class="lp-offer-card">
-<div class="lp-offer-t"><h2>{{ $P.offer_h }}</h2><p class="lede">{{ $P.offer_p }}</p>{{ partial "w/lpbook.html" (dict "id" "book-2" "P" $P) }}<p class="lp-guar">{{ $P.guarantee }}</p></div>
+<div class="lp-offer-t"><h2>{{ $P.offer_h }}</h2><p class="lede">{{ $P.offer_p }}</p>{{ partial "w/lpact.html" (dict "id" "book-2" "P" $P) }}{{ with $P.guarantee }}<p class="lp-guar">{{ . }}</p>{{ end }}</div>
 <div class="lp-offer-s">
-<ol class="lp-opts">{{ range $i, $o := $P.options }}<li{{ if eq $i 1 }} class="pick"{{ end }}><b>{{ $o.h }}</b><span>{{ $o.p }}</span></li>{{ end }}</ol>
-<div class="lp-found"><p class="lp-found-k"><i class="pulse" aria-hidden="true"></i>{{ $P.panel.h }}</p><ul>{{ range $P.found }}<li><b>{{ .n }}</b><span>{{ .what }}</span></li>{{ end }}</ul></div>
-<div class="wyes-card lp-yes" aria-label="An approval in the AMTECH application"><p class="wyes-k"><i class="pulse" aria-hidden="true"></i>{{ hugo.Data.w.yes.card_k }}</p>{{ partial "w/character.html" (dict "id" $P.approval.who "size" 34) }}<p class="wyes-act">{{ $P.approval.act }}</p><p class="wyes-to">{{ $P.approval.to }}</p><blockquote>{{ $P.approval.preview }}</blockquote></div>
+{{ with $P.options }}<ol class="lp-opts">{{ range $i, $o := . }}<li{{ if eq $i 1 }} class="pick"{{ end }}><b>{{ $o.h }}</b><span>{{ $o.p }}</span></li>{{ end }}</ol>{{ end }}
+{{ if ne $P.offer_found false }}{{ with $P.found }}<div class="lp-found"><p class="lp-found-k"><i class="pulse" aria-hidden="true"></i>{{ $P.panel.h }}</p><ul>{{ range . }}<li><b>{{ .n }}</b><span>{{ .what }}</span></li>{{ end }}</ul></div>{{ end }}{{ end }}
+{{ with $P.approval }}<div class="wyes-card lp-yes" aria-label="An approval in the AMTECH application"><p class="wyes-k"><i class="pulse" aria-hidden="true"></i>{{ hugo.Data.w.yes.card_k }}</p>{{ partial "w/character.html" (dict "id" .who "size" 34) }}<p class="wyes-act">{{ .act }}</p><p class="wyes-to">{{ .to }}</p><blockquote>{{ .preview }}</blockquote></div>{{ end }}
 </div>
 </div></div></section>
 
@@ -77,7 +91,7 @@
 <section class="lp-close"><div class="wrap">
 <h2>{{ $P.closing_h }}</h2>
 <p class="lede">{{ $P.closing_sub }}</p>
-{{ partial "w/lpbook.html" (dict "id" "book-3" "P" $P) }}
+{{ partial "w/lpact.html" (dict "id" "book-3" "P" $P) }}
 </div></section>
 <a class="lp-sticky" href="#start">{{ $P.button }}</a>
 </main>
