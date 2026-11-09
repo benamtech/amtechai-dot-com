@@ -17,7 +17,7 @@
 
 {{ $P.prices }}
 
-Works with: {{ delimit $P.systems ", " }}.
+{{ with $P.systems }}Works with: {{ delimit . ", " }}.{{ end }}
 
 {{ with $P.frame }}
 ## {{ $P.frame_h }}
