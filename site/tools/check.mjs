@@ -107,7 +107,7 @@ for (const p of pages) {
   if (desc.length < 70 || desc.length > 160) bad(p.route, `meta description is ${desc.length} characters; 70-160`);
   // FAQPage only for questions the page shows.
   const text = p.html.replace(/<script[\s\S]*?<\/script>/g, ' ').replace(/<[^>]+>/g, ' ').replace(/&#39;|&rsquo;/g, "'").replace(/&amp;/g, '&');
-  for (const n of ldOf(p).filter((n) => n['@type'] === 'FAQPage')) for (const q of n.mainEntity || []) if (!text.includes(q.name)) bad(p.route, `FAQPage question not visible: ${q.name}`);
+  for (const n of ldOf(p).filter((n) => n['@type'] === 'FAQPage')) for (const q of n.mainEntity || []) if (!text.replace(/\s+/g, ' ').includes(q.name.replace(/\s+/g, ' '))) bad(p.route, `FAQPage question not visible: ${q.name}`);
 }
 if (orgNodes !== 1) bad('structured data', `${orgNodes} Organization nodes across the site; exactly one (home), the rest reference #organization`);
 for (const f of ['/favicon-48.png', '/favicon-192.png', '/apple-touch-icon.png', '/favicon.ico', '/logo.png', '/content-hashes.json']) if (!fileSet.has(f)) bad(f, 'missing');

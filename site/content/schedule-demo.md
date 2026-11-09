@@ -60,6 +60,8 @@ industries:
   - "Hospitality and restaurants"
   - "Transportation and logistics"
   - "Real estate"
+  - "E-commerce"
+  - "Lead generation and data"
   - "An agency serving businesses"
   - "Something else"
 topics:
@@ -67,6 +69,8 @@ topics:
   - "A custom agent setup"
   - "A Market Deal Map"
   - "A real estate growth team"
+  - "An e-commerce agent team"
+  - "A lead generation agent team"
   - "Estimates and takeoffs"
   - "Being found on Google and in AI answers"
   - "Leads and follow-up"

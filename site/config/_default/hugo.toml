@@ -87,7 +87,7 @@ disableKinds = ["rss", "taxonomy", "term", "sitemap", "robotsTXT"]
   # The one site name, everywhere Google reads it: the title suffix, og:site_name, WebSite.name, Organization.name.
   site_name = "AMTECH AI"
   # The Organization's description (structured data on every home head, old and new), in today's words.
-  organization = "AMTECH AI is a platform that gives a business AI employees: each connects itself to the systems the business already runs, makes its own team for the work, and improves as it works."
+  organization = "AMTECH AI is an AI agent management platform for businesses: it builds a team of AI agents around how a business works, connects each agent to the systems the business already runs, and gives the owner one screen to direct, watch and improve every agent."
   ga = "G-HZ9HL72L7Q"
   ga_load = "head"   # head | load | interaction: see layouts/_partials/analytics.html
 

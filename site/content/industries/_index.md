@@ -1,46 +1,64 @@
 ---
-title: "AI employees for roofing, landscaping, trucking and more trades"
-description: "Six trades AMTECH builds an AI employee and team for, each with the systems it plugs into, the routines it keeps and the work it takes off the owner."
-h1a: "An AI employee for your trade, doing the work you have"
-h1b: "not hired for."
-sub: "AMTECH makes an AI employee and a team of AI teammates for each trade below, with the work of an estimator, a bookkeeper and a front desk built for that trade's own paperwork. They plug into the systems the trade already runs, such as Jobber, Procore, Toast or DAT, can take over those systems' jobs with a custom setup, and start on real work the day you sign up."
+# /industries, rebuilt 2026-11-08 (session `lena`) on layouts/landing.html: every kind of business AMTECH has a page for,
+# as photo cards, the first four large. Ben: one style across the site, less clutter, more images.
+title: "AI agent teams for every kind of business"
+description: "Real estate, e-commerce, lead generation, landscaping, contractors, roofing, painting, restaurants and trucking: a custom AI agent team for each."
+layout: "landing"
+crumb: "Industries"
+names: {employee: "Your lead agent", t1: "Operations", t2: "Sales", t3: "Marketing", t4: "Finance", t5: "Research", t6: "Builder"}
+team: [employee, t2, t3, t4, t5, t1, t6]
+h1a: "Your industry,"
+h1b: "your own AI team."
+sub: "Every business runs on its own paperwork, systems and seasons. AMTECH builds a team of AI agents around yours, and these pages show what that team does in each industry."
+answer: "AMTECH builds custom teams of AI agents for real estate firms, e-commerce brands and agencies, lead generation and data agencies, landscaping and yard care, general contractors, roofers, painters, restaurant groups and trucking companies, and for any other business from a description of its work."
+field: "Your business's name"
+button: "Start"
+start: {industry: ""}
+prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+hero_img: "img/hubs/industries.png"
+hero_alt: "A small-town main street in the morning, a contractor's truck at the curb and a restaurant opening"
+panel:
+  firm: "Your business"
+  h: "Your agents"
+  rows:
+    - {who: t2, state: work}
+    - {who: t3, state: work}
+    - {who: t4, state: wait}
+    - {who: t5, state: work}
+    - {who: t1, state: idle}
+  card_h: "Built this morning: Your business"
+  steps: ["Read your website and your Google listing", "Found the tools you already run", "Made an agent for each part of the work"]
+  now: "Starting on the first real job"
+  total: "Your team, ready before lunch."
+systems: ["QuickBooks", "Shopify", "Jobber", "Procore", "Toast", "Follow Up Boss", "Gmail", "Your website"]
+industries_h: "Pick yours."
+industries_big: 4
+industries:
+  - {label: "Real estate", line: "Sellers, leases and off-market deals found every morning.", href: "/real-estate", img: "img/real-estate/hero-city.png", alt: "A glass office tower at blue hour"}
+  - {label: "E-commerce", line: "Every store's products, ads, email and numbers, run by one team.", href: "/ecommerce", img: "img/ecommerce/hero.png", alt: "A bright e-commerce studio and stockroom"}
+  - {label: "Lead generation", line: "Owner names, checked contacts and lists at any size.", href: "/lead-generation", img: "img/lead-generation/owners.png", alt: "A main street of small independent shops in the morning"}
+  - {label: "Landscaping and yard care", line: "Every quote, route, renewal and invoice handled.", href: "/industries/landscaping", img: "img/landscaping/hero.png", alt: "A crew mowing a wide lawn in the morning"}
+  - {label: "Contractors", line: "Bids out, permits closed, every draw paid.", href: "/industries/contractors", img: "img/contractors/hero.png", alt: "A commercial building under construction"}
+  - {label: "Roofing", line: "Every roof priced and every quote followed.", href: "/industries/roofing", img: "img/home/roofing.png", alt: "Roofers laying new shingles at golden hour"}
+  - {label: "Painting", line: "From the walkthrough to a signed proposal.", href: "/industries/painting", img: "img/home/painting.png", alt: "A house being repainted sage green"}
+  - {label: "Restaurants", line: "Every location's numbers, bookings and reviews.", href: "/industries/hospitality", img: "img/home/hospitality.png", alt: "A neighbourhood restaurant in the evening"}
+  - {label: "Trucking", line: "Loads booked, paperwork checked, invoices out.", href: "/industries/transportation", img: "img/home/transportation.png", alt: "Semi trucks at a freight depot at dawn"}
+orbit_h: "Not on the list? Your team is built from your work."
+proof: {h: "Scoop Dogg was the first business run by an AI employee.", p: "Pet waste and turf care in Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area."}
+offer_h: "Start your AI team today."
+offer_p: "Name your business and your agents start on real work today. When you want a team set up with you, with the results agreed up front, we build it together."
+options:
+  - {h: "Start free", p: "Your agents on your real work, then pay as you go."}
+  - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
+  - {h: "Agencies and operators", p: "A team for every business, store or client you run, on one screen."}
+questions_h: "Questions"
+questions:
+  - {q: "My industry is not on the list. Can AMTECH still help?", a: "Yes. Your lead agent learns how your business works from your site, your listing and you, then builds the team your work needs."}
+  - {q: "Is it priced by industry?", a: "No. Every business starts free and pays as it goes for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "Can I run teams for several businesses or clients?", a: "Yes. One account holds a team for each business, store or client, and one screen shows all of them."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a small or mid-sized business?"
 closing_h: "Name your business."
-closing_sub: "Your employee reads your site and your Google listing, then starts on the first piece of real work while you watch."
-orbit_team: [employee, t1, t2, t3, t4, t5, t6]
-orbit_systems: ["Jobber", "AccuLynx", "Procore", "Toast", "DAT", "QuickBooks"]
-anat_h: "What every trade gets"
-anat_sub: "Whatever your trade, your employee sets up the same four things around the way your business already works."
-anat:
-  - {h: "A team made for the work", p: "A teammate for each kind of work your trade has: estimating, follow-up, permits, dispatch, collections, being found."}
-  - {h: "Your systems, connected", p: "The field software, accounting, email and public records your trade already runs, each with a sign-in of its own."}
-  - {h: "Routines on your calendar", p: "The mornings, the Fridays, the month-end and the season your trade runs on, done without being asked."}
-  - {h: "First jobs on day one", p: "Real work from your inbox and your books, priced, sent or chased on the first day."}
-start2_h: "Name your business and your employee starts on your trade's work today."
-connects_h: "Connected to the software every trade runs"
-connects_sub: "Your employee works in the systems your trade already uses, and builds the connection itself where none exists."
-connects:
-  - {name: "Trades and field service", systems: ["Jobber", "ServiceTitan", "LMN", "Aspire", "PaintScout"]}
-  - {name: "Roofing and construction", systems: ["AccuLynx", "JobNimbus", "Procore", "Buildertrend", "EagleView"]}
-  - {name: "Restaurants and hospitality", systems: ["Toast", "Square", "7shifts", "OpenTable", "MarginEdge"]}
-  - {name: "Freight and logistics", systems: ["McLeod", "DAT", "Truckstop", "Samsara", "Motive"]}
-  - {name: "Money and mail", systems: ["QuickBooks", "Xero", "Stripe", "Gmail", "Outlook"]}
-  - {name: "Public records", systems: ["Permit portals", "Bid boards", "Satellite imagery"]}
-connects_how:
-  - "You name the software in a sentence; your employee connects it and tells you when it works."
-  - "You sign in on the system's own screen; your employee never sees a password or a key."
-  - "Where a subscription only does a job, your employee can do that job itself."
-connects_link: {text: "How your employee connects to your software", url: "/questions/can-an-ai-employee-connect-to-my-software"}
-any_h: "Your trade is not on the list?"
-any_sub: "It does not need to be. Your employee learns how your business works from your site, your listing and you, then builds the team your work needs."
-doors_h: "For one business, an agency, or a group"
-doors:
-  - {who: "You own a business", line: "One employee and its team, working on your business from today.", team: [employee, t1, t2], for: "owner", field: "Your business's name", button: "Start"}
-  - {who: "You serve trades as an agency", line: "An employee for each client, doing the work your team bills for, under your name.", team: [employee, t3, t6], for: "agency", field: "Your agency's name", button: "Start"}
-  - {who: "You run several businesses", line: "One organisation, an employee in each business, one view across all of them.", team: [employee, t4, t5], for: "operator", field: "Your company's name", button: "Start"}
-price_h: "Price"
-price_q:
-  - {q: "Is it priced by trade?", a: "No. Every trade starts free and pays as it goes for the work done."}
-  - {q: "What does a custom agent add?", a: "An employee set up with you for how your business runs, with its results agreed up front."}
-ask_prompt: "What does AMTECH AI (amtechai.com) do for a trades or service business?"
-reviewed: {by: "Ben Palaskas", date: "2026-10-27"}
+closing_sub: "Your lead agent reads your site and your Google listing, then your team starts on real work today."
+site_sources: false
+reviewed: {by: "Ben Palaskas", date: "2026-11-08"}
 ---

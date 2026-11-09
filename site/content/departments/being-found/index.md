@@ -1,100 +1,104 @@
 ---
+# /departments/being-found, rebuilt 2026-11-08 (lane `services`, lead `lena`) on layouts/landing.html. The department is
+# how the work is run: the five pieces in order, the weekly check of the AI answers, the whole team (site, listing,
+# reviews, leads). /services/found-on-google-and-in-ai-answers is what the owner buys; the two share no document.
+# Scoop Dogg is the proof (brain/proof.md). Every figure in a card illustrates the application.
 title: "Local SEO and AI answers: get found on Google and in ChatGPT"
-description: "How an AMTECH AI employee gets a local business found on Google, on Google Maps and in the answers ChatGPT, Gemini and Google's AI Overview give."
-h1a: "Being found: first on Google and"
-h1b: "in the AI answers."
-sub: "AMTECH's being-found team runs your website, your Google Business Profile and what ChatGPT and Google say about your trade in your town: the whole job of a local SEO agency."
+description: "How an AMTECH agent team runs being found: your site, your Google listing and a weekly check of what ChatGPT, Gemini and Google say about your trade."
+layout: "landing"
+crumb: "Being found"
+h1a: "Be the business"
+h1b: "the answers name."
+sub: "The department that runs your website, your Google listing and your reviews, and checks every Monday what ChatGPT, Gemini and Google say about your trade in your town."
+answer: "Being found is the AMTECH department that does the whole job of a local SEO agency. A team of agents builds and fixes the website, keeps the Google Business Profile and other listings in agreement with it, answers every review, writes the pages customers' questions need, and each week asks ChatGPT, Gemini and Google those questions and reports who is named. A fifth agent answers the leads the visibility brings in. Scoop Dogg's employee did this work and he is first in ChatGPT and on Google for pet and yard cleanup in Ventura and Santa Barbara."
 field: "Your business's name"
-button: "Start the free trial"
+button: "Start free"
+start: {config: being-found}
+prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+hero_img: "img/services/svc-dept-hero.png"
+hero_alt: "A bright office with two monitors showing blurred map and web page layouts beside a large window"
+names: {employee: "Your lead agent"}
 team: [employee, t3, t5, t6, t2]
-names: {}
-team_h: "Who gets you found"
-services_h: "Services built on being found"
-employee_does: "Learns your trade, your town and what your customers ask, connects to your website, your Google listing, Search Console and Analytics, and gives each page, listing and lead to the teammate for it, with every change shown to you before it goes live."
-proof_figure_line: "in ChatGPT and on Google in his area"
-team_detail:
-  - {id: t3, does: "Fixes what search engines and AI assistants read on your site, writes and publishes the pages your customers' questions need, and keeps your Google Business Profile's categories, services, hours and photos right."}
-  - {id: t5, does: "Asks ChatGPT, Gemini and Google the questions your customers ask, records who gets named and why, and finds the directories and local sites where your competitors are listed and you are not."}
-  - {id: t6, does: "Builds you a new website when the old one is holding you back, or works on the one you have, whoever built it, with online booking and a quote form wired to your employee."}
-  - {id: t2, does: "Answers every lead the new visibility brings in, from your website's forms, your Google listing and your inbox, with automatic replies at your prices, and follows each one until a yes or a no."}
-systems: ["Your website", "Google Business Profile", "Search Console", "Google Analytics", "ChatGPT, Gemini and AI Overview", "Gmail"]
-routines:
-  - "Every Monday: what the AI answers and the map say about you this week, with the change since last week."
-  - "Every month: the pages your customers' questions need, written and published on your site once you approve them."
-  - "Every week: new reviews answered in your voice, and fresh photos and posts on your Google listing."
-first_jobs:
-  - "Find where your site loses the people who find it, and fix it"
-  - "Write and publish the pages that answer your customers' questions"
-  - "Fix your Google Business Profile's categories, hours and services"
-live: {who: t3, title: "The page for your busiest question", step: "Step 3 of 5: checking what the AI answers say now"}
-services: [found-on-google-and-in-ai-answers, this-months-posts-and-pictures, paid-search-and-social-run-and-reported, inquiries-answered-and-booked]
-proof_h: "Scoop Dogg: first in ChatGPT and on Google for pet and yard cleanup, across Ventura and Santa Barbara."
-proof: "Scoop Dogg is the first business run by an AI employee. His employee set up his new website and its online booking, then set up his automatic replies itself, so every booking and quote request is answered at his real prices. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area."
-proof_link: "https://scoopdogg.net"
-questions_h: "What owners ask about being found"
+panel:
+  firm: "Your business"
+  h: "Your team"
+  rows:
+    - {who: t3, state: work}
+    - {who: t5, state: work}
+    - {who: t6, state: work}
+    - {who: t2, state: wait}
+    - {who: t4, state: idle}
+  card_h: "This Monday: Your business"
+  steps: ["Asked ChatGPT, Gemini and Google 12 questions", "Compared every answer with last week's", "Found one gap and wrote the page"]
+  now: "Updating your listing to match the new page"
+  total: "Your Monday report is ready."
+found: [{n: "12", what: "answers checked this week"}, {n: "3", what: "pages published this month"}, {n: "9", what: "reviews answered"}]
+offer_found: false
+systems: ["Your website", "Google Business Profile", "Search Console", "Google Analytics", "ChatGPT, Gemini and AI Overview", "Yelp", "Apple Maps", "Gmail"]
+frame_h: "The Monday check of what the answers say."
+bands_h: "The five pieces of work, in order."
+bands:
+  - who: t6
+    img: "img/landscaping/yard.png"
+    alt: "A yard care worker cleaning a backyard lawn while a dog watches"
+    h: "A site built to be read."
+    p: "A page for each service and each town you work in, with online booking, built new or on the site you have."
+    doc: {kind: page, title: "Pet waste removal in Oxnard", meta: "A new page on scoopdogg.net", url: "scoopdogg.net/oxnard", h: "Pet waste removal in Oxnard, every week", p: "The five questions Oxnard customers ask most, with the prices, the service days and the booking link.", button: "Book a cleanup", rows: ["Which days do you serve Oxnard?", "What does weekly service cost?", "Do you work around dogs in the yard?"]}
+  - who: t3
+    img: "img/services/svc-dept-facts.png"
+    alt: "A laptop on a wooden table showing lines of code beside a small business web page"
+    h: "Facts machines can read."
+    p: "Your business written in the markup and files that Google and AI assistants read first, so each one gets your name, area and services right."
+    doc: {kind: sheet, title: "What search and AI assistants read", meta: "Your site, checked this morning", cols: ["Fact", "On your site", "Read by"], rows: [["Business name and address", "Marked up on every page", "Google and AI assistants"], ["Services and towns served", "Marked up on service pages", "Google and AI assistants"], ["Opening hours", "Missing on two pages", "Fix ready"], ["Questions and answers", "On every service page", "AI assistants"]], foot: "Everything is written once and repeated the same way everywhere."}
+  - who: t3
+    img: "img/services/svc-dept-shops.png"
+    alt: "A row of small shops on a town street in daytime"
+    h: "A listing that agrees, everywhere."
+    p: "Categories, services, hours and photos on Google, Apple Maps, Bing and Yelp matched to your site, line for line."
+    doc: {kind: sheet, title: "Your listings, side by side", meta: "Checked this morning", cols: ["Place", "Hours", "Phone", "Status"], rows: [["Google Business Profile", "Matches", "Matches", "Right"], ["Apple Maps", "Saturday differs", "Matches", "Fix sent"], ["Bing Places", "Matches", "Old number", "Fix sent"], ["Yelp", "Matches", "Matches", "Right"]], foot: "A listing that disagrees with your site makes the answers less sure of you."}
+  - who: t2
+    img: "img/home/hospitality.png"
+    alt: "A restaurant dining room with tables set and warm light before opening"
+    h: "Every review answered, every lead followed."
+    p: "Each review replied to in your voice the same week, and each enquiry the visibility brings in answered and followed up."
+    doc: {kind: report, title: "Reviews and enquiries this week", meta: "From your Google listing and your website's forms", rows: [{label: "New reviews", value: "9, all answered"}, {label: "Five-star replies", value: "Sent under your standing approval"}, {label: "Needs you", value: "One two-star review, reply ready"}, {label: "Website enquiries", value: "6 answered, 2 booked"}], foot: "Every reply is in your voice."}
+orbit_h: "The team behind the department."
+grid_h: "Every kind of business, found in its own town."
+grid:
+  offices: ["Pet waste and yard care", "Restaurant", "Roofing company"]
+  lamps: [[work, work, work, work, idle], [work, idle, wait, work, idle], [work, work, idle, work, work]]
+  legend: {work: "working", wait: "waiting on you", idle: "idle"}
+cards_h: "Services built on being found."
+cards_sub: "Your team, set up for one piece of the department."
+cards:
+  - {who: [t3, t5], h: "Found on Google and in AI answers", p: "Your listing, your reviews and the pages that get you named.", href: "/services/found-on-google-and-in-ai-answers"}
+  - {who: [t3, t6], h: "This month's posts and pictures", p: "A fresh post and photos on your listing and your social pages each month.", href: "/services#this-months-posts-and-pictures"}
+  - {who: [t3, t5], h: "Paid search and social, run and reported", p: "Ads run and reported in plain words.", href: "/services#paid-search-and-social-run-and-reported"}
+  - {who: [t2], h: "Inquiries answered and booked", p: "Every lead the visibility brings in, answered and followed up.", href: "/services#inquiries-answered-and-booked"}
+proof: {h: "Scoop Dogg: first in ChatGPT and on Google for pet and yard cleanup.", p: "Scoop Dogg is the first business run by an AI employee. His employee set up his new website and its online booking, then set up his automatic replies itself, so every booking and quote request is answered at his real prices. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in Ventura and Santa Barbara."}
+offer_h: "Start with what the answers say today."
+offer_p: "Name your business and your team looks up what Google and ChatGPT say about you, and shows you the first fix. When you want the whole department set up with you, with the results agreed up front, we build it together."
+options:
+  - {h: "Start free", p: "The department on your business, then pay as you go."}
+  - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
+approval: {who: t3, act: "Page: Pet waste removal in Oxnard", to: "To scoopdogg.net", preview: "Answers the five questions Oxnard customers ask most, with your prices, your service days and your booking link."}
+questions_h: "Questions"
 questions:
-  - {q: "Does it replace my SEO agency?", a: "Yes. Being found does the whole job: the pages, the listings, the reviews and the weekly check on Google and the AI answers. You see every change before it goes live, and the Monday report shows what changed."}
-  - {q: "How do I show up in ChatGPT's answers?", a: "Your business has to be on the pages ChatGPT reads and named the same way everywhere. Being found writes those pages on your site, fixes your listings so the facts agree, and checks every week what ChatGPT actually says."}
+  - {q: "Does it replace my SEO agency?", a: "Yes. Being found does the whole job: the pages, the listings, the reviews and the weekly check on Google and the AI answers, and the Monday report shows what changed."}
+  - {q: "How do I show up in ChatGPT's answers?", a: "Your business has to be on the pages ChatGPT reads and named the same way everywhere. Your team writes those pages on your site, fixes your listings so the facts agree, and checks every week what ChatGPT actually says."}
   - {q: "Is this the same as SEO?", a: "Yes, and it reaches further, because the same pages and listings that rank you on Google and Google Maps are what ChatGPT, Gemini and Google's AI Overview read when someone asks for your trade in your town."}
-  - {q: "Can it build me a new website?", a: "Yes. Builder makes and launches a new site with online booking, or works on the one you have, and every change goes live on your yes or under a standing approval in your own words."}
-  - {q: "Does it work for my kind of business?", a: "Yes, for any business that customers look for in a town. Scoop Dogg cleans up after dogs, and the same work put him first in ChatGPT and on Google for pet and yard cleanup in his area."}
-closing_h: "Name your business."
-closing_sub: "Your employee looks up what Google and ChatGPT say about you today, and shows you the first fix."
-how_done_h: "How Scoop Dogg's employee got him to the top"
-how_done_sub: "The same five pieces of work, in this order, for any business people look for in a town."
-how_done:
-  - {h: "A site built to be read", p: "A new website and online booking, with a page for each service and each town he works in."}
-  - {h: "Facts machines can read", p: "His business written in the markup and files that Google and AI assistants read first."}
-  - {h: "A Google listing that agrees", p: "Categories, services, hours and photos matched to the site, line for line."}
-  - {h: "Every review answered", p: "Each review replied to in his voice, the same week it lands."}
-  - {h: "A weekly check of the answers", p: "What ChatGPT and Google say about pet and yard cleanup in his towns, read every Monday."}
-start2_h: "Name your business and see what the AIs say about you today."
-connects_h: "Works on everything that decides whether you are found"
-connects_sub: "Your employee signs in to each of these with an account of its own and works on them every week."
-connects:
-  - {name: "Your website", systems: ["WordPress", "Wix", "Squarespace", "Webflow", "Shopify"]}
-  - {name: "Google", systems: ["Google Business Profile", "Search Console", "Google Analytics"]}
-  - {name: "The answers", systems: ["ChatGPT", "Gemini", "Google AI Overview", "Perplexity"]}
-  - {name: "Reviews and listings", systems: ["Google reviews", "Yelp", "Apple Maps", "Bing Places"]}
-connects_how:
-  - "Your employee edits the site you have, or builds you a new one when the old one holds you back."
-  - "Every change is shown to you first, and published once you say yes."
-  - "Every Monday it reads what the AI answers say about your trade in your town and reports what moved."
-connects_link: {text: "How your employee connects to your software", url: "/questions/can-an-ai-employee-connect-to-my-software"}
-instead_h: "What it takes the place of"
-instead_sub: "Being found is usually bought in pieces: an agency, three tools and a freelancer. Your being-found team does all of it."
-instead:
-  - {today: "A local SEO agency's monthly retainer", now: "The site, the listing and the answers worked every week, with every change shown to you."}
-  - {today: "A listings and reviews tool", now: "Your Google listing kept right and every review answered in your voice."}
-  - {today: "A content writer", now: "The pages your customers' questions need, written and published on your site."}
-  - {today: "A web developer", now: "A faster site, new pages, or a new site, built and launched."}
-  - {today: "Guessing what ChatGPT says about you", now: "A Monday report of what the AI answers say, with what changed since last week."}
-yes_h: "Nothing goes live without you"
-yes_sub: "Your being-found team does the work and shows you each change. You approve it, or give a standing approval for routine updates."
-on_its_own:
-  - "Reading what Google and the AI answers say each week"
-  - "Fixing a broken link or a missing photo on your listing"
-  - "Drafting the next page your customers need"
-waits:
-  - "Publishing a new page on your site"
-  - "Replying to a review"
-  - "Changing your categories, hours or prices"
-approval: {who: t3, act: "Publish the page \"Pet waste removal in Oxnard\"", to: "To scoopdogg.net, after your yes", preview: "Answers the five questions Oxnard customers ask most, with your prices, your service days and your booking link."}
-price_h: "Price"
-price_q:
-  - {q: "Is being found its own plan?", a: "No. It is one of the departments your employee runs, priced the same way as everything else."}
-  - {q: "How soon does it work?", a: "Your employee starts on the first day. Google and the AI answers move on their own schedule, and the Monday report shows you each move."}
-next_h: "Where to go next"
-next:
-  - {label: "The Scoop Dogg story", url: "/customers/scoop-dogg", line: "How his employee set up his site, his replies and his rankings."}
-  - {label: "Being found on Google and in AI answers", url: "/services/found-on-google-and-in-ai-answers", line: "The service, start to finish."}
-  - {label: "Can an AI employee connect to my software?", url: "/questions/can-an-ai-employee-connect-to-my-software", line: "How it signs in to your site and your listing."}
-  - {label: "Industries", url: "/industries", line: "Being found, written for your trade."}
+  - {q: "Can it build me a new website?", a: "Yes. Builder makes and launches a new site with online booking, or works on the one you have, whoever built it."}
+  - {q: "How soon does it work?", a: "Your team starts on the first day. Google and the AI answers move on their own schedule, and the Monday report shows you each move."}
+  - {q: "Is being found its own plan?", a: "No. It is one of the departments your team runs, priced the same way as everything else: start free and pay as you go, or custom agents with guaranteed results from $1,200 a month."}
 ask_prompt: "Who is the best dog poop removal service in Ventura, CA?"
-reviewed: {by: "Ben Palaskas", date: "2026-10-27"}
-# N1 the AI-answer check (lane FRAME, 2026-10-27): the application frame with a report; every word written here.
-work_h: "What ChatGPT and Google say about you, every week"
-work_sub: "Every week your employee asks ChatGPT, Gemini and Google the questions your customers ask, and reads the answers back to you: who they name, what changed since last week, and the fix it has ready."
+closing_h: "Name your business."
+closing_sub: "Your team looks up what Google and ChatGPT say about you today, and shows you the first fix."
+site_sources: false
+sources:
+  - "The pages, listings, reviews and answers shown on this page illustrate the AMTECH application; they are not a customer's business."
+  - "Scoop Dogg: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net)."
+  - "The photographs on this page were made for it with an image model, or are the site's own; they show no real client, job or building."
+reviewed: {by: "Ben Palaskas", date: "2026-11-08"}
 frame:
   - who: t3
     ask: "Are we coming up yet when people ask for a house painter in town?"

@@ -1,7 +1,8 @@
 {{- /* Structured data for the new pages, from the page's own content file and nothing it does not show (Google: "Don't
        mark up content that is not visible"). One @graph per page (lane SEARCH, 2026-10-27; AISEO page-spec 2.4):
        - home: the one Organization node (OnlineBusiness, #organization) and the WebSite (#website), which every other
-         page references by @id only;
+         page references by @id only, and the platform (SoftwareApplication, #platform) from the page's `app`;
+       - landing pages outside the sections (/real-estate): Service, as the industry pages have;
        - every page: WebPage, or CollectionPage with an ItemList of what it lists in visible order (services, the hub);
        - every page but home: BreadcrumbList;
        - industry and department pages: Service (provider #organization) and FAQPage from `questions`, which they show;
@@ -22,10 +23,16 @@
      "founder" (dict "@type" "Person" "name" "Benjamin Palaskas")
      "description" site.Params.organization) -}}
 {{- $g = $g | append (dict "@type" "WebSite" "@id" $site "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o) "inLanguage" "en-US" "publisher" (dict "@id" $org)) -}}
+{{- /* The platform itself (2026-11-08, `lena`): what the home page shows and prices, as a web application. The two prices
+       are the site's own line (start free; custom agents from $1,200 a month). No rating: AMTECH publishes none. */ -}}
+{{- with $P.app -}}
+{{- $offers := slice }}{{ range .offers }}{{ $offers = $offers | append (dict "@type" "Offer" "name" .name "price" .price "priceCurrency" "USD" "description" .description) }}{{ end -}}
+{{- $g = $g | append (dict "@type" "SoftwareApplication" "@id" (printf "%s/#platform" $o) "name" .name "applicationCategory" "BusinessApplication" "applicationSubCategory" .category "operatingSystem" "Web" "url" (printf "%s/" $o) "description" $P.answer "featureList" .features "offers" $offers "publisher" (dict "@id" $org) "creator" (dict "@id" $org)) -}}
+{{- end -}}
 {{- end -}}
 {{- $wp := dict "@type" $m.schema "@id" (printf "%s#webpage" $m.url) "url" $m.url "name" $m.h1 "description" $p.Description "isPartOf" (dict "@id" $site) "inLanguage" "en-US" -}}
 {{- if or $p.IsHome (eq $P.route "/about") }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
-{{- if or (eq $p.Section "customers") (eq $p.Layout "company") }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
+{{- if or (eq $p.Section "customers") (eq $p.Layout "company") (in (slice "/about" "/pricing" "/security") $P.route) }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
 {{- if not $m.lastmod.IsZero }}{{ $wp = merge $wp (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
 {{- if not $p.IsHome -}}
   {{- $items := slice }}{{ range $i, $c := $m.crumbs }}{{ $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $c.name "item" $c.url) }}{{ end -}}
@@ -41,8 +48,13 @@
 {{- end -}}
 {{- $g = $g | append $wp -}}
 {{- if and $p.IsPage (in (slice "industries" "departments") $p.Section) -}}
-  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI employee" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
+  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI agent team" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
   {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
+  {{- $g = $g | append $svc -}}
+{{- end -}}
+{{- if and $p.IsPage (eq $p.Layout "landing") $P.book (not (in (slice "industries" "departments" "services") $p.Section)) -}}
+  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI agent team" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
+  {{- with $P.crumb }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
 {{- end -}}
 {{- if and $p.IsPage (eq $p.Section "services") -}}
