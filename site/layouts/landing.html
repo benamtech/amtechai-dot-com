@@ -23,7 +23,7 @@
 <div class="lp-app-panel" aria-label="{{ hugo.Data.frame.frame_label }}">
 <div class="lp-ap-top"><span class="af-logo">AMTECH<i>.</i></span><span class="lp-ap-firm" data-echo-firm="{{ $P.panel.firm }}">{{ $P.panel.firm }}</span></div>
 <p class="lp-ap-h">{{ $P.panel.h }}</p>
-<ul class="lp-ap-list">{{ range $P.panel.rows }}<li>{{ partial "w/character.html" (dict "id" .who "size" 30) }}<span>{{ partial "w/name.html" (dict "id" .who "names" $names) }}</span><i class="lamp l-{{ .state }}" aria-hidden="true"></i></li>{{ end }}</ul>
+<ul class="lp-ap-list">{{ range $P.panel.rows }}<li>{{ partial "w/character.html" (dict "id" .who "size" 24) }}<span>{{ partial "w/name.html" (dict "id" .who "names" $names) }}</span><i class="lamp l-{{ .state }}" aria-hidden="true"></i></li>{{ end }}</ul>
 <div class="lp-ap-card"><p class="lp-ap-k"><i class="pulse" aria-hidden="true"></i>{{ hugo.Data.frame.working }}</p><b data-map-title="{{ $P.panel.card_h }}">{{ $P.panel.card_h }}</b>
 <ol>{{ range $P.panel.steps }}<li class="done">{{ . }}</li>{{ end }}<li class="lp-now">{{ $P.panel.now }}</li></ol><p class="lp-ap-total">{{ $P.panel.total }}</p></div>
 </div>
@@ -87,6 +87,5 @@ if(t&&i){const d=t.dataset.mapTitle,p=d.slice(0,d.indexOf(": ")+2),badges=docume
 i.addEventListener("input",()=>setTimeout(()=>{const v=i.value.trim(),k=v.indexOf(","),firm=k>-1?v.slice(0,k).trim():v,city=k>-1?v.slice(k+1).trim():"";
 t.textContent=city?p+city:d;
 badges.forEach(b=>{b.textContent=firm||bd});
-if(cd){cd.classList.remove("rerun");void cd.offsetWidth;[...cd.querySelectorAll("li")].forEach((li,n)=>li.style.setProperty("--i",n));cd.classList.add("rerun")}},0))}
-if(matchMedia("(prefers-reduced-motion: reduce)").matches)return;const o=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add("in");o.unobserve(x.target)}}),{rootMargin:"0px 0px -12% 0px"});document.querySelectorAll(".lp-band,.lp-grid-t,.lp-offer-card,.lp-lines").forEach(n=>{n.classList.add("lp-rise");o.observe(n)})})()` | safeJS }}</script>
+if(cd){cd.classList.remove("rerun");void cd.offsetWidth;[...cd.querySelectorAll("li")].forEach((li,n)=>li.style.setProperty("--i",n));cd.classList.add("rerun")}},0))}})()` | safeJS }}</script>
 {{ partial "w/bottom.html" . }}
