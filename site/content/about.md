@@ -39,7 +39,7 @@ steps:
   - {h: "Do the work, not the talking about it", p: "An AI employee prices the job, sends the estimate, books the visit, publishes the page and collects the invoice. The owner sees it and says yes, or sets a standing approval so routine work just happens."}
   - {h: "Plug into everything, then do more than it", p: "It works inside the software a business already runs from the first day, and it can do that software's job itself."}
   - {h: "Whole departments, not chores", p: "Estimates, being found, follow-up, the books: each is a function run end to end, in place of the hire, the agency and the subscriptions."}
-  - {h: "The owner stays in charge", p: "Nothing goes out without a yes or a standing approval in the owner's own words, every action leaves a receipt, and the business's record belongs to the business."}
+  - {h: "The owner stays in charge", p: "The rules are in the owner's own words, every action leaves a receipt, and the business's record belongs to the business."}
 orbit_h: "Your team, built around your business."
 industries_h: "Where AMTECH works today."
 industries_big: 4

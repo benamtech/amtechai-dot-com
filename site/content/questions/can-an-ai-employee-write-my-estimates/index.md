@@ -2,7 +2,7 @@
 # /questions/can-an-ai-employee-write-my-estimates, moved 2026-11-08 (session `lena`) onto layouts/landing.html: the question as the H1, the yes and the
 # answer under it (what AI answers quote), then the job at work, how it runs, related pages, questions, Ask the AIs.
 title: Can an AI employee write my estimates from plans, photos and my own prices?
-description: Yes. How an AMTECH AI employee measures plan sets, drone photos and site pictures, prices the work from your book and sends the estimate once you approve.
+description: Yes. How an AMTECH AI employee measures plan sets, drone photos and site pictures, prices the work from your book and sends the estimate, working shown.
 weight: 3
 h1: Can an AI employee write my estimates?
 'yes': Yes.
@@ -132,7 +132,7 @@ steps:
 - h: Every line is priced from your book
   p: Materials, labour and your markup come from your own price book and your past jobs, never from a national average, and Research looks up anything the book does not hold.
 - h: You check the number and send it
-  p: The estimate reaches you with what Takeoffs could not see marked plainly, such as the flashing behind a gutter, and nothing goes to the customer until you approve it.
+  p: The estimate reaches you with what Takeoffs could not see marked plainly, such as the flashing behind a gutter, so you know which lines to check on site.
 cards_h: Related questions and pages
 cards:
 - h: Estimates from plans and photos
@@ -168,7 +168,7 @@ questions:
 - q: Which trades does it estimate for?
   a: 'Roofing, painting, landscaping and general contracting today: roof squares and pitch, wall and trim areas, beds and hardscape, and the full scopes on a plan set.'
 - q: Who is responsible for the number?
-  a: You are. Every estimate waits for your approval, shows its working line by line, and goes out under your name only after you say yes.
+  a: You are. Every estimate shows its working line by line and goes out under your name, under the rules you set.
 ask_prompt: Can AMTECH AI (amtechai.com) write estimates from plans and photos for my business?
 closing_h: Ask your own team.
 closing_sub: Name your business, and your agents answer by doing the first piece of the work.
