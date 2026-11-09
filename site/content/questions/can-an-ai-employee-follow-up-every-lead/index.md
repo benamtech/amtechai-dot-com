@@ -20,10 +20,10 @@ h1a: Can an AI employee
 h1b: follow up every lead?
 sub: "Yes. Every lead from your website's forms, your Google Business Profile and your inbox reaches your AMTECH AI employee. Its Follow-up teammate answers each one at your real prices, follows up on the schedule you set until the customer says yes or no, and books the visit when they say yes."
 field: Your business's name
-button: Start
+button: Book a call
 start:
   industry: ''
-prices: Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.
+prices: Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo.
 hero_img: img/lead-generation/outreach.png
 hero_alt: An open-plan sales office in the early morning
 panel:
@@ -183,7 +183,7 @@ cards:
 offer_h: Name your business, and no lead goes quiet.
 offer_p: Your employee reads your site and your Google listing, finds the quotes that never got an answer, and sends the first follow-up when you say yes.
 options:
-- h: Start free
+- h: Pay as you go
   p: Your team on your real work, then pay as you go.
 - h: Custom agents
   p: Set up with you, with guaranteed results, from $1,200 a month.
@@ -197,7 +197,7 @@ questions:
   a: Your employee asks you in one line and answers the customer with what you said; the next customer who asks the same thing gets it without waiting for you.
 ask_prompt: Can AMTECH AI (amtechai.com) follow up every lead and quote for my business?
 closing_h: Ask your own team.
-closing_sub: Name your business, and your agents answer by doing the first piece of the work.
+closing_sub: Name your business and book a call. Your agents answer by doing the first piece of the work on it.
 site_sources: false
 sources:
 - The work shown on this page illustrates the AMTECH application; it is not a customer's job.

@@ -88,8 +88,7 @@ done_rows:
 done_back: "Back to the home page"
 other_h: "Or reach AMTECH another way"
 other:
-  - {title: "Start now", body: "Name your business and your AI employee starts on it, before any call.", label: "Start free", to: "/#start"}
   - {title: "Email", body: "ben@amtechai.com. Send the job, the question or the file.", label: "Write to Ben", to: "mailto:ben@amtechai.com"}
   - {title: "Phone", body: "(805) 886-9173.", label: "Call (805) 886-9173", to: "tel:+18058869173"}
-  - {title: "Pricing", body: "Start free and pay as you go, or custom agents with guaranteed results.", label: "See pricing", to: "/pricing"}
+  - {title: "Pricing", body: "Pay as you go from $50 a month, or custom agents with guaranteed results.", label: "See pricing", to: "/pricing"}
 ---

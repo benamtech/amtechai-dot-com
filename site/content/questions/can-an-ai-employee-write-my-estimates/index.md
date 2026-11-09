@@ -21,10 +21,10 @@ h1a: Can an AI employee
 h1b: write my estimates?
 sub: "Yes. Your AMTECH AI employee's Takeoffs teammate measures the plan set, the drone photos or the pictures from a walk-through at scale, prices every line from your own price book, writes the estimate in Jobber or as a PDF, sends it and follows it up."
 field: Your business's name
-button: Start
+button: Book a call
 start:
   industry: ''
-prices: Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.
+prices: Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo.
 hero_img: img/contractors/bids.png
 hero_alt: Architectural drawings with highlighter marks on an estimating desk at night
 panel:
@@ -151,9 +151,9 @@ cards:
   p: Full plan sets from BuildingConnected, measured and priced.
   href: /industries/contractors
 offer_h: Name your business, and price the next job.
-offer_p: Your employee reads your site and your Google listing, asks for one plan set or a few photos, and prices the first job while you watch.
+offer_p: On a call with Ben, your employee asks for one plan set or a few photos and prices the first job while you watch.
 options:
-- h: Start free
+- h: Pay as you go
   p: Your team on your real work, then pay as you go.
 - h: Custom agents
   p: Set up with you, with guaranteed results, from $1,200 a month.
@@ -171,7 +171,7 @@ questions:
   a: You are. Every estimate shows its working line by line and goes out under your name, under the rules you set.
 ask_prompt: Can AMTECH AI (amtechai.com) write estimates from plans and photos for my business?
 closing_h: Ask your own team.
-closing_sub: Name your business, and your agents answer by doing the first piece of the work.
+closing_sub: Name your business and book a call. Your agents answer by doing the first piece of the work on it.
 site_sources: false
 sources:
 - The work shown on this page illustrates the AMTECH application; it is not a customer's job.

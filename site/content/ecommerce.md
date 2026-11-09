@@ -19,7 +19,7 @@ answer: "AMTECH builds custom teams of AI agents for e-commerce brands and for a
 field: "Your company's name"
 button: "Book a call"
 book: {industry: "E-commerce", topic: "An e-commerce agent team"}
-prices: "Custom agents with guaranteed results from $1,200 a month. Or start free and pay as you go."
+prices: "Custom agents with guaranteed results from $1,200 a month. Or pay as you go from $50 a month."
 hero_img: "img/ecommerce/hero.png"
 hero_alt: "A bright e-commerce studio and stockroom with a product photo table"
 panel:
@@ -83,7 +83,7 @@ questions:
   - {q: "Does it work with Shopify?", a: "Yes. Your agents work inside Shopify and the tools around it: your ad accounts, your email platform, your supplier sheets and your books."}
   - {q: "Can it run stores for my clients?", a: "Yes. Each client's store gets its own team, its work and sign-ins are kept to that store, and one screen shows all of them."}
   - {q: "Does it make the ad creative too?", a: "Yes. Ads and creative are made from your own product photos and brand, and each one is checked against what sold."}
-  - {q: "What does it cost?", a: "Custom agents set up with you, with guaranteed results, start at $1,200 a month. You can also start free and pay as you go for the work done."}
+  - {q: "What does it cost?", a: "Custom agents set up with you, with guaranteed results, start at $1,200 a month. You can also pay as you go for the work done, from $50 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for an e-commerce brand or agency?"
 closing_h: "Your stores could be running themselves."
 closing_sub: "Tell us about your stores and we will show you the team for them."

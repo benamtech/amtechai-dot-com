@@ -19,9 +19,9 @@ h1b: "Less office work."
 sub: "A custom AI team for your lawn, landscaping or yard care company: every quote sent, every route filled, every renewal signed and every invoice paid, while your crews are out working."
 answer: "AMTECH builds custom teams of AI agents for landscaping, lawn care and yard care companies, from a one-truck service to a company with crews and HOA contracts. The agents quote new customers from the address, fill routes, sign up recurring service, renew agreements over winter, bid commercial and HOA work, send invoices and get the business named first on Google and in ChatGPT."
 field: "Your company's name"
-button: "Start free"
+button: "Book a call"
 start: {industry: landscaping}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/landscaping/hero.png"
 hero_alt: "A crew mowing and edging a wide lawn in front of a large home in the morning"
 panel:
@@ -75,9 +75,9 @@ grid:
   legend: {work: "working", wait: "waiting on you", idle: "idle"}
 proof: {h: "Scoop Dogg was the first business run by an AI employee.", p: "Pet waste cleanup and turf care across Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area."}
 offer_h: "Start with your next new customer."
-offer_p: "Name your company and your team starts on your quotes and your listing today. When you want your routes, contracts and billing set up with you, with the results agreed up front, we build it together."
+offer_p: "Book a call and see your team on your quotes and your listing. When you want your routes, contracts and billing set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t1, act: "Quote for 18 Ridgeview Court", to: "To the homeowner, from your email", preview: "Weekly yard cleanup, every Tuesday, paid by card."}
 questions_h: "Questions"
@@ -86,10 +86,10 @@ questions:
   - {q: "Does it work with Jobber or LMN?", a: "Yes. Your team works inside the software you run, so your crew leaders' mornings stay the same. It can also keep quotes, routes, visits and invoices itself when you would rather stop paying per seat."}
   - {q: "Can it measure a property without a site visit?", a: "Yes, for most bids. Quotes come from the aerial map of the address, and anything hidden under trees is marked for a walk before you price it."}
   - {q: "What does it do in winter?", a: "Winter is the busiest season: renewals go out, last year's lost bids are revisited, new homeowners in your area get a quote, and the books are ready for your accountant."}
-  - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a landscaping or yard care company?"
 closing_h: "Name your company."
-closing_sub: "Your team reads your site and your Google listing, then starts on your next quote."
+closing_sub: "On the call you see your team start on your next quote."
 site_sources: false
 sources:
   - "The customers, routes, bids and figures shown on this page illustrate the AMTECH application; they are not a customer's job."

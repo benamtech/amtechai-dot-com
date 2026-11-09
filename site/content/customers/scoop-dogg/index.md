@@ -10,8 +10,8 @@ sub: "Scoop Dogg cleans up after dogs across Ventura and Santa Barbara counties.
 site_link: {text: "See scoopdogg.net", url: "https://scoopdogg.net"}
 reviews_link: {text: "His Google reviews", url: "https://www.google.com/maps/search/Scoop+Dogg+Ventura"}
 field: "Your business's name"
-button: "Start"
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+button: "Book a call"
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/landscaping/yard.png"
 hero_alt: "A yard care worker cleaning a backyard lawn while a dog watches"
 hero_shots:
@@ -58,7 +58,7 @@ josue: {q: "", who: "Josue, owner of Scoop Dogg", when: ""}
 ask_h: "Ask the AIs who is first"
 ask_prompt: "Who is the best dog poop removal service in Ventura, CA?"
 
-closing_h: "Name your business. Your employee starts on it today."
+closing_h: "Name your business, and book a call with Ben."
 closing_sub: "It reads your site and your Google listing, sets up what is missing, and shows you each change before it goes live."
 
 sources:

@@ -1,5 +1,5 @@
 {{- /* A landing page's one action. With `start` in the front matter (home, the trade pages that are self-serve doors) it
-       is the start field: the business's name to /start, with the page's industry. Without it, the firm's name to
+       is the start field: the business's name to the booking, with the page's industry. Without it, the firm's name to
        /schedule-demo with the page's industry and topic (w/lpbook). Every word from the page. (dict "id" "book" "P" .Params) */ -}}
 {{- if .P.start }}{{ partial "w/start.html" (dict "id" .id "field" .P.field "button" .P.button "industry" .P.start.industry "config" .P.start.config "prices" .P.prices "cls" "lp-book") }}
 {{- else }}{{ partial "w/lpbook.html" . }}{{ end -}}

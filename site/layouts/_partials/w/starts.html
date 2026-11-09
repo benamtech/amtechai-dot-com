@@ -9,7 +9,7 @@
 <div class="wst-row{{ if modBool $i 2 }}{{ else }} wst-flip{{ end }}">
 <div class="wst-art">{{ partial "w/character.html" (dict "id" $r.who "size" 92) }}{{ with $r.live }}{{ partial "w/live.html" (dict "who" $r.who "title" .title "step" .step "cls" "wst-live") }}{{ end }}</div>
 <div class="wst-t"><h3>{{ $s.name }}</h3><p class="wst-inst">{{ $s.instead }}</p><p>{{ $r.line }}</p>
-<a class="wlink" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/start?config={{ $s.slug }}{{ end }}">{{ $r.go }}</a></div>
+<a class="wlink" href="{{ with site.GetPage (printf "/services/%s" $s.slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/schedule-demo?topic={{ index hugo.Data.book.topic $s.slug | default hugo.Data.book.topic._default | urlquery }}{{ end }}">{{ $r.go }}</a></div>
 </div>
 {{- end }}
 </div></section>

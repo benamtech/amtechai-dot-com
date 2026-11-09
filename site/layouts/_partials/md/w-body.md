@@ -11,7 +11,7 @@
 
 ## {{ $P.start_h }}
 
-{{ $P.start_sub }} Start with your business's name: {{ $o }}/start?business=<your business's name>
+{{ $P.start_sub }} Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 {{ $W.prices }}
 
@@ -43,7 +43,7 @@
 {{ end }}
 {{- else if and (eq $p.Section "services") $p.IsPage }}{{ $slug := path.Base $p.File.Dir }}{{ $d := index (where hugo.Data.services "slug" $slug) 0 }}{{ $sys := $d.connects }}{{ range $P.systems_more }}{{ $sys = $sys | append . }}{{ end }}
 
-Start it with your business's name: {{ $o }}/start?business=<your business's name>&config={{ $slug }}
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>&topic={{ index hugo.Data.book.topic $slug | default hugo.Data.book.topic._default | urlquery }}
 
 {{ $W.prices }}
 
@@ -90,7 +90,7 @@ Start it with your business's name: {{ $o }}/start?business=<your business's nam
 
 {{ $P.yes }} {{ $P.answer }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 {{ $W.prices }}
 
@@ -135,15 +135,15 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>
 {{ end }}
 {{- else if eq $p.Section "services" }}
 
-Start any one at {{ $o }}/start?config=<service>. {{ $W.prices }}
+Book a call about any one at {{ $o }}/schedule-demo. {{ $W.prices }}
 {{ range hugo.Data.services }}
 ## {{ .name }}
 
-{{ .for }}.{{ with .instead }} {{ . }}.{{ end }} Connects to {{ delimit .connects ", " }}. Group: {{ .group }}. Start it: {{ $o }}/start?config={{ .slug }}
+{{ .for }}.{{ with .instead }} {{ . }}.{{ end }} Connects to {{ delimit .connects ", " }}. Group: {{ .group }}. Book a call about it: {{ $o }}/schedule-demo?topic={{ index hugo.Data.book.topic .slug | default hugo.Data.book.topic._default | urlquery }}
 {{ end }}
 {{- else if and (eq $p.Section "customers") $p.IsPage }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 {{ $W.prices }}
 
@@ -216,14 +216,14 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>
 
 ## {{ $P.start2_h }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 ## {{ $P.ask_h }}
 
 {{ $P.ask_sub }} "{{ $P.ask_prompt }}"
 {{- else if and (eq $p.Section "customers") $p.IsSection }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 {{ $W.prices }}
 
@@ -242,7 +242,7 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>
 {{ end }}
 ## {{ $P.start2_h }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 ## {{ $P.next_h }}
 {{ range $P.next }}
@@ -258,7 +258,7 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>
 {{ end }}
 {{- else }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>{{ with $P.config }}&industry={{ . }}{{ end }}
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>{{ with $P.config }}{{ with index hugo.Data.book.industry . }}&industry={{ . | urlquery }}{{ end }}{{ end }}
 
 {{ $W.prices }}
 {{- if eq $p.Section "departments" }}
@@ -286,7 +286,7 @@ Start with your business's name: {{ $o }}/start?business=<your business's name>{
 
 ## {{ $P.start2_h }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>&industry={{ $P.config }}
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>{{ with index hugo.Data.book.industry $P.config }}&industry={{ . | urlquery }}{{ end }}
 {{- end }}
 
 ## {{ $P.team_h | default (cond (eq $p.Section "industries") (printf "The team for %s" (lower ($P.label | default ""))) "The team") }}

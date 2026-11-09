@@ -23,7 +23,7 @@ faqs:
   - q: "Do I need developers to use one?"
     a: "Not with a platform built for businesses. Developer frameworks for agents need engineers to build and host them. A business platform builds the agents from a description of the business and runs them for you."
   - q: "What does AMTECH's platform cost?"
-    a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."
+    a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."
 next:
   - label: "See the platform"
     href: "/"
@@ -73,4 +73,4 @@ An **agent** reads the situation and decides the steps. Given a plan set, it rea
 
 AMTECH is an AI agent management platform for businesses. Name your business and a lead agent reads your site, your listing and your systems, then builds a team of agents for the work it finds: estimates and takeoffs, quote follow-up, being found on Google and in ChatGPT, bookkeeping and collections, research, and websites and tools. Each agent connects to the software you run with a sign-in of its own, and you sign in once without any agent seeing a password. One screen shows every agent at work, for one business or for every business and client you run.
 
-You can [start free](/start) and pay as you go, or have custom agents set up with you, with guaranteed results, from $1,200 a month.
+You can [book a call](/schedule-demo) and pay as you go from $50 a month, or have custom agents set up with you, with guaranteed results, from $1,200 a month.

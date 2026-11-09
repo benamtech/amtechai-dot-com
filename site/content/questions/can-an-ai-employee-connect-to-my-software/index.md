@@ -21,10 +21,10 @@ h1a: Can an AI employee
 h1b: connect to my software?
 sub: "Yes. An AMTECH AI employee plugs into everything your business runs, such as Jobber, QuickBooks, Gmail, Google Calendar, Stripe and the forms on your website, and builds its own connection to anything else, with a custom setup where your business needs one."
 field: Your business's name
-button: Start
+button: Book a call
 start:
   industry: ''
-prices: Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.
+prices: Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo.
 hero_img: img/home/connect.png
 hero_alt: Plans and a hard hat on a table in a site office
 panel:
@@ -188,9 +188,9 @@ cards:
   p: Toast, 7shifts and OpenTable, connected for a restaurant.
   href: /industries/hospitality
 offer_h: Name your business, then name your software.
-offer_p: Your employee reads your site and your Google listing, asks which systems you run, and connects the first one while you watch.
+offer_p: On a call with Ben, your employee asks which systems you run and connects the first one while you watch.
 options:
-- h: Start free
+- h: Pay as you go
   p: Your team on your real work, then pay as you go.
 - h: Custom agents
   p: Set up with you, with guaranteed results, from $1,200 a month.
@@ -208,7 +208,7 @@ questions:
   a: No. You describe your business in words and approve the screens that ask for your consent, and your employee does the rest and tells you when each connection works.
 ask_prompt: Can AMTECH AI (amtechai.com) connect to Jobber and QuickBooks for my business?
 closing_h: Ask your own team.
-closing_sub: Name your business, and your agents answer by doing the first piece of the work.
+closing_sub: Name your business and book a call. Your agents answer by doing the first piece of the work on it.
 site_sources: false
 sources:
 - The work shown on this page illustrates the AMTECH application; it is not a customer's job.

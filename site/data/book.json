@@ -1,0 +1,19 @@
+{
+  "_why": "Every business-name field on the site goes to the booking (/schedule-demo), not to a self-serve employee (Ben, 2026-11-09: the starter employee is behind the custom agent systems; until self-serve builds systems on par with Brand Box and Eli's lead desk, every start is a call). A page's trade (config) and a service's slug pick the booking's own industry and topic, which must match content/schedule-demo.md word for word or booking.js ignores them.",
+  "industry": {
+    "roofing": "Roofing",
+    "landscaping": "Landscaping",
+    "painting": "Painting",
+    "contractors": "Contracting and the trades",
+    "hospitality": "Hospitality and restaurants",
+    "transportation": "Transportation and logistics"
+  },
+  "topic": {
+    "estimates-from-plans-and-photos": "Estimates and takeoffs",
+    "found-on-google-and-in-ai-answers": "Being found on Google and in AI answers",
+    "inquiries-answered-and-booked": "Leads and follow-up",
+    "outbound-to-the-right-companies-from-the-owners-own-mailbox": "Leads and follow-up",
+    "agency": "Running several businesses or clients",
+    "_default": "A custom agent setup"
+  }
+}

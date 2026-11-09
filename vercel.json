@@ -29,6 +29,8 @@
     {"source": "/how-it-works/index.html", "destination": "/", "statusCode": 301},
     {"source": "/claim", "destination": "https://app.amtechai.com/", "statusCode": 301},
     {"source": "/claim(/.*)?", "destination": "https://app.amtechai.com/", "statusCode": 301},
+    {"source": "/start", "destination": "/schedule-demo", "statusCode": 307},
+    {"source": "/start/", "destination": "/schedule-demo", "statusCode": 307},
     {"source": "/schedule-call", "destination": "/schedule-demo", "statusCode": 301},
     {"source": "/shedule-demo", "destination": "/schedule-demo", "statusCode": 301},
     {"source": "/cost-calculator", "destination": "/industries/contractors", "statusCode": 301},

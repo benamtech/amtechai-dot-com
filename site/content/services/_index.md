@@ -13,9 +13,9 @@ h1b: "run for you."
 sub: "Estimating, marketing, bookkeeping, collections, bids, hiring: each one run end to end by a team of AI agents, in place of a hire, an agency or another subscription."
 answer: "AMTECH's AI agent teams run whole departments of a small or mid-sized business: estimates and takeoffs, public bids, proposals, getting paid, bookkeeping, marketing, being found on Google and in AI answers, business development, documents, scheduling, the inbox and hiring. Twenty-eight services in all, each replacing a hire, an agency or software."
 field: "Your business's name"
-button: "Start"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/hubs/services.png"
 hero_alt: "A bright back office in the morning, company vans outside the windows"
 panel:
@@ -56,14 +56,14 @@ service_groups_h: "All twenty-eight services."
 service_groups_sub: "Each is a whole department your team runs. Start with one and hand over the next when the first is running."
 service_groups: ["Estimates", "Public bids", "Proposals", "Getting paid", "Bookkeeping", "Marketing", "Being found", "Business development", "Documents", "Scheduling", "Inbox", "Hiring"]
 offer_h: "Hand over your first department."
-offer_p: "Name your business and your lead agent tells you which department to hand over first, then starts on it today."
+offer_p: "Name your business and book a call. Ben and your lead agent show you which department to hand over first."
 options:
-  - {h: "Start free", p: "Your first department on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your first department on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 questions_h: "Questions"
 questions:
   - {q: "What exactly is a service?", a: "A whole department of your business, run end to end by the AI agents built for that work."}
-  - {q: "Do I pay per service?", a: "No. Your team runs the departments you hand it; you start free and pay as you go for the work done."}
+  - {q: "Do I pay per service?", a: "No. Your team runs the departments you hand it; you pay as you go for the work done, from $50 a month."}
   - {q: "Can a service replace the software I pay for?", a: "Yes. Your agents plug into what you run on the first day and can take over that software's job, with a custom setup where you need one."}
   - {q: "What if my work is not on the list?", a: "Describe it. Your lead agent builds the team for the work your business actually has."}
 ask_prompt: "Which AI services does AMTECH AI (amtechai.com) offer for small businesses?"

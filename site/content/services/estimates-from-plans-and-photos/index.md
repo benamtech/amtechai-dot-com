@@ -12,9 +12,9 @@ h1b: "Priced by morning."
 sub: "An AI estimating team that measures every plan set, drone photo and address that comes in, prices each line from your own price book, and follows each estimate up until the customer says yes or no."
 answer: "AMTECH runs a trade contractor's estimating end to end in place of a salaried estimator, an outsourced takeoff service and estimating software. The Takeoffs agent measures plan sets, EagleView reports, drone and CompanyCam photos and satellite imagery of an address, naming the sheet or picture behind every quantity. It prices from the contractor's own price book, Research finds supplier prices and the addenda, and Follow-up chases each estimate. It works inside Jobber, JobNimbus, Housecall Pro, BuildingConnected or Procore."
 field: "Your company's name"
-button: "Start free"
+button: "Book a call"
 start: {config: estimates-from-plans-and-photos}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/services/svc-est-hero.png"
 hero_alt: "A contractor's estimating desk in the early morning with rolled plan sets and a tablet showing a roof photo"
 names: {employee: "Your lead agent"}
@@ -71,7 +71,7 @@ grid:
 offer_h: "Start with the plan set in your inbox."
 offer_p: "Name your company and your team measures and prices the next job today. When you want your price book, your trade and your bid list set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on your next estimate, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your next estimate, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t1, act: "Bid for the Harbor Street fit-out", to: "To the general contractor", preview: "Our scope, measured from sheets A-101 to A-401 with addendum 2. Every quantity names its sheet. Any sheet with no scale is marked."}
 questions_h: "Questions"
@@ -80,10 +80,10 @@ questions:
   - {q: "Can it replace my estimating software?", a: "Yes. It plugs into Jobber or the estimating tool you run today on the first day, and it does the estimator's whole job itself: measuring, pricing, writing and following up. Keep the tool if your crew likes it, or let your team do that job too."}
   - {q: "What does it need from me on day one?", a: "Your business's name, a few past estimates and the invoices that followed. Your team builds your price book from those and asks you only about what does not match."}
   - {q: "Can it handle a large commercial plan set?", a: "Yes. Takeoffs works through the set sheet by sheet, splits the scope by trade, and tells you which sheets it measured and which it left for you."}
-  - {q: "Is there a charge for each estimate?", a: "You start free, then pay as you go for the work done. You see every piece of work and what it cost. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "Is there a charge for each estimate?", a: "You pay as you go for the work done. You see every piece of work and what it cost. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "Can AMTECH AI (amtechai.com) measure and price my estimates from plans and photos?"
 closing_h: "Name your company, and send the first plan set."
-closing_sub: "Your team reads your site and your Google listing, then measures and prices the first job while you watch."
+closing_sub: "On the call you see your team measure and price the first job."
 site_sources: false
 sources:
   - "The plan sets, photos, prices and counts shown on this page illustrate the AMTECH application; they are not a customer's job."

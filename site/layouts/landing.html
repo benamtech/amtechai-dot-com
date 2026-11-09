@@ -70,7 +70,7 @@
 <h2>{{ $P.service_groups_h }}</h2>{{ with $P.service_groups_sub }}<p class="lede lp-cards-sub">{{ . }}</p>{{ end }}
 {{- range . }}{{ $g := . }}{{ $in := where hugo.Data.services "group" $g }}{{ if not $in }}{{ errorf "GATE %s: service_groups names %q, which no service in data/services.json has" $p.File.Path $g }}{{ end }}
 <h3 class="lp-cards-gh">{{ $g }}</h3>
-<ul class="lp-cards-g">{{ range $in }}<li id="{{ .slug }}"><a href="{{ with site.GetPage (printf "/services/%s" .slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/start?config={{ .slug }}{{ end }}"><span class="lp-cards-team">{{ range .team }}{{ partial "w/character.html" (dict "id" . "size" 30) }}{{ end }}</span><b>{{ .name }}</b><span>{{ .instead }}</span></a></li>{{ end }}</ul>
+<ul class="lp-cards-g">{{ range $in }}<li id="{{ .slug }}"><a href="{{ with site.GetPage (printf "/services/%s" .slug) }}{{ .RelPermalink | strings.TrimSuffix "/" }}{{ else }}/schedule-demo?topic={{ index hugo.Data.book.topic .slug | default hugo.Data.book.topic._default | urlquery }}{{ end }}"><span class="lp-cards-team">{{ range .team }}{{ partial "w/character.html" (dict "id" . "size" 30) }}{{ end }}</span><b>{{ .name }}</b><span>{{ .instead }}</span></a></li>{{ end }}</ul>
 {{- end }}
 </div></section>
 {{- end }}
