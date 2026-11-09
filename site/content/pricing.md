@@ -2,22 +2,22 @@
 # /pricing, moved 2026-11-08 (lane `company`, lead `lena`) onto layouts/landing.html. Every figure is brain/pricing.md's website
 # wording (Ben, 2026-10-27): the price line, "$1,200/mo", and (Ben, 2026-10-28, D82) pay as you go from $50 a month in credits,
 # with no setup fee, said where pay as you go is explained. No other number.
-title: "Pricing: start free and pay as you go, or custom agents from $1,200/mo"
-description: "AMTECH AI pricing: start free and pay only for the work your AI team does, or have custom agents set up with you, results guaranteed."
+title: "Pricing: pay as you go from $50/mo, or custom agents from $1,200/mo"
+description: "AMTECH AI pricing: pay only for the work your AI team does, from $50 a month, or have custom agents set up with you, results guaranteed."
 route: "/pricing"
 layout: "landing"
 crumb: "Pricing"
 okf_type: "Pricing"
 names: {employee: "Your lead agent"}
 team: [employee, t1, t2, t3, t4, t5]
-h1a: "Start free."
+h1a: "Book a call."
 h1b: "Pay for work done."
-sub: "Your AMTECH AI team starts on your own business before you pay anything. After that you pay as you go, only for the work it does, or AMTECH sets up custom agents with you, with guaranteed results, from $1,200/mo."
-answer: "AMTECH AI has two ways in. Start free: name your business and your AI team starts on it with no card, then pay as you go from $50 a month in credits, with no setup fee, only for work done. Or have custom agents set up with you for the departments you hand over, with guaranteed results, from $1,200/mo. Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+sub: "Book thirty minutes with Ben Palaskas and your AMTECH AI team is set up with you. Then you pay as you go, only for the work it does, from $50 a month, or AMTECH sets up custom agents with you, with guaranteed results, from $1,200/mo."
+answer: "AMTECH AI has two ways in, and both start with a call with Ben Palaskas. Pay as you go from $50 a month in credits, with no setup fee, only for work done. Or have custom agents set up with you for the departments you hand over, with guaranteed results, from $1,200/mo."
 field: "Your business's name"
-button: "Start free"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/company/co-pricing-hero.png"
 hero_alt: "An owner's morning desk with a notebook, a coffee and a shop front outside the window"
 panel:
@@ -70,23 +70,23 @@ cards:
 offer_h: "Two ways in."
 offer_p: "Both are the same AI team on the same platform. The difference is who sets it up, and what is guaranteed."
 options:
-  - {h: "Start free", p: "Your team on your real work, no card. Then pay as you go from $50 a month in credits, with no setup fee."}
+  - {h: "Pay as you go", p: "Your team set up with you on a call. Then pay as you go from $50 a month in credits, with no setup fee."}
   - {h: "Custom agents, from $1,200/mo", p: "Set up with you for the departments you hand over, with guaranteed results."}
 questions_h: "Questions about price"
 questions:
   - {q: "Is there a contract?", a: "Pay as you go is at least $50 a month in credits, spent on the work done, and you can close your account whenever you choose. A custom agent setup is billed monthly, from $1,200/mo, on terms set with you at the setup call."}
-  - {q: "Do I need a card to start?", a: "No. Name your business and your AI team starts on it. You add a card when you decide to keep it."}
+  - {q: "How do I start?", a: "Book a call with Ben Palaskas. Your team is set up with you for how your business runs, and you add a card when you decide to keep it."}
   - {q: "What counts as work?", a: "What your AI team does for you: reading and answering your email, measuring a plan set, writing a page, checking your Google listing, sending a follow-up, making an invoice. Waiting for the next job is not work."}
   - {q: "How do I know what I am paying for?", a: "Your account shows each day's work and what it cost. Every action leaves a receipt you can open, so every line on the bill points to the work behind it."}
   - {q: "What does a custom agent setup include?", a: "A setup call with Ben Palaskas, a team of agents made for the departments you hand over, connections to the systems you run, routines on your hours, standing rules in your words, training, and guaranteed results. It starts from $1,200/mo and the price follows the departments you hand over."}
-  - {q: "Can I start free and move to a custom setup later?", a: "Yes. Your team and everything it has learned about your business stay as they are, and the setup call builds on them."}
+  - {q: "Can I start on pay as you go and move to a custom setup later?", a: "Yes. Your team and everything it has learned about your business stay as they are, and the setup call builds on them."}
   - {q: "How do I cancel?", a: "Tell your lead agent or write to ben@amtechai.com. Closing your account leaves nothing of your business behind with AMTECH, and AMTECH's own access to your business has already ended by itself."}
   - {q: "Who owns my data?", a: "You do. Everything your AI team learns is kept as your business's own record: its customers, prices, rules and files. You can open all of it in your account."}
   - {q: "I run an agency. How does pricing work?", a: "The same two ways. An agency runs each client's business as its own organisation with its own AI team, under one sign-in, paying as it goes or with custom agents set up across its clients."}
   - {q: "I run several businesses. Do I pay for each one?", a: "Each business has its own AI team and its own record, and you move between them with one sign-in. You pay for the work done in each, and one custom setup can cover all of them."}
 ask_prompt: "How much does AMTECH AI (amtechai.com) cost for a small business?"
-closing_h: "Start free. Name your business."
-closing_sub: "Your agents start on it now. You pay nothing until you decide to keep them, and then only for the work they do."
+closing_h: "Name your business. Book a call."
+closing_sub: "Thirty minutes with Ben Palaskas: your business, the team it would get, and which way in fits."
 site_sources: false
 sources:
   - "The price line and \"$1,200/mo\": AMTECH's price list, as Ben Palaskas set the website's wording on 27 October 2026."

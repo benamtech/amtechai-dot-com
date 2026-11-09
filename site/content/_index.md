@@ -8,7 +8,7 @@
 # line is the site's own (brain/pricing.md). Every figure inside a card illustrates the application.
 llms: { order: 1, label: "AMTECH", text: "AMTECH builds custom teams of AI agents for small and mid-sized businesses: a team made for each business, working together inside the software it already runs, with one screen where the owner directs, watches and improves every agent." }
 title: "AMTECH: custom AI agent teams for small and mid-sized businesses"
-description: "AMTECH builds a custom team of AI agents for your business: they work together inside your software and you run them all from one screen. Start free."
+description: "AMTECH builds a custom team of AI agents for your business: they work together inside your software and you run them all from one screen. Book a call."
 route: "/"
 layout: "landing"
 crumb: "AMTECH"
@@ -23,12 +23,12 @@ app:
   category: "Custom AI agent teams for businesses"
   features: ["A team of AI agents built from a description of the business", "Agents that work together and hand work to each other", "Each agent connected to the business's own software, with its own sign-in", "One screen to direct every agent and see its work, live", "Standing rules in plain words, a receipt for every action, and the cost of every job", "A team for each business, location, store or client, on one account"]
   offers:
-    - {name: "Start free", price: "0", description: "Start free and pay as you go for the work done."}
+    - {name: "Pay as you go", price: "50", description: "Pay as you go from $50 a month in credits, for the work done."}
     - {name: "Custom agents", price: "1200", description: "Custom agents set up with you, with guaranteed results, from $1,200 a month."}
 field: "Your business's name"
-button: "Start"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/home/hero.png"
 hero_alt: "A company office at dawn, with work trucks lined up in the yard outside the window"
 panel:
@@ -93,7 +93,7 @@ proof: {h: "Scoop Dogg was the first business run by an AI employee.", p: "Pet w
 offer_h: "Start your AI team today."
 offer_p: "Name your business and your agents start on real work today. When you want a team set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your agents on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your agents on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
   - {h: "Agencies and operators", p: "A team for every business, store or client you run, on one screen."}
 questions_h: "Questions"
@@ -103,12 +103,12 @@ questions:
   - {q: "How is this different from ChatGPT?", a: "ChatGPT is a tool you drive: it tells you how. Your AMTECH agents do the work themselves, inside your own records and software, every day, and you see every job they finish."}
   - {q: "How is AMTECH different from Grok Bot or OpenAI Dots?", a: "Those give one person AI helpers to set up and run themselves. AMTECH builds the whole team for your business, connects it to your software, and runs it with you, with results agreed up front when you want them."}
   - {q: "Can I run agents for several businesses, stores or clients?", a: "Yes. One account holds a team for each business, store or client you run, and one screen shows all of them."}
-  - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
   - {q: "What happens to my data if I leave?", a: "It is yours. Export it whenever you like, and close your account to have nothing of your business left behind."}
   - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds and runs teams of AI agents for businesses. It is not Amtech Systems."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a small business?"
-closing_h: "Name your business and meet your team."
-closing_sub: "Your lead agent reads your site and your Google listing, then your team starts on real work today."
+closing_h: "Name your business and meet your team on a call."
+closing_sub: "Book thirty minutes with Ben Palaskas. You see the team your business would get, and a real job done on the call if you bring one."
 site_sources: false
 sources:
   - "The work shown on this page (jobs, counts, rules, stores and connections) illustrates the AMTECH application; it is not a customer's job."

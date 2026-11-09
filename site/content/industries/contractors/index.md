@@ -19,9 +19,9 @@ h1b: "Get every draw paid."
 sub: "An AI team for your construction company that takes off every plan set, sends and levels your bid packages, checks every permit each morning, and writes each draw with the waivers in."
 answer: "AMTECH gives a general contractor or remodeler a team of AI agents that does the work of an estimator, a permit expediter and a project accountant: takeoffs and bid packages to subs, the daily permit and inspection check on the city portal, change orders priced before the work, and pay applications with every lien waiver collected, inside Procore, Buildertrend or JobTread."
 field: "Your company's name"
-button: "Start free"
+button: "Book a call"
 start: {industry: contractors}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/contractors/hero.png"
 hero_alt: "A three-storey commercial building under construction at golden hour, a tower crane above it"
 panel:
@@ -77,7 +77,7 @@ proof: {h: "The first business run by an AI employee is a local service company.
 offer_h: "Start with your next bid."
 offer_p: "Name your company and your team takes off the next plan set today. When you want your own draw process or bid forms set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on your next bid, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your next bid, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t4, act: "Pay application for the kitchen remodel", to: "To the owner and the lender", preview: "Line by line against the schedule of values, with every sub's lien waiver signed."}
 questions_h: "Questions"
@@ -86,7 +86,7 @@ questions:
   - {q: "Can it do takeoffs from a full plan set?", a: "Yes. Takeoffs works through the drawings sheet by sheet, counts and measures by trade, names the scale on every sheet and lists what the drawings leave open, so your RFIs are written before the bid."}
   - {q: "Will it talk to my subs and clients?", a: "Yes, from your own email and in your words: bid invitations, package reminders, change orders and owner updates, under the rules you set."}
   - {q: "Can it keep my subs' paperwork current?", a: "Yes. Draws checks every sub's licence on the state board and every insurance certificate on file, and asks for the renewal sixty days before it lapses."}
-  - {q: "Is there a fee per project?", a: "No. Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "Is there a fee per project?", a: "No. Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a general contractor or remodeler?"
 closing_h: "Name your construction company."
 closing_sub: "Your team reads your site and your Google listing, then takes off the next plan set."

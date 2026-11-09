@@ -6,7 +6,7 @@
 
 {{ $P.sub }}
 
-Start with your business's name: {{ $o }}/start?business=<your business's name>
+Book a call with Ben Palaskas: {{ $o }}/schedule-demo?business=<your business's name>
 
 {{ $W.prices }}
 {{- with $P.hero }}{{ if eq .kind "prices" }}

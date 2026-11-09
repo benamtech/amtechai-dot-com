@@ -11,9 +11,9 @@ h1b: "the day it closes."
 sub: "An AI billing team that writes each invoice from the job's own record, puts a Stripe link to pay on it, reminds whoever is late, and marks it paid in your books when the money lands."
 answer: "AMTECH runs getting paid end to end in place of a bookkeeper's billing hours, a collections service and invoicing add-ons. The Collections agent invoices each job in QuickBooks Online or Jobber the day it closes, adds a Stripe payment link, sends polite reminders on the owner's schedule and marks each invoice paid when Stripe or the bank feed shows the money. Follow-up answers the customer who questions a line. Customers pay into the business's own Stripe account or bank."
 field: "Your business's name"
-button: "Start free"
+button: "Book a call"
 start: {config: invoices-out-and-paid}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/services/svc-inv-hero.png"
 hero_alt: "A white service van outside a freshly finished home at golden hour, a tradesman checking his phone"
 names: {employee: "Your lead agent"}
@@ -70,7 +70,7 @@ grid:
 offer_h: "Start with the jobs nobody billed."
 offer_p: "Name your business and your team finds the finished jobs that were never invoiced and bills the first one today. When you want deposits, progress bills, factoring or monthly plans set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on this week's finished jobs, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on this week's finished jobs, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t4, act: "Invoice for the Ridgeway Drive gutters", to: "To the homeowner, by email and text", preview: "Gutters and downspouts as quoted, one extra downspout approved on site, less the deposit already paid. A Stripe link to pay by card or bank."}
 questions_h: "Questions"
@@ -79,10 +79,10 @@ questions:
   - {q: "Will the reminders upset good customers?", a: "No. You write the tone once, and you can keep any customer off the list. Reminders stop the moment the customer pays."}
   - {q: "Can it work with my factoring company?", a: "Yes. For a trucking company your team sends each load's paperwork to the factoring portal you already use, and checks that the advance arrives."}
   - {q: "Does it work with QuickBooks Online?", a: "Yes. It works inside QuickBooks Online, Xero or FreshBooks, and Jobber or Housecall Pro for the jobs. You connect each on its own screen and your team never sees a password. With no invoicing tool, it does the billing itself and keeps the record in your books."}
-  - {q: "What does billing cost?", a: "Start free and pay as you go for the work done. A custom setup for your deposits, progress bills, factoring or monthly plans, with the results agreed up front, starts at $1,200 a month."}
+  - {q: "What does billing cost?", a: "Pay as you go for the work done, from $50 a month. A custom setup for your deposits, progress bills, factoring or monthly plans, with the results agreed up front, starts at $1,200 a month."}
 ask_prompt: "Can AMTECH AI (amtechai.com) send my invoices and collect what customers owe?"
 closing_h: "Name your business, and bill this week's work."
-closing_sub: "Your team reads your site and your Google listing, finds the finished jobs that were never invoiced, and bills the first one while you watch."
+closing_sub: "On the call you see your team find the finished jobs that were never invoiced and bill the first one."
 site_sources: false
 sources:
   - "The jobs, loads, invoices and counts shown on this page illustrate the AMTECH application; they are not a customer's job."

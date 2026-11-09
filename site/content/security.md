@@ -15,9 +15,9 @@ h1b: "stays yours."
 sub: "Your AMTECH AI team works with sign-ins of its own, never sees your passwords or keys, acts within the standing rules you set in your words, and leaves a receipt for everything it does."
 answer: "An AMTECH AI team signs in to your systems with accounts of its own and never sees your passwords or keys. Where a system needs your consent you approve it on that system's own screen; a mailbox password goes in through a secure card, never the conversation. Your team acts within standing rules in your words, every action leaves a receipt, and AMTECH's own access to your business ends by itself. Your business's record is yours, each team runs on its own sandboxed computer, backups are restored daily to prove they work, and closing your account leaves nothing behind."
 field: "Your business's name"
-button: "Start"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/company/co-security-hero.png"
 hero_alt: "A brass key on a wooden desk beside a closed laptop, an office door ajar behind"
 panel:
@@ -62,13 +62,13 @@ bands:
 cards_h: "Where to go next"
 cards:
   - {h: "Can an AI employee connect to my software?", p: "How it signs in to what you run.", href: "/questions/can-an-ai-employee-connect-to-my-software"}
-  - {h: "Pricing", p: "Start free and pay as you go, or custom agents from $1,200/mo.", href: "/pricing"}
+  - {h: "Pricing", p: "Pay as you go from $50 a month, or custom agents from $1,200/mo.", href: "/pricing"}
   - {h: "About AMTECH", p: "The company, its founder, and how to reach us.", href: "/about"}
   - {h: "Privacy", p: "AMTECH's privacy policy, in full.", href: "/privacy"}
 offer_h: "Name your business. You stay in charge."
-offer_p: "Your AI team starts on your business now, with sign-ins of its own and a receipt for everything it does."
+offer_p: "Your AI team works with sign-ins of its own and a receipt for everything it does. Book a call to see it on your business."
 options:
-  - {h: "Start free", p: "Your team on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 questions_h: "Questions about security"
 questions:
@@ -81,7 +81,7 @@ questions:
   - {q: "What happens when I close my account?", a: "Nothing of your business stays behind with AMTECH."}
 ask_prompt: "How does AMTECH AI (amtechai.com) keep my business's passwords and data safe?"
 closing_h: "Your business stays yours."
-closing_sub: "Name it, and your agents start on it with sign-ins of their own."
+closing_sub: "Name it and book a call. Your agents work with sign-ins of their own."
 site_sources: false
 sources:
   - "The price line: AMTECH's price list, October 2026."

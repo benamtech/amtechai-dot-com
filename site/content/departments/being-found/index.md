@@ -12,9 +12,9 @@ h1b: "the answers name."
 sub: "The department that runs your website, your Google listing and your reviews, and checks every Monday what ChatGPT, Gemini and Google say about your trade in your town."
 answer: "Being found is the AMTECH department that does the whole job of a local SEO agency. A team of agents builds and fixes the website, keeps the Google Business Profile and other listings in agreement with it, answers every review, writes the pages customers' questions need, and each week asks ChatGPT, Gemini and Google those questions and reports who is named. A fifth agent answers the leads the visibility brings in. Scoop Dogg's employee did this work and he is first in ChatGPT and on Google for pet and yard cleanup in Ventura and Santa Barbara."
 field: "Your business's name"
-button: "Start free"
+button: "Book a call"
 start: {config: being-found}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/services/svc-dept-hero.png"
 hero_alt: "A bright office with two monitors showing blurred map and web page layouts beside a large window"
 names: {employee: "Your lead agent"}
@@ -79,7 +79,7 @@ proof: {h: "Scoop Dogg: first in ChatGPT and on Google for pet and yard cleanup.
 offer_h: "Start with what the answers say today."
 offer_p: "Name your business and your team looks up what Google and ChatGPT say about you, and shows you the first fix. When you want the whole department set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "The department on your business, then pay as you go."}
+  - {h: "Pay as you go", p: "The department on your business, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t3, act: "Page: Pet waste removal in Oxnard", to: "To scoopdogg.net", preview: "Answers the five questions Oxnard customers ask most, with your prices, your service days and your booking link."}
 questions_h: "Questions"
@@ -89,7 +89,7 @@ questions:
   - {q: "Is this the same as SEO?", a: "Yes, and it reaches further, because the same pages and listings that rank you on Google and Google Maps are what ChatGPT, Gemini and Google's AI Overview read when someone asks for your trade in your town."}
   - {q: "Can it build me a new website?", a: "Yes. Builder makes and launches a new site with online booking, or works on the one you have, whoever built it."}
   - {q: "How soon does it work?", a: "Your team starts on the first day. Google and the AI answers move on their own schedule, and the Monday report shows you each move."}
-  - {q: "Is being found its own plan?", a: "No. It is one of the departments your team runs, priced the same way as everything else: start free and pay as you go, or custom agents with guaranteed results from $1,200 a month."}
+  - {q: "Is being found its own plan?", a: "No. It is one of the departments your team runs, priced the same way as everything else: pay as you go from $50 a month, or custom agents with guaranteed results from $1,200 a month."}
 ask_prompt: "Who is the best dog poop removal service in Ventura, CA?"
 closing_h: "Name your business."
 closing_sub: "Your team looks up what Google and ChatGPT say about you today, and shows you the first fix."

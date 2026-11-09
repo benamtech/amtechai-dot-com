@@ -17,9 +17,9 @@ h1b: "Every quote won."
 sub: "A custom AI team for your roofing company that measures each roof from the plans or the drone photos, prices it from your book, writes the insurance supplement, follows every quote to a yes and collects the deposit."
 answer: "AMTECH builds a team of AI agents for roofing companies that does the work of an estimator, a claims desk, a follow-up desk and a collections clerk: roofs measured from plan sets, drone photos or an EagleView report and priced from the company's book, supplements written for the items an adjuster's scope missed, storm-street letters after hail, every quote followed to a yes, and deposits and progress invoices collected. It works inside AccuLynx, JobNimbus, CompanyCam and QuickBooks, or can keep the records itself."
 field: "Your roofing company's name"
-button: "Start free"
+button: "Book a call"
 start: {industry: roofing}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/roofing/roof-hero.png"
 hero_alt: "A roofing crew laying shingles on a large suburban home in early morning light"
 panel:
@@ -75,7 +75,7 @@ proof: {h: "The first business run by an AI employee works outdoors, like your c
 offer_h: "Start with your next estimate."
 offer_p: "Name your roofing company and your team starts on the plan set waiting in your inbox. When you want your supplement process or storm routine set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on your next roof, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your next roof, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t4, act: "Deposit request for the Oak Hollow roof", to: "To the homeowner, from the signed contract", preview: "Thank you for choosing us for your new roof. Here is the deposit from your signed contract, with a link to pay by card or bank transfer."}
 questions_h: "Questions"
@@ -84,10 +84,10 @@ questions:
   - {q: "Does it replace AccuLynx or JobNimbus?", a: "It can. Your team starts inside the one you run, so nothing changes for your crews on day one. When you would rather stop paying for it, your team keeps the estimates, photos, job notes and customer files itself."}
   - {q: "Can it work insurance claims?", a: "Yes. It compares the adjuster's scope with your measurements and photos, writes the supplement for every item the scope missed, and follows the claim until the carrier answers each line."}
   - {q: "What happens in a slow month?", a: "Your team goes back through the quotes that went quiet and the past customers whose roofs are due for a look, and writes to each one, so the slow month fills with work you already earned once."}
-  - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a roofing company?"
 closing_h: "Name your roofing company."
-closing_sub: "Your team reads your site and your Google listing, then prices the first roof while you watch."
+closing_sub: "On the call you see your team read your site and price the first roof."
 site_sources: false
 sources:
   - "The roofs, claims, streets, invoices and counts shown on this page illustrate the AMTECH application; they are not a customer's job."

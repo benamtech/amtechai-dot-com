@@ -19,7 +19,7 @@ answer: "AMTECH builds custom teams of AI agents for lead generation and data ag
 field: "Your company's name"
 button: "Book a call"
 book: {industry: "Lead generation and data", topic: "A lead generation agent team"}
-prices: "Custom agents with guaranteed results from $1,200 a month. Or start free and pay as you go."
+prices: "Custom agents with guaranteed results from $1,200 a month. Or pay as you go from $50 a month."
 hero_img: "img/lead-generation/hero.png"
 hero_alt: "A quiet office at night, two monitors glowing above a city of lights"
 panel:
@@ -83,7 +83,7 @@ questions:
   - {q: "Where do the owner names come from?", a: "Public sources: state business records, maps listings, directories and each business's own website. Every name keeps the source it came from, and a role is never guessed."}
   - {q: "How big can a list be?", a: "As big as the market. The team works in batches, and every list shows what each row cost."}
   - {q: "Can it send the data into our tools?", a: "Yes. Lists go to your client's CRM, a Google Sheet, an email tool or any system with a webhook, and stay current as businesses change."}
-  - {q: "What does it cost?", a: "Custom agents set up with you, with guaranteed results, start at $1,200 a month. You can also start free and pay as you go for the work done."}
+  - {q: "What does it cost?", a: "Custom agents set up with you, with guaranteed results, start at $1,200 a month. You can also pay as you go for the work done, from $50 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a lead generation agency?"
 closing_h: "Your next list could be running tonight."
 closing_sub: "Tell us what your clients buy and we will show you the team for it."

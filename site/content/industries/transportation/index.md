@@ -17,9 +17,9 @@ h1b: "the day it delivers."
 sub: "An AI team for your trucking company that finds loads for tomorrow's empty trucks, books the ones inside your rules, checks every rate confirmation, and sends the invoice with the signed bill of lading to the broker or your factoring company the day the load delivers."
 answer: "AMTECH gives a trucking or logistics company a team of AI agents that does the desk work of dispatch and billing: loads found on DAT and Truckstop for each empty truck and booked inside your lanes, rates and brokers, every rate confirmation checked line by line, invoice packets with the signed bill of lading sent the day a load delivers, detention and short pays claimed with the ELD's times, and the IFTA quarter and driver files kept ready. It works inside McLeod, Ascend or Rose Rocket and reads hours and miles from Samsara or Motive."
 field: "Your trucking company's name"
-button: "Start free"
+button: "Book a call"
 start: {industry: transportation}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/transportation/truck-hero.png"
 hero_alt: "A line of semi trucks parked in a freight yard at sunrise"
 panel:
@@ -75,7 +75,7 @@ proof: {h: "The first business run by an AI employee is a small company, like mo
 offer_h: "Start with your next empty truck."
 offer_p: "Name your trucking company and your team finds loads for the next empty truck today. When you run a way of your own, such as dedicated lanes with your own settlement rules, we set it up with you, with the results agreed up front."
 options:
-  - {h: "Start free", p: "Your team on your next empty truck, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your next empty truck, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t5, act: "Atlanta to Charlotte load", to: "Under your rate floor", preview: "The dry van is empty in Atlanta tomorrow. This is the best load on its lane after deadhead, from a broker you have used before, and it puts the truck where next week's freight is."}
 questions_h: "Questions"
@@ -85,10 +85,10 @@ questions:
   - {q: "Does it replace my TMS?", a: "It can. Your team starts inside McLeod, Ascend, Rose Rocket or whichever TMS you run, with a seat of its own, and reads hours and miles from Samsara or Motive. With a custom setup it can keep the loads, documents and settlements itself when the TMS stops earning its fee."}
   - {q: "Can it chase detention and short pays?", a: "Yes. Billing compares what each broker paid with the rate confirmation and the detention times from the ELD, then files the claim with the proof attached and keeps after it until it is paid."}
   - {q: "We broker freight as well. Does it work there?", a: "Yes. It checks each carrier's authority and insurance on FMCSA's records before you tender a load, and keeps the certificates on file current."}
-  - {q: "Is it priced per truck or per load?", a: "No. Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "Is it priced per truck or per load?", a: "No. Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a trucking company?"
 closing_h: "Name your trucking company."
-closing_sub: "Your team reads your site and your FMCSA record, then finds loads for your next empty truck while you watch."
+closing_sub: "On the call you see your team read your FMCSA record and find loads for your next empty truck."
 site_sources: false
 sources:
   - "The work shown on this page (loads, rate confirmations, invoice packets, claims and counts) illustrates the AMTECH application; it is not a carrier's load."

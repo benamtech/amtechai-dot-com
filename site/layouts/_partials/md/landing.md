@@ -10,7 +10,7 @@
 {{ . }}
 {{ end }}
 {{ if $P.start -}}
-{{ $P.button }}: {{ $o }}/start?business=<your business's name>{{ with $P.start.industry }}&industry={{ . | urlquery }}{{ end }}
+{{ $P.button }}: {{ $o }}/schedule-demo?business=<your business's name>
 {{- else -}}
 {{ $P.button }}: {{ $o }}/schedule-demo?business=<your firm's name>&industry={{ $P.book.industry | urlquery }}&topic={{ $P.book.topic | urlquery }}
 {{- end }}

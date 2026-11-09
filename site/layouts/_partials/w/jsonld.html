@@ -24,7 +24,7 @@
      "description" site.Params.organization) -}}
 {{- $g = $g | append (dict "@type" "WebSite" "@id" $site "name" $name "alternateName" "AMTECH" "url" (printf "%s/" $o) "inLanguage" "en-US" "publisher" (dict "@id" $org)) -}}
 {{- /* The platform itself (2026-11-08, `lena`): what the home page shows and prices, as a web application. The two prices
-       are the site's own line (start free; custom agents from $1,200 a month). No rating: AMTECH publishes none. */ -}}
+       are the site's own line (pay as you go from $50 a month; custom agents from $1,200 a month). No rating: AMTECH publishes none. */ -}}
 {{- with $P.app -}}
 {{- $offers := slice }}{{ range .offers }}{{ $offers = $offers | append (dict "@type" "Offer" "name" .name "price" .price "priceCurrency" "USD" "description" .description) }}{{ end -}}
 {{- $g = $g | append (dict "@type" "SoftwareApplication" "@id" (printf "%s/#platform" $o) "name" .name "applicationCategory" "BusinessApplication" "applicationSubCategory" .category "operatingSystem" "Web" "url" (printf "%s/" $o) "description" $P.answer "featureList" .features "offers" $offers "publisher" (dict "@id" $org) "creator" (dict "@id" $org)) -}}

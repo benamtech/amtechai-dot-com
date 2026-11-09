@@ -21,7 +21,7 @@ faqs:
   - q: "Can I use Grok Bot and AMTECH together?"
     a: "Yes. Nothing stops a person from keeping a personal assistant while the business runs its own agent team."
   - q: "What does AMTECH cost?"
-    a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."
+    a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."
 citations:
   - { label: "Grok Bot documentation", url: "https://docs.x.ai/grok-bot", publisher: "xAI" }
   - { label: "Bots", url: "https://docs.x.ai/grok-bot/bots", publisher: "xAI" }
@@ -68,4 +68,4 @@ If you want a personal assistant for your own research, decks, inbox and calenda
 
 ## When AMTECH is the right choice
 
-If you want parts of the business to run every day, such as finding and contacting prospects, keeping product listings and ads current across stores, or getting invoices out and paid, you need agents built around the business, connected to its software, with rules, records and costs the owner can see. That is what AMTECH builds. [Name your business](/start) to start free, or [book a call](/schedule-demo) for a custom team.
+If you want parts of the business to run every day, such as finding and contacting prospects, keeping product listings and ads current across stores, or getting invoices out and paid, you need agents built around the business, connected to its software, with rules, records and costs the owner can see. That is what AMTECH builds. [Book a call](/schedule-demo) and Ben Palaskas shows you the team your business would get.

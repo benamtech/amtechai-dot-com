@@ -15,9 +15,9 @@ h1b: "done by AI agents."
 sub: "AMTECH AI is a technology company founded by Benjamin Palaskas. It builds and runs custom teams of AI agents for small and mid-sized businesses, and it runs its own business on its own AI employees."
 answer: "AMTECH AI (amtechai.com) is a technology company founded by Benjamin Palaskas that builds and runs custom teams of AI agents for small and mid-sized businesses. Each AI employee works on a computer of its own, connects to anything the business runs, makes a team for the business's work and gets better every week. AMTECH AI is not Amtech Systems, Inc., an unrelated company. Contact: ben@amtechai.com, (805) 886-9173."
 field: "Your business's name"
-button: "Start"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/company/about-hero.png"
 hero_alt: "A kitchen table at dusk with a laptop, a stack of paperwork and work gloves, and a pickup truck outside the window"
 panel:
@@ -60,10 +60,10 @@ cards:
   - {h: "Call (805) 886-9173", p: "Ben Palaskas takes the setup call with every business that has custom agents set up.", href: "tel:+18058869173"}
   - {h: "For investors", p: "What AMTECH is building, and how to reach Ben about it.", href: "/investors"}
 proof: {h: "AMTECH runs on its own AI employees.", p: "AMTECH's own AI employee started the sales call that brought in Scoop Dogg, a pet waste and turf care business in Ventura and Santa Barbara counties. His own employee then set up his new website and online booking, set up his automatic replies itself, and got him first in ChatGPT and on Google for his trade. He was the first business run by an AI employee."}
-offer_h: "Name your business and meet your team."
-offer_p: "It starts on your business now, and makes its team for your work."
+offer_h: "Name your business and meet your team on a call."
+offer_p: "Book a call with Ben Palaskas, and see the team it would make for your work."
 options:
-  - {h: "Start free", p: "Your AI employee on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your AI employee on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 questions_h: "Questions"
 questions:
@@ -75,8 +75,8 @@ questions:
   - {q: "Is AMTECH AI the same as Amtech Systems?", a: "No. AMTECH AI is not Amtech Systems. Amtech Systems, Inc. is a separate company with a similar name, and it has no connection to AMTECH AI or amtechai.com."}
   - {q: "How do I reach AMTECH?", a: "Email ben@amtechai.com or call (805) 886-9173. The website is amtechai.com."}
 ask_prompt: "What is AMTECH AI (amtechai.com), and what does it do?"
-closing_h: "Name your business and meet your team."
-closing_sub: "It starts on your business now, and makes its team for your work."
+closing_h: "Name your business and meet your team on a call."
+closing_sub: "Book a call with Ben Palaskas, and see the team it would make for your work."
 site_sources: false
 sources:
   - "The card in the hero illustrates the AMTECH application; it is not a customer's job."

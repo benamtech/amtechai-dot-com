@@ -12,9 +12,9 @@ h1b: "answered first."
 sub: "What owners ask before they hand work to a team of AI agents, each answered in the first line, and how AMTECH compares with the AI tools you already know."
 answer: "AMTECH answers the questions owners ask before they hand work to AI agents: whether agents can connect to the software a business already uses, write estimates from plans and photos, and follow up every lead, and how AMTECH compares with ChatGPT, Claude, Grok Bot and OpenAI Dots."
 field: "Your business's name"
-button: "Start"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/hubs/questions.png"
 hero_alt: "A business owner at a cafe window in the morning, a coffee and a phone on the table"
 panel:
@@ -43,15 +43,15 @@ cards:
 offer_h: "Ask your own team."
 offer_p: "Name your business, and your agents answer the question you came with by doing the first piece of the work."
 options:
-  - {h: "Start free", p: "Your agents on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your agents on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 questions_h: "Questions"
 questions:
   - {q: "What does AMTECH do?", a: "AMTECH builds a custom team of AI agents for your business. Each agent takes a part of the work, they work together inside the software you already use, and you run all of them from one screen."}
-  - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a small business, and how is it different from ChatGPT?"
 closing_h: "Ask your own team."
-closing_sub: "Name your business, and your agents answer by doing the first piece of the work."
+closing_sub: "Name your business and book a call. Your agents answer by doing the first piece of the work on it."
 site_sources: false
 reviewed: {by: "Ben Palaskas", date: "2026-11-08"}
 ---

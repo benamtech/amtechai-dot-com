@@ -16,7 +16,7 @@ answer: "To reach AMTECH AI, book a call with its founder Ben Palaskas at amtech
 field: "Your business's name"
 button: "Book a call"
 book: {industry: "Something else", topic: "A custom agent setup"}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/hubs/questions.png"
 hero_alt: "A business owner at a cafe window in the morning, a coffee and a phone on the table"
 panel:
@@ -32,7 +32,7 @@ panel:
   steps: ["Learned how your business runs", "Named what you want off your plate first", "Built the team for that work"]
   now: "Starting on the first real job"
   total: "Your team at work the same week."
-# `ways` is read by layouts/start.html (the email and phone it offers when a start needs help); keep it.
+# `ways`: the email and phone this page offers.
 ways:
   - { title: "Book a call", body: "Thirty minutes with Ben Palaskas, at a time you pick. Bring a real job if you have one.", label: "Pick a time", to: "/schedule-demo" }
   - { title: "Email", body: "ben@amtechai.com. Send the job, the question or the file.", label: "Write to Ben", to: "mailto:ben@amtechai.com" }
@@ -47,7 +47,7 @@ cards:
 offer_h: "Have your team built with you."
 offer_p: "Book a call and Ben sets up your team with you, with the results agreed up front. To start on your own today, press Start at the top of any page."
 options:
-  - {h: "Start free", p: "Your agents on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your agents on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 questions_h: "Questions"
 questions:

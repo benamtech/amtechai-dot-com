@@ -13,9 +13,9 @@ h1b: "Named in ChatGPT."
 sub: "An AI team that fixes your Google listing, answers every review in your voice and writes the pages your customers' questions need, so the map and the AI answers name your business first."
 answer: "AMTECH runs the work that gets a local business found, in place of an SEO agency, a review tool and a listings subscription. The Being found agent keeps the Google Business Profile's categories, services, hours and photos right, answers every review in the owner's voice, and writes and publishes the pages customers' questions need on Wix, WooCommerce, WordPress or whatever the site runs on. Research asks ChatGPT, Gemini and Google those questions each week and records who gets named. Scoop Dogg is first in ChatGPT and on Google for pet and yard cleanup across Ventura and Santa Barbara."
 field: "Your business's name"
-button: "Start free"
+button: "Book a call"
 start: {config: found-on-google-and-in-ai-answers}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/services/svc-found-hero.png"
 hero_alt: "A small-town main street at dusk with lit shopfronts and a person on the sidewalk looking at a phone"
 names: {employee: "Your lead agent"}
@@ -73,7 +73,7 @@ proof: {h: "Scoop Dogg is first in ChatGPT and on Google.", p: "Scoop Dogg is th
 offer_h: "Start with your Google listing."
 offer_p: "Name your business and your team reads your listing and checks what ChatGPT says about you today. When you want your towns, services and review replies set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on your listing and your reviews, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your listing and your reviews, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t3, act: "Reply to last night's two-star review", to: "On your Google listing, in public", preview: "Thank you for telling us. Rain held up the job before yours, and we should have called you sooner. Please call the office and ask for me."}
 questions_h: "Questions"
@@ -82,10 +82,10 @@ questions:
   - {q: "Can you get my business named in ChatGPT?", a: "That is the work. It is the same work that put Scoop Dogg first in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara, and your team measures where you stand every Monday."}
   - {q: "Does it answer my Google reviews?", a: "Yes. Every new review is answered in your voice, or straight away under a standing approval you set, such as every five-star review."}
   - {q: "My site is on Wix. Do I need to move it?", a: "No. Your team works on Wix, WooCommerce or whatever your site runs on today, and can rebuild your site from scratch whenever you want one that wins more of the searches."}
-  - {q: "Is it a monthly retainer, like an agency?", a: "No. You start free and pay as you go for the work done, not for a report. A custom setup for your towns and services, with the results agreed up front, starts at $1,200 a month."}
+  - {q: "Is it a monthly retainer, like an agency?", a: "No. You pay as you go for the work done, not for a report. A custom setup for your towns and services, with the results agreed up front, starts at $1,200 a month."}
 ask_prompt: "How does AMTECH AI (amtechai.com) get a local business found on Google and in ChatGPT?"
 closing_h: "Name your business, and see where you stand."
-closing_sub: "Your team reads your site and your Google listing, asks ChatGPT what your customers ask, and shows you who gets named while you watch."
+closing_sub: "On the call you see your team ask ChatGPT what your customers ask, and who gets named."
 site_sources: false
 sources:
   - "The listings, reviews, pages and answers shown on this page illustrate the AMTECH application; they are not a customer's business."

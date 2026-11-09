@@ -1,11 +1,11 @@
 {
  "_note": "The site-wide words of the new pages (C on white), each written once. Page words live in each page's content file.",
- "prices": "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo.",
+ "prices": "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo.",
  "field": "Your business's name",
- "action": "Start",
+ "action": "Book a call",
  "promise": "AMTECH builds and runs teams of AI agents for businesses: they do the work of a hire, an agency or a subscription, plug into everything you run on the first day, and get better every week.",
  "late": "You stay in charge. No message, page, payment or booking goes out until you or a person you authorised says yes, or a standing approval in your own words covers it.",
- "closing_h": "Name your business and put your employee to work.",
+ "closing_h": "Name your business and book a call.",
  "proof": {
   "h": "Scoop Dogg was the first business run by an AI employee.",
   "p": "Pet waste and turf care in Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area. It started with a sales call made by AMTECH's own AI employee.",
@@ -90,11 +90,11 @@
  },
  "connect_any": "Anything with a sign-in",
  "price2": {
-  "free_h": "Start free",
+  "free_h": "Pay as you go, from $50/mo",
   "free": [
-   "Your employee and its team, working on your own business today",
+   "Your team set up with you on a call",
    "Pay as you go, only for the work done",
-   "A test drive on your real work before anything else"
+   "A real job done on the call before anything else"
   ],
   "custom_h": "Custom agents, from $1,200/mo",
   "custom": [
@@ -140,11 +140,11 @@
  "notfound": {
   "_note": "The 404 page's words (layouts/404.html): a 404 has no content file.",
   "h": "This page is not here.",
-  "p": "It may have moved, or the address has a typo. Start from one of these instead.",
+  "p": "It may have moved, or the address has a typo. Go on from one of these instead.",
   "go": [
    {
-    "text": "Meet your employee",
-    "to": "/start"
+    "text": "Book a call",
+    "to": "/schedule-demo"
    },
    {
     "text": "Home",

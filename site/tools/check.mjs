@@ -74,7 +74,9 @@ for (const m of llms.matchAll(/https:\/\/amtechai\.com(\/[^)\s]*)/g)) if (!serve
 
 // 6. Every redirect lands somewhere the site serves, and no live page is shadowed by a forced redirect.
 for (const { from, to, code } of redirects) {
-  if (code !== 301) bad('vercel.json', `${from} redirects with ${code}; every redirect here is a 301 (Vercel's \`permanent\` is a 308)`);
+  // /start is the one temporary redirect (307): self-serve goes to the booking until it builds systems on par with the
+  // custom ones (2026-11-09), and a 301 would stay cached in browsers after /start comes back.
+  if (code !== 301 && !(code === 307 && /^\/start\/?$/.test(from))) bad('vercel.json', `${from} redirects with ${code}; every redirect here is a 301 (Vercel's \`permanent\` is a 308)`);
   if (to.startsWith('/') && !served(to)) bad('vercel.json', `${from} -> ${to}, which the site does not serve`);
   if (!from.includes('*') && (fileSet.has(from) || fileSet.has(from + '/index.html'))) bad('vercel.json', `${from} is a live page and also redirected`);
 }

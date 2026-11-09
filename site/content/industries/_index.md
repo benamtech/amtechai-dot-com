@@ -12,9 +12,9 @@ h1b: "your own AI team."
 sub: "Every business runs on its own paperwork, systems and seasons. AMTECH builds a team of AI agents around yours, and these pages show what that team does in each industry."
 answer: "AMTECH builds custom teams of AI agents for real estate firms, e-commerce brands and agencies, lead generation and data agencies, landscaping and yard care, general contractors, roofers, painters, restaurant groups and trucking companies, and for any other business from a description of its work."
 field: "Your business's name"
-button: "Start"
+button: "Book a call"
 start: {industry: ""}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/hubs/industries.png"
 hero_alt: "A small-town main street in the morning, a contractor's truck at the curb and a restaurant opening"
 panel:
@@ -48,7 +48,7 @@ proof: {h: "Scoop Dogg was the first business run by an AI employee.", p: "Pet w
 offer_h: "Start your AI team today."
 offer_p: "Name your business and your agents start on real work today. When you want a team set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your agents on your real work, then pay as you go."}
+  - {h: "Pay as you go", p: "Your agents on your real work, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
   - {h: "Agencies and operators", p: "A team for every business, store or client you run, on one screen."}
 questions_h: "Questions"
@@ -58,7 +58,7 @@ questions:
   - {q: "Can I run teams for several businesses or clients?", a: "Yes. One account holds a team for each business, store or client, and one screen shows all of them."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a small or mid-sized business?"
 closing_h: "Name your business."
-closing_sub: "Your lead agent reads your site and your Google listing, then your team starts on real work today."
+closing_sub: "Book thirty minutes with Ben Palaskas. You see the team your business would get, and a real job done on the call if you bring one."
 site_sources: false
 reviewed: {by: "Ben Palaskas", date: "2026-11-08"}
 ---

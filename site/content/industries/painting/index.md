@@ -17,9 +17,9 @@ h1b: "same night."
 sub: "A custom AI team for your painting company that turns each walkthrough's photos and voice notes into a priced proposal with good, better and best options, then follows it to a signature and holds the start date with a deposit."
 answer: "AMTECH builds a team of AI agents for painting contractors that does the evening's estimating and the week's follow-up: walkthrough photos and voice notes turned into a proposal priced by the wall, trim and coat from the company's own production rates, houses built before 1978 flagged for lead-safe prep, colour approvals, follow-up on every proposal until it is signed, deposits, finished jobs posted with before and after photos, and reviews. It works inside PaintScout, DripJobs, Jobber, CompanyCam and QuickBooks, or can keep the records itself."
 field: "Your painting company's name"
-button: "Start free"
+button: "Book a call"
 start: {industry: painting}
-prices: "Start free and pay as you go. Custom agents with guaranteed results from $1,200/mo."
+prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
 hero_img: "img/painting/paint-hero.png"
 hero_alt: "A painter on a ladder painting the white trim of a colonial house in morning light"
 panel:
@@ -75,7 +75,7 @@ proof: {h: "The first business run by an AI employee is a local service company,
 offer_h: "Start with your next walkthrough."
 offer_p: "Name your painting company and your team writes the next proposal from your own photos. When you want commercial repaints or your own spec sheets set up with you, with the results agreed up front, we build it together."
 options:
-  - {h: "Start free", p: "Your team on your next proposal, then pay as you go."}
+  - {h: "Pay as you go", p: "Your team on your next proposal, then pay as you go."}
   - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
 approval: {who: t1, act: "Proposal for the colonial on Elm Street", to: "To the homeowner on Elm Street", preview: "It was good to walk the house with you today. Your proposal is attached with three options, each with the prep, the coats and the paint line we would use."}
 questions_h: "Questions"
@@ -84,7 +84,7 @@ questions:
   - {q: "Does it replace PaintScout or DripJobs?", a: "It can. Your team starts inside the proposal software you use today, and it can also write, send and track every proposal, signature and deposit itself, in your format and at your rates."}
   - {q: "Will it handle colour questions?", a: "Yes, the routine ones. It answers from your colour process and the selections already on the job, and passes anything that needs your eye straight to you."}
   - {q: "What about older houses?", a: "Every house built before 1978 is flagged on the proposal, with lead-safe prep, containment and cleanup priced as their own lines and the paperwork kept with the job."}
-  - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a painting contractor?"
 closing_h: "Name your painting company."
 closing_sub: "Your team reads your site and your Google listing, then writes the first proposal from your own photos."
