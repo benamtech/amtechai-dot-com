@@ -87,6 +87,7 @@ questions:
   - {q: "Will it talk to my subs and clients?", a: "Yes, from your own email and in your words: bid invitations, package reminders, change orders and owner updates, under the rules you set."}
   - {q: "Can it keep my subs' paperwork current?", a: "Yes. Draws checks every sub's licence on the state board and every insurance certificate on file, and asks for the renewal sixty days before it lapses."}
   - {q: "Is there a fee per project?", a: "No. Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a general contractor or remodeler?"
 closing_h: "Name your construction company."
 closing_sub: "Your team reads your site and your Google listing, then takes off the next plan set."
 site_sources: false

@@ -84,6 +84,7 @@ questions:
   - {q: "Can it run stores for my clients?", a: "Yes. Each client's store gets its own team, its work and sign-ins are kept to that store, and one screen shows all of them."}
   - {q: "Does it make the ad creative too?", a: "Yes. Ads and creative are made from your own product photos and brand, and each one is checked against what sold."}
   - {q: "What does it cost?", a: "Custom agents set up with you, with guaranteed results, start at $1,200 a month. You can also start free and pay as you go for the work done."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for an e-commerce brand or agency?"
 closing_h: "Your stores could be running themselves."
 closing_sub: "Tell us about your stores and we will show you the team for them."
 site_sources: false

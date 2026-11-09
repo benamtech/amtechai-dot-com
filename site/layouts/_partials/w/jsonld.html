@@ -48,7 +48,7 @@
 {{- end -}}
 {{- $g = $g | append $wp -}}
 {{- if and $p.IsPage (in (slice "industries" "departments") $p.Section) -}}
-  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI employee" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
+  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI agent team" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
   {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
 {{- end -}}

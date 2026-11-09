@@ -11,7 +11,7 @@
        page's file has it: `start` (the action is the start field, w/lpact), `found`, `industries` (photo cards to each
        industry page), `proof` (Scoop Dogg's split), `grid`, `options`, `guarantee`, `approval`. */ -}}
 {{- $p := . }}{{ $P := .Params }}{{ $names := $P.names -}}
-{{- range slice "title" "description" "team" "h1a" "h1b" "sub" "field" "button" "prices" "hero_img" "hero_alt" "panel" "orbit_h" "bands_h" "bands" "frame" "frame_h" "offer_h" "offer_p" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- range slice "title" "description" "team" "h1a" "h1b" "sub" "field" "button" "prices" "hero_img" "hero_alt" "panel" "offer_h" "offer_p" "questions_h" "questions" "closing_h" "closing_sub" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
 {{- if not (or $P.start $P.book) }}{{ errorf "GATE %s: a landing page needs `start` or `book` for its action" $p.File.Path }}{{ end -}}
 {{ partial "w/top.html" . }}
 <main class="lp">
@@ -34,11 +34,14 @@
 </figure>
 </div></section>
 
+{{- with $P.frame }}
 <section class="lp-frame g-panel"><div class="wrap">
 <h2>{{ $P.frame_h }}</h2>
 {{ partial "w/appframe.html" (dict "frame" $P.frame "names" $names "id" "work") }}
 </div></section>
+{{- end }}
 
+{{- with $P.bands }}
 <section class="lp-bands" id="deals"><div class="wrap">
 <h2>{{ $P.bands_h }}</h2>
 {{- range $i, $b := $P.bands }}
@@ -48,11 +51,20 @@
 </article>
 {{- end }}
 </div></section>
+{{- end }}
 
+{{- with $P.orbit_h }}
 <section class="lp-orbit"><div class="wrap">
 <h2>{{ $P.orbit_h }}</h2>
 <div class="lp-orbit-art" data-team3d-host>{{ partial "w/orbit.html" (dict "team" $P.team "systems" $P.systems "names" $names "cls" "ow") }}<div class="medal" aria-hidden="true" data-t3d-centre><div class="medal-in"><p class="medal-k">{{ $P.crumb }}</p><p class="medal-name" data-echo-firm="{{ $P.panel.firm }}">{{ $P.panel.firm }}</p></div></div>{{ partial "team3d.html" (dict "team" $P.team "systems" $P.systems "names" $names) }}</div>
 </div></section>
+{{- end }}
+{{- with $P.cards }}
+<section class="lp-cards"><div class="wrap">
+<h2>{{ $P.cards_h }}</h2>{{ with $P.cards_sub }}<p class="lede lp-cards-sub">{{ . }}</p>{{ end }}
+<ul class="lp-cards-g">{{ range . }}<li><a href="{{ .href }}">{{ with .who }}<span class="lp-cards-team">{{ range . }}{{ partial "w/character.html" (dict "id" . "size" 30) }}{{ end }}</span>{{ end }}<b>{{ .h }}</b><span>{{ .p }}</span></a></li>{{ end }}</ul>
+</div></section>
+{{- end }}
 
 {{- with $P.industries }}
 <section class="lp-inds" id="industries"><div class="wrap">
@@ -93,6 +105,7 @@
 <p class="lede">{{ $P.closing_sub }}</p>
 {{ partial "w/lpact.html" (dict "id" "book-3" "P" $P) }}
 </div></section>
+{{ with $P.ask_prompt }}<section class="w-fixed" aria-label="Ask the AIs">{{ partial "w/askai.html" (dict "prompt" .) }}</section>{{ end }}
 <a class="lp-sticky" href="#start">{{ $P.button }}</a>
 </main>
 <script>{{ `(()=>{const s=document.querySelector(".lp-sticky");if(s){const f=()=>s.classList.toggle("in",scrollY>640);addEventListener("scroll",f,{passive:true});f()}

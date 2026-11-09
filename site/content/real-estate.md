@@ -6,7 +6,7 @@
 # office, four promises, then one action. The lead is deal origination; answering every lead is the floor, never the
 # pitch (Ben). $1,200 a month is the minimum retainer and the engagement is sized on the call. Every figure inside a
 # card or document illustrates the application. Photographs: gpt-image-2.5 through AMTECH's gateway.
-title: "AI operating teams for real estate firms | AMTECH"
+title: "AI operating teams for real estate firms"
 description: "The sellers, expiring leases and off-market property in your market, read every morning and worked into a letter, valuation or offer before anyone else calls."
 route: "/real-estate"
 layout: "landing"
@@ -96,6 +96,7 @@ questions:
   - {q: "How is this different from the AI tools we pay for?", a: "Those answer what arrives; your team finds the deals first, with the reason."}
   - {q: "Will it work with our systems?", a: "Yes. Inside your CRM, email, phone and calendar, and builds what is missing."}
   - {q: "How fast is it live?", a: "Your team is live on your deals within 14 days of your Map."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a real estate firm?"
 closing_h: "Your next deals are already out there."
 closing_sub: "Type your firm's name; your Map is seven days away."
 site_sources: false

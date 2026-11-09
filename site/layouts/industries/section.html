@@ -21,6 +21,7 @@
 {{ partial "w/doors.html" (dict "h" .Params.doors_h "rows" .Params.doors) }}
 {{ partial "w/price.html" (dict "h" .Params.price_h "q" .Params.price_q "g" "g-paper") }}
 {{ partial "w/closing.html" (dict "h" .Params.closing_h "p" .Params.closing_sub) }}
+{{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}
 {{ partial "w/made.html" . }}
 </main>
 {{ partial "w/bottom.html" . }}

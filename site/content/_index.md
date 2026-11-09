@@ -106,6 +106,7 @@ questions:
   - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
   - {q: "What happens to my data if I leave?", a: "It is yours. Export it whenever you like, and close your account to have nothing of your business left behind."}
   - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds and runs teams of AI agents for businesses. It is not Amtech Systems."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a small business?"
 closing_h: "Name your business and meet your team."
 closing_sub: "Your lead agent reads your site and your Google listing, then your team starts on real work today."
 site_sources: false

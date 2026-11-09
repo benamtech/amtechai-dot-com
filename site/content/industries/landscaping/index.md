@@ -87,6 +87,7 @@ questions:
   - {q: "Can it measure a property without a site visit?", a: "Yes, for most bids. Quotes come from the aerial map of the address, and anything hidden under trees is marked for a walk before you price it."}
   - {q: "What does it do in winter?", a: "Winter is the busiest season: renewals go out, last year's lost bids are revisited, new homeowners in your area get a quote, and the books are ready for your accountant."}
   - {q: "What does it cost?", a: "Start free and pay as you go for the work done. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a landscaping or yard care company?"
 closing_h: "Name your company."
 closing_sub: "Your team reads your site and your Google listing, then starts on your next quote."
 site_sources: false

@@ -84,6 +84,7 @@ questions:
   - {q: "How big can a list be?", a: "As big as the market. The team works in batches, and every list shows what each row cost."}
   - {q: "Can it send the data into our tools?", a: "Yes. Lists go to your client's CRM, a Google Sheet, an email tool or any system with a webhook, and stay current as businesses change."}
   - {q: "What does it cost?", a: "Custom agents set up with you, with guaranteed results, start at $1,200 a month. You can also start free and pay as you go for the work done."}
+ask_prompt: "What does AMTECH AI (amtechai.com) do for a lead generation agency?"
 closing_h: "Your next list could be running tonight."
 closing_sub: "Tell us what your clients buy and we will show you the team for it."
 site_sources: false

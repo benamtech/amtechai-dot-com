@@ -19,8 +19,9 @@
 
 Works with: {{ delimit $P.systems ", " }}.
 
+{{ with $P.frame }}
 ## {{ $P.frame_h }}
-{{ range $P.frame }}
+{{ range . }}
 {{ .ask }}
 
 {{ .reply }}
@@ -28,16 +29,30 @@ Works with: {{ delimit $P.systems ", " }}.
 - {{ . }}
 {{- end }}
 {{ end }}
+{{ end }}
+{{- with $P.bands }}
 ## {{ $P.bands_h }}
-{{ range $P.bands }}
+{{ range . }}
 ### {{ .h }}
 
 {{ .p }}
 {{ end }}
-## {{ $P.orbit_h }}
+{{ end }}
+{{- with $P.orbit_h }}
+## {{ . }}
 {{ range $P.team }}
 - {{ partial "w/name.html" (dict "id" . "names" $names) }}
 {{- end }}
+{{ end }}
+{{- with $P.cards }}
+## {{ $P.cards_h }}
+{{ with $P.cards_sub }}
+{{ . }}
+{{ end }}
+{{ range . }}
+- [{{ .h }}]({{ $o }}{{ .href }}): {{ .p }}
+{{- end }}
+{{ end }}
 {{ with $P.industries }}
 ## {{ $P.industries_h }}
 {{ range . }}
