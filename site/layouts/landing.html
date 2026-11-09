@@ -41,6 +41,12 @@
 </div></section>
 {{- end }}
 
+{{- with $P.steps }}
+<section class="lp-steps"><div class="wrap">
+<h2>{{ $P.steps_h }}</h2>
+<ol class="lp-steps-g">{{ range $i, $s := . }}<li><span class="lp-steps-n">{{ add $i 1 }}</span><h3>{{ $s.h }}</h3><p>{{ $s.p }}</p></li>{{ end }}</ol>
+</div></section>
+{{- end }}
 {{- with $P.bands }}
 <section class="lp-bands" id="deals"><div class="wrap">
 <h2>{{ $P.bands_h }}</h2>

@@ -30,6 +30,12 @@ Works with: {{ delimit $P.systems ", " }}.
 {{- end }}
 {{ end }}
 {{ end }}
+{{- with $P.steps }}
+## {{ $P.steps_h }}
+{{ range $i, $s := . }}
+{{ add $i 1 }}. **{{ $s.h }}** {{ $s.p }}
+{{- end }}
+{{ end }}
 {{- with $P.bands }}
 ## {{ $P.bands_h }}
 {{ range . }}

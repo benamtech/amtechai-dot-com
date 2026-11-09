@@ -171,6 +171,15 @@
 .lp-cards-g b{font:500 22px/1.15 var(--serif)}
 .lp-cards-g span:last-child{font-size:15px;color:var(--ink-3);line-height:1.4}
 
+/* 2b. Steps: how a job runs, numbered (question pages, 2026-11-08 `lena`) */
+.lp-steps{padding:var(--lp-pad) 0}
+.lp-steps h2{margin-bottom:clamp(28px,3vw,44px)}
+.lp-steps-g{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:clamp(20px,2.4vw,36px);counter-reset:s}
+.lp-steps-g li{border-top:1px solid var(--ink);padding-top:18px}
+.lp-steps-n{display:inline-grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;font:600 14px/1 var(--sans);margin-bottom:14px}
+.lp-steps-g h3{font:500 24px/1.12 var(--serif);margin-bottom:10px}
+.lp-steps-g p{font-size:15.5px;color:var(--ink-2);line-height:1.5}
+
 @media (max-width:1100px){
   .lp-hero-in{grid-template-columns:minmax(0,1fr);min-height:0}
   .lp-hero-in{grid-template-columns:minmax(0,1fr);grid-template-areas:"copy" "cta" "fig";grid-template-rows:auto auto auto}
@@ -181,6 +190,7 @@
   .lp-flip .lp-band-t{order:0}
   .lp-inds-g{grid-template-columns:repeat(2,minmax(0,1fr))}
   .lp-cards-g{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .lp-steps-g{grid-template-columns:repeat(2,minmax(0,1fr))}
   .lp-inds-g li,.lp-inds-g li.big{grid-column:span 1}
   .lp-inds-g li.big a,.lp-inds-g a{aspect-ratio:4/3}
 }
@@ -202,6 +212,7 @@
   .lp-book .start-in{height:48px}
   .lp-hero h1 .red{display:inline}
   .lp-cards-g{grid-template-columns:minmax(0,1fr)}
+  .lp-steps-g{grid-template-columns:minmax(0,1fr)}
   .lp-inds-g{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
   .lp-inds-g li.big{grid-column:span 2}
   .lp-inds-g li.big a{aspect-ratio:16/10}
