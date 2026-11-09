@@ -32,7 +32,7 @@
 {{- end -}}
 {{- $wp := dict "@type" $m.schema "@id" (printf "%s#webpage" $m.url) "url" $m.url "name" $m.h1 "description" $p.Description "isPartOf" (dict "@id" $site) "inLanguage" "en-US" -}}
 {{- if or $p.IsHome (eq $P.route "/about") }}{{ $wp = merge $wp (dict "about" (dict "@id" $org)) }}{{ end -}}
-{{- if or (eq $p.Section "customers") (eq $p.Layout "company") }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
+{{- if or (eq $p.Section "customers") (eq $p.Layout "company") (in (slice "/about" "/pricing" "/security") $P.route) }}{{ with $P.reviewed }}{{ $wp = merge $wp (dict "reviewedBy" (dict "@type" "Person" "name" .by) "lastReviewed" .date) }}{{ end }}{{ end -}}
 {{- if not $m.lastmod.IsZero }}{{ $wp = merge $wp (dict "dateModified" ($m.lastmod.Format "2006-01-02")) }}{{ end -}}
 {{- if not $p.IsHome -}}
   {{- $items := slice }}{{ range $i, $c := $m.crumbs }}{{ $items = $items | append (dict "@type" "ListItem" "position" (add $i 1) "name" $c.name "item" $c.url) }}{{ end -}}
@@ -52,7 +52,7 @@
   {{- with $P.label }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
 {{- end -}}
-{{- if and $p.IsPage (eq $p.Layout "landing") (not (in (slice "industries" "departments" "services") $p.Section)) -}}
+{{- if and $p.IsPage (eq $p.Layout "landing") $P.book (not (in (slice "industries" "departments" "services") $p.Section)) -}}
   {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "AI agent team" "description" $P.sub "provider" (dict "@id" $org) "url" $m.url -}}
   {{- with $P.crumb }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
