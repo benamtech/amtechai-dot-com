@@ -7,5 +7,5 @@
 {{- $out = $out | append (where (where site.RegularPages "Section" "departments") "Params.noindex" "!=" true).ByWeight -}}
 {{- with site.GetPage "/customers" }}{{ $out = $out | append . }}{{ $out = $out | append .RegularPages.ByWeight }}{{ end -}}
 {{- with site.GetPage "/questions" }}{{ $out = $out | append . }}{{ $out = $out | append .RegularPages.ByWeight }}{{ end -}}
-{{- range slice "/real-estate" "/ecommerce" "/lead-generation" "/pricing" "/about" "/security" }}{{ with site.GetPage . }}{{ $out = $out | append . }}{{ end }}{{ end -}}
+{{- range slice "/real-estate" "/ecommerce" "/lead-generation" "/pricing" "/about" "/security" "/contact" }}{{ with site.GetPage . }}{{ $out = $out | append . }}{{ end }}{{ end -}}
 {{- return $out -}}
