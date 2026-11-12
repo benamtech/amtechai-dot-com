@@ -1,5 +1,5 @@
 {
-  "_why": "The booking is one link beside every start field. Since 2026-11-12 the field itself opens the self-serve team door (app.amtechai.com/swarm): a stranger describes the business, confirms an email, adds a card and gets a main agent with teammates on a board, with one-button connections and growth from chat. From 2026-11-09 to 11-12 every start was a call (Ben: until self-serve builds systems on par with Brand Box and Eli's lead desk). A page's trade (config) and a service's slug pick the booking's own industry and topic, which must match content/schedule-demo.md word for word or booking.js ignores them.",
+  "_why": "The booking is one link beside every start field. Since 2026-11-12 the field itself opens the self-serve team door (app.amtechai.com/start): a stranger describes the business, confirms an email, adds a card and gets a main agent with teammates on a board, with one-button connections and growth from chat. From 2026-11-09 to 11-12 every start was a call (Ben: until self-serve builds systems on par with Brand Box and Eli's lead desk). A page's trade (config) and a service's slug pick the booking's own industry and topic, which must match content/schedule-demo.md word for word or booking.js ignores them.",
   "industry": {
     "roofing": "Roofing",
     "landscaping": "Landscaping",
