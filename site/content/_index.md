@@ -6,14 +6,14 @@
 # illustrate the application), four figures, the kinds of business (each a real page), the operators' band, customers,
 # price and one action. Every word the page shows is in this file.
 llms: { order: 1, label: "AMTECH", text: "AMTECH is a swarm of AI agents that runs new and existing businesses on its own, in any industry: describe a business, and a team of agents forms around it and runs its work, inside the software it already uses, with one screen where the owner directs and sees everything." }
-title: "AMTECH: describe your business, meet the AI team that runs it"
+title: "AMTECH: a swarm of AI agents that runs businesses on its own"
 description: "Describe your business and AMTECH builds a team of AI agents that runs its work: sales, marketing, customers, books and operations, in your own tools."
 route: "/"
 layout: "home"
 crumb: "AMTECH"
-h1a: "Describe your business."
-h1b: "Meet the team that runs it."
-sub: "AMTECH builds a team of AI agents around your business in minutes. It works inside the tools you already use, day and night."
+h1a: "A swarm of AI agents"
+h1b: "that runs businesses on its own."
+sub: "New or existing, in any industry. Describe the business. The swarm sets itself up and runs it, day and night."
 answer: "AMTECH is a swarm of AI agents that runs new and existing businesses on its own, in any industry. Describe a business and a team of agents forms around it: each agent takes a part of the work, such as sales, marketing, customers, books and operations; they work together inside the business's own software, and the owner directs and sees all of it on one screen. Agencies, operators and investors run a team for every client, store or company from one account."
 app:
   name: "AMTECH"
