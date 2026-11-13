@@ -1,0 +1,8 @@
+{{- /* One photograph of the home page, from assets/, as WebP at up to three widths (never wider than the file).
+       (dict "src" "img/home/night.png" "alt" "..." "cls" "hm-bg" "sizes" "100vw" "eager" true) */ -}}
+{{- $r := resources.Get .src -}}
+{{- if not $r }}{{ errorf "GATE home: no image at assets/%s" .src }}{{ end -}}
+{{- $set := slice -}}
+{{- range slice 640 1100 1536 }}{{ if le . $r.Width }}{{ $i := $r.Resize (print . "x webp q80") }}{{ $set = $set | append (printf "%s %dw" $i.RelPermalink .) }}{{ end }}{{ end -}}
+{{- $mid := $r.Resize "1100x webp q80" -}}
+<img class="{{ .cls }}" src="{{ $mid.RelPermalink }}" srcset="{{ delimit $set ", " }}" sizes="{{ .sizes | default "100vw" }}" width="{{ $mid.Width }}" height="{{ $mid.Height }}" alt="{{ .alt }}"{{ if .eager }} fetchpriority="high"{{ else }} loading="lazy" decoding="async"{{ end }}>
