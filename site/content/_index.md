@@ -94,7 +94,7 @@ how:
       img: "img/home/org-1440.png"
       img_small: "img/home/org-390.png"
       w: 1440
-      h_px: 740
+      h_px: 760
   morning:
     h: "What happened at 8 am in a test"
     p: "A test store's team met in its group room. One teammate built and tested a tool that decides which campaigns to cut, hold or keep. The lead put the agreed actions on the board as cards for whoever does them. Both teammates started, and the summary reached the owner 2.6 minutes after the meeting began. At the next meeting a teammate reported a scent-coverage tool as done rather than agreed."
@@ -170,7 +170,7 @@ close:
   talk_link: "Talk to us"
 site_sources: false
 sources:
-  - "The cards, teams and times shown on this page come from tests of AMTECH's own system with described businesses, on 2026-11-12. They are not customers' jobs."
+  - "The cards, teams and times shown on this page come from tests of AMTECH's own system with described businesses, on 2026-11-12 and 2026-11-13. They are not customers' jobs."
   - "Scoop Dogg: reported by Ben Palaskas, AMTECH, October 2026 (scoopdogg.net)."
 reviewed: {by: "Ben Palaskas", date: "2026-11-13"}
 ---
