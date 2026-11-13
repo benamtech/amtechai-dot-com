@@ -11,7 +11,6 @@ description: "Describe your business and AMTECH builds a team of AI agents that 
 route: "/"
 layout: "home"
 crumb: "AMTECH"
-kicker: "The software company after SaaS"
 h1a: "Describe your business."
 h1b: "Meet the team that runs it."
 sub: "AMTECH builds a team of AI agents around your business in minutes. It works inside the tools you already use, day and night."
@@ -145,12 +144,12 @@ ops_h: "Run a hundred businesses from one screen."
 ops_p: "A team for every client, store or company you own. One account."
 ops_button: "Talk to us"
 ops_legend: "Each square is one business's team, working."
-customers_h: "Running real businesses today."
+customers_h: "Already running real businesses."
 customers_link: "Read the story"
 customers:
-  - {big: "#1", line: "on Google and in ChatGPT in his area. A yard-care company run by its AI employee, website included.", name: "Scoop Dogg", href: "/customers/scoop-dogg"}
-  - {big: "8 stores", line: "A brand group's products, ads and email, run by one team.", name: "E-commerce group"}
-  - {big: "From Grok Bot", line: "A lead-generation operator moved his whole desk here: owner names and verified contacts at volume.", name: "Lead-generation operator"}
+  - {kind: "A yard-care company", line: "The team built his website, set up online booking and replies to his customers. He runs the routes.", img: "img/landscaping/yard.png", alt: "A tidy back yard after a morning's work", href: "/customers/scoop-dogg"}
+  - {kind: "An e-commerce group", line: "A team for each of eight stores keeps products, ads and email moving.", img: "img/ecommerce/stores.png", alt: "Products laid out for several online stores"}
+  - {kind: "A lead-generation business", line: "The team finds store owners by name, checks every phone and email, and delivers the list.", img: "img/lead-generation/verify.png", alt: "Contact details being checked"}
 price_h: "Start free. Pay for work done."
 options:
   - {h: "Pay as you go", big: "$50", per: "a month to start", p: "Your team on real work today.", href: "#start", link: "Build my team"}

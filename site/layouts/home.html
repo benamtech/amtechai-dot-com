@@ -12,7 +12,6 @@
 <section class="hm-hero">
 {{ partial "w/hmimg.html" (dict "src" $P.hero_img "alt" $P.hero_alt "eager" true "cls" "hm-bg") }}
 <div class="wrap hm-hero-in">
-{{ with $P.kicker }}<p class="hm-kicker">{{ . }}</p>{{ end }}
 <h1><span>{{ $P.h1a }}</span> <em>{{ $P.h1b }}</em></h1>
 <p class="hm-sub">{{ $P.sub }}</p>
 <form class="hm-start" id="start" action="{{ $app }}/start" method="get" data-start data-hm-start><label class="sr" for="start-in">{{ $P.field }}</label><input id="start-in" name="business" placeholder="{{ $P.field }}" autocomplete="off" maxlength="120" required><button class="btn" type="submit">{{ $P.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></form>
@@ -68,7 +67,7 @@
 
 <section class="hm-cust"><div class="wrap">
 <h2>{{ $P.customers_h }}</h2>
-<ul>{{ range $P.customers }}<li><b>{{ .big }}</b><p>{{ .line }}</p><span>{{ .name }}{{ with .href }} <a class="wlink" href="{{ . }}">{{ $.Params.customers_link }}<span aria-hidden="true"> &rarr;</span></a>{{ end }}</span></li>{{ end }}</ul>
+<ul>{{ range $P.customers }}<li>{{ partial "w/hmimg.html" (dict "src" .img "alt" .alt "cls" "hm-cust-ph" "sizes" "(min-width: 900px) 33vw, 100vw") }}<b>{{ .kind }}</b><p>{{ .line }}</p>{{ with .href }}<a class="wlink" href="{{ . }}">{{ $.Params.customers_link }}<span aria-hidden="true"> &rarr;</span></a>{{ end }}</li>{{ end }}</ul>
 </div></section>
 
 <section class="hm-price"><div class="wrap">

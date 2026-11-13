@@ -39,7 +39,7 @@
 
 ## {{ $P.customers_h }}
 {{ range $P.customers }}
-- **{{ .name }}:** {{ .big }} {{ .line }}
+- **{{ .kind }}:** {{ .line }}
 {{- end }}
 
 ## {{ $P.price_h }}
