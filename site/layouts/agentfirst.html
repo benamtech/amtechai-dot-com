@@ -1,0 +1,119 @@
+{{- /* Home, 2026-11-13 (lane `homepage`): the agent-first page. The first screen is the live product (the start box posts to
+       the self-serve door, app.amtechai.com/start, as w/start does since PR #104; the chips are links to the same door with
+       the sentence filled in). Then what forms, the technology, eight real teams from tests, one business running today,
+       who it is for, the price (no figure: Ben sets it), questions, the close. The layout owns no sentence: every word is in
+       the page's file (check.mjs section 11). Slots: static/img/home/board.png and teammate.png replace the drawn fallbacks
+       the day a file is dropped in; no layout change. Section 7 (businesses we run ourselves) shows only when `own` has
+       content. The shared landing layout is untouched: /contractors and /real-estate still use it. */ -}}
+{{- $p := . }}{{ $P := .Params }}{{ $W := hugo.Data.w -}}
+{{- range slice "title" "description" "hero" "how" "tech" "examples" "live" "for" "price" "questions" "close" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{ partial "w/top.html" . }}
+<main class="ah">
+
+<section class="ah-hero" id="start"><div class="wrap ah-hero-in">
+<div class="ah-hero-copy">
+<p class="ah-k">{{ $P.hero.kicker }}</p>
+<h1><span class="ink">{{ $P.hero.h1a }}</span> <span class="red">{{ $P.hero.h1b }}</span></h1>
+<p class="lede">{{ $P.hero.sub }}</p>
+<form class="start ah-start" id="startbox" action="{{ $W.app }}/start" method="get" data-start><label class="ah-label" for="startbox-in">{{ $P.hero.label }}</label><div class="ah-start-row"><input id="startbox-in" name="business" class="start-in" placeholder="{{ $P.hero.field }}" autocomplete="off" maxlength="120" required><button class="btn start-btn" data-action type="submit">{{ $P.hero.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></div></form>
+<p class="prices ah-free">{{ $P.hero.free }}</p>
+<p class="ah-chips-h">{{ $P.hero.chips_h }}</p>
+<ul class="ah-chips">{{ range $P.hero.chips }}<li><a href="{{ $W.app }}/start?business={{ . | urlquery }}" rel="nofollow">{{ . }}</a></li>{{ end }}</ul>
+</div>
+{{- with $P.hero.live }}
+<figure class="ah-live" aria-label="{{ .h }}">
+<p class="ah-tag">{{ .tag }}</p>
+<h2 class="ah-live-h">{{ .h }}</h2>
+<p class="ah-k2">{{ .team_h }}</p>
+<ul class="ah-team">{{ range .team }}<li>{{ . }}</li>{{ end }}</ul>
+<p class="ah-k2">{{ .job_h }}</p>
+<p class="ah-job">{{ .job }}</p>
+<p class="ah-k2">{{ .cards_h }}</p>
+<ul class="ah-cards">{{ range .cards }}<li><b>{{ .who }}</b><span>{{ .t }}</span></li>{{ end }}</ul>
+<figcaption>{{ .foot }}</figcaption>
+</figure>
+{{- end }}
+</div></section>
+
+{{- with $P.how }}
+<section class="ah-sec" id="{{ .id }}"><div class="wrap">
+<h2>{{ .h }}</h2><p class="lede ah-sub">{{ .p }}</p>
+<div class="ah-shots">
+{{- range .items }}
+{{- $slot := .slot }}{{ $file := printf "img/home/%s.png" $slot }}
+<figure class="ah-shot ah-shot-{{ $slot }}">
+{{- if .img }}
+<picture><source media="(max-width: 700px)" srcset="/{{ .img_small }}"><img src="/{{ .img }}" alt="{{ .alt }}" width="{{ .w }}" height="{{ .h_px }}" loading="lazy" decoding="async"></picture>
+{{- else if fileExists (printf "static/%s" $file) }}
+<img src="/{{ $file }}" alt="{{ .alt }}" loading="lazy" decoding="async">
+{{- else }}
+<div class="ah-fb" role="img" aria-label="{{ .alt }}"><p class="ah-fb-h">{{ .fb_h }}</p><ul>{{ range .fb_cards }}<li><b>{{ .who }}</b><span>{{ .t }}</span><i>{{ .s }}</i></li>{{ end }}</ul><p class="ah-fb-n">{{ .fb_note }}</p></div>
+{{- end }}
+<figcaption><span class="ah-tag">{{ $P.how.tag }}</span><b>{{ .h }}</b>{{ .p }}</figcaption>
+</figure>
+{{- end }}
+</div>
+{{- with .morning }}
+<div class="ah-morning"><h3>{{ .h }}</h3><p>{{ .p }}</p></div>
+{{- end }}
+</div></section>
+{{- end }}
+
+{{- with $P.tech }}
+<section class="ah-sec ah-panel" id="{{ .id }}"><div class="wrap">
+<h2>{{ .h }}</h2>
+<ol class="ah-tech">{{ range $i, $b := .items }}<li><span class="ah-n">{{ add $i 1 }}</span><h3>{{ $b.h }}</h3><p>{{ $b.p }}</p></li>{{ end }}</ol>
+</div></section>
+{{- end }}
+
+{{- with $P.examples }}
+<section class="ah-sec" id="{{ .id }}"><div class="wrap">
+<h2>{{ .h }}</h2><p class="lede ah-sub">{{ .p }}</p>
+{{- $ex := . }}
+<ul class="ah-ex">{{ range .cards }}<li class="ah-excard"><h3>{{ .name }}</h3><p class="ah-exs"><b>{{ .s }}</b> {{ $ex.seconds }}</p><p class="ah-exk">{{ $ex.team_k }}</p><p>{{ .team }}</p><p class="ah-exk">{{ $ex.job_k }}</p><p>{{ .job }}</p></li>{{ end }}</ul>
+<p class="ah-note">{{ .note }}</p>
+</div></section>
+{{- end }}
+
+{{- with $P.live }}
+<section class="ah-sec ah-panel" id="{{ .id }}"><div class="wrap ah-proof">
+<div><p class="ah-tag">{{ .tag }}</p><h2>{{ .h }}</h2><p class="lede">{{ .p }}</p><p class="ah-note">{{ .source }}</p><a class="wlink" href="{{ .link }}">{{ .link_text }}</a></div>
+</div></section>
+{{- end }}
+
+{{- with $P.for }}
+<section class="ah-sec" id="{{ .id }}"><div class="wrap">
+<h2>{{ .h }}</h2><p class="lede ah-sub">{{ .p }}</p>
+<ul class="ah-for">{{ range .cols }}<li><h3>{{ .h }}</h3><p>{{ .p }}</p></li>{{ end }}</ul>
+<a class="wlink" href="{{ .link }}">{{ .link_text }}</a>
+</div></section>
+{{- end }}
+
+{{- /* Section 7, the businesses AMTECH runs itself: shown only when `own` has content (see the page's file). */ -}}
+{{- with $P.own }}{{ with .h }}
+<section class="ah-sec ah-panel" id="own"><div class="wrap"><h2>{{ . }}</h2>{{ with $P.own.p }}<p class="lede">{{ . }}</p>{{ end }}</div></section>
+{{- end }}{{ end }}
+
+{{- with $P.price }}
+<section class="ah-sec ah-panel" id="{{ .id }}"><div class="wrap">
+<h2>{{ .h }}</h2>
+<ul class="ah-price">{{ range $c := .cols }}{{ with $c }}<li><h3>{{ .h }}</h3><p class="ah-big">{{ .big }}</p>{{ with .placeholder }}<p class="ah-ph" data-price-placeholder>{{ . }}</p>{{ end }}<p>{{ .p }}</p>{{ with .link }}<a class="wlink" href="{{ . }}">{{ $c.link_text }}</a>{{ end }}</li>{{ end }}{{ end }}</ul>
+</div></section>
+{{- end }}
+
+<section class="ah-sec"><div class="wrap ah-faq">
+<h2>{{ $P.questions_h }}</h2>
+<div>{{ range $P.questions }}<details><summary>{{ .q }}</summary><p>{{ .a }}</p></details>{{ end }}</div>
+</div></section>
+
+{{- with $P.close }}
+<section class="ah-close"><div class="wrap">
+<h2>{{ .h }}</h2><p class="lede">{{ .p }}</p>
+<form class="start ah-start ah-start-c" id="startclose" action="{{ $W.app }}/start" method="get" data-start><label class="sr" for="startclose-in">{{ $P.hero.label }}</label><div class="ah-start-row"><input id="startclose-in" name="business" class="start-in" placeholder="{{ $P.hero.field }}" autocomplete="off" maxlength="120" required><button class="btn start-btn" data-action type="submit">{{ $P.hero.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></div></form>
+<p class="ah-talk">{{ .talk }} <a class="wlink" href="/schedule-demo">{{ .talk_link }}</a></p>
+</div></section>
+{{- end }}
+
+{{- with $P.sources }}<section class="ah-src"><div class="wrap"><ul>{{ range . }}<li>{{ . }}</li>{{ end }}</ul></div></section>{{ end }}
+</main>
+{{ partial "w/bottom.html" . }}

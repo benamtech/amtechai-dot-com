@@ -1,156 +1,173 @@
 ---
-# Home, rebuilt 2026-11-08 (session `lena`) on layouts/landing.html, the /real-estate pattern: photographs with the
-# application's own cards on them, few words set large, one action. Ben: "less clutter", "more images"; then: "we need to
-# communicate not the specific implementation for contractors ... but that amtech is custom agent swarms for SMB's, but
-# explained in language they would understand ... the landing pages, industry pages etc would have those more
-# specific-icp type details". So the home names no trade's paperwork: the agents carry department names an owner already
-# uses, and the examples run across kinds of business. What AMTECH may say it is comes from brain/proof.md; the price
-# line is the site's own (brain/pricing.md). Every figure inside a card illustrates the application.
-llms: { order: 1, label: "AMTECH", text: "AMTECH builds custom teams of AI agents for small and mid-sized businesses: a team made for each business, working together inside the software it already runs, with one screen where the owner directs, watches and improves every agent." }
-title: "AMTECH: custom AI agent teams for small and mid-sized businesses"
-description: "AMTECH builds a custom team of AI agents for your business: they work together inside your software and you run them all from one screen. Book a call."
+# Home, rebuilt 2026-11-13 (lane `homepage`, draft for Ben) on layouts/agentfirst.html. The frame is Ben's of 2026-11-12:
+# AMTECH is a technology company built on agent swarms that form around a business and work under the owner's rules.
+# The live product is in the first screen (the start box posts to app.amtechai.com/start, as /start's fields do since
+# PR #104). Every claim here is in brain/proof.md or in the measured tables of WHAT-AMTECH-IS-NOW.md section 1; the line
+# for each is in session-4/site/CLAIMS.md. Timings are "in our tests". NO price figure is set: [PRICE: Ben sets].
+# The old home (landing layout) is in git history. /contractors and /real-estate still use layouts/landing.html.
+llms: { order: 1, label: "AMTECH", text: "AMTECH is software that builds a team of AI agents around a business. The owner says what the business does in a few messages, and a team with its own jobs, a work board and a group room forms and starts work, under the owner's rules." }
+title: "AMTECH: software that builds itself around your business"
+description: "Describe your business. AMTECH forms a team of AI agents around it, each with its own job, on a work board you watch. About 90 seconds in our tests."
 route: "/"
-layout: "landing"
+layout: "agentfirst"
 crumb: "AMTECH"
-names: {employee: "Your lead agent", t1: "Operations", t2: "Sales", t3: "Marketing", t4: "Finance", t5: "Research", t6: "Builder"}
-team: [employee, t2, t3, t4, t5, t1, t6]
-h1a: "A custom AI team"
-h1b: "for your business."
-sub: "Tell us what your business does. AMTECH builds a team of AI agents just for it: each takes a part of the work, they work together inside the tools you already use, and you see everything they do on one screen."
-answer: "AMTECH builds custom teams of AI agents for small and mid-sized businesses. A lead agent learns how the business runs and builds a team of specialist agents for its work, such as sales, marketing, finance, research and operations; the agents work together inside the business's own software, and the owner directs, watches and improves all of them from one screen."
+answer: "AMTECH is software that builds a team of AI agents around a business. The owner says what the business does in a few short messages. A team forms, each teammate with its own job and skills, and starts on a work board the owner can watch. The team works under the owner's rules, and nothing goes out until the owner says yes or a standing yes covers it."
 app:
   name: "AMTECH"
-  category: "Custom AI agent teams for businesses"
-  features: ["A team of AI agents built from a description of the business", "Agents that work together and hand work to each other", "Each agent connected to the business's own software, with its own sign-in", "One screen to direct every agent and see its work, live", "Standing rules in plain words, a receipt for every action, and the cost of every job", "A team for each business, location, store or client, on one account"]
+  category: "Teams of AI agents that form around a business"
+  features: ["A team of AI agents built from a description of the business", "Each teammate carries the skills for its job", "A work board, a page for each teammate and a group room where the team meets", "Standing rules in plain words, a receipt for every action, and the cost of every job", "A team for each business on one account"]
   offers:
-    - {name: "Pay as you go", price: "50", description: "Pay as you go from $50 a month in credits, for the work done."}
-    - {name: "Custom agents", price: "1200", description: "Custom agents set up with you, with guaranteed results, from $1,200 a month."}
-field: "Your business's name"
-button: "Book a call"
-start: {industry: ""}
-prices: "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo."
-hero_img: "img/home/hero.png"
-hero_alt: "A company office at dawn, with work trucks lined up in the yard outside the window"
-panel:
-  firm: "Your business"
-  h: "Your agents"
-  rows:
-    - {who: t2, state: work}
-    - {who: t3, state: work}
-    - {who: t4, state: wait}
-    - {who: t5, state: work}
-    - {who: t1, state: idle}
-  card_h: "Before 9am: Your business"
-  steps: ["Found 120 new prospects and their owners", "Put six new products live on your store", "Matched 14 payments in your books"]
-  now: "Writing this week's customer email"
-  total: "31 jobs finished before you opened your email."
-found: [{n: "6", what: "agents on your team"}, {n: "31", what: "jobs finished today"}, {n: "9", what: "tools connected"}]
-offer_found: false
-systems: ["QuickBooks", "Gmail", "Shopify", "Your CRM", "Stripe", "Google Business Profile", "Your website", "Google Calendar"]
-frame_h: "Ask in a sentence. Your team does the work."
-bands_h: "How your AI team works."
-bands:
-  - who: employee
-    img: "img/home/build.png"
-    alt: "A small company's equipment yard at sunrise"
-    h: "Built for your business, not off a shelf."
-    p: "Your lead agent reads your website, your listing and your tools, then builds an agent for each part of the work it finds."
-    doc: {kind: sheet, title: "Your team, built this morning", meta: "From your website, your listing and your books", cols: ["Agent", "Its job", "Works in"], rows: [["Sales", "Every lead and quote", "Gmail, your CRM"], ["Marketing", "Your site, posts and email", "Your website, Google"], ["Finance", "Invoices, payments, books", "QuickBooks, Stripe"]], foot: "Every business gets a different team: the work decides it."}
-  - who: t5
-    img: "img/home/connect.png"
-    alt: "Plans and a hard hat on a table in a site office"
-    h: "Inside the tools you already use."
-    p: "Each agent signs in to your software with its own login, and works through the screen where there is no other way in."
-    doc: {kind: sheet, title: "Connections", meta: "Your tools and the agents that use them", cols: ["Tool", "Used by", "Status"], rows: [["Shopify", "Operations", "Connected"], ["QuickBooks", "Finance", "Connected"], ["A supplier's portal", "Research", "Through the screen"]], foot: "You sign in once. No agent ever sees a password."}
-  - who: t2
-    img: "img/home/run.png"
-    alt: "A restaurant kitchen during afternoon prep"
-    h: "Working together, and you can see it."
-    p: "Agents hand work to each other, and one screen shows what each is doing, what it finished and what it needs from you."
-    doc: {kind: sheet, title: "Today", meta: "Across your agents, live", cols: ["Agent", "Working on", "State"], rows: [["Research", "40 new prospects", "Handed to Sales"], ["Sales", "First emails to the 40", "Working"], ["Finance", "Four late invoices", "Waiting on you"]], foot: "Every job shows what was read, written and checked."}
-  - who: t4
-    img: "img/home/govern.png"
-    alt: "A family business back office at dusk, a desk lamp lit over a quiet main street"
-    h: "Your rules, your records, your costs."
-    p: "Say in plain words what each agent may do on its own. Every action leaves a receipt, and every job shows what it cost."
-    doc: {kind: sheet, title: "Standing rules", meta: "Written by you, in your words", cols: ["Agent", "Goes ahead on its own", "Limit"], rows: [["Finance", "Reminders on overdue invoices", "Up to 30 days late"], ["Sales", "Replies to new leads", "Your prices only"], ["Builder", "Edits to your website", "Pages you approved"]], foot: "Change a rule in a sentence; the team follows it from the next job."}
-orbit_h: "One team, built around your business."
-industries_h: "Made for the way your business works."
-industries:
-  - {label: "Real estate", line: "Sellers, leases and off-market deals found every morning.", href: "/real-estate", img: "img/real-estate/hero-city.png", alt: "A glass office tower at blue hour"}
-  - {label: "E-commerce", line: "Every store's products, ads, email and numbers, run by one team.", href: "/ecommerce", img: "img/ecommerce/hero.png", alt: "A bright e-commerce studio and stockroom"}
-  - {label: "Lead generation", line: "Owner names, verified contacts and lists at any size.", href: "/lead-generation", img: "img/lead-generation/owners.png", alt: "A main street of small independent shops in the morning"}
-  - {label: "Landscaping and yard care", line: "Every route, renewal and invoice handled.", href: "/industries/landscaping", img: "img/landscaping/hero.png", alt: "A crew mowing a wide lawn in the morning"}
-  - {label: "Contractors", line: "Bids out, permits closed, every draw paid.", href: "/industries/contractors", img: "img/contractors/hero.png", alt: "A commercial building under construction at golden hour"}
-  - {label: "Restaurants", line: "Every location's numbers, bookings and reviews.", href: "/industries/hospitality", img: "img/home/hospitality.png", alt: "A neighbourhood restaurant dining room in the evening"}
-  - {label: "Trucking", line: "Loads booked, paperwork checked, invoices out.", href: "/industries/transportation", img: "img/home/transportation.png", alt: "Semi trucks backed into a freight depot at dawn"}
-grid_h: "Every business, store or client, one screen."
-grid:
-  offices: ["Main office", "Second location", "A client you serve"]
-  lamps: [[work, work, wait, work, idle], [work, idle, work, work, work], [idle, work, work, idle, wait]]
-  legend: {work: "working", wait: "waiting on you", idle: "idle"}
-proof: {h: "Scoop Dogg was the first business run by an AI employee.", p: "Pet waste and turf care in Ventura and Santa Barbara counties. His AI employee set up his new website and its online booking, then set up his automatic replies itself. He gets bookings every week, and he is first in ChatGPT and on Google for pet and yard cleanup in his area."}
-offer_h: "Start your AI team today."
-offer_p: "Name your business and your agents start on real work today. When you want a team set up with you, with the results agreed up front, we build it together."
-options:
-  - {h: "Pay as you go", p: "Your agents on your real work, then pay as you go."}
-  - {h: "Custom agents", p: "Set up with you, with guaranteed results, from $1,200 a month."}
-  - {h: "Agencies and operators", p: "A team for every business, store or client you run, on one screen."}
+    - {name: "Free to start", price: "0", description: "Free to start."}
+nav:
+  - {t: "How it works", u: "#how"}
+  - {t: "Examples", u: "#examples"}
+  - {t: "Pricing", u: "#pricing"}
+  - {t: "For operators", u: "#operators"}
+nav_cta: {t: "Start", u: "#start"}
+hero:
+  kicker: "Agent-first software"
+  h1a: "Software that builds itself"
+  h1b: "around your business."
+  sub: "Describe your business. AMTECH forms a team of AI agents around it, each with its own job, and starts them on a work board you can watch. In our tests the team was ready about a minute and a half after the start."
+  label: "Tell us what your business does"
+  field: "I run an online candle store"
+  button: "Start your team"
+  free: "Free to start."
+  chips_h: "Or start from one of these"
+  chips:
+    - "I run an online candle store"
+    - "We are a general contractor"
+    - "I run a marketing agency with 30 clients"
+    - "We do yard and pet waste cleanup"
+    - "We are a heating and air company"
+    - "We run a dental office"
+    - "We run a law office"
+    - "We run a food bank"
+  live:
+    tag: "From a test business"
+    h: "An online candle store, 85.6 seconds after the start"
+    team_h: "The team that formed"
+    team: ["Ads", "Email", "Listings", "Inbox", "Analyst"]
+    job_h: "Its first job, on the board"
+    job: "Look at the last 30 days of sales and ad spend, then tell the owner the three biggest money leaks."
+    cards_h: "Cards on the board"
+    cards:
+      - {who: "Analyst", t: "Pull last 30 days of sales and ad spend data"}
+      - {who: "Ads", t: "Analyze ad spend efficiency and flag losing campaigns"}
+      - {who: "Analyst", t: "Analyze sales, discounts, refunds and margin leaks"}
+      - {who: "Analyst", t: "Write the owner-facing top three money leaks report"}
+    foot: "These are the real cards from one of our test runs, not a mock-up."
+how:
+  id: "how"
+  h: "A team with jobs, a board, pages and a morning meeting."
+  p: "This is what a team looks like once it has formed. The group room is a real screen from a test business. The board and the teammate page are drawn from the real cards of test runs, until we add screens of the same."
+  tag: "From a test business"
+  items:
+    - slot: "board"
+      h: "The work board"
+      p: "Every job is a card with an owner, a status and a cost. You watch the cards move from to do to done."
+      alt: "The work board of a test business, with cards in columns"
+      fb_h: "To do and ready"
+      fb_note: "Real cards from a dental office test run"
+      fb_cards:
+        - {who: "Analyst", t: "Pull next two weeks of appointments and recall lists", s: "Ready"}
+        - {who: "Front desk", t: "Analyze appointment schedule for gaps and unconfirmed visits", s: "To do"}
+        - {who: "Retention", t: "Analyze recall list for overdue and due-soon patients", s: "To do"}
+        - {who: "Analyst", t: "Draft owner brief: what needs attention first", s: "To do"}
+    - slot: "teammate"
+      h: "A page for each teammate"
+      p: "Each teammate has its own page: its job, its skills and the cards it has."
+      alt: "A teammate's own page in a test business"
+      fb_h: "Analyst, candle store"
+      fb_note: "Its real cards from a candle store test run"
+      fb_cards:
+        - {who: "Analyst", t: "Pull last 30 days of sales and ad spend data", s: "Ready"}
+        - {who: "Analyst", t: "Analyze sales, discounts, refunds and margin leaks", s: "To do"}
+        - {who: "Analyst", t: "Write the owner-facing top three money leaks report", s: "To do"}
+    - slot: "group"
+      h: "A group room where the team meets"
+      p: "On a schedule, the team meets in a group room, agrees what to do and puts the actions on the board. You can write to the group at any time."
+      alt: "The morning marketing group room of a test candle store: the teammates agree how to count which scents are missing from the store's emails, and one has built the tool"
+      img: "img/home/group-1440.png"
+      img_small: "img/home/group-390.png"
+      w: 1440
+      h_px: 900
+  morning:
+    h: "What happened at 8 am in a test"
+    p: "A test store's team met in its group room. One teammate built and tested a tool that decides which campaigns to cut, hold or keep. The lead put the agreed actions on the board as cards for whoever does them. Both teammates started, and the summary reached the owner 2.6 minutes after the meeting began. At the next meeting a teammate reported a scent-coverage tool as done rather than agreed."
+tech:
+  id: "tech"
+  h: "The technology, said plainly."
+  items:
+    - h: "Built from a description"
+      p: "You answer about six short messages. The system plans the team and starts it. In our tests the team was ready 72 to 103 seconds after the start, across eight kinds of business."
+    - h: "Each teammate carries its job's skills"
+      p: "A teammate gets four to eight skills from a catalog, matched to its job. The cards it works on keep those skills pinned to them."
+    - h: "Teams meet, agree and act"
+      p: "Teammates meet in a group room. They decide what to do and put the work on the board. In one test the group built and tested a tool during the meeting."
+    - h: "Your address, your records, your rules"
+      p: "Each business gets its own address and its own records. You write the rules in plain words. Every action leaves a receipt you can open, and every job shows its cost."
+examples:
+  id: "examples"
+  h: "The same technology, shaped by the business."
+  p: "Eight kinds of business were described to AMTECH as a stranger would describe theirs. Each got a different team, with different jobs and a different first task. All eight are test runs. None is a customer."
+  seconds: "seconds to a ready team"
+  team_k: "Team"
+  job_k: "First job"
+  cards:
+    - {name: "An online candle store", s: "85.6", team: "Ads, email, listings, inbox, analyst", job: "Look at 30 days of sales and ad spend and name the three biggest money leaks."}
+    - {name: "A heating and air company", s: "76.3", team: "Retention, reviews, lead follow-up, analyst", job: "Pull the maintenance plan list and show who is due for renewal this month."}
+    - {name: "A law office", s: "90.4", team: "Front desk, intake, lead follow-up, onboarding, documents, billing, collections", job: "Answer every missed intake call, put every new enquiry into the firm's records, and start the client updates."}
+    - {name: "A food bank", s: "78.3", team: "Shift fill, fundraising, email, documents, analyst", job: "Read the volunteer sheet and the grant tracker, then tell the owner what needs attention."}
+    - {name: "A dental office", s: "102.8", team: "Front desk, retention, reviews, analyst", job: "Look at the next two weeks of appointments and recall lists, then tell the owner what needs attention."}
+    - {name: "A general contractor", s: "71.5", team: "Estimator, projects, dispatch, billing, collections, inbox", job: "Put estimate, job and invoice records, open estimates and unpaid invoices into one list."}
+    - {name: "A marketing agency with 30 clients", s: "80.5", team: "Ads, email, creative, support, analyst", job: "Put the 30 clients into one client list with their ad accounts, and set a monthly report rhythm."}
+    - {name: "A yard-service company", s: "74.2", team: "Front desk, estimator, scheduler, lead follow-up, reviews", job: "Quote new yards, plan the week's route, reply fast to new enquiries and ask for reviews."}
+  note: "Each time is one run, from the start to a ready team with its first job on the board. Two earlier runs for the law office took 124 and 241 seconds, when our test system was short of free capacity."
+live:
+  id: "proof"
+  tag: "Running today"
+  h: "A business with an AI employee running its bookings, quotes and replies."
+  p: "Scoop Dogg does pet waste removal and turf care in Ventura and Santa Barbara counties. An AMTECH AI employee gets every booking, quote and contact from his website, and drafts the reply at his real prices. In October 2026 he was first in ChatGPT and in Google's AI Overview for pet waste and turf care in Ventura and Santa Barbara."
+  source: "Reported by Ben Palaskas, AMTECH, October 2026."
+  link: "/customers/scoop-dogg"
+  link_text: "Read how it works for him"
+for:
+  id: "operators"
+  h: "Who it is for."
+  p: "Owners of businesses that make $500,000 to $10 million a year and sell something other than software. And firms that own or run many of them."
+  cols:
+    - {h: "An owner", p: "A team for your business without hiring one. You watch the board and set the rules."}
+    - {h: "An operator with several businesses", p: "One account holds a team for each business you run. People you invite can use a team."}
+    - {h: "A portfolio or family office", p: "Talk to us. We build this with you."}
+  link: "/schedule-demo"
+  link_text: "Talk to us"
+# Section 7 of the plan, "Businesses AMTECH runs itself", is NOT shown. It stays empty until one business has run for a
+# month with its own books (GAP-10). Fill `own:` and the layout shows it; no redesign needed.
+own: {}
+price:
+  id: "pricing"
+  h: "What it costs."
+  cols:
+    - {h: "Start", big: "Free to start.", p: "Describe your business and your team starts."}
+    - {h: "One business", big: "A monthly plan.", p: "We take no share of your sales.", placeholder: "[PRICE: Ben sets]"}
+    - {h: "Operators and portfolios", big: "Talk to us.", p: "For firms with many businesses.", link: "/schedule-demo", link_text: "Talk to us"}
 questions_h: "Questions"
 questions:
-  - {q: "What does AMTECH do?", a: "AMTECH builds a custom team of AI agents for your business. Each agent takes a part of the work, such as sales, marketing, finance, research or operations; they work together inside the software you already use, and you run all of them from one screen."}
-  - {q: "What is an AI agent?", a: "An AI that does a job from start to finish rather than answering a question. It reads what it needs, uses your software, does the work and reports what it did. A team of agents splits a business's work the way a team of people would."}
-  - {q: "How is this different from ChatGPT?", a: "ChatGPT is a tool you drive: it tells you how. Your AMTECH agents do the work themselves, inside your own records and software, every day, and you see every job they finish."}
-  - {q: "How is AMTECH different from Grok Bot or OpenAI Dots?", a: "Those give one person AI helpers to set up and run themselves. AMTECH builds the whole team for your business, connects it to your software, and runs it with you, with results agreed up front when you want them."}
-  - {q: "Can I run agents for several businesses, stores or clients?", a: "Yes. One account holds a team for each business, store or client you run, and one screen shows all of them."}
-  - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
-  - {q: "What happens to my data if I leave?", a: "It is yours. Export it whenever you like, and close your account to have nothing of your business left behind."}
-  - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds and runs teams of AI agents for businesses. It is not Amtech Systems."}
-ask_prompt: "What does AMTECH AI (amtechai.com) do for a small business?"
-closing_h: "Name your business and meet your team on a call."
-closing_sub: "Book thirty minutes with Ben Palaskas. You see the team your business would get, and a real job done on the call if you bring one."
+  - {q: "Is this a template?", a: "No. Each team is made from what you tell us. In our tests, eight kinds of business got eight different teams, with different jobs and a different first task."}
+  - {q: "What can it not do?", a: "It cannot do physical work, such as cleaning a yard or filling a tooth. It cannot sign in to your accounts until you connect them. Nothing is sent, posted, paid or booked until you say yes, unless a standing yes in your own words covers it."}
+  - {q: "Who sees my data?", a: "Your business has its own address and its own records. AMTECH's own access to your business ends by itself, and you see it end. If you close your account, nothing of your business stays behind."}
+  - {q: "Can it run my whole business?", a: "It does the computer work of a business. This page shows what it has done so far, and that is all we claim."}
+  - {q: "What is an AI agent?", a: "An AI that does a job from start to finish rather than answering a question. It reads what it needs, uses your software, does the work and reports what it did."}
+  - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas. It builds software that forms teams of AI agents around a business. It is not Amtech Systems."}
+close:
+  h: "Describe your business and start your team."
+  p: "Free to start."
+  talk: "Rather talk first?"
+  talk_link: "Talk to us"
 site_sources: false
 sources:
-  - "The work shown on this page (jobs, counts, rules, stores and connections) illustrates the AMTECH application; it is not a customer's job."
-  - "Scoop Dogg: reported by Ben Palaskas, AMTECH, 27 October 2026 (scoopdogg.net)."
-reviewed: {by: "Ben Palaskas", date: "2026-11-08"}
-frame:
-  - tab: "New products on every store"
-    who: t1
-    ask: "The spring collection is in. Get the new products live on all eight stores this week."
-    reply: "Operations has it. Every product is written, photographed from the supplier's files and priced for each store, and the first store is ready for you to look over."
-    title: "Spring collection, live on eight stores"
-    steps: ["Read the supplier's sheet and the product photos", "Wrote each listing in the store's own voice", "Priced each product from your margins", "Waiting for your look before the first store goes live"]
-    line: "Flagged two products the supplier sent without sizes"
-    doc: {kind: sheet, title: "Spring collection", meta: "From the supplier's sheet, for each store", cols: ["Product", "Stores", "Ready"], rows: [["Linen throw, three colours", "All eight", "Listing and photos"], ["Ceramic planter set", "Six of eight", "Listing and photos"], ["Rattan basket", "All eight", "Needs sizes"]], foot: "Each store's listing written in its own voice."}
-    trust: {assumed: "your usual margin for home goods", checked: "every price against what each store charges today"}
-    approve: {act: "Put the first store live"}
-  - tab: "A list of owners to call"
-    who: t5
-    ask: "Find me the owners of independent pet stores in Texas, with a phone and an email for each."
-    reply: "Research found 412 stores and the owner of 338, checked each email and phone, and handed the list to Sales, which wrote the first email for each."
-    title: "Independent pet store owners, Texas"
-    steps: ["Searched maps, state records and the stores' own sites", "Found the owner's name for 338 of 412 stores", "Checked every email and phone", "Waiting for your yes to send the first emails"]
-    line: "Left out 31 stores that belong to chains"
-    doc: {kind: sheet, title: "Pet store owners, Texas", meta: "From maps, state records and each store's site", cols: ["Store", "Owner", "Checked"], rows: [["Paws on Main, Austin", "Owner, named", "Email and phone"], ["The Feed Barn, Waco", "Owner, named", "Email and phone"], ["Lone Star Pets, Tyler", "Owner, named", "Phone only"]], foot: "Every owner has the source the name came from."}
-    trust: {assumed: "independent means fewer than three locations", checked: "every email with a live mailbox check"}
-    approve: {act: "Send the first emails"}
-  - tab: "The page customers ask ChatGPT for"
-    who: t3
-    ask: "When someone asks ChatGPT for a business like ours nearby, do we come up?"
-    reply: "Not yet. Marketing checked what ChatGPT and Google answer today, then wrote the page that answers the question from your own work, area and reviews."
-    title: "Your page for the question customers ask most"
-    steps: ["Asked ChatGPT and Google what customers ask", "Read who the answers name, and why", "Wrote the page from your work, your area and your reviews", "Waiting for your yes to publish it"]
-    line: "Marked it up so search engines and AI assistants can read it"
-    doc:
-      kind: page
-      title: "Your new page"
-      meta: "A new page on your website"
-      url: "yoursite.com/near-you"
-      h: "What customers ask, answered by the people who do the work"
-      p: "What it costs, how long it takes, what to expect, and the towns you cover, from your own jobs and reviews."
-      button: "Book now"
-      rows: ["How much does it cost?", "How soon can you start?", "Do you cover my town?"]
-    trust: {assumed: "your service area from your Google listing", checked: "what ChatGPT and Google answer for the question today"}
-    approve: {act: "Publish to your site"}
+  - "The cards, teams and times shown on this page come from tests of AMTECH's own system with described businesses, on 2026-11-12. They are not customers' jobs."
+  - "Scoop Dogg: reported by Ben Palaskas, AMTECH, October 2026 (scoopdogg.net)."
+reviewed: {by: "Ben Palaskas", date: "2026-11-13"}
 ---
