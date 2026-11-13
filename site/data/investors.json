@@ -4,187 +4,226 @@
    "n": 1,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-01-1600.webp",
-   "img_sm": "/investors/deck/plate-01-800.webp",
-   "head": "A platform for creating, running and managing AI employees.",
+   "img": "/investors/deck/seed-01-1600.webp",
+   "img_sm": "/investors/deck/seed-01-800.webp",
+   "head": "A swarm of AI agents that runs businesses on its own.",
    "lines": [
-    "Ben Palaskas, founder · Dalton, Pennsylvania · Pre-seed, 2026"
+    "New or existing, in any industry. Describe the business. The swarm sets itself up and runs it, day and night.",
+    "Ben Palaskas, founder · Seed round, November 2026"
    ]
   },
   {
    "n": 2,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-02-1600.webp",
-   "img_sm": "/investors/deck/plate-02-800.webp",
-   "head": "Each AI employee is a team of AI agents with a computer of its own.",
+   "img": "/investors/deck/seed-02-1600.webp",
+   "img_sm": "/investors/deck/seed-02-800.webp",
+   "head": "Every business will run on AI agents. Almost none of them can set agents up.",
    "lines": [
-    "The owner talks to one agent, which starts each job on its own and runs several at once. Between them they browse, research, write code, make documents, pictures and video, and keep working after the owner closes the app."
+    "Running agents is a job of its own. Pick the models. Build the infrastructure. Write the policies. Connect them to the business's software. Manage them every day.",
+    "And it changes every week. New models, new tools, new best practice. Owners have no time to keep up, and no one on staff who can.",
+    "So they keep paying for the old way: a stack of SaaS subscriptions, people to operate it, or a chatbot that cannot do the job."
    ]
   },
   {
    "n": 3,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-03-1600.webp",
-   "img_sm": "/investors/deck/plate-03-800.webp",
-   "head": "The agents work freely inside their computer. What leaves it waits for a person the business has authorized.",
+   "img": "/investors/deck/seed-03-1600.webp",
+   "img_sm": "/investors/deck/seed-03-800.webp",
+   "head": "Describe your business. Meet the team that runs it.",
    "lines": [
-    "Messages to customers, published pages and payments all wait. Code the agents cannot argue with decides who may approve and who may spend."
+    "One sentence in. About 90 seconds later: a team of agents shaped to that business, each with its own job, inside the tools it already uses, working day and night.",
+    "To the owner it is custom software built for them."
    ]
   },
   {
    "n": 4,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-04-1600.webp",
-   "img_sm": "/investors/deck/plate-04-800.webp",
-   "head": "In a service business of $1 million to $10 million a year, a team of agents can run everything but the physical work.",
+   "img": "/investors/deck/seed-04-1600.webp",
+   "img_sm": "/investors/deck/seed-04-800.webp",
+   "head": "A whole company's worth of work. No hiring, no building, no learning AI.",
    "lines": [
-    "$1-10M",
-    "Those are the businesses I have been building for, and the ones a lab's engineers will never visit."
+    "No AI knowledge needed. AMTECH picks the models, builds the infrastructure, sets the policies and keeps up with the field.",
+    "Ready in minutes. No set-up project, no consultant, no code, no prompts to write.",
+    "Connects to any software. It sets up its own accounts and connections inside the tools the business already uses.",
+    "Improves itself. The team learns from its own work and gets better every week without anyone touching it.",
+    "Costs less than what it replaces. One price instead of a stack of subscriptions and the hours it takes to run them."
    ]
   },
   {
    "n": 5,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-05-1600.webp",
-   "img_sm": "/investors/deck/plate-05-800.webp",
-   "head": "Four businesses signed for AI employees in October.",
+   "img": "/investors/deck/seed-05-1600.webp",
+   "img_sm": "/investors/deck/seed-05-800.webp",
+   "head": "Self-serve went public this week. AMTECH already runs ten businesses.",
    "lines": [
-    "8%",
-    "A Ventura County service company signed for 8% of all its revenue. Its employee does everything in the business except the physical work.",
-    "Houston moving company: $1,200 setup, then usage. Being set up to run the whole business.",
-    "Pennsylvania festival: $1,200 plus 10% of all the money the festival raises.",
-    "Crypto trading desk: $1,200 setup, then usage, for an employee built for trading."
+    "A yard-care company: Its AI team built the website, takes bookings and answers customers. AMTECH is paid 8% of its revenue.",
+    "An e-commerce group: Eight stores, each run by its own team, under one main agent.",
+    "A lead-generation business: Moved its work to AMTECH after a Grok Bot agent could not do the job.",
+    "All of it before any public launch, sold directly by the founder. As of this week anyone can describe a business on amtechai.com and have a working team in under two minutes."
    ]
   },
   {
    "n": 6,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-06-1600.webp",
-   "img_sm": "/investors/deck/plate-06-800.webp",
-   "head": "What AMTECH sells is a growing share of the work businesses pay people and agencies to do.",
+   "img": "/investors/deck/seed-06-1600.webp",
+   "img_sm": "/investors/deck/seed-06-800.webp",
+   "head": "Not one assistant. Hundreds of agents, working together.",
    "lines": [
-    "85%",
-    "Two deals are $1,200 then usage, billed at about an 85% margin. Two take a share of what the business earns. Results-based pricing and monthly plans are in test, and AMTECH's own meter will show which ones owners keep."
+    "Twenty online stores, each with its own team for products, ads, email and customers, all under one main agent.",
+    "Every company in a private equity roll-up, each run by its own team, with one view across the portfolio.",
+    "One person can now run what used to take a whole company. Add a business, add a team. No hiring, ever."
    ]
   },
   {
    "n": 7,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-07-1600.webp",
-   "img_sm": "/investors/deck/plate-07-800.webp",
-   "head": "Under every employee is a platform I built for this.",
+   "img": "/investors/deck/seed-07-1600.webp",
+   "img_sm": "/investors/deck/seed-07-800.webp",
+   "head": "The fastest agents of any AI tool, on open-source models.",
    "lines": [
-    "The business's own records. Prices, customers, rules and decisions as plain files the business owns. They grow with every job, and no competitor can buy them.",
-    "Authority in code. Who may approve work and who may spend money, decided by code the agents cannot argue with.",
-    "A gateway. Every request is metered, priced and sent to the best model from any lab.",
-    "A factory. Employees built from one standard and handed to anyone at the first word, on Hermes, the open-source agent runtime."
+    "Highest tokens per second of all competing AI tools. Agents finish work while others are still thinking.",
+    "Open-source models: DeepSeek V4.1 Flash and GLM-5.3. No lock-in to one lab, and the cost of running a team is cents, not dollars.",
+    "Sets up its own everything: its computer, its tools, its connections, its routines.",
+    "Built on what the best agent teams already use, so every advance in the field reaches our customers the same week."
    ]
   },
   {
    "n": 8,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-08-1600.webp",
-   "img_sm": "/investors/deck/plate-08-800.webp",
-   "head": "Scan this and give an AI employee a job.",
+   "img": "/investors/deck/seed-08-1600.webp",
+   "img_sm": "/investors/deck/seed-08-800.webp",
+   "head": "A new SaaS launches for some industry. Twenty minutes later, AMTECH has a better one, run by agents.",
    "lines": [
-    "Describe a job and it starts on it.",
-    "amtechai.com/contractors"
+    "Our research agents read what an industry says about itself online: forums, social media, market data. AMTECH turns that into a configuration. No code, no new team."
    ]
   },
   {
    "n": 9,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-09-1600.webp",
-   "img_sm": "/investors/deck/plate-09-800.webp",
-   "head": "A new kind of American business is starting.",
+   "img": "/investors/deck/seed-09-1600.webp",
+   "img_sm": "/investors/deck/seed-09-800.webp",
+   "head": "What used to take a few million dollars and a separate team for every type of software takes AMTECH about 90 seconds.",
    "lines": [
-    "Since early 2025, applications for one-person companies are up more than 20% while companies that plan to hire are nearly flat (Nasdaq, from Census data). The tools those founders will rely on in 2027 and 2028 do not exist yet. I am building them."
+    "We use configurations of AMTECH, written in plain language, to break into entirely new industries. Each one is sold as its own product. The buyer does not need to know or want AI.",
+    "We can change our go-to-market faster than AI itself is changing."
    ]
   },
   {
    "n": 10,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-10-1600.webp",
-   "img_sm": "/investors/deck/plate-10-800.webp",
-   "head": "This fall investors and the largest AI companies bet on agents that do real work.",
+   "img": "/investors/deck/seed-10-1600.webp",
+   "img_sm": "/investors/deck/seed-10-800.webp",
+   "head": "Private equity is buying service businesses to run them with AI.",
    "lines": [
-    "$1B: The valuation of Avoca, AI for home-service trades, in April.",
-    "$285M: The valuation of Hone's seed, AI with goals inside companies, in October.",
-    "Meta launched Muse for Small Business and xAI launched Grok Team Bots. AMTECH runs the agents for the business, on the best model from any lab, and can take its pay from what the business earns."
+    "The money is already moving. Thrive Holdings raised over $2B to buy companies and run them with AI. General Catalyst set aside $1.5B for the same idea.",
+    "Every firm has to build that AI itself, company by company. AMTECH gives a whole portfolio a swarm on the day of the deal.",
+    "The trades are getting more competitive. Independent owners now go up against PE-backed rivals. AMTECH gives them the same leverage without selling.",
+    "It is the biggest change in how service businesses are owned and run in a generation, and AMTECH is the software it runs on."
    ]
   },
   {
    "n": 11,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-11-1600.webp",
-   "img_sm": "/investors/deck/plate-11-800.webp",
-   "head": "The labs send engineers into companies. AMTECH turns that work into a product.",
+   "img": "/investors/deck/seed-11-1600.webp",
+   "img_sm": "/investors/deck/seed-11-800.webp",
+   "head": "More people are starting businesses than ever, and more of them start online.",
    "lines": [
-    "36.2M: US small businesses, with almost half of America's private-sector jobs (SBA, 2025).",
-    "Anthropic's new services firm says mid-sized companies \"lack the in-house resources to build and run frontier deployments\", and OpenAI built a Deployment Company on the same model. An engineer per company cannot pay for itself at a small business."
+    "AI made starting easy. One person can open a store, an agency or a content business in a weekend.",
+    "Running it is still hard. Marketing, customers, orders and books. These businesses have little or no staff and pay for a long list of SaaS tools instead.",
+    "That is the work an AMTECH swarm does from the first day, for a new business or an existing one.",
+    "AMTECH starts businesses of its own the same way, and keeps all of the revenue."
    ]
   },
   {
    "n": 12,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-12-1600.webp",
-   "img_sm": "/investors/deck/plate-12-800.webp",
-   "head": "I built the platform alone in 54 days, and I run AMTECH with AI agents.",
+   "img": "/investors/deck/seed-12-1600.webp",
+   "img_sm": "/investors/deck/seed-12-800.webp",
+   "head": "Software margins on work businesses used to pay people for.",
    "lines": [
-    "54",
-    "AMTECH runs its own business on one of its employees. I already work full time on AMTECH, about 40 hours a week beside a part-time job, and when we raise I will commit every second of my life to it."
+    "Any business: starts at $50 a month and grows with use. Custom set-ups from $1,200 a month.",
+    "Agencies: one account, a team for every client. One sale brings dozens of businesses.",
+    "Operators and private equity: a team for every company in the portfolio, and 8% of each company's revenue.",
+    "AMTECH's own businesses: started and run by our own swarms. We keep all of the revenue.",
+    "Cost to run a team is cents a day, because the models are open-source and fast."
    ]
   },
   {
    "n": 13,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-13-1600.webp",
-   "img_sm": "/investors/deck/plate-13-800.webp",
-   "head": "Post-money SAFE at a $6M cap.",
+   "img": "/investors/deck/seed-13-1600.webp",
+   "img_sm": "/investors/deck/seed-13-800.webp",
+   "head": "The next trillion-dollar company will sell the work, not the tool.",
    "lines": [
-    "$600k",
-    "It pays for the computers and the AI the employees run on, free trials, and getting owners to the page, with a reserve. I run the meetings and the go-to-market myself with AI agents, so the money goes to the work. At the end of eighteen months any owner who finds a page can sign up without me."
+    "36 million US businesses, and almost none of their work has been touched by software that does it for them.",
+    "Investors already pay billions for single pieces. Avoca is worth $1B for answering phones in the trades. Polsia raised at $250M five months in, with one founder. AMTECH runs the whole business, in every industry.",
+    "A billion-dollar company needs one in a thousand of them. Agencies and portfolios bring them in by the dozen."
    ]
   },
   {
    "n": 14,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-14-1600.webp",
-   "img_sm": "/investors/deck/plate-14-800.webp",
-   "head": "Fifty years after Gutenberg, there were presses in 250 to 280 European cities.",
+   "img": "/investors/deck/seed-14-1600.webp",
+   "img_sm": "/investors/deck/seed-14-800.webp",
+   "head": "Everyone else sells a piece. AMTECH runs the whole business.",
    "lines": [
-    "AI will reach every business the same way. Next come several employees working together, then employees trusted with money, then anyone starting a business with a team of agents."
+    "Assistants like ChatGPT and Grok help one person, who still has to drive.",
+    "Agent builders like Lindy make you build and maintain every agent yourself.",
+    "Vertical SaaS like ServiceTitan sells one industry a tool, and still needs staff to run it.",
+    "AI roll-ups like Thrive have to buy a business before they can run it. They are customers, not rivals."
    ]
   },
   {
    "n": 15,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/plate-15-1600.webp",
-   "img_sm": "/investors/deck/plate-15-800.webp",
-   "head": "Pictures and sources",
+   "img": "/investors/deck/seed-15-1600.webp",
+   "img_sm": "/investors/deck/seed-15-800.webp",
+   "head": "Swarms of AI agents running businesses on their own, in every industry.",
    "lines": [
-    "Deals, prices, the raise: AMTECH records, October 2026",
-    "One-person companies: Nasdaq Economic Institute (Census data), 2026",
-    "Avoca, $1B: Avoca, 27 April 2026",
-    "Hone: Hone, 8 October 2026; $285M: Bloomberg",
-    "Muse: Meta, 29 Sept 2026; Grok Team Bots: xAI, 28 Sept 2026",
-    "36.2 million small businesses: SBA Office of Advocacy, 2025",
-    "Anthropic, 4 May 2026; OpenAI Deployment Company, May 2026",
-    "Presses by 1500: History of Information; Swiss National Museum"
+    "Within a decade most businesses will be run by agents. AMTECH intends to be the one running them: new businesses and existing ones, in any industry our agents can learn about online. The owner never builds anything, manages tokens or needs to know how to use AI."
+   ]
+  },
+  {
+   "n": 16,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/seed-16-1600.webp",
+   "img_sm": "/investors/deck/seed-16-800.webp",
+   "head": "Ben Palaskas, founder.",
+   "lines": [
+    "Built AMTECH alone, from the first line of code in late August: the platform, the agent swarm, the self-serve sign-up and the website.",
+    "Sold AMTECH's first customers himself, before there was a public product.",
+    "AMTECH is built the way it runs: one founder directing a swarm of agents. The company is its own first proof.",
+    "With the raise: a founding engineer, a go-to-market engineer and a marketer."
+   ]
+  },
+  {
+   "n": 17,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/seed-17-1600.webp",
+   "img_sm": "/investors/deck/seed-17-800.webp",
+   "head": "$2M seed.",
+   "lines": [
+    "To ten thousand businesses in 18 months.",
+    "Three hires: A founding engineer, a go-to-market engineer and a marketer.",
+    "New industries: A new product for a new industry every few weeks.",
+    "In 18 months: 10,000 paying businesses. About 100 of them across several private equity firms, each paying AMTECH 8% of its revenue.",
+    "AMTECH's own businesses: The first businesses started and run by our own swarms."
    ]
   }
  ]

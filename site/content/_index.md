@@ -5,7 +5,7 @@
 # the team forming for five kinds of business (drawn in the application's look; the names and counts inside it
 # illustrate the application), four figures, the kinds of business (each a real page), the operators' band, customers,
 # price and one action. Every word the page shows is in this file.
-llms: { order: 1, label: "AMTECH", text: "AMTECH is the software company after SaaS: describe a business, and a team of AI agents forms around it and runs its office work, inside the software it already uses, with one screen where the owner directs and sees everything." }
+llms: { order: 1, label: "AMTECH", text: "AMTECH is a swarm of AI agents that runs new and existing businesses on its own, in any industry: describe a business, and a team of agents forms around it and runs its work, inside the software it already uses, with one screen where the owner directs and sees everything." }
 title: "AMTECH: describe your business, meet the AI team that runs it"
 description: "Describe your business and AMTECH builds a team of AI agents that runs its work: sales, marketing, customers, books and operations, in your own tools."
 route: "/"
@@ -14,7 +14,7 @@ crumb: "AMTECH"
 h1a: "Describe your business."
 h1b: "Meet the team that runs it."
 sub: "AMTECH builds a team of AI agents around your business in minutes. It works inside the tools you already use, day and night."
-answer: "AMTECH is the software company after SaaS. Describe a business and a team of AI agents forms around it: each agent takes a part of the work, such as sales, marketing, customers, books and operations; they work together inside the business's own software, and the owner directs and sees all of it on one screen. Agencies, operators and investors run a team for every client, store or company from one account."
+answer: "AMTECH is a swarm of AI agents that runs new and existing businesses on its own, in any industry. Describe a business and a team of agents forms around it: each agent takes a part of the work, such as sales, marketing, customers, books and operations; they work together inside the business's own software, and the owner directs and sees all of it on one screen. Agencies, operators and investors run a team for every client, store or company from one account."
 app:
   name: "AMTECH"
   category: "AI agent teams that run a business's work"
@@ -143,7 +143,6 @@ ops_k: "Agencies, operators, investors"
 ops_h: "Run a hundred businesses from one screen."
 ops_p: "A team for every client, store or company you own. One account."
 ops_button: "Talk to us"
-ops_legend: "Each square is one business's team, working."
 customers_h: "Already running real businesses."
 customers_link: "Read the story"
 customers:
@@ -162,14 +161,16 @@ closing_h: "You do the work only people can do."
 closing_sub: "Your team does the rest."
 questions_h: "Questions"
 questions:
-  - {q: "What does AMTECH do?", a: "AMTECH builds a custom team of AI agents for your business. Each agent takes a part of the work, such as sales, marketing, finance, research or operations; they work together inside the software you already use, and you run all of them from one screen."}
+  - {q: "What does AMTECH do?", a: "AMTECH gives your business its own swarm of AI agents that runs the work on its own. Each agent takes a part of the work, such as sales, marketing, finance, research or operations; they work together inside the software you already use, and you run all of them from one screen."}
   - {q: "What is an AI agent?", a: "An AI that does a job from start to finish rather than answering a question. It reads what it needs, uses your software, does the work and reports what it did. A team of agents splits a business's work the way a team of people would."}
   - {q: "How is this different from ChatGPT?", a: "ChatGPT is a tool you drive: it tells you how. Your AMTECH agents do the work themselves, inside your own records and software, every day, and you see every job they finish."}
   - {q: "How is AMTECH different from Grok Bot or OpenAI Dots?", a: "Those give one person AI helpers to set up and run themselves. AMTECH builds the whole team for your business, connects it to your software, and runs it with you, with results agreed up front when you want them."}
   - {q: "Can I run agents for several businesses, stores or clients?", a: "Yes. One account holds a team for each business, store or client you run, and one screen shows all of them."}
   - {q: "What does it cost?", a: "Pay as you go for the work done, from $50 a month. Custom agents set up with you, with guaranteed results, start at $1,200 a month."}
+  - {q: "Do I need to know how to use AI?", a: "No. AMTECH picks the models, sets up everything the agents need, writes their rules with you in plain words and keeps up with what changes in AI, so you never have to."}
+  - {q: "Which AI models does AMTECH use?", a: "Fast open-source models, DeepSeek and GLM, chosen for each job. They are why AMTECH's agents finish work faster than other AI tools and why a team costs so little to run."}
   - {q: "What happens to my data if I leave?", a: "It is yours. Export it whenever you like, and close your account to have nothing of your business left behind."}
-  - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds and runs teams of AI agents for businesses. It is not Amtech Systems."}
+  - {q: "Who is AMTECH?", a: "AMTECH AI is a technology company founded by Ben Palaskas that builds swarms of AI agents which run new and existing businesses on their own, in any industry. It is not Amtech Systems."}
 ask_prompt: "What does AMTECH AI (amtechai.com) do for a small business?"
 sources:
   - "The work shown on this page (teams, jobs, counts and seconds) illustrates the AMTECH application; it is not a customer's job."

@@ -17,6 +17,10 @@
     {"source": "/(favicon.*|apple-touch-icon\\.png|logo\\.png|manifest\\.webmanifest)", "headers": [{"key": "Cache-Control", "value": "public, max-age=86400, stale-while-revalidate=604800"}]}
   ],
   "redirects": [
+    {"source": "/investors/AMTECH-AI-pre-seed-deck.pdf", "destination": "/investors/AMTECH-AI-seed-deck.pdf", "statusCode": 301},
+    {"source": "/investors/AMTECH-AI-one-page.pdf", "destination": "/investors", "statusCode": 301},
+    {"source": "/investors/AMTECH-AI-how-it-is-built.pdf", "destination": "/investors", "statusCode": 301},
+    {"source": "/investors/AMTECH-AI-financials.pdf", "destination": "/investors", "statusCode": 301},
     {"source": "/painters(/.*)?", "destination": "/industries/painting", "statusCode": 301},
     {"source": "/painters.html", "destination": "/industries/painting", "statusCode": 301},
     {"source": "/contractors(/.*)?", "destination": "/industries/contractors", "statusCode": 301},

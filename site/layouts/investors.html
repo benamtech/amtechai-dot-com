@@ -42,14 +42,14 @@
 </div></div>
 </div></section>
 
-<section id="documents" class="iv-docs"><div class="wrap">
+{{ with $p.documents }}<section id="documents" class="iv-docs"><div class="wrap">
 <h2>{{ $L.documents }}</h2>
 <ul class="iv-doclist">
 {{- range $p.documents }}
 <li><div><h3>{{ .title }}</h3><p>{{ .body }}</p></div><div class="iv-step"><a class="btn" href="{{ .pdf }}" data-doc-open="doc-{{ .id }}">{{ $L.read }}</a><a class="btn iv-ghost" href="{{ .pdf }}" download>{{ $L.pdf }}</a></div></li>
 {{- end }}
 </ul>
-</div></section>
+</div></section>{{ end }}
 
 {{- range $p.documents }}
 {{- $md := resources.Get (printf "investors/%s.md" .id) }}
