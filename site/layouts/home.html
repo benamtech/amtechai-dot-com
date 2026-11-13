@@ -1,0 +1,95 @@
+{{- /* Home (2026-11-13, session `voni`), from the story in the platform repo's
+       plans/2026-11-09-SELF-SERVE-SWARM/session-5/STORY.md. The order is the argument: the sentence and the start box
+       over the town at night; the team forming for five kinds of business, drawn in the application's look and played
+       by assets/js/w/home.js; four figures; what it is not; the kinds of business, each a real page; the operators'
+       band; customers; price; one action. The layout owns no sentence: every word is in content/_index.md. */ -}}
+{{- $p := . }}{{ $P := .Params -}}
+{{- range slice "title" "description" "h1a" "h1b" "sub" "field" "button" "under" "book" "chips" "hero_img" "hero_alt" "kinds_h" "kinds" "figures" "not_h" "not" "yes" "industries_h" "industries" "ops_h" "ops_p" "ops_img" "customers_h" "customers" "price_h" "options" "closing_h" "closing_sub" "close_img" "questions_h" "questions" "reviewed" }}{{ if not (isset $P .) }}{{ errorf "GATE %s: front matter is missing %q" $p.File.Path . }}{{ end }}{{ end -}}
+{{- $app := hugo.Data.w.app -}}
+{{ partial "w/top.html" . }}
+<main class="hm">
+
+<section class="hm-hero">
+{{ partial "w/hmimg.html" (dict "src" $P.hero_img "alt" $P.hero_alt "eager" true "cls" "hm-bg") }}
+<div class="wrap hm-hero-in">
+{{ with $P.kicker }}<p class="hm-kicker">{{ . }}</p>{{ end }}
+<h1><span>{{ $P.h1a }}</span> <em>{{ $P.h1b }}</em></h1>
+<p class="hm-sub">{{ $P.sub }}</p>
+<form class="hm-start" id="start" action="{{ $app }}/start" method="get" data-start data-hm-start><label class="sr" for="start-in">{{ $P.field }}</label><input id="start-in" name="business" placeholder="{{ $P.field }}" autocomplete="off" maxlength="120" required><button class="btn" type="submit">{{ $P.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></form>
+<ul class="hm-chips">{{ range $P.chips }}<li><button type="button" data-fill="{{ . }}">{{ . }}</button></li>{{ end }}</ul>
+<p class="hm-under">{{ $P.under }} <a href="/schedule-demo">{{ $P.book }}</a></p>
+</div>
+</section>
+
+<section class="hm-kinds" data-hm-kinds><div class="wrap">
+<h2>{{ $P.kinds_h }}</h2>
+<div class="hm-tabs" role="tablist" aria-label="{{ $P.kinds_h }}">{{ range $i, $k := $P.kinds }}<button type="button" role="tab" id="hm-tab-{{ $i }}" aria-controls="hm-kind-{{ $i }}" aria-selected="{{ if eq $i 0 }}true{{ else }}false{{ end }}"{{ if ne $i 0 }} tabindex="-1"{{ end }}>{{ $k.tab }}</button>{{ end }}</div>
+<div class="hm-win">
+<div class="hm-bar" aria-hidden="true"><i></i><i></i><i></i><span class="hm-url" data-hm-url>{{ (index $P.kinds 0).url }}</span></div>
+{{- range $i, $k := $P.kinds }}
+<div class="hm-kind{{ if eq $i 0 }} on{{ end }}" id="hm-kind-{{ $i }}" role="tabpanel" aria-labelledby="hm-tab-{{ $i }}" data-url="{{ $k.url }}"{{ if ne $i 0 }} hidden{{ end }}>
+<aside class="hm-side">
+<p class="hm-firm"><span class="af-logo">AMTECH<i>.</i></span><b>{{ $k.firm }}</b></p>
+<p class="hm-k">{{ $P.kinds_team }}</p>
+<ul class="hm-team">{{ range $j, $t := $k.team }}<li style="--i:{{ $j }}">{{ partial "w/character.html" (dict "id" $t.who "size" 34) }}<span><b>{{ $t.name }}</b><em>{{ $t.job }}</em></span><i class="lamp l-work" aria-hidden="true"></i></li>{{ end }}</ul>
+</aside>
+<div class="hm-main">
+<p class="hm-say"><span class="hm-who">{{ $P.kinds_you }}</span><q data-hm-type>{{ $k.say }}</q></p>
+<p class="hm-ready"><i class="pulse" aria-hidden="true"></i>{{ $P.kinds_ready }} <b>{{ $k.secs }}</b></p>
+<p class="hm-k hm-k-today">{{ $P.kinds_today }}</p>
+<ol class="hm-work">{{ range $j, $w := $k.work }}<li class="done" style="--i:{{ $j }}">{{ partial "w/character.html" (dict "id" $w.who "size" 26) }}<span>{{ $w.line }}</span></li>{{ end }}<li class="now" style="--i:{{ len $k.work }}">{{ partial "w/character.html" (dict "id" $k.now.who "size" 26) }}<span>{{ $k.now.line }}</span></li></ol>
+<p class="hm-total">{{ $k.total }}</p>
+</div>
+</div>
+{{- end }}
+</div>
+</div></section>
+
+<section class="hm-figs"><div class="wrap"><ul>{{ range $P.figures }}<li><b>{{ .n }}</b><span>{{ .what }}</span></li>{{ end }}</ul></div></section>
+
+<section class="hm-not"><div class="wrap">
+<h2>{{ $P.not_h }}</h2>
+<ul>{{ range $P.not }}<li><s>{{ . }}</s></li>{{ end }}</ul>
+<p class="hm-yes">{{ $P.yes }}</p>
+</div></section>
+
+<section class="hm-inds"><div class="wrap">
+<div class="hm-inds-h"><h2>{{ $P.industries_h }}</h2>{{ with $P.industries_all }}<a class="wlink" href="/industries">{{ . }}<span aria-hidden="true"> &rarr;</span></a>{{ end }}</div>
+<ul>{{ range $P.industries }}<li><a href="{{ .href }}">{{ partial "w/hmimg.html" (dict "src" .img "alt" .alt "cls" "hm-ph" "sizes" "(min-width: 900px) 33vw, 100vw") }}<span><b>{{ .label }}</b><em>{{ .line }}</em></span></a></li>{{ end }}</ul>
+</div></section>
+
+<section class="hm-ops">
+{{ partial "w/hmimg.html" (dict "src" $P.ops_img "alt" $P.ops_alt "cls" "hm-bg") }}
+<div class="wrap hm-ops-in">
+<div class="hm-ops-t">{{ with $P.ops_k }}<p class="hm-ops-k">{{ . }}</p>{{ end }}<h2>{{ $P.ops_h }}</h2><p>{{ $P.ops_p }}</p><a class="btn" href="/schedule-demo">{{ $P.ops_button }}<span aria-hidden="true" class="arr">&rarr;</span></a></div>
+<div class="hm-grid-w"><div class="hm-grid" aria-hidden="true">{{ range seq 96 }}<i style="--d:{{ mod (mul . 37) 23 }}"></i>{{ end }}</div><p class="hm-grid-c">{{ $P.ops_legend }}</p></div>
+</div>
+</section>
+
+<section class="hm-cust"><div class="wrap">
+<h2>{{ $P.customers_h }}</h2>
+<ul>{{ range $P.customers }}<li><b>{{ .big }}</b><p>{{ .line }}</p><span>{{ .name }}{{ with .href }} <a class="wlink" href="{{ . }}">{{ $.Params.customers_link }}<span aria-hidden="true"> &rarr;</span></a>{{ end }}</span></li>{{ end }}</ul>
+</div></section>
+
+<section class="hm-price"><div class="wrap">
+<div class="hm-inds-h"><h2>{{ $P.price_h }}</h2>{{ with $P.price_link }}<a class="wlink" href="/pricing">{{ . }}<span aria-hidden="true"> &rarr;</span></a>{{ end }}</div>
+<ol>{{ range $i, $o := $P.options }}<li{{ if eq $i 0 }} class="pick"{{ end }}><span class="hm-price-h">{{ $o.h }}</span><b>{{ $o.big }}</b><em>{{ $o.per }}</em><p>{{ $o.p }}</p><a href="{{ $o.href }}">{{ $o.link }}<span aria-hidden="true"> &rarr;</span></a></li>{{ end }}</ol>
+</div></section>
+
+<section class="hm-close">
+{{ partial "w/hmimg.html" (dict "src" $P.close_img "alt" $P.close_alt "cls" "hm-bg") }}
+<div class="wrap hm-close-in">
+<h2>{{ $P.closing_h }} <em>{{ $P.closing_sub }}</em></h2>
+<form class="hm-start" id="start-2" action="{{ $app }}/start" method="get" data-start data-hm-start><label class="sr" for="start-2-in">{{ $P.field }}</label><input id="start-2-in" name="business" placeholder="{{ $P.field }}" autocomplete="off" maxlength="120" required><button class="btn" type="submit">{{ $P.button }}<span aria-hidden="true" class="arr">&rarr;</span></button></form>
+<p class="hm-under">{{ $P.under }} <a href="/schedule-demo">{{ $P.book }}</a></p>
+</div>
+</section>
+
+<section class="lp-faq hm-faq"><div class="wrap lp-faq-in">
+<h2>{{ $P.questions_h }}</h2>
+<div>{{ range $P.questions }}<details><summary>{{ .q }}</summary><p>{{ .a }}</p></details>{{ end }}</div>
+</div></section>
+{{ with $P.ask_prompt }}<section class="w-fixed" aria-label="Ask the AIs">{{ partial "w/askai.html" (dict "prompt" .) }}</section>{{ end }}
+</main>
+{{ with resources.Get "js/w/home.js" | minify | fingerprint }}<script type="module" src="{{ .RelPermalink }}"></script>{{ end }}
+{{ partial "w/bottom.html" . }}
