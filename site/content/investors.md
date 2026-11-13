@@ -1,21 +1,18 @@
 ---
 title: "Investors — AMTECH AI"
-description: "AMTECH is a platform for creating, running and managing AI employees. The pre-seed deck, the one page, the financials and how it is built."
+description: "AMTECH is a swarm of AI agents that runs new and existing businesses on its own, in any industry. The seed deck."
 route: "/investors"
 layout: "investors"
 # Investor materials are shared by link, not found by search.
 noindex: true
-# Words from the brain's spine (output/2026-10-17-funding/the-spine.md, Draft 6, approved 2026-10-18). The plates, the
-# documents and the PDFs are written by output/2026-10-17-funding/site/publish.py.
-heading: "A platform for creating, running and managing AI employees."
-intro: "Each AI employee is a team of AI agents with a computer of its own, doing a business's real work. Pre-seed: $600,000 on a post-money SAFE at a $6 million cap."
+# 2026-11-13 (voni): the seed deck from amtech-biz-brain/output/2026-11-13-pitch-deck (plates are its slides). The
+# October one page, financials and how-it-is-built carried the $600K pre-seed terms and were taken down; the raise is $2M.
+heading: "A swarm of AI agents that runs businesses on its own."
+intro: "New or existing, in any industry. Describe the business, and the swarm sets itself up and runs it. Raising a $2M seed."
 email: "ben@amtechai.com"
 phone: "805-886-9173"
-deck_pdf: "/investors/AMTECH-AI-pre-seed-deck.pdf"
-documents:
-  - { id: "one-page", title: "The one page", body: "What AMTECH is, who it is for, the deals and the raise.", pdf: "/investors/AMTECH-AI-one-page.pdf" }
-  - { id: "how-it-is-built", title: "How it is built", body: "The platform under every employee, and what the experiments measured.", pdf: "/investors/AMTECH-AI-how-it-is-built.pdf" }
-  - { id: "financials", title: "Financials and cap table", body: "The deal terms, the cost to run an employee, the round.", pdf: "/investors/AMTECH-AI-financials.pdf" }
+deck_pdf: "/investors/AMTECH-AI-seed-deck.pdf"
+documents: []
 # The page's own labels (layouts/investors.html owns no words).
 founder: "Benjamin Palaskas, founder"
 labels:

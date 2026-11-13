@@ -61,7 +61,6 @@
 {{ partial "w/hmimg.html" (dict "src" $P.ops_img "alt" $P.ops_alt "cls" "hm-bg") }}
 <div class="wrap hm-ops-in">
 <div class="hm-ops-t">{{ with $P.ops_k }}<p class="hm-ops-k">{{ . }}</p>{{ end }}<h2>{{ $P.ops_h }}</h2><p>{{ $P.ops_p }}</p><a class="btn" href="/schedule-demo">{{ $P.ops_button }}<span aria-hidden="true" class="arr">&rarr;</span></a></div>
-<div class="hm-grid-w"><div class="hm-grid" aria-hidden="true">{{ range seq 96 }}<i style="--d:{{ mod (mul . 37) 23 }}"></i>{{ end }}</div><p class="hm-grid-c">{{ $P.ops_legend }}</p></div>
 </div>
 </section>
 
