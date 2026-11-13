@@ -60,30 +60,25 @@ hero:
 how:
   id: "how"
   h: "A team with jobs, a board, pages and a morning meeting."
-  p: "This is what a team looks like once it has formed. The group room is a real screen from a test business. The board and the teammate page are drawn from the real cards of test runs, until we add screens of the same."
+  p: "This is what a team looks like once it has formed. Every screen here is a real screen from a test business on the platform."
   tag: "From a test business"
   items:
-    - slot: "board"
-      h: "The work board"
-      p: "Every job is a card with an owner, a status and a cost. You watch the cards move from to do to done."
-      alt: "The work board of a test business, with cards in columns"
-      fb_h: "To do and ready"
-      fb_note: "Real cards from a dental office test run"
-      fb_cards:
-        - {who: "Analyst", t: "Pull next two weeks of appointments and recall lists", s: "Ready"}
-        - {who: "Front desk", t: "Analyze appointment schedule for gaps and unconfirmed visits", s: "To do"}
-        - {who: "Retention", t: "Analyze recall list for overdue and due-soon patients", s: "To do"}
-        - {who: "Analyst", t: "Draft owner brief: what needs attention first", s: "To do"}
-    - slot: "teammate"
-      h: "A page for each teammate"
-      p: "Each teammate has its own page: its job, its skills and the cards it has."
-      alt: "A teammate's own page in a test business"
-      fb_h: "Analyst, candle store"
-      fb_note: "Its real cards from a candle store test run"
-      fb_cards:
-        - {who: "Analyst", t: "Pull last 30 days of sales and ad spend data", s: "Ready"}
-        - {who: "Analyst", t: "Analyze sales, discounts, refunds and margin leaks", s: "To do"}
-        - {who: "Analyst", t: "Write the owner-facing top three money leaks report", s: "To do"}
+    - slot: "today"
+      h: "Each day opens on work done"
+      p: "Today shows what the team finished this week, counted from its records, and the few things that wait for your yes."
+      alt: "Today for a test store: cards finished this week, records made, messages sent, orders, and two things waiting for the owner"
+      img: "img/home/today-1440.png"
+      img_small: "img/home/today-1440.png"
+      w: 1440
+      h_px: 900
+    - slot: "pages"
+      h: "The business's own pages"
+      p: "Your records become pages built from your description: a store gets listings, ad changes and cart recoveries; a dental office gets recalls and appointments. Every change the team proposes waits for your yes, and can be undone."
+      alt: "A test store's listings page: eight products read from its store, in a pipeline from drafting to live"
+      img: "img/home/pages-1440.png"
+      img_small: "img/home/pages-390.png"
+      w: 1440
+      h_px: 900
     - slot: "group"
       h: "A group room where the team meets"
       p: "On a schedule, the team meets in a group room, agrees what to do and puts the actions on the board. You can write to the group at any time."
@@ -92,6 +87,14 @@ how:
       img_small: "img/home/group-390.png"
       w: 1440
       h_px: 900
+    - slot: "org"
+      h: "Every team you run, on one page"
+      p: "One sign-in holds a team for each business, across your organisations, with what each team got done this week."
+      alt: "The account home of a test owner with three teams in two organisations, each with its week of work"
+      img: "img/home/org-1440.png"
+      img_small: "img/home/org-390.png"
+      w: 1440
+      h_px: 740
   morning:
     h: "What happened at 8 am in a test"
     p: "A test store's team met in its group room. One teammate built and tested a tool that decides which campaigns to cut, hold or keep. The lead put the agreed actions on the board as cards for whoever does them. Both teammates started, and the summary reached the owner 2.6 minutes after the meeting began. At the next meeting a teammate reported a scent-coverage tool as done rather than agreed."
