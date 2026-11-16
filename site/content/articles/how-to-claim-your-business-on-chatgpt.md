@@ -26,7 +26,7 @@ faqs:
   - q: "What does it cost to claim a business page in ChatGPT?"
     a: "Nothing. The claim is free, and the identity check is free. What costs money is the work around it: getting onto the lists ChatGPT cites, making your phone and hours agree everywhere, and keeping the page current afterwards."
   - q: "Can someone else claim the page for me?"
-    a: "Not the sign-in and not the ID check. The page belongs to the account that claims it, and the identity check runs on your face and your document. Once you are the admin you can give an agency access to manage the page, and you can take that access back."
+    a: "Not the sign-in and not the ID check. The page belongs to the account that claims it, and the identity check runs on your face and your document. Once you are the admin you can give an agency access to manage the page, and the page stays on your account."
   - q: "Why are my insights blank?"
     a: "OpenAI reports mentions, website clicks and discovery topics over a 28-day window, and for a small business the numbers can be empty. A blank panel means too little traffic to report, not that you set something up wrong. It can stay blank for a while."
 citations:
@@ -89,7 +89,7 @@ You need a logo and a photo. A square logo and one decent photo of the work or t
 
 **5. Do the identity check.** This is the Persona step. It needs your ID and your face, and it's yours to finish. What it asks for depends on the business.
 
-**6. Add an agency, if you want help.** Once you're the admin, you can give an agency access to manage the page. The invitation goes out from your own account. You keep the page either way, and you can remove the access.
+**6. Add an agency, if you want help.** Once you're the admin, you can give an agency access to manage the page. The invitation goes out from your own account, so the page stays yours.
 
 ## What claiming does and does not do
 
@@ -109,7 +109,7 @@ The names in an answer come from pages ChatGPT read. Most of them are pages you 
 
 **Hours that agree.** Same hours, same words, in every place that publishes them. Include what happens after close. "Open 24 hours" is true for an emergency plumber and wrong for a realtor. ChatGPT can repeat either one.
 
-**Reviews.** Answer every one, and ask every finished job for one. The count on the card ChatGPT shows isn't always the count on Google. A customer comparing nine reviews with six hundred doesn't call.
+**Reviews.** Answer every one, and ask every finished job for one. In our own sample of 20 businesses, 8 had a card showing a review count far below their Google listing. A customer comparing nine reviews with six hundred doesn't call.
 
 You can see which of these is costing you. [Our free check](https://audit.amtechai.com/check) asks ChatGPT your customer's question three times on today's date. It shows which businesses were named, and which pages the answer came from.
 
