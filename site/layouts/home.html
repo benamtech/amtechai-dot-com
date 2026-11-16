@@ -72,6 +72,8 @@
 <section class="hm-price"><div class="wrap">
 <div class="hm-inds-h"><h2>{{ $P.price_h }}</h2>{{ with $P.price_link }}<a class="wlink" href="/pricing">{{ . }}<span aria-hidden="true"> &rarr;</span></a>{{ end }}</div>
 <ol>{{ range $i, $o := $P.options }}<li{{ if eq $i 0 }} class="pick"{{ end }}><span class="hm-price-h">{{ $o.h }}</span><b>{{ $o.big }}</b><em>{{ $o.per }}</em><p>{{ $o.p }}</p><a href="{{ $o.href }}">{{ $o.link }}<span aria-hidden="true"> &rarr;</span></a></li>{{ end }}</ol>
+{{- /* The free door (lane H-SEO, 2026-11-15): the ChatGPT visibility check, after the price and before the closing ask. */}}
+{{ with $P.check_h }}<div class="hm-free"><div class="hm-free-t"><h3>{{ . }}</h3><p>{{ $P.check_p }}</p></div><a class="btn" href="{{ $P.check_href }}">{{ $P.check_link }}<span aria-hidden="true" class="arr">&rarr;</span></a></div>{{ end }}
 </div></section>
 
 <section class="hm-close">

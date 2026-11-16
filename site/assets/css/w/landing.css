@@ -22,6 +22,8 @@
 .lp-hero h1 .red{display:block}
 .lp-hero .lede{margin:22px 0 30px;font-size:19.5px}
 .lp-book{max-width:100%}
+/* The offer hub's hero action: the free check, a button the width of the start field it replaces (2026-11-15). */
+.lp-check{max-width:100%;margin-bottom:0}
 .lp-book .start-in{display:flex}
 .lp-book .start-in input{min-width:0;flex:1}
 .lp-book .btn{flex:none;padding:0 18px}
