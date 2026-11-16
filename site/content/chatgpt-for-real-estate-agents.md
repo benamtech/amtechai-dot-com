@@ -46,7 +46,7 @@ options:
   - {h: "$480 once", p: "The claim call on your own account, every field filled, your phone, hours and services made to agree everywhere ChatGPT reads them, the fixes the audit found on your site and your profiles, every free list ChatGPT cites for your trade and town applied to, the re-audit, and the report."}
   - {h: "$90 a month", p: "The re-audit and its report, your page and FAQs kept current, new free-list applications, and a person to call when ChatGPT says something wrong about you. Cancel any time."}
   - {h: "The agent-ready pack, included", p: "Thirty to fifty real questions buyers and sellers ask you, with your answers, written from your reviews and your intake. Today they are the FAQs on your page. The day OpenAI opens real estate for business agents, we publish them as yours, at no extra charge."}
-approval: {who: t3, act: "The report for your town", to: "Ready for Friday", preview: "Named in 2 of 3 answers this week, against 0 in the first run."}
+approval: {who: t3, act: "The report for your town", to: "Ready for Friday", preview: "What ChatGPT said then and now, side by side, with the date of each."}
 questions_h: "Questions agents ask"
 questions:
   - {q: "Do buyers and sellers ask ChatGPT for an agent?", a: "Some do, and the ones who move from out of town do it more, because they have no neighbour to ask. ChatGPT answers from what it can read about you, and the answer reads as a short list of names to a person who does not know the town."}

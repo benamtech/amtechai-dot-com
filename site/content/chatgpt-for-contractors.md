@@ -46,7 +46,7 @@ options:
   - {h: "$480 once", p: "The claim call on your own account, every field filled, your phone, hours and services made to agree everywhere ChatGPT reads them, the fixes the audit found on your site, every free list ChatGPT cites for your trade and town applied to, the re-audit, and the report."}
   - {h: "$90 a month", p: "The re-audit and its report, your page and FAQs kept current, new free-list applications, and a person to call when ChatGPT says something wrong about your company. Cancel any time."}
   - {h: "ChatGPT Ads, a pilot", p: "For contractors we can also run ChatGPT Ads, so you appear under the answer in towns where you are not in it. Your card pays OpenAI. We are running the first three as a measured pilot and we do not publish a price until we have cost per lead. The sponsored business agent comes with it where your ad account has access."}
-approval: {who: t3, act: "The report for your town", to: "Ready for Friday", preview: "Named in 2 of 3 answers this week, against 0 in the first run."}
+approval: {who: t3, act: "The report for your town", to: "Ready for Friday", preview: "What ChatGPT said then and now, side by side, with the date of each."}
 questions_h: "Questions contractors ask"
 questions:
   - {q: "Do homeowners really ask ChatGPT who to hire?", a: "Some do now, and the number is growing. What matters sooner is that ChatGPT answers whether or not you can see it, and the answer it gives is built from your listings, your reviews and your site. If those disagree, it tells the customer something wrong."}
