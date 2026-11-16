@@ -21,7 +21,7 @@ mock:
   label: "ChatGPT's answer to best property management company in Tacoma, Washington"
   k: "Asked November 15, 2026"
   q: "best property management company in Tacoma, WA"
-  intro: "Here are property managers in Tacoma with strong reviews from owners and tenants:"
+  intro: "Based on current local reviews, services, reputation, and experience, I would start with:"
   names:
     - {n: "Up First Management", meta: "Named in 3 of 3 answers"}
     - {n: "Red Roof Rentals", meta: "Named in 3 of 3 answers"}

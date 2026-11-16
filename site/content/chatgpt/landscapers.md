@@ -13,7 +13,7 @@ lastmod: 2026-11-16
 llms: {order: 48, label: "ChatGPT for landscapers", text: "How ChatGPT recommends landscapers and lawn care companies (for 'best landscaper in Raleigh, NC' in November 2026 it named Walters Landscapes, DreamScapes and Perspective Landscape Solutions in all three answers, prioritizing ratings, review volume and range of services), a free check, and the setup to get named. AMTECH's yard care client Scoop Dogg is first in ChatGPT for his area."}
 h1a: "New patio, weekly mowing, spring cleanup:"
 h1b: "does ChatGPT send them to you?"
-answer: "Homeowners ask ChatGPT which landscaper to hire, and it names three to five. When we asked for the best landscaper in Raleigh three times, it named the same three companies every time, and said it ranked by ratings, review volume and range of services. Check yours. If you're not named, we'll put you in the answer."
+answer: "Homeowners ask ChatGPT which landscaper to hire, and it names three to five. When we asked for the best landscaper in Raleigh three times, the same four companies came up in every answer, and it said it ranked by ratings, review volume and range of services. Check yours. If you're not named, we'll put you in the answer."
 check: {trade: "landscaper", ph: ["Oak Ridge Landscaping", "Raleigh", "NC"]}
 hero_img: "img/landscaping/hero.png"
 hero_alt: "A landscaped lawn in front of a house at dusk"
@@ -26,8 +26,6 @@ mock:
     - {n: "Walters Landscapes, LLC", meta: "5.0 stars, 171 reviews. Named in 3 of 3 answers"}
     - {n: "DreamScapes", meta: "5.0 stars, 183 reviews. Named in 3 of 3 answers"}
     - {n: "Perspective Landscape Solutions", meta: "Named in 3 of 3 answers"}
-  you: "Every other landscaper in Raleigh"
-  verdict: "Not in the answer"
 outcomes_h: "What homeowners ask ChatGPT about their yards"
 outcomes:
   - tone: ask

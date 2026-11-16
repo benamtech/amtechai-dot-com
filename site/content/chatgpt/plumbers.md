@@ -25,8 +25,6 @@ mock:
     - {n: "Stahl Plumbing and Drain", meta: "Named in 3 of 3 answers"}
     - {n: "Mr. Rooter Plumbing of Pittsburgh", meta: "Named in 3 of 3 answers"}
     - {n: "Revelation Plumbing", meta: "Named in 2 of 3 answers"}
-  you: "Every other plumber in Pittsburgh"
-  verdict: "Not in the answer"
 outcomes_h: "What homeowners ask ChatGPT about plumbing"
 outcomes:
   - tone: ask
@@ -45,7 +43,7 @@ blocks:
   - id: how
     h: "Where ChatGPT gets its answer for plumbers"
     p:
-      - "For Pittsburgh, ChatGPT cited BestProsInTown, a plumbing directory and Expertise.com's list of the city's best plumbers. The companies it named came up on those pages."
+      - "For Pittsburgh, ChatGPT cited BestProsInTown, a plumbing directory and Expertise.com's list of the city's best plumbers. Being on lists like these matters: across the 165 businesses we checked, the ones on at least one list ChatGPT cited were named 36% of the time. The ones on none were named 14% of the time."
     table:
       cols: ["Where it reads", "How you get on it"]
       rows:

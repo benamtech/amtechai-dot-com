@@ -26,8 +26,6 @@ mock:
     - {n: "Stahl Plumbing and Drain", meta: "Named in 3 of 3 answers"}
     - {n: "Mr. Rooter Plumbing of Pittsburgh", meta: "Named in 3 of 3 answers"}
     - {n: "Revelation Plumbing", meta: "Named in 2 of 3 answers"}
-  you: "Every other plumber in Pittsburgh"
-  verdict: "Not in the answer"
 outcomes_h: "What homeowners ask ChatGPT"
 outcomes:
   - tone: ask

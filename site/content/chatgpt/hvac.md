@@ -20,7 +20,7 @@ mock:
   label: "ChatGPT's answer to best HVAC company in Nashville, Tennessee"
   k: "Asked November 15, 2026"
   q: "best HVAC company in Nashville, TN"
-  intro: "Here are Nashville heating and air companies with strong reviews and fast service:"
+  intro: "Based on current customer ratings, review volume, local reputation, and service offerings, here are the companies I'd contact first:"
   names:
     - {n: "Premier Heating & Air", meta: "Named in 3 of 3 answers"}
     - {n: "Right Time HVAC", meta: "Named in 3 of 3 answers"}
@@ -45,7 +45,7 @@ blocks:
   - id: how
     h: "Where ChatGPT gets its answer for HVAC"
     p:
-      - "In Nashville, ChatGPT cited BestProsInTown, review pages from Birdeye, Expertise.com and a local lead directory. The three companies it named came up in every one of our three answers."
+      - "In Nashville, ChatGPT cited BestProsInTown, review pages from Birdeye, Expertise.com and a local lead directory. Three companies came up in every one of our three answers."
     table:
       cols: ["Where it reads", "How you get on it"]
       rows:
