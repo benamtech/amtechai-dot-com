@@ -157,10 +157,10 @@ options:
 price_link: "See pricing"
 # The free door beside the paid one (lane H-SEO): the ChatGPT visibility check the audit runs, linked where a reader has
 # just seen the price. Every word is here; the layout only places it.
-check_h: "Free: see what ChatGPT says about your business"
-check_p: "Ask it what your customers ask — the best plumber in your town, say — three times, and read the answer: whether it names you, the three businesses it names instead, and the details of yours that disagree with your Google listing. No sign-up, and nobody calls you unless you ask."
-check_link: "Run the free check"
-check_href: "https://audit.amtechai.com/check"
+check_h: "Free: does ChatGPT recommend your business?"
+check_p: "When a customer asks ChatGPT for the best roofer, plumber or agent in town, it names three to five businesses. In our November checks it never named 132 of 165 local businesses. See if it names yours, in about a minute. If it doesn't, we'll put you in the answer."
+check_link: "Check my business"
+check_href: "/chatgpt"
 close_img: "img/home/crew.png"
 close_alt: "A contracting crew starting work on a house at sunrise"
 closing_h: "You do the work only people can do."

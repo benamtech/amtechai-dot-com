@@ -1,132 +1,129 @@
 ---
-title: "How to Claim Your Business on ChatGPT"
-description: "Claim your business page in ChatGPT, step by step: what to have ready, how the checks work, what the claim does, and what it does not do."
-dek: "OpenAI opened business pages inside ChatGPT on 10 November 2026. This is the whole procedure for an owner doing it himself, including the parts that are still unknown and the part most people get wrong: a claimed page does not get you recommended."
+title: "How to Claim Your Business on ChatGPT (Step by Step)"
+description: "Claim your business page in ChatGPT's new directory, step by step: what to have ready, how verification works, what to fill in, and the mistakes to avoid."
+dek: "OpenAI opened Businesses in ChatGPT on November 10, 2026. Here's exactly how an owner claims their page, fills it in and lets someone help, in about 15 minutes."
 date: 2026-11-15
-lastmod: 2026-11-15
+lastmod: 2026-11-16
 author: "AMTECH AI"
-# Who reviewed it and when: the made-by line at the foot (w/made.html), in the twin and bundle.
-reviewed: { by: "AMTECH AI", date: "2026-11-15" }
-audience: "owners of local service businesses (trades, home services, real estate, property management) who are claiming their page in ChatGPT themselves"
-# What the article is about, for search engines and AI readers (structured data); not shown on the page.
+reviewed: { by: "Ben Palaskas", date: "2026-11-16" }
+audience: "owners of local service businesses (contractors, home services, real estate agents, property managers) claiming their page in ChatGPT"
 about:
   - { name: "Businesses in ChatGPT", type: service }
   - { name: "Business Hub", type: tool }
   - { name: "ChatGPT", type: tool, sameAs: ["https://chatgpt.com"] }
-  - { name: "local visibility", type: problem }
-  - { name: "business page verification", type: method }
+  - { name: "Persona identity verification", type: method }
   - { name: "local service businesses", type: customer }
-  - { name: "contractors", type: industry }
   - { name: "United States", type: place }
 faqs:
   - q: "How do I claim my business on ChatGPT?"
-    a: "Sign in to chatgpt.com/business-hub with your own ChatGPT account, search your business name, and choose Claim if the page is already there or Create if it is not. Then verify the business by phone, business email or website domain, and finish the identity check with your government ID. It takes about twenty minutes."
+    a: "Sign in to ChatGPT, open Business Hub (chatgpt.com/business-hub), search for your business and choose Claim. Prove it's yours with a code to your business phone or email, or a DNS record on your website. After OpenAI approves the claim, finish the Persona ID check and fill in every field."
+  - q: "Is claiming my business on ChatGPT free?"
+    a: "Yes. There's no fee to claim or keep a page, you don't need an ads account, and a free ChatGPT account works."
+  - q: "Why can't I find my business in Business Hub?"
+    a: "Local businesses can currently claim only a listing ChatGPT already has in the U.S. If yours isn't there, ChatGPT doesn't have enough about you yet. Getting listed on the directories and lists it reads for your trade and town is the fix, and it's also what gets you recommended."
+  - q: "Can an agency claim my business for me?"
+    a: "No. You claim it with your own account and do the ID check yourself, because it needs your own ID. Then add the agency from inside Business Hub with their own account. Never hand over your login."
   - q: "Does claiming my page make ChatGPT recommend my business?"
-    a: "No. OpenAI says claiming a page does not change a business's visibility in ChatGPT, and we say the same thing. What the claim gives you is control of the facts on your card, your phone, hours and services, plus insights into mentions and clicks. The names in an answer come from the pages ChatGPT reads."
-  - q: "What does it cost to claim a business page in ChatGPT?"
-    a: "Nothing. The claim is free, and the identity check is free. What costs money is the work around it: getting onto the lists ChatGPT cites, making your phone and hours agree everywhere, and keeping the page current afterwards."
-  - q: "Can someone else claim the page for me?"
-    a: "Not the sign-in and not the ID check. The page belongs to the account that claims it, and the identity check runs on your face and your document. Once you are the admin you can give an agency access to manage the page, and you can take that access back."
+    a: "Not by itself, and OpenAI says so. Claiming makes sure ChatGPT shows your own facts and gives you your numbers. Being recommended comes from what ChatGPT reads about you across the web: the lists for your trade, your reviews and your website."
   - q: "Why are my insights blank?"
-    a: "OpenAI reports mentions, website clicks and discovery topics over a 28-day window, and for a small business the numbers can be empty. A blank panel means too little traffic to report, not that you set something up wrong. It can stay blank for a while."
+    a: "Insights cover the last 28 days, and small numbers may not show until there's enough activity to report. A blank panel doesn't mean zero, and it doesn't mean you set something up wrong."
 citations:
-  - label: "Introducing businesses in ChatGPT"
-    url: "https://openai.com/index/introducing-businesses-chatgpt/"
-    publisher: "OpenAI"
-  - label: "Businesses in ChatGPT: help article"
-    url: "https://help.openai.com/en/articles/20001635"
+  - label: "Setting up your business on ChatGPT"
+    url: "https://help.openai.com/en/articles/20001635-setting-up-your-business-on-chatgpt"
     publisher: "OpenAI Help Center"
-  - label: "Businesses in ChatGPT: policies"
+  - label: "Businesses in ChatGPT policy"
     url: "https://openai.com/policies/businesses-in-chatgpt/"
     publisher: "OpenAI"
+  - label: "Introducing Businesses in ChatGPT in beta"
+    url: "https://community.openai.com/t/introducing-businesses-in-chatgpt-in-beta/1414865"
+    publisher: "OpenAI Developer Community"
 next:
-  - label: "What ChatGPT says about your business"
-    href: "/articles/what-chatgpt-says-about-your-business"
-    reason: "Ask the question your customers ask, three times, and read the answer and the pages behind it."
-  - label: "What the setup includes and what it costs"
-    href: "/pricing"
-    reason: "The setup, the upkeep, and what each one covers, in plain numbers."
-  - label: "Book a call"
-    href: "/schedule-demo"
-    reason: "Fifteen minutes, and you claim the page on your own screen while we read each step together."
+  - label: "See if ChatGPT names your business"
+    href: "/chatgpt"
+    reason: "The free check: who ChatGPT recommends for your trade in your town, and whether you're one of them."
+  - label: "How the ChatGPT business directory works"
+    href: "/chatgpt/business-directory"
+    reason: "What a page holds, what you get back, and what it does and doesn't change."
+  - label: "Book a 15-minute call"
+    href: "/schedule-demo?topic=Getting%20named%20in%20ChatGPT"
+    reason: "Claim it on your own screen while we walk you through each step, then we fill in the rest."
 ---
 
-On 10 November 2026, OpenAI opened business pages inside ChatGPT. If you run a plumbing company, a roofing crew or a property management shop, this is for you. You can now claim the page ChatGPT shows for your business. It takes about twenty minutes and it costs nothing.
+{{< answer >}}
+Go to chatgpt.com/business-hub, sign in with your own ChatGPT account, search for your business and choose **Claim**. Prove it's yours with a code to your business phone or email, or a DNS record on your website. When OpenAI approves it, finish the ID check with Persona, fill in every field and publish. It's free and takes about 15 minutes of your time.
+{{< /answer >}}
 
-This is the whole procedure, in order, for an owner doing it himself. It also covers what the claim does not do, because that part gets oversold.
+OpenAI opened **Businesses in ChatGPT**, its business directory, on November 10, 2026. Your page there is what ChatGPT can show when a customer asks about you, and it's the one place where you decide what it says. Here's the whole process.
 
-## What Business Hub is
+## Before you start: what to have ready
 
-Business Hub is OpenAI's dashboard for business pages in ChatGPT. You'll find it at chatgpt.com/business-hub. A business page is the card ChatGPT shows when someone asks about your company. It carries your name, your phone, your hours, your services and a link to your site.
+- **Your own ChatGPT account.** A free one works. Use the account you'll keep, because it becomes the page's admin.
+- **Access to your business phone or business email,** or to your website's DNS settings. One of them proves the business is yours.
+- **Your government ID.** The last step is an identity check, and it may also ask for business registration and proof you can act for the business.
+- **Your facts, written once:** your description, services, service area, hours, phone, website, logo and a good photo. Use the same name, phone and hours you use on Google.
 
-A claimed page gives you control of the facts. You set the phone number, the hours and the services yourself. Without a claim, those details get assembled from whatever other sites say about you, and they often disagree with each other.
+## Step 1: Find your business
 
-It also gives you insights. OpenAI reports how often you were mentioned, clicks to your website, and the topics people found you through, over 28 days. For a small business the numbers can be blank. A blank panel isn't something you broke.
+Sign in to ChatGPT and open **Business Hub** from the sidebar, or go to chatgpt.com/business-hub. Search for your business by name and pick the right listing. Check the address and phone so you don't claim a competitor with a similar name.
 
-The page is also where your logo, cover photo and description go, in your own words.
+Local businesses (contractors, agents, property managers, shops) can currently claim only a listing ChatGPT already has in the U.S. Online businesses with a website can add a new one.
 
-## What to have ready before you start
+{{< callout title="Can't find your business?" >}}
+That usually means ChatGPT doesn't know enough about you yet, which is the same reason it isn't recommending you. [Run the free check](/chatgpt) to see who it names for your trade and town, and which lists you need to be on.
+{{< /callout >}}
 
-You need your own ChatGPT sign-in. Not a new account, and not the login of whoever helps you. The page belongs to the account that claims it, and moving it later is harder than claiming it right the first time.
+## Step 2: Prove it's yours
 
-You need a government ID. The identity check runs through Persona, and it's the one step nobody can do for you. Have the document out of the drawer before you sit down.
+Confirm which ChatGPT account will manage the page, then pick how to verify:
 
-You need a way to prove the business is yours. You can do that with the business phone, the business email or the website domain. Pick the one you can reach in under a minute. If the phone is in your hand, that's usually fastest.
+| Method | What happens |
+|---|---|
+| Business phone | A code by text or automated call |
+| Business email | A code to an address at your business |
+| Website domain | A TXT record you add in your DNS settings |
+| Shopify | You connect your store (online shops) |
 
-You need the legal name and the address the business is registered under, in case a screen asks for them. A trading name and a legal name are not always the same string, and the form wants the one on the paperwork.
+OpenAI then reviews the claim and emails you its decision, or asks for more information.
 
-You need a logo and a photo. A square logo and one decent photo of the work or the crew will do. You can add them after the claim, but having them ready saves a second sitting.
+## Step 3: Finish the ID check
 
-## The steps
+Before you can publish changes, see your numbers or create an agent, you finish an identity check with **Persona**, OpenAI's verification partner. It may ask for a government ID, business registration and proof you're authorized. When it's approved, your page gets the **blue verified check**.
 
-**1. Open chatgpt.com/business-hub, signed in as yourself.** Use the account you'll still have in two years. If you claim it with a personal login and the business later needs its own, you'll be untangling that later.
+This is the step nobody can do for you. Anyone who offers to "claim it for you" with your login is asking you to break OpenAI's rules.
 
-**2. Search your business name.** Business Hub is one search box. Type the name the way customers type it, not the way it appears on your tax return. Then look at what comes back.
+## Step 4: Fill in every field
 
-**3. Claim it, or create it.** If your business already has a page, the result carries a Claim button. If it doesn't, the search offers Create above the results, and a business with no page can make one from scratch. Either way you end up in the same place.
+Most owners stop at the name and phone. Fill in all of it:
 
-**4. Verify it's yours.** Choose phone, business email or domain. The code or the link goes to you, never to the person helping you. That's the point of the step.
+- **Description:** two or three plain sentences. What you do, for whom, where, and why you're the safe choice.
+- **Category:** the most exact one. "Roofing contractor", not "Contractor".
+- **Services:** every service by the name customers use.
+- **Service area or address:** the towns and counties you actually work in.
+- **Hours:** real hours, and say so if you take emergency calls.
+- **Website and phone:** one phone number, the same as on Google and your site.
+- **Logo and cover photo:** your logo and a real photo of your work, crew or trucks.
 
-**5. Do the identity check.** This is the Persona step. It needs your ID and your face, and it's yours to finish. What it asks for depends on the business.
+OpenAI reviews changes before they go live, so allow a few days. ChatGPT may still use other sources too, which is why your facts need to match everywhere.
 
-**6. Add an agency, if you want help.** Once you're the admin, you can give an agency access to manage the page. The invitation goes out from your own account. You keep the page either way, and you can remove the access.
+## Step 5: Add your team or your agency
 
-## What claiming does and does not do
+The admin can add teammates and grant an **agency** access to manage the page and its agent. Each person uses their own ChatGPT account. Don't forward a personal claim invitation, and never share your login.
 
-OpenAI says it plainly. Claiming a page does not change a business's visibility in ChatGPT. Claiming doesn't make ChatGPT recommend you. It doesn't move you into the three names it gives when someone asks for the best roofer in town.
+If you have several locations, each one is claimed separately. Claiming the main brand doesn't claim its locations.
 
-What it does is narrower, and still worth the twenty minutes. It makes the facts on your card correct, and it makes them yours to change. It also tells you whether anyone is looking, which almost no owner knows today.
+## If someone else already claimed it
 
-Nobody can promise you a ranking, a traffic number or a lead count from this. We won't, and neither will anyone honest.
+Open the listing, choose **Dispute ownership** from the menu, and verify with Persona. A locked listing shows **Contact support** instead.
 
-## If you want to be in the answer, fix these instead
+## What your page gives you
 
-The names in an answer come from pages ChatGPT read. Most of them are pages you can get onto.
+- Your own facts in ChatGPT, instead of a guess pieced together from other sites.
+- **Insights** for the last 28 days: how often ChatGPT mentioned you, how many people clicked to your website, and the topics they asked about.
+- The blue check.
+- For eligible online businesses, the option to add a [business agent](/chatgpt/business-agents).
 
-**The lists.** Ask ChatGPT your customer's question three times, in three separate conversations. Open every link in the answers. The pages that show up again and again are the ones that matter for your trade and your town. Many of them have an "add your business" form. Filling in your business page won't put you on one of those lists. Only the list does.
+## What it won't do on its own
 
-**One phone number everywhere.** Pick the number you actually answer. Put it in the same format on your site, on your Google listing, and in every directory you're on. If you use a tracking number, say so on the site in words. A number that appears nowhere else reads as a mistake.
+A claimed page doesn't move you up when someone asks for "the best plumber in town". OpenAI says claiming doesn't change your visibility. The names in that answer come from what ChatGPT reads: the "best of" lists for your trade and town, your reviews and your website. In our November checks of 165 local businesses in six trades, ChatGPT never named 132 of them.
 
-**Hours that agree.** Same hours, same words, in every place that publishes them. Include what happens after close. "Open 24 hours" is true for an emergency plumber and wrong for a realtor. ChatGPT can repeat either one.
-
-**Reviews.** Answer every one, and ask every finished job for one. The count on the card ChatGPT shows isn't always the count on Google. A customer comparing nine reviews with six hundred doesn't call.
-
-You can see which of these is costing you. [Our free check](https://audit.amtechai.com/check) asks ChatGPT your customer's question three times on today's date. It shows which businesses were named, and which pages the answer came from.
-
-## What we have not seen yet
-
-Three things are still unknown to us, and we'd rather say so than guess.
-
-What the screens after Continue ask for. The identity check varies by business, so we can't describe your path screen by screen until we're on it with you.
-
-What the agency invitation looks like from the agency's side. We know the owner can grant access. We haven't watched it land in our own account yet.
-
-What Create asks for when a business has no page at all. We know the option exists. We haven't filled it in.
-
-If any of those turns out differently on your account, say so at the time and write it down after. Don't pretend the map was complete.
-
-## Doing this with help
-
-You can do every step above yourself, and plenty of owners should. AMTECH does this work with you when you'd rather not. The claim happens on your screen with your sign-in. We fill the fields afterwards, fix the facts on your site, re-run the check and send you what changed. The setup is $480 one time, and the upkeep is $90 a month for the work after that. You can cancel any time.
-
-[Book a call](/schedule-demo) if you want to talk it through first.
+So claim your page, then do the rest. Or [have us do it](/chatgpt): your page written for you free, then a $480 setup that gets you on every free list ChatGPT reads for your trade and town.

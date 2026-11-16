@@ -82,6 +82,7 @@ options:
 approval: {who: t4, act: "Pay application for the kitchen remodel", to: "To the owner and the lender", preview: "Line by line against the schedule of values, with every sub's lien waiver signed."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend my company?", a: "In our November check of 30 Tacoma general contractors, ChatGPT never named 26. [See if it names you, free](/chatgpt/general-contractors), and what to fix if it doesn't."}
   - {q: "Does it replace Procore or Buildertrend?", a: "It can. Your team starts inside the one you run, so superintendents and clients keep their screens. It can also keep the RFIs, daily logs, change orders and draws itself, set up for how your company builds, when the per-project fees stop making sense."}
   - {q: "Can it do takeoffs from a full plan set?", a: "Yes. Takeoffs works through the drawings sheet by sheet, counts and measures by trade, names the scale on every sheet and lists what the drawings leave open, so your RFIs are written before the bid."}
   - {q: "Will it talk to my subs and clients?", a: "Yes, from your own email and in your words: bid invitations, package reminders, change orders and owner updates, under the rules you set."}

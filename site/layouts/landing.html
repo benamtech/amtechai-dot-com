@@ -113,7 +113,7 @@
 
 <section class="lp-faq"><div class="wrap lp-faq-in">
 <h2>{{ $P.questions_h }}</h2>
-<div>{{ range $P.questions }}<details><summary>{{ .q }}</summary><p>{{ .a }}</p></details>{{ end }}</div>
+<div>{{ range $P.questions }}<details><summary>{{ .q }}</summary><p>{{ .a | markdownify }}</p></details>{{ end }}</div>
 </div></section>
 
 <section class="lp-close"><div class="wrap">

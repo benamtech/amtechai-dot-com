@@ -80,6 +80,7 @@ options:
 approval: {who: t4, act: "Deposit request for the Oak Hollow roof", to: "To the homeowner, from the signed contract", preview: "Thank you for choosing us for your new roof. Here is the deposit from your signed contract, with a link to pay by card or bank transfer."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend my roofing company?", a: "In our November check of 30 Louisville roofers, ChatGPT never named 23. [See if it names you, free](/chatgpt/roofers), and what to fix if it doesn't."}
   - {q: "Can it do the estimator's job?", a: "Yes. Estimates measures and prices every roof you are asked to bid from the plan set, the drone photos or an EagleView report, and names whatever the pictures could not show."}
   - {q: "Does it replace AccuLynx or JobNimbus?", a: "It can. Your team starts inside the one you run, so nothing changes for your crews on day one. When you would rather stop paying for it, your team keeps the estimates, photos, job notes and customer files itself."}
   - {q: "Can it work insurance claims?", a: "Yes. It compares the adjuster's scope with your measurements and photos, writes the supplement for every item the scope missed, and follows the claim until the carrier answers each line."}

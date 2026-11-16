@@ -80,6 +80,7 @@ options:
 approval: {who: t1, act: "Proposal for the colonial on Elm Street", to: "To the homeowner on Elm Street", preview: "It was good to walk the house with you today. Your proposal is attached with three options, each with the prep, the coats and the paint line we would use."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend my painting company?", a: "When we asked ChatGPT for the best painting company in Denver, it named the same two companies every time. [See if it names you, free](/chatgpt/painters)."}
   - {q: "Can it price a job from my walkthrough photos?", a: "Yes. Take your usual photos and talk through the job on your phone, and Estimates measures each surface, names anything it had to assume, and prices it from your own rates."}
   - {q: "Does it replace PaintScout or DripJobs?", a: "It can. Your team starts inside the proposal software you use today, and it can also write, send and track every proposal, signature and deposit itself, in your format and at your rates."}
   - {q: "Will it handle colour questions?", a: "Yes, the routine ones. It answers from your colour process and the selections already on the job, and passes anything that needs your eye straight to you."}
