@@ -38,7 +38,7 @@ steps_h: "What we found, and what changes it."
 steps:
   - {h: "We ask the question", p: "On 15 November 2026 we asked ChatGPT for the best AC company in Nashville and the best general contractor in Tacoma, three times each, for the 30 businesses Google lists highest in each town. In Nashville 25 of the 30 were named in none of the three answers and four were named in all three. In Tacoma 26 of 30 were named in none."}
   - {h: "We find the pages it read", p: "The answer comes from pages: the Better Business Bureau, Yelp, Zillow, BestProsInTown, Expertise.com and lists like them, plus the company's own site. We open every link in the answer and check whether your name is on it. That is the fix most likely to change what ChatGPT says."}
-  - {h: "We make your facts agree", p: "In our own sample of 20 businesses, 5 were shown two different phone numbers, and 9 Google listings said open 24 hours while the company's site said otherwise. ChatGPT repeats what it reads. One number and one set of hours, everywhere, is a morning's work."}
+  - {h: "We make your facts agree", p: "In our own sample of 20 businesses, 5 were shown two different phone numbers, and 9 of the 20 Google listings said open 24 hours, which ChatGPT either repeated or contradicted against the company's own site. ChatGPT repeats what it reads. One number and one set of hours, everywhere, is a morning's work."}
   - {h: "We keep it right", p: "Answers change. We re-run the audit on a schedule, send you the numbers with the date, and apply to new free lists as they open."}
 offer_h: "The setup, and what it costs."
 offer_p: "The check and the audit cost nothing. If you want us to do the work, the setup is $480 once, and upkeep is $90 a month."
