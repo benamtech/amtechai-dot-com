@@ -12,7 +12,7 @@ lastmod: 2026-11-16
 llms: {order: 49, label: "ChatGPT for painters", text: "How ChatGPT recommends painting companies (for 'best painting company in Denver, CO' in November 2026 it named Paint Denver and Dream Painting in all three answers, citing Houzz, Expertise.com and local 'best painters' pages), a free check, and the setup to get a painting contractor named."}
 h1a: "When they ask ChatGPT for a painter,"
 h1b: "is your name in the answer?"
-answer: "Homeowners ask ChatGPT which painting company to hire, and it gives a short list. When we asked for the best painting company in Denver three times, it named the same two every time and read Houzz, Expertise.com and local \"best painters\" pages to decide. Check yours. If you're not named, we'll put you in the answer."
+answer: "Homeowners ask ChatGPT which painting company to hire, and it gives a short list. When we asked for the best painting company in Denver three times, the same three companies came up in every answer, and it read Houzz, Expertise.com and local \"best painters\" pages to decide. Check yours. If you're not named, we'll put you in the answer."
 check: {trade: "painter", ph: ["Front Range Painting", "Denver", "CO"]}
 hero_img: "img/painting/paint-hero.png"
 hero_alt: "A painter on a ladder painting a white house"
@@ -25,8 +25,6 @@ mock:
     - {n: "Paint Denver", meta: "Named in 3 of 3 answers"}
     - {n: "Dream Painting", meta: "Named in 3 of 3 answers"}
     - {n: "Harmony Painting", meta: "Named in 3 of 3 answers"}
-  you: "Every other painter in Denver"
-  verdict: "Not in the answer"
 outcomes_h: "What homeowners ask ChatGPT about painting"
 outcomes:
   - tone: ask

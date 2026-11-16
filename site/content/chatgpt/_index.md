@@ -54,7 +54,7 @@ blocks:
       - "**Your reviews.** How many, how good and how recent, on Google, Yelp and the sites for your trade."
       - "**Your own website.** Your services, the towns you work in and your phone number, written as plain text a machine can read."
       - "**Its new business directory.** The page you can now claim inside ChatGPT and fill in yourself."
-    after: "Reviews alone don't do it. One Louisville roofer has more than 1,500 Google reviews, six times as many as the company ChatGPT put first, and it was named in one answer out of three."
+    after: "Across the 165 businesses we checked, the ones on at least one list ChatGPT cited were named 36% of the time. The ones on none were named 14% of the time. Reviews alone don't do it: one Louisville roofer has more than 1,500 Google reviews, six times as many as the company ChatGPT put first, and it was named in one answer out of three."
     img: "img/painting/paint-walkthrough.png"
     alt: "A homeowner holding up a phone in a half-painted room"
   - id: directory
@@ -80,7 +80,7 @@ blocks:
   - id: numbers
     h: "We checked 165 local businesses. ChatGPT never named 132."
     p:
-      - "In November 2026 we asked ChatGPT what a customer asks, \"best roofer in Louisville, KY\", three times for each trade and town. Then we checked every local business in that trade against the answers. Four out of five were never named once."
+      - "In November 2026 we asked ChatGPT what a customer asks, \"best roofer in Louisville, KY\", three times for each trade and town. Then we checked 30 local businesses in each trade and town (15 cash buyers in Tacoma) against the answers. Four out of five were never named once."
     table:
       cols: ["Trade and town", "Businesses checked", "Never named"]
       rows:

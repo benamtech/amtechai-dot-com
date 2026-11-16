@@ -45,7 +45,7 @@ blocks:
   - id: how
     h: "Where ChatGPT gets its answer for roofers"
     p:
-      - "In Louisville, ChatGPT cited four kinds of pages: Expertise.com's list of the city's best roofers, BestProsInTown, a roofing review site, and a local \"top rated\" page. The roofers it named came up across them."
+      - "In Louisville, ChatGPT cited four kinds of pages: Expertise.com's list of the city's best roofers, BestProsInTown, a roofing review site, and a local \"top rated\" page."
     table:
       cols: ["Where it reads", "How you get on it"]
       rows:
@@ -54,7 +54,7 @@ blocks:
         - ["Roofing review and \"best roofers\" sites", "Usually free to submit, some paid"]
         - ["Local \"top rated\" and newspaper \"best of\" pages", "Nominations, votes or a submission"]
         - ["Google, BBB and manufacturer directories (GAF, Owens Corning)", "Reviews, accreditation and certifications"]
-    after: "Reviews alone don't win it. One Louisville roofer has more than 1,500 Google reviews, six times as many as the company ChatGPT put first, and it was named in one answer out of three. The pages ChatGPT reads are the bigger lever."
+    after: "Reviews alone don't win it. One Louisville roofer has more than 1,500 Google reviews, six times as many as the company ChatGPT put first, and it was named in one answer out of three. Across the 165 businesses we checked, the ones on at least one list ChatGPT cited were named 36% of the time. The ones on none were named 14% of the time."
     img: "img/roofing/roof-claim.png"
     alt: "A contractor on a ladder photographing a roof with his phone"
   - id: page

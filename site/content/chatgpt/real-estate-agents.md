@@ -21,7 +21,7 @@ mock:
   label: "ChatGPT's answer to best real estate agent in Tacoma, Washington"
   k: "Asked November 15, 2026"
   q: "best real estate agent in Tacoma, WA"
-  intro: "Here are agents in Tacoma with strong reviews and local sales:"
+  intro: "I'd start with these. They stand out in different agent-ranking and transaction-performance listings:"
   names:
     - {n: "The Hume Group", meta: "Named in 3 of 3 answers"}
     - {n: "Heidi Hurst, Heidi Hurst Team", meta: "Named in 3 of 3 answers"}
@@ -56,7 +56,7 @@ blocks:
         - ["FastExpert", "A licensed brokerage that matches agents", "Free to list; 25% referral fee on deals it sends"]
         - ["HomeLight and UpNest", "Agent-matching companies", "Referral fees at closing"]
         - ["RealTrends Verified", "HousingWire's publisher", "$195 a year to submit"]
-    after: "In Tacoma, the page ChatGPT cited was Expertise.com's list of the city's best agents. Being on the lists it reads is the biggest single thing you can change."
+    after: "In Tacoma, the page ChatGPT cited was Expertise.com's list of the city's best agents. ChatGPT said its picks \"stand out in different agent-ranking and transaction-performance listings.\" Across the 165 businesses we checked, the ones on at least one list ChatGPT cited were named 36% of the time. The ones on none were named 14% of the time."
     img: "img/real-estate/hero-city.png"
     alt: "A glass office tower at blue hour across a quiet street"
   - id: page

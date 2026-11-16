@@ -94,7 +94,7 @@ ChatGPT often links the pages it read. For local businesses these are usually "b
 
 ## What to fix first
 
-1. **Get on the lists it read.** Most have a free way to submit. This is the biggest single lever.
+1. **Get on the lists it read.** Most have a free way to submit. In our checks, businesses on at least one cited list were named 36% of the time, against 14% for businesses on none.
 2. **Make your facts match everywhere.** One name, one phone, the same hours, on Google, your website and every profile.
 3. **Claim your page in ChatGPT's business directory** and fill in every field. [Here's how](/articles/how-to-claim-your-business-on-chatgpt).
 4. **Put your services and towns on your website as plain text,** one service per section, so ChatGPT can read what you do and where.

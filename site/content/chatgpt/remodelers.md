@@ -25,8 +25,6 @@ mock:
     - {n: "Together Design & Build", meta: "Named in 3 of 3 answers"}
     - {n: "Skelly Build", meta: "Named in 3 of 3 answers"}
     - {n: "ACE Remodeling TX", meta: "Named in 3 of 3 answers"}
-  you: "Every other remodeler in Austin"
-  verdict: "Not in the answer"
 outcomes_h: "What homeowners ask ChatGPT about remodeling"
 outcomes:
   - tone: ask

@@ -12,7 +12,7 @@ lastmod: 2026-11-16
 llms: {order: 45, label: "ChatGPT for electricians", text: "How ChatGPT recommends electricians (for 'best electrician in Charlotte, NC' in November 2026 it named Carolina Electric Pro's, Gianni Electrical Service and On Time Electrical in all three answers, citing contractor ranking sites and BestProsInTown), a free check, and the setup to get an electrical contractor named."}
 h1a: "Panel upgrade, EV charger, flickering lights:"
 h1b: "does ChatGPT name you?"
-answer: "Homeowners ask ChatGPT which electrician to trust, because electrical work is the job nobody wants to get wrong. When we asked for the best electrician in Charlotte three times, it named the same three companies every time. Check whether it names you. If it doesn't, we'll put you in the answer."
+answer: "Homeowners ask ChatGPT which electrician to trust, because electrical work is the job nobody wants to get wrong. When we asked for the best electrician in Charlotte three times, the same four companies came up in every answer. Check whether it names you. If it doesn't, we'll put you in the answer."
 check: {trade: "electrician", ph: ["Summit Electric", "Charlotte", "NC"]}
 hero_img: "img/contractors/permits.png"
 hero_alt: "A tradesman with a tablet inside a framed house"
@@ -25,8 +25,6 @@ mock:
     - {n: "Carolina Electric Pro's", meta: "Named in 3 of 3 answers"}
     - {n: "Gianni Electrical Service", meta: "Named in 3 of 3 answers"}
     - {n: "On Time Electrical", meta: "Named in 3 of 3 answers"}
-  you: "Every other electrician in Charlotte"
-  verdict: "Not in the answer"
 outcomes_h: "What homeowners ask ChatGPT about electrical work"
 outcomes:
   - tone: ask

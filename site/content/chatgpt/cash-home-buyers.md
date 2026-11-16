@@ -21,7 +21,7 @@ mock:
   label: "ChatGPT's answer to best cash home buyer in Tacoma, Washington"
   k: "Asked November 15, 2026"
   q: "best cash home buyer in Tacoma, WA"
-  intro: "If you want to sell a house as-is for cash in Tacoma, these are worth calling:"
+  intro: "If you're selling a house in Tacoma, these combine local presence, customer reviews and an established cash-buying operation:"
   names:
     - {n: "Highest Offer Real Estate", meta: "Named in 3 of 3 answers"}
     - {n: "Jay Primrose Properties", meta: "Named in 3 of 3 answers"}

@@ -50,7 +50,7 @@ blocks:
       - "**Answers from your information only.** Your products, services, prices, policies and FAQs. It doesn't pull in reviews, forums or a competitor's comparison page."
       - "**Lives in its own chat.** It's a separate, clearly labeled conversation about your business, apart from ChatGPT's own answers, where you're listed next to everyone else."
       - "**Sends people to your website** with their questions already answered, where they buy, book or call."
-      - "**Can offer a follow-up.** OpenAI's rules let an agent offer to follow up and collect contact details when the customer chooses to share them."
+      - "**Can offer a follow-up, as OpenAI rolls it out.** Its rules allow an agent to collect contact details the customer chooses to share, through a feature OpenAI approves."
       - "**Is the landing spot for ChatGPT ads.** A sponsored ad can open a chat with your agent instead of a web page."
     img: "img/painting/paint-walkthrough.png"
     alt: "A person holding up a phone in a bright living room"
@@ -73,7 +73,7 @@ blocks:
         - ["Who else comes up", "You're listed next to your competitors", "A separate chat about your business"]
         - ["Prices and stock", "Whatever it last read", "Live, from your product feed"]
         - ["Your policies", "A guess, or nothing", "Your exact return, delivery and service terms"]
-        - ["Contact details", "You get nothing", "The customer can choose to leave them"]
+        - ["Contact details", "You get nothing", "Allowed by OpenAI's rules when the customer chooses, as the feature rolls out"]
         - ["Where it sends people", "Anywhere", "To your website, questions already answered"]
   - id: build
     h: "How a business agent is built"
