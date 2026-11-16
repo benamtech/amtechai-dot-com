@@ -76,6 +76,11 @@ AMTECH AI is a platform that gives a business AI employees: each connects itself
 * [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
 {{- end }}{{ end }}
 
+## Getting named in ChatGPT
+{{ range $new }}{{ if eq .Section "chatgpt" }}{{ $m := partial "w/meta.html" . }}
+* [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}
+{{- end }}{{ end }}
+
 ## Industries
 {{ range $new }}{{ if eq .Section "industries" }}{{ $m := partial "w/meta.html" . }}
 * [{{ $m.h1 }}]({{ $m.okf }}) - {{ .Description }}

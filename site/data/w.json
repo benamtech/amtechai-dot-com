@@ -264,9 +264,9 @@
     {
      "price": "From $5,000",
      "h": "A custom AI system",
-     "p": "A team of AI agents built around how your business runs. It can find jobs and deals before anyone else, write estimates from photos and plans, chase invoices and run the back office. Built in days, and yours to keep.",
-     "label": "See a system built for real estate",
-     "href": "/real-estate"
+     "p": "A team of AI agents built around how your business runs. It can write estimates from photos and plans, chase permits and invoices, find jobs before anyone else and run the back office. Built in days, and yours to keep.",
+     "label": "See a system built for contractors",
+     "href": "/industries/contractors"
     },
     {
      "price": "By the session",

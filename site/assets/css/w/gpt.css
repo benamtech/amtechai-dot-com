@@ -14,6 +14,7 @@
 .g-stage{position:relative;min-height:620px;border-radius:24px;overflow:hidden;box-shadow:0 50px 90px -60px rgba(10,10,10,.55)}
 .g-stage>.g-photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .g-stage::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0) 30%,rgba(10,10,10,.35))}
+.g-stage>.g-prof{position:absolute;z-index:1;right:28px;bottom:28px;width:min(380px,calc(100% - 40px))}
 .g-stage>.g-chat{position:absolute;z-index:1;right:28px;bottom:28px;width:min(400px,calc(100% - 40px))}
 
 /* the check */
@@ -142,7 +143,7 @@
 .g-four-g p:not(.g-step-k){color:var(--ink-2);font-size:15.5px;flex:1}
 
 /* every niche */
-.g-niches{padding-top:0}
+.g-niches{padding-top:0;padding-bottom:var(--g-pad)}
 .g-niche-g{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
 .g-niche-g a{position:relative;display:block;aspect-ratio:4/3;border-radius:var(--r);overflow:hidden;color:#fff;isolation:isolate}
 .g-niche-g .lp-photo{position:absolute;inset:0;border-radius:0;transition:transform .6s var(--ease)}
@@ -169,7 +170,8 @@
   .g-check-f{grid-template-columns:1fr 1fr}
   .g-f-name{grid-column:1/-1}
   .g-stage{min-height:0;aspect-ratio:auto;padding:200px 14px 14px;border-radius:18px}
-  .g-stage>.g-chat{position:relative;right:auto;bottom:auto;width:100%}
+  .g-stage>.g-prof{position:absolute;z-index:1;right:28px;bottom:28px;width:min(380px,calc(100% - 40px))}
+.g-stage>.g-chat{position:relative;right:auto;bottom:auto;width:100%}
   .g-band-art{min-height:0;padding:220px 14px 14px;border-radius:18px}
   .g-band-art>.g-chat,.g-band-art>.g-prof{position:relative;left:auto;bottom:auto;width:100%}
   .g-art-plain{padding:16px}
