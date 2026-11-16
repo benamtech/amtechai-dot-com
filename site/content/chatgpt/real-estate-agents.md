@@ -14,7 +14,7 @@ llms: {order: 38, label: "ChatGPT for real estate agents", text: "How ChatGPT re
 h1a: "Does ChatGPT recommend you"
 h1b: "to buyers and sellers?"
 answer: "People moving to a new town now ask ChatGPT which agent to call, and it answers with three or four names. In our November check of 30 agents in Tacoma, it never named 24 of them. Find out if it names you. If it doesn't, we'll get you into that answer."
-check: {trade: "realtor"}
+check: {trade: "realtor", ph: ["Maria Reyes Realty", "Tacoma", "WA"]}
 hero_img: "img/real-estate/reviews.png"
 hero_alt: "A couple on the porch of the house they just bought"
 mock:

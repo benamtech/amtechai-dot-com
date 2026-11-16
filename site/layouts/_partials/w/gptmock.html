@@ -1,9 +1,10 @@
 {{- /* A ChatGPT answer, drawn in HTML from a real run (the page's `mock`): the customer's question, the businesses named,
        and the line for a business that was not. (the page's mock dict: q, intro, names [{n, meta}], you, verdict, k) */ -}}
 <div class="g-chat" role="img" aria-label="{{ .label }}">
-<div class="g-chat-top"><i aria-hidden="true"></i><b>ChatGPT</b><span>{{ .k }}</span></div>
+<div class="g-chat-top"><i aria-hidden="true"></i><b>{{ .who | default "ChatGPT" }}</b><span>{{ .k }}</span></div>
 <p class="g-chat-q">{{ .q }}</p>
 <div class="g-chat-a"><p>{{ .intro }}</p>
-<ol>{{ range .names }}<li><b>{{ .n }}</b><span>{{ .meta }}</span></li>{{ end }}</ol></div>
+{{ with .names }}<ol>{{ range . }}<li><b>{{ .n }}</b><span>{{ .meta }}</span></li>{{ end }}</ol>{{ end }}</div>
+{{ with .ad }}<div class="g-chat-ad"><p class="g-chat-ad-k">{{ .k }}</p><b>{{ .n }}</b><span>{{ .meta }}</span><em>{{ .btn }}</em></div>{{ end }}
 {{ with .you }}<p class="g-chat-you"><i aria-hidden="true"></i><span>{{ . }}</span><b>{{ $.verdict }}</b></p>{{ end }}
 </div>

@@ -14,7 +14,7 @@ llms: {order: 41, label: "ChatGPT for contractors", text: "How ChatGPT recommend
 h1a: "Does ChatGPT tell homeowners"
 h1b: "to call you?"
 answer: "When a pipe bursts or a storm takes off shingles, more homeowners now ask ChatGPT who to call, and it names three to five companies. In our November checks it never named 23 of 30 roofers in Louisville, 25 of 30 HVAC companies in Nashville or 26 of 30 general contractors in Tacoma. Check yours. If you're not named, we'll fix it."
-check: {trade: "plumber"}
+check: {trade: "plumber", ph: ["Three Rivers Plumbing", "Pittsburgh", "PA"]}
 hero_img: "img/home/crew.png"
 hero_alt: "A contractor crew arriving at a job site at sunrise"
 mock:
@@ -83,6 +83,7 @@ blocks:
     alt: "A small town at night with shop windows lit"
     mock:
       label: "An AMTECH AI employee answering a homeowner's text at night"
+      who: "Text message"
       k: "Your AI employee, by text, 9:12 p.m."
       q: "AC stopped blowing cold, it's 88 inside. Can someone come tonight?"
       intro: "Sorry, that's miserable. Our on-call tech can be there between 10 and 11 tonight. Want me to book it?"

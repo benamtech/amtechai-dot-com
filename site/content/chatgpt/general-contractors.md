@@ -13,7 +13,7 @@ llms: {order: 46, label: "ChatGPT for general contractors", text: "How ChatGPT r
 h1a: "Before they trust you with a $200,000 job,"
 h1b: "they ask ChatGPT."
 answer: "Homeowners planning an addition or a new build now ask ChatGPT which general contractor to trust. In our November check of 30 general contractors in Tacoma, it never named 26 of them. Check whether it names you. If it doesn't, we'll put you in the answer."
-check: {trade: "gc"}
+check: {trade: "gc", ph: ["Cedar & Beam Builders", "Tacoma", "WA"]}
 hero_img: "img/contractors/hero.png"
 hero_alt: "A building under construction at sunset"
 mock:

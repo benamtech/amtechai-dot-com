@@ -14,7 +14,7 @@ llms: {order: 40, label: "ChatGPT for property managers", text: "How ChatGPT rec
 h1a: "When a landlord asks ChatGPT"
 h1b: "who should manage their rentals"
 answer: "Owners with one rental or twenty now ask ChatGPT which property manager to hire, and it names three to five companies. In our November check of 30 managers in Tacoma, it never named 23. Check yours. If you're not in the answer, we'll get you there."
-check: {trade: "propmgr"}
+check: {trade: "propmgr", ph: ["Harbor Point Property Management", "Tacoma", "WA"]}
 hero_img: "img/painting/paint-exterior.png"
 hero_alt: "A brick colonial house on a wide green lawn in the morning"
 mock:

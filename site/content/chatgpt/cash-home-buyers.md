@@ -14,7 +14,7 @@ llms: {order: 39, label: "ChatGPT for cash home buyers", text: "How ChatGPT answ
 h1a: "When a homeowner asks ChatGPT"
 h1b: "who buys houses, is it you?"
 answer: "Sellers with a house that needs work now ask ChatGPT who will buy it as-is, for cash. It answers with three names. In our November check of 15 cash buyers in Tacoma, it never named 11 of them. Check yours. If you're not in the answer, we'll get you there, and help you work every seller who reaches out."
-check: {trade: "wholesaler"}
+check: {trade: "wholesaler", ph: ["Harbor Home Buyers", "Tacoma", "WA"]}
 hero_img: "img/real-estate/sellers.png"
 hero_alt: "A tired ranch house with an overgrown front lawn and an old pickup in the drive"
 mock:

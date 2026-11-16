@@ -13,7 +13,7 @@ llms: {order: 45, label: "ChatGPT for electricians", text: "How ChatGPT recommen
 h1a: "Panel upgrade, EV charger, flickering lights:"
 h1b: "does ChatGPT name you?"
 answer: "Homeowners ask ChatGPT which electrician to trust, because electrical work is the job nobody wants to get wrong. When we asked for the best electrician in Charlotte three times, it named the same three companies every time. Check whether it names you. If it doesn't, we'll put you in the answer."
-check: {trade: "electrician"}
+check: {trade: "electrician", ph: ["Summit Electric", "Charlotte", "NC"]}
 hero_img: "img/contractors/permits.png"
 hero_alt: "A tradesman with a tablet inside a framed house"
 mock:

@@ -14,7 +14,7 @@ llms: {order: 34, label: "The ChatGPT business directory", text: "Businesses in 
 h1a: "What is the ChatGPT"
 h1b: "business directory?"
 answer: "It's called Businesses in ChatGPT, and OpenAI opened it on November 10, 2026. A business claims its own page inside ChatGPT for free, proves it's the owner, and sets what ChatGPT shows about it: description, services, service area, hours, phone, website, logo and photos. A verified page gets a blue check, and you get numbers on how often ChatGPT mentions you."
-check: {trade: "roofing"}
+check: {trade: "electrician", ph: ["Summit Electric", "Charlotte", "NC"]}
 hero_img: "img/lead-generation/owners.png"
 hero_alt: "A row of small shops on a main street in the afternoon"
 hero_profile:

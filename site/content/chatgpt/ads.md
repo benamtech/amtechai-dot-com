@@ -15,7 +15,7 @@ llms: {order: 37, label: "ChatGPT ads", text: "How ads in ChatGPT work: shown be
 h1a: "How do ads in"
 h1b: "ChatGPT work?"
 answer: "Ads in ChatGPT show up under its answers, clearly labeled, for people using the Free and Go plans. You buy them yourself in OpenAI's Ads Manager from $25 a day, pay per view or per click, and can aim them at your state, city or ZIP code. Local services are one of the categories OpenAI allows. Ads never change what ChatGPT's answer says."
-check: {trade: "hvac"}
+check: {trade: "hvac", ph: ["Keystone Heating & Air", "Pittsburgh", "PA"]}
 hero_img: "img/services/svc-inv-hero.png"
 hero_alt: "A service technician walking to a work van outside a house at sunset"
 mock:
@@ -23,8 +23,7 @@ mock:
   k: "ChatGPT, with an ad below the answer"
   q: "my furnace is banging when it kicks on, is that dangerous?"
   intro: "A bang at startup is usually delayed ignition or ducts expanding. If you smell gas, leave the house and call your gas company. Otherwise have it checked soon."
-  names:
-    - {n: "Sponsored: Keystone Heating & Air", meta: "Same-day furnace repair in Pittsburgh. Book online or call"}
+  ad: {k: "Sponsored", n: "Keystone Heating & Air", meta: "Same-day furnace repair in Pittsburgh. Licensed techs, upfront prices.", btn: "Book a repair"}
 outcomes_h: "Is ChatGPT advertising right for you?"
 outcomes:
   - tone: green

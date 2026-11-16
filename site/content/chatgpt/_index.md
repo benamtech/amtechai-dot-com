@@ -13,7 +13,7 @@ llms: {order: 33, label: "Getting named in ChatGPT", text: "A free check that sh
 h1a: "Does ChatGPT recommend"
 h1b: "your business?"
 answer: "When a customer asks ChatGPT for the best roofer, plumber or real estate agent in town, it names three to five businesses. In November 2026 we asked it about 165 local businesses in six trades, and it never named 132 of them. Check yours below. If you're not in the answer, we'll put you there."
-check: {trade: "roofing"}
+check: {trade: "roofing", ph: ["Ridgeline Roofing", "Louisville", "KY"]}
 hero_img: "img/chatgpt/hero.png"
 hero_alt: "A small American town at blue hour, its shops and workshops lit from inside"
 mock:

@@ -42,6 +42,10 @@
 .g-chat-a li::before{content:counter(n) ".";grid-row:span 2;font-weight:600;color:var(--ink)}
 .g-chat-a li b{color:var(--ink);font-weight:600}
 .g-chat-a li span{font-size:12.5px;color:var(--ink-3)}
+.g-chat-ad{display:grid;gap:3px;margin-top:10px;padding:12px 14px;border-radius:12px;box-shadow:inset 0 0 0 1px var(--hair);background:#FAFAF9}
+.g-chat-ad-k{font-size:11.5px;font-weight:600;color:var(--ink-3);letter-spacing:.02em}
+.g-chat-ad b{color:var(--ink);font-weight:600}.g-chat-ad span{font-size:13px;color:var(--ink-2)}
+.g-chat-ad em{font-style:normal;justify-self:start;margin-top:6px;padding:6px 12px;border-radius:999px;background:var(--ink);color:#fff;font-size:12.5px;font-weight:600}
 .g-chat-you{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-top:10px;padding:10px 12px;border-radius:10px;background:#FEF2F2;box-shadow:inset 3px 0 0 var(--red);color:var(--ink);font-size:13.5px}
 .g-chat-you i{width:9px;height:9px;border-radius:50%;background:var(--red);flex:none}
 .g-chat-you b{margin-left:auto;color:var(--red);font-weight:600}

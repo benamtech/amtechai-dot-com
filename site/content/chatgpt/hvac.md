@@ -13,7 +13,7 @@ llms: {order: 43, label: "ChatGPT for HVAC companies", text: "How ChatGPT recomm
 h1a: "When the AC dies at 9 p.m.,"
 h1b: "does ChatGPT name you?"
 answer: "No heat and no AC are the most urgent calls a homeowner makes, and more of them now start by asking ChatGPT who to call. In our November check of 30 HVAC companies in Nashville, it never named 25. Check yours. If you're not in the answer, we'll put you there."
-check: {trade: "hvac"}
+check: {trade: "hvac", ph: ["Keystone Heating & Air", "Nashville", "TN"]}
 hero_img: "img/services/svc-inv-hero.png"
 hero_alt: "A service technician walking to a work van outside a house at sunset"
 mock:
@@ -75,6 +75,7 @@ blocks:
     alt: "A small town at night with shop windows lit"
     mock:
       label: "An AMTECH AI employee answering a no-AC text at night"
+      who: "Text message"
       k: "Your AI employee, by text, 9:12 p.m."
       q: "AC stopped blowing cold, it's 88 inside. Can someone come tonight?"
       intro: "Sorry, that's miserable. Our on-call tech can be there between 10 and 11 tonight. Want me to book it?"

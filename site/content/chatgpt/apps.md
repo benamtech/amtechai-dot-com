@@ -15,7 +15,7 @@ llms: {order: 36, label: "ChatGPT apps (plugins)", text: "What ChatGPT apps are 
 h1a: "What are ChatGPT apps,"
 h1b: "and do you need one?"
 answer: "ChatGPT apps, which OpenAI now calls plugins, let a customer use another company's service right inside ChatGPT. Someone can search homes with Zillow or get matched with a contractor through Angi without leaving the chat. Most local businesses don't need their own app. They need to be strong on the apps their customers already use, and named in ChatGPT's own answer."
-check: {trade: "realtor"}
+check: {trade: "realtor", ph: ["Maria Reyes Realty", "Tacoma", "WA"]}
 hero_img: "img/real-estate/listings.png"
 hero_alt: "A bright living room with tall windows looking out over hills at dusk"
 mock:

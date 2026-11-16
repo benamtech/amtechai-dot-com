@@ -15,7 +15,7 @@ llms: {order: 35, label: "ChatGPT business agents", text: "What a ChatGPT busine
 h1a: "What is a ChatGPT"
 h1b: "business agent?"
 answer: "It's a chat inside ChatGPT that speaks for one business. A customer opens it from the business's page and asks questions, and the agent answers using only the information that business gave it, then sends them to the website to buy. Today, U.S. online shops and online service businesses can publish one. Local service businesses can't yet, so here's what they do instead."
-check: {trade: "hvac"}
+check: {trade: "hvac", ph: ["Keystone Heating & Air", "Pittsburgh", "PA"]}
 hero_img: "img/services/svc-inv-desk.png"
 hero_alt: "A quiet office desk at night with a laptop and a lamp"
 mock:
@@ -96,6 +96,7 @@ blocks:
     alt: "A service technician walking to a work van outside a house at sunset"
     mock:
       label: "An AMTECH AI employee answering a customer's text for a roofing company"
+      who: "Text message"
       k: "Your AI employee, by text, 9:41 p.m."
       q: "Do you do roof inspections after hail? We're in Jeffersontown."
       intro: "Yes, we do free storm inspections in Jeffersontown. I can put you on the schedule now:"

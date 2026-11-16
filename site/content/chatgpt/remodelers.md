@@ -13,7 +13,7 @@ llms: {order: 47, label: "ChatGPT for remodelers", text: "How ChatGPT recommends
 h1a: "Planning a kitchen remodel?"
 h1b: "They ask ChatGPT who to hire."
 answer: "Remodels are researched for weeks, and ChatGPT is now part of that research. When we asked it three times for the best remodeling contractor in Austin, it named the same three companies every time. Check whether it names you. If it doesn't, we'll put you in the answer."
-check: {trade: "remodeler"}
+check: {trade: "remodeler", ph: ["Hill Country Remodeling", "Austin", "TX"]}
 hero_img: "img/contractors/draws.png"
 hero_alt: "A bright finished room after a renovation"
 mock:

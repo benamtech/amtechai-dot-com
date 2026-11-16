@@ -14,7 +14,7 @@ llms: {order: 48, label: "ChatGPT for landscapers", text: "How ChatGPT recommend
 h1a: "New patio, weekly mowing, spring cleanup:"
 h1b: "does ChatGPT send them to you?"
 answer: "Homeowners ask ChatGPT which landscaper to hire, and it names three to five. When we asked for the best landscaper in Raleigh three times, it named the same three companies every time, and said it ranked by ratings, review volume and range of services. Check yours. If you're not named, we'll put you in the answer."
-check: {trade: "landscaper"}
+check: {trade: "landscaper", ph: ["Oak Ridge Landscaping", "Raleigh", "NC"]}
 hero_img: "img/landscaping/hero.png"
 hero_alt: "A landscaped lawn in front of a house at dusk"
 mock:

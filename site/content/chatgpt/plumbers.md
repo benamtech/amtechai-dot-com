@@ -13,7 +13,7 @@ llms: {order: 44, label: "ChatGPT for plumbers", text: "How ChatGPT recommends p
 h1a: "When a pipe bursts,"
 h1b: "does ChatGPT give them your number?"
 answer: "Water on the floor makes people act fast, and more of them now ask ChatGPT which plumber to call. When we asked it for the best plumber in Pittsburgh three times, it named the same two companies every time. Check whether it names you. If it doesn't, we'll put you in the answer."
-check: {trade: "plumber"}
+check: {trade: "plumber", ph: ["Three Rivers Plumbing", "Pittsburgh", "PA"]}
 hero_img: "img/contractors/changes.png"
 hero_alt: "A kitchen being rebuilt with new cabinets and an island"
 mock:
@@ -74,6 +74,7 @@ blocks:
     alt: "A small town at night with shop windows lit"
     mock:
       label: "An AMTECH AI employee answering an emergency plumbing text"
+      who: "Text message"
       k: "Your AI employee, by text, 6:47 a.m."
       q: "Water pouring from under the kitchen sink!! Can someone come?"
       intro: "Turn the valves under the sink to the right to stop it. A plumber can be there by 7:45. Book it?"

@@ -13,7 +13,7 @@ llms: {order: 42, label: "ChatGPT for roofers", text: "How ChatGPT recommends ro
 h1a: "When the storm passes,"
 h1b: "does ChatGPT name your roofing company?"
 answer: "After hail or high wind, homeowners ask ChatGPT which roofer to trust, and it names three. In our November check of 30 roofers in Louisville, it never named 23 of them, including one with more than 1,500 Google reviews. Check yours. If you're not in the answer, we'll put you there."
-check: {trade: "roofing"}
+check: {trade: "roofing", ph: ["Ridgeline Roofing", "Louisville", "KY"]}
 hero_img: "img/roofing/roof-hero.png"
 hero_alt: "A roofer working on a house roof at dusk"
 mock:
@@ -90,6 +90,7 @@ blocks:
     alt: "A suburban street under grey storm clouds"
     mock:
       label: "An AMTECH AI employee booking roof inspections after a storm"
+      who: "Text message"
       k: "Your AI employee, by text, 10:04 p.m."
       q: "Hail tonight and I see shingles in the yard. Can you look at it?"
       intro: "Sorry about the storm. We're inspecting on your street tomorrow. Which works?"
