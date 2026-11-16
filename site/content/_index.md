@@ -155,6 +155,12 @@ options:
   - {h: "Custom", big: "$1,200", per: "a month and up", p: "Set up with you. Results agreed up front.", href: "/schedule-demo", link: "Book a call"}
   - {h: "Agencies and operators", big: "Per team", per: "one account", p: "A team for every business you run.", href: "/schedule-demo", link: "Talk to us"}
 price_link: "See pricing"
+# The free door beside the paid one (lane H-SEO): the ChatGPT visibility check the audit runs, linked where a reader has
+# just seen the price. Every word is here; the layout only places it.
+check_h: "Free: see what ChatGPT says about your business"
+check_p: "Ask it what your customers ask — the best plumber in your town, say — three times, and read the answer: whether it names you, the three businesses it names instead, and the details of yours that disagree with your Google listing. No sign-up, and nobody calls you unless you ask."
+check_link: "Run the free check"
+check_href: "https://audit.amtechai.com/check"
 close_img: "img/home/crew.png"
 close_alt: "A contracting crew starting work on a house at sunrise"
 closing_h: "You do the work only people can do."
