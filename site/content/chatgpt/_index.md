@@ -3,7 +3,7 @@
 # Function first: the owner's question, the answer, the free check, a real ChatGPT answer. The figures are AMTECH's own
 # runs (visibility-desk engine cells, 2026-11-15/16). Facts about OpenAI's features: visibility-desk/research/R-OPENAI-BUSINESS.md.
 title: "Does ChatGPT recommend your business? Free check"
-description: "See if ChatGPT names your business when customers ask for the best in your trade and town. Free, in about a minute. If it doesn't, AMTECH puts you in the answer."
+description: "See if ChatGPT names your business when customers ask for the best in your trade and town. Free, in a minute. If it doesn't, we put you in the answer."
 route: "/chatgpt"
 layout: "gpt"
 crumb: "ChatGPT"

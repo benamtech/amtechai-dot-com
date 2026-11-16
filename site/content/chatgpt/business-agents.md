@@ -4,7 +4,7 @@
 # service business does now: the Q&A pack and the AMTECH employee. Facts: R-OPENAI-BUSINESS.md (help 20001635, 20001651,
 # the Business Agents Policy).
 title: "ChatGPT business agents, explained: what they do and who can have one"
-description: "A ChatGPT business agent answers customers inside ChatGPT using only what the business gives it. Who can have one today, what it can do, and what local businesses use instead."
+description: "A ChatGPT business agent answers customers using only what the business gives it. Who can have one today, what it does, and what local businesses use instead."
 route: "/chatgpt/business-agents"
 layout: "gpt"
 crumb: "Business agents"

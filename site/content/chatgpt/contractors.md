@@ -3,7 +3,7 @@
 # niche page, how ChatGPT picks contractors, the lists it reads (tools/engine/lists.json), our checks across four trades,
 # and the ads pilot. Real answer: plumber Pittsburgh, PA (engine harvest 2026-11-16).
 title: "ChatGPT for contractors: be the company it tells homeowners to call"
-description: "Homeowners now ask ChatGPT which roofer, plumber or contractor to call. See if it names you, free. How it picks contractors, what it reads, and how to get named."
+description: "Homeowners now ask ChatGPT which roofer, plumber or contractor to call. See if it names you, free. How it picks contractors and how to get named."
 route: "/chatgpt/contractors"
 layout: "gpt"
 crumb: "Contractors"
@@ -21,7 +21,7 @@ mock:
   label: "ChatGPT's answer to best plumber in Pittsburgh, Pennsylvania"
   k: "Asked November 16, 2026"
   q: "best plumber in Pittsburgh, PA"
-  intro: "For plumbing in Pittsburgh, these companies come up again and again:"
+  intro: "Based on current ratings, review volume, and service offerings, here's my Pittsburgh shortlist:"
   names:
     - {n: "Stahl Plumbing and Drain", meta: "Named in 3 of 3 answers"}
     - {n: "Mr. Rooter Plumbing of Pittsburgh", meta: "Named in 3 of 3 answers"}

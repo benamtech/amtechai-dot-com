@@ -4,7 +4,7 @@
 # sponsored agents, and AMTECH's managed pilot for contractors. Facts: R-OPENAI-BUSINESS.md section 4 (help 20001047,
 # 20001210, 20001245, 20001412, 20001651; ad policies; Axios 2026-05-05; TechWyse 2026-05-06). Pilot price: brain/pricing.md.
 title: "How ChatGPT ads work: cost, targeting and who can advertise"
-description: "ChatGPT ads appear under ChatGPT's answers, from $25 a day, and can target your city. Where they show, who sees them, how you pay, what's allowed, and how contractors should start."
+description: "ChatGPT ads show under ChatGPT's answers, from $25 a day, aimed at your city. Where they appear, who sees them, how you pay and what's allowed."
 route: "/chatgpt/ads"
 layout: "gpt"
 crumb: "ChatGPT ads"

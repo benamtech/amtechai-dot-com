@@ -4,7 +4,7 @@
 # worth it. Facts: R-OPENAI-BUSINESS.md section 3 and 6 (developers.openai.com/plugins, help 11487775, Zillow newsroom
 # 2025-10-06, Localogy 2026-04-02).
 title: "ChatGPT apps (plugins) explained: Zillow, Angi and what they mean for your leads"
-description: "Apps like Zillow and Angi now run inside ChatGPT. What ChatGPT apps (now called plugins) are, how customers use them, what they mean for agents and contractors, and when your own makes sense."
+description: "Zillow and Angi now run inside ChatGPT. What ChatGPT apps (now plugins) are, what they mean for agents and contractors, and when your own makes sense."
 route: "/chatgpt/apps"
 layout: "gpt"
 crumb: "ChatGPT apps"
