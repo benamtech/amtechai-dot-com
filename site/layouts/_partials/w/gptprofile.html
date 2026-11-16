@@ -1,0 +1,9 @@
+{{- /* A business page in the ChatGPT directory, drawn in HTML with the fields Business Hub holds (the page's `profile`:
+       name, cat, rows [{k, v}], btns, k, agent). */ -}}
+<div class="g-prof" role="img" aria-label="{{ .label }}">
+<p class="g-prof-k">{{ .k }}</p>
+<div class="g-prof-head"><span class="g-prof-logo" aria-hidden="true">{{ .mono }}</span><div><b>{{ .name }}<i class="g-check-badge" aria-hidden="true"></i></b><span>{{ .cat }}</span></div></div>
+<dl>{{ range .rows }}<div><dt>{{ .k }}</dt><dd>{{ .v }}</dd></div>{{ end }}</dl>
+<p class="g-prof-btns">{{ range .btns }}<span>{{ . }}</span>{{ end }}</p>
+{{ with .agent }}<p class="g-prof-agent"><i aria-hidden="true"></i>{{ . }}</p>{{ end }}
+</div>

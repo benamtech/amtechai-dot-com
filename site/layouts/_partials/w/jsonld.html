@@ -57,6 +57,13 @@
   {{- with $P.crumb }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" (printf "%s businesses" .))) }}{{ end -}}
   {{- $g = $g | append $svc -}}
 {{- end -}}
+{{- if eq $p.Layout "gpt" -}}
+  {{- /* The ChatGPT pages (gala 2026-11-16): the service they sell, with its three published prices. */ -}}
+  {{- $offers := slice (dict "@type" "Offer" "name" "Free ChatGPT check and written directory page" "price" "0" "priceCurrency" "USD") (dict "@type" "Offer" "name" "ChatGPT setup" "price" "480" "priceCurrency" "USD") (dict "@type" "Offer" "name" "Monthly upkeep" "price" "90" "priceCurrency" "USD") -}}
+  {{- $svc := dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $p.Title "serviceType" "Getting named in ChatGPT" "description" $P.answer "provider" (dict "@id" $org) "url" $m.url "areaServed" (dict "@type" "Country" "name" "United States") "offers" $offers -}}
+  {{- with $P.audience }}{{ $svc = merge $svc (dict "audience" (dict "@type" "BusinessAudience" "name" .)) }}{{ end -}}
+  {{- $g = $g | append $svc -}}
+{{- end -}}
 {{- if and $p.IsPage (eq $p.Section "services") -}}
   {{- $slug := path.Base $p.File.Dir }}{{ $d := index (where hugo.Data.services "slug" $slug) 0 -}}
   {{- $g = $g | append (dict "@type" "Service" "@id" (printf "%s#service" $m.url) "name" $d.name "serviceType" $d.group "description" $P.sub "provider" (dict "@id" $org) "url" $m.url "audience" (dict "@type" "BusinessAudience" "name" $d.for)) -}}
@@ -86,7 +93,7 @@
   {{- $g = $g | append (dict "@type" "FAQPage" "@id" (printf "%s#faq" $m.url) "mainEntity" $qs) -}}
 {{- end -}}
 {{- with $P.questions -}}
-  {{- $qs := slice }}{{ if and $p.IsPage (eq $p.Section "questions") }}{{ $qs = $qs | append (dict "@type" "Question" "name" $P.h1 "acceptedAnswer" (dict "@type" "Answer" "text" (printf "%s %s" $P.yes $P.answer))) }}{{ end }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" .a)) }}{{ end -}}
+  {{- $qs := slice }}{{ if and $p.IsPage (eq $p.Section "questions") }}{{ $qs = $qs | append (dict "@type" "Question" "name" $P.h1 "acceptedAnswer" (dict "@type" "Answer" "text" (printf "%s %s" $P.yes $P.answer))) }}{{ end }}{{ range . }}{{ $qs = $qs | append (dict "@type" "Question" "name" .q "acceptedAnswer" (dict "@type" "Answer" "text" (.a | markdownify | plainify))) }}{{ end -}}
   {{- $g = $g | append (dict "@type" "FAQPage" "@id" (printf "%s#faq" $m.url) "mainEntity" $qs) -}}
 {{- end }}
 <script type="application/ld+json">{{ dict "@context" "https://schema.org" "@graph" $g | jsonify | safeJS }}</script>

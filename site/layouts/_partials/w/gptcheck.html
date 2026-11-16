@@ -1,0 +1,15 @@
+{{- /* The free check, in the page (gala 2026-11-16). A plain GET form to audit.amtechai.com/check, which prefills and runs
+       it (no cross-origin call, no captcha domain to bind). The page's `check.trade` picks the trade. Words from
+       data/w.json `gpt.labels`. (dict "id" "check" "P" .Params "W" hugo.Data.w.gpt) */ -}}
+{{- $L := .W.labels }}{{ $t := "" }}{{ with .P.check }}{{ $t = .trade }}{{ end -}}
+<form class="g-check" id="{{ .id }}" action="{{ $L.check_action }}" method="get">
+<p class="g-check-h">{{ $L.check_h }}</p>
+<div class="g-check-f">
+<label class="g-f g-f-name"><span>{{ $L.f_name }}</span><input name="name" required maxlength="90" autocomplete="organization" placeholder="{{ $L.ph_name }}"></label>
+<label class="g-f g-f-town"><span>{{ $L.f_town }}</span><input name="town" required maxlength="60" autocomplete="address-level2" placeholder="{{ $L.ph_town }}"></label>
+<label class="g-f g-f-state"><span>{{ $L.f_state }}</span><input name="state" required maxlength="2" pattern="[A-Za-z]{2}" autocomplete="address-level1" placeholder="{{ $L.ph_state }}"></label>
+<label class="g-f g-f-trade"><span>{{ $L.f_trade }}</span><select name="trade">{{ range $L.trades }}<option value="{{ .v }}"{{ if eq .v $t }} selected{{ end }}>{{ .label }}</option>{{ end }}</select></label>
+</div>
+<button class="btn g-check-b" type="submit">{{ $L.check_btn }}<span aria-hidden="true" class="arr">&rarr;</span></button>
+<p class="g-check-n">{{ $L.check_note }}</p>
+</form>

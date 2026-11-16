@@ -3,7 +3,7 @@
  "prices": "Custom agents with guaranteed results from $1,200/mo. Or pay as you go from $50/mo.",
  "field": "Your business's name",
  "action": "Start your team",
-  "app": "https://app.amtechai.com",
+ "app": "https://app.amtechai.com",
  "promise": "AMTECH is a swarm of AI agents that runs businesses on its own: it does the work of a hire, an agency or a subscription, plugs into everything you run on the first day, and gets better every week.",
  "late": "You stay in charge. No message, page, payment or booking goes out until you or a person you authorised says yes, or a standing approval in your own words covers it.",
  "closing_h": "Name your business and start your team.",
@@ -156,5 +156,249 @@
     "to": "/articles"
    }
   ]
+ },
+ "gpt": {
+  "_note": "The ChatGPT pages (layouts/gpt.html, gala 2026-11-16): the words every one of them shares. Prices from brain/pricing.md.",
+  "labels": {
+   "check_action": "https://audit.amtechai.com/check",
+   "check_h": "Check your business now. It's free and takes about a minute.",
+   "f_name": "Business name",
+   "f_town": "City",
+   "f_state": "State",
+   "f_trade": "What you do",
+   "ph_name": "Ridgeline Roofing",
+   "ph_town": "Pittsburgh",
+   "ph_state": "PA",
+   "trades": [
+    {
+     "v": "roofing",
+     "label": "Roofing"
+    },
+    {
+     "v": "hvac",
+     "label": "Heating and air conditioning"
+    },
+    {
+     "v": "plumber",
+     "label": "Plumbing"
+    },
+    {
+     "v": "electrician",
+     "label": "Electrical"
+    },
+    {
+     "v": "gc",
+     "label": "General contracting"
+    },
+    {
+     "v": "remodeler",
+     "label": "Remodeling"
+    },
+    {
+     "v": "landscaper",
+     "label": "Landscaping"
+    },
+    {
+     "v": "painter",
+     "label": "Painting"
+    },
+    {
+     "v": "realtor",
+     "label": "Real estate agent"
+    },
+    {
+     "v": "wholesaler",
+     "label": "Cash home buyer or wholesaler"
+    },
+    {
+     "v": "propmgr",
+     "label": "Property management"
+    }
+   ],
+   "check_btn": "See if ChatGPT names you",
+   "check_note": "We ask ChatGPT what your customers ask, three times, and show you who it names. No signup and no card.",
+   "book": "Book a 15-minute call",
+   "book_href": "/schedule-demo?topic=Getting%20named%20in%20ChatGPT",
+   "phone_line": "Or call or text Ben Palaskas, the founder:",
+   "phone": "805-886-9173",
+   "phone_tel": "+18058869173",
+   "questions_h": "Questions owners ask"
+  },
+  "offer": {
+   "h": "Not in the answer? We put you there.",
+   "p": "The first two steps are free, and you get them before we ever talk about money. Most owners can see exactly what's wrong in the first five minutes.",
+   "steps": [
+    {
+     "k": "Free, right now",
+     "h": "The check",
+     "p": "Who ChatGPT names for your trade in your town, and whether you're one of them."
+    },
+    {
+     "k": "Free, within a day",
+     "h": "Your ChatGPT page, written for you",
+     "p": "Answer a short form and we write your whole directory page: description, services, service area, hours and 30 to 50 real customer questions with answers. You also get the fix plan, with every list ChatGPT reads for your trade and town and how to get on each one."
+    },
+    {
+     "k": "$480, one time",
+     "h": "We set it all up",
+     "p": "On a 20-minute call we walk you through claiming your page and the ID check, which needs your own ID. Then we fill in every field, apply you to every free list ChatGPT cites for your trade and town, make your phone, hours and services match everywhere, and ask ChatGPT again so you can see the change."
+    },
+    {
+     "k": "$90 a month, cancel any time",
+     "h": "We keep you in the answer",
+     "p": "Every month we ask ChatGPT again and send you the report. We keep your page and answers current, apply to new lists as they open, and fix anything ChatGPT gets wrong about you."
+    }
+   ]
+  },
+  "ladder": {
+   "h": "Getting named is step one. Answering first wins the job.",
+   "p": "Customers who find you through ChatGPT are ready to hire, and they usually hire whoever gets back to them first. That's why most of our clients take the next step.",
+   "items": [
+    {
+     "price": "From $1,200 a month",
+     "h": "An AI employee",
+     "p": "It answers every call, text and web lead in seconds, day or night. It books the estimate or the showing, follows up until the customer replies, and sends you the details. Your crew stays on the job.",
+     "label": "See what it does",
+     "href": "/questions/can-an-ai-employee-follow-up-every-lead"
+    },
+    {
+     "price": "From $5,000",
+     "h": "A custom AI system",
+     "p": "A team of AI agents built around how your business runs. It can find jobs and deals before anyone else, write estimates from photos and plans, chase invoices and run the back office. Built in days, and yours to keep.",
+     "label": "See a system built for real estate",
+     "href": "/real-estate"
+    },
+    {
+     "price": "By the session",
+     "h": "AI consulting for your team",
+     "p": "Hands-on help using ChatGPT and Claude in your business, for estimates, follow-ups, listings, marketing and paperwork. Your team leaves knowing what to do on Monday.",
+     "label": "Book a session",
+     "href": "/schedule-demo?topic=Consulting%3A%20ChatGPT%20and%20Claude%20for%20my%20team"
+    }
+   ]
+  },
+  "four": {
+   "h": "Four new things inside ChatGPT, explained",
+   "p": "In 2026 OpenAI added four things that change how customers find a local business. Here's each one in plain words, and what it means for yours.",
+   "items": [
+    {
+     "k": "The directory",
+     "h": "Businesses in ChatGPT",
+     "p": "Since November 10, 2026, a business can claim its own page inside ChatGPT and set its own details.",
+     "label": "How the directory works",
+     "href": "/chatgpt/business-directory"
+    },
+    {
+     "k": "Business agents",
+     "h": "A ChatGPT assistant for your business",
+     "p": "A chat that answers customers using only what you give it. Who can have one today, and what local businesses use instead.",
+     "label": "How business agents work",
+     "href": "/chatgpt/business-agents"
+    },
+    {
+     "k": "Apps",
+     "h": "Apps inside ChatGPT",
+     "p": "Zillow, Angi, Booking.com and others now run inside ChatGPT. What that means for your leads.",
+     "label": "How ChatGPT apps work",
+     "href": "/chatgpt/apps"
+    },
+    {
+     "k": "Ads",
+     "h": "Ads in ChatGPT",
+     "p": "Ads under ChatGPT's answers, from $25 a day, aimed at your city. How they work and who should run them.",
+     "label": "How ChatGPT ads work",
+     "href": "/chatgpt/ads"
+    }
+   ]
+  },
+  "niches": {
+   "h": "ChatGPT for your line of work",
+   "items": [
+    {
+     "href": "/chatgpt/real-estate-agents",
+     "label": "Real estate agents",
+     "line": "Who ChatGPT tells buyers and sellers to call",
+     "img": "img/real-estate/reviews.png",
+     "alt": "A couple on the porch of the house they just bought"
+    },
+    {
+     "href": "/chatgpt/cash-home-buyers",
+     "label": "Cash home buyers",
+     "line": "For wholesalers and investors who buy as-is",
+     "img": "img/real-estate/sellers.png",
+     "alt": "A tired ranch house with an overgrown lawn"
+    },
+    {
+     "href": "/chatgpt/property-managers",
+     "label": "Property managers",
+     "line": "Who landlords are told to hire",
+     "img": "img/painting/paint-exterior.png",
+     "alt": "A brick colonial rental house on a green lawn"
+    },
+    {
+     "href": "/chatgpt/contractors",
+     "label": "Contractors",
+     "line": "Every trade, one place to start",
+     "img": "img/home/crew.png",
+     "alt": "A contractor crew arriving at a job site at sunrise"
+    },
+    {
+     "href": "/chatgpt/roofers",
+     "label": "Roofers",
+     "line": "The roof leak at 6 a.m. question",
+     "img": "img/roofing/roof-hero.png",
+     "alt": "A roofer on a house roof at dusk"
+    },
+    {
+     "href": "/chatgpt/hvac",
+     "label": "HVAC companies",
+     "line": "Who gets the no-heat call",
+     "img": "img/services/svc-inv-hero.png",
+     "alt": "A service van parked at a house at sunset"
+    },
+    {
+     "href": "/chatgpt/plumbers",
+     "label": "Plumbers",
+     "line": "Who gets the burst-pipe call",
+     "img": "img/contractors/changes.png",
+     "alt": "A kitchen being rebuilt with new cabinets"
+    },
+    {
+     "href": "/chatgpt/electricians",
+     "label": "Electricians",
+     "line": "Panels, EV chargers and service calls",
+     "img": "img/contractors/permits.png",
+     "alt": "A tradesman checking work inside a framed house"
+    },
+    {
+     "href": "/chatgpt/general-contractors",
+     "label": "General contractors",
+     "line": "Additions, builds and big jobs",
+     "img": "img/contractors/hero.png",
+     "alt": "A building going up at sunset"
+    },
+    {
+     "href": "/chatgpt/remodelers",
+     "label": "Remodelers",
+     "line": "Kitchens, baths and whole houses",
+     "img": "img/contractors/draws.png",
+     "alt": "A finished bright room after a remodel"
+    },
+    {
+     "href": "/chatgpt/landscapers",
+     "label": "Landscapers",
+     "line": "Design, lawn care and hardscape",
+     "img": "img/landscaping/hero.png",
+     "alt": "A landscaped lawn in front of a house at dusk"
+    },
+    {
+     "href": "/chatgpt/painters",
+     "label": "Painters",
+     "line": "Interior, exterior and cabinets",
+     "img": "img/painting/paint-hero.png",
+     "alt": "A painter on a ladder painting a white house"
+    }
+   ]
+  }
  }
 }
