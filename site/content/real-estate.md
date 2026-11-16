@@ -92,6 +92,7 @@ found: [{n: "38", what: "deals found this week"}, {n: "126", what: "letters in y
 approval: {who: t5, act: "Listing presentation for R. Castillo", to: "Sent this morning", preview: "Three homes on your street sold this year."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend our agents?", a: "In our November check of 30 Tacoma agents, ChatGPT never named 24. [See if it names yours, free](/chatgpt/real-estate-agents), and how agents get named."}
   - {q: "What does it cost?", a: "Engagements start at $1,200 a month. What you pay depends on how many offices and markets you hand over; you will have the number with your Map."}
   - {q: "How is this different from the AI tools we pay for?", a: "Those answer what arrives; your team finds the deals first, with the reason."}
   - {q: "Will it work with our systems?", a: "Yes. Inside your CRM, email, phone and calendar, and builds what is missing."}

@@ -15,6 +15,8 @@
 {{- else if eq .Section "questions" }}{{ $type = "Answer" }}{{ $crumbs = $crumbs | append (dict "name" "Questions" "url" (printf "%s/questions" $origin)) -}}
 {{- else if and (eq .Section "industries") .IsSection }}{{ $type = "Industry" }}{{ $schema = "CollectionPage" -}}
 {{- else if eq .Section "industries" }}{{ $type = "Business Type" }}{{ $crumbs = $crumbs | append (dict "name" "Industries" "url" (printf "%s/industries" $origin)) -}}
+{{- else if and (eq .Section "chatgpt") .IsSection }}{{ $type = .Params.okf_type | default "Service" -}}
+{{- else if eq .Section "chatgpt" }}{{ $type = .Params.okf_type | default "Service" }}{{ $crumbs = $crumbs | append (dict "name" "ChatGPT" "url" (printf "%s/chatgpt" $origin)) -}}
 {{- else if eq .Section "departments" }}{{ $type = "Department" -}}
 {{- else if and (eq .Section "customers") .IsSection }}{{ $type = "Case Study Index" }}{{ $schema = "CollectionPage" -}}
 {{- else if eq .Section "customers" }}{{ $type = "Case Study" }}{{ $crumbs = $crumbs | append (dict "name" "Customers" "url" (printf "%s/customers" $origin)) -}}

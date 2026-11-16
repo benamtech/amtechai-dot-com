@@ -82,6 +82,7 @@ options:
 approval: {who: t1, act: "Quote for 18 Ridgeview Court", to: "To the homeowner, from your email", preview: "Weekly yard cleanup, every Tuesday, paid by card."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend my landscaping company?", a: "ChatGPT says it ranks landscapers by ratings, review volume and range of services. [See if it names you, free](/chatgpt/landscapers), and what to fix if it doesn't."}
   - {q: "I run one truck. Is this for me?", a: "Yes. A small yard care service gets the same team: quotes and bookings online, recurring payments, reviews, and being first on Google and in ChatGPT. Scoop Dogg runs this way."}
   - {q: "Does it work with Jobber or LMN?", a: "Yes. Your team works inside the software you run, so your crew leaders' mornings stay the same. It can also keep quotes, routes, visits and invoices itself when you would rather stop paying per seat."}
   - {q: "Can it measure a property without a site visit?", a: "Yes, for most bids. Quotes come from the aerial map of the address, and anything hidden under trees is marked for a walk before you price it."}

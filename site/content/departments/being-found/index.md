@@ -84,6 +84,8 @@ options:
 approval: {who: t3, act: "Page: Pet waste removal in Oxnard", to: "To scoopdogg.net", preview: "Answers the five questions Oxnard customers ask most, with your prices, your service days and your booking link."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend my business?", a: "Find out in about a minute with our [free ChatGPT check](/chatgpt). It asks ChatGPT what your customers ask, three times, and shows whether it names you and who it names instead."}
+  - {q: "What is the new ChatGPT business directory?", a: "Since November 10, 2026, businesses can claim their own page inside ChatGPT, called Businesses in ChatGPT, and set their own details. Your team claims and fills in yours with you. [How the directory works](/chatgpt/business-directory)."}
   - {q: "Does it replace my SEO agency?", a: "Yes. Being found does the whole job: the pages, the listings, the reviews and the weekly check on Google and the AI answers, and the Monday report shows what changed."}
   - {q: "How do I show up in ChatGPT's answers?", a: "Your business has to be on the pages ChatGPT reads and named the same way everywhere. Your team writes those pages on your site, fixes your listings so the facts agree, and checks every week what ChatGPT actually says."}
   - {q: "Is this the same as SEO?", a: "Yes, and it reaches further, because the same pages and listings that rank you on Google and Google Maps are what ChatGPT, Gemini and Google's AI Overview read when someone asks for your trade in your town."}

@@ -37,7 +37,7 @@
 {{- range .Params.industries }}{{ $ip := site.GetPage (printf "/industries/%s" .slug) }}{{ if $ip }}<a class="ind-card" href="{{ $ip.RelPermalink | strings.TrimSuffix "/" }}"><div class="ind-team">{{ range $ip.Params.team }}{{ partial "w/character.html" (dict "id" . "size" 34) }}{{ end }}</div><h3>{{ $ip.Params.label }}</h3><p>{{ .line }}</p></a>{{ else }}<div class="ind-card"><h3>{{ .label }}</h3><p>{{ .line }}</p></div>{{ end }}{{ end }}
 </div></div></section>
 {{- with .Params.price_h }}{{ partial "w/price.html" (dict "h" . "q" $p.Params.price_q "g" "g-paper") }}{{ end }}
-<section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.asked }}<ul class="pq-asked">{{ range . }}<li><a class="wlink2" href="{{ .href }}">{{ .text }}</a></li>{{ end }}</ul>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a }}</dd></div>{{ end }}</dl></div></section>
+<section class="wfaq"><div class="wrap wfaq-in"><div><h2>{{ .Params.questions_h }}</h2>{{ with .Params.asked }}<ul class="pq-asked">{{ range . }}<li><a class="wlink2" href="{{ .href }}">{{ .text }}</a></li>{{ end }}</ul>{{ end }}</div><dl>{{ range .Params.questions }}<div><dt>{{ .q }}</dt><dd>{{ .a | markdownify }}</dd></div>{{ end }}</dl></div></section>
 {{ partial "w/next.html" (dict "h" .Params.next_h "rows" .Params.next) }}
 <section class="wclose"><div class="wrap"><h2>{{ .Params.closing_h }}</h2><p>{{ .Params.closing_sub }}</p>{{ partial "w/start.html" (dict "id" "start2" "field" .Params.field "button" .Params.button "config" $slug) }}</div></section>
 {{ partial "w/askai.html" (dict "prompt" .Params.ask_prompt) }}

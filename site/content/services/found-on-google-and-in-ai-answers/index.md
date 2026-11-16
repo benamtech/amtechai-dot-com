@@ -78,6 +78,7 @@ options:
 approval: {who: t3, act: "Reply to last night's two-star review", to: "On your Google listing, in public", preview: "Thank you for telling us. Rain held up the job before yours, and we should have called you sooner. Please call the office and ask for me."}
 questions_h: "Questions"
 questions:
+  - {q: "Does ChatGPT recommend my business?", a: "Find out in about a minute with our [free ChatGPT check](/chatgpt). If it doesn't name you, we can fix that on its own, from $480: your ChatGPT page written and claimed, and every free list ChatGPT reads applied to."}
   - {q: "How is this different from an SEO agency?", a: "Your team does the work every week inside your own listing and site, and reports what the map and the AI answers say about you, not a ranking chart."}
   - {q: "Can you get my business named in ChatGPT?", a: "That is the work. It is the same work that put Scoop Dogg first in ChatGPT for pet and yard cleanup across Ventura and Santa Barbara, and your team measures where you stand every Monday."}
   - {q: "Does it answer my Google reviews?", a: "Yes. Every new review is answered in your voice, or straight away under a standing approval you set, such as every five-star review."}
