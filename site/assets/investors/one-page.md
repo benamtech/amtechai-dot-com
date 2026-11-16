@@ -1,50 +1,32 @@
-**AMTECH AI, Dalton, Pennsylvania. Pre-seed, 2026. Benjamin Palaskas, founder.**
+## A swarm of AI agents that runs businesses on its own. Starting with real estate, construction and the trades.
 
-A platform for creating, running and managing AI employees.
+A few questions in, a custom swarm of AI agents out in 50 to 90 seconds. It runs a business on its own, inside the software the business already uses, for about $2 a day. It is software that does the work, not another tool someone has to run.
 
-## What it is
+- **$4,800** in monthly recurring revenue: four customers in four industries, all signed this month
+- **50 to 90 seconds** from a few questions to a working custom swarm
+- **About 87%** gross margin on fast open-source models
+- **65 days** to build the platform, by the founder
 
-Each AI employee is a persistent team of AI agents that does a business's real work across its tools, files, systems and customers, instead of answering questions. It lives on a computer of its own, with the business's records, memory and schedules. The owner talks to one agent, which starts each job in its own working session and runs several at once. Between them they browse, research, write code, make documents, pictures and video, send invoices, and keep working after the owner closes the app.
+### Problem
+Every business will run on AI agents, and almost none can set them up or run them. Owners keep paying for software and the people to run it. In property and the trades, leads go cold while the owner is on the job, and quotes and follow-ups wait until night.
 
-## Agency inside, authority outside
+### Product
+A main agent leads a team of agents, each with its own computer, accounts, budget and routines. The owner talks to it like a person. It answers, quotes, follows up, researches, builds and reports, around the clock, and asks before anything leaves the business.
 
-The agents are free to work however they need to inside their own computer. Anything that leaves it, such as a message to a customer, a published page or a payment, waits for a person the business has authorized, and code the agents cannot argue with decides who may approve and who may spend.
+### Validation
+One platform, four very different swarms, each paying $1,200 a month: a yard-care company run by its AI employee system, an e-commerce group with eight stores under one main agent, an email lead-generation firm, and a crypto trading desk.
 
-## Who it is for
+### Market
+A new category: service as software. Our beachhead is 4.3 million owner-run US businesses in property and the trades (1.44M Realtors and 2.9M one-person construction businesses) in a $2.16 trillion industry. $100M ARR takes about 7,000 of them, fewer than 1 in 600.
 
-First, the businesses I have been building for: service businesses and others turning over $1 million to $10 million a year, where a well-configured team of agents can run essentially everything and only the physical work needs a person. And the new ones: since early 2025, applications for one-person companies are up more than 20% while companies that plan to hire are flat (Nasdaq, from Census data), people whose idea needed an employee or two to run.
+### Go-to-market
+Our go-to-market runs on swarms. The outreach swarm finds, researches, emails, calls and follows up with owners, niche by niche. The fulfillment swarm builds and improves each customer's swarm. We also use viral content swarms, pages for every niche and city, partners, ads, and private equity roll-ups, where every portfolio company needs a swarm.
 
-## The deals
+### Business model
+Self-serve from $50 a month. Custom swarms from $1,200 a month. Custom builds from $5,000. Operators and private equity portfolios at 8% of revenue. $200K a year of inference supports a $7.6M ARR business.
 
-In October four businesses signed.
+### Team
+**Ben Palaskas**, CEO and founding engineer, built the platform and sold the first four customers. **Cody Lubinsky**, CMO, in Philadelphia, goes viral on X for very low-cost agent-swarm content. Next hires: engineers and customer success.
 
-- A Ventura County service company signed for 8% of all its revenue. Its employee does everything in the business except the physical work.
-- A Houston moving company signed at $1,200 to set up, then usage. Its employee is being set up to run the whole business.
-- A Pennsylvania festival organizer signed at $1,200 plus 10% of all the money the festival raises.
-- A crypto trading desk signed at $1,200 to set up, then usage, for an employee built for trading.
-
-## How it makes money
-
-What AMTECH sells is not a software seat. It is a growing share of the work businesses now pay employees, contractors, agencies and outsourced services to do. The terms differ on purpose: setup and usage at about an 85% margin, a share of revenue, results-based pricing and monthly plans run side by side, and every request the agents make goes through AMTECH's own meter, so the data will show which one owners keep.
-
-## What is under it
-
-I built the platform every employee runs on: each business's own records, kept current by its employee; authority in code over who may approve work and spend money; a gateway that meters every request and sends it to the best model from any lab; and a factory that builds employees from one standard and hands them out live, so a visitor to amtechai.com/contractors gets a working employee at the first word. The agents run on Hermes, the open-source agent runtime. What a competitor cannot buy is what each employee learns about its own business, and that grows with every job.
-
-## Why now
-
-This fall the largest companies in AI bet on agents that do real work. Avoca, AI for home-service trades, was valued at $1 billion in April, and Hone raised a seed at a reported $285 million in October. Meta launched Muse for Small Business and xAI launched Grok Team Bots. The labs serve companies by sending engineers in: Anthropic's new services firm says mid-sized companies "lack the in-house resources to build and run frontier deployments", and OpenAI built a Deployment Company on the same model. An engineer per company will never pay for itself at a small business, and America has 36.2 million of them, with almost half of its private-sector jobs. AMTECH turns that work into a product.
-
-## Where it goes
-
-Next, several employees working together for one business; then employees trusted with money inside limits the owner sets; and in time, a way for anyone to start and run a business with a team of agents behind them. Every step is the same platform, with more agents doing more of the work.
-
-## The founder
-
-I built the platform alone in 54 days, and I run AMTECH with AI agents; AMTECH runs its own business on one of its employees. I already work full time on AMTECH, about 40 hours a week beside a part-time job, and when we raise I will commit every second of my life to it.
-
-## The raise
-
-$600,000 on a post-money SAFE at a $6 million cap. It pays for the computers and the AI the employees run on, free trials, getting owners to the page, and a reserve. I run the meetings and the go-to-market myself with AI agents, so the money goes to the work. At the end of eighteen months any owner who finds a page can sign up without me.
-
-ben@amtechai.com · 805-886-9173 · amtechai.com/investors
+### The raise
+A $2M seed on a post-money SAFE or a priced round with a lead, with the valuation set with the lead. The plan spends $1.7M over 18 months and holds $300K back. The goal is $630K MRR ($7.6M ARR) and 3,400 businesses by the end of 2027, then a Series A.
