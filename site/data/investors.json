@@ -4,226 +4,387 @@
    "n": 1,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-01-1600.webp",
-   "img_sm": "/investors/deck/seed-01-800.webp",
+   "img": "/investors/deck/v2-01-1600.webp",
+   "img_sm": "/investors/deck/v2-01-800.webp",
    "head": "A swarm of AI agents that runs businesses on its own.",
    "lines": [
-    "New or existing, in any industry. Describe the business. The swarm sets itself up and runs it, day and night.",
-    "Ben Palaskas, founder · Seed round, November 2026"
+    "Applied AI software that does the work of a business, not another tool for it. Raising a $2M seed."
    ]
   },
   {
    "n": 2,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-02-1600.webp",
-   "img_sm": "/investors/deck/seed-02-800.webp",
-   "head": "Every business will run on AI agents. Almost none of them can set agents up.",
+   "img": "/investors/deck/v2-02-1600.webp",
+   "img_sm": "/investors/deck/v2-02-800.webp",
+   "head": "The owner does the work only they can do. AMTECH's agents do everything else.",
    "lines": [
-    "Running agents is a job of its own. Pick the models. Build the infrastructure. Write the policies. Connect them to the business's software. Manage them every day.",
-    "And it changes every week. New models, new tools, new best practice. Owners have no time to keep up, and no one on staff who can.",
-    "So they keep paying for the old way: a stack of SaaS subscriptions, people to operate it, or a chatbot that cannot do the job."
+    "The owner does the work only they can do. AMTECH's agents do everything else.",
+    "AMTECH is an applied AI company building autonomous agent swarms for businesses. A swarm sets itself up in minutes, works around the clock and costs about $2 a day to run. It is software that does the work, not software someone has to run. We take it to market one focused beachhead at a time, starting with real estate, construction and the trades."
    ]
   },
   {
    "n": 3,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-03-1600.webp",
-   "img_sm": "/investors/deck/seed-03-800.webp",
-   "head": "Describe your business. Meet the team that runs it.",
+   "img": "/investors/deck/v2-03-1600.webp",
+   "img_sm": "/investors/deck/v2-03-800.webp",
+   "head": "Every business will run on AI agents. Almost none can set them up.",
    "lines": [
-    "One sentence in. About 90 seconds later: a team of agents shaped to that business, each with its own job, inside the tools it already uses, working day and night.",
-    "To the owner it is custom software built for them."
+    "Running agents is a job of its own. Pick the models, build the infrastructure, write the rules, connect them to the business's software, and manage them every day.",
+    "And it changes every week. New models, new tools, new practice. Owners have no time to keep up, and no one on staff who can.",
+    "So they keep paying for the old way: a stack of software subscriptions, people to run it, or a chatbot that can't do the job."
    ]
   },
   {
    "n": 4,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-04-1600.webp",
-   "img_sm": "/investors/deck/seed-04-800.webp",
-   "head": "A whole company's worth of work. No hiring, no building, no learning AI.",
+   "img": "/investors/deck/v2-04-1600.webp",
+   "img_sm": "/investors/deck/v2-04-800.webp",
+   "head": "A few questions in. A custom swarm out, in 50 to 90 seconds.",
    "lines": [
-    "No AI knowledge needed. AMTECH picks the models, builds the infrastructure, sets the policies and keeps up with the field.",
-    "Ready in minutes. No set-up project, no consultant, no code, no prompts to write.",
-    "Connects to any software. It sets up its own accounts and connections inside the tools the business already uses.",
-    "Improves itself. The team learns from its own work and gets better every week without anyone touching it.",
-    "Costs less than what it replaces. One price instead of a stack of subscriptions and the hours it takes to run them."
+    "The owner describes the business. AMTECH picks the agents, skills, software, pages and connections it needs.",
+    "A main agent leads a team, each agent with its own computer, accounts, budget and routines.",
+    "It runs on its own, day and night, inside the software the business already uses, and asks before anything leaves it.",
+    "The owner just talks to it, like a person. It costs about $2 a day to run."
    ]
   },
   {
    "n": 5,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-05-1600.webp",
-   "img_sm": "/investors/deck/seed-05-800.webp",
-   "head": "Self-serve went public this week. AMTECH already runs ten businesses.",
+   "img": "/investors/deck/v2-05-1600.webp",
+   "img_sm": "/investors/deck/v2-05-800.webp",
+   "head": "One platform, four industries. $4,800 a month, all signed this month.",
    "lines": [
-    "A yard-care company: Its AI team built the website, takes bookings and answers customers. AMTECH is paid 8% of its revenue.",
-    "An e-commerce group: Eight stores, each run by its own team, under one main agent.",
-    "A lead-generation business: Moved its work to AMTECH after a Grok Bot agent could not do the job.",
-    "All of it before any public launch, sold directly by the founder. As of this week anyone can describe a business on amtechai.com and have a working team in under two minutes."
+    "Scoop Dogg: An autonomous AI employee system runs the business, from its website and bookings to its customers.",
+    "Brand Box: Eight online stores, each with its own team of agents, under one main agent.",
+    "Weiss-Khan: Email lead generation: agents that find and enrich leads at volume.",
+    "A crypto trading desk: An agent team that trades, sizes positions and reports to the owner, around the clock.",
+    "Each pays $1,200 a month, and each swarm was made by the same engine from a few questions. And our own go-to-market runs the same way: this week our agents built and launched an autonomous sales funnel for a new industry in about three hours."
    ]
   },
   {
    "n": 6,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-06-1600.webp",
-   "img_sm": "/investors/deck/seed-06-800.webp",
-   "head": "Not one assistant. Hundreds of agents, working together.",
+   "img": "/investors/deck/v2-06-1600.webp",
+   "img_sm": "/investors/deck/v2-06-800.webp",
+   "head": "The hard part isn't building an agent. It's running hundreds of them.",
    "lines": [
-    "Twenty online stores, each with its own team for products, ads, email and customers, all under one main agent.",
-    "Every company in a private equity roll-up, each run by its own team, with one view across the portfolio.",
-    "One person can now run what used to take a whole company. Add a business, add a team. No hiring, ever."
+    "Swarm orchestration: one main agent directs teams of agents, each with its own computer, accounts, budget and routines.",
+    "A metered gateway routes every call to the fastest, cheapest open-source model that can do the job, and bills it to the right customer.",
+    "The employee factory: a plain description of a business becomes a working swarm in 52 to 92 seconds, measured across stores, dental, law, agencies and contractors.",
+    "Owned data: every business it runs adds prices, leads and outcomes no competitor can buy. All proprietary code, held as trade secrets."
    ]
   },
   {
    "n": 7,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-07-1600.webp",
-   "img_sm": "/investors/deck/seed-07-800.webp",
-   "head": "The fastest agents of any AI tool, on open-source models.",
+   "img": "/investors/deck/v2-07-1600.webp",
+   "img_sm": "/investors/deck/v2-07-800.webp",
+   "head": "Software is starting to do the work, not just hold it.",
    "lines": [
-    "Highest tokens per second of all competing AI tools. Agents finish work while others are still thinking.",
-    "Open-source models: DeepSeek V4.1 Flash and GLM-5.3. No lock-in to one lab, and the cost of running a team is cents, not dollars.",
-    "Sets up its own everything: its computer, its tools, its connections, its routines.",
-    "Built on what the best agent teams already use, so every advance in the field reaches our customers the same week."
+    "Service as software. The money businesses spend on people and services is far bigger than what they spend on software. AI agents can now do much of that work.",
+    "The money is already moving. Thrive Holdings raised over $2B, and General Catalyst set aside $1.5B, to buy service businesses and run them with AI.",
+    "Every owner needs the same leverage, without selling their business or hiring an AI team.",
+    "Sequoia Capital, \"Services: the new software\", March 2026. Thrive Holdings and General Catalyst: press, 2025-2026."
    ]
   },
   {
    "n": 8,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-08-1600.webp",
-   "img_sm": "/investors/deck/seed-08-800.webp",
-   "head": "A new SaaS launches for some industry. Twenty minutes later, AMTECH has a better one, run by agents.",
+   "img": "/investors/deck/v2-08-1600.webp",
+   "img_sm": "/investors/deck/v2-08-800.webp",
+   "head": "A new category, a focused beachhead, and the share we need.",
    "lines": [
-    "Our research agents read what an industry says about itself online: forums, social media, market data. AMTECH turns that into a configuration. No code, no new team."
+    "A new category 36M: US businesses pay people and services to do work that software can now do itself. That is service as software.",
+    "Our beachhead 4.3M: owners in property and the trades: 1.44M Realtors and 2.9M one-person construction businesses, in a $2.16 trillion industry.",
+    "By the end of 2027 $630K: in monthly recurring revenue ($7.6M ARR) from 3,400 businesses. Under 0.1% of the beachhead.",
+    "$100M in ARR takes about 7,000 owners on our $1,200 plan, fewer than 1 in 600. Then come the industries where we already have paying customers: online stores, lead generation and trading.",
+    "US Small Business Administration, Office of Advocacy. National Association of Realtors, June 2026. US Census Bureau: Nonemployer Statistics 2022; Value of Construction Put in Place 2025."
    ]
   },
   {
    "n": 9,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-09-1600.webp",
-   "img_sm": "/investors/deck/seed-09-800.webp",
-   "head": "What used to take a few million dollars and a separate team for every type of software takes AMTECH about 90 seconds.",
+   "img": "/investors/deck/v2-09-1600.webp",
+   "img_sm": "/investors/deck/v2-09-800.webp",
+   "head": "AI is creating a new generation of wealth. Much of it ends up in property.",
    "lines": [
-    "We use configurations of AMTECH, written in plain language, to break into entirely new industries. Each one is sold as its own product. The buyer does not need to know or want AI.",
-    "We can change our go-to-market faster than AI itself is changing."
+    "New money is being made fast: at the AI labs, chipmakers and cloud companies, and in thousands of $1-10M online businesses that one person now runs with AI. That money buys homes, builds and renovates.",
+    "The crowd's bet is that AI can't do the trades. AI won't swing the hammer. It runs the business around it: sales, quotes, scheduling, follow-up and books. That's where the margin is.",
+    "We know this market. The founder's own experience and data from it, and the most owner-run, lead-driven businesses of any industry.",
+    "Competition gets harder from here. More capital chases the same jobs, and private equity is buying service businesses to run them with AI. Independent owners need the same leverage, without selling.",
+    "A signal of where this goes: in July 2026 Delaware proposed the Artificial Intelligence Company, a new kind of legal entity whose day-to-day affairs are run by an AI agent. It is still a draft, and AMTECH does not depend on it."
    ]
   },
   {
    "n": 10,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-10-1600.webp",
-   "img_sm": "/investors/deck/seed-10-800.webp",
-   "head": "Private equity is buying service businesses to run them with AI.",
+   "img": "/investors/deck/v2-10-1600.webp",
+   "img_sm": "/investors/deck/v2-10-800.webp",
+   "head": "A full office staff, for less than a part-time hire.",
    "lines": [
-    "The money is already moving. Thrive Holdings raised over $2B to buy companies and run them with AI. General Catalyst set aside $1.5B for the same idea.",
-    "Every firm has to build that AI itself, company by company. AMTECH gives a whole portfolio a swarm on the day of the deal.",
-    "The trades are getting more competitive. Independent owners now go up against PE-backed rivals. AMTECH gives them the same leverage without selling.",
-    "It is the biggest change in how service businesses are owned and run in a generation, and AMTECH is the software it runs on."
+    "24/7: Every lead answered in seconds, nights and weekends included. No missed calls, no cold leads.",
+    "$1,200: a month for the AI employee, against $3,750 or more a month for one office hire.",
+    "0: new software for the owner to learn. The swarm works inside the tools they already use, and they talk to it like a person.",
+    "More jobs won, more margin kept, evenings back. And as they grow, the swarm grows with them, not the payroll.",
+    "Office hire: AMTECH estimate for a full-time office administrator at about $45,000 a year before benefits."
    ]
   },
   {
    "n": 11,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-11-1600.webp",
-   "img_sm": "/investors/deck/seed-11-800.webp",
-   "head": "More people are starting businesses than ever, and more of them start online.",
+   "img": "/investors/deck/v2-11-1600.webp",
+   "img_sm": "/investors/deck/v2-11-800.webp",
+   "head": "The engine is built. Now we go deep in one vertical.",
    "lines": [
-    "AI made starting easy. One person can open a store, an agency or a content business in a weekend.",
-    "Running it is still hard. Marketing, customers, orders and books. These businesses have little or no staff and pay for a long list of SaaS tools instead.",
-    "That is the work an AMTECH swarm does from the first day, for a new business or an existing one.",
-    "AMTECH starts businesses of its own the same way, and keeps all of the revenue."
+    "Self-serve is the engine. A plain description of a business becomes a working swarm, with its team, pages, records and connections, in 52 to 92 seconds. Every customer we've set up was built on it.",
+    "Close relationships first, on purpose. Interviewing our first customers ourselves gave us more insight, more revenue and happier customers. Every interview leads to the $1,200 plan, and the $50 self-serve plan is live.",
+    "Now, autonomous go-to-market. As of this week our own agent swarms find, check, reach and follow up with owners, niche by niche.",
+    "Our beachhead: contractors, real estate agents, wholesalers and property managers, one niche at a time, each with its own offer, pages, content and outreach. The same engine then opens the next industry."
    ]
   },
   {
    "n": 12,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-12-1600.webp",
-   "img_sm": "/investors/deck/seed-12-800.webp",
-   "head": "Software margins on work businesses used to pay people for.",
+   "img": "/investors/deck/v2-12-1600.webp",
+   "img_sm": "/investors/deck/v2-12-800.webp",
+   "head": "Our go-to-market is a swarm too. Outreach and fulfillment run on their own.",
    "lines": [
-    "Any business: starts at $50 a month and grows with use. Custom set-ups from $1,200 a month.",
-    "Agencies: one account, a team for every client. One sale brings dozens of businesses.",
-    "Operators and private equity: a team for every company in the portfolio, and 8% of each company's revenue.",
-    "AMTECH's own businesses: started and run by our own swarms. We keep all of the revenue.",
-    "Cost to run a team is cents a day, because the models are open-source and fast."
+    "Outreach The outreach swarm: Finds owners niche by niche, researches each business, writes a personal free check of how it is found, then emails, calls and follows up.",
+    "Fulfillment The fulfillment swarm: Builds each customer's swarm in 50 to 90 seconds, onboards them, watches it work and improves it every week.",
+    "Content Viral content swarms: Short and long video for every niche, made by our own agent swarms for very little.",
+    "Pages A page per niche and city: Thousands of pages for every trade and town, written for Google and AI search.",
+    "Self-serve In every funnel: Any page, email or video can end in a working swarm in about a minute.",
+    "Partners Brokerages and suppliers: Brokerages, trade associations, supply houses and franchises. One deal brings hundreds of owners.",
+    "Operators Private equity: A swarm for every company in a roll-up, at 8% of revenue. One deal brings dozens of businesses.",
+    "Paid AI search and Google ads: Ads in each service area, aimed at owners looking for help."
    ]
   },
   {
    "n": 13,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-13-1600.webp",
-   "img_sm": "/investors/deck/seed-13-800.webp",
-   "head": "The next trillion-dollar company will sell the work, not the tool.",
+   "img": "/investors/deck/v2-13-1600.webp",
+   "img_sm": "/investors/deck/v2-13-800.webp",
+   "head": "Private equity is buying service businesses to run them with AI. Every one needs a swarm.",
    "lines": [
-    "36 million US businesses, and almost none of their work has been touched by software that does it for them.",
-    "Investors already pay billions for single pieces. Avoca is worth $1B for answering phones in the trades. Polsia raised at $250M five months in, with one founder. AMTECH runs the whole business, in every industry.",
-    "A billion-dollar company needs one in a thousand of them. Agencies and portfolios bring them in by the dozen."
+    "The money is moving into our beachhead. General Catalyst set aside $1.5B for AI roll-ups, and its Long Lake has bought dozens of HOA and property management companies. Thrive Holdings agreed in October to buy ADT, the home security company.",
+    "Each roll-up builds its own AI, company by company, at a cost of $100M or more per platform.",
+    "AMTECH gives every portfolio company a swarm on the day of the deal, for 8% of its revenue. One deal brings dozens of businesses, and they are customers, not rivals.",
+    "General Catalyst \"Creation\" strategy and Long Lake: company statements and press, 2025-2026. Thrive Holdings and ADT: press reports, October 2026."
    ]
   },
   {
    "n": 14,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-14-1600.webp",
-   "img_sm": "/investors/deck/seed-14-800.webp",
-   "head": "Everyone else sells a piece. AMTECH runs the whole business.",
+   "img": "/investors/deck/v2-14-1600.webp",
+   "img_sm": "/investors/deck/v2-14-800.webp",
+   "head": "Plans for any business, from $50 a month to 8% of revenue.",
    "lines": [
-    "Assistants like ChatGPT and Grok help one person, who still has to drive.",
-    "Agent builders like Lindy make you build and maintain every agent yourself.",
-    "Vertical SaaS like ServiceTitan sells one industry a tool, and still needs staff to run it.",
-    "AI roll-ups like Thrive have to buy a business before they can run it. They are customers, not rivals."
+    "Plan · What the business gets · Price",
+    "Self-serve · Its own swarm in about a minute, with about 3x the work per dollar of a consumer AI agent subscription · From $50 a month",
+    "Custom swarm · Set up from a short interview, by a person or by our AI, for any kind of business · From $1,200 a month",
+    "Custom build · The whole back office, inside the software they already use · From $5,000, then about $1,000 a month",
+    "Operators · A swarm for every company in a portfolio · 8% of revenue",
+    "Heavy use beyond a plan is billed as usage, at about an 85% margin."
    ]
   },
   {
    "n": 15,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-15-1600.webp",
-   "img_sm": "/investors/deck/seed-15-800.webp",
-   "head": "Swarms of AI agents running businesses on their own, in every industry.",
+   "img": "/investors/deck/v2-15-1600.webp",
+   "img_sm": "/investors/deck/v2-15-800.webp",
+   "head": "$200,000 a year of AI inference supports a $7.6M business.",
    "lines": [
-    "Within a decade most businesses will be run by agents. AMTECH intends to be the one running them: new businesses and existing ones, in any industry our agents can learn about online. The owner never builds anything, manages tokens or needs to know how to use AI."
+    "Per customer, per month · Price · AI inference · Infrastructure · Customers $200K/yr covers · Revenue a year · Gross margin",
+    "Self-serve · $50 · $2 · $15 · 8,333 · $5.0M · 66%",
+    "Custom swarm, typical · $1,200 · $20 · $50 · 833 · $12.0M · 94%",
+    "Custom swarm, heavy · $1,200 · $55 · $100 · 303 · $4.4M · 87%",
+    "End of 2027: 400 custom + 3,000 self-serve · $14K/mo · $65K/mo · 3,400 · $7.6M ARR · 87%",
+    "Inference is cheap because the swarm runs on fast open-source models. Our busiest swarm, eight teams working all week making ads, running analysis and research, building email flows and making suggestions, used about 3,000 model calls and $13 of AI a week: under $2 per team. Infrastructure runs $15 to $100 a customer, depending on workload.",
+    "Inference per customer from AMTECH's gateway, last 30 days. Revenue = customers x price x 12; gross margin after inference and infrastructure. Setup fees not included."
    ]
   },
   {
    "n": 16,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-16-1600.webp",
-   "img_sm": "/investors/deck/seed-16-800.webp",
-   "head": "Ben Palaskas, founder.",
+   "img": "/investors/deck/v2-16-1600.webp",
+   "img_sm": "/investors/deck/v2-16-800.webp",
+   "head": "Everyone else sells a tool, a builder or a lead. AMTECH does the work.",
    "lines": [
-    "Built AMTECH alone, from the first line of code in late August: the platform, the agent swarm, the self-serve sign-up and the website.",
-    "Sold AMTECH's first customers himself, before there was a public product.",
-    "AMTECH is built the way it runs: one founder directing a swarm of agents. The company is its own first proof.",
-    "With the raise: a founding engineer, a go-to-market engineer and a marketer."
+    "Who · What they sell · What the owner still has to do",
+    "Assistants (ChatGPT, Grok) · Help for one person · Drive it, every task, every day",
+    "Agent builders (Lindy, Relevance AI) · Tools to build agents · Build, connect and maintain every agent",
+    "Vertical software (ServiceTitan, Follow Up Boss) · Software to organise the work · Hire staff to run it",
+    "Lead marketplaces (Angi, Zillow) · The same lead, sold to several businesses · Answer it first, and pay per lead",
+    "AI point tools (Avoca, valued at $1B) · One task, like answering the phone · Everything else",
+    "AI roll-ups (Thrive) · They buy the business first · Sell it. They are customers, not rivals",
+    "AMTECH · A custom swarm that runs the business · The work only the owner can do",
+    "Avoca: $125M at a $1B valuation, April 2026."
    ]
   },
   {
    "n": 17,
    "w": 1600,
    "h": 900,
-   "img": "/investors/deck/seed-17-1600.webp",
-   "img_sm": "/investors/deck/seed-17-800.webp",
-   "head": "$2M seed.",
+   "img": "/investors/deck/v2-17-1600.webp",
+   "img_sm": "/investors/deck/v2-17-800.webp",
+   "head": "In our beachhead alone, a billion-dollar company needs fewer than 1 in 600 owners.",
    "lines": [
-    "To ten thousand businesses in 18 months.",
-    "Three hires: A founding engineer, a go-to-market engineer and a marketer.",
-    "New industries: A new product for a new industry every few weeks.",
-    "In 18 months: 10,000 paying businesses. About 100 of them across several private equity firms, each paying AMTECH 8% of its revenue.",
-    "AMTECH's own businesses: The first businesses started and run by our own swarms."
+    "7,000: owners on the $1,200 AI employee.",
+    "$100M: a year in revenue, at about 87% gross margin.",
+    "$1B: at a 10x revenue multiple, before custom swarms or operator revenue shares.",
+    "Our own plan reaches $98M in ARR by the end of 2029. Contractor software already proves the size: ServiceTitan and Procore are public, multi-billion-dollar companies, and Avoca reached a $1B valuation answering the phone.",
+    "7,000 x $1,200 x 12 = $100.8M. 1 in 600 of the 4.3M Realtors and one-person construction businesses in our beachhead, before firms with staff, property managers and every other industry."
+   ]
+  },
+  {
+   "n": 18,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-18-1600.webp",
+   "img_sm": "/investors/deck/v2-18-800.webp",
+   "head": "$2M seed. The plan spends $1.7M.",
+   "lines": [
+    "Use · What it buys · Amount",
+    "AI inference · $200K a year for 18 months: free checks, trials and every customer's swarm · $300K",
+    "Infrastructure · Each customer's computer, servers, data and phone lines · $250K",
+    "Team · CEO, CMO, engineers and customer success · $750K",
+    "Go-to-market · Sending domains, lead data, AI calls, content, ads, partner deals · $350K",
+    "Company · Delaware C-corp, legal, accounting, insurance · $50K",
+    "Buffer, unspent · Held in reserve for a slower ramp or a late next round · $300K",
+    "$1.7M funds 18 months of plan; the buffer extends it to about 21. By the end of 2027: 3,400 paying businesses and $630K in MRR ($7.6M ARR), ready for a Series A. Post-money SAFE, or a priced round with a lead. AMTECH becomes a Delaware C-corp at the first term sheet."
+   ]
+  },
+  {
+   "n": 19,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-19-1600.webp",
+   "img_sm": "/investors/deck/v2-19-800.webp",
+   "head": "A builder who sells, and a marketer who goes viral.",
+   "lines": [
+    "Ben Palaskas: CEO and founding engineer. Also builds the go-to-market systems. Built the whole platform in about 65 days: the swarm, the gateway, the employee factory, self-serve sign-up and the website. Sold the first four customers himself.",
+    "Cody Lubinsky: Chief marketing officer, Philadelphia. Goes viral on X for pioneering very low-cost ways to make short and long-form content with agent swarms, with and without diffusion models. Owns design and graphics, and designs the funnels with Ben.",
+    "Next hires from the raise: engineers and customer success. AMTECH runs the way it sells: a small team directing swarms of agents."
+   ]
+  },
+  {
+   "n": 20,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-20-1600.webp",
+   "img_sm": "/investors/deck/v2-20-800.webp",
+   "head": "Businesses don't need another app. They need the work done.",
+   "lines": [
+    "Platform: a custom swarm from a few questions in 50 to 90 seconds, running businesses on its own in four industries.",
+    "Beachhead: property and the trades, $2.16 trillion a year, millions of small owners.",
+    "Proof: $4,800 a month from four customers in four industries, all signed this month.",
+    "Economics: about 87% gross margin; $630K MRR by the end of 2027 on $200K a year of inference.",
+    "Size: fewer than 1 in 600 of these owners makes a billion-dollar company.",
+    "Next step: a second meeting, where I'll show you a swarm running live."
+   ]
+  },
+  {
+   "n": 21,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-21-1600.webp",
+   "img_sm": "/investors/deck/v2-21-800.webp",
+   "head": "A swarm of AI agents that runs businesses on its own.",
+   "lines": [
+    "Raising a $2M seed.  Ben Palaskas  ·  ben@amtechai.com  ·  amtechai.com"
+   ]
+  },
+  {
+   "n": 22,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-22-1600.webp",
+   "img_sm": "/investors/deck/v2-22-800.webp",
+   "head": "The detail behind the pitch.",
+   "lines": [
+    "The detail behind the pitch.",
+    "The market in our beachhead, what the swarm does there, three-year financials, and long-term strategy and exit."
+   ]
+  },
+  {
+   "n": 23,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-23-1600.webp",
+   "img_sm": "/investors/deck/v2-23-800.webp",
+   "head": "A $2 trillion industry, run by millions of small owners.",
+   "lines": [
+    "$2.16T: spent on US construction in 2025, $905 billion of it residential.",
+    "1.44M: Realtors, each a small business that lives on leads.",
+    "2.9M: one-person construction businesses, before the firms with staff.",
+    "Segment · Who · First offer",
+    "Real estate · Agents and teams, brokerages, wholesalers and cash buyers · Every lead answered and followed up",
+    "Property management · Residential and small multifamily managers · Owner and tenant messages, leasing, maintenance",
+    "Builders and the trades · General contractors, roofing, HVAC, plumbing, electrical, remodeling, landscaping, painting · Leads, same-night quotes, follow-up and reviews",
+    "US Census Bureau: Value of Construction Put in Place 2025; Nonemployer Statistics 2022. National Association of Realtors, June 2026."
+   ]
+  },
+  {
+   "n": 24,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-24-1600.webp",
+   "img_sm": "/investors/deck/v2-24-800.webp",
+   "head": "A swarm runs the office. The owner runs the job.",
+   "lines": [
+    "Every lead answered in seconds, by text, email or phone, and booked.",
+    "Quotes and proposals written the same night, from the owner's own prices.",
+    "Follow-up until it is signed, then reviews, referrals and repeat work.",
+    "Found where buyers look: named by ChatGPT and Google.",
+    "The back office: permits, draws, listings, invoices and owner reports."
+   ]
+  },
+  {
+   "n": 25,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-25-1600.webp",
+   "img_sm": "/investors/deck/v2-25-800.webp",
+   "head": "Profitable on gross margin from the first customer.",
+   "lines": [
+    "2027 · 2028 · 2029",
+    "Paying businesses, year end · 3,400 · 10,000 · 25,000",
+    "MRR, year end · $630K · $2.8M · $8.2M",
+    "ARR, year end · $7.6M · $33.6M · $97.8M",
+    "Revenue · $3.0M · $20.6M · $65.7M",
+    "Gross margin · 87% · 87% · 87%",
+    "EBITDA · $0.9M · $10.4M · $36.2M",
+    "Team · 6 · 18 · 40",
+    "AMTECH estimates. Mix of custom swarms at $1,200 and self-serve at $50: 2027 400 + 3,000; 2028 2,000 + 8,000; 2029 6,000 + 19,000. Custom swarms and operator revenue shares are upside, not included."
+   ]
+  },
+  {
+   "n": 26,
+   "w": 1600,
+   "h": 900,
+   "img": "/investors/deck/v2-26-1600.webp",
+   "img_sm": "/investors/deck/v2-26-800.webp",
+   "head": "From one beachhead to the system businesses run on.",
+   "lines": [
+    "Years 1-2 Win the beachhead: Agents, wholesalers, property managers, builders and each trade, niche by niche, city by city.",
+    "Years 2-4 Industry after industry: The same engine opens each new industry in days: online stores, lead generation, trading and more. Operators and PE roll-ups run every company on AMTECH, at 8% of revenue.",
+    "Years 4+ Businesses of our own: With the data from tens of thousands of businesses, AMTECH starts and runs businesses of its own.",
+    "Likely acquirers: the AI labs building agents for business, small-business platforms (Intuit, Square), and vertical software (ServiceTitan, Procore, CoStar, Zillow)."
    ]
   }
  ]
